@@ -1,0 +1,4383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>Recepção de Motos — Radical Motos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rm-bg: #f0f0f0;
+    --rm-panel: #ffffff;
+    --rm-panel-2: #f4f3f1;
+    --rm-border: #ddd9d1;
+    --rm-text: #232220;
+    --rm-text-dim: #767268;
+    --rm-accent: #d9433a;
+    --rm-accent-ink: #ffffff;
+    --rm-teal: #3fb8af;
+    --rm-red: #d9534f;
+    --rm-green: #4caf7d;
+    --rm-shadow: 0 1px 2px rgba(30,25,15,0.04), 0 4px 16px rgba(30,25,15,0.06);
+    --rm-shadow-sm: 0 1px 3px rgba(30,25,15,0.06);
+    --rm-font-display: 'Oswald', sans-serif;
+    --rm-font-body: 'Inter', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--rm-bg);
+    color: var(--rm-text);
+    font-family: var(--rm-font-body);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  #rm-app{max-width:none;margin:0 auto;padding:0 0 48px;}
+
+  .rm-header{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; row-gap:10px;
+    padding:18px 20px; border-bottom:1px solid var(--rm-border);
+    position:sticky; top:0; background:var(--rm-bg); z-index:20;
+  }
+  .rm-brand{display:flex; align-items:center; gap:10px;}
+  .rm-brand-mark{
+    width:14px;height:14px;border-radius:2px;
+    background: repeating-linear-gradient(45deg, var(--rm-accent) 0 6px, #1c1300 6px 12px);
+    flex-shrink:0;
+  }
+  .rm-brand-text{font-family:var(--rm-font-display); font-size:15px; letter-spacing:0.04em; color:var(--rm-text-dim);}
+  .rm-brand-text b{color:var(--rm-text); font-weight:600;}
+  .rm-nav{
+    display:flex; gap:2px; align-items:center; background:var(--rm-panel-2);
+    border:1px solid var(--rm-border); border-radius:10px; padding:3px;
+    overflow-x:auto; max-width:100%;
+  }
+  .rm-header-right{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+  .rm-sync-status{display:flex; align-items:center; gap:6px; font-size:12px; color:var(--rm-text-dim);}
+  .rm-sync-dot{width:8px; height:8px; border-radius:50%; background:var(--rm-green); flex-shrink:0;}
+  .rm-sync-dot.rm-sync-offline{background:var(--rm-red);}
+  .rm-settings-wrap{position:relative;}
+  .rm-settings-btn{
+    background:transparent; border:1px solid var(--rm-border); color:var(--rm-text-dim);
+    border-radius:7px; width:36px; height:36px; font-size:16px; cursor:pointer; line-height:1;
+  }
+  .rm-settings-btn:hover{color:var(--rm-text); border-color:var(--rm-text-dim);}
+  .rm-settings-menu{
+    display:none; position:absolute; top:44px; right:0; background:var(--rm-panel);
+    border:1px solid var(--rm-border); border-radius:9px; padding:6px; min-width:180px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.12); z-index:30; flex-direction:column; gap:2px;
+  }
+  .rm-settings-menu.show{display:flex;}
+  .rm-settings-item{
+    background:none; border:none; color:var(--rm-text); text-align:left; padding:9px 10px;
+    border-radius:6px; font-size:13.5px; font-family:var(--rm-font-body); cursor:pointer;
+  }
+  .rm-settings-item:hover{background:var(--rm-panel-2);}
+  .rm-settings-divider{height:1px; background:var(--rm-border); margin:4px 2px;}
+  .rm-settings-toggle-item{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:9px 10px; border-radius:6px; font-size:12.5px; color:var(--rm-text); cursor:default;
+  }
+  .rm-nav-btn{
+    font-family:var(--rm-font-body); font-size:13px; font-weight:600;
+    background:transparent; color:var(--rm-text-dim); border:none;
+    padding:8px 14px; border-radius:7px; cursor:pointer; transition:all .15s ease;
+    display:flex; align-items:center; gap:7px; white-space:nowrap;
+  }
+  .rm-nav-icon{font-size:13px; line-height:1; opacity:0.85;}
+  .rm-nav-text{display:flex; flex-direction:column; align-items:flex-start; line-height:1.35;}
+  .rm-nav-sub{display:none; font-size:11px; font-weight:500; color:var(--rm-text-dim);}
+  .rm-nav-btn.active{background:var(--rm-panel); color:var(--rm-accent); box-shadow:0 1px 4px rgba(0,0,0,0.1);}
+  .rm-nav-btn.active .rm-nav-icon{opacity:1;}
+  .rm-nav-btn:hover:not(.active){color:var(--rm-text);}
+  .rm-sidebar-toggle{display:none;}
+  .rm-sidebar-expand{display:none;}
+
+  main{padding:20px;}
+  .rm-section{display:none;}
+  .rm-section.active{display:block;}
+  .rm-placeholder-text{color:var(--rm-text-dim); font-size:14px;}
+  .rm-foto-preview{margin-top:10px;}
+  .rm-foto-thumb{width:100%; max-width:220px; border-radius:9px; display:block; margin-bottom:8px; border:1px solid var(--rm-border);}
+  .rm-foto-preview button{
+    background:none; border:1px solid var(--rm-border); color:var(--rm-text-dim); border-radius:7px;
+    padding:6px 12px; font-size:12.5px; cursor:pointer;
+  }
+  .rm-foto-thumb-modal{width:100%; max-width:280px; border-radius:9px; display:block; border:1px solid var(--rm-border); margin-bottom:8px;}
+
+  .rm-pdv-modo-toggle{
+    display:inline-flex; gap:2px; background:var(--rm-panel-2); border:1px solid var(--rm-border);
+    border-radius:10px; padding:3px; margin-bottom:22px;
+  }
+  .rm-pdv-modo-btn{
+    background:transparent; border:none; color:var(--rm-text-dim); font-family:var(--rm-font-body);
+    font-size:13.5px; font-weight:700; padding:9px 20px; border-radius:7px; cursor:pointer;
+  }
+  .rm-pdv-modo-btn.active{background:var(--rm-panel); color:var(--rm-accent); box-shadow:0 1px 4px rgba(0,0,0,0.1);}
+  .rm-pdv-tag-orcamento{
+    display:inline-block; background:var(--rm-panel-2); color:var(--rm-text-dim); font-size:11px;
+    font-weight:700; padding:3px 9px; border-radius:20px; text-transform:uppercase; letter-spacing:0.03em;
+  }
+  .rm-pdv-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:start; margin-bottom:32px;}
+  .rm-pdv-col-checkout{position:sticky; top:20px;}
+
+  /* Barra de adicionar item */
+  .rm-pdv-toggles-row{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px;}
+  .rm-pdv-toggles-row .rm-pdv-modo-toggle{margin-bottom:0;}
+  .rm-pdv-add-row{display:flex; gap:10px; align-items:flex-end; margin-bottom:16px;}
+  .rm-pdv-add-field{display:flex; flex-direction:column;}
+  .rm-pdv-add-row .rm-autocomplete-wrap{margin-bottom:0;}
+  .rm-pdv-add-nome{flex:1;}
+  .rm-pdv-add-preco{width:120px;}
+  .rm-pdv-add-qtd{width:70px;}
+  .rm-pdv-mini-label{font-size:11px; color:var(--rm-text-dim); font-weight:600; margin-bottom:5px; text-transform:uppercase; letter-spacing:0.03em;}
+  .rm-pdv-add-row .rm-input{margin-bottom:0;}
+  .rm-pdv-add-btn{
+    background:var(--rm-accent); color:var(--rm-accent-ink); border:none; border-radius:9px;
+    width:47px; height:47px; font-size:22px; font-weight:700; cursor:pointer; flex-shrink:0; line-height:1;
+  }
+  .rm-pdv-add-btn:hover{filter:brightness(1.05);}
+
+  /* Atalhos de itens frequentes */
+  .rm-pdv-atalhos{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px;}
+  .rm-pdv-atalho-btn{
+    display:flex; align-items:stretch; background:var(--rm-panel); border:1px solid var(--rm-border);
+    border-radius:20px; overflow:hidden; font-size:12.5px;
+  }
+  .rm-pdv-atalho-btn button{background:none; border:none; cursor:pointer; font-family:var(--rm-font-body);}
+  .rm-pdv-atalho-usar{padding:7px 12px; color:var(--rm-text); font-weight:600;}
+  .rm-pdv-atalho-usar:hover{color:var(--rm-accent);}
+  .rm-pdv-atalho-preco{color:var(--rm-text-dim); font-weight:500; margin-left:5px;}
+  .rm-pdv-atalho-remove{padding:7px 10px; color:var(--rm-text-dim); border-left:1px solid var(--rm-border) !important;}
+  .rm-pdv-atalho-remove:hover{color:var(--rm-red);}
+  .rm-pdv-atalho-add{
+    background:none; border:1px dashed var(--rm-border); border-radius:20px; padding:7px 14px;
+    font-size:12.5px; font-weight:600; color:var(--rm-text-dim); cursor:pointer;
+  }
+  .rm-pdv-atalho-add:hover{color:var(--rm-accent); border-color:var(--rm-accent);}
+
+  /* Carrinho — lista simples, sem caixa por item */
+  .rm-pdv-cart-list{border-top:1px solid var(--rm-border);}
+  .rm-pdv-cart-item{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:12px 2px; border-bottom:1px solid var(--rm-border);
+  }
+  .rm-pdv-cart-item-nome{font-size:14px; font-weight:600;}
+  .rm-pdv-cart-item-detalhe{font-size:12px; color:var(--rm-text-dim); margin-top:1px;}
+  .rm-pdv-cart-item-right{display:flex; align-items:center; gap:14px;}
+  .rm-pdv-cart-item-subtotal{font-weight:700; font-size:14px;}
+  .rm-pdv-cart-item-remove{background:none; border:none; color:var(--rm-text-dim); font-size:18px; cursor:pointer; line-height:1;}
+  .rm-pdv-cart-item-remove:hover{color:var(--rm-red);}
+
+  /* Total em destaque (hero) */
+  .rm-pdv-hero{
+    background:var(--rm-panel-2); border-radius:12px; padding:20px 22px; margin-bottom:20px;
+    display:flex; flex-direction:column; align-items:flex-start;
+  }
+  .rm-pdv-hero-label{font-size:12px; color:var(--rm-text-dim); font-weight:700; text-transform:uppercase; letter-spacing:0.04em;}
+  .rm-pdv-hero-valor{font-family:var(--rm-font-display); font-size:38px; font-weight:700; color:var(--rm-accent); line-height:1.2;}
+  .rm-pdv-hero-lines{
+    width:100%; margin-top:12px; padding-top:12px; border-top:1px solid var(--rm-border);
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .rm-pdv-hero-line{display:flex; align-items:center; justify-content:space-between; font-size:14.5px; color:var(--rm-text-dim);}
+  .rm-pdv-hero-line b{color:var(--rm-text); font-weight:700; font-size:15px;}
+  .rm-pdv-hero-line#rm-pdv-desconto-line.rm-pdv-desconto-ativo b{color:var(--rm-red);}
+  .rm-pdv-desconto-inline{display:flex; gap:6px; margin-top:12px;}
+  .rm-pdv-desconto-inline .rm-input{
+    margin-bottom:0; padding:9px 10px; font-size:13px; background:var(--rm-panel);
+  }
+  .rm-pdv-desconto-inline select.rm-input{width:64px; flex-shrink:0;}
+
+  /* Blocos do checkout — sem caixa, só espaçamento e rótulo */
+  .rm-pdv-block{margin-bottom:20px;}
+  .rm-pdv-block-label{
+    display:block; font-size:12px; color:var(--rm-text-dim); font-weight:700;
+    text-transform:uppercase; letter-spacing:0.04em; margin-bottom:8px;
+  }
+  .rm-pdv-block .rm-input{margin-bottom:0;}
+
+  .rm-pdv-pagamento-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .rm-pdv-pag-btn{
+    background:var(--rm-panel); border:1px solid var(--rm-border); border-radius:9px; padding:12px 10px;
+    font-size:13px; font-weight:700; color:var(--rm-text-dim); cursor:pointer; text-align:center;
+  }
+  .rm-pdv-pag-btn.active{background:var(--rm-accent); color:var(--rm-accent-ink); border-color:var(--rm-accent);}
+  .rm-pdv-troco-block{margin-top:14px; padding-top:14px; border-top:1px solid var(--rm-border);}
+  .rm-pdv-troco-block .rm-input{margin-bottom:0;}
+  #rm-pdv-troco-linha{font-size:14px; font-weight:700; margin-top:8px;}
+  #rm-pdv-troco-linha.rm-pdv-troco-ok{color:var(--rm-green);}
+  #rm-pdv-troco-linha.rm-pdv-troco-falta{color:var(--rm-red);}
+
+  .rm-pdv-cliente-tag{
+    display:flex; align-items:center; justify-content:space-between; background:var(--rm-bg);
+    border:1px solid var(--rm-border); border-radius:8px; padding:8px 10px; margin-top:6px; font-size:13px;
+  }
+  .rm-pdv-cliente-tag button{background:none; border:none; color:var(--rm-text-dim); font-size:16px; cursor:pointer;}
+
+  .rm-pdv-finalizar{
+    width:100%; background:var(--rm-accent); color:var(--rm-accent-ink); border:none;
+    border-radius:10px; padding:17px; font-size:16px; font-weight:700; font-family:var(--rm-font-body);
+    cursor:pointer; letter-spacing:0.01em; margin-top:4px;
+  }
+  .rm-pdv-finalizar:active{transform:scale(0.99);}
+
+  @media (max-width:900px){
+    .rm-pdv-grid{grid-template-columns:1fr;}
+    .rm-pdv-col-checkout{position:static; order:-1; margin-bottom:28px;}
+  }
+  .rm-subnav{
+    display:flex; gap:4px; align-items:stretch; background:var(--rm-panel);
+    border:1px solid var(--rm-border); border-radius:12px; padding:8px;
+    overflow-x:auto; max-width:100%; margin-bottom:22px; width:fit-content;
+  }
+  .rm-subnav-btn{
+    font-family:var(--rm-font-body); font-size:11.5px; font-weight:700;
+    background:transparent; color:var(--rm-text-dim); border:none;
+    padding:10px 16px; border-radius:8px; cursor:pointer; transition:all .15s ease; white-space:nowrap;
+    display:flex; flex-direction:column; align-items:center; gap:6px; min-width:76px;
+  }
+  .rm-subnav-icon{font-size:19px; line-height:1;}
+  .rm-subnav-btn.active{background:var(--rm-accent); color:var(--rm-accent-ink);}
+  .rm-subnav-btn:hover:not(.active){color:var(--rm-text); background:var(--rm-panel-2);}
+
+  h1.rm-title{
+    font-family:var(--rm-font-display); font-weight:600; font-size:26px;
+    margin: 4px 0 22px; letter-spacing:0.01em; color:var(--rm-text);
+  }
+
+  .rm-os-badge{
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--rm-accent); color:var(--rm-accent-ink); border-radius:12px;
+    padding:16px 20px; margin-bottom:26px;
+  }
+  .rm-os-badge-label{font-size:13px; font-weight:600; letter-spacing:0.02em;}
+  .rm-os-badge-number{font-family:var(--rm-font-display); font-size:26px; font-weight:700; letter-spacing:0.02em;}
+
+  .rm-view{display:none;}
+  .rm-view.active{display:block;}
+
+  .rm-fieldgroup{margin-bottom:22px;}
+  .rm-fieldgroup-label{
+    font-family:var(--rm-font-display); font-size:13px; color:var(--rm-accent);
+    letter-spacing:0.03em; margin-bottom:10px; display:block;
+  }
+  .rm-row{display:flex; gap:12px;}
+  .rm-row > *{flex:1;}
+  label.rm-label{display:block; font-size:13px; color:var(--rm-text-dim); margin-bottom:6px;}
+  input.rm-input, textarea.rm-input, select.rm-input{
+    width:100%; background:var(--rm-panel); border:1px solid var(--rm-border);
+    color:var(--rm-text); border-radius:9px; padding:13px 14px; font-size:15.5px;
+    font-family:var(--rm-font-body); margin-bottom:14px; text-transform:uppercase;
+  }
+  input.rm-input:focus, textarea.rm-input:focus, select.rm-input:focus{
+    outline:none; border-color:var(--rm-accent);
+  }
+  textarea.rm-input{min-height:90px; resize:vertical;}
+
+  .rm-submit-bar{
+    position:sticky; bottom:0; background:var(--rm-bg); padding:16px 0 4px;
+    border-top:1px solid var(--rm-border); margin-top:8px;
+  }
+  button.rm-primary{
+    width:100%; background:var(--rm-accent); color:var(--rm-accent-ink);
+    border:none; border-radius:10px; padding:16px; font-size:16px; font-weight:700;
+    font-family:var(--rm-font-body); cursor:pointer; letter-spacing:0.01em;
+  }
+  button.rm-primary:active{transform:scale(0.99);}
+
+  .rm-toolbar{display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap;}
+  .rm-mec-add-row{display:flex; gap:10px; align-items:flex-start; margin-bottom:12px;}
+  .rm-mec-add-row .rm-input{margin-bottom:0;}
+  button.rm-btn-add{
+    background:var(--rm-accent); color:var(--rm-accent-ink); border:none; border-radius:9px;
+    padding:0 20px; font-size:14.5px; font-weight:700; font-family:var(--rm-font-body);
+    cursor:pointer; white-space:nowrap; height:47px;
+  }
+  .rm-mec-chips{display:flex; gap:8px; flex-wrap:wrap;}
+  .rm-mec-chip-empty{color:var(--rm-text-dim); font-size:13px;}
+  .rm-mec-chip{
+    display:flex; align-items:center; gap:4px; background:var(--rm-panel-2); border:1px solid var(--rm-border);
+    border-radius:20px; padding:7px 6px 7px 14px; font-size:13px;
+  }
+  .rm-mec-chip button{
+    background:none; border:none; color:var(--rm-text-dim); font-size:17px; cursor:pointer;
+    line-height:1; padding:3px 8px;
+  }
+  .rm-mec-chip button:hover{color:var(--rm-accent);}
+
+  .rm-problema-list{display:flex; flex-direction:column; gap:8px;}
+  .rm-problema-empty{color:var(--rm-text-dim); font-size:13px; padding:4px 0;}
+  .rm-problema-item{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:var(--rm-bg); border:1px solid var(--rm-border); border-radius:8px;
+    padding:10px 12px; font-size:14px;
+  }
+  .rm-problema-item button{
+    background:none; border:none; color:var(--rm-text-dim); font-size:17px; cursor:pointer;
+    line-height:1; padding:2px 6px; flex-shrink:0;
+  }
+  .rm-problema-item button:hover{color:var(--rm-accent);}
+  .rm-problema-check{
+    display:flex; align-items:center; gap:10px; background:var(--rm-bg); border:1px solid var(--rm-border);
+    border-radius:8px; padding:6px 8px;
+  }
+  .rm-problema-check input[type="checkbox"]{width:17px; height:17px; flex-shrink:0; accent-color:var(--rm-accent);}
+  .rm-problema-edit{
+    flex:1; min-width:0; border:1px solid transparent; background:transparent; color:var(--rm-text);
+    font-family:var(--rm-font-body); font-size:14px; padding:8px 6px; border-radius:6px; text-transform:uppercase;
+  }
+  .rm-problema-edit:hover{border-color:var(--rm-border);}
+  .rm-problema-edit:focus{outline:none; border-color:var(--rm-accent); background:var(--rm-panel);}
+  .rm-problema-done{text-decoration:line-through; color:var(--rm-text-dim);}
+  input.rm-search{
+    flex:1; min-width:200px; background:var(--rm-panel); border:1px solid var(--rm-border);
+    color:var(--rm-text); border-radius:9px; padding:11px 14px; font-size:14.5px; font-family:var(--rm-font-body);
+  }
+  .rm-date-select, .rm-date-input{
+    background:var(--rm-panel); border:1px solid var(--rm-border); color:var(--rm-text);
+    border-radius:9px; padding:10px 12px; font-size:13.5px; font-family:var(--rm-font-body);
+  }
+  .rm-date-range{display:flex; align-items:center; gap:8px;}
+  .rm-date-range-sep{font-size:13px; color:var(--rm-text-dim);}
+
+  /* List view — spreadsheet style */
+  .rm-table-wrap{background:var(--rm-panel); border-radius:12px; overflow:auto; box-shadow:var(--rm-shadow);}
+  table.rm-table{width:100%; border-collapse:collapse; font-size:13px; table-layout:fixed;}
+  table.rm-table thead th{
+    text-align:left; padding:9px 12px; color:var(--rm-text-dim); font-weight:700;
+    font-size:10.5px; text-transform:uppercase; letter-spacing:0.03em;
+    border:1px solid var(--rm-border); background:var(--rm-panel-2); white-space:nowrap;
+  }
+  .rm-th-sortable{cursor:pointer; user-select:none;}
+  .rm-th-sortable:hover{color:var(--rm-text);}
+  .rm-th-sortable.rm-th-sorted{color:var(--rm-accent);}
+  table.rm-table tbody td{
+    padding:9px 12px; border:1px solid var(--rm-border); vertical-align:middle;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  table.rm-table tbody tr{cursor:pointer;}
+  table.rm-table tbody tr:nth-child(even){background:rgba(0,0,0,0.018);}
+  table.rm-table tbody tr:hover{background:var(--rm-panel-2);}
+  .rm-lista-code{font-weight:700;}
+  .rm-lista-foto-icon{
+    display:inline-flex; align-items:center; justify-content:center; font-size:11px;
+    background:var(--rm-panel-2); border:1px solid var(--rm-border); border-radius:5px; padding:2px 5px;
+  }
+  .rm-lista-flags{display:flex; gap:4px; margin-top:1px; font-size:11px; color:var(--rm-text-dim);}
+  .rm-lista-status-pill{
+    display:inline-block; font-size:11px; font-weight:700; padding:2px 9px; border-radius:20px; color:#fff; white-space:nowrap;
+  }
+  .rm-lista-problemas{color:var(--rm-text-dim); font-size:12px;}
+  .rm-lista-empty{padding:48px 20px; text-align:center; color:var(--rm-text-dim);}
+  .rm-produto-estoque-baixo{color:var(--rm-red); font-weight:700;}
+  .rm-margem-texto{display:block; font-size:11.5px; color:var(--rm-text-dim); margin-top:4px; font-weight:600;}
+  .rm-margem-texto.rm-margem-boa{color:var(--rm-green);}
+  .rm-margem-texto.rm-margem-ruim{color:var(--rm-red);}
+
+  /* Kanban board */
+  .rm-board{display:flex; gap:14px; overflow-x:auto; align-items:flex-start;}
+  .rm-column{
+    background:var(--rm-panel-2); border-radius:14px;
+    min-width:260px; max-width:360px; flex:1 1 260px; display:flex; flex-direction:column;
+  }
+  .rm-column-header{
+    padding:14px 14px 10px; border-bottom:1px solid var(--rm-border); display:flex;
+    align-items:center; justify-content:space-between; flex-shrink:0;
+  }
+  .rm-column-title{font-family:var(--rm-font-display); font-size:14px; letter-spacing:0.02em;}
+  .rm-column-count{
+    font-size:12px; font-weight:700; color:var(--rm-accent-ink); background:var(--rm-accent);
+    border-radius:20px; padding:2px 9px;
+  }
+  .rm-column-body{padding:10px; display:flex; flex-direction:column; gap:10px;}
+  .rm-column-empty{color:var(--rm-text-dim); font-size:12.5px; text-align:center; padding:18px 6px;}
+
+  .rm-card{
+    background:var(--rm-panel); border:1px solid var(--rm-border); border-radius:12px;
+    padding:12px 13px; cursor:pointer; transition:border-color .15s ease, box-shadow .15s ease;
+    box-shadow:var(--rm-shadow-sm);
+  }
+  .rm-card:hover{border-color:var(--rm-accent);}
+  .rm-card-dragging{opacity:0.35;}
+  .rm-card-ghost{
+    position:fixed; z-index:200; pointer-events:none; box-shadow:0 12px 28px rgba(0,0,0,0.45);
+    transform:rotate(-2deg); opacity:0.95;
+  }
+  .rm-column-hover{outline:2px solid var(--rm-accent); outline-offset:-2px;}
+  .rm-card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:6px;}
+  .rm-card-badges{display:flex; flex-direction:column; gap:4px; align-items:flex-end;}
+  .rm-card-code{font-family:var(--rm-font-display); font-size:11.5px; color:var(--rm-text-dim); letter-spacing:0.03em;}
+  .rm-card-moto{font-family:var(--rm-font-display); font-weight:600; font-size:16.5px; color:var(--rm-text); margin-bottom:2px; letter-spacing:0.01em;}
+  .rm-card-name{font-size:12.5px; color:var(--rm-text-dim); margin-bottom:8px;}
+  .rm-card-problema{font-size:12.5px; color:var(--rm-text); margin-bottom:8px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+  .rm-card-meta{display:flex; justify-content:space-between; align-items:center; font-size:11.5px; color:var(--rm-text-dim);}
+  .rm-card-mecanico{background:var(--rm-bg); border:1px solid var(--rm-border); border-radius:6px; padding:2px 7px;}
+  .rm-card-tempo{font-weight:600;}
+  .rm-tempo-ok{color:var(--rm-text-dim); font-weight:500;}
+  .rm-tempo-warn{color:#b8792a;}
+  .rm-tempo-alert{color:var(--rm-red);}
+  .rm-card-alert{box-shadow: inset 3px 0 0 0 var(--rm-red);}
+  .rm-card-entrega{
+    background:var(--rm-accent); color:var(--rm-accent-ink); font-size:10.5px; font-weight:700;
+    border-radius:6px; padding:2px 7px; letter-spacing:0.02em;
+  }
+  .rm-card-pago{
+    background:var(--rm-green); color:#08240f; font-size:10.5px; font-weight:700;
+    border-radius:6px; padding:2px 7px; letter-spacing:0.02em;
+  }
+
+  .rm-toggle-row{
+    display:flex; align-items:center; justify-content:space-between; background:var(--rm-panel);
+    border:1px solid var(--rm-border); border-radius:9px; padding:13px 14px; margin-bottom:14px;
+  }
+  .rm-toggle-row-label{font-size:15px;}
+  .rm-switch{position:relative; display:inline-block; width:46px; height:26px; flex-shrink:0;}
+  .rm-switch input{opacity:0; width:0; height:0; position:absolute;}
+  .rm-switch-track{position:absolute; inset:0; background:var(--rm-border); transition:.18s ease; border-radius:26px; cursor:pointer;}
+  .rm-switch-track:before{
+    position:absolute; content:""; height:20px; width:20px; left:3px; top:3px;
+    background:var(--rm-text); transition:.18s ease; border-radius:50%;
+  }
+  .rm-switch input:checked + .rm-switch-track{background:var(--rm-accent);}
+  .rm-switch input:checked + .rm-switch-track:before{transform:translateX(20px); background:var(--rm-accent-ink);}
+
+  /* Modal */
+  .rm-modal-backdrop{
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:100;
+    align-items:center; justify-content:center; padding:20px;
+  }
+  .rm-modal-backdrop.show{display:flex;}
+  .rm-modal{
+    background:var(--rm-panel); border-radius:18px; box-shadow:0 20px 60px rgba(20,15,10,0.18);
+    max-width:520px; width:100%; max-height:85vh; overflow-y:auto; padding:22px;
+  }
+  .rm-modal.rm-modal-large{max-width:860px; max-height:90vh;}
+  .rm-modal.rm-modal-large .rm-modal-body{display:grid; grid-template-columns:1fr 1fr; gap:0 32px; align-items:start;}
+  .rm-modal.rm-modal-large .rm-modal-col{display:flex; flex-direction:column;}
+  .rm-modal-header-actions{display:flex; align-items:center; gap:8px; flex-shrink:0;}
+  .rm-modal-icon-btn{
+    background:transparent; border:1px solid var(--rm-border); color:var(--rm-text-dim);
+    border-radius:7px; width:30px; height:30px; font-size:13px; cursor:pointer; line-height:1;
+  }
+  .rm-modal-icon-btn:hover{color:var(--rm-accent); border-color:var(--rm-accent);}
+  .rm-modal-header{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;}
+  .rm-modal-title{font-family:var(--rm-font-display); font-size:20px; font-weight:600;}
+  .rm-modal-sub{font-size:12.5px; color:var(--rm-text-dim); margin-top:3px;}
+  .rm-modal-close{background:none; border:none; color:var(--rm-text-dim); font-size:22px; cursor:pointer; line-height:1;}
+  button.rm-btn-etiqueta{
+    width:100%; background:var(--rm-panel-2); color:var(--rm-text); border:1px solid var(--rm-border);
+    border-radius:9px; padding:11px; font-size:13.5px; font-weight:700; font-family:var(--rm-font-body);
+    cursor:pointer; margin-bottom:18px;
+  }
+  button.rm-btn-etiqueta:hover{border-color:var(--rm-accent); color:var(--rm-accent);}
+  button.rm-btn-excluir{
+    width:100%; background:transparent; color:var(--rm-red); border:1px solid var(--rm-border);
+    border-radius:9px; padding:11px; font-size:13px; font-weight:700; font-family:var(--rm-font-body);
+    cursor:pointer; margin-top:6px;
+  }
+  button.rm-btn-excluir:hover{background:var(--rm-red); color:#fff; border-color:var(--rm-red);}
+  .rm-modal-section{margin-bottom:18px;}
+  .rm-modal-section-label{font-family:var(--rm-font-display); font-size:12px; color:var(--rm-accent); letter-spacing:0.03em; margin-bottom:8px; display:block;}
+  .rm-modal-status-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:4px;}
+  .rm-status-pill{
+    font-size:12.5px; font-weight:600; padding:8px 12px; border-radius:20px; border:1px solid var(--rm-border);
+    background:var(--rm-bg); color:var(--rm-text-dim); cursor:pointer;
+  }
+  .rm-status-pill.current{color:var(--rm-accent-ink);}
+  .rm-history-item{display:flex; justify-content:space-between; font-size:12.5px; padding:7px 0; border-bottom:1px solid var(--rm-border);}
+  .rm-history-item:last-child{border-bottom:none;}
+
+  .rm-contato-row{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;}
+  .rm-cliente-hist-item{
+    background:var(--rm-bg); border:1px solid var(--rm-border); border-radius:8px;
+    padding:10px 12px; margin-bottom:8px; font-size:13px;
+  }
+  .rm-cliente-hist-item:last-child{margin-bottom:0;}
+  .rm-cliente-hist-top{display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:3px;}
+  .rm-cliente-hist-code{font-weight:700;}
+  .rm-cliente-hist-status{font-size:11.5px; font-weight:700;}
+  .rm-cliente-hist-data{color:var(--rm-text-dim); font-size:12px;}
+  .rm-cliente-apelido{color:var(--rm-text-dim); font-size:11.5px; margin-top:1px;}
+  .rm-autocomplete-wrap{position:relative; margin-bottom:14px;}
+  .rm-autocomplete-wrap .rm-input{margin-bottom:0;}
+  .rm-autocomplete-list{
+    display:none; position:absolute; top:calc(100% + 4px); left:0; right:0; z-index:15;
+    background:var(--rm-panel); border:1px solid var(--rm-border); border-radius:9px;
+    max-height:260px; overflow-y:auto; box-shadow:0 8px 20px rgba(0,0,0,0.12);
+  }
+  .rm-autocomplete-list.show{display:block;}
+  .rm-autocomplete-item{padding:10px 14px; cursor:pointer; border-bottom:1px solid var(--rm-border);}
+  .rm-autocomplete-item:last-child{border-bottom:none;}
+  .rm-autocomplete-item:hover{background:var(--rm-panel-2);}
+  .rm-autocomplete-nome{font-size:14px; font-weight:600;}
+  .rm-autocomplete-apelido{font-weight:500; color:var(--rm-text-dim);}
+  .rm-autocomplete-tel{font-size:12px; color:var(--rm-text-dim); margin-top:2px;}
+  .rm-autocomplete-empty{padding:12px 14px; font-size:13px; color:var(--rm-text-dim);}
+  button.rm-btn-whatsapp{
+    background:#25d366; color:#ffffff; border:none; border-radius:8px; padding:9px 14px;
+    font-size:13px; font-weight:700; font-family:var(--rm-font-body); cursor:pointer; white-space:nowrap;
+  }
+  button.rm-btn-whatsapp:hover{filter:brightness(0.95);}
+  .rm-history-status{color:var(--rm-text);}
+  .rm-history-time{color:var(--rm-text-dim);}
+
+  .rm-toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(100px);
+    background:var(--rm-green); color:#08240f; font-weight:700; font-size:14px;
+    padding:13px 22px; border-radius:10px; transition:transform .25s ease; z-index:150;
+  }
+  .rm-toast.show{transform:translateX(-50%) translateY(0);}
+
+  @media (min-width: 860px){
+    main{padding:28px 32px;}
+    #rm-view-reception .rm-form-wrap{max-width:640px;}
+  }
+  @media (min-width: 1400px){
+    main{padding:32px 48px;}
+    .rm-header{padding:18px 48px;}
+  }
+
+  /* Barra lateral esquerda em telas de computador */
+  @media (min-width: 860px){
+    .rm-brand{ justify-content:space-between; }
+    .rm-sidebar-toggle{
+      background:transparent; border:1px solid var(--rm-border); color:var(--rm-text-dim);
+      border-radius:6px; width:24px; height:24px; font-size:15px; cursor:pointer; line-height:1;
+      flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    }
+    .rm-sidebar-toggle:hover{color:var(--rm-text); border-color:var(--rm-text-dim);}
+    .rm-sidebar-expand{
+      display:none; position:fixed; left:0; top:18px; z-index:25;
+      background:var(--rm-panel); border:1px solid var(--rm-border); border-left:none;
+      border-radius:0 8px 8px 0; width:26px; height:36px; color:var(--rm-text-dim);
+      font-size:15px; cursor:pointer; align-items:center; justify-content:center;
+      box-shadow:1px 0 6px rgba(0,0,0,0.06);
+    }
+    .rm-sidebar-expand:hover{color:var(--rm-text);}
+    #rm-app.rm-sidebar-collapsed .rm-header{ display:none; }
+    #rm-app.rm-sidebar-collapsed .rm-sidebar-expand{ display:flex; }
+    #rm-app{ display:flex; align-items:stretch; }
+    .rm-header{
+      flex-direction:column; align-items:stretch; justify-content:flex-start;
+      width:210px; flex-shrink:0; height:100vh; position:sticky; top:0;
+      border-bottom:none; border-right:1px solid var(--rm-border);
+      padding:22px 10px; gap:26px; overflow-y:auto;
+    }
+    .rm-brand{ padding:0 2px; }
+    .rm-header-right{
+      flex-direction:column; align-items:stretch; width:100%; gap:22px; flex:1; min-height:0;
+    }
+    .rm-nav{
+      flex-direction:column; align-items:stretch; background:transparent; border:none; padding:0; gap:2px; overflow:visible;
+      order:1;
+    }
+    .rm-nav-btn{ justify-content:flex-start; align-items:center; padding:11px 8px; font-size:13px; gap:0; border-radius:8px; width:100%; }
+    .rm-nav-btn.active{box-shadow:inset 3px 0 0 0 var(--rm-accent); background:var(--rm-panel-2);}
+    .rm-nav-icon{ display:none; }
+    .rm-nav-sub{ display:none; }
+    .rm-nav-label{ text-transform:uppercase; letter-spacing:0.04em; font-weight:700; }
+    .rm-sync-status{ order:2; margin-top:auto; padding:0 2px; }
+    .rm-settings-wrap{ order:3; padding:0 2px; }
+    .rm-settings-btn{ width:100%; border-radius:8px; }
+    .rm-settings-menu{ top:auto; bottom:44px; left:0; right:auto; width:100%; }
+    main{ flex:1; min-width:0; }
+  }
+  @media (min-width: 1400px){
+    .rm-header{ padding:22px 14px; }
+  }
+  @media (max-width: 640px){
+    .rm-row{flex-direction:column;}
+    .rm-column{min-width:82vw; max-width:82vw; flex:0 0 82vw;}
+    table.rm-table thead{display:none;}
+    table.rm-table, table.rm-table tbody, table.rm-table tr, table.rm-table td{display:block; width:100%;}
+    table.rm-table tr{border-bottom:1px solid var(--rm-border); padding:12px 16px;}
+    table.rm-table td{padding:4px 0; border-bottom:none;}
+    table.rm-table td::before{content: attr(data-label); display:block; font-size:10.5px; color:var(--rm-text-dim); text-transform:uppercase; letter-spacing:0.03em; margin-bottom:2px;}
+    input.rm-input, textarea.rm-input, select.rm-input{ font-size:16px; }
+    .rm-submit-bar{ padding-bottom:calc(16px + env(safe-area-inset-bottom)); }
+    .rm-toggle-row{ padding:15px 14px; }
+    button.rm-btn-add{ min-width:64px; }
+    .rm-header{ padding:10px 12px; gap:6px; flex-wrap:nowrap; }
+    #rm-sync-label{ display:none; }
+    .rm-sync-status{ gap:0; }
+    .rm-header-right{ gap:6px; flex-wrap:nowrap; flex:1; justify-content:flex-end; overflow:hidden; }
+    .rm-nav{ flex-basis:auto; width:auto; gap:0; padding:2px; min-width:0; }
+    .rm-nav-btn{ padding:8px 9px; }
+    .rm-nav-text{ display:none; }
+    .rm-nav-icon{ font-size:15px; }
+    .rm-settings-btn{ width:32px; height:32px; flex-shrink:0; }
+  }
+</style>
+</head>
+<body>
+<div id="rm-app">
+  <header class="rm-header">
+    <div class="rm-brand">
+      <div class="rm-brand-mark"></div>
+      <button class="rm-sidebar-toggle" onclick="rmToggleSidebar()" title="Esconder barra lateral">&#8249;</button>
+    </div>
+    <div class="rm-header-right">
+      <div class="rm-sync-status" title="Status da sincronização entre dispositivos">
+        <span class="rm-sync-dot" id="rm-sync-dot"></span>
+        <span id="rm-sync-label">Sincronizando...</span>
+      </div>
+      <nav class="rm-nav">
+        <button class="rm-nav-btn" id="rm-btn-visao-geral" onclick="rmSetSection('visao-geral')" title="Visão Geral"><span class="rm-nav-icon">&#128065;</span><span class="rm-nav-text"><span class="rm-nav-label">Visão Geral</span><span class="rm-nav-sub">Resumo do dia</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-pdv" onclick="rmSetSection('pdv')" title="PDV"><span class="rm-nav-icon">&#128421;</span><span class="rm-nav-text"><span class="rm-nav-label">PDV</span><span class="rm-nav-sub">Ponto de venda</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-oficina" onclick="rmSetSection('oficina')" title="Oficina"><span class="rm-nav-icon">&#128295;</span><span class="rm-nav-text"><span class="rm-nav-label">Oficina</span><span class="rm-nav-sub">Recepção, painel, mecânicos</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-clientes" onclick="rmSetSection('clientes')" title="Clientes"><span class="rm-nav-icon">&#128100;</span><span class="rm-nav-text"><span class="rm-nav-label">Clientes</span><span class="rm-nav-sub">Cadastro de clientes</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-produtos" onclick="rmSetSection('produtos')" title="Produtos"><span class="rm-nav-icon">&#128230;</span><span class="rm-nav-text"><span class="rm-nav-label">Produtos</span><span class="rm-nav-sub">Estoque e peças</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-financeiro" onclick="rmSetSection('financeiro')" title="Financeiro"><span class="rm-nav-icon">&#128176;</span><span class="rm-nav-text"><span class="rm-nav-label">Financeiro</span><span class="rm-nav-sub">Vendas, contas, caixa</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon">&#128202;</span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon">&#9881;</span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
+      </nav>
+      <div class="rm-settings-wrap">
+        <button class="rm-settings-btn" onclick="rmToggleSettingsMenu(event)" title="Backup dos dados">&#9881;</button>
+        <div class="rm-settings-menu" id="rm-settings-menu">
+          <button class="rm-settings-item" onclick="rmExportarBackup(); rmToggleSettingsMenu();">Exportar backup</button>
+          <button class="rm-settings-item" onclick="document.getElementById('rm-import-file').click(); rmToggleSettingsMenu();">Importar backup</button>
+          <div class="rm-settings-divider"></div>
+          <div class="rm-settings-toggle-item">
+            <span>Imprimir etiqueta ao chegar moto nova</span>
+            <label class="rm-switch">
+              <input type="checkbox" id="rm-autoprint-toggle" onchange="rmSetAutoprint(this.checked)">
+              <span class="rm-switch-track"></span>
+            </label>
+          </div>
+        </div>
+        <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
+        <iframe id="rm-print-frame" style="display:none;"></iframe>
+      </div>
+    </div>
+  </header>
+
+  <button class="rm-sidebar-expand" id="rm-sidebar-expand-btn" onclick="rmToggleSidebar()" title="Mostrar barra lateral">&#8250;</button>
+
+  <main>
+    <div id="rm-section-visao-geral" class="rm-section">
+      <h1 class="rm-title">Visão Geral</h1>
+      <p class="rm-placeholder-text">Essa área ainda vai ser construída.</p>
+    </div>
+
+    <div id="rm-section-pdv" class="rm-section">
+      <h1 class="rm-title">PDV — Venda rápida</h1>
+
+      <div class="rm-pdv-grid">
+        <div class="rm-pdv-col-cart">
+          <div class="rm-pdv-toggles-row">
+            <div class="rm-pdv-modo-toggle">
+              <button class="rm-pdv-modo-btn active" id="rm-pdv-modo-venda" onclick="rmSetModoPdv('venda')">Venda</button>
+              <button class="rm-pdv-modo-btn" id="rm-pdv-modo-orcamento" onclick="rmSetModoPdv('orcamento')">Orçamento</button>
+            </div>
+            <div class="rm-pdv-modo-toggle">
+              <button class="rm-pdv-modo-btn active" id="rm-pdv-tabela-consumidor" onclick="rmSetTabelaPrecoPdv('consumidor')">Consumidor</button>
+              <button class="rm-pdv-modo-btn" id="rm-pdv-tabela-parceiro" onclick="rmSetTabelaPrecoPdv('parceiro')">Parceiro</button>
+            </div>
+          </div>
+
+          <div class="rm-pdv-add-row">
+            <div class="rm-pdv-add-field rm-pdv-add-nome">
+              <label class="rm-pdv-mini-label">Produto / Serviço</label>
+              <div class="rm-autocomplete-wrap" id="rm-pdv-produto-wrap">
+                <input class="rm-input" id="rm-pdv-item-nome" autocapitalize="characters" autocomplete="off" oninput="rmBuscarProdutoPdv(this.value)" onfocus="rmBuscarProdutoPdv(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarItemPdv();}">
+                <div class="rm-autocomplete-list" id="rm-pdv-produto-lista"></div>
+              </div>
+            </div>
+            <div class="rm-pdv-add-field rm-pdv-add-preco">
+              <label class="rm-pdv-mini-label">Preço</label>
+              <input class="rm-input" id="rm-pdv-item-preco" inputmode="decimal" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarItemPdv();}">
+            </div>
+            <div class="rm-pdv-add-field rm-pdv-add-qtd">
+              <label class="rm-pdv-mini-label">Qtd</label>
+              <input class="rm-input" id="rm-pdv-item-qtd" value="1" inputmode="numeric" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarItemPdv();}">
+            </div>
+            <button class="rm-pdv-add-btn" onclick="rmAdicionarItemPdv()" title="Adicionar ao carrinho">&#43;</button>
+          </div>
+
+          <div class="rm-pdv-atalhos" id="rm-pdv-atalhos"></div>
+
+          <div id="rm-pdv-carrinho-lista" class="rm-pdv-cart-list"></div>
+        </div>
+
+        <div class="rm-pdv-col-checkout">
+          <div class="rm-pdv-hero">
+            <span class="rm-pdv-hero-label">Total</span>
+            <span class="rm-pdv-hero-valor" id="rm-pdv-total-valor">R$ 0,00</span>
+            <div class="rm-pdv-hero-lines">
+              <div class="rm-pdv-hero-line">
+                <span>Subtotal</span>
+                <b id="rm-pdv-subtotal-valor">R$ 0,00</b>
+              </div>
+              <div class="rm-pdv-hero-line" id="rm-pdv-desconto-line">
+                <span>Desconto</span>
+                <b id="rm-pdv-desconto-valor-texto">R$ 0,00</b>
+              </div>
+            </div>
+            <div class="rm-pdv-desconto-inline">
+              <input class="rm-input" id="rm-pdv-desconto-valor" inputmode="decimal" oninput="rmRenderCarrinhoPdv()" placeholder="Aplicar desconto">
+              <select class="rm-input" id="rm-pdv-desconto-tipo" onchange="rmRenderCarrinhoPdv()">
+                <option value="valor">R$</option>
+                <option value="percentual">%</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="rm-pdv-block">
+            <label class="rm-pdv-block-label">Cliente</label>
+            <div class="rm-autocomplete-wrap" id="rm-pdv-cliente-wrap">
+              <input class="rm-input" id="rm-pdv-cliente-busca" autocomplete="off" oninput="rmBuscarClientePdv(this.value)" onfocus="rmBuscarClientePdv(this.value)">
+              <div class="rm-autocomplete-list" id="rm-pdv-cliente-lista"></div>
+            </div>
+          </div>
+
+          <div class="rm-pdv-block">
+            <label class="rm-pdv-block-label">Vendedor</label>
+            <select class="rm-input" id="rm-pdv-vendedor"></select>
+          </div>
+
+          <div class="rm-pdv-block" id="rm-pdv-pagamento-block">
+            <label class="rm-pdv-block-label">Pagamento</label>
+            <div class="rm-pdv-pagamento-grid" id="rm-pdv-pagamento-grid"></div>
+            <div class="rm-pdv-troco-block" id="rm-pdv-troco-block" style="display:none;">
+              <label class="rm-pdv-mini-label">Valor recebido</label>
+              <input class="rm-input" id="rm-pdv-valor-recebido" inputmode="decimal" oninput="rmCalcularTroco()">
+              <div id="rm-pdv-troco-linha"></div>
+            </div>
+          </div>
+
+          <button class="rm-pdv-finalizar" id="rm-pdv-finalizar-btn" onclick="rmFinalizarVenda()">Finalizar venda</button>
+        </div>
+      </div>
+
+      <div class="rm-fieldgroup" style="margin-top:8px;">
+        <span class="rm-fieldgroup-label">Histórico de vendas</span>
+        <div class="rm-toolbar">
+          <select class="rm-date-select" id="rm-date-mode-vendas" onchange="rmOnDateModeChange('rm-date-mode-vendas','rm-date-value-vendas','rm-date-range-vendas'); rmRenderVendasHoje();">
+            <option value="todos">Todos os períodos</option>
+            <option value="dia" selected>Dia</option>
+            <option value="semana">Semana</option>
+            <option value="mes">Mês</option>
+            <option value="personalizado">Período personalizado</option>
+          </select>
+          <input class="rm-date-input" id="rm-date-value-vendas" oninput="rmRenderVendasHoje()">
+          <div class="rm-date-range" id="rm-date-range-vendas" style="display:none;">
+            <input type="date" class="rm-date-input" id="rm-date-start-vendas" oninput="rmRenderVendasHoje()">
+            <span class="rm-date-range-sep">até</span>
+            <input type="date" class="rm-date-input" id="rm-date-end-vendas" oninput="rmRenderVendasHoje()">
+          </div>
+        </div>
+        <div class="rm-table-wrap">
+          <table class="rm-table">
+            <colgroup><col style="width:100px"><col style="width:80px"><col><col style="width:140px"><col style="width:110px"></colgroup>
+            <thead>
+              <tr><th>Código</th><th>Hora</th><th>Cliente</th><th>Pagamento</th><th>Total</th></tr>
+            </thead>
+            <tbody id="rm-pdv-vendas-hoje-body"></tbody>
+          </table>
+          <div class="rm-lista-empty" id="rm-pdv-vendas-hoje-empty" style="display:none;">Nenhuma venda encontrada</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="rm-section-oficina" class="rm-section">
+      <div class="rm-subnav">
+        <button class="rm-subnav-btn" id="rm-btn-reception" onclick="rmCliqueNovaRecepcao()"><span class="rm-subnav-icon">&#65291;</span><span>Nova recepção</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-dashboard" onclick="rmSetView('dashboard')"><span class="rm-subnav-icon">&#9638;</span><span>Painel</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-mecanicos" onclick="rmSetView('mecanicos')"><span class="rm-subnav-icon">&#128295;</span><span>Mecânicos</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-lista" onclick="rmSetView('lista')"><span class="rm-subnav-icon">&#9776;</span><span>Lista</span></button>
+      </div>
+
+    <section id="rm-view-reception" class="rm-view">
+      <h1 class="rm-title">Recepção de moto</h1>
+      <div class="rm-os-badge">
+        <span class="rm-os-badge-label">Ordem de serviço</span>
+        <span class="rm-os-badge-number" id="rm-os-number">OS-0000</span>
+      </div>
+      <div class="rm-form-wrap">
+        <div class="rm-fieldgroup">
+          <span class="rm-fieldgroup-label">Problemas relatados</span>
+          <div class="rm-mec-add-row">
+            <input class="rm-input" id="rm-f-problema-novo" autocapitalize="characters" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarProblemaForm();}">
+            <button class="rm-btn-add" onclick="rmAdicionarProblemaForm()">OK</button>
+          </div>
+          <div class="rm-problema-list" id="rm-f-problema-lista"></div>
+        </div>
+
+        <div class="rm-fieldgroup">
+          <span class="rm-fieldgroup-label">Moto</span>
+          <label class="rm-label">Modelo</label>
+          <input class="rm-input" id="rm-f-modelo" autocapitalize="characters">
+          <div class="rm-toggle-row">
+            <span class="rm-toggle-row-label">Entregar ao cliente</span>
+            <label class="rm-switch">
+              <input type="checkbox" id="rm-f-entrega">
+              <span class="rm-switch-track"></span>
+            </label>
+          </div>
+          <div class="rm-toggle-row">
+            <span class="rm-toggle-row-label">Moto para buscar (agendada)</span>
+            <label class="rm-switch">
+              <input type="checkbox" id="rm-f-buscar">
+              <span class="rm-switch-track"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="rm-fieldgroup">
+          <span class="rm-fieldgroup-label">Cliente (opcional)</span>
+          <label class="rm-label">Nome</label>
+          <div class="rm-autocomplete-wrap" id="rm-f-cliente-wrap">
+            <input class="rm-input" id="rm-f-nome" autocapitalize="characters" autocomplete="off" oninput="rmBuscarClienteRecepcao(this.value)" onfocus="rmBuscarClienteRecepcao(this.value)">
+            <div class="rm-autocomplete-list" id="rm-f-cliente-lista"></div>
+          </div>
+          <label class="rm-label">Observação (opcional)</label>
+          <input class="rm-input" id="rm-f-observacao" autocapitalize="characters">
+          <label class="rm-label">WhatsApp</label>
+          <input class="rm-input" id="rm-f-telefone" inputmode="tel" autocomplete="tel">
+        </div>
+
+        <div class="rm-fieldgroup">
+          <span class="rm-fieldgroup-label">Oficina</span>
+          <label class="rm-label">Mecânico responsável (opcional)</label>
+          <select class="rm-input" id="rm-f-mecanico"></select>
+        </div>
+
+        <div class="rm-fieldgroup">
+          <span class="rm-fieldgroup-label">Itens deixados (opcional)</span>
+          <input class="rm-input" id="rm-f-itens" autocapitalize="characters">
+        </div>
+
+        <div class="rm-fieldgroup">
+          <span class="rm-fieldgroup-label">Foto da moto (opcional)</span>
+          <input type="file" accept="image/*" capture="environment" id="rm-f-foto" style="display:none;" onchange="rmPreviewFoto(this, 'form')">
+          <button type="button" class="rm-btn-add" style="width:100%;" onclick="document.getElementById('rm-f-foto').click()">Tirar/escolher foto</button>
+          <div id="rm-f-foto-preview" class="rm-foto-preview"></div>
+        </div>
+
+        <div class="rm-submit-bar">
+          <button class="rm-primary" onclick="rmSalvarRecepcao()">Registrar entrada</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="rm-view-dashboard" class="rm-view">
+      <h1 class="rm-title">Painel de recepções</h1>
+
+      <div class="rm-toolbar">
+        <input class="rm-search" id="rm-search" placeholder="Buscar por cliente, moto, OS, mecânico ou anotações..." oninput="rmRenderBoard()">
+        <select class="rm-date-select" id="rm-date-mode" onchange="rmOnDateModeChange('rm-date-mode','rm-date-value','rm-date-range'); rmRenderBoard();">
+          <option value="todos">Todos os períodos</option>
+          <option value="dia">Dia</option>
+          <option value="semana">Semana</option>
+          <option value="mes">Mês</option>
+          <option value="personalizado">Período personalizado</option>
+        </select>
+        <input class="rm-date-input" id="rm-date-value" style="display:none;" oninput="rmRenderBoard()">
+        <div class="rm-date-range" id="rm-date-range" style="display:none;">
+          <input type="date" class="rm-date-input" id="rm-date-start" oninput="rmRenderBoard()">
+          <span class="rm-date-range-sep">até</span>
+          <input type="date" class="rm-date-input" id="rm-date-end" oninput="rmRenderBoard()">
+        </div>
+      </div>
+
+      <div class="rm-board" id="rm-board"></div>
+    </section>
+
+    <section id="rm-view-mecanicos" class="rm-view">
+      <h1 class="rm-title">Painel por mecânico</h1>
+
+      <div class="rm-fieldgroup">
+        <span class="rm-fieldgroup-label">Mecânicos cadastrados</span>
+        <div class="rm-mec-add-row">
+          <input class="rm-input" id="rm-novo-mecanico" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarMecanico();}">
+          <button class="rm-btn-add" onclick="rmAdicionarMecanico()">Adicionar</button>
+        </div>
+        <div class="rm-mec-chips" id="rm-mecanicos-chips"></div>
+      </div>
+
+      <div class="rm-toolbar">
+        <input class="rm-search" id="rm-search-mecanicos" placeholder="Buscar por cliente, moto, OS ou anotações..." oninput="rmRenderMecanicosBoard()">
+        <select class="rm-date-select" id="rm-date-mode-mecanicos" onchange="rmOnDateModeChange('rm-date-mode-mecanicos','rm-date-value-mecanicos','rm-date-range-mecanicos'); rmRenderMecanicosBoard();">
+          <option value="todos">Todos os períodos</option>
+          <option value="dia">Dia</option>
+          <option value="semana">Semana</option>
+          <option value="mes">Mês</option>
+          <option value="personalizado">Período personalizado</option>
+        </select>
+        <input class="rm-date-input" id="rm-date-value-mecanicos" style="display:none;" oninput="rmRenderMecanicosBoard()">
+        <div class="rm-date-range" id="rm-date-range-mecanicos" style="display:none;">
+          <input type="date" class="rm-date-input" id="rm-date-start-mecanicos" oninput="rmRenderMecanicosBoard()">
+          <span class="rm-date-range-sep">até</span>
+          <input type="date" class="rm-date-input" id="rm-date-end-mecanicos" oninput="rmRenderMecanicosBoard()">
+        </div>
+      </div>
+
+      <div class="rm-board" id="rm-board-mecanicos"></div>
+    </section>
+
+    <section id="rm-view-lista" class="rm-view">
+      <h1 class="rm-title">Lista de motos</h1>
+
+      <div class="rm-toolbar">
+        <input class="rm-search" id="rm-search-lista" placeholder="Buscar por cliente, moto, OS, mecânico ou anotações..." oninput="rmRenderLista()">
+        <select class="rm-date-select" id="rm-date-mode-lista" onchange="rmOnDateModeChange('rm-date-mode-lista','rm-date-value-lista','rm-date-range-lista'); rmRenderLista();">
+          <option value="todos">Todos os períodos</option>
+          <option value="dia">Dia</option>
+          <option value="semana">Semana</option>
+          <option value="mes">Mês</option>
+          <option value="personalizado">Período personalizado</option>
+        </select>
+        <input class="rm-date-input" id="rm-date-value-lista" style="display:none;" oninput="rmRenderLista()">
+        <div class="rm-date-range" id="rm-date-range-lista" style="display:none;">
+          <input type="date" class="rm-date-input" id="rm-date-start-lista" oninput="rmRenderLista()">
+          <span class="rm-date-range-sep">até</span>
+          <input type="date" class="rm-date-input" id="rm-date-end-lista" oninput="rmRenderLista()">
+        </div>
+      </div>
+
+      <div class="rm-table-wrap">
+        <table class="rm-table">
+          <colgroup>
+            <col style="width:110px"><col style="width:70px"><col style="width:130px"><col style="width:110px">
+            <col style="width:150px"><col style="width:170px"><col style="width:130px"><col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th class="rm-th-sortable" data-key="os" data-label="OS" onclick="rmListaSortClick('os')">OS</th>
+              <th class="rm-th-sortable" data-key="pago" data-label="Pago" onclick="rmListaSortClick('pago')">Pago</th>
+              <th class="rm-th-sortable" data-key="mecanico" data-label="Mecânico" onclick="rmListaSortClick('mecanico')">Mecânico</th>
+              <th class="rm-th-sortable" data-key="parado" data-label="Tempo parado" onclick="rmListaSortClick('parado')">Tempo parado</th>
+              <th class="rm-th-sortable" data-key="moto" data-label="Moto" onclick="rmListaSortClick('moto')">Moto</th>
+              <th class="rm-th-sortable" data-key="cliente" data-label="Cliente" onclick="rmListaSortClick('cliente')">Cliente</th>
+              <th class="rm-th-sortable" data-key="status" data-label="Status" onclick="rmListaSortClick('status')">Status</th>
+              <th class="rm-th-sortable" data-key="problemas" data-label="Problemas" onclick="rmListaSortClick('problemas')">Problemas</th>
+            </tr>
+          </thead>
+          <tbody id="rm-lista-body"></tbody>
+        </table>
+        <div class="rm-lista-empty" id="rm-lista-empty" style="display:none;">Nenhuma moto encontrada</div>
+      </div>
+    </section>
+    </div>
+
+    <div id="rm-section-clientes" class="rm-section">
+      <h1 class="rm-title">Clientes</h1>
+
+      <div class="rm-toolbar">
+        <input class="rm-search" id="rm-search-clientes" placeholder="Buscar por nome ou WhatsApp..." oninput="rmRenderClientes()">
+        <button class="rm-btn-add" onclick="rmAbrirNovoCliente()">Novo cliente</button>
+      </div>
+
+      <div class="rm-table-wrap">
+        <table class="rm-table">
+          <colgroup><col><col style="width:150px"><col style="width:120px"><col style="width:170px"><col style="width:130px"><col style="width:70px"><col></colgroup>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Situação</th>
+              <th>Crédito</th>
+              <th>WhatsApp</th>
+              <th>CPF</th>
+              <th>Motos</th>
+              <th>Observação</th>
+            </tr>
+          </thead>
+          <tbody id="rm-clientes-body"></tbody>
+        </table>
+        <div class="rm-lista-empty" id="rm-clientes-empty" style="display:none;">Nenhum cliente cadastrado ainda</div>
+      </div>
+    </div>
+
+    <div id="rm-section-produtos" class="rm-section">
+      <div class="rm-subnav">
+        <button class="rm-subnav-btn" id="rm-btn-produtos-cadastro" onclick="rmCliqueCadastroProduto()"><span class="rm-subnav-icon">&#10133;</span><span>Cadastro</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-produtos-estoque" onclick="rmSetViewProdutos('estoque')"><span class="rm-subnav-icon">&#128230;</span><span>Estoque</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-produtos-organizacao" onclick="rmSetViewProdutos('organizacao')"><span class="rm-subnav-icon">&#128194;</span><span>Organização</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-produtos-etiquetas" onclick="rmSetViewProdutos('etiquetas')"><span class="rm-subnav-icon">&#127991;</span><span>Etiquetas</span></button>
+      </div>
+
+      <div id="rm-view-produtos-estoque" class="rm-view">
+        <h1 class="rm-title">Estoque</h1>
+
+        <div class="rm-toolbar">
+          <input class="rm-search" id="rm-search-produtos" placeholder="Buscar por nome, código ou categoria..." oninput="rmRenderProdutos()">
+        </div>
+
+        <div class="rm-table-wrap">
+          <table class="rm-table">
+            <colgroup><col><col style="width:100px"><col style="width:110px"><col style="width:120px"><col style="width:110px"><col style="width:110px"><col style="width:110px"><col style="width:90px"><col style="width:90px"></colgroup>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Código</th>
+                <th>Marca</th>
+                <th>Localização</th>
+                <th>Preço consumidor</th>
+                <th>Preço parceiro</th>
+                <th>Estoque</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="rm-produtos-body"></tbody>
+          </table>
+          <div class="rm-lista-empty" id="rm-produtos-empty" style="display:none;">Nenhum produto cadastrado ainda</div>
+        </div>
+      </div>
+
+      <div id="rm-view-produtos-cadastro" class="rm-view">
+        <h1 class="rm-title">Cadastro de produto</h1>
+
+        <div class="rm-form-wrap" style="max-width:640px;">
+          <div class="rm-fieldgroup">
+            <span class="rm-fieldgroup-label">Identificação</span>
+            <label class="rm-label">Nome</label>
+            <input class="rm-input" id="rm-prod-nome" autocapitalize="characters">
+            <div class="rm-row">
+              <div>
+                <label class="rm-label">Código / SKU (opcional)</label>
+                <input class="rm-input" id="rm-prod-codigo">
+              </div>
+              <div>
+                <label class="rm-label">Código de barras / EAN (opcional)</label>
+                <input class="rm-input" id="rm-prod-codigo-barras" inputmode="numeric">
+              </div>
+            </div>
+            <label class="rm-label">Marca (opcional)</label>
+            <input class="rm-input" id="rm-prod-marca" autocapitalize="characters">
+          </div>
+
+          <div class="rm-fieldgroup">
+            <span class="rm-fieldgroup-label">Classificação</span>
+            <div class="rm-row">
+              <div>
+                <label class="rm-label">Categoria (opcional)</label>
+                <input class="rm-input" id="rm-prod-categoria" autocapitalize="characters">
+              </div>
+              <div>
+                <label class="rm-label">Subcategoria (opcional)</label>
+                <input class="rm-input" id="rm-prod-subcategoria" autocapitalize="characters">
+              </div>
+            </div>
+            <label class="rm-label">NCM (opcional — usado na nota fiscal)</label>
+            <input class="rm-input" id="rm-prod-ncm" inputmode="numeric">
+          </div>
+
+          <div class="rm-fieldgroup">
+            <span class="rm-fieldgroup-label">Preços</span>
+            <label class="rm-label">Preço de custo</label>
+            <input class="rm-input" id="rm-prod-preco-custo" inputmode="decimal" oninput="rmAtualizarMargens('rm-prod')">
+            <div class="rm-row">
+              <div>
+                <label class="rm-label">Preço consumidor</label>
+                <input class="rm-input" id="rm-prod-preco-consumidor" inputmode="decimal" oninput="rmAtualizarMargens('rm-prod')">
+                <span class="rm-margem-texto" id="rm-prod-margem-consumidor"></span>
+              </div>
+              <div>
+                <label class="rm-label">Preço parceiro</label>
+                <input class="rm-input" id="rm-prod-preco-parceiro" inputmode="decimal" oninput="rmAtualizarMargens('rm-prod')">
+                <span class="rm-margem-texto" id="rm-prod-margem-parceiro"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rm-fieldgroup">
+            <span class="rm-fieldgroup-label">Estoque</span>
+            <div class="rm-row">
+              <div>
+                <label class="rm-label">Quantidade atual</label>
+                <input class="rm-input" id="rm-prod-estoque-atual" inputmode="decimal" value="0">
+              </div>
+              <div>
+                <label class="rm-label">Estoque mínimo (opcional)</label>
+                <input class="rm-input" id="rm-prod-estoque-minimo" inputmode="decimal">
+              </div>
+              <div>
+                <label class="rm-label">Estoque máximo (opcional)</label>
+                <input class="rm-input" id="rm-prod-estoque-maximo" inputmode="decimal">
+              </div>
+            </div>
+            <div class="rm-row">
+              <div>
+                <label class="rm-label">Unidade</label>
+                <select class="rm-input" id="rm-prod-unidade">
+                  <option value="UN" selected>UN</option>
+                  <option value="PAR">PAR</option>
+                  <option value="L">L (litro)</option>
+                  <option value="KG">KG</option>
+                  <option value="CX">CX (caixa)</option>
+                  <option value="M">M (metro)</option>
+                </select>
+              </div>
+              <div>
+                <label class="rm-label">Localização (opcional)</label>
+                <input class="rm-input" id="rm-prod-localizacao" autocapitalize="characters">
+              </div>
+            </div>
+          </div>
+
+          <div class="rm-fieldgroup">
+            <span class="rm-fieldgroup-label">Fornecedor (opcional)</span>
+            <div class="rm-row">
+              <div>
+                <label class="rm-label">Fornecedor</label>
+                <input class="rm-input" id="rm-prod-fornecedor" autocapitalize="characters">
+              </div>
+              <div>
+                <label class="rm-label">Código no fornecedor</label>
+                <input class="rm-input" id="rm-prod-fornecedor-codigo">
+              </div>
+            </div>
+          </div>
+
+          <div class="rm-fieldgroup">
+            <span class="rm-fieldgroup-label">Peso e dimensões (opcional)</span>
+            <div class="rm-row">
+              <div>
+                <label class="rm-label">Peso (kg)</label>
+                <input class="rm-input" id="rm-prod-peso" inputmode="decimal">
+              </div>
+              <div>
+                <label class="rm-label">Comprimento (cm)</label>
+                <input class="rm-input" id="rm-prod-comprimento" inputmode="decimal">
+              </div>
+              <div>
+                <label class="rm-label">Largura (cm)</label>
+                <input class="rm-input" id="rm-prod-largura" inputmode="decimal">
+              </div>
+              <div>
+                <label class="rm-label">Altura (cm)</label>
+                <input class="rm-input" id="rm-prod-altura" inputmode="decimal">
+              </div>
+            </div>
+          </div>
+
+          <div class="rm-submit-bar">
+            <button class="rm-primary" onclick="rmSalvarProduto()">Cadastrar produto</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="rm-view-produtos-organizacao" class="rm-view">
+        <h1 class="rm-title">Organização</h1>
+        <p class="rm-placeholder-text">Essa área ainda vai ser construída.</p>
+      </div>
+
+      <div id="rm-view-produtos-etiquetas" class="rm-view">
+        <h1 class="rm-title">Etiquetas</h1>
+        <p class="rm-placeholder-text">Essa área ainda vai ser construída.</p>
+      </div>
+    </div>
+
+    <div id="rm-section-financeiro" class="rm-section">
+      <h1 class="rm-title">Financeiro</h1>
+      <p class="rm-placeholder-text">Essa área ainda vai ser construída.</p>
+    </div>
+
+    <div id="rm-section-relatorio" class="rm-section">
+      <h1 class="rm-title">Relatório</h1>
+      <p class="rm-placeholder-text">Essa área ainda vai ser construída.</p>
+    </div>
+
+    <div id="rm-section-configuracoes" class="rm-section">
+      <h1 class="rm-title">Configurações</h1>
+      <p class="rm-placeholder-text">Essa área ainda vai ser construída.</p>
+    </div>
+  </main>
+</div>
+
+<div class="rm-modal-backdrop" id="rm-modal-backdrop" onclick="if(event.target===this) rmCloseModal()">
+  <div class="rm-modal" id="rm-modal"></div>
+</div>
+
+<div class="rm-toast" id="rm-toast">Recepção registrada</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const RM_KEY = 'radicalMotos_recepcoes_v1';
+const RM_COUNTER_KEY = 'radicalMotos_recepcoes_counter';
+const RM_MEC_KEY = 'radicalMotos_mecanicos_v1';
+const RM_STATUS = {
+  aberto:     {label:'Motos em aberto',        color:'#d9433a'},
+  andamento:  {label:'Em andamento',           color:'#4a90d9'},
+  peca:       {label:'Aguardando peça',        color:'#a865c9'},
+  prontas:    {label:'Prontas',                color:'#4caf7d'},
+  antigas:    {label:'Antigas',                color:'#7a7f87'},
+  entregue:   {label:'Entregue',               color:'#3fb8af'}
+};
+const RM_STATUS_ORDER = ['aberto','andamento','prontas','peca','antigas','entregue'];
+
+const RM_SITUACAO = {
+  positivo:   {label:'Cadastro positivo', color:'#4caf7d'},
+  inativo:    {label:'Inativo',           color:'#7a7f87'},
+  negativado: {label:'Negativado',        color:'#d9433a'}
+};
+
+function rmCliqueCadastroProduto(){
+  const wide = window.matchMedia('(min-width: 860px)').matches;
+  if(wide){
+    rmAbrirCadastroProdutoRapido();
+  } else {
+    rmSetViewProdutos('cadastro');
+  }
+}
+
+function rmAbrirCadastroProdutoRapido(){
+  const modal = document.getElementById('rm-modal');
+  modal.classList.add('rm-modal-large');
+  modal.innerHTML = `
+    <div class="rm-modal-header">
+      <div><div class="rm-modal-title">Novo produto</div></div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
+    </div>
+
+    <div class="rm-modal-body">
+    <div class="rm-modal-col">
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Nome</span>
+      <input class="rm-input" id="rm-pqf-nome" autocapitalize="characters">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Código / SKU</span>
+      <input class="rm-input" id="rm-pqf-codigo">
+      <label class="rm-label">Código de barras / EAN</label>
+      <input class="rm-input" id="rm-pqf-codigo-barras" inputmode="numeric">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Marca</span>
+      <input class="rm-input" id="rm-pqf-marca" autocapitalize="characters">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Categoria</span>
+      <input class="rm-input" id="rm-pqf-categoria" autocapitalize="characters">
+      <label class="rm-label">Subcategoria</label>
+      <input class="rm-input" id="rm-pqf-subcategoria" autocapitalize="characters">
+      <label class="rm-label">NCM</label>
+      <input class="rm-input" id="rm-pqf-ncm" inputmode="numeric">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Fornecedor</span>
+      <input class="rm-input" id="rm-pqf-fornecedor" autocapitalize="characters">
+      <label class="rm-label">Código no fornecedor</label>
+      <input class="rm-input" id="rm-pqf-fornecedor-codigo">
+    </div>
+    </div>
+
+    <div class="rm-modal-col">
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Preço de custo</span>
+      <input class="rm-input" id="rm-pqf-preco-custo" inputmode="decimal" oninput="rmAtualizarMargens('rm-pqf')">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Preço consumidor</span>
+      <input class="rm-input" id="rm-pqf-preco-consumidor" inputmode="decimal" oninput="rmAtualizarMargens('rm-pqf')">
+      <span class="rm-margem-texto" id="rm-pqf-margem-consumidor"></span>
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Preço parceiro</span>
+      <input class="rm-input" id="rm-pqf-preco-parceiro" inputmode="decimal" oninput="rmAtualizarMargens('rm-pqf')">
+      <span class="rm-margem-texto" id="rm-pqf-margem-parceiro"></span>
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Estoque</span>
+      <div class="rm-row">
+        <div>
+          <label class="rm-label">Atual</label>
+          <input class="rm-input" id="rm-pqf-estoque-atual" inputmode="decimal" value="0">
+        </div>
+        <div>
+          <label class="rm-label">Mínimo</label>
+          <input class="rm-input" id="rm-pqf-estoque-minimo" inputmode="decimal">
+        </div>
+        <div>
+          <label class="rm-label">Máximo</label>
+          <input class="rm-input" id="rm-pqf-estoque-maximo" inputmode="decimal">
+        </div>
+      </div>
+      <div class="rm-row">
+        <div>
+          <label class="rm-label">Unidade</label>
+          <select class="rm-input" id="rm-pqf-unidade">
+            <option value="UN" selected>UN</option>
+            <option value="PAR">PAR</option>
+            <option value="L">L (litro)</option>
+            <option value="KG">KG</option>
+            <option value="CX">CX (caixa)</option>
+            <option value="M">M (metro)</option>
+          </select>
+        </div>
+        <div>
+          <label class="rm-label">Localização</label>
+          <input class="rm-input" id="rm-pqf-localizacao" autocapitalize="characters">
+        </div>
+      </div>
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Peso e dimensões</span>
+      <div class="rm-row">
+        <div>
+          <label class="rm-label">Peso (kg)</label>
+          <input class="rm-input" id="rm-pqf-peso" inputmode="decimal">
+        </div>
+        <div>
+          <label class="rm-label">Compr. (cm)</label>
+          <input class="rm-input" id="rm-pqf-comprimento" inputmode="decimal">
+        </div>
+        <div>
+          <label class="rm-label">Larg. (cm)</label>
+          <input class="rm-input" id="rm-pqf-largura" inputmode="decimal">
+        </div>
+        <div>
+          <label class="rm-label">Alt. (cm)</label>
+          <input class="rm-input" id="rm-pqf-altura" inputmode="decimal">
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+    <button class="rm-primary" onclick="rmSalvarProdutoRapido()">Cadastrar produto</button>
+  `;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+  setTimeout(()=>{ const f = document.getElementById('rm-pqf-nome'); if(f) f.focus(); }, 150);
+}
+
+function rmSalvarProdutoRapido(){
+  const nome = document.getElementById('rm-pqf-nome').value.trim().toUpperCase();
+  if(!nome){
+    alert('Preencha ao menos o nome do produto.');
+    return;
+  }
+  const produto = {
+    id: 'p' + Date.now(),
+    nome,
+    codigo: document.getElementById('rm-pqf-codigo').value.trim().toUpperCase(),
+    codigoBarras: document.getElementById('rm-pqf-codigo-barras').value.trim(),
+    marca: document.getElementById('rm-pqf-marca').value.trim().toUpperCase(),
+    categoria: document.getElementById('rm-pqf-categoria').value.trim().toUpperCase(),
+    subcategoria: document.getElementById('rm-pqf-subcategoria').value.trim().toUpperCase(),
+    ncm: document.getElementById('rm-pqf-ncm').value.trim(),
+    localizacao: document.getElementById('rm-pqf-localizacao').value.trim().toUpperCase(),
+    fornecedor: document.getElementById('rm-pqf-fornecedor').value.trim().toUpperCase(),
+    fornecedorCodigo: document.getElementById('rm-pqf-fornecedor-codigo').value.trim().toUpperCase(),
+    precoCusto: rmParseMoeda(document.getElementById('rm-pqf-preco-custo').value),
+    precoConsumidor: rmParseMoeda(document.getElementById('rm-pqf-preco-consumidor').value),
+    precoParceiro: rmParseMoeda(document.getElementById('rm-pqf-preco-parceiro').value),
+    estoqueAtual: rmParseMoeda(document.getElementById('rm-pqf-estoque-atual').value),
+    estoqueMinimo: rmParseMoeda(document.getElementById('rm-pqf-estoque-minimo').value),
+    estoqueMaximo: rmParseMoeda(document.getElementById('rm-pqf-estoque-maximo').value),
+    unidade: document.getElementById('rm-pqf-unidade').value,
+    pesoKg: rmParseMoeda(document.getElementById('rm-pqf-peso').value) || null,
+    comprimentoCm: rmParseMoeda(document.getElementById('rm-pqf-comprimento').value) || null,
+    larguraCm: rmParseMoeda(document.getElementById('rm-pqf-largura').value) || null,
+    alturaCm: rmParseMoeda(document.getElementById('rm-pqf-altura').value) || null,
+    ativo: true,
+    criadoEm: new Date().toISOString()
+  };
+  const list = rmLoadProdutos();
+  list.unshift(produto);
+  rmSaveProdutos(list);
+  rmDbUpsertProduto(produto);
+
+  rmShowToast(nome + ' cadastrado com sucesso');
+  rmCloseModal();
+  rmRenderProdutos();
+}
+
+function rmAtualizarMargens(prefixo){
+  const custo = rmParseMoeda(document.getElementById(prefixo+'-preco-custo').value);
+  [['consumidor','margem-consumidor'], ['parceiro','margem-parceiro']].forEach(([campo, alvoId])=>{
+    const precoEl = document.getElementById(prefixo+'-preco-'+campo);
+    const alvoEl = document.getElementById(prefixo+'-'+alvoId);
+    if(!precoEl || !alvoEl) return;
+    const preco = rmParseMoeda(precoEl.value);
+    if(preco <= 0 || custo <= 0){
+      alvoEl.textContent = '';
+      alvoEl.className = 'rm-margem-texto';
+      return;
+    }
+    const margem = ((preco - custo) / preco) * 100;
+    alvoEl.textContent = 'Margem: ' + margem.toFixed(1).replace('.',',') + '%';
+    alvoEl.className = 'rm-margem-texto ' + (margem >= 0 ? 'rm-margem-boa' : 'rm-margem-ruim');
+  });
+}
+
+function rmSalvarProduto(){
+  const nome = document.getElementById('rm-prod-nome').value.trim().toUpperCase();
+  if(!nome){
+    alert('Preencha ao menos o nome do produto.');
+    return;
+  }
+  const produto = {
+    id: 'p' + Date.now(),
+    nome,
+    codigo: document.getElementById('rm-prod-codigo').value.trim().toUpperCase(),
+    codigoBarras: document.getElementById('rm-prod-codigo-barras').value.trim(),
+    marca: document.getElementById('rm-prod-marca').value.trim().toUpperCase(),
+    categoria: document.getElementById('rm-prod-categoria').value.trim().toUpperCase(),
+    subcategoria: document.getElementById('rm-prod-subcategoria').value.trim().toUpperCase(),
+    ncm: document.getElementById('rm-prod-ncm').value.trim(),
+    localizacao: document.getElementById('rm-prod-localizacao').value.trim().toUpperCase(),
+    fornecedor: document.getElementById('rm-prod-fornecedor').value.trim().toUpperCase(),
+    fornecedorCodigo: document.getElementById('rm-prod-fornecedor-codigo').value.trim().toUpperCase(),
+    precoCusto: rmParseMoeda(document.getElementById('rm-prod-preco-custo').value),
+    precoConsumidor: rmParseMoeda(document.getElementById('rm-prod-preco-consumidor').value),
+    precoParceiro: rmParseMoeda(document.getElementById('rm-prod-preco-parceiro').value),
+    estoqueAtual: rmParseMoeda(document.getElementById('rm-prod-estoque-atual').value),
+    estoqueMinimo: rmParseMoeda(document.getElementById('rm-prod-estoque-minimo').value),
+    estoqueMaximo: rmParseMoeda(document.getElementById('rm-prod-estoque-maximo').value),
+    unidade: document.getElementById('rm-prod-unidade').value,
+    pesoKg: rmParseMoeda(document.getElementById('rm-prod-peso').value) || null,
+    comprimentoCm: rmParseMoeda(document.getElementById('rm-prod-comprimento').value) || null,
+    larguraCm: rmParseMoeda(document.getElementById('rm-prod-largura').value) || null,
+    alturaCm: rmParseMoeda(document.getElementById('rm-prod-altura').value) || null,
+    ativo: true,
+    criadoEm: new Date().toISOString()
+  };
+  const list = rmLoadProdutos();
+  list.unshift(produto);
+  rmSaveProdutos(list);
+  rmDbUpsertProduto(produto);
+
+  ['rm-prod-nome','rm-prod-codigo','rm-prod-codigo-barras','rm-prod-marca','rm-prod-categoria','rm-prod-subcategoria','rm-prod-ncm',
+   'rm-prod-localizacao','rm-prod-fornecedor','rm-prod-fornecedor-codigo','rm-prod-preco-custo','rm-prod-preco-consumidor',
+   'rm-prod-preco-parceiro','rm-prod-estoque-minimo','rm-prod-estoque-maximo','rm-prod-peso','rm-prod-comprimento','rm-prod-largura','rm-prod-altura']
+    .forEach(id => document.getElementById(id).value = '');
+  document.getElementById('rm-prod-estoque-atual').value = '0';
+  document.getElementById('rm-prod-unidade').value = 'UN';
+  ['rm-prod-margem-consumidor','rm-prod-margem-parceiro'].forEach(id=>{
+    document.getElementById(id).textContent = '';
+    document.getElementById(id).className = 'rm-margem-texto';
+  });
+
+  rmShowToast(nome + ' cadastrado com sucesso');
+  document.getElementById('rm-prod-nome').focus();
+}
+
+function rmRenderProdutos(){
+  const search = document.getElementById('rm-search-produtos').value.toLowerCase();
+  let list = rmLoadProdutos();
+  if(search){
+    list = list.filter(p =>
+      (p.nome||'').toLowerCase().includes(search) ||
+      (p.codigo||'').toLowerCase().includes(search) ||
+      (p.codigoBarras||'').toLowerCase().includes(search) ||
+      (p.marca||'').toLowerCase().includes(search) ||
+      (p.categoria||'').toLowerCase().includes(search) ||
+      (p.fornecedor||'').toLowerCase().includes(search) ||
+      (p.localizacao||'').toLowerCase().includes(search)
+    );
+  }
+  list = list.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR'));
+
+  const body = document.getElementById('rm-produtos-body');
+  const empty = document.getElementById('rm-produtos-empty');
+  if(!body || !empty) return;
+  body.innerHTML = '';
+  if(list.length === 0){
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  list.forEach(p=>{
+    const estoqueBaixo = p.estoqueMinimo > 0 && p.estoqueAtual <= p.estoqueMinimo;
+    const tr = document.createElement('tr');
+    if(p.ativo === false) tr.style.opacity = '0.5';
+    tr.innerHTML = `
+      <td data-label="Nome">${p.nome || '—'}</td>
+      <td data-label="Código">${p.codigo || '—'}</td>
+      <td data-label="Marca">${p.marca || '—'}</td>
+      <td data-label="Localização">${p.localizacao || '—'}</td>
+      <td data-label="Preço consumidor">${rmFormatMoeda(p.precoConsumidor)}</td>
+      <td data-label="Preço parceiro">${rmFormatMoeda(p.precoParceiro)}</td>
+      <td data-label="Estoque"><span class="${estoqueBaixo?'rm-produto-estoque-baixo':''}">${p.estoqueAtual}${estoqueBaixo?' ⚠':''}</span></td>
+      <td data-label="Status">${p.ativo === false ? '<span class="rm-pdv-tag-orcamento">Inativo</span>' : 'Ativo'}</td>
+    `;
+    tr.onclick = () => rmAbrirModalProduto(p.id);
+    body.appendChild(tr);
+  });
+}
+
+function rmAbrirModalProduto(id){
+  const p = rmLoadProdutos().find(x=>x.id===id);
+  if(!p) return;
+
+  const modal = document.getElementById('rm-modal');
+  modal.classList.add('rm-modal-large');
+  modal.innerHTML = `
+    <div class="rm-modal-header">
+      <div>
+        <div class="rm-modal-title">${p.nome||''}</div>
+        <div class="rm-modal-sub">${p.codigo ? p.codigo : 'Sem código'}</div>
+      </div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
+    </div>
+
+    <div class="rm-modal-body">
+    <div class="rm-modal-col">
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Nome</span>
+      <input class="rm-input" value="${p.nome||''}" onchange="rmUpdateProduto('${p.id}','nome',this.value.trim().toUpperCase())">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Código / SKU</span>
+      <input class="rm-input" value="${p.codigo||''}" onchange="rmUpdateProduto('${p.id}','codigo',this.value.trim().toUpperCase())">
+      <label class="rm-label">Código de barras / EAN</label>
+      <input class="rm-input" value="${p.codigoBarras||''}" onchange="rmUpdateProduto('${p.id}','codigoBarras',this.value.trim())">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Marca</span>
+      <input class="rm-input" value="${p.marca||''}" onchange="rmUpdateProduto('${p.id}','marca',this.value.trim().toUpperCase())">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Categoria</span>
+      <input class="rm-input" value="${p.categoria||''}" onchange="rmUpdateProduto('${p.id}','categoria',this.value.trim().toUpperCase())">
+      <label class="rm-label">Subcategoria</label>
+      <input class="rm-input" value="${p.subcategoria||''}" onchange="rmUpdateProduto('${p.id}','subcategoria',this.value.trim().toUpperCase())">
+      <label class="rm-label">NCM</label>
+      <input class="rm-input" value="${p.ncm||''}" onchange="rmUpdateProduto('${p.id}','ncm',this.value.trim())">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Fornecedor</span>
+      <input class="rm-input" value="${p.fornecedor||''}" onchange="rmUpdateProduto('${p.id}','fornecedor',this.value.trim().toUpperCase())">
+      <label class="rm-label">Código no fornecedor</label>
+      <input class="rm-input" value="${p.fornecedorCodigo||''}" onchange="rmUpdateProduto('${p.id}','fornecedorCodigo',this.value.trim().toUpperCase())">
+    </div>
+    <div class="rm-modal-section">
+      <div class="rm-toggle-row" style="margin-bottom:0;">
+        <span class="rm-toggle-row-label">Produto ativo</span>
+        <label class="rm-switch">
+          <input type="checkbox" ${p.ativo!==false?'checked':''} onchange="rmUpdateProduto('${p.id}','ativo',this.checked)">
+          <span class="rm-switch-track"></span>
+        </label>
+      </div>
+    </div>
+    </div>
+
+    <div class="rm-modal-col">
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Preço de custo</span>
+      <input class="rm-input" id="rm-modal-prod-custo" value="${p.precoCusto?String(p.precoCusto).replace('.',','):''}" onchange="rmUpdateProduto('${p.id}','precoCusto',rmParseMoeda(this.value))" oninput="rmAtualizarMargemModalProduto('${p.id}')">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Preço consumidor</span>
+      <input class="rm-input" id="rm-modal-prod-consumidor" value="${p.precoConsumidor?String(p.precoConsumidor).replace('.',','):''}" onchange="rmUpdateProduto('${p.id}','precoConsumidor',rmParseMoeda(this.value))" oninput="rmAtualizarMargemModalProduto('${p.id}')">
+      <span class="rm-margem-texto" id="rm-modal-margem-consumidor"></span>
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Preço parceiro</span>
+      <input class="rm-input" id="rm-modal-prod-parceiro" value="${p.precoParceiro?String(p.precoParceiro).replace('.',','):''}" onchange="rmUpdateProduto('${p.id}','precoParceiro',rmParseMoeda(this.value))" oninput="rmAtualizarMargemModalProduto('${p.id}')">
+      <span class="rm-margem-texto" id="rm-modal-margem-parceiro"></span>
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Estoque</span>
+      <div class="rm-row">
+        <div>
+          <label class="rm-label">Atual</label>
+          <input class="rm-input" value="${p.estoqueAtual||0}" onchange="rmUpdateProduto('${p.id}','estoqueAtual',rmParseMoeda(this.value))">
+        </div>
+        <div>
+          <label class="rm-label">Mínimo</label>
+          <input class="rm-input" value="${p.estoqueMinimo||''}" onchange="rmUpdateProduto('${p.id}','estoqueMinimo',rmParseMoeda(this.value))">
+        </div>
+        <div>
+          <label class="rm-label">Máximo</label>
+          <input class="rm-input" value="${p.estoqueMaximo||''}" onchange="rmUpdateProduto('${p.id}','estoqueMaximo',rmParseMoeda(this.value))">
+        </div>
+      </div>
+      <div class="rm-row">
+        <div>
+          <label class="rm-label">Unidade</label>
+          <select class="rm-input" onchange="rmUpdateProduto('${p.id}','unidade',this.value)">
+            ${['UN','PAR','L','KG','CX','M'].map(u=>`<option value="${u}"${p.unidade===u?' selected':''}>${u}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <label class="rm-label">Localização</label>
+          <input class="rm-input" value="${p.localizacao||''}" onchange="rmUpdateProduto('${p.id}','localizacao',this.value.trim().toUpperCase())">
+        </div>
+      </div>
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Peso e dimensões</span>
+      <div class="rm-row">
+        <div>
+          <label class="rm-label">Peso (kg)</label>
+          <input class="rm-input" value="${p.pesoKg||''}" onchange="rmUpdateProduto('${p.id}','pesoKg',rmParseMoeda(this.value)||null)">
+        </div>
+        <div>
+          <label class="rm-label">Compr. (cm)</label>
+          <input class="rm-input" value="${p.comprimentoCm||''}" onchange="rmUpdateProduto('${p.id}','comprimentoCm',rmParseMoeda(this.value)||null)">
+        </div>
+        <div>
+          <label class="rm-label">Larg. (cm)</label>
+          <input class="rm-input" value="${p.larguraCm||''}" onchange="rmUpdateProduto('${p.id}','larguraCm',rmParseMoeda(this.value)||null)">
+        </div>
+        <div>
+          <label class="rm-label">Alt. (cm)</label>
+          <input class="rm-input" value="${p.alturaCm||''}" onchange="rmUpdateProduto('${p.id}','alturaCm',rmParseMoeda(this.value)||null)">
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+    <button class="rm-btn-excluir" onclick="rmExcluirProduto('${p.id}')">Excluir este produto</button>
+  `;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+  rmAtualizarMargemModalProduto(p.id);
+}
+
+function rmAtualizarMargemModalProduto(){
+  const custo = rmParseMoeda(document.getElementById('rm-modal-prod-custo').value);
+  [['consumidor','margem-consumidor'], ['parceiro','margem-parceiro']].forEach(([campo, alvoSufixo])=>{
+    const precoEl = document.getElementById('rm-modal-prod-'+campo);
+    const alvoEl = document.getElementById('rm-modal-'+alvoSufixo);
+    if(!precoEl || !alvoEl) return;
+    const preco = rmParseMoeda(precoEl.value);
+    if(preco <= 0 || custo <= 0){
+      alvoEl.textContent = '';
+      alvoEl.className = 'rm-margem-texto';
+      return;
+    }
+    const margem = ((preco - custo) / preco) * 100;
+    alvoEl.textContent = 'Margem: ' + margem.toFixed(1).replace('.',',') + '%';
+    alvoEl.className = 'rm-margem-texto ' + (margem >= 0 ? 'rm-margem-boa' : 'rm-margem-ruim');
+  });
+}
+
+function rmUpdateProduto(id, field, value){
+  const list = rmLoadProdutos();
+  const item = list.find(p=>p.id===id);
+  if(item){
+    item[field] = value;
+    rmSaveProdutos(list);
+    rmDbUpsertProduto(item);
+  }
+  rmRenderProdutos();
+}
+
+function rmExcluirProduto(id){
+  const p = rmLoadProdutos().find(x=>x.id===id);
+  if(!p) return;
+  const ok = confirm(`Excluir o produto ${p.nome||''}? Essa ação não pode ser desfeita e remove em todos os dispositivos.`);
+  if(!ok) return;
+  const list = rmLoadProdutos().filter(x=>x.id!==id);
+  rmSaveProdutos(list);
+  rmDbDeleteProduto(id);
+  rmCloseModal();
+  rmShowToast('Produto excluído');
+  rmRenderProdutos();
+}
+
+function rmParseMoeda(str){
+  if(!str) return 0;
+  const limpo = String(str).trim().replace(/[^\d,.-]/g, '').replace(/\./g, '').replace(',', '.');
+  const n = parseFloat(limpo);
+  return isNaN(n) ? 0 : n;
+}
+
+function rmFormatMoeda(valor){
+  return 'R$ ' + (Number(valor) || 0).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+
+// ---- PDV ----
+const RM_FORMAS_PAGAMENTO = ['Dinheiro','Débito','Crédito','PIX','Boleto','Crediário'];
+let rmPdvModo = 'venda';
+
+function rmSetModoPdv(modo){
+  rmPdvModo = modo;
+  document.getElementById('rm-pdv-modo-venda').classList.toggle('active', modo==='venda');
+  document.getElementById('rm-pdv-modo-orcamento').classList.toggle('active', modo==='orcamento');
+  document.getElementById('rm-pdv-pagamento-block').style.display = modo==='orcamento' ? 'none' : '';
+  document.getElementById('rm-pdv-finalizar-btn').textContent = modo==='orcamento' ? 'Salvar orçamento' : 'Finalizar venda';
+}
+let rmPdvCarrinho = [];
+let rmPdvClienteId = null;
+let rmPdvClienteNome = '';
+let rmPdvFormaPagamento = null;
+let rmPdvTabelaPreco = 'consumidor';
+let rmPdvProdutoSelecionadoId = null;
+
+function rmSetTabelaPrecoPdv(tabela){
+  rmPdvTabelaPreco = tabela;
+  document.getElementById('rm-pdv-tabela-consumidor').classList.toggle('active', tabela==='consumidor');
+  document.getElementById('rm-pdv-tabela-parceiro').classList.toggle('active', tabela==='parceiro');
+
+  if(rmPdvProdutoSelecionadoId){
+    const p = rmLoadProdutos().find(x=>x.id===rmPdvProdutoSelecionadoId);
+    if(p){
+      const preco = tabela==='parceiro' ? p.precoParceiro : p.precoConsumidor;
+      document.getElementById('rm-pdv-item-preco').value = preco ? String(preco).replace('.',',') : '';
+    }
+  }
+
+  const produtos = rmLoadProdutos();
+  let mudouCarrinho = false;
+  rmPdvCarrinho.forEach(item=>{
+    if(!item.produtoId) return;
+    const p = produtos.find(x=>x.id===item.produtoId);
+    if(!p) return;
+    const novoPreco = tabela==='parceiro' ? p.precoParceiro : p.precoConsumidor;
+    if(novoPreco > 0 && novoPreco !== item.precoUnit){
+      item.precoUnit = novoPreco;
+      item.subtotal = novoPreco * item.quantidade;
+      mudouCarrinho = true;
+    }
+  });
+  if(mudouCarrinho){
+    rmRenderCarrinhoPdv();
+    rmShowToast('Preços do carrinho atualizados para a tabela ' + (tabela==='parceiro'?'Parceiro':'Consumidor'));
+  }
+}
+
+function rmBuscarProdutoPdv(query){
+  const lista = document.getElementById('rm-pdv-produto-lista');
+  rmPdvProdutoSelecionadoId = null;
+  const q = (query||'').trim().toLowerCase();
+  if(!q){ lista.classList.remove('show'); return; }
+  let produtos = rmLoadProdutos().filter(p => p.ativo !== false);
+  produtos = produtos.filter(p =>
+    (p.nome||'').toLowerCase().includes(q) ||
+    (p.codigo||'').toLowerCase().includes(q) ||
+    (p.codigoBarras||'').toLowerCase().includes(q)
+  ).slice(0, 8);
+
+  if(produtos.length === 0){
+    lista.innerHTML = '<div class="rm-autocomplete-empty">Nenhum produto encontrado</div>';
+  } else {
+    lista.innerHTML = produtos.map(p => {
+      const preco = rmPdvTabelaPreco==='parceiro' ? p.precoParceiro : p.precoConsumidor;
+      return `
+        <div class="rm-autocomplete-item" onclick="rmEscolherProdutoPdv('${p.id}')">
+          <div class="rm-autocomplete-nome">${p.nome}${p.codigo?` <span class="rm-autocomplete-apelido">(${p.codigo})</span>`:''}</div>
+          <div class="rm-autocomplete-tel">${rmFormatMoeda(preco)} · estoque: ${p.estoqueAtual}${p.unidade?' '+p.unidade:''}</div>
+        </div>
+      `;
+    }).join('');
+  }
+  lista.classList.add('show');
+}
+
+function rmEscolherProdutoPdv(produtoId){
+  const p = rmLoadProdutos().find(x=>x.id===produtoId);
+  if(!p) return;
+  rmPdvProdutoSelecionadoId = p.id;
+  document.getElementById('rm-pdv-item-nome').value = p.nome || '';
+  const preco = rmPdvTabelaPreco==='parceiro' ? p.precoParceiro : p.precoConsumidor;
+  document.getElementById('rm-pdv-item-preco').value = preco ? String(preco).replace('.',',') : '';
+  document.getElementById('rm-pdv-item-qtd').value = '1';
+  document.getElementById('rm-pdv-produto-lista').classList.remove('show');
+  document.getElementById('rm-pdv-item-qtd').focus();
+}
+
+function rmInicializarPdv(){
+  rmRenderCarrinhoPdv();
+  rmRenderFormasPagamentoPdv();
+  rmRenderClienteSelecionadoPdv();
+  rmRenderAtalhosPdv();
+  const vendedorSelect = document.getElementById('rm-pdv-vendedor');
+  if(vendedorSelect) vendedorSelect.innerHTML = rmMecanicoOptionsHtml('');
+  const dataVendasInput = document.getElementById('rm-date-value-vendas');
+  if(dataVendasInput && !dataVendasInput.value){
+    rmOnDateModeChange('rm-date-mode-vendas', 'rm-date-value-vendas', 'rm-date-range-vendas');
+  }
+  rmRenderVendasHoje();
+}
+
+const RM_PDV_ATALHOS_KEY = 'radicalMotos_pdv_atalhos_v1';
+
+function rmLoadAtalhosPdv(){
+  try{ return JSON.parse(localStorage.getItem(RM_PDV_ATALHOS_KEY)) || []; }catch(e){ return []; }
+}
+function rmSaveAtalhosPdv(list){ localStorage.setItem(RM_PDV_ATALHOS_KEY, JSON.stringify(list)); }
+
+function rmRenderAtalhosPdv(){
+  const wrap = document.getElementById('rm-pdv-atalhos');
+  if(!wrap) return;
+  const atalhos = rmLoadAtalhosPdv();
+  wrap.innerHTML = atalhos.map((a,i) => `
+    <span class="rm-pdv-atalho-btn">
+      <button class="rm-pdv-atalho-usar" onclick="rmUsarAtalhoPdv(${i})">${a.nome}<span class="rm-pdv-atalho-preco">${rmFormatMoeda(a.preco)}</span></button>
+      <button class="rm-pdv-atalho-remove" onclick="rmRemoverAtalhoPdv(${i})" title="Remover atalho">&times;</button>
+    </span>
+  `).join('') + `<button class="rm-pdv-atalho-add" onclick="rmNovoAtalhoPdv()">+ Atalho</button>`;
+}
+
+function rmUsarAtalhoPdv(index){
+  const atalhos = rmLoadAtalhosPdv();
+  const a = atalhos[index];
+  if(!a) return;
+  rmPdvCarrinho.push({ nome: a.nome, precoUnit: a.preco, quantidade: 1, subtotal: a.preco });
+  rmRenderCarrinhoPdv();
+}
+
+function rmNovoAtalhoPdv(){
+  const nome = prompt('Nome do atalho (ex: Troca de óleo):');
+  if(!nome || !nome.trim()) return;
+  const precoStr = prompt('Preço padrão desse item (R$):');
+  const preco = rmParseMoeda(precoStr);
+  if(preco <= 0){
+    alert('Preço inválido — o atalho não foi criado.');
+    return;
+  }
+  const atalhos = rmLoadAtalhosPdv();
+  atalhos.push({ nome: nome.trim().toUpperCase(), preco });
+  rmSaveAtalhosPdv(atalhos);
+  rmRenderAtalhosPdv();
+}
+
+function rmRemoverAtalhoPdv(index){
+  const atalhos = rmLoadAtalhosPdv();
+  atalhos.splice(index, 1);
+  rmSaveAtalhosPdv(atalhos);
+  rmRenderAtalhosPdv();
+}
+
+function rmDescontarEstoqueVenda(itens){
+  const produtos = rmLoadProdutos();
+  let mudou = false;
+  itens.forEach(item=>{
+    if(!item.produtoId) return;
+    const p = produtos.find(x=>x.id===item.produtoId);
+    if(!p) return;
+    p.estoqueAtual = (p.estoqueAtual || 0) - (item.quantidade || 0);
+    mudou = true;
+    rmDbUpsertProduto(p);
+  });
+  if(mudou){
+    rmSaveProdutos(produtos);
+    if(document.getElementById('rm-view-produtos-estoque') && document.getElementById('rm-view-produtos-estoque').classList.contains('active')){
+      rmRenderProdutos();
+    }
+  }
+}
+
+function rmAdicionarItemPdv(){
+  const nomeInput = document.getElementById('rm-pdv-item-nome');
+  const precoInput = document.getElementById('rm-pdv-item-preco');
+  const qtdInput = document.getElementById('rm-pdv-item-qtd');
+
+  const nome = nomeInput.value.trim().toUpperCase();
+  const preco = rmParseMoeda(precoInput.value);
+  const qtd = parseInt(qtdInput.value, 10) || 1;
+
+  if(!nome){ alert('Digite o nome do produto ou serviço.'); return; }
+  if(preco <= 0){ alert('Informe um preço válido.'); return; }
+
+  rmPdvCarrinho.push({ nome, precoUnit: preco, quantidade: qtd, subtotal: preco * qtd, produtoId: rmPdvProdutoSelecionadoId });
+
+  nomeInput.value = '';
+  precoInput.value = '';
+  qtdInput.value = '1';
+  rmPdvProdutoSelecionadoId = null;
+  nomeInput.focus();
+
+  rmRenderCarrinhoPdv();
+}
+
+function rmRemoverItemPdv(index){
+  rmPdvCarrinho.splice(index, 1);
+  rmRenderCarrinhoPdv();
+}
+
+function rmTotalCarrinhoPdv(){
+  return rmPdvCarrinho.reduce((soma, item) => soma + item.subtotal, 0);
+}
+
+function rmCalcularDescontoPdv(subtotal){
+  const valorInput = document.getElementById('rm-pdv-desconto-valor');
+  const tipoInput = document.getElementById('rm-pdv-desconto-tipo');
+  if(!valorInput || !tipoInput) return 0;
+  const valor = rmParseMoeda(valorInput.value);
+  if(valor <= 0) return 0;
+  let desconto = tipoInput.value === 'percentual' ? subtotal * (valor / 100) : valor;
+  if(desconto > subtotal) desconto = subtotal;
+  return desconto;
+}
+
+function rmRenderCarrinhoPdv(){
+  const lista = document.getElementById('rm-pdv-carrinho-lista');
+  const subtotalEl = document.getElementById('rm-pdv-subtotal-valor');
+  const totalEl = document.getElementById('rm-pdv-total-valor');
+  if(!lista || !totalEl) return;
+
+  if(rmPdvCarrinho.length === 0){
+    lista.innerHTML = '<div class="rm-problema-empty">Nenhum item adicionado ainda</div>';
+  } else {
+    lista.innerHTML = rmPdvCarrinho.map((item, i) => `
+      <div class="rm-pdv-cart-item">
+        <div>
+          <div class="rm-pdv-cart-item-nome">${item.nome}</div>
+          <div class="rm-pdv-cart-item-detalhe">${item.quantidade} × ${rmFormatMoeda(item.precoUnit)}</div>
+        </div>
+        <div class="rm-pdv-cart-item-right">
+          <span class="rm-pdv-cart-item-subtotal">${rmFormatMoeda(item.subtotal)}</span>
+          <button class="rm-pdv-cart-item-remove" onclick="rmRemoverItemPdv(${i})" title="Remover">&times;</button>
+        </div>
+      </div>
+    `).join('');
+  }
+  const subtotal = rmTotalCarrinhoPdv();
+  const desconto = rmCalcularDescontoPdv(subtotal);
+  if(subtotalEl) subtotalEl.textContent = rmFormatMoeda(subtotal);
+  totalEl.textContent = rmFormatMoeda(subtotal - desconto);
+
+  const descontoTexto = document.getElementById('rm-pdv-desconto-valor-texto');
+  const descontoLinha = document.getElementById('rm-pdv-desconto-line');
+  if(descontoTexto && descontoLinha){
+    descontoTexto.textContent = (desconto > 0 ? '-' : '') + rmFormatMoeda(desconto);
+    descontoLinha.classList.toggle('rm-pdv-desconto-ativo', desconto > 0);
+  }
+  if(document.getElementById('rm-pdv-troco-block') && document.getElementById('rm-pdv-troco-block').style.display !== 'none'){
+    rmCalcularTroco();
+  }
+}
+
+function rmRenderFormasPagamentoPdv(){
+  const grid = document.getElementById('rm-pdv-pagamento-grid');
+  if(!grid) return;
+  grid.innerHTML = RM_FORMAS_PAGAMENTO.map(forma => `
+    <button class="rm-pdv-pag-btn${rmPdvFormaPagamento===forma?' active':''}" onclick="rmEscolherPagamentoPdv('${forma}')">${forma}</button>
+  `).join('');
+}
+
+function rmEscolherPagamentoPdv(forma){
+  rmPdvFormaPagamento = forma;
+  rmRenderFormasPagamentoPdv();
+  const trocoBlock = document.getElementById('rm-pdv-troco-block');
+  if(trocoBlock){
+    trocoBlock.style.display = forma === 'Dinheiro' ? '' : 'none';
+    if(forma !== 'Dinheiro'){
+      document.getElementById('rm-pdv-valor-recebido').value = '';
+      const linha = document.getElementById('rm-pdv-troco-linha');
+      linha.textContent = '';
+      linha.className = '';
+    } else {
+      rmCalcularTroco();
+    }
+  }
+}
+
+function rmCalcularTroco(){
+  const linha = document.getElementById('rm-pdv-troco-linha');
+  if(!linha) return;
+  const recebido = rmParseMoeda(document.getElementById('rm-pdv-valor-recebido').value);
+  const subtotal = rmTotalCarrinhoPdv();
+  const desconto = rmCalcularDescontoPdv(subtotal);
+  const total = subtotal - desconto;
+  if(recebido <= 0){
+    linha.textContent = '';
+    linha.className = '';
+    return;
+  }
+  const troco = recebido - total;
+  if(troco < 0){
+    linha.textContent = 'Falta ' + rmFormatMoeda(Math.abs(troco));
+    linha.className = 'rm-pdv-troco-falta';
+  } else {
+    linha.textContent = 'Troco: ' + rmFormatMoeda(troco);
+    linha.className = 'rm-pdv-troco-ok';
+  }
+}
+
+function rmBuscarClienteModal(query){
+  const lista = document.getElementById('rm-modal-cliente-lista');
+  const q = (query||'').trim().toLowerCase();
+  let clientes = rmLoadClientes();
+  if(q){
+    clientes = clientes.filter(c =>
+      (c.nome||'').toLowerCase().includes(q) ||
+      (c.apelido||'').toLowerCase().includes(q) ||
+      (c.telefone||'').toLowerCase().includes(q) ||
+      (c.cpf||'').toLowerCase().includes(q)
+    );
+  }
+  clientes = clientes.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR')).slice(0, 8);
+
+  if(clientes.length === 0){
+    lista.innerHTML = '<div class="rm-autocomplete-empty">Nenhum cliente encontrado</div>';
+  } else {
+    lista.innerHTML = clientes.map(c => `
+      <div class="rm-autocomplete-item" onclick="rmEscolherClienteModal('${c.id}')">
+        <div class="rm-autocomplete-nome">${c.nome}${c.apelido?` <span class="rm-autocomplete-apelido">(${c.apelido})</span>`:''}</div>
+        ${c.telefone?`<div class="rm-autocomplete-tel">${c.telefone}</div>`:''}
+      </div>
+    `).join('');
+  }
+  lista.classList.add('show');
+}
+
+function rmEscolherClienteModal(clienteId){
+  const c = rmLoadClientes().find(x=>x.id===clienteId);
+  if(!c) return;
+  const id = rmActiveModalId;
+  const list = rmLoad();
+  const item = list.find(r=>r.id===id);
+  if(item){
+    item.clienteId = c.id;
+    item.nome = c.nome || '';
+    item.telefone = c.telefone || '';
+    if(c.observacao) item.observacao = c.observacao;
+    rmSave(list);
+    rmDbUpsertRecepcao(item);
+  }
+  rmOpenModal(id, rmActiveModalLarge);
+}
+
+function rmBuscarClientePdv(query){
+  const lista = document.getElementById('rm-pdv-cliente-lista');
+  const q = (query||'').trim().toLowerCase();
+  let clientes = rmLoadClientes();
+  if(q){
+    clientes = clientes.filter(c =>
+      (c.nome||'').toLowerCase().includes(q) ||
+      (c.apelido||'').toLowerCase().includes(q) ||
+      (c.telefone||'').toLowerCase().includes(q) ||
+      (c.cpf||'').toLowerCase().includes(q)
+    );
+  }
+  clientes = clientes.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR')).slice(0, 8);
+
+  if(clientes.length === 0){
+    lista.innerHTML = '<div class="rm-autocomplete-empty">Nenhum cliente encontrado</div>';
+  } else {
+    lista.innerHTML = clientes.map(c => `
+      <div class="rm-autocomplete-item" onclick="rmEscolherClientePdv('${c.id}')">
+        <div class="rm-autocomplete-nome">${c.nome}${c.apelido?` <span class="rm-autocomplete-apelido">(${c.apelido})</span>`:''}</div>
+        ${c.limiteCredito?`<div class="rm-autocomplete-tel">Limite: ${rmFormatMoeda(c.limiteCredito)}</div>`:''}
+      </div>
+    `).join('');
+  }
+  lista.classList.add('show');
+}
+
+function rmEscolherClientePdv(clienteId){
+  const c = rmLoadClientes().find(x=>x.id===clienteId);
+  if(!c) return;
+  rmPdvClienteId = c.id;
+  rmPdvClienteNome = c.nome;
+  document.getElementById('rm-pdv-cliente-busca').value = '';
+  document.getElementById('rm-pdv-cliente-lista').classList.remove('show');
+  rmRenderClienteSelecionadoPdv();
+}
+
+function rmLimparClientePdv(){
+  rmPdvClienteId = null;
+  rmPdvClienteNome = '';
+  rmRenderClienteSelecionadoPdv();
+}
+
+function rmRenderClienteSelecionadoPdv(){
+  const wrap = document.getElementById('rm-pdv-cliente-wrap');
+  if(!wrap) return;
+  let tag = document.getElementById('rm-pdv-cliente-tag');
+  if(tag) tag.remove();
+  if(rmPdvClienteId){
+    const div = document.createElement('div');
+    div.className = 'rm-pdv-cliente-tag';
+    div.id = 'rm-pdv-cliente-tag';
+    div.innerHTML = `<span>${rmPdvClienteNome}</span><button onclick="rmLimparClientePdv()" title="Remover">&times;</button>`;
+    wrap.appendChild(div);
+  }
+}
+
+document.addEventListener('click', function(e){
+  const pdvWrap = document.getElementById('rm-pdv-cliente-wrap');
+  const pdvLista = document.getElementById('rm-pdv-cliente-lista');
+  if(pdvWrap && pdvLista && !pdvWrap.contains(e.target)){
+    pdvLista.classList.remove('show');
+  }
+});
+
+function rmNextVendaCode(){
+  const list = rmLoadVendas();
+  let maxN = 0;
+  list.forEach(v=>{
+    const m = /^V-(\d+)$/.exec(v.codigoVenda || '');
+    if(m) maxN = Math.max(maxN, parseInt(m[1], 10));
+  });
+  return 'V-' + String(maxN + 1).padStart(4, '0');
+}
+
+function rmNextOrcamentoCode(){
+  const list = rmLoadVendas();
+  let maxN = 0;
+  list.forEach(v=>{
+    const m = /^OR-(\d+)$/.exec(v.codigoVenda || '');
+    if(m) maxN = Math.max(maxN, parseInt(m[1], 10));
+  });
+  return 'OR-' + String(maxN + 1).padStart(4, '0');
+}
+
+function rmFinalizarVenda(){
+  if(rmPdvCarrinho.length === 0){
+    alert('Adicione ao menos um item ao carrinho.');
+    return;
+  }
+  const isOrcamento = rmPdvModo === 'orcamento';
+
+  if(!isOrcamento){
+    if(!rmPdvFormaPagamento){
+      alert('Selecione a forma de pagamento.');
+      return;
+    }
+    if(rmPdvFormaPagamento === 'Crediário' && !rmPdvClienteId){
+      alert('Pra vender fiado (crediário), selecione o cliente primeiro.');
+      return;
+    }
+  }
+
+  const subtotal = rmTotalCarrinhoPdv();
+  const desconto = rmCalcularDescontoPdv(subtotal);
+
+  const venda = {
+    id: 'v' + Date.now(),
+    codigoVenda: isOrcamento ? rmNextOrcamentoCode() : rmNextVendaCode(),
+    tipo: isOrcamento ? 'orcamento' : 'venda',
+    clienteId: rmPdvClienteId,
+    clienteNome: rmPdvClienteNome || null,
+    vendedor: document.getElementById('rm-pdv-vendedor').value.trim(),
+    itens: rmPdvCarrinho.slice(),
+    subtotal: subtotal,
+    desconto: desconto,
+    total: subtotal - desconto,
+    formaPagamento: isOrcamento ? null : rmPdvFormaPagamento,
+    observacao: null,
+    criadoEm: new Date().toISOString()
+  };
+
+  const list = rmLoadVendas();
+  list.unshift(venda);
+  rmSaveVendas(list);
+  rmDbUpsertVenda(venda);
+
+  if(!isOrcamento){
+    rmDescontarEstoqueVenda(venda.itens);
+  }
+
+  rmShowToast(venda.codigoVenda + (isOrcamento ? ' salvo — ' : ' finalizada — ') + rmFormatMoeda(venda.total));
+
+  rmPdvCarrinho = [];
+  rmPdvFormaPagamento = null;
+  document.getElementById('rm-pdv-desconto-valor').value = '';
+  document.getElementById('rm-pdv-desconto-tipo').value = 'valor';
+  document.getElementById('rm-pdv-valor-recebido').value = '';
+  document.getElementById('rm-pdv-troco-linha').textContent = '';
+  document.getElementById('rm-pdv-troco-linha').className = '';
+  document.getElementById('rm-pdv-troco-block').style.display = 'none';
+  rmLimparClientePdv();
+  rmRenderCarrinhoPdv();
+  rmRenderFormasPagamentoPdv();
+  rmRenderVendasHoje();
+}
+
+function rmRenderVendasHoje(){
+  const body = document.getElementById('rm-pdv-vendas-hoje-body');
+  const empty = document.getElementById('rm-pdv-vendas-hoje-empty');
+  if(!body || !empty) return;
+
+  const modeEl = document.getElementById('rm-date-mode-vendas');
+  const mode = modeEl ? modeEl.value : 'todos';
+  let range = null;
+  if(mode === 'personalizado'){
+    range = rmCustomRangeFromInputs('rm-date-start-vendas', 'rm-date-end-vendas');
+  } else if(mode !== 'todos'){
+    const value = document.getElementById('rm-date-value-vendas').value;
+    range = rmDateRangeFromInput(mode, value);
+  }
+
+  let vendasHoje = rmLoadVendas();
+  if(range){
+    vendasHoje = vendasHoje.filter(v => {
+      const t = new Date(v.criadoEm).getTime();
+      return t >= range.start.getTime() && t < range.end.getTime();
+    });
+  }
+  vendasHoje = vendasHoje.sort((a,b) => new Date(b.criadoEm) - new Date(a.criadoEm));
+
+  if(vendasHoje.length === 0){
+    empty.style.display = 'block';
+    body.innerHTML = '';
+    return;
+  }
+  empty.style.display = 'none';
+
+  body.innerHTML = vendasHoje.map(v => `
+    <tr onclick="rmAbrirDetalheVenda('${v.id}')">
+      <td data-label="Código"><b>${v.codigoVenda||''}</b></td>
+      <td data-label="Hora">${new Date(v.criadoEm).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}</td>
+      <td data-label="Cliente">${v.clienteNome || '—'}</td>
+      <td data-label="Pagamento">${v.tipo==='orcamento' ? '<span class="rm-pdv-tag-orcamento">Orçamento</span>' : (v.formaPagamento || '—')}</td>
+      <td data-label="Total"><b>${rmFormatMoeda(v.total)}</b></td>
+    </tr>
+  `).join('');
+}
+
+function rmAbrirDetalheVenda(id){
+  const v = rmLoadVendas().find(x=>x.id===id);
+  if(!v) return;
+  const isOrcamento = v.tipo === 'orcamento';
+
+  const itensHtml = (v.itens||[]).map(item => `
+    <div class="rm-pdv-cart-item">
+      <div>
+        <div class="rm-pdv-cart-item-nome">${item.nome}</div>
+        <div class="rm-pdv-cart-item-detalhe">${item.quantidade} × ${rmFormatMoeda(item.precoUnit)}</div>
+      </div>
+      <span class="rm-pdv-cart-item-subtotal">${rmFormatMoeda(item.subtotal)}</span>
+    </div>
+  `).join('');
+
+  const modal = document.getElementById('rm-modal');
+  modal.classList.remove('rm-modal-large');
+  modal.innerHTML = `
+    <div class="rm-modal-header">
+      <div>
+        <div class="rm-modal-title">${v.codigoVenda||''}</div>
+        <div class="rm-modal-sub">${new Date(v.criadoEm).toLocaleString('pt-BR')}${isOrcamento?' · Orçamento':''}</div>
+      </div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Itens</span>
+      <div class="rm-pdv-cart-list">${itensHtml || '<div class="rm-problema-empty">Nenhum item</div>'}</div>
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Resumo</span>
+      <div class="rm-pdv-hero-lines" style="border-top:none; padding-top:0; margin-top:0;">
+        <div class="rm-pdv-hero-line"><span>Subtotal</span><b>${rmFormatMoeda(v.subtotal)}</b></div>
+        <div class="rm-pdv-hero-line${v.desconto>0?' rm-pdv-desconto-ativo':''}" id="rm-pdv-desconto-line"><span>Desconto</span><b>${v.desconto>0?'-':''}${rmFormatMoeda(v.desconto)}</b></div>
+        <div class="rm-pdv-hero-line"><span style="font-weight:700; color:var(--rm-text);">Total</span><b style="font-size:18px;">${rmFormatMoeda(v.total)}</b></div>
+      </div>
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">${isOrcamento?'Situação':'Pagamento'}</span>
+      <div style="font-size:14px;">${isOrcamento?'Orçamento (ainda não vendido)':(v.formaPagamento||'—')}</div>
+    </div>
+
+    ${v.clienteNome?`
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Cliente</span>
+      <div style="font-size:14px;">${v.clienteNome}</div>
+    </div>`:''}
+
+    ${v.vendedor?`
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Vendedor</span>
+      <div style="font-size:14px;">${v.vendedor}</div>
+    </div>`:''}
+
+    ${isOrcamento?`<button class="rm-primary" style="margin-bottom:10px;" onclick="rmConverterOrcamentoEmVenda('${v.id}')">Transformar em venda</button>`:''}
+    <button class="rm-btn-excluir" onclick="rmExcluirVenda('${v.id}')">Excluir ${isOrcamento?'este orçamento':'esta venda'}</button>
+  `;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+
+function rmConverterOrcamentoEmVenda(id){
+  const v = rmLoadVendas().find(x=>x.id===id);
+  if(!v) return;
+  rmPdvCarrinho = (v.itens||[]).map(item => Object.assign({}, item));
+  rmPdvClienteId = v.clienteId || null;
+  rmPdvClienteNome = v.clienteNome || '';
+  rmSetModoPdv('venda');
+  rmCloseModal();
+  rmRenderCarrinhoPdv();
+  rmRenderClienteSelecionadoPdv();
+  const vendedorSelect = document.getElementById('rm-pdv-vendedor');
+  if(vendedorSelect && v.vendedor) vendedorSelect.value = v.vendedor;
+  if(v.desconto > 0){
+    document.getElementById('rm-pdv-desconto-valor').value = String(v.desconto).replace('.',',');
+    document.getElementById('rm-pdv-desconto-tipo').value = 'valor';
+    rmRenderCarrinhoPdv();
+  }
+  rmShowToast('Orçamento carregado — escolha a forma de pagamento e finalize a venda');
+}
+
+async function rmDbDeleteVenda(id){
+  const { error } = await rmSb.from('vendas').delete().eq('id', id);
+  if(error) console.error('Supabase delete venda:', error);
+}
+
+function rmExcluirVenda(id){
+  const v = rmLoadVendas().find(x=>x.id===id);
+  if(!v) return;
+  const tipoTexto = v.tipo === 'orcamento' ? 'este orçamento' : 'esta venda';
+  const ok = confirm(`Excluir ${tipoTexto} (${v.codigoVenda||''})? Essa ação não pode ser desfeita e remove em todos os dispositivos.`);
+  if(!ok) return;
+  const list = rmLoadVendas().filter(x=>x.id!==id);
+  rmSaveVendas(list);
+  rmDbDeleteVenda(id);
+  rmCloseModal();
+  rmShowToast((v.tipo==='orcamento'?'Orçamento':'Venda') + ' excluído(a)');
+  rmRenderVendasHoje();
+}
+
+let rmActiveModalId = null;
+
+// ---- Supabase: conexão e sincronização entre dispositivos ----
+const RM_SUPABASE_URL = 'https://wvrwujrvhcltzmwyonou.supabase.co';
+const RM_SUPABASE_KEY = 'sb_publishable_pV0p4YAU5j9Qnb578NLqkQ_ALJxigjy';
+const rmSb = supabase.createClient(RM_SUPABASE_URL, RM_SUPABASE_KEY);
+let rmOnline = true;
+
+function rmComprimirImagem(file, maxDim, qualidade){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let width = img.width, height = img.height;
+        if(width > height && width > maxDim){
+          height = Math.round(height * (maxDim / width));
+          width = maxDim;
+        } else if(height >= width && height > maxDim){
+          width = Math.round(width * (maxDim / height));
+          height = maxDim;
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        canvas.toBlob((blob) => {
+          if(blob) resolve(blob); else reject(new Error('Falha ao comprimir imagem'));
+        }, 'image/jpeg', qualidade);
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function rmUploadFotoMoto(file, recepcaoId){
+  try{
+    const blob = await rmComprimirImagem(file, 1000, 0.65);
+    const path = recepcaoId + '-' + Date.now() + '.jpg';
+    const { error } = await rmSb.storage.from('motos-fotos').upload(path, blob, { contentType: 'image/jpeg', upsert: true });
+    if(error){ console.error('Erro no upload da foto:', error); return null; }
+    const { data } = rmSb.storage.from('motos-fotos').getPublicUrl(path);
+    return data.publicUrl;
+  } catch(err){
+    console.error('Erro ao comprimir/enviar foto:', err);
+    return null;
+  }
+}
+
+let rmFotoFilePendente = { form: null, quick: null };
+
+function rmPreviewFoto(input, contexto){
+  const file = input.files[0];
+  if(!file) return;
+  rmFotoFilePendente[contexto] = file;
+  const previewId = contexto === 'form' ? 'rm-f-foto-preview' : 'rm-qf-foto-preview';
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    document.getElementById(previewId).innerHTML = `
+      <img src="${e.target.result}" class="rm-foto-thumb">
+      <button type="button" onclick="rmRemoverFoto('${contexto}')">Remover foto</button>
+    `;
+  };
+  reader.readAsDataURL(file);
+}
+
+function rmRemoverFoto(contexto){
+  rmFotoFilePendente[contexto] = null;
+  const previewId = contexto === 'form' ? 'rm-f-foto-preview' : 'rm-qf-foto-preview';
+  const inputId = contexto === 'form' ? 'rm-f-foto' : 'rm-qf-foto';
+  document.getElementById(previewId).innerHTML = '';
+  document.getElementById(inputId).value = '';
+}
+
+async function rmUploadFotoModal(input, id){
+  const file = input.files[0];
+  if(!file) return;
+  rmShowToast('Enviando foto...');
+  const url = await rmUploadFotoMoto(file, id);
+  if(url){
+    rmUpdateField(id, 'fotoUrl', url);
+    rmOpenModal(id, rmActiveModalLarge);
+    rmShowToast('Foto atualizada');
+  } else {
+    alert('Não foi possível enviar a foto. Verifique a conexão e tente de novo.');
+  }
+}
+
+function rmFromDbRow(row){
+  return {
+    id: row.id,
+    codigoApp: row.codigo_app,
+    nome: row.nome,
+    telefone: row.telefone,
+    modelo: row.modelo,
+    entrega: row.entrega,
+    buscar: row.buscar,
+    problemas: row.problemas || [],
+    mecanico: row.mecanico,
+    codigoInterno: row.codigo_interno,
+    itens: row.itens,
+    observacao: row.observacao,
+    anotacoes: row.anotacoes,
+    status: row.status,
+    entrada: row.entrada,
+    historico: row.historico || [],
+    clienteId: row.cliente_id,
+    dataManual: row.data_manual,
+    fotoUrl: row.foto_url,
+    pago: row.pago
+  };
+}
+
+function rmToDbRow(r){
+  return {
+    id: r.id,
+    codigo_app: r.codigoApp,
+    nome: r.nome,
+    telefone: r.telefone,
+    modelo: r.modelo,
+    entrega: !!r.entrega,
+    buscar: !!r.buscar,
+    problemas: r.problemas || [],
+    mecanico: r.mecanico || null,
+    codigo_interno: r.codigoInterno || null,
+    itens: r.itens || null,
+    observacao: r.observacao || null,
+    anotacoes: r.anotacoes || null,
+    status: r.status,
+    entrada: r.entrada,
+    historico: r.historico || [],
+    cliente_id: r.clienteId || null,
+    data_manual: r.dataManual || null,
+    foto_url: r.fotoUrl || null,
+    pago: !!r.pago,
+    updated_at: new Date().toISOString()
+  };
+}
+
+async function rmDbBulkReplace(recepcoes, mecanicos){
+  try{
+    await rmSb.from('recepcoes').delete().neq('id', '__never__');
+    await rmSb.from('mecanicos').delete().neq('nome', '__never__');
+    if(recepcoes.length){
+      const rows = recepcoes.map(rmToDbRow);
+      await rmSb.from('recepcoes').insert(rows);
+    }
+    if(mecanicos.length){
+      await rmSb.from('mecanicos').insert(mecanicos.map(nome => ({nome})));
+    }
+    rmShowToast('Backup restaurado em todos os dispositivos');
+  } catch(err){
+    console.error('Erro ao restaurar backup no Supabase:', err);
+    alert('O backup foi restaurado neste dispositivo, mas houve um erro ao sincronizar com os outros. Verifique a conexão.');
+  }
+}
+
+async function rmDbUpsertRecepcao(record){
+  const { error } = await rmSb.from('recepcoes').upsert(rmToDbRow(record));
+  if(error){ console.error('Supabase upsert recepcao:', error); rmSetOnlineStatus(false); }
+  else rmSetOnlineStatus(true);
+}
+
+async function rmDbInsertMecanico(nome){
+  const { error } = await rmSb.from('mecanicos').insert({ nome });
+  if(error) console.error('Supabase insert mecanico:', error);
+}
+
+async function rmDbDeleteMecanico(nome){
+  const { error } = await rmSb.from('mecanicos').delete().eq('nome', nome);
+  if(error) console.error('Supabase delete mecanico:', error);
+}
+
+let rmFirstSyncDone = false;
+
+async function rmSyncFromSupabase(){
+  const [recepcoesRes, mecanicosRes, clientesRes, vendasRes, produtosRes] = await Promise.all([
+    rmSb.from('recepcoes').select('*'),
+    rmSb.from('mecanicos').select('nome').order('nome'),
+    rmSb.from('clientes').select('*'),
+    rmSb.from('vendas').select('*'),
+    rmSb.from('produtos').select('*')
+  ]);
+  if(recepcoesRes.error || mecanicosRes.error || clientesRes.error || vendasRes.error || produtosRes.error){
+    console.error('Supabase sync error:', recepcoesRes.error || mecanicosRes.error || clientesRes.error || vendasRes.error || produtosRes.error);
+    rmSetOnlineStatus(false);
+    return;
+  }
+  rmSetOnlineStatus(true);
+  const recepcoes = recepcoesRes.data.map(rmFromDbRow);
+  const mecanicos = mecanicosRes.data.map(m => m.nome);
+  const clientes = clientesRes.data.map(rmFromDbRowCliente);
+  const vendas = vendasRes.data.map(rmFromDbRowVenda);
+  const produtos = produtosRes.data.map(rmFromDbRowProduto);
+  rmSave(recepcoes);
+  rmSaveMecanicos(mecanicos);
+  rmSaveClientes(clientes);
+  rmSaveVendas(vendas);
+  rmSaveProdutos(produtos);
+  if(recepcoes.length === 0){
+    localStorage.setItem(RM_COUNTER_KEY, '0');
+  }
+  rmRenderActiveBoard();
+  rmRenderMecanicosChips();
+  rmRefreshMecanicoSelects();
+  if(document.getElementById('rm-section-clientes').classList.contains('active')){
+    rmRenderClientes();
+  }
+  if(document.getElementById('rm-section-pdv').classList.contains('active')){
+    rmRenderVendasHoje();
+  }
+  if(document.getElementById('rm-view-produtos-estoque') && document.getElementById('rm-view-produtos-estoque').classList.contains('active')){
+    rmRenderProdutos();
+  }
+  if(!rmFirstSyncDone){
+    rmFirstSyncDone = true;
+    const nomeField = document.getElementById('rm-f-nome');
+    const receptionActive = document.getElementById('rm-view-reception').classList.contains('active');
+    if(receptionActive && nomeField && !nomeField.value.trim()){
+      rmPendingCode = null;
+      rmPrepareNewOS();
+    }
+  }
+}
+
+function rmSetupRealtime(){
+  rmSb.channel('recepcoes-changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'recepcoes' }, () => rmSyncFromSupabase())
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'recepcoes' }, (payload) => rmHandleNovaRecepcaoRemota(payload.new))
+    .subscribe();
+  rmSb.channel('mecanicos-changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'mecanicos' }, () => rmSyncFromSupabase())
+    .subscribe();
+  rmSb.channel('clientes-changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'clientes' }, () => rmSyncFromSupabase())
+    .subscribe();
+  rmSb.channel('vendas-changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'vendas' }, () => rmSyncFromSupabase())
+    .subscribe();
+  rmSb.channel('produtos-changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'produtos' }, () => rmSyncFromSupabase())
+    .subscribe();
+}
+
+const RM_AUTOPRINT_KEY = 'radicalMotos_autoprint_v1';
+
+function rmSetAutoprint(enabled){
+  localStorage.setItem(RM_AUTOPRINT_KEY, enabled ? 'true' : 'false');
+  console.log('[Radical Motos] Impressão automática:', enabled ? 'LIGADA' : 'desligada');
+}
+
+function rmHandleNovaRecepcaoRemota(row){
+  console.log('[Radical Motos] Nova moto recebida via tempo real:', row && row.codigo_app);
+  if(localStorage.getItem(RM_AUTOPRINT_KEY) !== 'true'){
+    console.log('[Radical Motos] Impressão automática está desligada neste dispositivo — não vai imprimir.');
+    return;
+  }
+  console.log('[Radical Motos] Disparando impressão automática...');
+  rmImprimirEtiquetaRecord(rmFromDbRow(row));
+}
+
+function rmSetOnlineStatus(online){
+  rmOnline = online;
+  const dot = document.getElementById('rm-sync-dot');
+  const label = document.getElementById('rm-sync-label');
+  if(!dot || !label) return;
+  dot.classList.toggle('rm-sync-offline', !online);
+  label.textContent = online ? 'Sincronizado' : 'Sem conexão — usando dados locais';
+}
+
+function rmLoad(){
+  try{ return JSON.parse(localStorage.getItem(RM_KEY)) || []; }catch(e){ return []; }
+}
+function rmSave(list){ localStorage.setItem(RM_KEY, JSON.stringify(list)); }
+
+function rmExportarBackup(){
+  const dados = {
+    recepcoes: rmLoad(),
+    mecanicos: rmLoadMecanicos(),
+    contador: localStorage.getItem(RM_COUNTER_KEY) || '0',
+    exportadoEm: new Date().toISOString()
+  };
+  const blob = new Blob([JSON.stringify(dados, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const dataStr = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = `radical-motos-backup-${dataStr}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  rmShowToast('Backup baixado com sucesso');
+}
+
+function rmImportarBackup(fileInput){
+  const file = fileInput.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    let dados;
+    try{
+      dados = JSON.parse(e.target.result);
+    } catch(err){
+      alert('Não foi possível ler esse arquivo. Confirme que é um backup exportado por este app.');
+      fileInput.value = '';
+      return;
+    }
+    if(!dados || !Array.isArray(dados.recepcoes)){
+      alert('Esse arquivo não parece ser um backup válido deste app.');
+      fileInput.value = '';
+      return;
+    }
+    const ok = confirm('Isso vai substituir TODOS os dados atuais (motos e mecânicos) em todos os dispositivos conectados, pelos do backup. Essa ação não pode ser desfeita. Deseja continuar?');
+    if(!ok){
+      fileInput.value = '';
+      return;
+    }
+    rmSave(dados.recepcoes);
+    rmSaveMecanicos(Array.isArray(dados.mecanicos) ? dados.mecanicos : []);
+    if(dados.contador) localStorage.setItem(RM_COUNTER_KEY, dados.contador);
+    fileInput.value = '';
+    rmShowToast('Restaurando backup em todos os dispositivos...');
+    rmRenderActiveBoard();
+    rmRenderMecanicosChips();
+    rmRefreshMecanicoSelects();
+    rmDbBulkReplace(dados.recepcoes, Array.isArray(dados.mecanicos) ? dados.mecanicos : []);
+  };
+  reader.readAsText(file);
+}
+
+function rmLoadMecanicos(){
+  try{ return JSON.parse(localStorage.getItem(RM_MEC_KEY)) || []; }catch(e){ return []; }
+}
+function rmSaveMecanicos(list){ localStorage.setItem(RM_MEC_KEY, JSON.stringify(list)); }
+
+const RM_CLIENTES_KEY = 'radicalMotos_clientes_v1';
+
+const RM_VENDAS_KEY = 'radicalMotos_vendas_v1';
+
+const RM_PRODUTOS_KEY = 'radicalMotos_produtos_v1';
+
+function rmLoadProdutos(){
+  try{ return JSON.parse(localStorage.getItem(RM_PRODUTOS_KEY)) || []; }catch(e){ return []; }
+}
+function rmSaveProdutos(list){ localStorage.setItem(RM_PRODUTOS_KEY, JSON.stringify(list)); }
+
+function rmFromDbRowProduto(row){
+  return {
+    id: row.id,
+    nome: row.nome,
+    codigo: row.codigo,
+    codigoBarras: row.codigo_barras,
+    marca: row.marca,
+    categoria: row.categoria,
+    subcategoria: row.subcategoria,
+    ncm: row.ncm,
+    localizacao: row.localizacao,
+    fornecedor: row.fornecedor,
+    fornecedorCodigo: row.fornecedor_codigo,
+    precoCusto: row.preco_custo || 0,
+    precoConsumidor: row.preco_consumidor || 0,
+    precoParceiro: row.preco_parceiro || 0,
+    estoqueAtual: row.estoque_atual || 0,
+    estoqueMinimo: row.estoque_minimo || 0,
+    estoqueMaximo: row.estoque_maximo || 0,
+    unidade: row.unidade || 'UN',
+    pesoKg: row.peso_kg || null,
+    comprimentoCm: row.comprimento_cm || null,
+    larguraCm: row.largura_cm || null,
+    alturaCm: row.altura_cm || null,
+    ativo: row.ativo !== false,
+    criadoEm: row.criado_em
+  };
+}
+
+function rmToDbRowProduto(p){
+  return {
+    id: p.id,
+    nome: p.nome || null,
+    codigo: p.codigo || null,
+    codigo_barras: p.codigoBarras || null,
+    marca: p.marca || null,
+    categoria: p.categoria || null,
+    subcategoria: p.subcategoria || null,
+    ncm: p.ncm || null,
+    localizacao: p.localizacao || null,
+    fornecedor: p.fornecedor || null,
+    fornecedor_codigo: p.fornecedorCodigo || null,
+    preco_custo: p.precoCusto || 0,
+    preco_consumidor: p.precoConsumidor || 0,
+    preco_parceiro: p.precoParceiro || 0,
+    estoque_atual: p.estoqueAtual || 0,
+    estoque_minimo: p.estoqueMinimo || 0,
+    estoque_maximo: p.estoqueMaximo || 0,
+    unidade: p.unidade || 'UN',
+    peso_kg: p.pesoKg || null,
+    comprimento_cm: p.comprimentoCm || null,
+    largura_cm: p.larguraCm || null,
+    altura_cm: p.alturaCm || null,
+    ativo: p.ativo !== false,
+    criado_em: p.criadoEm
+  };
+}
+
+async function rmDbUpsertProduto(produto){
+  const { error } = await rmSb.from('produtos').upsert(rmToDbRowProduto(produto));
+  if(error) console.error('Supabase upsert produto:', error);
+}
+
+async function rmDbDeleteProduto(id){
+  const { error } = await rmSb.from('produtos').delete().eq('id', id);
+  if(error) console.error('Supabase delete produto:', error);
+}
+
+function rmLoadVendas(){
+  try{ return JSON.parse(localStorage.getItem(RM_VENDAS_KEY)) || []; }catch(e){ return []; }
+}
+function rmSaveVendas(list){ localStorage.setItem(RM_VENDAS_KEY, JSON.stringify(list)); }
+
+function rmFromDbRowVenda(row){
+  return {
+    id: row.id,
+    codigoVenda: row.codigo_venda,
+    tipo: row.tipo || 'venda',
+    clienteId: row.cliente_id,
+    clienteNome: row.cliente_nome,
+    vendedor: row.vendedor,
+    itens: row.itens || [],
+    subtotal: row.subtotal || 0,
+    desconto: row.desconto || 0,
+    total: row.total || 0,
+    formaPagamento: row.forma_pagamento,
+    observacao: row.observacao,
+    criadoEm: row.criado_em
+  };
+}
+
+function rmToDbRowVenda(v){
+  return {
+    id: v.id,
+    codigo_venda: v.codigoVenda,
+    tipo: v.tipo || 'venda',
+    cliente_id: v.clienteId || null,
+    cliente_nome: v.clienteNome || null,
+    vendedor: v.vendedor || null,
+    itens: v.itens || [],
+    subtotal: v.subtotal || 0,
+    desconto: v.desconto || 0,
+    total: v.total || 0,
+    forma_pagamento: v.formaPagamento || null,
+    observacao: v.observacao || null,
+    criado_em: v.criadoEm
+  };
+}
+
+async function rmDbUpsertVenda(venda){
+  const { error } = await rmSb.from('vendas').upsert(rmToDbRowVenda(venda));
+  if(error) console.error('Supabase upsert venda:', error);
+}
+
+function rmLoadClientes(){
+  try{ return JSON.parse(localStorage.getItem(RM_CLIENTES_KEY)) || []; }catch(e){ return []; }
+}
+function rmSaveClientes(list){ localStorage.setItem(RM_CLIENTES_KEY, JSON.stringify(list)); }
+
+function rmFromDbRowCliente(row){
+  return {
+    id: row.id,
+    nome: row.nome,
+    telefone: row.telefone,
+    observacao: row.observacao,
+    cpf: row.cpf,
+    apelido: row.apelido,
+    situacao: row.situacao || 'positivo',
+    limiteCredito: row.limite_credito || 0,
+    criadoEm: row.criado_em
+  };
+}
+
+function rmToDbRowCliente(c){
+  return {
+    id: c.id,
+    nome: c.nome || null,
+    telefone: c.telefone || null,
+    observacao: c.observacao || null,
+    cpf: c.cpf || null,
+    apelido: c.apelido || null,
+    situacao: c.situacao || 'positivo',
+    limite_credito: c.limiteCredito || 0,
+    criado_em: c.criadoEm
+  };
+}
+
+async function rmDbUpsertCliente(cliente){
+  const { error } = await rmSb.from('clientes').upsert(rmToDbRowCliente(cliente));
+  if(error) console.error('Supabase upsert cliente:', error);
+}
+
+async function rmDbDeleteCliente(id){
+  const { error } = await rmSb.from('clientes').delete().eq('id', id);
+  if(error) console.error('Supabase delete cliente:', error);
+}
+
+function rmAdicionarMecanico(){
+  const input = document.getElementById('rm-novo-mecanico');
+  const nome = input.value.trim().toUpperCase();
+  if(!nome) return;
+  const list = rmLoadMecanicos();
+  if(!list.some(n => n.toLowerCase()===nome.toLowerCase())){
+    list.push(nome);
+    rmSaveMecanicos(list);
+    rmDbInsertMecanico(nome);
+  }
+  input.value = '';
+  rmRenderMecanicosChips();
+  rmRefreshMecanicoSelects();
+  rmRenderMecanicosBoard();
+}
+
+function rmRemoverMecanico(nome){
+  const list = rmLoadMecanicos().filter(n => n !== nome);
+  rmSaveMecanicos(list);
+  rmDbDeleteMecanico(nome);
+  rmRenderMecanicosChips();
+  rmRefreshMecanicoSelects();
+  rmRenderMecanicosBoard();
+}
+
+function rmRenderMecanicosChips(){
+  const container = document.getElementById('rm-mecanicos-chips');
+  const list = rmLoadMecanicos();
+  if(list.length===0){
+    container.innerHTML = '<div class="rm-mec-chip-empty">Nenhum mecânico cadastrado ainda</div>';
+    return;
+  }
+  container.innerHTML = list.map(n => `
+    <span class="rm-mec-chip">${n}<button onclick="rmRemoverMecanico('${n}')" title="Remover">&times;</button></span>
+  `).join('');
+}
+
+function rmMecanicoOptionsHtml(selected){
+  const list = rmLoadMecanicos();
+  let html = `<option value=""${!selected?' selected':''}>Selecionar depois</option>`;
+  if(selected && !list.some(n=>n===selected)){
+    html += `<option value="${selected}" selected>${selected}</option>`;
+  }
+  html += list.map(n => `<option value="${n}"${selected===n?' selected':''}>${n}</option>`).join('');
+  return html;
+}
+
+function rmRefreshMecanicoSelects(){
+  const formSelect = document.getElementById('rm-f-mecanico');
+  if(formSelect){
+    formSelect.innerHTML = rmMecanicoOptionsHtml('');
+  }
+}
+
+let rmSelectedClienteId = null;
+
+function rmBuscarClienteRecepcao(query){
+  rmSelectedClienteId = null;
+  const lista = document.getElementById('rm-f-cliente-lista');
+  const q = (query||'').trim().toLowerCase();
+  let clientes = rmLoadClientes();
+  if(q){
+    clientes = clientes.filter(c =>
+      (c.nome||'').toLowerCase().includes(q) ||
+      (c.apelido||'').toLowerCase().includes(q) ||
+      (c.telefone||'').toLowerCase().includes(q) ||
+      (c.cpf||'').toLowerCase().includes(q)
+    );
+  }
+  clientes = clientes.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR')).slice(0, 8);
+
+  if(clientes.length === 0){
+    lista.innerHTML = '<div class="rm-autocomplete-empty">Nenhum cliente encontrado — pode preencher como novo abaixo</div>';
+  } else {
+    lista.innerHTML = clientes.map(c => `
+      <div class="rm-autocomplete-item" onclick="rmEscolherClienteRecepcao('${c.id}')">
+        <div class="rm-autocomplete-nome">${c.nome}${c.apelido?` <span class="rm-autocomplete-apelido">(${c.apelido})</span>`:''}</div>
+        ${c.telefone?`<div class="rm-autocomplete-tel">${c.telefone}</div>`:''}
+      </div>
+    `).join('');
+  }
+  lista.classList.add('show');
+}
+
+function rmEscolherClienteRecepcao(clienteId){
+  const c = rmLoadClientes().find(x=>x.id===clienteId);
+  if(!c) return;
+  rmSelectedClienteId = c.id;
+  document.getElementById('rm-f-nome').value = c.nome || '';
+  document.getElementById('rm-f-telefone').value = c.telefone || '';
+  document.getElementById('rm-f-observacao').value = c.observacao || '';
+  document.getElementById('rm-f-cliente-lista').classList.remove('show');
+}
+
+function rmResetClienteBusca(){
+  const lista = document.getElementById('rm-f-cliente-lista');
+  if(lista){ lista.innerHTML = ''; lista.classList.remove('show'); }
+  rmSelectedClienteId = null;
+}
+
+document.addEventListener('click', function(e){
+  const wrap = document.getElementById('rm-f-cliente-wrap');
+  if(wrap && !wrap.contains(e.target)){
+    document.getElementById('rm-f-cliente-lista').classList.remove('show');
+  }
+  const qfWrap = document.getElementById('rm-qf-cliente-wrap');
+  const qfLista = document.getElementById('rm-qf-cliente-lista');
+  if(qfWrap && qfLista && !qfWrap.contains(e.target)){
+    qfLista.classList.remove('show');
+  }
+  const modalWrap = document.getElementById('rm-modal-cliente-wrap');
+  const modalLista = document.getElementById('rm-modal-cliente-lista');
+  if(modalWrap && modalLista && !modalWrap.contains(e.target)){
+    modalLista.classList.remove('show');
+  }
+  const pdvProdWrap = document.getElementById('rm-pdv-produto-wrap');
+  const pdvProdLista = document.getElementById('rm-pdv-produto-lista');
+  if(pdvProdWrap && pdvProdLista && !pdvProdWrap.contains(e.target)){
+    pdvProdLista.classList.remove('show');
+  }
+});
+
+function rmNextCode(){
+  const list = rmLoad();
+  let maxN = parseInt(localStorage.getItem(RM_COUNTER_KEY) || '0', 10);
+  list.forEach(r=>{
+    const m = /^OS-(\d+)$/.exec(r.codigoApp || '');
+    if(m) maxN = Math.max(maxN, parseInt(m[1], 10));
+  });
+  const n = maxN + 1;
+  localStorage.setItem(RM_COUNTER_KEY, String(n));
+  return 'OS-' + String(n).padStart(4, '0');
+}
+
+let rmPendingCode = null;
+let rmFormProblemas = [];
+
+function rmAdicionarProblemaForm(){
+  const input = document.getElementById('rm-f-problema-novo');
+  const texto = input.value.trim().toUpperCase();
+  if(!texto) return;
+  rmFormProblemas.push({texto, feito:false});
+  input.value = '';
+  rmRenderFormProblemas();
+  input.focus();
+}
+
+function rmRemoverProblemaForm(index){
+  rmFormProblemas.splice(index, 1);
+  rmRenderFormProblemas();
+}
+
+function rmRenderFormProblemas(){
+  const container = document.getElementById('rm-f-problema-lista');
+  if(rmFormProblemas.length===0){
+    container.innerHTML = '<div class="rm-problema-empty">Nenhum problema adicionado ainda</div>';
+    return;
+  }
+  container.innerHTML = rmFormProblemas.map((p,i)=>`
+    <div class="rm-problema-item">
+      <span>${p.texto}</span>
+      <button onclick="rmRemoverProblemaForm(${i})" title="Remover">&times;</button>
+    </div>
+  `).join('');
+}
+
+function rmToggleSettingsMenu(evt){
+  if(evt) evt.stopPropagation();
+  document.getElementById('rm-settings-menu').classList.toggle('show');
+}
+document.addEventListener('click', function(e){
+  const menu = document.getElementById('rm-settings-menu');
+  const wrap = document.querySelector('.rm-settings-wrap');
+  if(menu && menu.classList.contains('show') && wrap && !wrap.contains(e.target)){
+    menu.classList.remove('show');
+  }
+});
+
+const RM_SIDEBAR_KEY = 'radicalMotos_sidebar_collapsed';
+
+function rmToggleSidebar(){
+  const collapsed = document.getElementById('rm-app').classList.toggle('rm-sidebar-collapsed');
+  localStorage.setItem(RM_SIDEBAR_KEY, collapsed ? 'true' : 'false');
+}
+
+const RM_SECTIONS = ['visao-geral','pdv','oficina','clientes','produtos','financeiro','relatorio','configuracoes'];
+
+function rmSetSection(section){
+  RM_SECTIONS.forEach(s=>{
+    const el = document.getElementById('rm-section-'+s);
+    const btn = document.getElementById('rm-btn-'+s);
+    if(el) el.classList.toggle('active', s===section);
+    if(btn) btn.classList.toggle('active', s===section);
+  });
+  if(section === 'clientes'){ rmRenderClientes(); }
+  if(section === 'pdv'){ rmInicializarPdv(); }
+  if(section === 'produtos'){
+    const jaTemViewAtiva = document.querySelector('#rm-section-produtos .rm-view.active');
+    if(!jaTemViewAtiva){
+      rmSetViewProdutos('estoque');
+    }
+  }
+  if(section === 'oficina'){
+    const jaTemViewAtiva = document.querySelector('#rm-section-oficina .rm-view.active');
+    if(!jaTemViewAtiva){
+      const wide = window.matchMedia('(min-width: 860px)').matches;
+      rmSetView(wide ? 'dashboard' : 'reception');
+    }
+  }
+}
+
+function rmSetViewProdutos(view){
+  ['estoque','cadastro','organizacao','etiquetas'].forEach(v=>{
+    document.getElementById('rm-view-produtos-'+v).classList.toggle('active', v===view);
+    document.getElementById('rm-btn-produtos-'+v).classList.toggle('active', v===view);
+  });
+  if(view === 'estoque'){ rmRenderProdutos(); }
+}
+
+function rmSetView(view){
+  document.getElementById('rm-view-reception').classList.toggle('active', view==='reception');
+  document.getElementById('rm-view-dashboard').classList.toggle('active', view==='dashboard');
+  document.getElementById('rm-view-mecanicos').classList.toggle('active', view==='mecanicos');
+  document.getElementById('rm-view-lista').classList.toggle('active', view==='lista');
+  document.getElementById('rm-btn-reception').classList.toggle('active', view==='reception');
+  document.getElementById('rm-btn-dashboard').classList.toggle('active', view==='dashboard');
+  document.getElementById('rm-btn-mecanicos').classList.toggle('active', view==='mecanicos');
+  document.getElementById('rm-btn-lista').classList.toggle('active', view==='lista');
+  if(view==='dashboard'){ rmRenderBoard(); }
+  if(view==='mecanicos'){ rmRenderMecanicosChips(); rmRenderMecanicosBoard(); }
+  if(view==='lista'){ rmRenderLista(); }
+  if(view==='reception'){
+    rmRefreshMecanicoSelects();
+    rmResetClienteBusca();
+    rmFotoFilePendente.form = null;
+    const fotoPreview = document.getElementById('rm-f-foto-preview');
+    const fotoInput = document.getElementById('rm-f-foto');
+    if(fotoPreview) fotoPreview.innerHTML = '';
+    if(fotoInput) fotoInput.value = '';
+    rmPrepareNewOS();
+    rmRenderFormProblemas();
+    const isNarrow = !window.matchMedia('(min-width: 860px)').matches;
+    if(isNarrow){
+      setTimeout(()=>{ const f = document.getElementById('rm-f-problema-novo'); if(f) f.focus(); }, 150);
+    }
+  }
+}
+
+function rmRenderActiveBoard(){
+  if(document.getElementById('rm-view-dashboard').classList.contains('active')) rmRenderBoard();
+  if(document.getElementById('rm-view-mecanicos').classList.contains('active')) rmRenderMecanicosBoard();
+  if(document.getElementById('rm-view-lista').classList.contains('active')) rmRenderLista();
+}
+
+function rmPrepareNewOS(){
+  if(!rmPendingCode){
+    rmPendingCode = rmNextCode();
+  }
+  document.getElementById('rm-os-number').textContent = rmPendingCode;
+}
+
+let rmQuickPendingCode = null;
+let rmQuickFormProblemas = [];
+let rmQuickSelectedClienteId = null;
+
+function rmCliqueNovaRecepcao(){
+  const wide = window.matchMedia('(min-width: 860px)').matches;
+  if(wide){
+    rmAbrirRecepcaoRapida();
+  } else {
+    rmSetView('reception');
+  }
+}
+
+function rmAbrirRecepcaoRapida(){
+  rmQuickPendingCode = rmNextCode();
+  rmQuickFormProblemas = [];
+  rmQuickSelectedClienteId = null;
+  rmFotoFilePendente.quick = null;
+
+  const modal = document.getElementById('rm-modal');
+  modal.classList.add('rm-modal-large');
+  modal.innerHTML = `
+    <div class="rm-modal-header">
+      <div>
+        <div class="rm-modal-title">Nova recepção</div>
+        <div class="rm-modal-sub">${rmQuickPendingCode}</div>
+      </div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
+    </div>
+
+    <div class="rm-modal-body">
+    <div class="rm-modal-col">
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Problemas relatados</span>
+      <div class="rm-mec-add-row" style="margin-bottom:10px;">
+        <input class="rm-input" id="rm-qf-problema-novo" autocapitalize="characters" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarProblemaQuick();}">
+        <button class="rm-btn-add" onclick="rmAdicionarProblemaQuick()">OK</button>
+      </div>
+      <div class="rm-problema-list" id="rm-qf-problema-lista"></div>
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Moto</span>
+      <label class="rm-label">Modelo</label>
+      <input class="rm-input" id="rm-qf-modelo" autocapitalize="characters">
+      <div class="rm-toggle-row">
+        <span class="rm-toggle-row-label">Entregar ao cliente</span>
+        <label class="rm-switch">
+          <input type="checkbox" id="rm-qf-entrega">
+          <span class="rm-switch-track"></span>
+        </label>
+      </div>
+      <div class="rm-toggle-row" style="margin-bottom:0;">
+        <span class="rm-toggle-row-label">Moto para buscar (agendada)</span>
+        <label class="rm-switch">
+          <input type="checkbox" id="rm-qf-buscar">
+          <span class="rm-switch-track"></span>
+        </label>
+      </div>
+    </div>
+    </div>
+
+    <div class="rm-modal-col">
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Cliente (opcional)</span>
+      <label class="rm-label">Nome</label>
+      <div class="rm-autocomplete-wrap" id="rm-qf-cliente-wrap">
+        <input class="rm-input" id="rm-qf-nome" autocapitalize="characters" autocomplete="off" oninput="rmBuscarClienteQuick(this.value)" onfocus="rmBuscarClienteQuick(this.value)">
+        <div class="rm-autocomplete-list" id="rm-qf-cliente-lista"></div>
+      </div>
+      <label class="rm-label">Observação (opcional)</label>
+      <input class="rm-input" id="rm-qf-observacao" autocapitalize="characters">
+      <label class="rm-label">WhatsApp</label>
+      <input class="rm-input" id="rm-qf-telefone" inputmode="tel" autocomplete="tel">
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Oficina</span>
+      <label class="rm-label">Mecânico responsável (opcional)</label>
+      <select class="rm-input" id="rm-qf-mecanico">${rmMecanicoOptionsHtml('')}</select>
+      <label class="rm-label">Itens deixados (opcional)</label>
+      <input class="rm-input" id="rm-qf-itens" autocapitalize="characters">
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Foto da moto (opcional)</span>
+      <input type="file" accept="image/*" id="rm-qf-foto" style="display:none;" onchange="rmPreviewFoto(this, 'quick')">
+      <button type="button" class="rm-btn-add" style="width:100%;" onclick="document.getElementById('rm-qf-foto').click()">Escolher foto</button>
+      <div id="rm-qf-foto-preview" class="rm-foto-preview"></div>
+    </div>
+    </div>
+    </div>
+
+    <button class="rm-primary" onclick="rmSalvarRecepcaoRapida()">Registrar entrada</button>
+  `;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+  rmRenderQuickFormProblemas();
+  setTimeout(()=>{ const f = document.getElementById('rm-qf-modelo'); if(f) f.focus(); }, 150);
+}
+
+function rmAdicionarProblemaQuick(){
+  const input = document.getElementById('rm-qf-problema-novo');
+  const texto = input.value.trim().toUpperCase();
+  if(!texto) return;
+  rmQuickFormProblemas.push({texto, feito:false});
+  input.value = '';
+  rmRenderQuickFormProblemas();
+  input.focus();
+}
+
+function rmRemoverProblemaQuick(index){
+  rmQuickFormProblemas.splice(index, 1);
+  rmRenderQuickFormProblemas();
+}
+
+function rmRenderQuickFormProblemas(){
+  const container = document.getElementById('rm-qf-problema-lista');
+  if(!container) return;
+  if(rmQuickFormProblemas.length===0){
+    container.innerHTML = '<div class="rm-problema-empty">Nenhum problema adicionado ainda</div>';
+    return;
+  }
+  container.innerHTML = rmQuickFormProblemas.map((p,i)=>`
+    <div class="rm-problema-item">
+      <span>${p.texto}</span>
+      <button onclick="rmRemoverProblemaQuick(${i})" title="Remover">&times;</button>
+    </div>
+  `).join('');
+}
+
+function rmBuscarClienteQuick(query){
+  rmQuickSelectedClienteId = null;
+  const lista = document.getElementById('rm-qf-cliente-lista');
+  const q = (query||'').trim().toLowerCase();
+  let clientes = rmLoadClientes();
+  if(q){
+    clientes = clientes.filter(c =>
+      (c.nome||'').toLowerCase().includes(q) ||
+      (c.apelido||'').toLowerCase().includes(q) ||
+      (c.telefone||'').toLowerCase().includes(q) ||
+      (c.cpf||'').toLowerCase().includes(q)
+    );
+  }
+  clientes = clientes.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR')).slice(0, 8);
+
+  if(clientes.length === 0){
+    lista.innerHTML = '<div class="rm-autocomplete-empty">Nenhum cliente encontrado — pode preencher como novo abaixo</div>';
+  } else {
+    lista.innerHTML = clientes.map(c => `
+      <div class="rm-autocomplete-item" onclick="rmEscolherClienteQuick('${c.id}')">
+        <div class="rm-autocomplete-nome">${c.nome}${c.apelido?` <span class="rm-autocomplete-apelido">(${c.apelido})</span>`:''}</div>
+        ${c.telefone?`<div class="rm-autocomplete-tel">${c.telefone}</div>`:''}
+      </div>
+    `).join('');
+  }
+  lista.classList.add('show');
+}
+
+function rmEscolherClienteQuick(clienteId){
+  const c = rmLoadClientes().find(x=>x.id===clienteId);
+  if(!c) return;
+  rmQuickSelectedClienteId = c.id;
+  document.getElementById('rm-qf-nome').value = c.nome || '';
+  document.getElementById('rm-qf-telefone').value = c.telefone || '';
+  document.getElementById('rm-qf-observacao').value = c.observacao || '';
+  document.getElementById('rm-qf-cliente-lista').classList.remove('show');
+}
+
+function rmSalvarRecepcaoRapida(){
+  const nome = document.getElementById('rm-qf-nome').value.trim().toUpperCase();
+  const modelo = document.getElementById('rm-qf-modelo').value.trim().toUpperCase();
+  if(!modelo){
+    alert('Preencha ao menos o modelo da moto.');
+    return;
+  }
+  const agora = new Date().toISOString();
+  const registro = {
+    id: 'r' + Date.now(),
+    codigoApp: rmQuickPendingCode,
+    nome,
+    observacao: document.getElementById('rm-qf-observacao').value.trim().toUpperCase(),
+    telefone: document.getElementById('rm-qf-telefone').value.trim(),
+    modelo,
+    entrega: document.getElementById('rm-qf-entrega').checked,
+    buscar: document.getElementById('rm-qf-buscar').checked,
+    problemas: rmQuickFormProblemas.slice(),
+    mecanico: document.getElementById('rm-qf-mecanico').value.trim(),
+    codigoInterno: '',
+    itens: document.getElementById('rm-qf-itens').value.trim().toUpperCase(),
+    status: 'aberto',
+    entrada: agora,
+    historico: [{status:'aberto', em: agora}],
+    clienteId: rmQuickSelectedClienteId
+  };
+  const list = rmLoad();
+  list.unshift(registro);
+  rmSave(list);
+  rmDbUpsertRecepcao(registro);
+  if(rmFotoFilePendente.quick){
+    const arquivoFoto = rmFotoFilePendente.quick;
+    rmFotoFilePendente.quick = null;
+    rmUploadFotoMoto(arquivoFoto, registro.id).then(url => {
+      if(url) rmUpdateField(registro.id, 'fotoUrl', url);
+    });
+  }
+
+  rmShowToast(registro.codigoApp + ' registrado com sucesso');
+  rmCloseModal();
+}
+
+function rmSalvarRecepcao(){
+  const nome = document.getElementById('rm-f-nome').value.trim().toUpperCase();
+  const modelo = document.getElementById('rm-f-modelo').value.trim().toUpperCase();
+  if(!modelo){
+    alert('Preencha ao menos o modelo da moto.');
+    return;
+  }
+  const agora = new Date().toISOString();
+  const registro = {
+    id: 'r' + Date.now(),
+    codigoApp: rmPendingCode,
+    nome,
+    observacao: document.getElementById('rm-f-observacao').value.trim().toUpperCase(),
+    telefone: document.getElementById('rm-f-telefone').value.trim(),
+    modelo,
+    entrega: document.getElementById('rm-f-entrega').checked,
+    buscar: document.getElementById('rm-f-buscar').checked,
+    problemas: rmFormProblemas.slice(),
+    mecanico: document.getElementById('rm-f-mecanico').value.trim(),
+    codigoInterno: '',
+    itens: document.getElementById('rm-f-itens').value.trim().toUpperCase(),
+    status: 'aberto',
+    entrada: agora,
+    historico: [{status:'aberto', em: agora}],
+    clienteId: rmSelectedClienteId
+  };
+  const list = rmLoad();
+  list.unshift(registro);
+  rmSave(list);
+  rmDbUpsertRecepcao(registro);
+  if(rmFotoFilePendente.form){
+    const arquivoFoto = rmFotoFilePendente.form;
+    rmFotoFilePendente.form = null;
+    rmUploadFotoMoto(arquivoFoto, registro.id).then(url => {
+      if(url) rmUpdateField(registro.id, 'fotoUrl', url);
+    });
+  }
+
+  ['rm-f-nome','rm-f-observacao','rm-f-telefone','rm-f-modelo','rm-f-mecanico','rm-f-itens']
+    .forEach(id => document.getElementById(id).value = '');
+  document.getElementById('rm-f-entrega').checked = false;
+  document.getElementById('rm-f-buscar').checked = false;
+  document.getElementById('rm-f-foto-preview').innerHTML = '';
+  document.getElementById('rm-f-foto').value = '';
+  rmResetClienteBusca();
+  rmFormProblemas = [];
+  rmRenderFormProblemas();
+
+  rmShowToast(registro.codigoApp + ' registrado com sucesso');
+  rmPendingCode = null;
+  rmPrepareNewOS();
+}
+
+function rmShowToast(msg){
+  const t = document.getElementById('rm-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=> t.classList.remove('show'), 2400);
+}
+
+function rmFormatData(iso){
+  const d = new Date(iso);
+  const hoje = new Date();
+  const mesmodia = d.toDateString()===hoje.toDateString();
+  const hora = d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+  return mesmodia ? 'hoje, ' + hora : d.toLocaleDateString('pt-BR') + ' às ' + hora;
+}
+
+function rmFilteredList(searchInputId, dateModeId, dateValueId, dateStartId, dateEndId){
+  const list = rmLoad();
+  const search = document.getElementById(searchInputId).value.toLowerCase();
+  let filtered = !search ? list : list.filter(r =>
+    r.nome.toLowerCase().includes(search) ||
+    r.modelo.toLowerCase().includes(search) ||
+    (r.codigoApp||'').toLowerCase().includes(search) ||
+    (r.mecanico||'').toLowerCase().includes(search) ||
+    (r.anotacoes||'').toLowerCase().includes(search)
+  );
+
+  if(dateModeId){
+    const mode = document.getElementById(dateModeId).value;
+    if(mode !== 'todos'){
+      let range = null;
+      if(mode === 'personalizado'){
+        range = rmCustomRangeFromInputs(dateStartId, dateEndId);
+      } else {
+        const value = document.getElementById(dateValueId).value;
+        range = rmDateRangeFromInput(mode, value);
+      }
+      if(range){
+        filtered = filtered.filter(r=>{
+          const t = new Date(r.entrada).getTime();
+          return t >= range.start.getTime() && t < range.end.getTime();
+        });
+      }
+    }
+  }
+  return filtered;
+}
+
+function rmCustomRangeFromInputs(startId, endId){
+  const startVal = document.getElementById(startId).value;
+  const endVal = document.getElementById(endId).value;
+  if(!startVal || !endVal) return null;
+  const [sy,sm,sd] = startVal.split('-').map(Number);
+  const [ey,em,ed] = endVal.split('-').map(Number);
+  return {start: new Date(sy, sm-1, sd), end: new Date(ey, em-1, ed+1)};
+}
+
+function rmDateRangeFromInput(mode, value){
+  if(!value) return null;
+  if(mode === 'dia'){
+    const [y,m,d] = value.split('-').map(Number);
+    return {start: new Date(y, m-1, d), end: new Date(y, m-1, d+1)};
+  }
+  if(mode === 'mes'){
+    const [y,m] = value.split('-').map(Number);
+    return {start: new Date(y, m-1, 1), end: new Date(y, m, 1)};
+  }
+  if(mode === 'semana'){
+    const [yearStr, weekStr] = value.split('-W');
+    const year = parseInt(yearStr,10);
+    const week = parseInt(weekStr,10);
+    const jan4 = new Date(year, 0, 4);
+    const jan4Day = (jan4.getDay()+6)%7;
+    const week1Monday = new Date(jan4);
+    week1Monday.setDate(jan4.getDate()-jan4Day);
+    const start = new Date(week1Monday);
+    start.setDate(week1Monday.getDate() + (week-1)*7);
+    const end = new Date(start);
+    end.setDate(start.getDate()+7);
+    return {start, end};
+  }
+  return null;
+}
+
+function rmIsoWeekStringFromDate(date){
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = (d.getUTCDay()+6)%7;
+  d.setUTCDate(d.getUTCDate()-dayNum+3);
+  const firstThursday = new Date(Date.UTC(d.getUTCFullYear(),0,4));
+  const week = 1 + Math.round(((d - firstThursday) / 86400000 - 3 + ((firstThursday.getUTCDay()+6)%7)) / 7);
+  return d.getUTCFullYear() + '-W' + String(week).padStart(2,'0');
+}
+
+function rmOnDateModeChange(modeId, valueId, rangeId){
+  const mode = document.getElementById(modeId).value;
+  const valueInput = document.getElementById(valueId);
+  const rangeContainer = document.getElementById(rangeId);
+  if(mode === 'todos'){
+    valueInput.style.display = 'none';
+    rangeContainer.style.display = 'none';
+    valueInput.value = '';
+    return;
+  }
+  if(mode === 'personalizado'){
+    valueInput.style.display = 'none';
+    rangeContainer.style.display = 'flex';
+    return;
+  }
+  rangeContainer.style.display = 'none';
+  valueInput.style.display = '';
+  valueInput.type = mode==='dia' ? 'date' : mode==='semana' ? 'week' : 'month';
+  if(!valueInput.value){
+    const now = new Date();
+    if(mode==='dia') valueInput.value = now.toISOString().slice(0,10);
+    else if(mode==='mes') valueInput.value = now.toISOString().slice(0,7);
+    else if(mode==='semana') valueInput.value = rmIsoWeekStringFromDate(now);
+  }
+}
+
+function rmRenderBoard(){
+  const list = rmFilteredList('rm-search', 'rm-date-mode', 'rm-date-value', 'rm-date-start', 'rm-date-end');
+  const columns = RM_STATUS_ORDER.map(key => ({key, label: RM_STATUS[key].label, color: RM_STATUS[key].color}));
+  rmRenderKanban('rm-board', list, columns, r => RM_STATUS[r.status] ? r.status : 'aberto', 'status');
+}
+
+let rmListaSort = {key:null, dir:'desc'};
+
+function rmListaSortClick(key){
+  if(rmListaSort.key === key){
+    rmListaSort.dir = rmListaSort.dir === 'asc' ? 'desc' : 'asc';
+  } else {
+    rmListaSort.key = key;
+    rmListaSort.dir = 'asc';
+  }
+  rmRenderLista();
+}
+
+function rmListaSortValue(r, key){
+  switch(key){
+    case 'os': return r.codigoApp || '';
+    case 'moto': return (r.modelo||'').toLowerCase();
+    case 'cliente': return (r.nome||'').toLowerCase();
+    case 'status': {
+      const idx = RM_STATUS_ORDER.indexOf(r.status);
+      return idx >= 0 ? idx : 999;
+    }
+    case 'mecanico': return r.mecanico ? r.mecanico.toLowerCase() : 'zzzzzz';
+    case 'parado': {
+      let desde;
+      if(r.dataManual){
+        desde = r.dataManual;
+      } else {
+        const hist = r.historico || [];
+        desde = hist.length ? hist[hist.length-1].em : r.entrada;
+      }
+      return new Date(desde).getTime();
+    }
+    case 'problemas': return (r.problemas||[]).length;
+    case 'pago': return r.pago ? 1 : 0;
+    default: return new Date(r.entrada).getTime();
+  }
+}
+
+function rmListaCompare(a, b, key, dir){
+  const va = rmListaSortValue(a, key);
+  const vb = rmListaSortValue(b, key);
+  let cmp;
+  if(typeof va === 'number' && typeof vb === 'number'){
+    cmp = va - vb;
+  } else {
+    cmp = String(va).localeCompare(String(vb), 'pt-BR');
+  }
+  return dir === 'asc' ? cmp : -cmp;
+}
+
+function rmUpdateListaHeaders(){
+  document.querySelectorAll('.rm-th-sortable').forEach(th=>{
+    const key = th.dataset.key;
+    const label = th.dataset.label;
+    if(rmListaSort.key === key){
+      th.textContent = label + (rmListaSort.dir==='asc' ? ' \u25B2' : ' \u25BC');
+      th.classList.add('rm-th-sorted');
+    } else {
+      th.textContent = label;
+      th.classList.remove('rm-th-sorted');
+    }
+  });
+}
+
+function rmMotosDoCliente(cliente){
+  const telefoneDigits = (cliente.telefone||'').replace(/\D/g,'');
+  const todos = rmLoad();
+  let motos;
+  const porVinculo = todos.filter(m => m.clienteId === cliente.id);
+  if(porVinculo.length > 0){
+    motos = porVinculo;
+  } else if(telefoneDigits){
+    motos = todos.filter(m => (m.telefone||'').replace(/\D/g,'') === telefoneDigits);
+  } else {
+    motos = cliente.nome ? todos.filter(m => m.nome === cliente.nome) : [];
+  }
+  return motos.slice().sort((a,b) => new Date(b.entrada) - new Date(a.entrada));
+}
+
+function rmRenderClientes(){
+  const search = document.getElementById('rm-search-clientes').value.toLowerCase();
+  let list = rmLoadClientes();
+  if(search){
+    list = list.filter(c =>
+      (c.nome||'').toLowerCase().includes(search) ||
+      (c.apelido||'').toLowerCase().includes(search) ||
+      (c.cpf||'').toLowerCase().includes(search) ||
+      (c.telefone||'').toLowerCase().includes(search)
+    );
+  }
+  list = list.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR'));
+
+  const body = document.getElementById('rm-clientes-body');
+  const empty = document.getElementById('rm-clientes-empty');
+  body.innerHTML = '';
+  if(list.length === 0){
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  list.forEach(c=>{
+    const qtdMotos = rmMotosDoCliente(c).length;
+    const situacaoInfo = RM_SITUACAO[c.situacao] || RM_SITUACAO['positivo'];
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td data-label="Nome">
+        <div>${c.nome || '—'}</div>
+        ${c.apelido?`<div class="rm-cliente-apelido">${c.apelido}</div>`:''}
+      </td>
+      <td data-label="Situação"><span class="rm-lista-status-pill" style="background:${situacaoInfo.color}">${situacaoInfo.label}</span></td>
+      <td data-label="Crédito">${rmFormatMoeda(c.limiteCredito)}</td>
+      <td data-label="WhatsApp">${c.telefone || '—'}</td>
+      <td data-label="CPF">${c.cpf || '—'}</td>
+      <td data-label="Motos">${qtdMotos}</td>
+      <td data-label="Observação" title="${c.observacao||''}">${c.observacao || '—'}</td>
+    `;
+    tr.onclick = () => rmAbrirModalCliente(c.id);
+    body.appendChild(tr);
+  });
+}
+
+function rmAbrirNovoCliente(){
+  const modal = document.getElementById('rm-modal');
+  modal.classList.remove('rm-modal-large');
+  modal.innerHTML = `
+    <div class="rm-modal-header">
+      <div><div class="rm-modal-title">Novo cliente</div></div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Nome</span>
+      <input class="rm-input" id="rm-novo-cliente-nome">
+      <label class="rm-label">Apelido (opcional)</label>
+      <input class="rm-input" id="rm-novo-cliente-apelido">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">CPF</span>
+      <input class="rm-input" id="rm-novo-cliente-cpf" inputmode="numeric">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">WhatsApp</span>
+      <input class="rm-input" id="rm-novo-cliente-telefone" inputmode="tel">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Situação</span>
+      <select class="rm-input" id="rm-novo-cliente-situacao">
+        <option value="positivo" selected>Cadastro positivo</option>
+        <option value="inativo">Inativo</option>
+        <option value="negativado">Negativado</option>
+      </select>
+      <label class="rm-label">Limite de crédito (crediário)</label>
+      <input class="rm-input" id="rm-novo-cliente-limite" inputmode="decimal">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Observação</span>
+      <textarea class="rm-input" id="rm-novo-cliente-observacao"></textarea>
+    </div>
+    <button class="rm-primary" onclick="rmCriarCliente()">Salvar cliente</button>
+  `;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+
+function rmCriarCliente(){
+  const nome = document.getElementById('rm-novo-cliente-nome').value.trim().toUpperCase();
+  if(!nome){
+    alert('Preencha ao menos o nome do cliente.');
+    return;
+  }
+  const cliente = {
+    id: 'c' + Date.now(),
+    nome,
+    apelido: document.getElementById('rm-novo-cliente-apelido').value.trim().toUpperCase(),
+    cpf: document.getElementById('rm-novo-cliente-cpf').value.trim(),
+    telefone: document.getElementById('rm-novo-cliente-telefone').value.trim(),
+    situacao: document.getElementById('rm-novo-cliente-situacao').value,
+    limiteCredito: rmParseMoeda(document.getElementById('rm-novo-cliente-limite').value),
+    observacao: document.getElementById('rm-novo-cliente-observacao').value.trim().toUpperCase(),
+    criadoEm: new Date().toISOString()
+  };
+  const list = rmLoadClientes();
+  list.unshift(cliente);
+  rmSaveClientes(list);
+  rmDbUpsertCliente(cliente);
+  rmCloseModal();
+  rmShowToast('Cliente cadastrado');
+  rmRenderClientes();
+}
+
+function rmAbrirModalCliente(id){
+  const c = rmLoadClientes().find(x=>x.id===id);
+  if(!c) return;
+
+  const motos = rmMotosDoCliente(c);
+  const motosHtml = motos.length === 0
+    ? '<div class="rm-problema-empty">Nenhuma moto registrada ainda</div>'
+    : motos.map(m=>{
+        const statusInfo = RM_STATUS[m.status] || RM_STATUS['aberto'];
+        return `
+          <div class="rm-cliente-hist-item">
+            <div class="rm-cliente-hist-top">
+              <span class="rm-cliente-hist-code">${m.codigoApp||''} · ${m.modelo}</span>
+              <span class="rm-cliente-hist-status" style="color:${statusInfo.color}">${statusInfo.label}</span>
+            </div>
+            <div class="rm-cliente-hist-data">${rmFormatData(m.entrada)}</div>
+          </div>
+        `;
+      }).join('');
+
+  const situacaoPills = Object.keys(RM_SITUACAO).map(key=>{
+    const isCurrent = (c.situacao || 'positivo') === key;
+    return `<button class="rm-status-pill${isCurrent?' current':''}"
+      style="${isCurrent?`background:${RM_SITUACAO[key].color};border-color:${RM_SITUACAO[key].color}`:''}"
+      onclick="rmUpdateCliente('${c.id}','situacao','${key}')">${RM_SITUACAO[key].label}</button>`;
+  }).join('');
+
+  const modal = document.getElementById('rm-modal');
+  modal.classList.add('rm-modal-large');
+  modal.innerHTML = `
+    <div class="rm-modal-header">
+      <div>
+        <div class="rm-modal-title">${c.nome || 'Cliente sem nome'}</div>
+        <div class="rm-modal-sub">${motos.length} moto${motos.length===1?'':'s'} atendida${motos.length===1?'':'s'}</div>
+      </div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
+    </div>
+
+    <div class="rm-modal-body">
+    <div class="rm-modal-col">
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Situação</span>
+      <div class="rm-modal-status-row">${situacaoPills}</div>
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Limite de crédito (crediário)</span>
+      <input class="rm-input" value="${c.limiteCredito ? String(c.limiteCredito).replace('.',',') : ''}" inputmode="decimal" onchange="rmUpdateCliente('${c.id}','limiteCredito',rmParseMoeda(this.value))">
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Nome</span>
+      <input class="rm-input" value="${c.nome||''}" onchange="rmUpdateCliente('${c.id}','nome',this.value.trim().toUpperCase())">
+      <label class="rm-label">Apelido</label>
+      <input class="rm-input" value="${c.apelido||''}" onchange="rmUpdateCliente('${c.id}','apelido',this.value.trim().toUpperCase())">
+    </div>
+    </div>
+
+    <div class="rm-modal-col">
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">CPF</span>
+      <input class="rm-input" value="${c.cpf||''}" onchange="rmUpdateCliente('${c.id}','cpf',this.value.trim())">
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">WhatsApp</span>
+      <input class="rm-input" value="${c.telefone||''}" onchange="rmUpdateCliente('${c.id}','telefone',this.value.trim())">
+      ${c.telefone?`<button class="rm-btn-whatsapp" onclick="rmAbrirWhatsapp('${c.telefone}')">Conversar no WhatsApp</button>`:''}
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Observação</span>
+      <textarea class="rm-input" onchange="rmUpdateCliente('${c.id}','observacao',this.value.trim().toUpperCase())">${c.observacao||''}</textarea>
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Motos atendidas</span>
+      ${motosHtml}
+    </div>
+    </div>
+    </div>
+
+    <button class="rm-btn-excluir" onclick="rmExcluirCliente('${c.id}')">Excluir este cliente</button>
+  `;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+
+function rmUpdateCliente(id, field, value){
+  const list = rmLoadClientes();
+  const item = list.find(c=>c.id===id);
+  if(item){
+    item[field] = value;
+    rmSaveClientes(list);
+    rmDbUpsertCliente(item);
+  }
+  rmAbrirModalCliente(id);
+  rmRenderClientes();
+}
+
+function rmExcluirCliente(id){
+  const c = rmLoadClientes().find(x=>x.id===id);
+  if(!c) return;
+  const ok = confirm(`Excluir o cliente ${c.nome||''}? Essa ação não pode ser desfeita e remove em todos os dispositivos.`);
+  if(!ok) return;
+
+  const list = rmLoadClientes().filter(x=>x.id!==id);
+  rmSaveClientes(list);
+  rmDbDeleteCliente(id);
+  rmCloseModal();
+  rmShowToast('Cliente excluído');
+  rmRenderClientes();
+}
+
+function rmRenderLista(){
+  const list = rmFilteredList('rm-search-lista', 'rm-date-mode-lista', 'rm-date-value-lista', 'rm-date-start-lista', 'rm-date-end-lista');
+  const sorted = list.slice().sort((a,b) => rmListaSort.key
+    ? rmListaCompare(a, b, rmListaSort.key, rmListaSort.dir)
+    : new Date(b.entrada) - new Date(a.entrada));
+  rmUpdateListaHeaders();
+  const body = document.getElementById('rm-lista-body');
+  const empty = document.getElementById('rm-lista-empty');
+  body.innerHTML = '';
+
+  if(sorted.length === 0){
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  sorted.forEach(r=>{
+    const statusInfo = RM_STATUS[r.status] || RM_STATUS['aberto'];
+    const parado = rmTempoParado(r);
+    const flags = [r.entrega?'Entrega':'', r.buscar?'Buscar':''].filter(Boolean).join(' · ');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td data-label="OS">
+        <div class="rm-lista-code">${r.codigoApp||''} ${r.fotoUrl?'<span class="rm-lista-foto-icon" title="Essa moto tem foto">&#128247;</span>':''}</div>
+        ${flags?`<div class="rm-lista-flags">${flags}</div>`:''}
+      </td>
+      <td data-label="Pago" onclick="event.stopPropagation()">
+        <label class="rm-switch">
+          <input type="checkbox" ${r.pago?'checked':''} onchange="rmTogglePago('${r.id}', this.checked)">
+          <span class="rm-switch-track"></span>
+        </label>
+      </td>
+      <td data-label="Mecânico" title="${r.mecanico||''}">${r.mecanico || '—'}</td>
+      <td data-label="Tempo parado"><span class="rm-tempo-${parado.level}">${parado.label}</span></td>
+      <td data-label="Moto" title="${r.modelo}">${r.modelo}</td>
+      <td data-label="Cliente" title="${r.nome||''}">${r.nome || '—'}</td>
+      <td data-label="Status"><span class="rm-lista-status-pill" style="background:${statusInfo.color}">${statusInfo.label}</span></td>
+      <td data-label="Problemas" title="${r.problemas && r.problemas.length ? rmProblemasResumo(r.problemas) : ''}"><span class="rm-lista-problemas">${r.problemas && r.problemas.length ? rmProblemasResumo(r.problemas) : '—'}</span></td>
+    `;
+    tr.onclick = () => rmOpenModal(r.id, true);
+    body.appendChild(tr);
+  });
+}
+
+function rmRenderMecanicosBoard(){
+  const list = rmFilteredList('rm-search-mecanicos', 'rm-date-mode-mecanicos', 'rm-date-value-mecanicos', 'rm-date-start-mecanicos', 'rm-date-end-mecanicos');
+  const registered = rmLoadMecanicos();
+  const legacyExtras = Array.from(new Set(rmLoad().map(r => (r.mecanico||'').trim()).filter(Boolean)))
+    .filter(n => !registered.some(rn => rn.toLowerCase()===n.toLowerCase()))
+    .sort((a,b)=>a.localeCompare(b,'pt-BR'));
+  const columns = [{key:'__none__', label:'Sem mecânico', color:'#7a7f87'}]
+    .concat(registered.map(n => ({key:n, label:n, color:'#4a90d9'})))
+    .concat(legacyExtras.map(n => ({key:n, label:n, color:'#4a90d9'})));
+  rmRenderKanban('rm-board-mecanicos', list, columns, r => (r.mecanico||'').trim() || '__none__', 'mecanico');
+}
+
+function rmRenderKanban(boardId, list, columns, getKeyForRecord, field){
+  const board = document.getElementById(boardId);
+  board.innerHTML = '';
+
+  columns.forEach(({key, label, color})=>{
+    const cards = list.filter(r => getKeyForRecord(r)===key);
+    const col = document.createElement('div');
+    col.className = 'rm-column';
+    col.dataset.groupKey = key;
+    col.innerHTML = `
+      <div class="rm-column-header">
+        <span class="rm-column-title" style="color:${color}">${label}</span>
+        <span class="rm-column-count">${cards.length}</span>
+      </div>
+      <div class="rm-column-body"></div>
+    `;
+    board.appendChild(col);
+
+    const body = col.querySelector('.rm-column-body');
+    if(cards.length===0){
+      body.innerHTML = '<div class="rm-column-empty">Nenhuma moto aqui</div>';
+      return;
+    }
+    cards.forEach(r=>{
+      const card = document.createElement('div');
+      const parado = rmTempoParado(r);
+      card.className = 'rm-card' + (parado.level==='alert' ? ' rm-card-alert' : '');
+      card.innerHTML = `
+        <div class="rm-card-top">
+          <span class="rm-card-code">${r.codigoApp||''} ${r.fotoUrl?'<span class="rm-lista-foto-icon" title="Essa moto tem foto">&#128247;</span>':''}</span>
+          <div class="rm-card-badges">
+            ${r.entrega?'<span class="rm-card-entrega">Entrega</span>':''}
+            ${r.buscar?'<span class="rm-card-entrega">Buscar</span>':''}
+            ${r.pago?'<span class="rm-card-pago">Pago</span>':''}
+          </div>
+        </div>
+        <div class="rm-card-moto">${r.modelo}</div>
+        <div class="rm-card-name">${r.nome || 'Cliente não informado'}</div>
+        ${r.problemas && r.problemas.length ? `<div class="rm-card-problema">${rmProblemasResumo(r.problemas)}</div>` : ''}
+        <div class="rm-card-meta">
+          <span class="rm-card-tempo rm-tempo-${parado.level}" title="Entrada: ${rmFormatData(r.entrada)}">${parado.label}</span>
+          ${r.mecanico?`<span class="rm-card-mecanico">${r.mecanico}</span>`:''}
+        </div>
+      `;
+      card.onclick = () => { if(!card._rmSuppressClick) rmOpenModal(r.id); };
+      rmAttachDragHandlers(card, r.id, field);
+      body.appendChild(card);
+    });
+  });
+}
+
+let rmDrag = null;
+
+function rmAttachDragHandlers(cardEl, id, field){
+  cardEl.style.touchAction = 'none';
+  cardEl.addEventListener('pointerdown', (e)=>{
+    if(e.pointerType==='mouse' && e.button !== 0) return;
+    const rect = cardEl.getBoundingClientRect();
+    rmDrag = {
+      id, cardEl,
+      startX: e.clientX, startY: e.clientY,
+      offsetX: e.clientX - rect.left, offsetY: e.clientY - rect.top,
+      width: rect.width,
+      moved: false, ghost: null
+    };
+    cardEl.setPointerCapture(e.pointerId);
+  });
+  cardEl.addEventListener('pointermove', (e)=>{
+    if(!rmDrag || rmDrag.id !== id) return;
+    const dx = e.clientX - rmDrag.startX;
+    const dy = e.clientY - rmDrag.startY;
+    if(!rmDrag.moved && Math.hypot(dx,dy) > 6){
+      rmDrag.moved = true;
+      document.body.style.userSelect = 'none';
+      cardEl.classList.add('rm-card-dragging');
+      rmDrag.ghost = rmCreateGhost(cardEl, rmDrag.width);
+    }
+    if(rmDrag.moved){
+      rmDrag.ghost.style.left = (e.clientX - rmDrag.offsetX) + 'px';
+      rmDrag.ghost.style.top = (e.clientY - rmDrag.offsetY) + 'px';
+      rmHighlightColumnUnder(e.clientX, e.clientY);
+    }
+  });
+  const rmEndDrag = (e)=>{
+    if(!rmDrag || rmDrag.id !== id) return;
+    document.body.style.userSelect = '';
+    cardEl.classList.remove('rm-card-dragging');
+    document.querySelectorAll('.rm-column').forEach(c=>c.classList.remove('rm-column-hover'));
+    if(rmDrag.moved){
+      if(rmDrag.ghost) rmDrag.ghost.remove();
+      const col = rmColumnAt(e.clientX, e.clientY);
+      if(col && col.dataset.groupKey !== undefined){
+        rmMoveCardGroup(id, field, col.dataset.groupKey);
+      }
+      cardEl._rmSuppressClick = true;
+      setTimeout(()=>{ cardEl._rmSuppressClick = false; }, 0);
+    }
+    rmDrag = null;
+  };
+  cardEl.addEventListener('pointerup', rmEndDrag);
+  cardEl.addEventListener('pointercancel', rmEndDrag);
+}
+
+function rmCreateGhost(cardEl, width){
+  const rect = cardEl.getBoundingClientRect();
+  const ghost = cardEl.cloneNode(true);
+  ghost.className = 'rm-card rm-card-ghost';
+  ghost.style.width = width + 'px';
+  ghost.style.left = rect.left + 'px';
+  ghost.style.top = rect.top + 'px';
+  document.body.appendChild(ghost);
+  return ghost;
+}
+
+function rmColumnAt(x, y){
+  const prevDisplay = rmDrag && rmDrag.ghost ? rmDrag.ghost.style.display : null;
+  if(rmDrag && rmDrag.ghost) rmDrag.ghost.style.display = 'none';
+  const el = document.elementFromPoint(x, y);
+  if(rmDrag && rmDrag.ghost) rmDrag.ghost.style.display = prevDisplay || '';
+  return el ? el.closest('.rm-column') : null;
+}
+
+function rmHighlightColumnUnder(x, y){
+  const col = rmColumnAt(x, y);
+  document.querySelectorAll('.rm-column').forEach(c=>c.classList.toggle('rm-column-hover', c===col));
+}
+
+function rmChangeStatus(id, novoStatus){
+  const list = rmLoad();
+  const item = list.find(r=>r.id===id);
+  if(item && item.status !== novoStatus){
+    item.status = novoStatus;
+    if(!item.historico) item.historico = [];
+    item.historico.push({status: novoStatus, em: new Date().toISOString()});
+    rmSave(list);
+    rmDbUpsertRecepcao(item);
+    return true;
+  }
+  return false;
+}
+
+function rmMoveCardGroup(id, field, key){
+  if(field === 'status'){
+    rmChangeStatus(id, key);
+    rmRenderBoard();
+  } else if(field === 'mecanico'){
+    const list = rmLoad();
+    const item = list.find(r=>r.id===id);
+    if(item){
+      item.mecanico = key === '__none__' ? '' : key;
+      rmSave(list);
+      rmDbUpsertRecepcao(item);
+    }
+    rmRenderMecanicosBoard();
+  }
+}
+
+function rmImprimirEtiqueta(id){
+  const r = rmLoad().find(x=>x.id===id);
+  if(!r) return;
+  rmImprimirEtiquetaRecord(r);
+}
+
+function rmImprimirEtiquetaRecord(r){
+  const dataEntrada = new Date(r.entrada).toLocaleDateString('pt-BR');
+  const flags = [r.entrega?'ENTREGA':'', r.buscar?'BUSCAR':'']
+    .filter(Boolean)
+    .map(f => `<span class="etq-flag">${f}</span>`)
+    .join('');
+
+  const problemasHtml = (r.problemas && r.problemas.length)
+    ? `<div class="etq-problemas">
+        <div class="etq-problemas-title">Problemas</div>
+        ${r.problemas.map(p => `<div class="etq-problema-item">&#9744; ${p.texto}</div>`).join('')}
+      </div>`
+    : '';
+
+  const etiqueta = `
+    <div class="etq">
+      <div class="etq-os">${r.codigoApp||''}</div>
+      <div class="etq-modelo">${r.modelo}</div>
+      ${r.nome?`<div class="etq-nome">${r.nome}</div>`:''}
+      <div class="etq-data">Entrada: ${dataEntrada}</div>
+      ${flags ? `<div class="etq-flags">${flags}</div>` : ''}
+      ${problemasHtml}
+    </div>
+  `;
+
+  const html = `
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8">
+      <title>Etiqueta ${r.codigoApp||''}</title>
+      <style>
+        @page{ size:80mm auto; margin:0; }
+        body{
+          width:80mm; margin:0; padding:4mm 3mm; box-sizing:border-box;
+          font-family:Arial, Helvetica, sans-serif; color:#000; background:#fff;
+        }
+        .etq{ text-align:center; }
+        .etq-os{ font-size:32px; font-weight:900; letter-spacing:1px; margin-bottom:6px; }
+        .etq-modelo{ font-size:19px; font-weight:800; text-transform:uppercase; margin-bottom:2px; }
+        .etq-nome{ font-size:14px; font-weight:600; margin-bottom:4px; }
+        .etq-data{ font-size:11px; font-weight:600; }
+        .etq-flags{ margin-top:8px; }
+        .etq-flag{
+          display:inline-block; background:#000; color:#fff; font-size:11px; font-weight:800;
+          padding:3px 11px; border-radius:3px; margin:0 3px; letter-spacing:0.03em;
+        }
+        .etq-problemas{
+          text-align:left; margin-top:10px; padding-top:10px; border-top:1px dashed #000;
+        }
+        .etq-problemas-title{
+          font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:7px;
+        }
+        .etq-problema-item{ font-size:13.5px; font-weight:600; margin-bottom:6px; }
+      </style>
+    </head>
+    <body>
+      ${etiqueta}
+    </body>
+    </html>
+  `;
+
+  const frame = document.getElementById('rm-print-frame');
+  const doc = frame.contentWindow.document;
+  doc.open();
+  doc.write(html);
+  doc.close();
+  setTimeout(function(){
+    frame.contentWindow.focus();
+    frame.contentWindow.print();
+  }, 300);
+}
+
+function rmExcluirRecepcao(id){
+  const r = rmLoad().find(x=>x.id===id);
+  if(!r) return;
+  const ok = confirm(`Excluir a moto ${r.codigoApp||''} (${r.modelo})? Essa ação não pode ser desfeita e remove em todos os dispositivos.`);
+  if(!ok) return;
+
+  const list = rmLoad().filter(x => x.id !== id);
+  rmSave(list);
+  rmDbDeleteRecepcao(id);
+  rmCloseModal();
+  rmShowToast('Moto excluída');
+}
+
+async function rmDbDeleteRecepcao(id){
+  const { error } = await rmSb.from('recepcoes').delete().eq('id', id);
+  if(error) console.error('Supabase delete recepcao:', error);
+}
+
+let rmActiveModalLarge = false;
+
+function rmOpenModal(id, large){
+  rmActiveModalId = id;
+  rmActiveModalLarge = !!large;
+  const r = rmLoad().find(x=>x.id===id);
+  if(!r) return;
+
+  const statusPills = RM_STATUS_ORDER.map(key=>{
+    const isCurrent = r.status===key;
+    return `<button class="rm-status-pill${isCurrent?' current':''}"
+      style="${isCurrent?`background:${RM_STATUS[key].color};border-color:${RM_STATUS[key].color}`:''}"
+      onclick="rmUpdateStatus('${r.id}','${key}')">${RM_STATUS[key].label}</button>`;
+  }).join('');
+
+  const historyItems = (r.historico||[]).slice().reverse().map(h=>`
+    <div class="rm-history-item">
+      <span class="rm-history-status">${RM_STATUS[h.status] ? RM_STATUS[h.status].label : h.status}</span>
+      <span class="rm-history-time">${new Date(h.em).toLocaleString('pt-BR')}</span>
+    </div>
+  `).join('') || '<div class="rm-history-item"><span class="rm-history-time">Sem histórico ainda</span></div>';
+
+  const modal = document.getElementById('rm-modal');
+  modal.classList.toggle('rm-modal-large', rmActiveModalLarge);
+  modal.innerHTML = `
+    <div class="rm-modal-header">
+      <div>
+        <div class="rm-modal-title">${r.nome || 'Cliente não informado'}</div>
+        <div class="rm-modal-sub">${r.codigoApp} · ${r.modelo}</div>
+      </div>
+      <div class="rm-modal-header-actions">
+        <button class="rm-modal-icon-btn" onclick="rmImprimirEtiqueta('${r.id}')" title="Imprimir etiqueta">&#128424;</button>
+        <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
+      </div>
+    </div>
+
+    <div class="rm-modal-body">
+    <div class="rm-modal-col">
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Status</span>
+      <div class="rm-modal-status-row">${statusPills}</div>
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Data de referência</span>
+      <div style="font-size:12px; color:var(--rm-text-dim); margin-bottom:8px;">Aberta em ${rmFormatData(r.entrada)}${r.dataManual?' · ajustada manualmente':''}</div>
+      <div class="rm-mec-add-row" style="margin-bottom:${r.dataManual?'2px':'0'};">
+        <input type="date" class="rm-input" value="${rmToDateInputValue(r.dataManual)}" onchange="rmSetDataManual('${r.id}', this.value)">
+        <button class="rm-btn-add" onclick="rmSetDataManualHoje('${r.id}')">Hoje</button>
+      </div>
+      ${r.dataManual?`<button onclick="rmLimparDataManual('${r.id}')" style="background:none; border:none; color:var(--rm-accent); font-size:12px; font-weight:600; cursor:pointer; padding:4px 0 0; text-align:left;">Voltar ao automático</button>`:''}
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Problemas relatados</span>
+      <div class="rm-mec-add-row" style="margin-bottom:10px;">
+        <input class="rm-input" id="rm-modal-problema-novo" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarProblemaModal('${r.id}');}">
+        <button class="rm-btn-add" onclick="rmAdicionarProblemaModal('${r.id}')">OK</button>
+      </div>
+      <div class="rm-problema-list" id="rm-modal-problema-lista">${rmProblemaChecklistHtml(r.problemas)}</div>
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Cliente</span>
+      <label class="rm-label">Nome</label>
+      <div class="rm-autocomplete-wrap" id="rm-modal-cliente-wrap">
+        <input class="rm-input" value="${r.nome||''}" oninput="rmBuscarClienteModal(this.value)" onfocus="rmBuscarClienteModal(this.value)" onchange="rmUpdateField('${r.id}','nome',this.value.trim().toUpperCase())">
+        <div class="rm-autocomplete-list" id="rm-modal-cliente-lista"></div>
+      </div>
+      <label class="rm-label">WhatsApp</label>
+      <input class="rm-input" value="${r.telefone||''}" onchange="rmUpdateField('${r.id}','telefone',this.value.trim())">
+      ${r.telefone?`<button class="rm-btn-whatsapp" onclick="rmAbrirWhatsapp('${r.telefone}')">Conversar no WhatsApp</button>`:''}
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Observação</span>
+      <textarea class="rm-input" onchange="rmUpdateField('${r.id}','observacao',this.value.trim().toUpperCase())">${r.observacao||''}</textarea>
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Foto da moto</span>
+      ${r.fotoUrl?`<img src="${r.fotoUrl}" class="rm-foto-thumb-modal">`:''}
+      <input type="file" accept="image/*" id="rm-modal-foto-input" style="display:none;" onchange="rmUploadFotoModal(this, '${r.id}')">
+      <button type="button" class="rm-btn-add" style="width:100%;" onclick="document.getElementById('rm-modal-foto-input').click()">${r.fotoUrl?'Trocar foto':'Adicionar foto'}</button>
+    </div>
+    </div>
+
+    <div class="rm-modal-col">
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Mecânico responsável</span>
+      <select class="rm-input" id="rm-modal-mecanico" onchange="rmUpdateField('${r.id}','mecanico',this.value)">
+        ${rmMecanicoOptionsHtml(r.mecanico||'')}
+      </select>
+    </div>
+
+    <div class="rm-modal-section">
+      <div class="rm-toggle-row" style="margin-bottom:10px;">
+        <span class="rm-toggle-row-label">Entregar ao cliente</span>
+        <label class="rm-switch">
+          <input type="checkbox" id="rm-modal-entrega" ${r.entrega?'checked':''} onchange="rmUpdateField('${r.id}','entrega',this.checked)">
+          <span class="rm-switch-track"></span>
+        </label>
+      </div>
+      <div class="rm-toggle-row" style="margin-bottom:0;">
+        <span class="rm-toggle-row-label">Moto para buscar (agendada)</span>
+        <label class="rm-switch">
+          <input type="checkbox" id="rm-modal-buscar" ${r.buscar?'checked':''} onchange="rmUpdateField('${r.id}','buscar',this.checked)">
+          <span class="rm-switch-track"></span>
+        </label>
+      </div>
+      <div class="rm-toggle-row" style="margin-bottom:0; margin-top:10px;">
+        <span class="rm-toggle-row-label">Pago</span>
+        <label class="rm-switch">
+          <input type="checkbox" id="rm-modal-pago" ${r.pago?'checked':''} onchange="rmUpdateField('${r.id}','pago',this.checked)">
+          <span class="rm-switch-track"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Código interno</span>
+      <input class="rm-input" id="rm-modal-codigointerno" value="${r.codigoInterno||''}" onchange="rmUpdateField('${r.id}','codigoInterno',this.value.trim().toUpperCase())">
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Anotações</span>
+      <textarea class="rm-input" id="rm-modal-anotacoes" onchange="rmUpdateField('${r.id}','anotacoes',this.value.trim().toUpperCase())">${r.anotacoes||''}</textarea>
+    </div>
+
+    ${r.itens?`
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Itens deixados</span>
+      <div style="font-size:14px;">${r.itens}</div>
+    </div>`:''}
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Histórico</span>
+      ${historyItems}
+    </div>
+    </div>
+    </div>
+
+    <button class="rm-btn-excluir" onclick="rmExcluirRecepcao('${r.id}')">Excluir esta moto</button>
+  `;
+
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+
+function rmCloseModal(){
+  document.getElementById('rm-modal-backdrop').classList.remove('show');
+  rmActiveModalId = null;
+  rmRenderActiveBoard();
+}
+
+function rmUpdateStatus(id, novoStatus){
+  if(rmChangeStatus(id, novoStatus)){
+    rmOpenModal(id, rmActiveModalLarge);
+  }
+}
+
+function rmAbrirWhatsapp(telefone){
+  let digits = (telefone || '').replace(/\D/g, '');
+  if(!digits) return;
+  if(digits.length <= 11){
+    digits = '55' + digits;
+  }
+  window.open('https://wa.me/' + digits, '_blank');
+}
+
+function rmToDateInputValue(iso){
+  if(!iso) return '';
+  const d = new Date(iso);
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+
+function rmSetDataManual(id, dateValue){
+  const iso = dateValue ? new Date(dateValue + 'T12:00:00').toISOString() : null;
+  const list = rmLoad();
+  const item = list.find(r=>r.id===id);
+  if(item){
+    item.dataManual = iso;
+    rmSave(list);
+    rmDbUpsertRecepcao(item);
+  }
+  rmOpenModal(id, rmActiveModalLarge);
+}
+
+function rmSetDataManualHoje(id){
+  rmSetDataManual(id, rmToDateInputValue(new Date().toISOString()));
+}
+
+function rmLimparDataManual(id){
+  rmSetDataManual(id, '');
+}
+
+function rmTempoParado(r){
+  let desde;
+  if(r.dataManual){
+    desde = r.dataManual;
+  } else {
+    const hist = r.historico || [];
+    desde = hist.length ? hist[hist.length-1].em : r.entrada;
+  }
+  const ms = Date.now() - new Date(desde).getTime();
+  const dias = Math.floor(ms / 86400000);
+  if(dias <= 0) return {label:'Hoje', level:'ok'};
+  if(dias === 1) return {label:'Há 1 dia', level:'warn'};
+  return {label:'Há ' + dias + ' dias', level: dias >= 3 ? 'alert' : 'warn'};
+}
+
+function rmProblemasResumo(lista){
+  if(!lista || lista.length===0) return '';
+  const feitos = lista.filter(p=>p.feito).length;
+  return feitos + '/' + lista.length + ' resolvidos · ' + lista[0].texto;
+}
+
+function rmProblemaChecklistHtml(lista){
+  if(!lista || lista.length===0) return '<div class="rm-problema-empty">Nenhum problema registrado</div>';
+  return lista.map((p,i)=>`
+    <div class="rm-problema-check">
+      <input type="checkbox" ${p.feito?'checked':''} onchange="rmToggleProblema('${rmActiveModalId}', ${i}, this.checked, this.nextElementSibling)">
+      <input type="text" class="rm-problema-edit ${p.feito?'rm-problema-done':''}" value="${p.texto}" onchange="rmEditarProblema('${rmActiveModalId}', ${i}, this.value)">
+    </div>
+  `).join('');
+}
+
+function rmAdicionarProblemaModal(id){
+  const input = document.getElementById('rm-modal-problema-novo');
+  const texto = input.value.trim().toUpperCase();
+  if(!texto) return;
+  const list = rmLoad();
+  const item = list.find(r=>r.id===id);
+  if(item){
+    if(!item.problemas) item.problemas = [];
+    item.problemas.push({texto, feito:false});
+    rmSave(list);
+    rmDbUpsertRecepcao(item);
+    document.getElementById('rm-modal-problema-lista').innerHTML = rmProblemaChecklistHtml(item.problemas);
+  }
+  input.value = '';
+  input.focus();
+}
+
+function rmToggleProblema(id, index, checked, spanEl){
+  const list = rmLoad();
+  const item = list.find(r=>r.id===id);
+  if(item && item.problemas && item.problemas[index]){
+    item.problemas[index].feito = checked;
+    rmSave(list);
+    rmDbUpsertRecepcao(item);
+  }
+  if(spanEl) spanEl.classList.toggle('rm-problema-done', checked);
+  rmRenderActiveBoard();
+}
+
+function rmEditarProblema(id, index, novoTexto){
+  const texto = novoTexto.trim().toUpperCase();
+  const list = rmLoad();
+  const item = list.find(r=>r.id===id);
+  if(item && item.problemas && item.problemas[index]){
+    item.problemas[index].texto = texto;
+    rmSave(list);
+    rmDbUpsertRecepcao(item);
+  }
+  rmRenderActiveBoard();
+}
+
+function rmTogglePago(id, checked){
+  rmUpdateField(id, 'pago', checked);
+}
+
+function rmUpdateField(id, field, value){
+  const list = rmLoad();
+  const item = list.find(r=>r.id===id);
+  if(item){ item[field] = value; rmSave(list); rmDbUpsertRecepcao(item); }
+}
+
+
+
+(function rmInit(){
+  rmSetSection('oficina');
+  rmSyncFromSupabase();
+  rmSetupRealtime();
+  document.getElementById('rm-autoprint-toggle').checked = localStorage.getItem(RM_AUTOPRINT_KEY) === 'true';
+  if(localStorage.getItem(RM_SIDEBAR_KEY) === 'true'){
+    document.getElementById('rm-app').classList.add('rm-sidebar-collapsed');
+  }
+})();
+</script>
+</body>
+</html>
