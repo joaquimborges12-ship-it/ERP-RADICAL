@@ -106,6 +106,8 @@
     padding:6px 12px; font-size:12.5px; cursor:pointer;
   }
   .rm-foto-thumb-modal{width:100%; max-width:280px; border-radius:9px; display:block; border:1px solid var(--rm-border); margin-bottom:8px;}
+  .rm-prodtab-bar{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:6px;}
+  .rm-prodtab-content{padding-top:8px;}
 
   .rm-pdv-modo-toggle{
     display:inline-flex; gap:2px; background:var(--rm-panel-2); border:1px solid var(--rm-border);
@@ -298,6 +300,18 @@
   }
   .rm-mec-chips{display:flex; gap:8px; flex-wrap:wrap;}
   .rm-mec-chip-empty{color:var(--rm-text-dim); font-size:13px;}
+  .rm-aviso-item{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+    background:var(--rm-panel); border-radius:10px; box-shadow:var(--rm-shadow-sm);
+    padding:14px 16px; margin-bottom:10px;
+  }
+  .rm-aviso-item-texto{font-size:14px; white-space:pre-wrap;}
+  .rm-aviso-item-destino{
+    display:inline-block; margin-top:6px; font-size:11px; font-weight:700; color:var(--rm-text-dim);
+    text-transform:uppercase; letter-spacing:0.03em; background:var(--rm-panel-2); padding:2px 9px; border-radius:20px;
+  }
+  .rm-aviso-item-remover{background:none; border:none; color:var(--rm-text-dim); font-size:18px; cursor:pointer; flex-shrink:0; line-height:1;}
+  .rm-aviso-item-remover:hover{color:var(--rm-red);}
   .rm-mec-chip{
     display:flex; align-items:center; gap:4px; background:var(--rm-panel-2); border:1px solid var(--rm-border);
     border-radius:20px; padding:7px 6px 7px 14px; font-size:13px;
@@ -350,10 +364,16 @@
     text-align:left; padding:9px 12px; color:var(--rm-text-dim); font-weight:700;
     font-size:10.5px; text-transform:uppercase; letter-spacing:0.03em;
     border:1px solid var(--rm-border); background:var(--rm-panel-2); white-space:nowrap;
+    position:relative;
   }
   .rm-th-sortable{cursor:pointer; user-select:none;}
   .rm-th-sortable:hover{color:var(--rm-text);}
   .rm-th-sortable.rm-th-sorted{color:var(--rm-accent);}
+  .rm-col-resize-handle{
+    position:absolute; top:0; right:0; width:8px; height:100%; cursor:col-resize;
+    user-select:none; touch-action:none; z-index:5;
+  }
+  .rm-col-resize-handle:hover, .rm-col-resize-handle.rm-resizing{background:var(--rm-accent);}
   table.rm-table tbody td{
     padding:9px 12px; border:1px solid var(--rm-border); vertical-align:middle;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
@@ -365,6 +385,11 @@
   .rm-lista-foto-icon{
     display:inline-flex; align-items:center; justify-content:center; font-size:11px;
     background:var(--rm-panel-2); border:1px solid var(--rm-border); border-radius:5px; padding:2px 5px;
+  }
+  #rm-foto-preview-float{
+    display:none; position:fixed; z-index:500; width:180px; height:180px; object-fit:cover;
+    border-radius:10px; box-shadow:0 10px 28px rgba(0,0,0,0.3); border:2px solid var(--rm-panel);
+    background:var(--rm-panel); pointer-events:none;
   }
   .rm-lista-flags{display:flex; gap:4px; margin-top:1px; font-size:11px; color:var(--rm-text-dim);}
   .rm-lista-status-pill{
@@ -524,6 +549,42 @@
   .rm-history-status{color:var(--rm-text);}
   .rm-history-time{color:var(--rm-text-dim);}
 
+  #rm-bancada{min-height:100vh; background:var(--rm-bg);}
+  .rm-bancada-header{
+    display:flex; align-items:center; gap:14px; padding:22px 28px; background:var(--rm-panel);
+    box-shadow:var(--rm-shadow-sm); position:sticky; top:0; z-index:10;
+  }
+  .rm-bancada-mark{width:14px; height:14px; border-radius:4px; background:var(--rm-accent); flex-shrink:0;}
+  .rm-bancada-titulo{font-family:var(--rm-font-display); font-size:26px; font-weight:700; flex:1;}
+  .rm-bancada-sync{display:flex; align-items:center; gap:7px; font-size:13px; color:var(--rm-text-dim);}
+  .rm-bancada-board{padding:24px; display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:20px;}
+  .rm-bancada-aviso-banner{
+    margin:24px 24px 0; padding:20px 24px; background:var(--rm-accent); color:var(--rm-accent-ink);
+    border-radius:14px; font-size:22px; font-weight:700; line-height:1.4; white-space:pre-wrap;
+  }
+  .rm-bancada-aviso-banner + .rm-bancada-aviso-banner{margin-top:14px;}
+  .rm-bancada-vazio{grid-column:1/-1; text-align:center; padding:80px 20px; color:var(--rm-text-dim); font-size:18px;}
+  .rm-bancada-card{
+    background:var(--rm-panel); border-radius:14px; box-shadow:var(--rm-shadow); padding:20px 22px;
+    border-left:6px solid var(--rm-accent);
+  }
+  .rm-bancada-card.rm-bancada-alerta{border-left-color:var(--rm-red);}
+  .rm-bancada-card-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;}
+  .rm-bancada-modelo{font-family:var(--rm-font-display); font-size:22px; font-weight:700;}
+  .rm-bancada-os{font-size:13px; color:var(--rm-text-dim); font-weight:700;}
+  .rm-bancada-cliente{font-size:15px; color:var(--rm-text-dim); margin-bottom:14px;}
+  .rm-bancada-tempo{font-size:13px; font-weight:700; padding:3px 10px; border-radius:20px; background:var(--rm-panel-2);}
+  .rm-bancada-tempo.rm-bancada-alerta{background:var(--rm-red); color:#fff;}
+  .rm-bancada-problemas{display:flex; flex-direction:column; gap:8px; margin-top:6px;}
+  .rm-bancada-anotacoes{
+    margin-top:14px; padding:12px 14px; background:var(--rm-panel-2); border-radius:10px;
+    font-size:14px; white-space:pre-wrap;
+  }
+  .rm-bancada-problema{display:flex; align-items:flex-start; gap:9px; font-size:15px;}
+  .rm-bancada-problema input{width:18px; height:18px; flex-shrink:0; margin-top:2px;}
+  .rm-bancada-problema.rm-bancada-feito{color:var(--rm-text-dim); text-decoration:line-through;}
+  .rm-bancada-foto{width:100%; height:160px; object-fit:contain; display:block; border-radius:10px; margin-top:12px; background:var(--rm-panel-2);}
+
   .rm-toast{
     position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(100px);
     background:var(--rm-green); color:#08240f; font-weight:700; font-size:14px;
@@ -611,8 +672,22 @@
     .rm-settings-btn{ width:32px; height:32px; flex-shrink:0; }
   }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
+<div id="rm-bancada" style="display:none;">
+  <div class="rm-bancada-header">
+    <div class="rm-bancada-mark"></div>
+    <div class="rm-bancada-titulo" id="rm-bancada-nome">Bancada</div>
+    <div class="rm-bancada-sync">
+      <span class="rm-sync-dot" id="rm-bancada-sync-dot"></span>
+      <span id="rm-bancada-sync-label">Sincronizando...</span>
+    </div>
+  </div>
+  <div id="rm-bancada-avisos"></div>
+  <div class="rm-bancada-board" id="rm-bancada-board"></div>
+</div>
+
 <div id="rm-app">
   <header class="rm-header">
     <div class="rm-brand">
@@ -788,6 +863,7 @@
         <button class="rm-subnav-btn" id="rm-btn-dashboard" onclick="rmSetView('dashboard')"><span class="rm-subnav-icon">&#9638;</span><span>Painel</span></button>
         <button class="rm-subnav-btn" id="rm-btn-mecanicos" onclick="rmSetView('mecanicos')"><span class="rm-subnav-icon">&#128295;</span><span>Mecânicos</span></button>
         <button class="rm-subnav-btn" id="rm-btn-lista" onclick="rmSetView('lista')"><span class="rm-subnav-icon">&#9776;</span><span>Lista</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-avisos" onclick="rmSetView('avisos')"><span class="rm-subnav-icon">&#128226;</span><span>Aviso</span></button>
       </div>
 
     <section id="rm-view-reception" class="rm-view">
@@ -961,6 +1037,24 @@
         <div class="rm-lista-empty" id="rm-lista-empty" style="display:none;">Nenhuma moto encontrada</div>
       </div>
     </section>
+
+    <section id="rm-view-avisos" class="rm-view">
+      <div class="rm-form-wrap" style="max-width:640px;">
+        <div class="rm-fieldgroup">
+          <span class="rm-fieldgroup-label">Novo aviso</span>
+          <label class="rm-label">Mensagem</label>
+          <textarea class="rm-input" id="rm-aviso-texto" autocapitalize="characters"></textarea>
+          <label class="rm-label">Para quem</label>
+          <select class="rm-input" id="rm-aviso-destino"></select>
+          <button class="rm-primary" style="margin-top:8px;" onclick="rmEnviarAviso()">Enviar aviso</button>
+        </div>
+      </div>
+
+      <div class="rm-fieldgroup" style="margin-top:8px;">
+        <span class="rm-fieldgroup-label">Avisos ativos</span>
+        <div id="rm-avisos-lista"></div>
+      </div>
+    </section>
     </div>
 
     <div id="rm-section-clientes" class="rm-section">
@@ -1004,21 +1098,22 @@
 
         <div class="rm-toolbar">
           <input class="rm-search" id="rm-search-produtos" placeholder="Buscar por nome, código ou categoria..." oninput="rmRenderProdutos()">
+          <button class="rm-btn-add" onclick="rmAbrirImportacaoCsv()">Importar planilha CSV</button>
         </div>
 
         <div class="rm-table-wrap">
-          <table class="rm-table">
-            <colgroup><col><col style="width:100px"><col style="width:110px"><col style="width:120px"><col style="width:110px"><col style="width:110px"><col style="width:110px"><col style="width:90px"><col style="width:90px"></colgroup>
+          <table class="rm-table" id="rm-produtos-table">
+            <colgroup id="rm-produtos-colgroup"><col><col style="width:110px"><col style="width:110px"><col style="width:120px"><col style="width:120px"><col style="width:110px"><col style="width:90px"><col style="width:90px"></colgroup>
             <thead>
               <tr>
-                <th>Nome</th>
-                <th>Código</th>
-                <th>Marca</th>
-                <th>Localização</th>
-                <th>Preço consumidor</th>
-                <th>Preço parceiro</th>
-                <th>Estoque</th>
-                <th>Status</th>
+                <th class="rm-th-sortable" data-key="nome" data-label="Nome" onclick="rmProdutosSortClick('nome')">Nome<span class="rm-col-resize-handle"></span></th>
+                <th class="rm-th-sortable" data-key="codigo" data-label="Código" onclick="rmProdutosSortClick('codigo')">Código<span class="rm-col-resize-handle"></span></th>
+                <th class="rm-th-sortable" data-key="marca" data-label="Marca" onclick="rmProdutosSortClick('marca')">Marca<span class="rm-col-resize-handle"></span></th>
+                <th class="rm-th-sortable" data-key="localizacao" data-label="Localização" onclick="rmProdutosSortClick('localizacao')">Localização<span class="rm-col-resize-handle"></span></th>
+                <th class="rm-th-sortable" data-key="precoConsumidor" data-label="Preço consumidor" onclick="rmProdutosSortClick('precoConsumidor')">Preço consumidor<span class="rm-col-resize-handle"></span></th>
+                <th class="rm-th-sortable" data-key="precoParceiro" data-label="Preço parceiro" onclick="rmProdutosSortClick('precoParceiro')">Preço parceiro<span class="rm-col-resize-handle"></span></th>
+                <th class="rm-th-sortable" data-key="estoque" data-label="Estoque" onclick="rmProdutosSortClick('estoque')">Estoque<span class="rm-col-resize-handle"></span></th>
+                <th class="rm-th-sortable" data-key="status" data-label="Status" onclick="rmProdutosSortClick('status')">Status<span class="rm-col-resize-handle"></span></th>
               </tr>
             </thead>
             <tbody id="rm-produtos-body"></tbody>
@@ -1045,8 +1140,17 @@
                 <input class="rm-input" id="rm-prod-codigo-barras" inputmode="numeric">
               </div>
             </div>
-            <label class="rm-label">Marca (opcional)</label>
+            <label class="rm-label">Marca (opcional — fabricante da peça)</label>
             <input class="rm-input" id="rm-prod-marca" autocapitalize="characters">
+            <label class="rm-label">Aplicação (opcional — modelos de moto que essa peça serve)</label>
+            <input class="rm-input" id="rm-prod-aplicacao" autocapitalize="characters">
+            <div class="rm-toggle-row" style="margin-bottom:0; margin-top:14px;">
+              <span class="rm-toggle-row-label">É serviço (não é peça física)</span>
+              <label class="rm-switch">
+                <input type="checkbox" id="rm-prod-eh-servico">
+                <span class="rm-switch-track"></span>
+              </label>
+            </div>
           </div>
 
           <div class="rm-fieldgroup">
@@ -1061,8 +1165,16 @@
                 <input class="rm-input" id="rm-prod-subcategoria" autocapitalize="characters">
               </div>
             </div>
-            <label class="rm-label">NCM (opcional — usado na nota fiscal)</label>
-            <input class="rm-input" id="rm-prod-ncm" inputmode="numeric">
+            <div class="rm-row">
+              <div>
+                <label class="rm-label">NCM (opcional)</label>
+                <input class="rm-input" id="rm-prod-ncm" inputmode="numeric">
+              </div>
+              <div>
+                <label class="rm-label">CEST (opcional)</label>
+                <input class="rm-input" id="rm-prod-cest" inputmode="numeric">
+              </div>
+            </div>
           </div>
 
           <div class="rm-fieldgroup">
@@ -1136,9 +1248,15 @@
             <span class="rm-fieldgroup-label">Peso e dimensões (opcional)</span>
             <div class="rm-row">
               <div>
-                <label class="rm-label">Peso (kg)</label>
+                <label class="rm-label">Peso bruto (kg)</label>
                 <input class="rm-input" id="rm-prod-peso" inputmode="decimal">
               </div>
+              <div>
+                <label class="rm-label">Peso líquido (kg)</label>
+                <input class="rm-input" id="rm-prod-peso-liquido" inputmode="decimal">
+              </div>
+            </div>
+            <div class="rm-row">
               <div>
                 <label class="rm-label">Comprimento (cm)</label>
                 <input class="rm-input" id="rm-prod-comprimento" inputmode="decimal">
@@ -1154,7 +1272,14 @@
             </div>
           </div>
 
+          <div class="rm-fieldgroup">
+            <span class="rm-fieldgroup-label">Observação (opcional)</span>
+            <textarea class="rm-input" id="rm-prod-observacao" autocapitalize="characters"></textarea>
+          </div>
+
           <div class="rm-submit-bar">
+            <button class="rm-btn-add" style="width:100%; margin-bottom:10px;" onclick="rmAbrirImportacaoCsv()">Importar planilha CSV</button>
+            <input type="file" id="rm-prod-csv-input" accept=".csv" style="display:none;" onchange="rmProcessarArquivoCsv(this)">
             <button class="rm-primary" onclick="rmSalvarProduto()">Cadastrar produto</button>
           </div>
         </div>
@@ -1193,6 +1318,8 @@
 </div>
 
 <div class="rm-toast" id="rm-toast">Recepção registrada</div>
+<img id="rm-foto-preview-float" src="">
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -1248,6 +1375,8 @@ function rmAbrirCadastroProdutoRapido(){
     <div class="rm-modal-section">
       <span class="rm-modal-section-label">Marca</span>
       <input class="rm-input" id="rm-pqf-marca" autocapitalize="characters">
+      <label class="rm-label">Aplicação (modelos que serve)</label>
+      <input class="rm-input" id="rm-pqf-aplicacao" autocapitalize="characters">
     </div>
     <div class="rm-modal-section">
       <span class="rm-modal-section-label">Categoria</span>
@@ -1344,6 +1473,152 @@ function rmAbrirCadastroProdutoRapido(){
   setTimeout(()=>{ const f = document.getElementById('rm-pqf-nome'); if(f) f.focus(); }, 150);
 }
 
+let rmImportacaoPendente = null;
+
+function rmAbrirImportacaoCsv(){
+  document.getElementById('rm-prod-csv-input').click();
+}
+
+function rmProcessarArquivoCsv(input){
+  const file = input.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const texto = e.target.result;
+    const resultado = Papa.parse(texto, { header: true, delimiter: ';', skipEmptyLines: true });
+
+    if(resultado.errors && resultado.errors.length > 0 && resultado.data.length === 0){
+      alert('Não consegui ler esse arquivo. Confere se é o CSV certo e tenta de novo.');
+      input.value = '';
+      return;
+    }
+
+    const existentes = rmLoadProdutos();
+    const porNome = {};
+    existentes.forEach(p=>{ if(p.nome) porNome[p.nome.trim().toUpperCase()] = p; });
+
+    let novos = 0, atualizados = 0, semNome = 0, repetidosNaPlanilha = 0;
+    const porId = {};
+    let contador = 0;
+
+    resultado.data.forEach(row=>{
+      const nome = (row.nome||'').trim().toUpperCase();
+      if(!nome){ semNome++; return; }
+      const localizacao = (row.codigo||'').trim().toUpperCase();
+      const existente = porNome[nome];
+      const idParaUsar = existente ? existente.id : 'p' + Date.now() + '_' + (contador++);
+      const repetido = porId[idParaUsar];
+
+      const produto = {
+        id: idParaUsar,
+        nome,
+        codigo: '',
+        categoria: (row.grupo||'').trim().toUpperCase(),
+        unidade: (row.tipo_un||'').trim().toUpperCase() || 'UN',
+        estoqueAtual: rmParseMoeda(row.estoque),
+        estoqueMinimo: rmParseMoeda(row.estoque_min),
+        precoCusto: rmParseMoeda(row.custo),
+        precoConsumidor: rmParseMoeda(row.preco),
+        precoParceiro: existente ? (existente.precoParceiro||0) : 0,
+        ehServico: (row.servico||'').trim() === '1',
+        codigoBarras: (row.codigo_barras||'').trim(),
+        ncm: (row.ncm_id||'').trim(),
+        cest: (row.cest_id||'').trim(),
+        pesoLiquidoKg: rmParseMoeda(row.peso_liquido) || null,
+        pesoKg: rmParseMoeda(row.peso_bruto) || null,
+        observacao: (row.obs||'').trim().toUpperCase(),
+        localizacao,
+        marca: existente ? existente.marca : '',
+        subcategoria: existente ? existente.subcategoria : '',
+        fornecedor: existente ? existente.fornecedor : '',
+        fornecedorCodigo: existente ? existente.fornecedorCodigo : '',
+        estoqueMaximo: existente ? (existente.estoqueMaximo||0) : 0,
+        comprimentoCm: existente ? existente.comprimentoCm : null,
+        larguraCm: existente ? existente.larguraCm : null,
+        alturaCm: existente ? existente.alturaCm : null,
+        ativo: existente ? existente.ativo !== false : true,
+        criadoEm: existente ? existente.criadoEm : new Date().toISOString()
+      };
+
+      if(repetido) repetidosNaPlanilha++;
+      else if(existente) atualizados++;
+      else novos++;
+
+      porId[idParaUsar] = produto;
+      porNome[nome] = produto;
+    });
+
+    const mapeados = Object.values(porId);
+    rmImportacaoPendente = mapeados;
+    rmMostrarPreviaImportacao(mapeados.length, novos, atualizados, semNome, repetidosNaPlanilha);
+    input.value = '';
+  };
+  reader.readAsText(file, 'ISO-8859-1');
+}
+
+function rmMostrarPreviaImportacao(total, novos, atualizados, semNome, repetidosNaPlanilha){
+  const modal = document.getElementById('rm-modal');
+  modal.classList.add('rm-modal-large');
+  modal.innerHTML = `
+    <div class="rm-modal-header">
+      <div><div class="rm-modal-title">Confirmar importação</div></div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
+    </div>
+    <div class="rm-modal-section">
+      <p style="font-size:15px; line-height:1.6;">
+        Encontrei <b>${total}</b> produtos únicos na planilha.<br>
+        <b>${novos}</b> são novos (serão criados).<br>
+        <b>${atualizados}</b> já existem no sistema (nome igual — serão atualizados).
+        ${repetidosNaPlanilha>0?`<br><b>${repetidosNaPlanilha}</b> linha(s) tinham o mesmo nome dentro da própria planilha — fiquei só com a última de cada.`:''}
+        ${semNome>0?`<br><b>${semNome}</b> linha(s) sem nome foram ignoradas.`:''}
+        <br>O código interno ficou em branco — o valor que estava nessa coluna foi pra Localização.
+      </p>
+      <p style="font-size:13px; color:var(--rm-text-dim);">Isso pode levar alguns segundos. Não feche essa tela durante a importação.</p>
+    </div>
+    <div id="rm-import-progresso" style="display:none; padding:0 2px 14px; font-size:14px; font-weight:600;"></div>
+    <button class="rm-primary" id="rm-import-confirmar-btn" onclick="rmConfirmarImportacaoCsv()">Confirmar e importar</button>
+  `;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+
+async function rmConfirmarImportacaoCsv(){
+  const mapeados = rmImportacaoPendente;
+  if(!mapeados) return;
+  const btn = document.getElementById('rm-import-confirmar-btn');
+  const progresso = document.getElementById('rm-import-progresso');
+  btn.disabled = true;
+  btn.textContent = 'Importando...';
+  progresso.style.display = 'block';
+
+  const tamanhoLote = 400;
+  let importados = 0;
+  for(let i=0; i<mapeados.length; i+=tamanhoLote){
+    const lote = mapeados.slice(i, i+tamanhoLote).map(rmToDbRowProduto);
+    const { error } = await rmSb.from('produtos').upsert(lote);
+    if(error){
+      console.error('Erro na importação:', error);
+      progresso.textContent = 'Deu erro no lote ' + (Math.floor(i/tamanhoLote)+1) + '. Veja o console (F12) pra detalhes.';
+      btn.disabled = false;
+      btn.textContent = 'Tentar de novo';
+      return;
+    }
+    importados += lote.length;
+    progresso.textContent = importados + ' de ' + mapeados.length + ' importados...';
+  }
+
+  const existentes = rmLoadProdutos();
+  const porId = {};
+  existentes.forEach(p=>{ porId[p.id] = p; });
+  mapeados.forEach(p=>{ porId[p.id] = p; });
+  rmSaveProdutos(Object.values(porId));
+
+  rmImportacaoPendente = null;
+  rmCloseModal();
+  rmShowToast(importados + ' produtos importados com sucesso');
+  rmRenderProdutos();
+}
+
 function rmSalvarProdutoRapido(){
   const nome = document.getElementById('rm-pqf-nome').value.trim().toUpperCase();
   if(!nome){
@@ -1356,6 +1631,7 @@ function rmSalvarProdutoRapido(){
     codigo: document.getElementById('rm-pqf-codigo').value.trim().toUpperCase(),
     codigoBarras: document.getElementById('rm-pqf-codigo-barras').value.trim(),
     marca: document.getElementById('rm-pqf-marca').value.trim().toUpperCase(),
+    aplicacao: document.getElementById('rm-pqf-aplicacao').value.trim().toUpperCase(),
     categoria: document.getElementById('rm-pqf-categoria').value.trim().toUpperCase(),
     subcategoria: document.getElementById('rm-pqf-subcategoria').value.trim().toUpperCase(),
     ncm: document.getElementById('rm-pqf-ncm').value.trim(),
@@ -1404,6 +1680,104 @@ function rmAtualizarMargens(prefixo){
   });
 }
 
+let rmProdutosSort = {key:null, dir:'asc'};
+
+function rmProdutosSortClick(key){
+  if(rmProdutosSort.key === key){
+    rmProdutosSort.dir = rmProdutosSort.dir === 'asc' ? 'desc' : 'asc';
+  } else {
+    rmProdutosSort.key = key;
+    rmProdutosSort.dir = 'asc';
+  }
+  rmRenderProdutos();
+}
+
+function rmProdutosSortValue(p, key){
+  switch(key){
+    case 'nome': return (p.nome||'').toLowerCase();
+    case 'codigo': return (p.codigo||'').toLowerCase();
+    case 'marca': return (p.marca||'').toLowerCase();
+    case 'localizacao': return (p.localizacao||'').toLowerCase();
+    case 'precoConsumidor': return p.precoConsumidor || 0;
+    case 'precoParceiro': return p.precoParceiro || 0;
+    case 'estoque': return p.estoqueAtual || 0;
+    case 'status': return p.ativo === false ? 0 : 1;
+    default: return '';
+  }
+}
+
+function rmProdutosCompare(a, b, key, dir){
+  const va = rmProdutosSortValue(a, key);
+  const vb = rmProdutosSortValue(b, key);
+  let cmp;
+  if(typeof va === 'number' && typeof vb === 'number'){
+    cmp = va - vb;
+  } else {
+    cmp = String(va).localeCompare(String(vb), 'pt-BR');
+  }
+  return dir === 'asc' ? cmp : -cmp;
+}
+
+function rmUpdateProdutosHeaders(){
+  document.querySelectorAll('#rm-produtos-table .rm-th-sortable').forEach(th=>{
+    const key = th.dataset.key;
+    const label = th.dataset.label;
+    const arrow = rmProdutosSort.key === key ? (rmProdutosSort.dir==='asc' ? ' \u25B2' : ' \u25BC') : '';
+    th.classList.toggle('rm-th-sorted', rmProdutosSort.key === key);
+    th.childNodes[0].textContent = label + arrow;
+  });
+}
+
+function rmIniciarResizeColuna(ev, th){
+  ev.preventDefault();
+  ev.stopPropagation();
+  const table = document.getElementById('rm-produtos-table');
+  const ths = Array.from(table.querySelectorAll('thead th'));
+  const index = ths.indexOf(th);
+  const col = document.getElementById('rm-produtos-colgroup').children[index];
+  if(!col) return;
+
+  const startX = ev.clientX;
+  const startWidth = th.getBoundingClientRect().width;
+  const handle = ev.target;
+  handle.classList.add('rm-resizing');
+
+  function onMove(e){
+    const novaLargura = Math.max(50, startWidth + (e.clientX - startX));
+    col.style.width = novaLargura + 'px';
+  }
+  function onUp(){
+    handle.classList.remove('rm-resizing');
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    rmSalvarLargurasColunasProdutos();
+  }
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+}
+
+function rmSalvarLargurasColunasProdutos(){
+  const cols = Array.from(document.getElementById('rm-produtos-colgroup').children);
+  const larguras = cols.map(c => c.style.width || '');
+  localStorage.setItem('radicalMotos_produtos_colunas_v1', JSON.stringify(larguras));
+}
+
+function rmRestaurarLargurasColunasProdutos(){
+  try{
+    const larguras = JSON.parse(localStorage.getItem('radicalMotos_produtos_colunas_v1'));
+    if(!larguras) return;
+    const cols = document.getElementById('rm-produtos-colgroup').children;
+    larguras.forEach((w, i)=>{ if(w && cols[i]) cols[i].style.width = w; });
+  }catch(e){}
+}
+
+function rmInicializarResizeProdutos(){
+  document.querySelectorAll('#rm-produtos-table .rm-col-resize-handle').forEach(handle=>{
+    handle.addEventListener('mousedown', (ev)=> rmIniciarResizeColuna(ev, handle.closest('th')));
+  });
+  rmRestaurarLargurasColunasProdutos();
+}
+
 function rmSalvarProduto(){
   const nome = document.getElementById('rm-prod-nome').value.trim().toUpperCase();
   if(!nome){
@@ -1416,9 +1790,11 @@ function rmSalvarProduto(){
     codigo: document.getElementById('rm-prod-codigo').value.trim().toUpperCase(),
     codigoBarras: document.getElementById('rm-prod-codigo-barras').value.trim(),
     marca: document.getElementById('rm-prod-marca').value.trim().toUpperCase(),
+    aplicacao: document.getElementById('rm-prod-aplicacao').value.trim().toUpperCase(),
     categoria: document.getElementById('rm-prod-categoria').value.trim().toUpperCase(),
     subcategoria: document.getElementById('rm-prod-subcategoria').value.trim().toUpperCase(),
     ncm: document.getElementById('rm-prod-ncm').value.trim(),
+    cest: document.getElementById('rm-prod-cest').value.trim(),
     localizacao: document.getElementById('rm-prod-localizacao').value.trim().toUpperCase(),
     fornecedor: document.getElementById('rm-prod-fornecedor').value.trim().toUpperCase(),
     fornecedorCodigo: document.getElementById('rm-prod-fornecedor-codigo').value.trim().toUpperCase(),
@@ -1430,9 +1806,12 @@ function rmSalvarProduto(){
     estoqueMaximo: rmParseMoeda(document.getElementById('rm-prod-estoque-maximo').value),
     unidade: document.getElementById('rm-prod-unidade').value,
     pesoKg: rmParseMoeda(document.getElementById('rm-prod-peso').value) || null,
+    pesoLiquidoKg: rmParseMoeda(document.getElementById('rm-prod-peso-liquido').value) || null,
     comprimentoCm: rmParseMoeda(document.getElementById('rm-prod-comprimento').value) || null,
     larguraCm: rmParseMoeda(document.getElementById('rm-prod-largura').value) || null,
     alturaCm: rmParseMoeda(document.getElementById('rm-prod-altura').value) || null,
+    ehServico: document.getElementById('rm-prod-eh-servico').checked,
+    observacao: document.getElementById('rm-prod-observacao').value.trim().toUpperCase(),
     ativo: true,
     criadoEm: new Date().toISOString()
   };
@@ -1441,10 +1820,11 @@ function rmSalvarProduto(){
   rmSaveProdutos(list);
   rmDbUpsertProduto(produto);
 
-  ['rm-prod-nome','rm-prod-codigo','rm-prod-codigo-barras','rm-prod-marca','rm-prod-categoria','rm-prod-subcategoria','rm-prod-ncm',
+  ['rm-prod-nome','rm-prod-codigo','rm-prod-codigo-barras','rm-prod-marca','rm-prod-aplicacao','rm-prod-categoria','rm-prod-subcategoria','rm-prod-ncm','rm-prod-cest',
    'rm-prod-localizacao','rm-prod-fornecedor','rm-prod-fornecedor-codigo','rm-prod-preco-custo','rm-prod-preco-consumidor',
-   'rm-prod-preco-parceiro','rm-prod-estoque-minimo','rm-prod-estoque-maximo','rm-prod-peso','rm-prod-comprimento','rm-prod-largura','rm-prod-altura']
+   'rm-prod-preco-parceiro','rm-prod-estoque-minimo','rm-prod-estoque-maximo','rm-prod-peso','rm-prod-peso-liquido','rm-prod-comprimento','rm-prod-largura','rm-prod-altura','rm-prod-observacao']
     .forEach(id => document.getElementById(id).value = '');
+  document.getElementById('rm-prod-eh-servico').checked = false;
   document.getElementById('rm-prod-estoque-atual').value = '0';
   document.getElementById('rm-prod-unidade').value = 'UN';
   ['rm-prod-margem-consumidor','rm-prod-margem-parceiro'].forEach(id=>{
@@ -1456,12 +1836,28 @@ function rmSalvarProduto(){
   document.getElementById('rm-prod-nome').focus();
 }
 
+function rmBuscaInteligente(texto, termoBusca){
+  if(!texto) return false;
+  const textoBaixo = texto.toLowerCase();
+  const termo = (termoBusca||'').trim().toLowerCase();
+  if(!termo) return true;
+  if(textoBaixo.includes(termo)) return true;
+
+  const palavras = textoBaixo.split(/\s+/).filter(Boolean);
+  const termos = termo.split(/\s+/).filter(Boolean);
+  if(termos.every(t => palavras.some(p => p.startsWith(t)))) return true;
+
+  const iniciais = palavras.map(p => p[0]).join('');
+  return iniciais.includes(termo);
+}
+
 function rmRenderProdutos(){
   const search = document.getElementById('rm-search-produtos').value.toLowerCase();
   let list = rmLoadProdutos();
   if(search){
     list = list.filter(p =>
-      (p.nome||'').toLowerCase().includes(search) ||
+      rmBuscaInteligente(p.nome, search) ||
+      rmBuscaInteligente(p.aplicacao, search) ||
       (p.codigo||'').toLowerCase().includes(search) ||
       (p.codigoBarras||'').toLowerCase().includes(search) ||
       (p.marca||'').toLowerCase().includes(search) ||
@@ -1470,7 +1866,10 @@ function rmRenderProdutos(){
       (p.localizacao||'').toLowerCase().includes(search)
     );
   }
-  list = list.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR'));
+  const chave = rmProdutosSort.key || 'nome';
+  const dir = rmProdutosSort.key ? rmProdutosSort.dir : 'asc';
+  list = list.slice().sort((a,b) => rmProdutosCompare(a, b, chave, dir));
+  rmUpdateProdutosHeaders();
 
   const body = document.getElementById('rm-produtos-body');
   const empty = document.getElementById('rm-produtos-empty');
@@ -1516,119 +1915,171 @@ function rmAbrirModalProduto(id){
       <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
     </div>
 
-    <div class="rm-modal-body">
-    <div class="rm-modal-col">
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Nome</span>
-      <input class="rm-input" value="${p.nome||''}" onchange="rmUpdateProduto('${p.id}','nome',this.value.trim().toUpperCase())">
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Código / SKU</span>
-      <input class="rm-input" value="${p.codigo||''}" onchange="rmUpdateProduto('${p.id}','codigo',this.value.trim().toUpperCase())">
-      <label class="rm-label">Código de barras / EAN</label>
-      <input class="rm-input" value="${p.codigoBarras||''}" onchange="rmUpdateProduto('${p.id}','codigoBarras',this.value.trim())">
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Marca</span>
-      <input class="rm-input" value="${p.marca||''}" onchange="rmUpdateProduto('${p.id}','marca',this.value.trim().toUpperCase())">
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Categoria</span>
-      <input class="rm-input" value="${p.categoria||''}" onchange="rmUpdateProduto('${p.id}','categoria',this.value.trim().toUpperCase())">
-      <label class="rm-label">Subcategoria</label>
-      <input class="rm-input" value="${p.subcategoria||''}" onchange="rmUpdateProduto('${p.id}','subcategoria',this.value.trim().toUpperCase())">
-      <label class="rm-label">NCM</label>
-      <input class="rm-input" value="${p.ncm||''}" onchange="rmUpdateProduto('${p.id}','ncm',this.value.trim())">
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Fornecedor</span>
-      <input class="rm-input" value="${p.fornecedor||''}" onchange="rmUpdateProduto('${p.id}','fornecedor',this.value.trim().toUpperCase())">
-      <label class="rm-label">Código no fornecedor</label>
-      <input class="rm-input" value="${p.fornecedorCodigo||''}" onchange="rmUpdateProduto('${p.id}','fornecedorCodigo',this.value.trim().toUpperCase())">
-    </div>
-    <div class="rm-modal-section">
-      <div class="rm-toggle-row" style="margin-bottom:0;">
-        <span class="rm-toggle-row-label">Produto ativo</span>
-        <label class="rm-switch">
-          <input type="checkbox" ${p.ativo!==false?'checked':''} onchange="rmUpdateProduto('${p.id}','ativo',this.checked)">
-          <span class="rm-switch-track"></span>
-        </label>
-      </div>
-    </div>
+    <div class="rm-prodtab-bar">
+      <button class="rm-pdv-modo-btn active" id="rm-prodtab-btn-cadastro" onclick="rmSetTabModalProduto('cadastro')">Cadastro</button>
+      <button class="rm-pdv-modo-btn" id="rm-prodtab-btn-estoque" onclick="rmSetTabModalProduto('estoque')">Estoque</button>
+      <button class="rm-pdv-modo-btn" id="rm-prodtab-btn-nfe" onclick="rmSetTabModalProduto('nfe')">NFE</button>
+      <button class="rm-pdv-modo-btn" id="rm-prodtab-btn-fotos" onclick="rmSetTabModalProduto('fotos')">Fotos</button>
     </div>
 
-    <div class="rm-modal-col">
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Preço de custo</span>
-      <input class="rm-input" id="rm-modal-prod-custo" value="${p.precoCusto?String(p.precoCusto).replace('.',','):''}" onchange="rmUpdateProduto('${p.id}','precoCusto',rmParseMoeda(this.value))" oninput="rmAtualizarMargemModalProduto('${p.id}')">
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Preço consumidor</span>
-      <input class="rm-input" id="rm-modal-prod-consumidor" value="${p.precoConsumidor?String(p.precoConsumidor).replace('.',','):''}" onchange="rmUpdateProduto('${p.id}','precoConsumidor',rmParseMoeda(this.value))" oninput="rmAtualizarMargemModalProduto('${p.id}')">
-      <span class="rm-margem-texto" id="rm-modal-margem-consumidor"></span>
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Preço parceiro</span>
-      <input class="rm-input" id="rm-modal-prod-parceiro" value="${p.precoParceiro?String(p.precoParceiro).replace('.',','):''}" onchange="rmUpdateProduto('${p.id}','precoParceiro',rmParseMoeda(this.value))" oninput="rmAtualizarMargemModalProduto('${p.id}')">
-      <span class="rm-margem-texto" id="rm-modal-margem-parceiro"></span>
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Estoque</span>
-      <div class="rm-row">
-        <div>
-          <label class="rm-label">Atual</label>
-          <input class="rm-input" value="${p.estoqueAtual||0}" onchange="rmUpdateProduto('${p.id}','estoqueAtual',rmParseMoeda(this.value))">
-        </div>
-        <div>
-          <label class="rm-label">Mínimo</label>
-          <input class="rm-input" value="${p.estoqueMinimo||''}" onchange="rmUpdateProduto('${p.id}','estoqueMinimo',rmParseMoeda(this.value))">
-        </div>
-        <div>
-          <label class="rm-label">Máximo</label>
-          <input class="rm-input" value="${p.estoqueMaximo||''}" onchange="rmUpdateProduto('${p.id}','estoqueMaximo',rmParseMoeda(this.value))">
-        </div>
+    <div id="rm-prodtab-cadastro" class="rm-prodtab-content">
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Nome</span>
+        <input class="rm-input" value="${p.nome||''}" onchange="rmUpdateProduto('${p.id}','nome',this.value.trim().toUpperCase())">
       </div>
-      <div class="rm-row">
-        <div>
-          <label class="rm-label">Unidade</label>
-          <select class="rm-input" onchange="rmUpdateProduto('${p.id}','unidade',this.value)">
-            ${['UN','PAR','L','KG','CX','M'].map(u=>`<option value="${u}"${p.unidade===u?' selected':''}>${u}</option>`).join('')}
-          </select>
-        </div>
-        <div>
-          <label class="rm-label">Localização</label>
-          <input class="rm-input" value="${p.localizacao||''}" onchange="rmUpdateProduto('${p.id}','localizacao',this.value.trim().toUpperCase())">
-        </div>
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Código / SKU</span>
+        <input class="rm-input" value="${p.codigo||''}" onchange="rmUpdateProduto('${p.id}','codigo',this.value.trim().toUpperCase())">
+        <label class="rm-label">Código de barras / EAN</label>
+        <input class="rm-input" value="${p.codigoBarras||''}" onchange="rmUpdateProduto('${p.id}','codigoBarras',this.value.trim())">
       </div>
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Peso e dimensões</span>
-      <div class="rm-row">
-        <div>
-          <label class="rm-label">Peso (kg)</label>
-          <input class="rm-input" value="${p.pesoKg||''}" onchange="rmUpdateProduto('${p.id}','pesoKg',rmParseMoeda(this.value)||null)">
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Marca (fabricante da peça)</span>
+        <input class="rm-input" value="${p.marca||''}" onchange="rmUpdateProduto('${p.id}','marca',this.value.trim().toUpperCase())">
+      </div>
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Aplicação (modelos que essa peça serve)</span>
+        <input class="rm-input" value="${p.aplicacao||''}" onchange="rmUpdateProduto('${p.id}','aplicacao',this.value.trim().toUpperCase())">
+      </div>
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Grupo (categoria)</span>
+        <input class="rm-input" value="${p.categoria||''}" onchange="rmUpdateProduto('${p.id}','categoria',this.value.trim().toUpperCase())">
+        <label class="rm-label">Subcategoria</label>
+        <input class="rm-input" value="${p.subcategoria||''}" onchange="rmUpdateProduto('${p.id}','subcategoria',this.value.trim().toUpperCase())">
+      </div>
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Preço de custo</span>
+        <input class="rm-input" id="rm-modal-prod-custo" value="${p.precoCusto?String(p.precoCusto).replace('.',','):''}" onchange="rmUpdateProduto('${p.id}','precoCusto',rmParseMoeda(this.value))" oninput="rmAtualizarMargemModalProduto('${p.id}')">
+      </div>
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Preço consumidor</span>
+        <input class="rm-input" id="rm-modal-prod-consumidor" value="${p.precoConsumidor?String(p.precoConsumidor).replace('.',','):''}" onchange="rmUpdateProduto('${p.id}','precoConsumidor',rmParseMoeda(this.value))" oninput="rmAtualizarMargemModalProduto('${p.id}')">
+        <span class="rm-margem-texto" id="rm-modal-margem-consumidor"></span>
+      </div>
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Preço parceiro</span>
+        <input class="rm-input" id="rm-modal-prod-parceiro" value="${p.precoParceiro?String(p.precoParceiro).replace('.',','):''}" onchange="rmUpdateProduto('${p.id}','precoParceiro',rmParseMoeda(this.value))" oninput="rmAtualizarMargemModalProduto('${p.id}')">
+        <span class="rm-margem-texto" id="rm-modal-margem-parceiro"></span>
+      </div>
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Observação</span>
+        <textarea class="rm-input" onchange="rmUpdateProduto('${p.id}','observacao',this.value.trim().toUpperCase())">${p.observacao||''}</textarea>
+      </div>
+      <div class="rm-modal-section">
+        <div class="rm-toggle-row">
+          <span class="rm-toggle-row-label">É serviço (não é peça física)</span>
+          <label class="rm-switch">
+            <input type="checkbox" ${p.ehServico?'checked':''} onchange="rmUpdateProduto('${p.id}','ehServico',this.checked)">
+            <span class="rm-switch-track"></span>
+          </label>
         </div>
-        <div>
-          <label class="rm-label">Compr. (cm)</label>
-          <input class="rm-input" value="${p.comprimentoCm||''}" onchange="rmUpdateProduto('${p.id}','comprimentoCm',rmParseMoeda(this.value)||null)">
-        </div>
-        <div>
-          <label class="rm-label">Larg. (cm)</label>
-          <input class="rm-input" value="${p.larguraCm||''}" onchange="rmUpdateProduto('${p.id}','larguraCm',rmParseMoeda(this.value)||null)">
-        </div>
-        <div>
-          <label class="rm-label">Alt. (cm)</label>
-          <input class="rm-input" value="${p.alturaCm||''}" onchange="rmUpdateProduto('${p.id}','alturaCm',rmParseMoeda(this.value)||null)">
+        <div class="rm-toggle-row" style="margin-bottom:0;">
+          <span class="rm-toggle-row-label">Produto ativo</span>
+          <label class="rm-switch">
+            <input type="checkbox" ${p.ativo!==false?'checked':''} onchange="rmUpdateProduto('${p.id}','ativo',this.checked)">
+            <span class="rm-switch-track"></span>
+          </label>
         </div>
       </div>
     </div>
+
+    <div id="rm-prodtab-estoque" class="rm-prodtab-content" style="display:none;">
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Estoque</span>
+        <div class="rm-row">
+          <div>
+            <label class="rm-label">Atual</label>
+            <input class="rm-input" value="${p.estoqueAtual||0}" onchange="rmUpdateProduto('${p.id}','estoqueAtual',rmParseMoeda(this.value))">
+          </div>
+          <div>
+            <label class="rm-label">Mínimo</label>
+            <input class="rm-input" value="${p.estoqueMinimo||''}" onchange="rmUpdateProduto('${p.id}','estoqueMinimo',rmParseMoeda(this.value))">
+          </div>
+          <div>
+            <label class="rm-label">Máximo</label>
+            <input class="rm-input" value="${p.estoqueMaximo||''}" onchange="rmUpdateProduto('${p.id}','estoqueMaximo',rmParseMoeda(this.value))">
+          </div>
+        </div>
+      </div>
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Unidade</span>
+        <select class="rm-input" onchange="rmUpdateProduto('${p.id}','unidade',this.value)">
+          ${!['UN','PAR','L','KG','CX','M'].includes(p.unidade)&&p.unidade?`<option value="${p.unidade}" selected>${p.unidade}</option>`:''}
+          ${['UN','PAR','L','KG','CX','M'].map(u=>`<option value="${u}"${p.unidade===u?' selected':''}>${u}</option>`).join('')}
+        </select>
+      </div>
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Localização</span>
+        <input class="rm-input" value="${p.localizacao||''}" onchange="rmUpdateProduto('${p.id}','localizacao',this.value.trim().toUpperCase())">
+      </div>
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Tamanho (peso e dimensões)</span>
+        <div class="rm-row">
+          <div>
+            <label class="rm-label">Peso bruto (kg)</label>
+            <input class="rm-input" value="${p.pesoKg||''}" onchange="rmUpdateProduto('${p.id}','pesoKg',rmParseMoeda(this.value)||null)">
+          </div>
+          <div>
+            <label class="rm-label">Peso líq. (kg)</label>
+            <input class="rm-input" value="${p.pesoLiquidoKg||''}" onchange="rmUpdateProduto('${p.id}','pesoLiquidoKg',rmParseMoeda(this.value)||null)">
+          </div>
+        </div>
+        <div class="rm-row">
+          <div>
+            <label class="rm-label">Compr. (cm)</label>
+            <input class="rm-input" value="${p.comprimentoCm||''}" onchange="rmUpdateProduto('${p.id}','comprimentoCm',rmParseMoeda(this.value)||null)">
+          </div>
+          <div>
+            <label class="rm-label">Larg. (cm)</label>
+            <input class="rm-input" value="${p.larguraCm||''}" onchange="rmUpdateProduto('${p.id}','larguraCm',rmParseMoeda(this.value)||null)">
+          </div>
+          <div>
+            <label class="rm-label">Alt. (cm)</label>
+            <input class="rm-input" value="${p.alturaCm||''}" onchange="rmUpdateProduto('${p.id}','alturaCm',rmParseMoeda(this.value)||null)">
+          </div>
+        </div>
+      </div>
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Fornecedor</span>
+        <input class="rm-input" value="${p.fornecedor||''}" onchange="rmUpdateProduto('${p.id}','fornecedor',this.value.trim().toUpperCase())">
+        <label class="rm-label">Código no fornecedor</label>
+        <input class="rm-input" value="${p.fornecedorCodigo||''}" onchange="rmUpdateProduto('${p.id}','fornecedorCodigo',this.value.trim().toUpperCase())">
+      </div>
     </div>
+
+    <div id="rm-prodtab-nfe" class="rm-prodtab-content" style="display:none;">
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">NCM</span>
+        <input class="rm-input" value="${p.ncm||''}" onchange="rmUpdateProduto('${p.id}','ncm',this.value.trim())">
+      </div>
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">CEST</span>
+        <input class="rm-input" value="${p.cest||''}" onchange="rmUpdateProduto('${p.id}','cest',this.value.trim())">
+      </div>
+    </div>
+
+    <div id="rm-prodtab-fotos" class="rm-prodtab-content" style="display:none;">
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Foto do produto</span>
+        ${p.fotoUrl?`<img src="${p.fotoUrl}" class="rm-foto-thumb-modal">`:'<p style="color:var(--rm-text-dim); font-size:14px;">Nenhuma foto cadastrada ainda.</p>'}
+        <input type="file" accept="image/*" id="rm-modal-prod-foto-input" style="display:none;" onchange="rmUploadFotoModalProduto(this, '${p.id}')">
+        <button type="button" class="rm-btn-add" style="width:100%; margin-top:10px;" onclick="document.getElementById('rm-modal-prod-foto-input').click()">${p.fotoUrl?'Trocar foto':'Adicionar foto'}</button>
+      </div>
     </div>
 
     <button class="rm-btn-excluir" onclick="rmExcluirProduto('${p.id}')">Excluir este produto</button>
   `;
   document.getElementById('rm-modal-backdrop').classList.add('show');
   rmAtualizarMargemModalProduto(p.id);
+}
+
+function rmSetTabModalProduto(tab){
+  ['cadastro','estoque','nfe','fotos'].forEach(t=>{
+    const content = document.getElementById('rm-prodtab-'+t);
+    const btn = document.getElementById('rm-prodtab-btn-'+t);
+    if(content) content.style.display = (t===tab) ? '' : 'none';
+    if(btn) btn.classList.toggle('active', t===tab);
+  });
 }
 
 function rmAtualizarMargemModalProduto(){
@@ -1741,7 +2192,8 @@ function rmBuscarProdutoPdv(query){
   if(!q){ lista.classList.remove('show'); return; }
   let produtos = rmLoadProdutos().filter(p => p.ativo !== false);
   produtos = produtos.filter(p =>
-    (p.nome||'').toLowerCase().includes(q) ||
+    rmBuscaInteligente(p.nome, q) ||
+    rmBuscaInteligente(p.aplicacao, q) ||
     (p.codigo||'').toLowerCase().includes(q) ||
     (p.codigoBarras||'').toLowerCase().includes(q)
   ).slice(0, 8);
@@ -1754,7 +2206,8 @@ function rmBuscarProdutoPdv(query){
       return `
         <div class="rm-autocomplete-item" onclick="rmEscolherProdutoPdv('${p.id}')">
           <div class="rm-autocomplete-nome">${p.nome}${p.codigo?` <span class="rm-autocomplete-apelido">(${p.codigo})</span>`:''}</div>
-          <div class="rm-autocomplete-tel">${rmFormatMoeda(preco)} · estoque: ${p.estoqueAtual}${p.unidade?' '+p.unidade:''}</div>
+          <div class="rm-autocomplete-tel">${rmFormatMoeda(preco)} · estoque: ${p.estoqueAtual}${p.unidade?' '+p.unidade:''}${p.aplicacao?' · '+p.aplicacao:''}</div>
+          ${(p.marca||p.localizacao)?`<div class="rm-autocomplete-tel">${[p.marca,p.localizacao?('Local: '+p.localizacao):''].filter(Boolean).join(' · ')}</div>`:''}
         </div>
       `;
     }).join('');
@@ -2411,6 +2864,34 @@ async function rmUploadFotoModal(input, id){
   }
 }
 
+async function rmUploadFotoProduto(file, produtoId){
+  try{
+    const blob = await rmComprimirImagem(file, 1000, 0.65);
+    const path = produtoId + '-' + Date.now() + '.jpg';
+    const { error } = await rmSb.storage.from('produtos-fotos').upload(path, blob, { contentType: 'image/jpeg', upsert: true });
+    if(error){ console.error('Erro no upload da foto do produto:', error); return null; }
+    const { data } = rmSb.storage.from('produtos-fotos').getPublicUrl(path);
+    return data.publicUrl;
+  } catch(err){
+    console.error('Erro ao comprimir/enviar foto do produto:', err);
+    return null;
+  }
+}
+
+async function rmUploadFotoModalProduto(input, id){
+  const file = input.files[0];
+  if(!file) return;
+  rmShowToast('Enviando foto...');
+  const url = await rmUploadFotoProduto(file, id);
+  if(url){
+    rmUpdateProduto(id, 'fotoUrl', url);
+    rmAbrirModalProduto(id);
+    rmShowToast('Foto atualizada');
+  } else {
+    alert('Não foi possível enviar a foto. Verifique a conexão e tente de novo.');
+  }
+}
+
 function rmFromDbRow(row){
   return {
     id: row.id,
@@ -2499,15 +2980,16 @@ async function rmDbDeleteMecanico(nome){
 let rmFirstSyncDone = false;
 
 async function rmSyncFromSupabase(){
-  const [recepcoesRes, mecanicosRes, clientesRes, vendasRes, produtosRes] = await Promise.all([
+  const [recepcoesRes, mecanicosRes, clientesRes, vendasRes, produtosRes, avisosRes] = await Promise.all([
     rmSb.from('recepcoes').select('*'),
     rmSb.from('mecanicos').select('nome').order('nome'),
     rmSb.from('clientes').select('*'),
     rmSb.from('vendas').select('*'),
-    rmSb.from('produtos').select('*')
+    rmSb.from('produtos').select('*'),
+    rmSb.from('avisos').select('*')
   ]);
-  if(recepcoesRes.error || mecanicosRes.error || clientesRes.error || vendasRes.error || produtosRes.error){
-    console.error('Supabase sync error:', recepcoesRes.error || mecanicosRes.error || clientesRes.error || vendasRes.error || produtosRes.error);
+  if(recepcoesRes.error || mecanicosRes.error || clientesRes.error || vendasRes.error || produtosRes.error || avisosRes.error){
+    console.error('Supabase sync error:', recepcoesRes.error || mecanicosRes.error || clientesRes.error || vendasRes.error || produtosRes.error || avisosRes.error);
     rmSetOnlineStatus(false);
     return;
   }
@@ -2517,11 +2999,13 @@ async function rmSyncFromSupabase(){
   const clientes = clientesRes.data.map(rmFromDbRowCliente);
   const vendas = vendasRes.data.map(rmFromDbRowVenda);
   const produtos = produtosRes.data.map(rmFromDbRowProduto);
+  const avisos = avisosRes.data.map(rmFromDbRowAviso);
   rmSave(recepcoes);
   rmSaveMecanicos(mecanicos);
   rmSaveClientes(clientes);
   rmSaveVendas(vendas);
   rmSaveProdutos(produtos);
+  rmSaveAvisos(avisos);
   if(recepcoes.length === 0){
     localStorage.setItem(RM_COUNTER_KEY, '0');
   }
@@ -2536,6 +3020,13 @@ async function rmSyncFromSupabase(){
   }
   if(document.getElementById('rm-view-produtos-estoque') && document.getElementById('rm-view-produtos-estoque').classList.contains('active')){
     rmRenderProdutos();
+  }
+  if(document.getElementById('rm-view-avisos') && document.getElementById('rm-view-avisos').classList.contains('active')){
+    rmRenderAvisosLista();
+  }
+  if(rmBancadaMecanico){
+    rmRenderBancada();
+    rmRenderBancadaAvisos();
   }
   if(!rmFirstSyncDone){
     rmFirstSyncDone = true;
@@ -2565,6 +3056,9 @@ function rmSetupRealtime(){
   rmSb.channel('produtos-changes')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'produtos' }, () => rmSyncFromSupabase())
     .subscribe();
+  rmSb.channel('avisos-changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'avisos' }, () => rmSyncFromSupabase())
+    .subscribe();
 }
 
 const RM_AUTOPRINT_KEY = 'radicalMotos_autoprint_v1';
@@ -2588,9 +3082,16 @@ function rmSetOnlineStatus(online){
   rmOnline = online;
   const dot = document.getElementById('rm-sync-dot');
   const label = document.getElementById('rm-sync-label');
-  if(!dot || !label) return;
-  dot.classList.toggle('rm-sync-offline', !online);
-  label.textContent = online ? 'Sincronizado' : 'Sem conexão — usando dados locais';
+  if(dot && label){
+    dot.classList.toggle('rm-sync-offline', !online);
+    label.textContent = online ? 'Sincronizado' : 'Sem conexão — usando dados locais';
+  }
+  const bDot = document.getElementById('rm-bancada-sync-dot');
+  const bLabel = document.getElementById('rm-bancada-sync-label');
+  if(bDot && bLabel){
+    bDot.classList.toggle('rm-sync-offline', !online);
+    bLabel.textContent = online ? 'Sincronizado' : 'Sem conexão';
+  }
 }
 
 function rmLoad(){
@@ -2663,6 +3164,29 @@ const RM_CLIENTES_KEY = 'radicalMotos_clientes_v1';
 
 const RM_VENDAS_KEY = 'radicalMotos_vendas_v1';
 
+const RM_AVISOS_KEY = 'radicalMotos_avisos_v1';
+
+function rmLoadAvisos(){
+  try{ return JSON.parse(localStorage.getItem(RM_AVISOS_KEY)) || []; }catch(e){ return []; }
+}
+function rmSaveAvisos(list){ localStorage.setItem(RM_AVISOS_KEY, JSON.stringify(list)); }
+
+function rmFromDbRowAviso(row){
+  return { id: row.id, texto: row.texto, mecanico: row.mecanico, criadoEm: row.criado_em };
+}
+function rmToDbRowAviso(a){
+  return { id: a.id, texto: a.texto || null, mecanico: a.mecanico || null, criado_em: a.criadoEm };
+}
+
+async function rmDbUpsertAviso(aviso){
+  const { error } = await rmSb.from('avisos').upsert(rmToDbRowAviso(aviso));
+  if(error) console.error('Supabase upsert aviso:', error);
+}
+async function rmDbDeleteAviso(id){
+  const { error } = await rmSb.from('avisos').delete().eq('id', id);
+  if(error) console.error('Supabase delete aviso:', error);
+}
+
 const RM_PRODUTOS_KEY = 'radicalMotos_produtos_v1';
 
 function rmLoadProdutos(){
@@ -2677,9 +3201,11 @@ function rmFromDbRowProduto(row){
     codigo: row.codigo,
     codigoBarras: row.codigo_barras,
     marca: row.marca,
+    aplicacao: row.aplicacao,
     categoria: row.categoria,
     subcategoria: row.subcategoria,
     ncm: row.ncm,
+    cest: row.cest,
     localizacao: row.localizacao,
     fornecedor: row.fornecedor,
     fornecedorCodigo: row.fornecedor_codigo,
@@ -2691,9 +3217,13 @@ function rmFromDbRowProduto(row){
     estoqueMaximo: row.estoque_maximo || 0,
     unidade: row.unidade || 'UN',
     pesoKg: row.peso_kg || null,
+    pesoLiquidoKg: row.peso_liquido_kg || null,
     comprimentoCm: row.comprimento_cm || null,
     larguraCm: row.largura_cm || null,
     alturaCm: row.altura_cm || null,
+    ehServico: row.eh_servico === true,
+    observacao: row.observacao,
+    fotoUrl: row.foto_url,
     ativo: row.ativo !== false,
     criadoEm: row.criado_em
   };
@@ -2706,9 +3236,11 @@ function rmToDbRowProduto(p){
     codigo: p.codigo || null,
     codigo_barras: p.codigoBarras || null,
     marca: p.marca || null,
+    aplicacao: p.aplicacao || null,
     categoria: p.categoria || null,
     subcategoria: p.subcategoria || null,
     ncm: p.ncm || null,
+    cest: p.cest || null,
     localizacao: p.localizacao || null,
     fornecedor: p.fornecedor || null,
     fornecedor_codigo: p.fornecedorCodigo || null,
@@ -2720,9 +3252,13 @@ function rmToDbRowProduto(p){
     estoque_maximo: p.estoqueMaximo || 0,
     unidade: p.unidade || 'UN',
     peso_kg: p.pesoKg || null,
+    peso_liquido_kg: p.pesoLiquidoKg || null,
     comprimento_cm: p.comprimentoCm || null,
     largura_cm: p.larguraCm || null,
     altura_cm: p.alturaCm || null,
+    eh_servico: p.ehServico === true,
+    observacao: p.observacao || null,
+    foto_url: p.fotoUrl || null,
     ativo: p.ativo !== false,
     criado_em: p.criadoEm
   };
@@ -2860,8 +3396,145 @@ function rmRenderMecanicosChips(){
     return;
   }
   container.innerHTML = list.map(n => `
-    <span class="rm-mec-chip">${n}<button onclick="rmRemoverMecanico('${n}')" title="Remover">&times;</button></span>
+    <span class="rm-mec-chip">${n}
+      <button onclick="rmCopiarLinkBancada('${n}')" title="Copiar link da bancada">&#128279;</button>
+      <button onclick="rmRemoverMecanico('${n}')" title="Remover">&times;</button>
+    </span>
   `).join('');
+}
+
+let rmBancadaMecanico = null;
+
+function rmVerificarModoBancada(){
+  const params = new URLSearchParams(window.location.search);
+  const mecanico = params.get('mecanico');
+  if(!mecanico) return false;
+  rmBancadaMecanico = mecanico;
+  document.getElementById('rm-app').style.display = 'none';
+  document.getElementById('rm-bancada').style.display = 'block';
+  document.getElementById('rm-bancada-nome').textContent = 'Bancada de ' + mecanico;
+  rmRenderBancada();
+  rmRenderBancadaAvisos();
+  return true;
+}
+
+function rmRenderBancadaAvisos(){
+  const container = document.getElementById('rm-bancada-avisos');
+  if(!container || !rmBancadaMecanico) return;
+  const avisos = rmLoadAvisos()
+    .filter(a => !a.mecanico || a.mecanico === rmBancadaMecanico)
+    .sort((a,b) => new Date(b.criadoEm) - new Date(a.criadoEm));
+
+  container.innerHTML = avisos.map(a => `<div class="rm-bancada-aviso-banner">${a.texto}</div>`).join('');
+}
+
+function rmRenderBancada(){
+  if(!rmBancadaMecanico) return;
+  const board = document.getElementById('rm-bancada-board');
+  let lista = rmLoad().filter(r => r.mecanico === rmBancadaMecanico && r.status === 'andamento');
+  lista = lista.sort((a,b) => new Date(a.entrada) - new Date(b.entrada));
+
+  if(lista.length === 0){
+    board.innerHTML = '<div class="rm-bancada-vazio">Nenhuma moto em andamento no momento</div>';
+    return;
+  }
+
+  board.innerHTML = lista.map(r=>{
+    const parado = rmTempoParado(r);
+    const alerta = parado.level === 'alert';
+    const problemas = (r.problemas||[]).map(p => `
+      <div class="rm-bancada-problema${p.feito?' rm-bancada-feito':''}">
+        <input type="checkbox" disabled ${p.feito?'checked':''}>
+        <span>${p.texto}</span>
+      </div>
+    `).join('') || '<div class="rm-bancada-problema">Nenhum problema registrado</div>';
+
+    return `
+      <div class="rm-bancada-card${alerta?' rm-bancada-alerta':''}">
+        <div class="rm-bancada-card-top">
+          <div>
+            <div class="rm-bancada-modelo">${r.modelo||'—'}</div>
+            <div class="rm-bancada-os">${r.codigoApp||''}</div>
+          </div>
+          <span class="rm-bancada-tempo${alerta?' rm-bancada-alerta':''}">${parado.label}</span>
+        </div>
+        <div class="rm-bancada-cliente">${r.nome||'Cliente não informado'}</div>
+        <div class="rm-bancada-problemas">${problemas}</div>
+        ${r.anotacoes?`<div class="rm-bancada-anotacoes">${r.anotacoes}</div>`:''}
+        ${r.fotoUrl?`<img class="rm-bancada-foto" src="${r.fotoUrl}">`:''}
+      </div>
+    `;
+  }).join('');
+}
+
+function rmCopiarLinkBancada(nome){
+  const url = window.location.origin + window.location.pathname + '?mecanico=' + encodeURIComponent(nome);
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(()=>{
+      rmShowToast('Link da bancada de ' + nome + ' copiado');
+    }).catch(()=>{
+      prompt('Copie o link da bancada de ' + nome + ':', url);
+    });
+  } else {
+    prompt('Copie o link da bancada de ' + nome + ':', url);
+  }
+}
+
+function rmRenderAvisosForm(){
+  const select = document.getElementById('rm-aviso-destino');
+  if(!select) return;
+  const mecanicos = rmLoadMecanicos();
+  select.innerHTML = `<option value="">Todos os mecânicos</option>` +
+    mecanicos.map(n => `<option value="${n}">${n}</option>`).join('');
+}
+
+function rmEnviarAviso(){
+  const textoEl = document.getElementById('rm-aviso-texto');
+  const texto = textoEl.value.trim().toUpperCase();
+  if(!texto){
+    alert('Escreva a mensagem do aviso.');
+    return;
+  }
+  const mecanico = document.getElementById('rm-aviso-destino').value;
+  const aviso = { id: 'av' + Date.now(), texto, mecanico: mecanico || null, criadoEm: new Date().toISOString() };
+
+  const list = rmLoadAvisos();
+  list.unshift(aviso);
+  rmSaveAvisos(list);
+  rmDbUpsertAviso(aviso);
+
+  textoEl.value = '';
+  document.getElementById('rm-aviso-destino').value = '';
+  rmShowToast('Aviso enviado');
+  rmRenderAvisosLista();
+}
+
+function rmRenderAvisosLista(){
+  const container = document.getElementById('rm-avisos-lista');
+  if(!container) return;
+  const list = rmLoadAvisos().slice().sort((a,b) => new Date(b.criadoEm) - new Date(a.criadoEm));
+
+  if(list.length === 0){
+    container.innerHTML = '<div class="rm-lista-empty">Nenhum aviso ativo</div>';
+    return;
+  }
+
+  container.innerHTML = list.map(a => `
+    <div class="rm-aviso-item">
+      <div>
+        <div class="rm-aviso-item-texto">${a.texto}</div>
+        <span class="rm-aviso-item-destino">${a.mecanico ? 'Só ' + a.mecanico : 'Todos os mecânicos'}</span>
+      </div>
+      <button class="rm-aviso-item-remover" onclick="rmExcluirAviso('${a.id}')" title="Remover aviso">&times;</button>
+    </div>
+  `).join('');
+}
+
+function rmExcluirAviso(id){
+  const list = rmLoadAvisos().filter(a => a.id !== id);
+  rmSaveAvisos(list);
+  rmDbDeleteAviso(id);
+  rmRenderAvisosLista();
 }
 
 function rmMecanicoOptionsHtml(selected){
@@ -3051,13 +3724,16 @@ function rmSetView(view){
   document.getElementById('rm-view-dashboard').classList.toggle('active', view==='dashboard');
   document.getElementById('rm-view-mecanicos').classList.toggle('active', view==='mecanicos');
   document.getElementById('rm-view-lista').classList.toggle('active', view==='lista');
+  document.getElementById('rm-view-avisos').classList.toggle('active', view==='avisos');
   document.getElementById('rm-btn-reception').classList.toggle('active', view==='reception');
   document.getElementById('rm-btn-dashboard').classList.toggle('active', view==='dashboard');
   document.getElementById('rm-btn-mecanicos').classList.toggle('active', view==='mecanicos');
   document.getElementById('rm-btn-lista').classList.toggle('active', view==='lista');
+  document.getElementById('rm-btn-avisos').classList.toggle('active', view==='avisos');
   if(view==='dashboard'){ rmRenderBoard(); }
   if(view==='mecanicos'){ rmRenderMecanicosChips(); rmRenderMecanicosBoard(); }
   if(view==='lista'){ rmRenderLista(); }
+  if(view==='avisos'){ rmRenderAvisosForm(); rmRenderAvisosLista(); }
   if(view==='reception'){
     rmRefreshMecanicoSelects();
     rmResetClienteBusca();
@@ -3349,6 +4025,32 @@ function rmSalvarRecepcao(){
   rmShowToast(registro.codigoApp + ' registrado com sucesso');
   rmPendingCode = null;
   rmPrepareNewOS();
+}
+
+function rmShowFotoPreview(ev, url){
+  const img = document.getElementById('rm-foto-preview-float');
+  const rect = ev.currentTarget.getBoundingClientRect();
+  const tamanho = 180;
+  const margem = 8;
+
+  img.src = url;
+  img.style.display = 'block';
+
+  let top;
+  if(rect.top - tamanho - margem > 10){
+    top = rect.top - tamanho - margem;
+  } else {
+    top = rect.bottom + margem;
+  }
+  let left = rect.left + (rect.width/2) - (tamanho/2);
+  left = Math.max(10, Math.min(left, window.innerWidth - tamanho - 10));
+
+  img.style.top = top + 'px';
+  img.style.left = left + 'px';
+}
+
+function rmHideFotoPreview(){
+  document.getElementById('rm-foto-preview-float').style.display = 'none';
 }
 
 function rmShowToast(msg){
@@ -3800,7 +4502,7 @@ function rmRenderLista(){
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td data-label="OS">
-        <div class="rm-lista-code">${r.codigoApp||''} ${r.fotoUrl?'<span class="rm-lista-foto-icon" title="Essa moto tem foto">&#128247;</span>':''}</div>
+        <div class="rm-lista-code">${r.codigoApp||''} ${r.fotoUrl?`<span class="rm-lista-foto-icon" title="Essa moto tem foto" onmouseenter="rmShowFotoPreview(event, '${r.fotoUrl}')" onmouseleave="rmHideFotoPreview()">&#128247;</span>`:''}</div>
         ${flags?`<div class="rm-lista-flags">${flags}</div>`:''}
       </td>
       <td data-label="Pago" onclick="event.stopPropagation()">
@@ -3862,7 +4564,7 @@ function rmRenderKanban(boardId, list, columns, getKeyForRecord, field){
       card.className = 'rm-card' + (parado.level==='alert' ? ' rm-card-alert' : '');
       card.innerHTML = `
         <div class="rm-card-top">
-          <span class="rm-card-code">${r.codigoApp||''} ${r.fotoUrl?'<span class="rm-lista-foto-icon" title="Essa moto tem foto">&#128247;</span>':''}</span>
+          <span class="rm-card-code">${r.codigoApp||''} ${r.fotoUrl?`<span class="rm-lista-foto-icon" title="Essa moto tem foto" onmouseenter="rmShowFotoPreview(event, '${r.fotoUrl}')" onmouseleave="rmHideFotoPreview()">&#128247;</span>`:''}</span>
           <div class="rm-card-badges">
             ${r.entrega?'<span class="rm-card-entrega">Entrega</span>':''}
             ${r.buscar?'<span class="rm-card-entrega">Buscar</span>':''}
@@ -4370,12 +5072,18 @@ function rmUpdateField(id, field, value){
 
 
 (function rmInit(){
-  rmSetSection('oficina');
+  const emModoBancada = rmVerificarModoBancada();
+  if(!emModoBancada){
+    rmSetSection('oficina');
+  }
   rmSyncFromSupabase();
   rmSetupRealtime();
-  document.getElementById('rm-autoprint-toggle').checked = localStorage.getItem(RM_AUTOPRINT_KEY) === 'true';
-  if(localStorage.getItem(RM_SIDEBAR_KEY) === 'true'){
-    document.getElementById('rm-app').classList.add('rm-sidebar-collapsed');
+  if(!emModoBancada){
+    document.getElementById('rm-autoprint-toggle').checked = localStorage.getItem(RM_AUTOPRINT_KEY) === 'true';
+    if(localStorage.getItem(RM_SIDEBAR_KEY) === 'true'){
+      document.getElementById('rm-app').classList.add('rm-sidebar-collapsed');
+    }
+    rmInicializarResizeProdutos();
   }
 })();
 </script>
