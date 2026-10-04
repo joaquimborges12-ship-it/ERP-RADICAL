@@ -1022,6 +1022,100 @@
   .rm-org-ok{opacity:0.65;}
   .rm-org-num{font-weight:800; font-size:15px; cursor:pointer; text-decoration:underline dotted; min-width:92px;}
   .rm-org-info{flex:1; min-width:0; color:var(--rm-text-dim);}
+  .rm-fmt-escolha{position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:9999; display:flex; align-items:center; justify-content:center;}
+  .rm-fmt-card{background:var(--rm-panel); padding:18px; width:280px; display:flex; flex-direction:column; gap:8px; box-shadow:0 10px 40px rgba(0,0,0,0.25);}
+  .rm-fmt-tit{font-weight:700; margin-bottom:4px;}
+  .rm-fmt-card button{padding:12px; font-size:15px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); cursor:pointer; text-align:left; border-radius:0; font-family:inherit;}
+  .rm-fmt-card button:hover{background:var(--rm-panel-2);}
+  .rm-fmt-card .rm-fmt-cancel{text-align:center; font-size:13px; color:var(--rm-text-dim);}
+  .rm-ped-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:20px; align-items:start;}
+  .rm-ped-col{background:var(--rm-panel); border:1px solid var(--rm-border); padding:14px;}
+  .rm-ped-tit{font-weight:700; font-size:15px; margin-bottom:10px;}
+  .rm-ped-tit span{font-weight:400; font-size:13px; color:var(--rm-text-dim);}
+  .rm-ped-livre-row{display:flex; gap:6px; margin-bottom:12px;}
+  .rm-ped-livre-row .rm-input{margin:0;}
+  .rm-ped-item{display:flex; align-items:flex-start; gap:8px; padding:8px 0; border-bottom:1px solid var(--rm-border);}
+  .rm-ped-item input[type=checkbox]{width:18px; height:18px; margin-top:8px;}
+  .rm-ped-ok{opacity:0.5;} .rm-ped-ok b{text-decoration:line-through;}
+  .rm-ped-qtd{width:58px; padding:7px 6px; text-align:center; font-size:15px; font-weight:700; border:1px solid var(--rm-border); border-radius:0; background:#fff; color:#333;}
+  .rm-ped-nome{flex:1; min-width:0; font-size:13px;}
+  .rm-ped-det{font-size:11.5px; color:var(--rm-text-dim); margin-top:2px;}
+  .rm-ped-obs{width:100%; margin-top:4px; padding:4px 6px; font-size:12px; border:1px dashed var(--rm-border); background:transparent; color:var(--rm-text); border-radius:0; box-sizing:border-box;}
+  .rm-ped-livre{font-size:10px; font-weight:700; text-transform:uppercase; background:#e8f1fb; color:#1f4e79; padding:1px 6px;}
+  .rm-ped-acoes{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;}
+  .rm-ped-sug-lista{max-height:65vh; overflow-y:auto;}
+  .rm-ped-sug-item{display:flex; align-items:center; gap:8px; padding:7px 0; border-bottom:1px solid var(--rm-border);}
+  .rm-ped-est{font-size:12px; color:var(--rm-text-dim); white-space:nowrap;}
+  .rm-ped-zero{color:#b3261e; font-weight:700;}
+  @media (max-width:900px){ .rm-ped-grid{grid-template-columns:1fr;} }
+  .rm-fab{position:fixed; right:18px; bottom:18px; width:48px; height:48px; border-radius:50%; border:1px solid #ddd; background:#fff; color:#333; font-size:22px; cursor:pointer; z-index:10050; box-shadow:0 4px 14px rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:center; padding:0;}
+  .rm-fab:hover{transform:scale(1.06);}
+  body[data-secao="pdv"] .rm-fab{bottom:96px;}
+  .rm-fab-badge{position:absolute; top:-3px; right:-3px; min-width:18px; height:18px; padding:0 4px; border-radius:9px; background:#fff; color:var(--rm-accent); font-size:11px; font-weight:800; line-height:18px; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,0.3);}
+  .rm-fab-painel{position:fixed; right:18px; bottom:76px; width:310px; background:var(--rm-panel); border:1px solid var(--rm-border); box-shadow:0 10px 30px rgba(0,0,0,0.25); padding:12px; z-index:10051; display:none;}
+  body[data-secao="pdv"] .rm-fab-painel{bottom:154px;}
+  .rm-fab-painel.show{display:block;}
+  .rm-fab-cab{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
+  .rm-fab-cab button{background:none; border:none; font-size:20px; cursor:pointer; color:var(--rm-text-dim);}
+  .rm-fab-row{display:flex; gap:6px;}
+  .rm-fab-row input{padding:9px 8px; font-size:15px; border:1px solid var(--rm-border); border-radius:0; background:#fff; color:#333; font-family:inherit; min-width:0;}
+  #rm-fab-qtd{width:52px; text-align:center; font-weight:700;}
+  #rm-fab-txt{flex:1; text-transform:uppercase;}
+  .rm-fab-add{width:100%; margin-top:8px; background:#5cb85c; color:#fff; border:none; padding:9px; font-weight:700; cursor:pointer; border-radius:0;}
+  .rm-fab-ult{margin-top:10px; font-size:12px; color:var(--rm-text-dim);}
+  .rm-fab-ult > div{padding:2px 0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .rm-fab-ult-tit{font-weight:700; text-transform:uppercase; font-size:10.5px; letter-spacing:0.04em; margin-bottom:2px;}
+  .rm-fab-ult a{display:inline-block; margin-top:6px; color:var(--rm-accent); font-weight:600; text-decoration:none;}
+  @media print{ .rm-fab, .rm-fab-painel{display:none !important;} }
+  .rm-osl-fin-tit{font-size:18px; font-weight:700; margin:34px 0 10px; padding-top:18px; border-top:2px solid var(--rm-border);}
+  .rm-osl-fin-tit span{font-weight:400; font-size:14px; color:var(--rm-text-dim);}
+  .rm-osl-topo{display:flex; justify-content:flex-end; gap:8px; margin-bottom:6px;}
+  .rm-osl-atalho{font-size:12.5px; font-weight:700; padding:5px 12px; cursor:pointer; border-radius:0; font-family:inherit;}
+  .rm-osl-at-pronta{border:1px solid #9fd3ad; background:#eaf7ee; color:#1e7a37;}
+  .rm-osl-at-pronta:hover{background:#dcf1e3;}
+  .rm-osl-at-pronta.ativo{background:#1e8e3e; border-color:#1e8e3e; color:#fff;}
+  .rm-osl-naopago{border:1px solid #e3a5a1; background:#fdeceb; color:#b3261e; font-size:12.5px; font-weight:700; padding:5px 12px; cursor:pointer; border-radius:0; font-family:inherit;}
+  .rm-osl-naopago:hover{background:#fadcda;}
+  .rm-osl-naopago.ativo{background:#b3261e; border-color:#b3261e; color:#fff;}
+  .rm-osl-filtros{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:14px;}
+  .rm-osl-filtros .rm-search{flex:1; min-width:200px; margin:0;}
+  .rm-osl-sel{padding:10px 12px; font-size:14px; border:1px solid #ccc; border-radius:0; background:#fff; color:#555; min-width:190px; font-family:inherit;}
+  .rm-osl-wrap{background:#fff; border:1px solid #ddd; overflow:auto;}
+  table.rm-osl{width:100%; border-collapse:collapse; font-size:15px; color:#222;}
+  .rm-osl th{font-weight:700; text-align:left; padding:12px 14px; border-bottom:2px solid #e2e2e2; white-space:nowrap; cursor:pointer; user-select:none; background:#fff; position:sticky; top:0;}
+  .rm-osl td{padding:11px 14px; border-bottom:1px solid #e6e6e6; white-space:nowrap;}
+  .rm-osl tbody tr{cursor:pointer;}
+  .rm-osl tbody tr:hover{background:#f5f8fc;}
+  .rm-osl .r{text-align:right;} .rm-osl .c{text-align:center;}
+  .rm-osl-seta{display:inline-block; margin-left:6px; font-size:7px; line-height:0.9; color:#c8c8c8; vertical-align:middle;}
+  .rm-osl-seta.ativa{color:#5b5bd6; font-size:10px;}
+  .rm-osl-cli{max-width:420px; overflow:hidden; text-overflow:ellipsis; text-transform:uppercase;}
+  .rm-osl-mod{text-transform:uppercase; max-width:220px; overflow:hidden; text-overflow:ellipsis;}
+  .rm-osl-moto{color:#888; font-size:13px; margin-left:6px;}
+  .rm-os-status-topo{margin:10px 0 0; flex-wrap:wrap;}
+  .rm-os-problemas{border:1px solid var(--rm-border); padding:12px 14px; margin-bottom:14px;}
+  .rm-osl tbody tr.rm-osl-fim{background:#eaf7ee;}
+  .rm-osl tbody tr.rm-osl-fim:hover{background:#dcf1e3;}
+  .rm-osl tbody tr.rm-osl-devendo{background:#fdeceb;}
+  .rm-osl tbody tr.rm-osl-devendo:hover{background:#fadcda;}
+  .rm-osl-tag{display:inline-block; font-size:11px; font-weight:700; padding:2px 8px; margin-right:4px; color:#fff; text-transform:uppercase; letter-spacing:0.03em;}
+  .rm-osl-tag-ent{background:#1a73e8;}
+  .rm-osl-tag-bus{background:#e8710a;}
+  .rm-osl-wpp{width:30px; height:30px; border-radius:50%; border:none; background:#25d366; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; padding:0;}
+  .rm-osl-wpp:hover{background:#1ebe5b;}
+  .rm-osl tr td:last-child .rm-osl-tip:hover::after{left:auto; right:calc(100% + 10px);}
+  .rm-osl tr td:last-child .rm-osl-tip:hover::before{left:auto; right:calc(100% + 0px); border-right-color:transparent; border-left-color:#222;}
+  .rm-osl td:last-child{overflow:visible; position:relative;}
+  .rm-osl-tip{position:relative; display:inline-flex;}
+  .rm-osl-tip:hover::after{content:attr(data-tip); position:absolute; left:calc(100% + 10px); top:50%; transform:translateY(-50%); background:#222; color:#fff; font-size:12px; font-weight:600; padding:5px 9px; white-space:nowrap; z-index:30; pointer-events:none; border-radius:3px;}
+  .rm-osl-tip:hover::before{content:''; position:absolute; left:calc(100% + 0px); top:50%; transform:translateY(-50%); border:5px solid transparent; border-right-color:#222; z-index:30; pointer-events:none;}
+  .rm-osl td:nth-child(-n+2){overflow:visible; position:relative;}
+  .rm-osl-svg{width:22px; height:22px; display:inline-block; vertical-align:middle;}
+  .rm-osl-foto{font-size:18px; cursor:zoom-in;}
+  .rm-osl-ic{display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; box-sizing:border-box; font-size:12px; font-weight:900;}
+  .rm-osl-ok{background:#1e8e3e; color:#fff;}
+  .rm-osl-andam{border:2.5px solid #1e8e3e;}
+  .rm-osl-vazio{border:2.5px solid #222;}
   .rm-sel-filtro{display:flex; gap:6px; margin-bottom:12px;}
   .rm-sel-ativo{background:var(--rm-accent) !important; color:#fff !important; border-color:var(--rm-accent) !important;}
   .rm-sel-todas{display:flex; align-items:center; gap:8px; font-size:13px; margin-bottom:8px; cursor:pointer;}
@@ -1323,9 +1417,9 @@
     <div id="rm-section-oficina" class="rm-section">
       <div class="rm-subnav">
         <button class="rm-subnav-btn" id="rm-btn-reception" onclick="rmCliqueNovaRecepcao()"><span class="rm-subnav-icon">&#65291;</span><span>Nova recepção</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-lista" onclick="rmSetView('lista')"><span class="rm-subnav-icon">&#9776;</span><span>Lista</span></button>
         <button class="rm-subnav-btn" id="rm-btn-dashboard" onclick="rmSetView('dashboard')"><span class="rm-subnav-icon">&#9638;</span><span>Painel</span></button>
         <button class="rm-subnav-btn" id="rm-btn-mecanicos" onclick="rmSetView('mecanicos')"><span class="rm-subnav-icon">&#128295;</span><span>Mecânicos</span></button>
-        <button class="rm-subnav-btn" id="rm-btn-lista" onclick="rmSetView('lista')"><span class="rm-subnav-icon">&#9776;</span><span>Lista</span></button>
         <button class="rm-subnav-btn" id="rm-btn-avisos" onclick="rmSetView('avisos')"><span class="rm-subnav-icon rm-subnav-icon-badge-wrap">&#128226;<span class="rm-badge" id="rm-badge-avisos" style="display:none;">0</span></span><span>Aviso</span></button>
       </div>
 
@@ -1460,14 +1554,37 @@
     <section id="rm-view-lista" class="rm-view">
       <h1 class="rm-title">Lista de motos</h1>
 
-      <div class="rm-toolbar">
-        <input class="rm-search" id="rm-search-lista" placeholder="Buscar por cliente, moto, OS, mecânico ou anotações..." oninput="rmRenderLista()">
-        <select class="rm-date-select" id="rm-date-mode-lista" onchange="rmOnDateModeChange('rm-date-mode-lista','rm-date-value-lista','rm-date-range-lista'); rmRenderLista();">
+      <div class="rm-osl-topo">
+        <button class="rm-osl-atalho rm-osl-at-pronta" id="rm-osl-pronta" onclick="rmOslAtalho = rmOslAtalho==='pronta' ? null : 'pronta'; rmRenderLista()">Pronta, não entregue <span id="rm-osl-pronta-n"></span></button>
+        <button class="rm-osl-atalho rm-osl-naopago" id="rm-osl-naopago" onclick="rmOslAtalho = rmOslAtalho==='naopago' ? null : 'naopago'; rmRenderLista()">Não pago, entregue <span id="rm-osl-naopago-n"></span></button>
+      </div>
+      <div class="rm-osl-filtros">
+        <input class="rm-search" id="rm-search-lista" placeholder="Buscar nº, cliente, moto..." oninput="rmRenderLista()">
+        <select class="rm-osl-sel" id="rm-osl-resp" onchange="rmRenderLista()"><option value="">Selecione o Responsável</option></select>
+        <select class="rm-osl-sel" id="rm-osl-cli" onchange="rmRenderLista()"><option value="">Selecione o Cliente</option></select>
+        <select class="rm-osl-sel" id="rm-osl-status" onchange="rmRenderLista()">
+          <option value="">Status</option>
+          <option value="abertas">Abertas (não finalizadas)</option>
+          <option value="aberto">Motos em aberto</option>
+          <option value="andamento">Em andamento</option>
+          <option value="peca">Aguardando peça</option>
+          <option value="prontas">Prontas</option>
+          <option value="entregue">Entregues</option>
+          <option value="pagas">Pagas</option>
+          <option value="naopagas">Não pagas</option>
+        </select>
+        <select class="rm-osl-sel" id="rm-date-mode-lista" onchange="rmOnDateModeChange('rm-date-mode-lista','rm-date-value-lista','rm-date-range-lista'); rmRenderLista();">
           <option value="todos">Todos os períodos</option>
-          <option value="dia">Dia</option>
-          <option value="semana">Semana</option>
-          <option value="mes">Mês</option>
-          <option value="personalizado">Período personalizado</option>
+          <option value="p:ult6">Últimos 6 meses</option>
+          <option value="p:ultmes">Último Mês</option>
+          <option value="p:ontem">Ontem</option>
+          <option value="p:hoje" selected>Hoje</option>
+          <option value="p:semana">Esta semana</option>
+          <option value="p:mes">Este Mês</option>
+          <option value="p:proxmes">Próximo Mês</option>
+          <option value="p:prox6">Próximos 6 meses</option>
+          <option value="p:ano">Este Ano</option>
+          <option value="personalizado">Outro período</option>
         </select>
         <input class="rm-date-input" id="rm-date-value-lista" style="display:none;" oninput="rmRenderLista()">
         <div class="rm-date-range" id="rm-date-range-lista" style="display:none;">
@@ -1477,29 +1594,14 @@
         </div>
       </div>
 
-      <div class="rm-table-wrap">
-        <table class="rm-table">
-          <colgroup>
-            <col style="width:110px"><col style="width:70px"><col style="width:130px"><col style="width:110px">
-            <col style="width:150px"><col style="width:170px"><col style="width:130px"><col style="width:100px"><col>
-          </colgroup>
-          <thead>
-            <tr>
-              <th class="rm-th-sortable" data-key="os" data-label="OS" onclick="rmListaSortClick('os')">OS</th>
-              <th class="rm-th-sortable" data-key="pago" data-label="Pago" onclick="rmListaSortClick('pago')">Pago</th>
-              <th class="rm-th-sortable" data-key="mecanico" data-label="Mecânico" onclick="rmListaSortClick('mecanico')">Mecânico</th>
-              <th class="rm-th-sortable" data-key="parado" data-label="Tempo parado" onclick="rmListaSortClick('parado')">Tempo parado</th>
-              <th class="rm-th-sortable" data-key="moto" data-label="Moto" onclick="rmListaSortClick('moto')">Moto</th>
-              <th class="rm-th-sortable" data-key="cliente" data-label="Cliente" onclick="rmListaSortClick('cliente')">Cliente</th>
-              <th class="rm-th-sortable" data-key="status" data-label="Status" onclick="rmListaSortClick('status')">Status</th>
-              <th class="rm-th-sortable" data-key="valor" data-label="Valor" onclick="rmListaSortClick('valor')">Valor</th>
-              <th class="rm-th-sortable" data-key="problemas" data-label="Problemas" onclick="rmListaSortClick('problemas')">Problemas</th>
-            </tr>
-          </thead>
+      <div class="rm-osl-wrap">
+        <table class="rm-osl">
+          <thead><tr id="rm-osl-head"></tr></thead>
           <tbody id="rm-lista-body"></tbody>
         </table>
         <div class="rm-lista-empty" id="rm-lista-empty" style="display:none;">Nenhuma moto encontrada</div>
       </div>
+
     </section>
 
     <section id="rm-view-avisos" class="rm-view">
@@ -1564,6 +1666,39 @@
         <button class="rm-subnav-btn" id="rm-btn-produtos-estoque" onclick="rmSetViewProdutos('estoque')"><span class="rm-subnav-icon">&#128230;</span><span>Estoque</span></button>
         <button class="rm-subnav-btn" id="rm-btn-produtos-organizacao" onclick="rmSetViewProdutos('organizacao')"><span class="rm-subnav-icon">&#128194;</span><span>Organização</span></button>
         <button class="rm-subnav-btn" id="rm-btn-produtos-etiquetas" onclick="rmSetViewProdutos('etiquetas')"><span class="rm-subnav-icon">&#127991;</span><span>Etiquetas</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-produtos-pedido" onclick="rmSetViewProdutos('pedido')"><span class="rm-subnav-icon">&#128722;</span><span>Pedido</span></button>
+      </div>
+
+      <div id="rm-view-produtos-pedido" class="rm-view">
+        <h1 class="rm-title">Pedido de compra</h1>
+        <div id="rm-pedido-wrap" class="rm-ped-grid">
+          <div class="rm-ped-col">
+            <div class="rm-ped-tit">Lista para pedir <span id="rm-ped-cont"></span></div>
+            <div class="rm-autocomplete-wrap" style="margin-bottom:8px;">
+              <input class="rm-input" id="rm-ped-busca" placeholder="Buscar produto do cadastro para adicionar..." autocomplete="off" oninput="rmPedidoBuscar(this)" onblur="setTimeout(()=>document.getElementById('rm-ped-busca-lista').classList.remove('show'),150)">
+              <div class="rm-autocomplete-list" id="rm-ped-busca-lista"></div>
+            </div>
+            <div class="rm-ped-livre-row">
+              <input class="rm-input" id="rm-ped-livre-qtd" value="1" inputmode="decimal" style="width:70px;" onfocus="this.select()">
+              <input class="rm-input" id="rm-ped-livre-txt" placeholder="Escrever livre (ex.: kit relação Titan 160 vaz)" onkeydown="if(event.key==='Enter') rmPedidoAddLivre()">
+              <button class="rm-prom-btn rm-prom-btn-ok" style="height:40px; padding:0 16px;" onclick="rmPedidoAddLivre()">Adicionar</button>
+            </div>
+            <div id="rm-ped-lista"></div>
+            <div class="rm-ped-acoes">
+              <button class="rm-pe2-btn" onclick="rmPedidoImprimir()">&#128424; Imprimir</button>
+              <button class="rm-pe2-btn" onclick="rmPedidoWhatsapp()">&#128203; Copiar para WhatsApp</button>
+              <button class="rm-pe2-btn rm-pe2-btn-del" onclick="rmPedidoLimparComprados()">Limpar comprados</button>
+            </div>
+          </div>
+          <div class="rm-ped-col">
+            <div class="rm-ped-tit">Estoque acabando <span id="rm-ped-sug-cont"></span></div>
+            <div style="display:flex; gap:6px; margin-bottom:8px;">
+              <input class="rm-input" id="rm-ped-sug-busca" placeholder="Filtrar sugestões..." oninput="rmRenderPedido()" style="margin:0;">
+              <select class="rm-date-select" id="rm-ped-sug-curva" onchange="rmRenderPedido()"><option value="">Todas curvas</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
+            </div>
+            <div id="rm-ped-sug" class="rm-ped-sug-lista"></div>
+          </div>
+        </div>
       </div>
 
       <div id="rm-view-produtos-estoque" class="rm-view">
@@ -3434,7 +3569,7 @@ function rmFinalizarVenda(){
   rmPdvPromN = 1; rmPdvPromVenc = null;
 
   const vendaImp = venda;
-  setTimeout(() => { if(confirm((isOrcamento ? 'Orçamento ' : 'Venda ') + vendaImp.codigoVenda + ' salva. Imprimir em A4?')) rmImprimirVendaA4(vendaImp.id); }, 200);
+  setTimeout(() => { if(confirm((isOrcamento ? 'Orçamento ' : 'Venda ') + vendaImp.codigoVenda + ' salva. Deseja imprimir?')) rmImprimirVendaA4(vendaImp.id); }, 200);
   rmShowToast(venda.codigoVenda + (ed ? ' alterada — ' : (isOrcamento ? ' salvo — ' : ' finalizada — ')) + rmFormatMoeda(venda.total));
   rmPdvEditandoVenda = null;
   rmPdvAtualizarBannerEdicao();
@@ -3560,7 +3695,7 @@ function rmAbrirDetalheVenda(id){
 
     ${isOrcamento?`<button class="rm-primary" style="margin-bottom:10px;" onclick="rmConverterOrcamentoEmVenda('${v.id}')">Transformar em venda</button>`:''}
     ${rmPromResumoHtml(v.id)}
-    <button class="rm-pe2-btn" style="width:100%; margin-bottom:10px; padding:11px;" onclick="rmImprimirVendaA4('${v.id}')">&#128424; Imprimir em A4</button>
+    <button class="rm-pe2-btn" style="width:100%; margin-bottom:10px; padding:11px;" onclick="rmImprimirVendaA4('${v.id}')">&#128424; Imprimir</button>
     <button class="rm-primary" style="margin-bottom:10px;" onclick="rmEditarVenda('${v.id}')">Editar ${isOrcamento?'orçamento':'venda'}</button>
     <button class="rm-btn-excluir" onclick="rmExcluirVenda('${v.id}')">Excluir ${isOrcamento?'este orçamento':'esta venda'}</button>
   `;
@@ -4636,6 +4771,15 @@ function rmRenderConfigEmpresa(){
       </div>
       <button class="rm-primary" style="width:auto; padding:10px 24px;" onclick="rmSalvarConfigEmpresa()">Salvar</button>
       <button class="rm-pe2-btn" style="margin-left:8px;" onclick="rmImprimirTesteA4()">Imprimir página de teste</button>
+    </div>
+    <div class="rm-cfg-card" style="margin-top:14px;">
+      <div class="rm-cfg-tit">Impressão neste computador</div>
+      <label class="rm-cfg-campo" style="max-width:320px;">Formato padrão
+        <select class="rm-input" onchange="localStorage.setItem(RM_FMT_IMP_KEY, this.value); rmShowToast('Formato salvo neste computador')">
+          ${[['perguntar','Perguntar sempre (A4 ou cupom)'],['a4','Sempre folha A4'],['cupom','Sempre cupom 80mm (térmica)']].map(([v,t]) => `<option value="${v}"${(localStorage.getItem(RM_FMT_IMP_KEY)||'perguntar')===v?' selected':''}>${t}</option>`).join('')}
+        </select>
+      </label>
+      <div style="font-size:12px; color:var(--rm-text-dim); margin-top:6px;">Cada computador guarda o seu. Ex.: no balcão "Sempre cupom 80mm", no escritório "Sempre folha A4".</div>
     </div>`;
 }
 let rmCfgLogoNovo = null;
@@ -4698,19 +4842,19 @@ function rmA4Itens(itens, extras, simples){
     const serv = it.servico || (p && p.ehServico);
     qtd += Number(it.quantidade) || 0; tot += Number(it.subtotal) || 0;
     const zerado = p && !p.ehServico && (p.estoqueAtual || 0) <= 0;
-    return `<tr><td class="c">${i+1}</td><td>${rmH(it.codigo || (p && p.codigo) || it.localizacao || (p && p.localizacao) || '')}</td>
+    return `<tr><td class="c cx">${i+1}</td><td class="cx">${rmH(it.codigo || (p && p.codigo) || it.localizacao || (p && p.localizacao) || '')}</td>
       <td>${rmH(it.nome)}${it.localizacao ? ' #' + rmH(it.localizacao) : ''}${(it.categoria || (p && p.categoria)) ? ' (' + rmH(it.categoria || p.categoria) + ')' : ''}${zerado ? ' *' : ''}</td>
-      ${simples ? '' : `<td class="c">${serv ? 'S' : 'P'}</td>`}<td class="r">${rmFmtQtd(it.quantidade)}</td>${simples ? '' : `<td>${rmH((p && p.unidade) || 'UN')}</td>`}
+      ${simples ? '' : `<td class="c cx">${serv ? 'S' : 'P'}</td>`}<td class="r">${rmFmtQtd(it.quantidade)}</td>${simples ? '' : `<td class="cx">${rmH((p && p.unidade) || 'UN')}</td>`}
       <td class="r">${rmFmtNum(it.precoUnit)}</td><td class="r">${rmFmtNum(it.subtotal)}</td></tr>`;
   }).join('');
   const temZerado = itens.some(it => { const p = it.produtoId ? prods.find(x => x.id === it.produtoId) : null; return p && !p.ehServico && (p.estoqueAtual || 0) <= 0; });
   return rmA4Secao('Produtos e Serviços', `
     <table class="a4-tab">
-      <thead><tr><th class="c" style="width:34px">Item</th><th style="width:80px">Código</th><th>Descrição</th>${simples ? '' : '<th class="c" style="width:22px">T</th>'}<th class="r" style="width:38px">Qtd.</th>${simples ? '' : '<th style="width:38px">Unid.</th>'}<th class="r" style="width:90px">Valor Un. (R$)</th><th class="r" style="width:80px">Total (R$)</th></tr></thead>
+      <thead><tr><th class="c cx" style="width:34px">Item</th><th class="cx" style="width:80px">Código</th><th>Descrição</th>${simples ? '' : '<th class="c cx" style="width:22px">T</th>'}<th class="r" style="width:38px">Qtd.</th>${simples ? '' : '<th class="cx" style="width:38px">Unid.</th>'}<th class="r" style="width:90px">Valor Un. (R$)</th><th class="r" style="width:80px">Total (R$)</th></tr></thead>
       <tbody>${linhas || `<tr><td colspan="${simples?6:8}" class="c" style="color:#777">Nenhum item</td></tr>`}</tbody>
       <tfoot>
-        <tr><td colspan="${simples?3:4}" class="r"><b>Totais Produtos</b></td><td class="r">${rmFmtQtd(qtd)}</td>${simples ? '' : '<td></td>'}<td></td><td class="r"><b>${rmFmtNum(tot)}</b></td></tr>
-        ${(extras||[]).filter(Boolean).map(([k,v,forte]) => `<tr class="${forte?'a4-forte':''}"><td colspan="${simples?5:7}" class="r"><b>${k}</b></td><td class="r"><b>${v}</b></td></tr>`).join('')}
+        <tr><td class="cx"></td><td class="cx"></td>${simples ? '' : '<td class="cx"></td>'}<td class="r"><b>Totais Produtos</b></td><td class="r">${rmFmtQtd(qtd)}</td>${simples ? '' : '<td class="cx"></td>'}<td></td><td class="r"><b>${rmFmtNum(tot)}</b></td></tr>
+        ${(extras||[]).filter(Boolean).map(([k,v,forte]) => `<tr class="${forte?'a4-forte':''}"><td class="cx"></td><td class="cx"></td>${simples ? '' : '<td class="cx"></td>'}<td colspan="${simples?3:4}" class="r"><b>${k}</b></td><td class="r"><b>${v}</b></td></tr>`).join('')}
       </tfoot>
     </table>
     ${temZerado ? '<div class="a4-nota">* Produtos com estoque zero ou negativo</div>' : ''}`);
@@ -4729,19 +4873,19 @@ function rmA4Pagamentos(refId, forma, total, data, subtotal, desconto){
   if(nota){
     linhas = nota.parcelas.map(p => {
       const quit = rmParcRestante(p) <= 0.004;
-      return `<tr><td class="c">${p.n}</td><td>A prazo</td><td>${rmDataBR(p.vencimento)}</td><td>${quit ? dia(p.pagoEm) : (rmParcPago(p) > 0 ? 'parcial: ' + rmFmtNum(rmParcPago(p)) : '')}</td><td>${quit ? 'Sim' : 'Não'}</td><td class="r">${rmFmtNum(p.valor)}</td></tr>`;
+      return `<tr><td class="c">${p.n}</td><td>A prazo</td><td>${rmDataBR(p.vencimento)}</td><td class="cx">${quit ? dia(p.pagoEm) : (rmParcPago(p) > 0 ? 'parcial: ' + rmFmtNum(rmParcPago(p)) : '')}</td><td>${quit ? 'Sim' : 'Não'}</td><td class="r">${rmFmtNum(p.valor)}</td></tr>`;
     }).join('');
   } else {
-    linhas = `<tr><td class="c">1</td><td>${rmH(forma || '—')}</td><td>${dia(data)}</td><td>${dia(data)}</td><td>Sim</td><td class="r">${rmFmtNum(total)}</td></tr>`;
+    linhas = `<tr><td class="c">1</td><td>${rmH(forma || '—')}</td><td>${dia(data)}</td><td class="cx">${dia(data)}</td><td>Sim</td><td class="r">${rmFmtNum(total)}</td></tr>`;
   }
   return rmA4Secao('Pagamentos', `
     <table class="a4-tab">
-      <thead><tr><th class="c" style="width:50px">Parcela</th><th>Forma Pagamento</th><th>Vencimento</th><th>Data Quitação</th><th>Quitada</th><th class="r">Valor (R$)</th></tr></thead>
+      <thead><tr><th class="c" style="width:50px">Parcela</th><th>Forma Pagamento</th><th>Vencimento</th><th class="cx">Data Quitação</th><th>Quitada</th><th class="r">Valor (R$)</th></tr></thead>
       <tbody>${linhas}</tbody>
       <tfoot>
-        <tr><td colspan="5" class="r"><b>Sub-Total (R$)</b></td><td class="r"><b>${rmFmtNum(subtotal)}</b></td></tr>
-        ${desconto > 0 ? `<tr><td colspan="5" class="r"><b>Desconto (R$)</b></td><td class="r"><b>- ${rmFmtNum(desconto)}</b></td></tr>` : ''}
-        <tr class="a4-forte"><td colspan="5" class="r"><b>Total (R$)</b></td><td class="r"><b>${rmFmtNum(total)}</b></td></tr>
+        <tr><td class="cx"></td><td colspan="4" class="r"><b>Sub-Total (R$)</b></td><td class="r"><b>${rmFmtNum(subtotal)}</b></td></tr>
+        ${desconto > 0 ? `<tr><td class="cx"></td><td colspan="4" class="r"><b>Desconto (R$)</b></td><td class="r"><b>- ${rmFmtNum(desconto)}</b></td></tr>` : ''}
+        <tr class="a4-forte"><td class="cx"></td><td colspan="4" class="r"><b>Total (R$)</b></td><td class="r"><b>${rmFmtNum(total)}</b></td></tr>
       </tfoot>
     </table>`);
 }
@@ -4758,7 +4902,32 @@ function rmA4Assinaturas(esq, dir){
   return `<div class="a4-ass"><div>______________________________<br>${esq}</div>${dir ? `<div>______________________________<br>${dir}</div>` : ''}</div>`;
 }
 
+const RM_FMT_IMP_KEY = 'radicalMotos_formatoImpressao'; // por computador: 'perguntar' | 'a4' | 'cupom'
 function rmImprimirA4(titulo, corpo, varias){
+  const fmt = localStorage.getItem(RM_FMT_IMP_KEY) || 'perguntar';
+  if(fmt === 'a4' || fmt === 'cupom'){ rmImprimirDoc(titulo, corpo, varias, fmt); return; }
+  let box = document.getElementById('rm-fmt-escolha');
+  if(box) box.remove();
+  box = document.createElement('div');
+  box.id = 'rm-fmt-escolha';
+  box.className = 'rm-fmt-escolha';
+  box.innerHTML = `<div class="rm-fmt-card">
+      <div class="rm-fmt-tit">Imprimir em</div>
+      <button data-f="a4">&#128196; Folha A4</button>
+      <button data-f="cupom">&#129534; Cupom 80mm</button>
+      <button data-f="" class="rm-fmt-cancel">Cancelar</button>
+    </div>`;
+  box.onclick = ev => {
+    const b = ev.target.closest('button');
+    if(!b && ev.target !== box) return;
+    box.remove();
+    if(b && b.dataset.f) rmImprimirDoc(titulo, corpo, varias, b.dataset.f);
+  };
+  document.body.appendChild(box);
+}
+
+function rmImprimirDoc(titulo, corpo, varias, fmt){
+  const cupom = fmt === 'cupom';
   const e = rmEmpresa();
   const agora = new Date().toLocaleString('pt-BR').replace(',', '');
   const html = `<!doctype html><html><head><meta charset="utf-8"><title>${rmH(titulo)}</title><style>
@@ -4796,6 +4965,36 @@ function rmImprimirA4(titulo, corpo, varias){
     .a4-rodmsg{margin-top:10px; text-align:center; font-size:9px; color:#444;}
     .a4-rod{position:fixed; bottom:0; left:0; right:0; border-top:1px solid #333; padding-top:4px; display:flex; justify-content:space-between; font-size:8.5px; font-style:italic; font-weight:700;}
     .a4-rod span:first-child{width:33%;} .a4-rod span:nth-child(2){width:34%; text-align:center;} .a4-rod span:last-child{width:33%; text-align:right;}
+    ${cupom ? `
+    @page{ size:80mm auto; margin:2mm 3mm; }
+    body{ width:72mm; font-size:9px; }
+    .a4-cab{flex-direction:column; align-items:center; text-align:center; gap:2px; padding-bottom:5px; margin-bottom:6px; border-bottom:1px dashed #000;}
+    .a4-logo{width:42px; height:42px;}
+    .a4-emp{padding-left:0; font-size:8.5px;}
+    .a4-doc{text-align:center; min-width:0; margin-top:3px;}
+    .a4-doc-tit{font-size:12px; font-weight:700;}
+    .a4-doc-data{font-size:10px; margin-top:2px;}
+    .a4-sec{margin-bottom:6px;}
+    .a4-sec-tit{font-size:10.5px; font-weight:700; margin-bottom:2px; border-bottom:1px dashed #000;}
+    .a4-sec-corpo{padding-left:0; font-size:9px;}
+    .a4-duas{display:block;} .a4-duas > div{margin-bottom:2px;}
+    .a4-tab{font-size:8.5px;}
+    .a4-tab th{background:none; border-bottom:1px solid #000; padding:1px 2px; font-weight:700;}
+    .a4-tab td{padding:2px; border-bottom:1px dotted #999;}
+    .a4-tab .a4-forte td{font-size:10.5px;}
+    .cx{display:none;}
+    .a4-tab th, .a4-tab td{width:auto !important; white-space:normal;}
+    .a4-tab td.r, .a4-tab th.r{white-space:nowrap;}
+    .a4-valor{font-size:11px;}
+    .a4-txt{font-size:9px;}
+    .a4-ass{margin-top:22px; flex-direction:column; gap:18px;}
+    .a4-fim{margin-top:22px; font-size:9px;}
+    .a4-rod{position:static; border-top:1px dashed #000; margin-top:8px; justify-content:center;}
+    .a4-rod span:first-child, .a4-rod span:nth-child(2){display:none;}
+    .a4-rod span:last-child{width:100%; text-align:center;}
+    .a4-quebra{page-break-after:auto; break-after:auto; border-top:2px dashed #000; margin:14px 0; height:0;}
+    * { color:#000 !important; }
+    ` : ''}
   </style></head><body>${corpo}${e.rodape ? `<div class="a4-rodmsg">${rmH(e.rodape)}</div>` : ''}
     <div class="a4-rod"><span></span><span>${varias ? '' : '1/1'}</span><span>Impresso em ${agora}</span></div></body></html>`;
   let frame = document.getElementById('rm-print-a4');
@@ -5219,7 +5418,7 @@ function rmPromConfirmarRecebimento(notaId, n){
   rmCloseModal();
   const falta = rmParcRestante(p);
   const pgNovo = rmParcPagamentos(p)[rmParcPagamentos(p).length-1];
-  setTimeout(() => { if(confirm('Pagamento registrado. Imprimir recibo em A4?')) rmImprimirReciboA4([{ nota, p, pg: pgNovo }]); }, 200);
+  setTimeout(() => { if(confirm('Pagamento registrado. Imprimir recibo?')) rmImprimirReciboA4([{ nota, p, pg: pgNovo }]); }, 200);
   rmShowToast(falta > 0 ? `Recebido ${rmFormatMoeda(valor)} · falta ${rmFormatMoeda(falta)}` : `Parcela quitada · ${rmFormatMoeda(valor)}`);
   rmRenderFinProm();
 }
@@ -5343,7 +5542,45 @@ function rmRenderFinVendas(){
     </tr>`).join('');
 }
 
+function rmFabBadge(){
+  const n = (rmPedido.itens || []).filter(i => !i.comprado).length;
+
+}
+function rmFabAbrir(){
+  const p = document.getElementById('rm-fab-painel');
+  if(p.classList.contains('show')){ rmFabFechar(); return; }
+  p.classList.add('show');
+  const t = document.getElementById('rm-fab-txt'); t.value = ''; document.getElementById('rm-fab-qtd').value = '1';
+  setTimeout(() => t.focus(), 30);
+}
+function rmFabFechar(){ document.getElementById('rm-fab-painel').classList.remove('show'); }
+function rmFabAdd(){
+  const t = document.getElementById('rm-fab-txt'), q = document.getElementById('rm-fab-qtd');
+  const texto = t.value.trim().toUpperCase();
+  if(!texto){ t.focus(); return; }
+  rmPedido.itens.push({ id: 'pi' + Date.now(), texto, qtd: rmParseMoeda(q.value) || 1, obs: '', comprado: false, criadoEm: new Date().toISOString() });
+  rmPedidoSalvar();
+  t.value = ''; q.value = '1';
+  rmFabFechar();
+  if(document.getElementById('rm-view-produtos-pedido').classList.contains('active')) rmRenderPedido();
+  rmShowToast('Anotado: ' + texto);
+}
+function rmFabUltimos(){
+  const ult = (rmPedido.itens || []).filter(i => !i.comprado).slice(-4).reverse();
+  const prods = rmLoadProdutos();
+  document.getElementById('rm-fab-ult').innerHTML = ult.length ? '<div class="rm-fab-ult-tit">Últimos anotados</div>' + ult.map(i => {
+    const p = i.produtoId ? prods.find(x => x.id === i.produtoId) : null;
+    return `<div>${rmFmtQtd(i.qtd)}× ${rmEscapeHtml(p ? p.nome : i.texto)}</div>`;
+  }).join('') + `<a href="#" onclick="event.preventDefault(); rmFabFechar(); rmCloseModal(); rmSetSection('produtos'); rmSetViewProdutos('pedido');">Ver lista completa →</a>` : '';
+}
+document.addEventListener('mousedown', ev => {
+  const p = document.getElementById('rm-fab-painel');
+  if(p && p.classList.contains('show') && !p.contains(ev.target) && !document.getElementById('rm-fab').contains(ev.target)) rmFabFechar();
+});
+setTimeout(() => { rmFabBadge(); rmPedidoSync().then(rmFabBadge); }, 3000);
+
 function rmSetSection(section){
+  document.body.dataset.secao = section;
   RM_SECTIONS.forEach(s=>{
     const el = document.getElementById('rm-section-'+s);
     const btn = document.getElementById('rm-btn-'+s);
@@ -5369,12 +5606,150 @@ function rmSetSection(section){
   }
 }
 
+// ===================== PRODUTOS > PEDIDO (lista de compras) =====================
+let rmPedido = { itens: [] };
+const RM_PEDIDO_KEY = 'radicalMotos_pedido';
+try{ rmPedido = JSON.parse(localStorage.getItem(RM_PEDIDO_KEY)) || { itens: [] }; }catch(e){}
+let rmPedidoTimer = null;
+function rmPedidoSalvar(){
+  localStorage.setItem(RM_PEDIDO_KEY, JSON.stringify(rmPedido));
+  if(typeof rmFabBadge === 'function') rmFabBadge();
+  clearTimeout(rmPedidoTimer);
+  rmPedidoTimer = setTimeout(async () => {
+    try{ const { error } = await rmSb.from('configuracoes').upsert({ id:'pedido', dados: rmPedido }); if(error) console.error(error); }catch(e){}
+  }, 600);
+}
+async function rmPedidoSync(){
+  try{
+    const { data, error } = await rmSb.from('configuracoes').select('*').eq('id','pedido').maybeSingle();
+    if(!error && data && data.dados){ rmPedido = data.dados; localStorage.setItem(RM_PEDIDO_KEY, JSON.stringify(rmPedido)); }
+  }catch(e){}
+}
+
+// produtos que estão acabando
+function rmPedidoSugestoes(){
+  const noPedido = new Set(rmPedido.itens.filter(i => i.produtoId && !i.comprado).map(i => i.produtoId));
+  return rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && !noPedido.has(p.id)).filter(p => {
+    const atual = Number(p.estoqueAtual) || 0, min = Number(p.estoqueMinimo) || 0;
+    if(min > 0) return atual <= min;
+    return atual <= 0 && ['A','B','C'].includes(String(p.curva||'').toUpperCase());
+  }).map(p => {
+    const atual = Number(p.estoqueAtual) || 0, min = Number(p.estoqueMinimo) || 0, max = Number(p.estoqueMaximo) || 0;
+    const sug = max > 0 ? Math.max(1, max - atual) : Math.max(1, (min > 0 ? min * 2 : 2) - atual);
+    return { p, atual, min, sug };
+  }).sort((a,b) => (String(a.p.curva||'Z').localeCompare(String(b.p.curva||'Z'))) || (a.atual - b.atual) || (a.p.nome||'').localeCompare(b.p.nome||''));
+}
+
+function rmRenderPedido(){
+  const box = document.getElementById('rm-pedido-wrap'); if(!box) return;
+  const q = ((document.getElementById('rm-ped-sug-busca')||{}).value || '').trim().toLowerCase();
+  const fCurva = (document.getElementById('rm-ped-sug-curva')||{}).value || '';
+  let sug = rmPedidoSugestoes();
+  if(fCurva) sug = sug.filter(x => String(x.p.curva||'').toUpperCase() === fCurva);
+  if(q) sug = sug.filter(x => rmProdutoBateBusca(x.p, q));
+  const itens = rmPedido.itens;
+  const pend = itens.filter(i => !i.comprado).length;
+  const listaEl = document.getElementById('rm-ped-lista');
+  const sugEl = document.getElementById('rm-ped-sug');
+  document.getElementById('rm-ped-cont').textContent = itens.length ? `${pend} para comprar${itens.length - pend ? ' · ' + (itens.length - pend) + ' comprado(s)' : ''}` : '';
+  listaEl.innerHTML = itens.length ? itens.map((i, k) => {
+    const p = i.produtoId ? rmLoadProdutos().find(x => x.id === i.produtoId) : null;
+    return `<div class="rm-ped-item${i.comprado ? ' rm-ped-ok' : ''}">
+      <input type="checkbox" title="Comprado" ${i.comprado ? 'checked' : ''} onchange="rmPedido.itens[${k}].comprado=this.checked; rmPedidoSalvar(); rmRenderPedido()">
+      <input class="rm-ped-qtd" inputmode="decimal" value="${rmFmtQtd(i.qtd)}" onfocus="this.select()" onchange="rmPedido.itens[${k}].qtd=rmParseMoeda(this.value)||1; rmPedidoSalvar()">
+      <div class="rm-ped-nome">
+        ${p ? rmBadgeCurva(p.curva) + ' ' : '<span class="rm-ped-livre">livre</span> '}<b>${rmEscapeHtml(p ? p.nome : i.texto)}</b>
+        <div class="rm-ped-det">${p ? [p.localizacao && '#' + p.localizacao, p.marca, p.fornecedor && 'Forn.: ' + p.fornecedor, 'estoque ' + rmFmtQtd(p.estoqueAtual||0)].filter(Boolean).map(rmEscapeHtml).join(' · ') : ''}</div>
+        <input class="rm-ped-obs" placeholder="observação (marca, cor, fornecedor...)" value="${rmEscapeHtml(i.obs||'')}" onchange="rmPedido.itens[${k}].obs=this.value.trim(); rmPedidoSalvar()">
+      </div>
+      <button class="rm-pe2-del" title="Remover" onclick="rmPedido.itens.splice(${k},1); rmPedidoSalvar(); rmRenderPedido()">&#128465;</button>
+    </div>`;
+  }).join('') : '<div class="rm-problema-empty" style="padding:16px;">Lista vazia. Adicione pelas sugestões ao lado, busque um produto ou escreva livre.</div>';
+  sugEl.innerHTML = sug.length ? sug.slice(0, 150).map(({p, atual, min, sug}) => `
+    <div class="rm-ped-sug-item">
+      <div class="rm-ped-nome">${rmBadgeCurva(p.curva)} <b>${rmEscapeHtml(p.nome||'')}</b>
+        <div class="rm-ped-det">${[p.localizacao && '#' + p.localizacao, p.fornecedor].filter(Boolean).map(rmEscapeHtml).join(' · ')}</div></div>
+      <span class="rm-ped-est${atual <= 0 ? ' rm-ped-zero' : ''}">tem ${rmFmtQtd(atual)}${min ? ' / mín ' + rmFmtQtd(min) : ''}</span>
+      <button class="rm-prom-btn rm-prom-btn-ok" onclick="rmPedidoAdd('${p.id}', ${sug})">+ ${rmFmtQtd(sug)}</button>
+    </div>`).join('') + (sug.length > 150 ? `<div class="rm-ped-det" style="padding:8px;">Mostrando 150 de ${sug.length}. Use a busca ou o filtro de curva.</div>` : '')
+    : '<div class="rm-problema-empty" style="padding:16px;">Nenhum produto acabando 👍</div>';
+  document.getElementById('rm-ped-sug-cont').textContent = sug.length ? `(${sug.length})` : '';
+}
+
+function rmPedidoAdd(produtoId, qtd){
+  const ex = rmPedido.itens.find(i => i.produtoId === produtoId && !i.comprado);
+  if(ex) ex.qtd = (Number(ex.qtd) || 0) + (qtd || 1);
+  else rmPedido.itens.push({ id: 'pi' + Date.now(), produtoId, qtd: qtd || 1, obs: '', comprado: false, criadoEm: new Date().toISOString() });
+  rmPedidoSalvar(); rmRenderPedido();
+}
+
+function rmPedidoAddLivre(){
+  const t = document.getElementById('rm-ped-livre-txt'), qq = document.getElementById('rm-ped-livre-qtd');
+  const texto = t.value.trim().toUpperCase();
+  if(!texto) return;
+  rmPedido.itens.push({ id: 'pi' + Date.now(), texto, qtd: rmParseMoeda(qq.value) || 1, obs: '', comprado: false, criadoEm: new Date().toISOString() });
+  t.value = ''; qq.value = '1'; t.focus();
+  rmPedidoSalvar(); rmRenderPedido();
+}
+
+function rmPedidoBuscar(inp){
+  const lista = document.getElementById('rm-ped-busca-lista');
+  const q = inp.value.trim().toLowerCase();
+  if(!q){ lista.classList.remove('show'); return; }
+  const ps = rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && rmProdutoBateBusca(p, q)).sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR')).slice(0, 30);
+  lista.innerHTML = ps.length ? ps.map(p => `<div class="rm-autocomplete-item" onmousedown="event.preventDefault(); rmPedidoAdd('${p.id}', 1); document.getElementById('rm-ped-busca').value=''; document.getElementById('rm-ped-busca-lista').classList.remove('show');">
+      <div class="rm-autocomplete-nome">${rmBadgeCurva(p.curva)} ${rmEscapeHtml(p.nome||'')}${p.localizacao ? ` <span class="rm-autocomplete-apelido">#${rmEscapeHtml(p.localizacao)}</span>` : ''}</div>
+      <div class="rm-autocomplete-tel">estoque: ${rmFmtQtd(p.estoqueAtual||0)}${p.fornecedor ? ' · ' + rmEscapeHtml(p.fornecedor) : ''}</div></div>`).join('')
+    : '<div class="rm-autocomplete-empty">Nenhum produto. Use o campo "escrever livre".</div>';
+  lista.classList.add('show');
+}
+
+function rmPedidoLimparComprados(){
+  const n = rmPedido.itens.filter(i => i.comprado).length;
+  if(!n) return;
+  if(!confirm(`Tirar da lista os ${n} item(ns) marcados como comprados?`)) return;
+  rmPedido.itens = rmPedido.itens.filter(i => !i.comprado);
+  rmPedidoSalvar(); rmRenderPedido();
+}
+
+function rmPedidoLinhas(){
+  const prods = rmLoadProdutos();
+  return rmPedido.itens.filter(i => !i.comprado).map(i => {
+    const p = i.produtoId ? prods.find(x => x.id === i.produtoId) : null;
+    return { qtd: i.qtd, nome: p ? p.nome : i.texto, loc: p && p.localizacao, forn: (p && p.fornecedor) || '', marca: p && p.marca, obs: i.obs, est: p ? (p.estoqueAtual||0) : null };
+  });
+}
+
+function rmPedidoImprimir(){
+  const linhas = rmPedidoLinhas();
+  if(!linhas.length){ alert('Não há itens para comprar na lista.'); return; }
+  const grupos = {};
+  linhas.forEach(l => (grupos[l.forn || 'Sem fornecedor'] = grupos[l.forn || 'Sem fornecedor'] || []).push(l));
+  const corpo = rmA4Cabecalho('Pedido de Compra', '', new Date().toLocaleDateString('pt-BR'))
+    + Object.keys(grupos).sort().map(f => rmA4Secao(rmH(f), `
+      <table class="a4-tab"><thead><tr><th class="r" style="width:45px">Qtd.</th><th>Produto</th><th class="cx" style="width:80px">Local</th><th style="width:70px" class="r cx">Estoque</th><th class="c" style="width:30px">OK</th></tr></thead>
+      <tbody>${grupos[f].map(l => `<tr><td class="r"><b>${rmFmtQtd(l.qtd)}</b></td><td>${rmH(l.nome)}${l.marca ? ' · ' + rmH(l.marca) : ''}${l.obs ? '<br><i>' + rmH(l.obs) + '</i>' : ''}</td><td class="cx">${rmH(l.loc||'')}</td><td class="r cx">${l.est == null ? '' : rmFmtQtd(l.est)}</td><td class="c">☐</td></tr>`).join('')}</tbody></table>`)).join('')
+    + `<div class="a4-nota">${linhas.length} item(ns)</div>`;
+  rmImprimirA4('Pedido de compra', corpo);
+}
+
+function rmPedidoWhatsapp(){
+  const linhas = rmPedidoLinhas();
+  if(!linhas.length){ alert('Não há itens para comprar na lista.'); return; }
+  const txt = '*PEDIDO - ' + (rmEmpresa().nome || 'RADICAL MOTOS').toUpperCase() + '*\n' + new Date().toLocaleDateString('pt-BR') + '\n\n'
+    + linhas.map(l => `${rmFmtQtd(l.qtd)}x ${l.nome}${l.marca ? ' (' + l.marca + ')' : ''}${l.obs ? ' - ' + l.obs : ''}`).join('\n');
+  const ok = () => rmShowToast('Lista copiada. É só colar no WhatsApp');
+  if(navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, () => prompt('Copie a lista:', txt));
+  else prompt('Copie a lista:', txt);
+}
+
 function rmSetViewProdutos(view){
-  ['estoque','cadastro','organizacao','etiquetas'].forEach(v=>{
+  ['estoque','cadastro','organizacao','etiquetas','pedido'].forEach(v=>{
     document.getElementById('rm-view-produtos-'+v).classList.toggle('active', v===view);
     document.getElementById('rm-btn-produtos-'+v).classList.toggle('active', v===view);
   });
   if(view === 'estoque'){ rmRenderProdutos(); }
+  if(view === 'pedido'){ rmRenderPedido(); rmPedidoSync().then(rmRenderPedido); }
 }
 
 function rmSetView(view){
@@ -5741,7 +6116,9 @@ function rmFilteredList(searchInputId, dateModeId, dateValueId, dateStartId, dat
     const mode = document.getElementById(dateModeId).value;
     if(mode !== 'todos'){
       let range = null;
-      if(mode === 'personalizado'){
+      if(mode.startsWith('p:')){
+        range = rmPresetRange(mode);
+      } else if(mode === 'personalizado'){
         range = rmCustomRangeFromInputs(dateStartId, dateEndId);
       } else {
         const value = document.getElementById(dateValueId).value;
@@ -5756,6 +6133,24 @@ function rmFilteredList(searchInputId, dateModeId, dateValueId, dateStartId, dat
     }
   }
   return filtered;
+}
+
+// períodos prontos (fim exclusivo)
+function rmPresetRange(mode){
+  const h = new Date(); const y = h.getFullYear(), m = h.getMonth(), d = h.getDate();
+  const D = (a,b,c) => new Date(a,b,c);
+  switch(mode){
+    case 'p:ult6':   return { start: D(y, m-6, d), end: D(y, m, d+1) };
+    case 'p:ultmes': return { start: D(y, m-1, 1), end: D(y, m, 1) };
+    case 'p:ontem':  return { start: D(y, m, d-1), end: D(y, m, d) };
+    case 'p:hoje':   return { start: D(y, m, d), end: D(y, m, d+1) };
+    case 'p:semana': { const ini = d - h.getDay(); return { start: D(y, m, ini), end: D(y, m, ini+7) }; }
+    case 'p:mes':    return { start: D(y, m, 1), end: D(y, m+1, 1) };
+    case 'p:proxmes':return { start: D(y, m+1, 1), end: D(y, m+2, 1) };
+    case 'p:prox6':  return { start: D(y, m, d), end: D(y, m+6, d+1) };
+    case 'p:ano':    return { start: D(y, 0, 1), end: D(y+1, 0, 1) };
+  }
+  return null;
 }
 
 function rmCustomRangeFromInputs(startId, endId){
@@ -5807,7 +6202,7 @@ function rmOnDateModeChange(modeId, valueId, rangeId){
   const mode = document.getElementById(modeId).value;
   const valueInput = document.getElementById(valueId);
   const rangeContainer = document.getElementById(rangeId);
-  if(mode === 'todos'){
+  if(mode === 'todos' || mode.startsWith('p:')){
     valueInput.style.display = 'none';
     rangeContainer.style.display = 'none';
     valueInput.value = '';
@@ -6520,7 +6915,7 @@ function rmCliConfirmarAvulso(clienteId){
   rmSaveProms(lista);
   notasMexidas.forEach(n => rmDbUpsertProm(n));
   const itensRecibo = plano.map(({ n, p }) => ({ nota:n, p, pg: rmParcPagamentos(p)[rmParcPagamentos(p).length-1] }));
-  setTimeout(() => { if(confirm('Pagamento registrado. Imprimir recibo em A4?')) rmImprimirReciboA4(itensRecibo); }, 200);
+  setTimeout(() => { if(confirm('Pagamento registrado. Imprimir recibo?')) rmImprimirReciboA4(itensRecibo); }, 200);
   rmShowToast(`Recebido ${rmFormatMoeda(valor - sobra)} · baixa em ${plano.length} parcela${plano.length===1?'':'s'}`);
   rmCloseModal();
 }
@@ -6558,7 +6953,7 @@ function rmClientePagamentosHtml(c){
         <span class="rm-cli-hist-cod">${cod(x)}</span>
         <span class="rm-cli-hist-tit">${rmDataHoraBR(x.pg.data)}${x.pg.forma?' · '+rmEscapeHtml(x.pg.forma):''} <small>(parcela de ${rmFormatMoeda(x.p.valor)}, venc. ${rmDataBR(x.p.vencimento)})</small></span>
         <b>${rmFormatMoeda(x.pg.valor)}</b>
-        <button class="rm-prom-btn" title="Imprimir recibo A4" onclick="event.stopPropagation(); rmReimprimirRecibo('${x.n.id}',${x.p.n},${x.j})">&#128424;</button>
+        <button class="rm-prom-btn" title="Imprimir recibo" onclick="event.stopPropagation(); rmReimprimirRecibo('${x.n.id}',${x.p.n},${x.j})">&#128424;</button>
       </div></div>`).join('')}` : ''}`;
 }
 
@@ -6789,7 +7184,7 @@ function rmAbrirDetalheOS(id){
     </div>`:''}
 
     ${rmPromResumoHtml(r.id)}
-    <button class="rm-pe2-btn" style="width:100%; margin-bottom:10px; padding:11px;" onclick="rmImprimirOSA4('${r.id}')">&#128424; Imprimir em A4</button>
+    <button class="rm-pe2-btn" style="width:100%; margin-bottom:10px; padding:11px;" onclick="rmImprimirOSA4('${r.id}')">&#128424; Imprimir</button>
     <button class="rm-primary" onclick="rmVoltarParaCliente = null; rmOpenModal('${r.id}', true)">Abrir ordem de serviço</button>
   `;
   document.getElementById('rm-modal-backdrop').classList.add('show');
@@ -6881,50 +7276,117 @@ function rmExcluirCliente(id){
   rmRenderClientes();
 }
 
+// Lista da oficina no formato do sistema antigo (Sit. / Fat. / Núm. / Valor / Datas / Responsável / Cliente)
+let rmOslSort = { key:'num', dir:'desc' };
+let rmOslAtalho = null; // 'naopago' = entregues e não pagas · 'pronta' = prontas e não entregues (qualquer data)
+const RM_OSL_COLS = [
+  ['sit','Sit.','c',''], ['fat','Pago','c',''], ['foto','Foto','c',''], ['num','Núm.','r',''], ['valor','Valor','r',''],
+  ['solic','Data Solic.','',''], ['moto','Moto','',''], ['resp','Responsável','',''], ['cli','Cliente','',''], ['entr','Entrega','',''], ['wpp','','c','nosort']
+];
+function rmOslSit(r){ return ({ antigas:0, aberto:1, peca:2, andamento:3, prontas:4, entregue:5 })[r.status] ?? 1; }
+function rmOslValor(r){ return r.pago && r.valorPago ? r.valorPago : rmOsTotais(r).total; }
+function rmOslVal(r, k){
+  switch(k){
+    case 'sit': return rmOslSit(r);
+    case 'fat': return r.pago ? 1 : 0;
+    case 'foto': return r.fotoUrl ? 1 : 0;
+    case 'num': return rmNumeroDoc(r.codigoApp) || 0;
+    case 'valor': return rmOslValor(r);
+    case 'solic': return new Date(r.entrada || 0).getTime();
+    case 'moto': return (r.modelo || '').toLowerCase();
+    case 'resp': return (r.mecanico || '').toLowerCase();
+    case 'cli': return (r.nome || '').toLowerCase();
+    case 'entr': return (r.entrega ? 2 : 0) + (r.buscar ? 1 : 0);
+  }
+  return '';
+}
+function rmOslTel(r){
+  if(r.telefone) return r.telefone;
+  const c = r.clienteId ? rmLoadClientes().find(x => x.id === r.clienteId) : null;
+  return (c && c.telefone) || '';
+}
+function rmOslOrdenar(k){
+  if(rmOslSort.key === k) rmOslSort.dir = rmOslSort.dir === 'asc' ? 'desc' : 'asc';
+  else rmOslSort = { key:k, dir: ['valor','num','solic','ent'].includes(k) ? 'desc' : 'asc' };
+  rmRenderLista();
+}
+function rmOslPreencherFiltros(todos){
+  const enche = (id, valores, rot) => {
+    const el = document.getElementById(id); if(!el) return;
+    const atual = el.value;
+    el.innerHTML = `<option value="">${rot}</option>` + valores.map(v => `<option${v===atual?' selected':''}>${rmEscapeHtml(v)}</option>`).join('');
+    if(atual && !valores.includes(atual)) el.value = '';
+  };
+  enche('rm-osl-resp', [...new Set(todos.map(r => (r.mecanico||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR')), 'Selecione o Responsável');
+  enche('rm-osl-cli', [...new Set(todos.map(r => (r.nome||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR')), 'Selecione o Cliente');
+}
+
 function rmRenderLista(){
-  const list = rmFilteredList('rm-search-lista', 'rm-date-mode-lista', 'rm-date-value-lista', 'rm-date-start-lista', 'rm-date-end-lista');
-  const sorted = list.slice().sort((a,b) => rmListaSort.key
-    ? rmListaCompare(a, b, rmListaSort.key, rmListaSort.dir)
-    : new Date(b.entrada) - new Date(a.entrada));
-  rmUpdateListaHeaders();
+  const base = rmFilteredList('rm-search-lista', 'rm-date-mode-lista', 'rm-date-value-lista', 'rm-date-start-lista', 'rm-date-end-lista');
+  rmOslPreencherFiltros(rmLoad());
+  const resp = document.getElementById('rm-osl-resp').value;
+  const cli = document.getElementById('rm-osl-cli').value;
+  const st = document.getElementById('rm-osl-status').value;
+  const todasMotos = rmLoad();
+  const devendo = todasMotos.filter(r => r.status === 'entregue' && !r.pago);
+  const prontas = todasMotos.filter(r => r.status === 'prontas');
+  document.getElementById('rm-osl-naopago').classList.toggle('ativo', rmOslAtalho === 'naopago');
+  document.getElementById('rm-osl-pronta').classList.toggle('ativo', rmOslAtalho === 'pronta');
+  document.getElementById('rm-osl-naopago-n').textContent = devendo.length ? '(' + devendo.length + ')' : '';
+  document.getElementById('rm-osl-pronta-n').textContent = prontas.length ? '(' + prontas.length + ')' : '';
+  const busca = (document.getElementById('rm-search-lista').value || '').toLowerCase();
+  const list = rmOslAtalho
+    ? (rmOslAtalho === 'naopago' ? devendo : prontas).filter(r => !busca || [r.nome, r.modelo, r.codigoApp, r.mecanico].some(x => (x||'').toLowerCase().includes(busca)))
+    : base.filter(r =>
+    (!resp || (r.mecanico||'').trim() === resp) &&
+    (!cli || (r.nome||'').trim() === cli) &&
+    (!st || (st === 'abertas' ? !r.pago : st === 'pagas' ? r.pago : st === 'naopagas' ? !r.pago : r.status === st)));
+  const { key, dir } = rmOslSort;
+  const sorted = list.slice().sort((a,b) => {
+    const va = rmOslVal(a, key), vb = rmOslVal(b, key);
+    const c = (typeof va === 'number' && typeof vb === 'number') ? va - vb : String(va).localeCompare(String(vb), 'pt-BR');
+    return (dir === 'asc' ? c : -c) || (rmOslVal(b,'num') - rmOslVal(a,'num'));
+  });
+
+  const cabHtml = RM_OSL_COLS.map(([k, label, al, ns]) => ns ? '<th style="cursor:default"></th>' : `
+    <th class="${al==='r'?'r':al==='c'?'c':''}" onclick="rmOslOrdenar('${k}')">${label}<span class="rm-osl-seta${key===k?' ativa':''}">${key===k ? (dir==='asc' ? '&#9650;' : '&#9660;') : '&#9650;<br>&#9660;'}</span></th>`).join('');
+  document.getElementById('rm-osl-head').innerHTML = cabHtml;
+
   const body = document.getElementById('rm-lista-body');
   const empty = document.getElementById('rm-lista-empty');
-  body.innerHTML = '';
-
-  if(sorted.length === 0){
-    empty.style.display = 'block';
-    return;
-  }
-  empty.style.display = 'none';
-
-  sorted.forEach(r=>{
-    const statusInfo = RM_STATUS[r.status] || RM_STATUS['aberto'];
-    const parado = rmTempoParado(r);
-    const flags = [r.entrega?'Entrega':'', r.buscar?'Buscar':''].filter(Boolean).join(' · ');
-    const tr = document.createElement('tr');
-    if(r.pago) tr.classList.add('rm-lista-row-pago');
-    tr.innerHTML = `
-      <td data-label="OS">
-        <div class="rm-lista-code">${r.codigoApp||''} ${r.fotoUrl?`<span class="rm-lista-foto-icon" title="Essa moto tem foto" onmouseenter="rmShowFotoPreview(event, '${r.fotoUrl}')" onmouseleave="rmHideFotoPreview()">&#128247;</span>`:''}</div>
-        ${flags?`<div class="rm-lista-flags">${flags}</div>`:''}
-      </td>
-      <td data-label="Pago" onclick="event.stopPropagation()">
-        <label class="rm-switch">
-          <input type="checkbox" ${r.pago?'checked':''} onchange="rmTogglePago('${r.id}', this.checked)">
-          <span class="rm-switch-track"></span>
-        </label>
-      </td>
-      <td data-label="Mecânico" title="${r.mecanico||''}">${r.mecanico || '—'}</td>
-      <td data-label="Tempo parado"><span class="rm-tempo-${parado.level}">${parado.label}</span></td>
-      <td data-label="Moto" title="${r.modelo}">${r.modelo}</td>
-      <td data-label="Cliente" title="${r.nome||''}">${r.nome || '—'}</td>
-      <td data-label="Status"><span class="rm-lista-status-pill" style="background:${statusInfo.color}">${statusInfo.label}</span></td>
-      <td data-label="Valor">${rmTotalPecasUsadas(r) > 0 ? rmFormatMoeda(rmTotalPecasUsadas(r)) : '—'}</td>
-      <td data-label="Problemas" title="${r.problemas && r.problemas.length ? rmProblemasResumo(r.problemas) : ''}"><span class="rm-lista-problemas">${r.problemas && r.problemas.length ? rmProblemasResumo(r.problemas) : '—'}</span></td>
-    `;
-    tr.onclick = () => rmOpenModal(r.id, true);
-    body.appendChild(tr);
-  });
+  empty.style.display = sorted.length ? 'none' : 'block';
+  const dia = d => d ? new Date(d).toLocaleDateString('pt-BR') : '';
+  // ícones redondos em SVG (não viram emoji em nenhum computador)
+  const icCheio = (cor, t, check) => `<svg class="rm-osl-svg" viewBox="0 0 22 22"><circle cx="11" cy="11" r="10" fill="${cor}"/>${check ? '<path d="M6.2 11.4l3.1 3.1 6.5-6.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>' : ''}</svg>`;
+  const icOk = t => `<svg class="rm-osl-svg" viewBox="0 0 22 22"><circle cx="11" cy="11" r="10" fill="#1e8e3e"/><path d="M6.2 11.4l3.1 3.1 6.5-6.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const icVazio = (cor, t) => `<svg class="rm-osl-svg" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8.6" fill="none" stroke="${cor}" stroke-width="2.6"/></svg>`;
+  const iconeSit = r => {
+    const info = (RM_STATUS[r.status]||{}).label || '';
+    switch(r.status){
+      case 'prontas':   return icOk(info);                      // verde cheio com ✔
+      case 'andamento': return icVazio('#1e8e3e', info);        // verde vazado
+      case 'peca':      return icVazio('#e0a800', info);        // amarelo vazado
+      case 'antigas':   return icCheio('#7b3fbf', info, false); // todo roxo
+      case 'entregue':  return icCheio('#1a73e8', info, true);  // todo azul
+      default:          return icVazio('#222', info);           // em aberto: preto vazado
+    }
+  };
+  const iconeFat = r => r.pago ? icOk('Pago' + (r.formaPagamento ? ' · ' + rmEscapeHtml(r.formaPagamento) : '')) : icVazio('#222', 'Não pago');
+  const linha = r => `
+    <tr onclick="rmOpenModal('${r.id}', true)">
+      <td class="c"><span class="rm-osl-tip" data-tip="${rmEscapeHtml((RM_STATUS[r.status]||{}).label || 'Motos em aberto')}">${iconeSit(r)}</span></td>
+      <td class="c"><span class="rm-osl-tip" data-tip="${r.pago ? 'Pago' + (r.formaPagamento ? ' · ' + rmEscapeHtml(r.formaPagamento) : '') : 'Não pago'}">${iconeFat(r)}</span></td>
+      <td class="c">${r.fotoUrl ? `<span class="rm-osl-foto" onmouseenter="rmShowFotoPreview(event, '${r.fotoUrl}')" onmouseleave="rmHideFotoPreview()">&#128247;</span>` : ''}</td>
+      <td class="r">${rmNumeroDoc(r.codigoApp) || rmEscapeHtml(r.codigoApp||'')}</td>
+      <td class="r">${rmFmtNum(rmOslValor(r))}</td>
+      <td>${dia(r.entrada)}</td>
+      <td class="rm-osl-mod">${rmEscapeHtml(r.modelo || '')}</td>
+      <td>${rmEscapeHtml(r.mecanico || '')}</td>
+      <td class="rm-osl-cli">${rmEscapeHtml(r.nome || '')}</td>
+      <td>${r.entrega ? '<span class="rm-osl-tag rm-osl-tag-ent">Entregar</span>' : ''}${r.buscar ? '<span class="rm-osl-tag rm-osl-tag-bus">Buscar</span>' : ''}</td>
+      <td class="c">${rmOslTel(r) ? `<span class="rm-osl-tip" data-tip="WhatsApp ${rmEscapeHtml(rmOslTel(r))}"><button class="rm-osl-wpp" onclick="event.stopPropagation(); rmAbrirWhatsapp('${rmEscapeHtml(rmOslTel(r))}')"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.3-.1z"/></svg></button></span>` : ''}</td>
+    </tr>`;
+  body.innerHTML = sorted.map(linha).join('');
 }
 
 function rmRenderMecanicosBoard(){
@@ -7415,7 +7877,7 @@ function rmOsFinalizar(id){
   if(!rmChangeStatus(id, 'prontas')) {}
   rmOpenModal(id, rmActiveModalLarge);
   rmShowToast('Moto finalizada · ' + rmFormatMoeda(r.valorPago));
-  setTimeout(() => { if(confirm('Moto finalizada. Imprimir a ordem de serviço em A4 para o cliente?')) rmImprimirOSA4(id); }, 200);
+  setTimeout(() => { if(confirm('Moto finalizada. Imprimir a ordem de serviço para o cliente?')) rmImprimirOSA4(id); }, 200);
 }
 
 function rmOsAbrirBusca(){
@@ -7600,6 +8062,7 @@ function rmOpenModal(id, large){
       <div>
         <div class="rm-modal-title">${r.nome || 'Cliente não informado'}</div>
         <div class="rm-modal-sub">${r.codigoApp} · ${r.modelo}</div>
+        <div class="rm-modal-status-row rm-os-status-topo">${statusPills}</div>
       </div>
       <div class="rm-modal-header-actions">
         <button class="rm-modal-icon-btn" onclick="rmImprimirEtiqueta('${r.id}')" title="Imprimir etiqueta">&#128424;</button>
@@ -7612,11 +8075,6 @@ function rmOpenModal(id, large){
     <div class="rm-modal-body" id="rm-modal-body-detalhes" style="${detalhesOculto?'display:none;':''}">
     <div class="rm-modal-col">
     <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Status</span>
-      <div class="rm-modal-status-row">${statusPills}</div>
-    </div>
-
-    <div class="rm-modal-section">
       <span class="rm-modal-section-label">Data de referência</span>
       <div style="font-size:12px; color:var(--rm-text-dim); margin-bottom:8px;">Aberta em ${rmFormatData(r.entrada)}${r.dataManual?' · ajustada manualmente':''}</div>
       <div class="rm-mec-add-row" style="margin-bottom:${r.dataManual?'2px':'0'};">
@@ -7624,15 +8082,6 @@ function rmOpenModal(id, large){
         <button class="rm-btn-add" onclick="rmSetDataManualHoje('${r.id}')">Hoje</button>
       </div>
       ${r.dataManual?`<button onclick="rmLimparDataManual('${r.id}')" style="background:none; border:none; color:var(--rm-accent); font-size:12px; font-weight:600; cursor:pointer; padding:4px 0 0; text-align:left;">Voltar ao automático</button>`:''}
-    </div>
-
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Problemas relatados</span>
-      <div class="rm-mec-add-row" style="margin-bottom:10px;">
-        <input class="rm-input" id="rm-modal-problema-novo" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarProblemaModal('${r.id}');}">
-        <button class="rm-btn-add" onclick="rmAdicionarProblemaModal('${r.id}')">OK</button>
-      </div>
-      <div class="rm-problema-list" id="rm-modal-problema-lista">${rmProblemaChecklistHtml(r.problemas)}</div>
     </div>
 
     <div class="rm-modal-section">
@@ -7697,11 +8146,6 @@ function rmOpenModal(id, large){
       <input class="rm-input" id="rm-modal-codigointerno" value="${r.codigoInterno||''}" onchange="rmUpdateField('${r.id}','codigoInterno',this.value.trim().toUpperCase())">
     </div>
 
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Anotações</span>
-      <textarea class="rm-input" id="rm-modal-anotacoes" onchange="rmUpdateField('${r.id}','anotacoes',this.value.trim().toUpperCase())">${r.anotacoes||''}</textarea>
-    </div>
-
     ${r.itens?`
     <div class="rm-modal-section">
       <span class="rm-modal-section-label">Itens deixados</span>
@@ -7713,6 +8157,15 @@ function rmOpenModal(id, large){
       ${historyItems}
     </div>
     </div>
+    </div>
+
+    <div class="rm-modal-section rm-os-problemas">
+      <span class="rm-modal-section-label">Problemas relatados</span>
+      <div class="rm-mec-add-row" style="margin-bottom:10px;">
+        <input class="rm-input" id="rm-modal-problema-novo" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarProblemaModal('${r.id}');}">
+        <button class="rm-btn-add" onclick="rmAdicionarProblemaModal('${r.id}')">OK</button>
+      </div>
+      <div class="rm-problema-list" id="rm-modal-problema-lista">${rmProblemaChecklistHtml(r.problemas)}</div>
     </div>
 
     <div class="rm-modal-section rm-os-wrap" style="margin-top:6px;">
@@ -7777,8 +8230,13 @@ function rmOpenModal(id, large){
           </div>
         </div>
       </div>
+      <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Anotações</span>
+      <textarea class="rm-input" id="rm-modal-anotacoes" onchange="rmUpdateField('${r.id}','anotacoes',this.value.trim().toUpperCase())">${r.anotacoes||''}</textarea>
+      </div>
+
       ${r.pago
-        ? `<button class="rm-pe2-btn" style="float:right; margin:8px 10px 0 0;" onclick="rmImprimirOSA4('${r.id}')">&#128424; Imprimir A4</button><div class="rm-os-finalizada">&#10004; Moto finalizada e paga${r.pagoEm?' em '+rmDataHoraBR(r.pagoEm):''}${r.formaPagamento?' · '+r.formaPagamento:''}</div>`
+        ? `<button class="rm-pe2-btn" style="float:right; margin:8px 10px 0 0;" onclick="rmImprimirOSA4('${r.id}')">&#128424; Imprimir</button><div class="rm-os-finalizada">&#10004; Moto finalizada e paga${r.pagoEm?' em '+rmDataHoraBR(r.pagoEm):''}${r.formaPagamento?' · '+r.formaPagamento:''}</div>`
         : `<button class="rm-os-finalizar" onclick="rmOsFinalizar('${r.id}')">Finalizar moto</button>`}
     </div>
 
@@ -7956,5 +8414,15 @@ function rmUpdateField(id, field, value){
   }
 })();
 </script>
+<!-- Botão rápido de pedido (fica sobre todas as telas) -->
+<button class="rm-fab" id="rm-fab" title="Anotar item para pedido" onclick="rmFabAbrir()">&#128722;</button>
+<div class="rm-fab-painel" id="rm-fab-painel">
+  <div class="rm-fab-cab"><b>Anotar para pedido</b><button onclick="rmFabFechar()">&times;</button></div>
+  <div class="rm-fab-row">
+    <input id="rm-fab-qtd" value="1" inputmode="decimal" onfocus="this.select()" onkeydown="if(event.key==='Enter') document.getElementById('rm-fab-txt').focus(); if(event.key==='Escape') rmFabFechar()">
+    <input id="rm-fab-txt" placeholder="O que precisa pedir?" autocomplete="off" onkeydown="if(event.key==='Enter') rmFabAdd(); if(event.key==='Escape') rmFabFechar()">
+  </div>
+  <button class="rm-fab-add" onclick="rmFabAdd()">Adicionar (Enter)</button>
+</div>
 </body>
 </html>
