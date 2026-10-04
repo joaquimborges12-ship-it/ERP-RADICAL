@@ -109,8 +109,6 @@
     padding:6px 12px; font-size:12.5px; cursor:pointer;
   }
   .rm-foto-thumb-modal{width:100%; max-width:280px; border-radius:9px; display:block; border:1px solid var(--rm-border); margin-bottom:8px;}
-  .rm-prodtab-bar{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:6px;}
-  .rm-prodtab-content{padding-top:8px;}
 
   .rm-pdv-modo-toggle{
     display:inline-flex; gap:2px; background:var(--rm-panel-2); border:1px solid var(--rm-border);
@@ -212,9 +210,9 @@
   .rm-pdv-pag-btn.active{background:var(--rm-accent); color:var(--rm-accent-ink); border-color:var(--rm-accent);}
   .rm-pdv-troco-block{margin-top:14px; padding-top:14px; border-top:1px solid var(--rm-border);}
   .rm-pdv-troco-block .rm-input{margin-bottom:0;}
-  #rm-pdv-troco-linha{font-size:14px; font-weight:700; margin-top:8px;}
-  #rm-pdv-troco-linha.rm-pdv-troco-ok{color:var(--rm-green);}
-  #rm-pdv-troco-linha.rm-pdv-troco-falta{color:var(--rm-red);}
+  #rm-pdv-troco-linha{font-weight:500;}
+  #rm-pdv-troco-linha.rm-pdv-troco-ok{color:var(--rm-green); font-weight:700;}
+  #rm-pdv-troco-linha.rm-pdv-troco-falta{color:var(--rm-red); font-weight:700; font-size:19px;}
 
   .rm-pdv-cliente-tag{
     display:flex; align-items:center; justify-content:space-between; background:var(--rm-bg);
@@ -778,6 +776,107 @@
     .rm-settings-btn{ width:32px; height:32px; flex-shrink:0; }
   }
 
+  /* ===== PDV no estilo da referência: painéis quadrados e campos em grade ===== */
+  .rm-px-grid{display:grid; grid-template-columns:minmax(0, 1fr) 360px; gap:14px; align-items:start; margin-bottom:26px;}
+  .rm-px-col-dir{position:sticky; top:12px; max-height:calc(100vh - 24px); overflow-y:auto; scrollbar-width:thin;}
+  .rm-px-col-dir .rm-px-card{padding:14px; margin-bottom:12px;}
+  .rm-px-col{min-width:0;}
+  .rm-px-card{background:#fff; border:1px solid var(--rm-border); padding:16px; margin-bottom:14px;}
+  .rm-px-card .rm-autocomplete-wrap{margin-bottom:0;}
+  .rm-px-linha{display:flex; gap:12px; align-items:flex-end; margin-bottom:12px;}
+  .rm-px-campo{flex:1; min-width:0;}
+  .rm-px-w-qtd{flex:0 0 110px;}
+  .rm-px-w-lim{flex:0 0 138px;}
+  .rm-px-label{display:block; font-size:14px; color:var(--rm-text); margin-bottom:6px;}
+  .rm-px-atalho{font-size:12px; color:var(--rm-text-dim);}
+  .rm-px-card input.rm-input, .rm-px-card select.rm-input, .rm-px-card textarea.rm-input{
+    margin-bottom:0; padding:9px 12px; font-size:14.5px; border:1px solid #d6d6d6; background:#fff;
+  }
+  .rm-px-card input.rm-input:focus, .rm-px-card select.rm-input:focus, .rm-px-card textarea.rm-input:focus{border-color:var(--rm-accent);}
+  .rm-px-card textarea.rm-input{min-height:84px;}
+  .rm-px-card input.rm-px-num{text-align:right;}
+  .rm-px-card input.rm-px-ro{background:#f3f3f3; color:var(--rm-text);}
+  .rm-px-card input.rm-px-selecionado{background:#f3f3f3; padding-right:40px; cursor:default; font-weight:600;}
+  .rm-px-limpar{position:absolute; right:0; top:0; width:38px; height:100%; background:none; border:none; color:var(--rm-text-dim); font-size:22px; line-height:1; cursor:pointer; padding:0;}
+  .rm-px-limpar:hover{color:var(--rm-red);}
+  .rm-px-itens{padding:20px;}
+  .rm-px-itens input.rm-input{padding:11px 13px; font-size:16px;}
+  .rm-px-itens .rm-px-label{font-size:14.5px;}
+  .rm-px-itens table.rm-px-tabela{font-size:15.5px;}
+  .rm-px-itens .rm-px-tabela th{font-size:14px; padding:11px 8px;}
+  .rm-px-itens .rm-px-tabela td{padding:14px 8px;}
+  .rm-px-itens .rm-px-rem{width:30px; height:30px;}
+  .rm-px-itens .rm-px-btn-add{flex:0 0 66px; width:66px; height:66px; font-size:38px;}
+  .rm-px-btn-add{
+    flex:0 0 58px; width:58px; height:58px; background:var(--rm-accent); color:var(--rm-accent-ink);
+    border:none; font-size:34px; line-height:1; cursor:pointer; padding:0; font-family:var(--rm-font-body);
+  }
+  .rm-px-btn-add:hover{filter:brightness(1.06);}
+  .rm-px-edit-aviso{
+    display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px; padding:9px 12px;
+    background:#fdf6e3; border-left:4px solid #e0a82e; font-size:13px;
+  }
+  .rm-px-edit-aviso button{background:none; border:none; color:var(--rm-accent); font-weight:700; cursor:pointer; font-family:var(--rm-font-body); font-size:13px;}
+
+  /* tabela de itens */
+  .rm-px-tabela-wrap{overflow-x:auto; margin-top:6px;}
+  table.rm-px-tabela{width:100%; min-width:480px; border-collapse:collapse; font-size:14px; table-layout:fixed;}
+  .rm-px-tabela th{font-weight:700; font-size:13.5px; padding:9px 6px; text-align:right; border-bottom:1px solid var(--rm-border); white-space:nowrap;}
+  .rm-px-tabela th:first-child{text-align:left;}
+  .rm-px-tabela td{padding:10px 6px; text-align:right; border-bottom:1px solid #eee; white-space:nowrap;}
+  .rm-px-tabela td.rm-px-t-nome{text-align:left; white-space:normal; overflow-wrap:anywhere; line-height:1.3;}
+  .rm-px-tabela td.rm-px-t-acao{text-align:right; padding-right:0;}
+  .rm-px-tabela tr.rm-px-l{cursor:pointer;}
+  .rm-px-tabela tr.rm-px-l:hover{background:#faf6ea;}
+  .rm-px-tabela tr.rm-px-l-novo, .rm-px-tabela tr.rm-px-l-edit{background:#fdf6e3;}
+  .rm-px-rem{width:26px; height:26px; background:#8f8f8f; color:#fff; border:none; font-size:17px; line-height:1; cursor:pointer; padding:0;}
+  .rm-px-rem:hover{background:var(--rm-red);}
+  .rm-px-vazio{padding:26px 10px; text-align:center; color:var(--rm-text-dim); font-size:14px; border-top:1px solid var(--rm-border); border-bottom:1px solid #eee;}
+  .rm-px-qtdtotal{text-align:right; font-size:13px; color:var(--rm-text-dim); margin-top:10px;}
+  .rm-px-qtdtotal b{color:var(--rm-text); margin-left:14px;}
+  .rm-px-info{margin-top:12px; padding:11px 14px; background:#e8f3fa; border-left:4px solid #4a90d9; font-style:italic; font-size:14px; color:#31465a;}
+
+  /* totais em números grandes */
+  .rm-px-grid2{display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;}
+  .rm-px-grid2-topo{margin-top:12px;}
+  .rm-px-grid2-pago{margin-top:12px;}
+  .rm-px-label-duplo{display:flex; justify-content:space-between; align-items:baseline; gap:6px;}
+  .rm-px-desc-nota{color:var(--rm-red); font-weight:700; font-size:13px; white-space:nowrap;}
+  div.rm-px-total-hero{
+    height:64px; display:flex; align-items:center; justify-content:flex-end; padding:0 16px; font-size:34px; font-weight:700;
+    border:1px solid #d6d6d6; background:#f3f3f3; color:var(--rm-accent); white-space:nowrap; overflow:hidden;
+  }
+  div.rm-px-big{
+    height:56px; display:flex; align-items:center; justify-content:flex-end; padding:0 12px; font-size:23px; font-weight:500;
+    border:1px solid #d6d6d6; background:#f3f3f3; color:var(--rm-text); white-space:nowrap; overflow:hidden;
+  }
+  .rm-px-card input.rm-px-big{height:56px; padding:0 12px; font-size:23px; text-align:right;}
+  div.rm-px-big.rm-px-big-sm, .rm-px-card input.rm-px-big.rm-px-big-sm{height:44px; font-size:18px;}
+  .rm-px-desc-grupo{display:flex;}
+  .rm-px-desc-grupo input.rm-input{flex:1; min-width:0;}
+  .rm-px-card .rm-px-desc-grupo select.rm-input{flex:0 0 58px; width:58px; height:44px; padding:0 4px; border-left:none; font-size:14px;}
+
+  @media (max-width:900px){
+    .rm-px-grid{grid-template-columns:1fr;}
+    .rm-px-linha{flex-wrap:wrap;}
+    .rm-px-atalho{display:none;}
+    .rm-px-col-dir{position:static; max-height:none; overflow:visible;}
+    .rm-px-linha .rm-px-campo{flex:1 1 42%; min-width:120px;}
+    .rm-px-linha .rm-px-w-qtd{flex:0 0 110px; min-width:0;}
+    .rm-px-btn-add{flex:1 1 100%; width:auto; height:48px;}
+    table.rm-px-tabela{min-width:0;}
+    .rm-px-tabela col:nth-child(3), .rm-px-tabela col:nth-child(4),
+    .rm-px-tabela th:nth-child(3), .rm-px-tabela th:nth-child(4),
+    .rm-px-tabela td:nth-child(3), .rm-px-tabela td:nth-child(4){display:none;}
+    .rm-px-tabela th:first-child{white-space:normal;}
+    .rm-px-tabela col:nth-child(2){width:38px !important;}
+    .rm-px-tabela col:nth-child(5){width:58px !important;}
+    .rm-px-tabela col:nth-child(6){width:72px !important;}
+    .rm-px-tabela col:nth-child(7){width:32px !important;}
+    .rm-px-tabela td.rm-px-t-nome{overflow-wrap:break-word; font-size:13.5px;}
+    .rm-px-tabela th, .rm-px-tabela td{padding-left:4px; padding-right:4px;}
+  }
+
   /* ===== ESTILO QUADRADO (todo o sistema) =====
      Deixa todos os cantos retos: painéis, botões, campos, abas, cartões, etiquetas.
      Para voltar ao estilo arredondado, é só apagar este bloco. */
@@ -787,8 +886,17 @@
   .rm-qm-btn.rm-qm-btn-excluir{margin-right:auto; color:var(--rm-red); border-color:var(--rm-red);}
   .rm-qm-btn.rm-qm-btn-excluir:hover{background:var(--rm-red); color:#fff; border-color:var(--rm-red);}
   .rm-qm-title{overflow-wrap:anywhere;}
+  @media (max-width:640px){
+    .rm-qm-footer{flex-wrap:wrap;}
+    .rm-qm-footer .rm-qm-btn{flex:1 1 40%;}
+    .rm-qm-footer .rm-qm-btn.rm-qm-btn-excluir{flex:1 1 100%; margin-right:0; order:-1;}
+  }
+  .rm-qm-checks{display:flex; flex-wrap:wrap; gap:10px 32px; padding-top:6px;}
+  .rm-qm-check{display:flex; align-items:center; gap:9px; font-size:14px; color:var(--rm-text); cursor:pointer;}
+  .rm-qm-check input{width:18px; height:18px; margin:0; accent-color:var(--rm-accent); cursor:pointer;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 <div id="rm-bancada" style="display:none;">
@@ -854,89 +962,125 @@
     </div>
 
     <div id="rm-section-pdv" class="rm-section">
-      <h1 class="rm-title">PDV — Venda rápida</h1>
+      <div class="rm-pdv-toggles-row">
+        <div class="rm-pdv-modo-toggle">
+          <button class="rm-pdv-modo-btn active" id="rm-pdv-modo-venda" onclick="rmSetModoPdv('venda')">Venda</button>
+          <button class="rm-pdv-modo-btn" id="rm-pdv-modo-orcamento" onclick="rmSetModoPdv('orcamento')">Orçamento</button>
+        </div>
+        <div class="rm-pdv-modo-toggle">
+          <button class="rm-pdv-modo-btn active" id="rm-pdv-tabela-consumidor" onclick="rmSetTabelaPrecoPdv('consumidor')">Consumidor</button>
+          <button class="rm-pdv-modo-btn" id="rm-pdv-tabela-parceiro" onclick="rmSetTabelaPrecoPdv('parceiro')">Parceiro</button>
+        </div>
+      </div>
 
-      <div class="rm-pdv-grid">
-        <div class="rm-pdv-col-cart">
-          <div class="rm-pdv-toggles-row">
-            <div class="rm-pdv-modo-toggle">
-              <button class="rm-pdv-modo-btn active" id="rm-pdv-modo-venda" onclick="rmSetModoPdv('venda')">Venda</button>
-              <button class="rm-pdv-modo-btn" id="rm-pdv-modo-orcamento" onclick="rmSetModoPdv('orcamento')">Orçamento</button>
-            </div>
-            <div class="rm-pdv-modo-toggle">
-              <button class="rm-pdv-modo-btn active" id="rm-pdv-tabela-consumidor" onclick="rmSetTabelaPrecoPdv('consumidor')">Consumidor</button>
-              <button class="rm-pdv-modo-btn" id="rm-pdv-tabela-parceiro" onclick="rmSetTabelaPrecoPdv('parceiro')">Parceiro</button>
-            </div>
-          </div>
+      <div class="rm-px-grid">
+        <div class="rm-px-col">
 
-          <div class="rm-pdv-add-row">
-            <div class="rm-pdv-add-field rm-pdv-add-nome">
-              <label class="rm-pdv-mini-label">Produto / Serviço</label>
-              <div class="rm-autocomplete-wrap" id="rm-pdv-produto-wrap">
-                <input class="rm-input" id="rm-pdv-item-nome" autocapitalize="characters" autocomplete="off" oninput="rmBuscarProdutoPdv(this.value)" onfocus="rmBuscarProdutoPdv(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarItemPdv();}">
-                <div class="rm-autocomplete-list" id="rm-pdv-produto-lista"></div>
+          <div class="rm-px-card rm-px-itens">
+            <div class="rm-px-linha">
+              <div class="rm-px-campo">
+                <label class="rm-px-label">Produto<span class="rm-px-atalho"> (F1)</span>:</label>
+                <div class="rm-autocomplete-wrap" id="rm-pdv-produto-wrap">
+                  <input class="rm-input" id="rm-pdv-item-nome" autocapitalize="characters" autocomplete="off" oninput="rmBuscarProdutoPdv(this.value)" onfocus="rmBuscarProdutoPdv(this.value)" onkeydown="rmPdvTeclaProduto(event)">
+                  <div class="rm-autocomplete-list" id="rm-pdv-produto-lista"></div>
+                </div>
+              </div>
+              <div class="rm-px-campo rm-px-w-qtd">
+                <label class="rm-px-label">Qtd:</label>
+                <input class="rm-input rm-px-num" id="rm-pdv-item-qtd" value="1" inputmode="decimal" oninput="rmPdvAtualizarLinha()" onkeydown="rmPdvTeclaEnter(event)">
               </div>
             </div>
-            <div class="rm-pdv-add-field rm-pdv-add-preco">
-              <label class="rm-pdv-mini-label">Preço</label>
-              <input class="rm-input" id="rm-pdv-item-preco" inputmode="decimal" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarItemPdv();}">
+
+            <div class="rm-px-linha">
+              <div class="rm-px-campo">
+                <label class="rm-px-label">Val. Un.:</label>
+                <input class="rm-input rm-px-num" id="rm-pdv-item-preco" inputmode="decimal" oninput="rmPdvAtualizarLinha()" onkeydown="rmPdvTeclaEnter(event)">
+              </div>
+              <div class="rm-px-campo">
+                <label class="rm-px-label">Sub-Total:</label>
+                <input class="rm-input rm-px-num rm-px-ro" id="rm-pdv-item-subtotal" readonly tabindex="-1">
+              </div>
+              <div class="rm-px-campo">
+                <label class="rm-px-label">Desconto:</label>
+                <input class="rm-input rm-px-num" id="rm-pdv-item-desconto" inputmode="decimal" oninput="rmPdvAtualizarLinha()" onkeydown="rmPdvTeclaEnter(event)">
+              </div>
+              <div class="rm-px-campo">
+                <label class="rm-px-label">Total:</label>
+                <input class="rm-input rm-px-num rm-px-ro" id="rm-pdv-item-total" readonly tabindex="-1">
+              </div>
+              <button type="button" class="rm-px-btn-add" id="rm-pdv-add-btn" onclick="rmAdicionarItemPdv()" title="Adicionar item">&#43;</button>
             </div>
-            <div class="rm-pdv-add-field rm-pdv-add-qtd">
-              <label class="rm-pdv-mini-label">Qtd</label>
-              <input class="rm-input" id="rm-pdv-item-qtd" value="1" inputmode="numeric" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarItemPdv();}">
+
+            <div class="rm-px-edit-aviso" id="rm-pdv-edit-aviso" style="display:none;">
+              <span>Editando um item da lista. Ajuste os valores acima e clique em &#10003;.</span>
+              <button type="button" onclick="rmCancelarEdicaoItemPdv()">Cancelar</button>
             </div>
-            <button class="rm-pdv-add-btn" onclick="rmAdicionarItemPdv()" title="Adicionar ao carrinho">&#43;</button>
+
+            <div class="rm-pdv-atalhos" id="rm-pdv-atalhos"></div>
+
+            <div id="rm-pdv-carrinho-lista"></div>
+            <div class="rm-px-qtdtotal">Quantidade total de produtos: <b id="rm-pdv-qtd-total">0</b></div>
+            <div class="rm-px-info">Clique na linha do produto se desejar editar os valores informados</div>
           </div>
 
-          <div class="rm-pdv-atalhos" id="rm-pdv-atalhos"></div>
-
-          <div id="rm-pdv-carrinho-lista" class="rm-pdv-cart-list"></div>
+          <div class="rm-px-card">
+            <label class="rm-px-label">Observação:</label>
+            <textarea class="rm-input" id="rm-pdv-observacao" autocapitalize="characters"></textarea>
+          </div>
         </div>
 
-        <div class="rm-pdv-col-checkout">
-          <div class="rm-pdv-hero">
-            <span class="rm-pdv-hero-label">Total</span>
-            <span class="rm-pdv-hero-valor" id="rm-pdv-total-valor">R$ 0,00</span>
-            <div class="rm-pdv-hero-lines">
-              <div class="rm-pdv-hero-line">
-                <span>Subtotal</span>
-                <b id="rm-pdv-subtotal-valor">R$ 0,00</b>
+        <div class="rm-px-col rm-px-col-dir">
+          <div class="rm-px-card">
+            <label class="rm-px-label rm-px-label-duplo"><span>Valor Total:</span><span class="rm-px-desc-nota" id="rm-pdv-desconto-valor-texto"></span></label>
+            <div class="rm-px-total-hero" id="rm-pdv-total-valor">R$ 0,00</div>
+
+            <div class="rm-px-grid2 rm-px-grid2-topo">
+              <div class="rm-px-campo">
+                <label class="rm-px-label">Sub-Total:</label>
+                <div class="rm-px-big rm-px-big-sm" id="rm-pdv-subtotal-valor">R$ 0,00</div>
               </div>
-              <div class="rm-pdv-hero-line" id="rm-pdv-desconto-line">
-                <span>Desconto</span>
-                <b id="rm-pdv-desconto-valor-texto">R$ 0,00</b>
+              <div class="rm-px-campo">
+                <label class="rm-px-label">Desconto<span class="rm-px-atalho"> (F2)</span>:</label>
+                <div class="rm-px-desc-grupo">
+                  <input class="rm-input rm-px-big rm-px-big-sm" id="rm-pdv-desconto-valor" inputmode="decimal" oninput="rmRenderCarrinhoPdv()">
+                  <select class="rm-input" id="rm-pdv-desconto-tipo" onchange="rmRenderCarrinhoPdv()">
+                    <option value="valor">R$</option>
+                    <option value="percentual">%</option>
+                  </select>
+                </div>
               </div>
             </div>
-            <div class="rm-pdv-desconto-inline">
-              <input class="rm-input" id="rm-pdv-desconto-valor" inputmode="decimal" oninput="rmRenderCarrinhoPdv()" placeholder="Aplicar desconto">
-              <select class="rm-input" id="rm-pdv-desconto-tipo" onchange="rmRenderCarrinhoPdv()">
-                <option value="valor">R$</option>
-                <option value="percentual">%</option>
-              </select>
+            <div class="rm-px-grid2 rm-px-grid2-pago" id="rm-pdv-pago-row">
+              <div class="rm-px-campo">
+                <label class="rm-px-label">Valor Pago<span class="rm-px-atalho"> (F3)</span>:</label>
+                <input class="rm-input rm-px-big rm-px-big-sm" id="rm-pdv-valor-recebido" inputmode="decimal" oninput="rmCalcularTroco()">
+              </div>
+              <div class="rm-px-campo">
+                <label class="rm-px-label">Troco:</label>
+                <div class="rm-px-big rm-px-big-sm" id="rm-pdv-troco-linha"></div>
+              </div>
             </div>
           </div>
 
-          <div class="rm-pdv-block">
-            <label class="rm-pdv-block-label">Cliente</label>
-            <div class="rm-autocomplete-wrap" id="rm-pdv-cliente-wrap">
-              <input class="rm-input" id="rm-pdv-cliente-busca" autocomplete="off" oninput="rmBuscarClientePdv(this.value)" onfocus="rmBuscarClientePdv(this.value)">
-              <div class="rm-autocomplete-list" id="rm-pdv-cliente-lista"></div>
+          <div class="rm-px-card">
+            <div class="rm-px-linha">
+              <div class="rm-px-campo">
+                <label class="rm-px-label">Cliente<span class="rm-px-atalho"> (F5)</span>:</label>
+                <div class="rm-autocomplete-wrap" id="rm-pdv-cliente-wrap">
+                  <input class="rm-input" id="rm-pdv-cliente-busca" autocomplete="off" oninput="rmBuscarClientePdv(this.value)" onfocus="rmBuscarClientePdv(this.value)">
+                  <div class="rm-autocomplete-list" id="rm-pdv-cliente-lista"></div>
+                </div>
+              </div>
+              <div class="rm-px-campo rm-px-w-lim">
+                <label class="rm-px-label">Limite de crédito:</label>
+                <input class="rm-input rm-px-num rm-px-ro" id="rm-pdv-cliente-limite" readonly tabindex="-1">
+              </div>
             </div>
           </div>
 
-          <div class="rm-pdv-block">
-            <label class="rm-pdv-block-label">Vendedor</label>
-            <select class="rm-input" id="rm-pdv-vendedor"></select>
-          </div>
-
-          <div class="rm-pdv-block" id="rm-pdv-pagamento-block">
-            <label class="rm-pdv-block-label">Pagamento</label>
+          <div class="rm-px-card" id="rm-pdv-pagamento-block">
+            <label class="rm-px-label">Forma de pagamento<span class="rm-px-atalho"> (F8 / F9)</span>:</label>
             <div class="rm-pdv-pagamento-grid" id="rm-pdv-pagamento-grid"></div>
-            <div class="rm-pdv-troco-block" id="rm-pdv-troco-block" style="display:none;">
-              <label class="rm-pdv-mini-label">Valor recebido</label>
-              <input class="rm-input" id="rm-pdv-valor-recebido" inputmode="decimal" oninput="rmCalcularTroco()">
-              <div id="rm-pdv-troco-linha"></div>
-            </div>
           </div>
 
           <button class="rm-pdv-finalizar" id="rm-pdv-finalizar-btn" onclick="rmFinalizarVenda()">Finalizar venda</button>
@@ -1224,7 +1368,7 @@
 
         <div class="rm-toolbar">
           <input class="rm-search" id="rm-search-produtos" placeholder="Buscar por nome, código ou categoria..." oninput="rmRenderProdutos()">
-          <button class="rm-btn-add" onclick="rmAbrirImportacaoCsv()">Importar planilha CSV</button>
+          <button class="rm-btn-add" onclick="rmAbrirImportacaoCsv()">Importar planilha</button>
         </div>
 
         <div class="rm-table-wrap">
@@ -1404,8 +1548,8 @@
           </div>
 
           <div class="rm-submit-bar">
-            <button class="rm-btn-add" style="width:100%; margin-bottom:10px;" onclick="rmAbrirImportacaoCsv()">Importar planilha CSV</button>
-            <input type="file" id="rm-prod-csv-input" accept=".csv" style="display:none;" onchange="rmProcessarArquivoCsv(this)">
+            <button class="rm-btn-add" style="width:100%; margin-bottom:10px;" onclick="rmAbrirImportacaoCsv()">Importar planilha</button>
+            <input type="file" id="rm-prod-csv-input" accept=".csv,.xlsx,.xls" style="display:none;" onchange="rmProcessarArquivoCsv(this)">
             <button class="rm-primary" onclick="rmSalvarProduto()">Cadastrar produto</button>
           </div>
         </div>
@@ -1479,6 +1623,7 @@ function rmCliqueCadastroProduto(){
 
 let rmNovoProdutoId = null;
 let rmNovoProdutoFotoUrl = null;
+let rmProdutoEmEdicao = null;
 
 function rmEscapeHtml(s){
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -1536,47 +1681,20 @@ function rmRemoverAplicacaoNovo(i){
   rmRenderAplicacaoNovo();
 }
 
-function rmRenderAplicacaoEdicao(id){
-  const p = rmLoadProdutos().find(x => x.id === id);
-  if(!p) return;
-  const lista = rmAplicacaoParse(p.aplicacao);
-  const el = document.getElementById('rm-modal-aplic-lista');
-  if(el) el.innerHTML = rmAplicacaoListaHtml(lista, i => `rmRemoverAplicacaoEdicao('${id}', ${i})`);
-  const titulo = document.getElementById('rm-modal-aplic-titulo');
-  if(titulo) titulo.textContent = rmAplicacaoTituloTexto(lista.length);
-}
-
-function rmAdicionarAplicacaoEdicao(id){
-  const p = rmLoadProdutos().find(x => x.id === id);
-  const input = document.getElementById('rm-modal-aplic-input');
-  if(!p || !input) return;
-  const lista = rmAplicacaoParse(p.aplicacao);
-  rmAplicacaoParse(input.value).forEach(m => { if(!lista.includes(m)) lista.push(m); });
-  input.value = '';
-  rmUpdateProduto(id, 'aplicacao', lista.join(', '));
-  rmRenderAplicacaoEdicao(id);
-  input.focus();
-}
-
-function rmRemoverAplicacaoEdicao(id, i){
-  const p = rmLoadProdutos().find(x => x.id === id);
-  if(!p) return;
-  const lista = rmAplicacaoParse(p.aplicacao);
-  lista.splice(i, 1);
-  rmUpdateProduto(id, 'aplicacao', lista.join(', '));
-  rmRenderAplicacaoEdicao(id);
-}
-
-
-function rmAbrirCadastroProdutoRapido(){
-  rmNovoProdutoId = 'p' + Date.now();
-  rmNovoProdutoFotoUrl = null;
-  rmNovoProdutoAplicacao = [];
+function rmAbrirCadastroProdutoRapido(produtoId){
+  const existente = produtoId ? rmLoadProdutos().find(x => x.id === produtoId) : null;
+  const editando = !!existente;
+  rmProdutoEmEdicao = existente ? { id: existente.id, estoqueInicial: existente.estoqueAtual || 0 } : null;
+  rmNovoProdutoId = existente ? existente.id : ('p' + Date.now());
+  rmNovoProdutoFotoUrl = existente ? (existente.fotoUrl || null) : null;
+  rmNovoProdutoAplicacao = existente ? rmAplicacaoParse(existente.aplicacao) : [];
 
   const grupos = [...new Set(rmLoadProdutos().map(p => (p.categoria||'').trim()).filter(Boolean))]
     .sort((a,b) => a.localeCompare(b, 'pt-BR'));
   const gruposOptions = grupos.map(g => `<option value="${g.replace(/"/g,'&quot;')}">`).join('');
-  const unidadesOptions = ['UN','PAR','L','KG','CX','M'].map((u,i) => `<option value="${u}"${i===0?' selected':''}>${u}</option>`).join('');
+  const unidades = ['UN','PAR','L','KG','CX','M'];
+  if(existente && existente.unidade && !unidades.includes(existente.unidade)) unidades.push(existente.unidade);
+  const unidadesOptions = unidades.map(u => `<option value="${rmEscapeHtml(u)}">${rmEscapeHtml(u)}</option>`).join('');
 
   const campo = (span, rotulo, conteudo, extra) =>
     `<div class="rm-qm-field c${span}${extra||''}"><label class="rm-qm-label">${rotulo}</label>${conteudo}</div>`;
@@ -1586,7 +1704,10 @@ function rmAbrirCadastroProdutoRapido(){
   modal.classList.add('rm-modal-quadrado');
   modal.innerHTML = `
     <div class="rm-qm-header">
-      <div class="rm-qm-title">Novo produto</div>
+      <div>
+        <div class="rm-qm-title">${editando ? 'Editar produto' : 'Novo produto'}</div>
+        ${editando ? `<div class="rm-modal-sub">${rmEscapeHtml(existente.nome || '')}</div>` : ''}
+      </div>
       <button class="rm-qm-close" onclick="rmCloseModal()" title="Fechar">&times;</button>
     </div>
 
@@ -1614,6 +1735,13 @@ function rmAbrirCadastroProdutoRapido(){
           ${campo(4, 'Preço parceiro', '<input class="rm-input rm-qm-num" id="rm-pqf-preco-parceiro" inputmode="decimal" oninput="rmAtualizarMargens(\'rm-pqf\')"><span class="rm-margem-texto" id="rm-pqf-margem-parceiro"></span>')}
 
           ${campo(12, 'Observação', '<textarea class="rm-input" id="rm-pqf-observacao" autocapitalize="characters"></textarea>')}
+
+          <div class="rm-qm-field c12">
+            <div class="rm-qm-checks">
+              <label class="rm-qm-check"><input type="checkbox" id="rm-pqf-eh-servico"> É serviço (não é peça física)</label>
+              ${editando ? '<label class="rm-qm-check"><input type="checkbox" id="rm-pqf-ativo"> Produto ativo</label>' : ''}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1632,7 +1760,7 @@ function rmAbrirCadastroProdutoRapido(){
       <div class="rm-qm-panel" id="rm-qm-panel-estoque" style="display:none;">
         <div class="rm-qm-grid">
           ${campo(8, 'Grupo', `<input class="rm-input" id="rm-pqf-categoria" list="rm-pqf-grupos-lista" autocomplete="off" autocapitalize="characters"><datalist id="rm-pqf-grupos-lista">${gruposOptions}</datalist>`)}
-          ${campo(4, 'Curva', '<select class="rm-input" id="rm-pqf-curva"><option value="" selected>Sem curva</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select>')}
+          ${campo(4, 'Curva', '<select class="rm-input" id="rm-pqf-curva"><option value="" selected>Sem curva</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select>')}
 
           ${campo(3, 'Unidade', `<select class="rm-input" id="rm-pqf-unidade">${unidadesOptions}</select>`)}
           ${campo(3, 'Estoque mínimo', '<input class="rm-input rm-qm-num" id="rm-pqf-estoque-minimo" inputmode="decimal">')}
@@ -1671,13 +1799,48 @@ function rmAbrirCadastroProdutoRapido(){
     </div>
 
     <div class="rm-qm-footer">
+      ${editando ? `<button class="rm-qm-btn rm-qm-btn-excluir" onclick="rmExcluirProduto('${existente.id}')">Excluir produto</button>` : ''}
       <button class="rm-qm-btn" onclick="rmCloseModal()">Cancelar</button>
-      <button class="rm-qm-btn rm-qm-btn-salvar" onclick="rmSalvarProdutoRapido()">Cadastrar produto</button>
+      <button class="rm-qm-btn rm-qm-btn-salvar" onclick="rmSalvarProdutoRapido()">${editando ? 'Salvar alterações' : 'Cadastrar produto'}</button>
     </div>
   `;
+
+  if(existente){
+    const set = (id, v) => { const el = document.getElementById('rm-pqf-' + id); if(el) el.value = (v === null || v === undefined) ? '' : v; };
+    const num = v => (v === null || v === undefined || v === '' || Number(v) === 0) ? '' : String(v).replace('.', ',');
+    set('codigo', existente.codigo);
+    set('localizacao', existente.localizacao);
+    set('codigo-barras', existente.codigoBarras);
+    set('nome', existente.nome);
+    set('marca', existente.marca);
+    set('preco-custo', num(existente.precoCusto));
+    set('preco-consumidor', num(existente.precoConsumidor));
+    set('preco-parceiro', num(existente.precoParceiro));
+    set('observacao', existente.observacao);
+    set('categoria', existente.categoria);
+    set('curva', existente.curva || '');
+    set('unidade', existente.unidade || 'UN');
+    set('estoque-minimo', num(existente.estoqueMinimo));
+    set('estoque-maximo', num(existente.estoqueMaximo));
+    set('estoque-atual', String(existente.estoqueAtual || 0).replace('.', ','));
+    set('fornecedor', existente.fornecedor);
+    set('fornecedor-codigo', existente.fornecedorCodigo);
+    set('peso', num(existente.pesoKg));
+    set('peso-liquido', num(existente.pesoLiquidoKg));
+    set('comprimento', num(existente.comprimentoCm));
+    set('largura', num(existente.larguraCm));
+    set('altura', num(existente.alturaCm));
+    set('ncm', existente.ncm);
+    set('cest', existente.cest);
+    document.getElementById('rm-pqf-eh-servico').checked = existente.ehServico === true;
+    document.getElementById('rm-pqf-ativo').checked = existente.ativo !== false;
+    if(existente.fotoUrl) rmMostrarFotoNovoProduto(existente.fotoUrl);
+    rmAtualizarMargens('rm-pqf');
+  }
+
   rmRenderAplicacaoNovo();
   document.getElementById('rm-modal-backdrop').classList.add('show');
-  setTimeout(()=>{ const f = document.getElementById('rm-pqf-nome'); if(f) f.focus(); }, 150);
+  if(!editando) setTimeout(()=>{ const f = document.getElementById('rm-pqf-nome'); if(f) f.focus(); }, 150);
 }
 
 function rmSetTabNovoProduto(tab){
@@ -1687,6 +1850,15 @@ function rmSetTabNovoProduto(tab){
     if(painel) painel.style.display = (t===tab) ? '' : 'none';
     if(btn) btn.classList.toggle('active', t===tab);
   });
+}
+
+function rmMostrarFotoNovoProduto(url){
+  const img = document.getElementById('rm-qm-foto-preview');
+  if(img){ img.src = url; img.style.display = 'block'; }
+  const vazio = document.getElementById('rm-qm-foto-vazio');
+  if(vazio) vazio.style.display = 'none';
+  const btn = document.getElementById('rm-qm-foto-btn');
+  if(btn) btn.textContent = 'Trocar foto';
 }
 
 async function rmUploadFotoNovoProduto(input){
@@ -1699,12 +1871,7 @@ async function rmUploadFotoNovoProduto(input){
     return;
   }
   rmNovoProdutoFotoUrl = url;
-  const img = document.getElementById('rm-qm-foto-preview');
-  if(img){ img.src = url; img.style.display = 'block'; }
-  const vazio = document.getElementById('rm-qm-foto-vazio');
-  if(vazio) vazio.style.display = 'none';
-  const btn = document.getElementById('rm-qm-foto-btn');
-  if(btn) btn.textContent = 'Trocar foto';
+  rmMostrarFotoNovoProduto(url);
   rmShowToast('Foto adicionada');
 }
 
@@ -1714,85 +1881,114 @@ function rmAbrirImportacaoCsv(){
   document.getElementById('rm-prod-csv-input').click();
 }
 
+function rmNormCab(k){
+  return String(k||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase().replace(/\s+/g,'_');
+}
+
 function rmProcessarArquivoCsv(input){
   const file = input.files[0];
   if(!file) return;
-
+  const ehExcel = /\.xlsx?$/i.test(file.name);
   const reader = new FileReader();
   reader.onload = function(e){
-    const texto = e.target.result;
-    const resultado = Papa.parse(texto, { header: true, delimiter: ';', skipEmptyLines: true });
-
-    if(resultado.errors && resultado.errors.length > 0 && resultado.data.length === 0){
-      alert('Não consegui ler esse arquivo. Confere se é o CSV certo e tenta de novo.');
+    let linhas = [];
+    try{
+      if(ehExcel){
+        const wb = XLSX.read(e.target.result, { type:'array' });
+        const aba = wb.SheetNames.find(n => rmNormCab(n) === 'produtos') || wb.SheetNames[0];
+        linhas = XLSX.utils.sheet_to_json(wb.Sheets[aba], { defval:'', raw:true });
+      } else {
+        linhas = Papa.parse(e.target.result, { header:true, delimiter:';', skipEmptyLines:true }).data;
+      }
+    }catch(err){ console.error(err); }
+    if(!linhas.length){
+      alert('Não consegui ler esse arquivo. Confere se é a planilha certa e tenta de novo.');
       input.value = '';
       return;
     }
-
-    const existentes = rmLoadProdutos();
-    const porNome = {};
-    existentes.forEach(p=>{ if(p.nome) porNome[p.nome.trim().toUpperCase()] = p; });
-
-    let novos = 0, atualizados = 0, semNome = 0, repetidosNaPlanilha = 0;
-    const porId = {};
-    let contador = 0;
-
-    resultado.data.forEach(row=>{
-      const nome = (row.nome||'').trim().toUpperCase();
-      if(!nome){ semNome++; return; }
-      const localizacao = (row.codigo||'').trim().toUpperCase();
-      const existente = porNome[nome];
-      const idParaUsar = existente ? existente.id : 'p' + Date.now() + '_' + (contador++);
-      const repetido = porId[idParaUsar];
-
-      const produto = {
-        id: idParaUsar,
-        nome,
-        codigo: '',
-        categoria: (row.grupo||'').trim().toUpperCase(),
-        unidade: (row.tipo_un||'').trim().toUpperCase() || 'UN',
-        estoqueAtual: rmParseMoeda(row.estoque),
-        estoqueMinimo: rmParseMoeda(row.estoque_min),
-        precoCusto: rmParseMoeda(row.custo),
-        precoConsumidor: rmParseMoeda(row.preco),
-        precoParceiro: existente ? (existente.precoParceiro||0) : 0,
-        ehServico: (row.servico||'').trim() === '1',
-        codigoBarras: (row.codigo_barras||'').trim(),
-        ncm: (row.ncm_id||'').trim(),
-        cest: (row.cest_id||'').trim(),
-        pesoLiquidoKg: rmParseMoeda(row.peso_liquido) || null,
-        pesoKg: rmParseMoeda(row.peso_bruto) || null,
-        observacao: (row.obs||'').trim().toUpperCase(),
-        localizacao,
-        marca: existente ? existente.marca : '',
-        subcategoria: existente ? existente.subcategoria : '',
-        fornecedor: existente ? existente.fornecedor : '',
-        fornecedorCodigo: existente ? existente.fornecedorCodigo : '',
-        estoqueMaximo: existente ? (existente.estoqueMaximo||0) : 0,
-        aplicacao: existente ? existente.aplicacao : '',
-        fotoUrl: existente ? existente.fotoUrl : null,
-        curva: existente ? existente.curva : '',
-        comprimentoCm: existente ? existente.comprimentoCm : null,
-        larguraCm: existente ? existente.larguraCm : null,
-        alturaCm: existente ? existente.alturaCm : null,
-        ativo: existente ? existente.ativo !== false : true,
-        criadoEm: existente ? existente.criadoEm : new Date().toISOString()
-      };
-
-      if(repetido) repetidosNaPlanilha++;
-      else if(existente) atualizados++;
-      else novos++;
-
-      porId[idParaUsar] = produto;
-      porNome[nome] = produto;
-    });
-
-    const mapeados = Object.values(porId);
-    rmImportacaoPendente = mapeados;
-    rmMostrarPreviaImportacao(mapeados.length, novos, atualizados, semNome, repetidosNaPlanilha);
+    rmMapearLinhasImportacao(linhas);
     input.value = '';
   };
-  reader.readAsText(file, 'ISO-8859-1');
+  if(ehExcel) reader.readAsArrayBuffer(file); else reader.readAsText(file, 'ISO-8859-1');
+}
+
+function rmMapearLinhasImportacao(linhasBrutas){
+  const linhas = linhasBrutas.map(r => { const o = {}; Object.keys(r).forEach(k => o[rmNormCab(k)] = r[k]); return o; });
+  const cabs = Object.keys(linhas[0] || {});
+  const temLocalizacao = cabs.includes('localizacao'); // modelo novo: "codigo" é código; arquivo antigo: "codigo" era a localização
+
+  // pega o valor da primeira coluna que existir; undefined = coluna não existe ou célula vazia
+  const pega = (row, ...nomes) => {
+    for(const n of nomes){ const v = row[n]; if(v !== undefined && v !== null && String(v).trim() !== '') return v; }
+    return undefined;
+  };
+  const txt = v => v === undefined ? undefined : String(v).trim().toUpperCase();
+  const num = v => v === undefined ? undefined : (typeof v === 'number' ? v : rmParseMoeda(v));
+  const dig = (v, tam) => { if(v === undefined) return undefined; const d = String(typeof v === 'number' ? Math.round(v) : v).replace(/\D/g,''); return d ? d.padStart(tam,'0') : undefined; };
+  const sn = v => v === undefined ? undefined : /^(s|sim|1|true|x)$/i.test(String(v).trim());
+  const curvaOk = v => { const c = txt(v); return ['A','B','C','D'].includes(c) ? c : undefined; };
+  const unOk = v => { const u = txt(v); return u || undefined; };
+  // valor da planilha > valor já cadastrado > padrão
+  const esc = (novo, antigo, padrao) => novo !== undefined ? novo : (antigo !== undefined && antigo !== null && antigo !== '' ? antigo : padrao);
+
+  const existentes = rmLoadProdutos();
+  const porNome = {};
+  existentes.forEach(p=>{ if(p.nome) porNome[p.nome.trim().toUpperCase()] = p; });
+
+  let novos = 0, atualizados = 0, semNome = 0, repetidosNaPlanilha = 0, contador = 0;
+  const porId = {};
+
+  linhas.forEach(row=>{
+    const nome = txt(pega(row,'nome'));
+    if(!nome){ semNome++; return; }
+    const ex = porNome[nome] || {};
+    const existe = !!porNome[nome];
+    const id = existe ? ex.id : 'p' + Date.now() + '_' + (contador++);
+    const cod = txt(pega(row,'codigo'));
+
+    const produto = {
+      id, nome,
+      codigo: esc(temLocalizacao ? cod : undefined, ex.codigo, ''),
+      marca: esc(txt(pega(row,'marca')), ex.marca, ''),
+      aplicacao: esc(txt(pega(row,'aplicacao')), ex.aplicacao, ''),
+      categoria: esc(txt(pega(row,'categoria','grupo')), ex.categoria, ''),
+      subcategoria: esc(txt(pega(row,'subcategoria')), ex.subcategoria, ''),
+      unidade: esc(unOk(pega(row,'unidade','tipo_un','tipo')), ex.unidade, 'UN'),
+      curva: esc(curvaOk(pega(row,'curva')), ex.curva, ''),
+      ehServico: esc(sn(pega(row,'servico')), ex.ehServico, false),
+      ativo: esc(sn(pega(row,'ativo')), ex.ativo, true),
+      codigoBarras: esc(dig(pega(row,'codigo_barras'),0), ex.codigoBarras, ''),
+      ncm: esc(dig(pega(row,'ncm','ncm_id'),8), ex.ncm, ''),
+      cest: esc(dig(pega(row,'cest','cest_id'),7), ex.cest, ''),
+      precoCusto: esc(num(pega(row,'preco_custo','custo')), ex.precoCusto, 0),
+      precoConsumidor: esc(num(pega(row,'preco_consumidor','preco')), ex.precoConsumidor, 0),
+      precoParceiro: esc(num(pega(row,'preco_parceiro')), ex.precoParceiro, 0),
+      estoqueAtual: esc(num(pega(row,'estoque_atual','estoque')), ex.estoqueAtual, 0),
+      estoqueMinimo: esc(num(pega(row,'estoque_minimo','estoque_min')), ex.estoqueMinimo, 0),
+      estoqueMaximo: esc(num(pega(row,'estoque_maximo')), ex.estoqueMaximo, 0),
+      localizacao: esc(temLocalizacao ? txt(pega(row,'localizacao')) : cod, ex.localizacao, ''),
+      fornecedor: esc(txt(pega(row,'fornecedor')), ex.fornecedor, ''),
+      fornecedorCodigo: esc(txt(pega(row,'codigo_fornecedor','fornecedor_codigo')), ex.fornecedorCodigo, ''),
+      pesoLiquidoKg: esc(num(pega(row,'peso_liquido_kg','peso_liquido')), ex.pesoLiquidoKg, null),
+      pesoKg: esc(num(pega(row,'peso_bruto_kg','peso_bruto')), ex.pesoKg, null),
+      alturaCm: esc(num(pega(row,'altura_cm')), ex.alturaCm, null),
+      larguraCm: esc(num(pega(row,'largura_cm')), ex.larguraCm, null),
+      comprimentoCm: esc(num(pega(row,'comprimento_cm')), ex.comprimentoCm, null),
+      observacao: esc(txt(pega(row,'observacao','obs')), ex.observacao, ''),
+      fotoUrl: ex.fotoUrl || null,
+      criadoEm: ex.criadoEm || new Date().toISOString()
+    };
+
+    if(porId[id]) repetidosNaPlanilha++;
+    else if(existe) atualizados++;
+    else novos++;
+    porId[id] = produto;
+    porNome[nome] = produto;
+  });
+
+  const mapeados = Object.values(porId);
+  rmImportacaoPendente = mapeados;
+  rmMostrarPreviaImportacao(mapeados.length, novos, atualizados, semNome, repetidosNaPlanilha);
 }
 
 function rmMostrarPreviaImportacao(total, novos, atualizados, semNome, repetidosNaPlanilha){
@@ -1858,7 +2054,8 @@ async function rmConfirmarImportacaoCsv(){
 }
 
 function rmSalvarProdutoRapido(){
-  const nome = document.getElementById('rm-pqf-nome').value.trim().toUpperCase();
+  const val = id => document.getElementById('rm-pqf-' + id).value;
+  const nome = val('nome').trim().toUpperCase();
   if(!nome){
     rmSetTabNovoProduto('basico');
     alert('Preencha ao menos o nome do produto.');
@@ -1866,46 +2063,67 @@ function rmSalvarProdutoRapido(){
     return;
   }
   rmAdicionarAplicacaoNovo();
-  const produto = {
-    id: rmNovoProdutoId || ('p' + Date.now()),
+
+  const campos = {
     nome,
-    codigo: document.getElementById('rm-pqf-codigo').value.trim().toUpperCase(),
-    codigoBarras: document.getElementById('rm-pqf-codigo-barras').value.trim(),
-    marca: document.getElementById('rm-pqf-marca').value.trim().toUpperCase(),
+    codigo: val('codigo').trim().toUpperCase(),
+    codigoBarras: val('codigo-barras').trim(),
+    marca: val('marca').trim().toUpperCase(),
     aplicacao: rmNovoProdutoAplicacao.join(', '),
-    categoria: document.getElementById('rm-pqf-categoria').value.trim().toUpperCase(),
-    ncm: document.getElementById('rm-pqf-ncm').value.trim(),
-    cest: document.getElementById('rm-pqf-cest').value.trim(),
-    localizacao: document.getElementById('rm-pqf-localizacao').value.trim().toUpperCase(),
-    fornecedor: document.getElementById('rm-pqf-fornecedor').value.trim().toUpperCase(),
-    fornecedorCodigo: document.getElementById('rm-pqf-fornecedor-codigo').value.trim().toUpperCase(),
-    precoCusto: rmParseMoeda(document.getElementById('rm-pqf-preco-custo').value),
-    precoConsumidor: rmParseMoeda(document.getElementById('rm-pqf-preco-consumidor').value),
-    precoParceiro: rmParseMoeda(document.getElementById('rm-pqf-preco-parceiro').value),
-    estoqueAtual: rmParseMoeda(document.getElementById('rm-pqf-estoque-atual').value),
-    estoqueMinimo: rmParseMoeda(document.getElementById('rm-pqf-estoque-minimo').value),
-    estoqueMaximo: rmParseMoeda(document.getElementById('rm-pqf-estoque-maximo').value),
-    unidade: document.getElementById('rm-pqf-unidade').value,
-    curva: document.getElementById('rm-pqf-curva').value,
-    pesoKg: rmParseMoeda(document.getElementById('rm-pqf-peso').value) || null,
-    pesoLiquidoKg: rmParseMoeda(document.getElementById('rm-pqf-peso-liquido').value) || null,
-    comprimentoCm: rmParseMoeda(document.getElementById('rm-pqf-comprimento').value) || null,
-    larguraCm: rmParseMoeda(document.getElementById('rm-pqf-largura').value) || null,
-    alturaCm: rmParseMoeda(document.getElementById('rm-pqf-altura').value) || null,
-    observacao: document.getElementById('rm-pqf-observacao').value.trim().toUpperCase(),
+    categoria: val('categoria').trim().toUpperCase(),
+    ncm: val('ncm').trim(),
+    cest: val('cest').trim(),
+    localizacao: val('localizacao').trim().toUpperCase(),
+    fornecedor: val('fornecedor').trim().toUpperCase(),
+    fornecedorCodigo: val('fornecedor-codigo').trim().toUpperCase(),
+    precoCusto: rmParseMoeda(val('preco-custo')),
+    precoConsumidor: rmParseMoeda(val('preco-consumidor')),
+    precoParceiro: rmParseMoeda(val('preco-parceiro')),
+    estoqueMinimo: rmParseMoeda(val('estoque-minimo')),
+    estoqueMaximo: rmParseMoeda(val('estoque-maximo')),
+    unidade: val('unidade'),
+    curva: val('curva'),
+    pesoKg: rmParseMoeda(val('peso')) || null,
+    pesoLiquidoKg: rmParseMoeda(val('peso-liquido')) || null,
+    comprimentoCm: rmParseMoeda(val('comprimento')) || null,
+    larguraCm: rmParseMoeda(val('largura')) || null,
+    alturaCm: rmParseMoeda(val('altura')) || null,
+    observacao: val('observacao').trim().toUpperCase(),
     fotoUrl: rmNovoProdutoFotoUrl || null,
-    ativo: true,
-    criadoEm: new Date().toISOString()
+    ehServico: document.getElementById('rm-pqf-eh-servico').checked
   };
+  const estoqueDigitado = rmParseMoeda(val('estoque-atual'));
+
   const list = rmLoadProdutos();
-  list.unshift(produto);
+  let produto;
+  if(rmProdutoEmEdicao){
+    const i = list.findIndex(x => x.id === rmProdutoEmEdicao.id);
+    if(i < 0){
+      alert('Este produto não existe mais (foi excluído em outro aparelho).');
+      rmCloseModal();
+      rmRenderProdutos();
+      return;
+    }
+    const atual = list[i];
+    // o estoque só é regravado se você mudou esse campo (uma venda feita enquanto o painel estava aberto não é desfeita)
+    campos.estoqueAtual = estoqueDigitado !== rmProdutoEmEdicao.estoqueInicial ? estoqueDigitado : (atual.estoqueAtual || 0);
+    campos.ativo = document.getElementById('rm-pqf-ativo').checked;
+    produto = Object.assign({}, atual, campos);
+    list[i] = produto;
+  } else {
+    campos.estoqueAtual = estoqueDigitado;
+    produto = Object.assign({ id: rmNovoProdutoId || ('p' + Date.now()), ativo: true, criadoEm: new Date().toISOString() }, campos);
+    list.unshift(produto);
+  }
   rmSaveProdutos(list);
   rmDbUpsertProduto(produto);
 
+  const foiEdicao = !!rmProdutoEmEdicao;
+  rmProdutoEmEdicao = null;
   rmNovoProdutoId = null;
   rmNovoProdutoFotoUrl = null;
   rmNovoProdutoAplicacao = [];
-  rmShowToast(nome + ' cadastrado com sucesso');
+  rmShowToast(nome + (foiEdicao ? ' atualizado' : ' cadastrado com sucesso'));
   rmCloseModal();
   rmRenderProdutos();
 }
@@ -2143,246 +2361,9 @@ function rmRenderProdutos(){
       <td data-label="Estoque"><span class="${estoqueBaixo?'rm-produto-estoque-baixo':''}">${p.estoqueAtual}${estoqueBaixo?' ⚠':''}</span></td>
       <td data-label="Status">${p.ativo === false ? '<span class="rm-pdv-tag-orcamento">Inativo</span>' : 'Ativo'}</td>
     `;
-    tr.onclick = () => rmAbrirModalProduto(p.id);
+    tr.onclick = () => rmAbrirCadastroProdutoRapido(p.id);
     body.appendChild(tr);
   });
-}
-
-function rmAbrirModalProduto(id){
-  const p = rmLoadProdutos().find(x=>x.id===id);
-  if(!p) return;
-
-  const modal = document.getElementById('rm-modal');
-  modal.classList.remove('rm-modal-large');
-  modal.classList.add('rm-modal-quadrado');
-  modal.innerHTML = `
-    <div class="rm-qm-header">
-      <div>
-        <div class="rm-qm-title">${p.nome||''}</div>
-        <div class="rm-modal-sub">${p.codigo ? p.codigo : 'Sem código'}</div>
-      </div>
-      <button class="rm-qm-close" onclick="rmCloseModal()" title="Fechar">&times;</button>
-    </div>
-
-    <div class="rm-qm-body">
-    <div class="rm-qm-tabs">
-      <button class="rm-qm-tab active" id="rm-prodtab-btn-cadastro" onclick="rmSetTabModalProduto('cadastro')">Cadastro</button>
-      <button class="rm-qm-tab" id="rm-prodtab-btn-aplicacao" onclick="rmSetTabModalProduto('aplicacao')">Aplicação</button>
-      <button class="rm-qm-tab" id="rm-prodtab-btn-estoque" onclick="rmSetTabModalProduto('estoque')">Estoque</button>
-      <button class="rm-qm-tab" id="rm-prodtab-btn-nfe" onclick="rmSetTabModalProduto('nfe')">NFE</button>
-      <button class="rm-qm-tab" id="rm-prodtab-btn-fotos" onclick="rmSetTabModalProduto('fotos')">Fotos</button>
-    </div>
-
-    <div id="rm-prodtab-cadastro" class="rm-prodtab-content">
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Nome</span>
-        <input class="rm-input" value="${p.nome||''}" onchange="rmUpdateProduto('${p.id}','nome',this.value.trim().toUpperCase())">
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Código / SKU</span>
-        <input class="rm-input" value="${p.codigo||''}" onchange="rmUpdateProduto('${p.id}','codigo',this.value.trim().toUpperCase())">
-        <label class="rm-label">Código de barras / EAN</label>
-        <input class="rm-input" value="${p.codigoBarras||''}" onchange="rmUpdateProduto('${p.id}','codigoBarras',this.value.trim())">
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Marca (fabricante da peça)</span>
-        <input class="rm-input" value="${p.marca||''}" onchange="rmUpdateProduto('${p.id}','marca',this.value.trim().toUpperCase())">
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Grupo (categoria)</span>
-        <input class="rm-input" value="${p.categoria||''}" onchange="rmUpdateProduto('${p.id}','categoria',this.value.trim().toUpperCase())">
-        <label class="rm-label">Subcategoria</label>
-        <input class="rm-input" value="${p.subcategoria||''}" onchange="rmUpdateProduto('${p.id}','subcategoria',this.value.trim().toUpperCase())">
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Preço de custo</span>
-        <input class="rm-input" id="rm-modal-prod-custo" value="${p.precoCusto?String(p.precoCusto).replace('.',','):''}" onchange="rmUpdateProduto('${p.id}','precoCusto',rmParseMoeda(this.value))" oninput="rmAtualizarMargemModalProduto('${p.id}')">
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Preço consumidor</span>
-        <input class="rm-input" id="rm-modal-prod-consumidor" value="${p.precoConsumidor?String(p.precoConsumidor).replace('.',','):''}" onchange="rmUpdateProduto('${p.id}','precoConsumidor',rmParseMoeda(this.value))" oninput="rmAtualizarMargemModalProduto('${p.id}')">
-        <span class="rm-margem-texto" id="rm-modal-margem-consumidor"></span>
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Preço parceiro</span>
-        <input class="rm-input" id="rm-modal-prod-parceiro" value="${p.precoParceiro?String(p.precoParceiro).replace('.',','):''}" onchange="rmUpdateProduto('${p.id}','precoParceiro',rmParseMoeda(this.value))" oninput="rmAtualizarMargemModalProduto('${p.id}')">
-        <span class="rm-margem-texto" id="rm-modal-margem-parceiro"></span>
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Observação</span>
-        <textarea class="rm-input" onchange="rmUpdateProduto('${p.id}','observacao',this.value.trim().toUpperCase())">${p.observacao||''}</textarea>
-      </div>
-      <div class="rm-modal-section">
-        <div class="rm-toggle-row">
-          <span class="rm-toggle-row-label">É serviço (não é peça física)</span>
-          <label class="rm-switch">
-            <input type="checkbox" ${p.ehServico?'checked':''} onchange="rmUpdateProduto('${p.id}','ehServico',this.checked)">
-            <span class="rm-switch-track"></span>
-          </label>
-        </div>
-        <div class="rm-toggle-row" style="margin-bottom:0;">
-          <span class="rm-toggle-row-label">Produto ativo</span>
-          <label class="rm-switch">
-            <input type="checkbox" ${p.ativo!==false?'checked':''} onchange="rmUpdateProduto('${p.id}','ativo',this.checked)">
-            <span class="rm-switch-track"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div id="rm-prodtab-aplicacao" class="rm-prodtab-content" style="display:none;">
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Motos que essa peça serve</span>
-        <div class="rm-aplic-add">
-          <div>
-            <input class="rm-input" id="rm-modal-aplic-input" autocapitalize="characters" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarAplicacaoEdicao('${p.id}');}">
-          </div>
-          <button type="button" class="rm-btn-add" onclick="rmAdicionarAplicacaoEdicao('${p.id}')">Adicionar</button>
-        </div>
-        <div class="rm-aplic-titulo" id="rm-modal-aplic-titulo"></div>
-        <div class="rm-aplic-lista" id="rm-modal-aplic-lista"></div>
-      </div>
-    </div>
-
-    <div id="rm-prodtab-estoque" class="rm-prodtab-content" style="display:none;">
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Estoque</span>
-        <div class="rm-row">
-          <div>
-            <label class="rm-label">Atual</label>
-            <input class="rm-input" value="${p.estoqueAtual||0}" onchange="rmUpdateProduto('${p.id}','estoqueAtual',rmParseMoeda(this.value))">
-          </div>
-          <div>
-            <label class="rm-label">Mínimo</label>
-            <input class="rm-input" value="${p.estoqueMinimo||''}" onchange="rmUpdateProduto('${p.id}','estoqueMinimo',rmParseMoeda(this.value))">
-          </div>
-          <div>
-            <label class="rm-label">Máximo</label>
-            <input class="rm-input" value="${p.estoqueMaximo||''}" onchange="rmUpdateProduto('${p.id}','estoqueMaximo',rmParseMoeda(this.value))">
-          </div>
-        </div>
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Unidade</span>
-        <select class="rm-input" onchange="rmUpdateProduto('${p.id}','unidade',this.value)">
-          ${!['UN','PAR','L','KG','CX','M'].includes(p.unidade)&&p.unidade?`<option value="${p.unidade}" selected>${p.unidade}</option>`:''}
-          ${['UN','PAR','L','KG','CX','M'].map(u=>`<option value="${u}"${p.unidade===u?' selected':''}>${u}</option>`).join('')}
-        </select>
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Curva</span>
-        <select class="rm-input" onchange="rmUpdateProduto('${p.id}','curva',this.value)">
-          <option value=""${!p.curva?' selected':''}>Sem curva</option>
-          ${['A','B','C'].map(k=>`<option value="${k}"${p.curva===k?' selected':''}>${k}</option>`).join('')}
-        </select>
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Localização</span>
-        <input class="rm-input" value="${p.localizacao||''}" onchange="rmUpdateProduto('${p.id}','localizacao',this.value.trim().toUpperCase())">
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Tamanho (peso e dimensões)</span>
-        <div class="rm-row">
-          <div>
-            <label class="rm-label">Peso bruto (kg)</label>
-            <input class="rm-input" value="${p.pesoKg||''}" onchange="rmUpdateProduto('${p.id}','pesoKg',rmParseMoeda(this.value)||null)">
-          </div>
-          <div>
-            <label class="rm-label">Peso líq. (kg)</label>
-            <input class="rm-input" value="${p.pesoLiquidoKg||''}" onchange="rmUpdateProduto('${p.id}','pesoLiquidoKg',rmParseMoeda(this.value)||null)">
-          </div>
-        </div>
-        <div class="rm-row">
-          <div>
-            <label class="rm-label">Compr. (cm)</label>
-            <input class="rm-input" value="${p.comprimentoCm||''}" onchange="rmUpdateProduto('${p.id}','comprimentoCm',rmParseMoeda(this.value)||null)">
-          </div>
-          <div>
-            <label class="rm-label">Larg. (cm)</label>
-            <input class="rm-input" value="${p.larguraCm||''}" onchange="rmUpdateProduto('${p.id}','larguraCm',rmParseMoeda(this.value)||null)">
-          </div>
-          <div>
-            <label class="rm-label">Alt. (cm)</label>
-            <input class="rm-input" value="${p.alturaCm||''}" onchange="rmUpdateProduto('${p.id}','alturaCm',rmParseMoeda(this.value)||null)">
-          </div>
-        </div>
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Fornecedor</span>
-        <input class="rm-input" value="${p.fornecedor||''}" onchange="rmUpdateProduto('${p.id}','fornecedor',this.value.trim().toUpperCase())">
-        <label class="rm-label">Código no fornecedor</label>
-        <input class="rm-input" value="${p.fornecedorCodigo||''}" onchange="rmUpdateProduto('${p.id}','fornecedorCodigo',this.value.trim().toUpperCase())">
-      </div>
-    </div>
-
-    <div id="rm-prodtab-nfe" class="rm-prodtab-content" style="display:none;">
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">NCM</span>
-        <input class="rm-input" value="${p.ncm||''}" onchange="rmUpdateProduto('${p.id}','ncm',this.value.trim())">
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">CEST</span>
-        <input class="rm-input" value="${p.cest||''}" onchange="rmUpdateProduto('${p.id}','cest',this.value.trim())">
-      </div>
-    </div>
-
-    <div id="rm-prodtab-fotos" class="rm-prodtab-content" style="display:none;">
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Foto do produto</span>
-        ${p.fotoUrl?`<img src="${p.fotoUrl}" class="rm-foto-thumb-modal">`:'<p style="color:var(--rm-text-dim); font-size:14px;">Nenhuma foto cadastrada ainda.</p>'}
-        <input type="file" accept="image/*" id="rm-modal-prod-foto-input" style="display:none;" onchange="rmUploadFotoModalProduto(this, '${p.id}')">
-        <button type="button" class="rm-btn-add" style="width:100%; margin-top:10px;" onclick="document.getElementById('rm-modal-prod-foto-input').click()">${p.fotoUrl?'Trocar foto':'Adicionar foto'}</button>
-      </div>
-    </div>
-
-    </div>
-
-    <div class="rm-qm-footer">
-      <button class="rm-qm-btn rm-qm-btn-excluir" onclick="rmExcluirProduto('${p.id}')">Excluir este produto</button>
-      <button class="rm-qm-btn" onclick="rmCloseModal()">Fechar</button>
-    </div>
-  `;
-  document.getElementById('rm-modal-backdrop').classList.add('show');
-  rmAtualizarMargemModalProduto(p.id);
-  rmRenderAplicacaoEdicao(p.id);
-}
-
-function rmSetTabModalProduto(tab){
-  ['cadastro','aplicacao','estoque','nfe','fotos'].forEach(t=>{
-    const content = document.getElementById('rm-prodtab-'+t);
-    const btn = document.getElementById('rm-prodtab-btn-'+t);
-    if(content) content.style.display = (t===tab) ? '' : 'none';
-    if(btn) btn.classList.toggle('active', t===tab);
-  });
-}
-
-function rmAtualizarMargemModalProduto(){
-  const custo = rmParseMoeda(document.getElementById('rm-modal-prod-custo').value);
-  [['consumidor','margem-consumidor'], ['parceiro','margem-parceiro']].forEach(([campo, alvoSufixo])=>{
-    const precoEl = document.getElementById('rm-modal-prod-'+campo);
-    const alvoEl = document.getElementById('rm-modal-'+alvoSufixo);
-    if(!precoEl || !alvoEl) return;
-    const preco = rmParseMoeda(precoEl.value);
-    if(preco <= 0 || custo <= 0){
-      alvoEl.textContent = '';
-      alvoEl.className = 'rm-margem-texto';
-      return;
-    }
-    const margem = ((preco - custo) / preco) * 100;
-    alvoEl.textContent = 'Margem: ' + margem.toFixed(1).replace('.',',') + '%';
-    alvoEl.className = 'rm-margem-texto ' + (margem >= 0 ? 'rm-margem-boa' : 'rm-margem-ruim');
-  });
-}
-
-function rmUpdateProduto(id, field, value){
-  const list = rmLoadProdutos();
-  const item = list.find(p=>p.id===id);
-  if(item){
-    item[field] = value;
-    rmSaveProdutos(list);
-    rmDbUpsertProduto(item);
-  }
-  rmRenderProdutos();
 }
 
 function rmExcluirProduto(id){
@@ -2415,12 +2396,16 @@ let rmPdvModo = 'venda';
 
 function rmSetModoPdv(modo){
   rmPdvModo = modo;
-  document.getElementById('rm-pdv-modo-venda').classList.toggle('active', modo==='venda');
-  document.getElementById('rm-pdv-modo-orcamento').classList.toggle('active', modo==='orcamento');
-  document.getElementById('rm-pdv-pagamento-block').style.display = modo==='orcamento' ? 'none' : '';
-  document.getElementById('rm-pdv-finalizar-btn').textContent = modo==='orcamento' ? 'Salvar orçamento' : 'Finalizar venda';
+  const orcamento = modo === 'orcamento';
+  document.getElementById('rm-pdv-modo-venda').classList.toggle('active', !orcamento);
+  document.getElementById('rm-pdv-modo-orcamento').classList.toggle('active', orcamento);
+  document.getElementById('rm-pdv-pagamento-block').style.display = orcamento ? 'none' : '';
+  document.getElementById('rm-pdv-pago-row').style.display = orcamento ? 'none' : '';
+  document.getElementById('rm-pdv-finalizar-btn').textContent = orcamento ? 'Salvar orçamento' : 'Finalizar venda';
 }
 let rmPdvCarrinho = [];
+let rmPdvEditandoIndex = null;
+let rmPdvUltimoIndex = null;
 let rmPdvClienteId = null;
 let rmPdvClienteNome = '';
 let rmPdvFormaPagamento = null;
@@ -2437,6 +2422,7 @@ function rmSetTabelaPrecoPdv(tabela){
     if(p){
       const preco = tabela==='parceiro' ? p.precoParceiro : p.precoConsumidor;
       document.getElementById('rm-pdv-item-preco').value = preco ? String(preco).replace('.',',') : '';
+      rmPdvAtualizarLinha();
     }
   }
 
@@ -2448,8 +2434,10 @@ function rmSetTabelaPrecoPdv(tabela){
     if(!p) return;
     const novoPreco = tabela==='parceiro' ? p.precoParceiro : p.precoConsumidor;
     if(novoPreco > 0 && novoPreco !== item.precoUnit){
+      const bruto = novoPreco * item.quantidade;
       item.precoUnit = novoPreco;
-      item.subtotal = novoPreco * item.quantidade;
+      item.desconto = item.descontoPct > 0 ? Math.round(bruto * item.descontoPct) / 100 : Math.min(item.desconto || 0, bruto);
+      item.subtotal = bruto - item.desconto;
       mudouCarrinho = true;
     }
   });
@@ -2489,7 +2477,7 @@ function rmBuscarProdutoPdv(query){
   lista.classList.add('show');
 }
 
-function rmEscolherProdutoPdv(produtoId){
+function rmEscolherProdutoPdv(produtoId, semFoco){
   const p = rmLoadProdutos().find(x=>x.id===produtoId);
   if(!p) return;
   rmPdvProdutoSelecionadoId = p.id;
@@ -2497,8 +2485,14 @@ function rmEscolherProdutoPdv(produtoId){
   const preco = rmPdvTabelaPreco==='parceiro' ? p.precoParceiro : p.precoConsumidor;
   document.getElementById('rm-pdv-item-preco').value = preco ? String(preco).replace('.',',') : '';
   document.getElementById('rm-pdv-item-qtd').value = '1';
+  document.getElementById('rm-pdv-item-desconto').value = '';
   document.getElementById('rm-pdv-produto-lista').classList.remove('show');
-  document.getElementById('rm-pdv-item-qtd').focus();
+  rmPdvAtualizarLinha();
+  if(!semFoco){
+    const q = document.getElementById('rm-pdv-item-qtd');
+    q.focus();
+    q.select();
+  }
 }
 
 function rmInicializarPdv(){
@@ -2506,14 +2500,35 @@ function rmInicializarPdv(){
   rmRenderFormasPagamentoPdv();
   rmRenderClienteSelecionadoPdv();
   rmRenderAtalhosPdv();
-  const vendedorSelect = document.getElementById('rm-pdv-vendedor');
-  if(vendedorSelect) vendedorSelect.innerHTML = rmMecanicoOptionsHtml('');
+  rmPdvAtualizarLinha();
   const dataVendasInput = document.getElementById('rm-date-value-vendas');
   if(dataVendasInput && !dataVendasInput.value){
     rmOnDateModeChange('rm-date-mode-vendas', 'rm-date-value-vendas', 'rm-date-range-vendas');
   }
   rmRenderVendasHoje();
 }
+
+// Teclas de atalho do PDV (só funcionam quando a tela do PDV está aberta)
+document.addEventListener('keydown', function(e){
+  const secao = document.getElementById('rm-section-pdv');
+  if(!secao || !secao.classList.contains('active')) return;
+  if(document.getElementById('rm-modal-backdrop').classList.contains('show')) return;
+  const campos = { F1:'rm-pdv-item-nome', F2:'rm-pdv-desconto-valor', F3:'rm-pdv-valor-recebido', F5:'rm-pdv-cliente-busca' };
+  if(campos[e.key]){
+    e.preventDefault();
+    if(e.key === 'F5' && rmPdvClienteId) rmLimparClientePdv();
+    const el = document.getElementById(campos[e.key]);
+    if(el && el.offsetParent !== null){
+      el.focus();
+      if(el.tagName === 'INPUT') el.select();
+    }
+    return;
+  }
+  if(e.key === 'F8' || e.key === 'F9'){
+    e.preventDefault();
+    rmPdvCiclarPagamento(e.key === 'F9' ? 1 : -1);
+  }
+});
 
 const RM_PDV_ATALHOS_KEY = 'radicalMotos_pdv_atalhos_v1';
 
@@ -2538,7 +2553,8 @@ function rmUsarAtalhoPdv(index){
   const atalhos = rmLoadAtalhosPdv();
   const a = atalhos[index];
   if(!a) return;
-  rmPdvCarrinho.push({ nome: a.nome, precoUnit: a.preco, quantidade: 1, subtotal: a.preco });
+  rmPdvCarrinho.push({ nome: a.nome, precoUnit: a.preco, quantidade: 1, desconto: 0, descontoPct: 0, subtotal: a.preco });
+  rmPdvUltimoIndex = rmPdvCarrinho.length - 1;
   rmRenderCarrinhoPdv();
 }
 
@@ -2583,31 +2599,139 @@ function rmDescontarEstoqueVenda(itens){
   }
 }
 
+function rmFmtNum(n){
+  return (Number(n) || 0).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+
+function rmFmtQtd(n){
+  return String(Math.round((Number(n) || 0) * 1000) / 1000).replace('.', ',');
+}
+
+// "10" = R$ 10   |   "10%" = 10 por cento do valor do item
+function rmPdvParseDescontoItem(texto, bruto){
+  const t = String(texto || '').trim();
+  const num = rmParseMoeda(t);
+  if(!t || num <= 0) return { valor: 0, pct: 0 };
+  if(t.endsWith('%')){
+    const pct = Math.min(num, 100);
+    return { valor: Math.round(bruto * pct) / 100, pct };
+  }
+  return { valor: Math.min(num, bruto), pct: 0 };
+}
+
+function rmPdvAtualizarLinha(){
+  const qtdBruta = rmParseMoeda(document.getElementById('rm-pdv-item-qtd').value);
+  const qtd = qtdBruta > 0 ? qtdBruta : 1;
+  const preco = rmParseMoeda(document.getElementById('rm-pdv-item-preco').value);
+  const bruto = qtd * preco;
+  const d = rmPdvParseDescontoItem(document.getElementById('rm-pdv-item-desconto').value, bruto);
+  document.getElementById('rm-pdv-item-subtotal').value = bruto > 0 ? rmFmtNum(bruto) : '';
+  document.getElementById('rm-pdv-item-total').value = bruto > 0 ? rmFmtNum(bruto - d.valor) : '';
+}
+
+function rmPdvResetarLinha(){
+  document.getElementById('rm-pdv-item-nome').value = '';
+  document.getElementById('rm-pdv-item-preco').value = '';
+  document.getElementById('rm-pdv-item-qtd').value = '1';
+  document.getElementById('rm-pdv-item-desconto').value = '';
+  rmPdvProdutoSelecionadoId = null;
+  rmPdvEditandoIndex = null;
+  const aviso = document.getElementById('rm-pdv-edit-aviso');
+  if(aviso) aviso.style.display = 'none';
+  const btn = document.getElementById('rm-pdv-add-btn');
+  if(btn){ btn.innerHTML = '&#43;'; btn.title = 'Adicionar item'; }
+  rmPdvAtualizarLinha();
+}
+
 function rmAdicionarItemPdv(){
   const nomeInput = document.getElementById('rm-pdv-item-nome');
-  const precoInput = document.getElementById('rm-pdv-item-preco');
-  const qtdInput = document.getElementById('rm-pdv-item-qtd');
-
   const nome = nomeInput.value.trim().toUpperCase();
-  const preco = rmParseMoeda(precoInput.value);
-  const qtd = parseInt(qtdInput.value, 10) || 1;
+  const preco = rmParseMoeda(document.getElementById('rm-pdv-item-preco').value);
+  let qtd = rmParseMoeda(document.getElementById('rm-pdv-item-qtd').value);
+  if(!(qtd > 0)) qtd = 1;
 
   if(!nome){ alert('Digite o nome do produto ou serviço.'); return; }
   if(preco <= 0){ alert('Informe um preço válido.'); return; }
 
-  rmPdvCarrinho.push({ nome, precoUnit: preco, quantidade: qtd, subtotal: preco * qtd, produtoId: rmPdvProdutoSelecionadoId });
+  const bruto = preco * qtd;
+  const d = rmPdvParseDescontoItem(document.getElementById('rm-pdv-item-desconto').value, bruto);
+  const item = {
+    nome, precoUnit: preco, quantidade: qtd,
+    desconto: d.valor, descontoPct: d.pct, subtotal: bruto - d.valor,
+    produtoId: rmPdvProdutoSelecionadoId
+  };
 
-  nomeInput.value = '';
-  precoInput.value = '';
-  qtdInput.value = '1';
-  rmPdvProdutoSelecionadoId = null;
+  if(rmPdvEditandoIndex !== null && rmPdvCarrinho[rmPdvEditandoIndex]){
+    rmPdvCarrinho[rmPdvEditandoIndex] = item;
+    rmPdvUltimoIndex = rmPdvEditandoIndex;
+  } else {
+    rmPdvCarrinho.push(item);
+    rmPdvUltimoIndex = rmPdvCarrinho.length - 1;
+  }
+
+  rmPdvResetarLinha();
   nomeInput.focus();
-
   rmRenderCarrinhoPdv();
+}
+
+function rmEditarItemPdv(i){
+  const item = rmPdvCarrinho[i];
+  if(!item) return;
+  rmPdvEditandoIndex = i;
+  rmPdvProdutoSelecionadoId = item.produtoId || null;
+  document.getElementById('rm-pdv-item-nome').value = item.nome;
+  document.getElementById('rm-pdv-item-preco').value = String(item.precoUnit).replace('.', ',');
+  document.getElementById('rm-pdv-item-qtd').value = rmFmtQtd(item.quantidade);
+  document.getElementById('rm-pdv-item-desconto').value =
+    item.descontoPct > 0 ? (rmFmtQtd(item.descontoPct) + '%') : (item.desconto > 0 ? String(item.desconto).replace('.', ',') : '');
+  document.getElementById('rm-pdv-produto-lista').classList.remove('show');
+  document.getElementById('rm-pdv-edit-aviso').style.display = 'flex';
+  const btn = document.getElementById('rm-pdv-add-btn');
+  btn.innerHTML = '&#10003;';
+  btn.title = 'Salvar alterações';
+  rmPdvAtualizarLinha();
+  rmRenderCarrinhoPdv();
+  const q = document.getElementById('rm-pdv-item-qtd');
+  q.focus();
+  q.select();
+}
+
+function rmCancelarEdicaoItemPdv(){
+  rmPdvResetarLinha();
+  rmRenderCarrinhoPdv();
+}
+
+function rmPdvTeclaEnter(ev){
+  if(ev.key !== 'Enter') return;
+  ev.preventDefault();
+  rmAdicionarItemPdv();
+}
+
+// Enter no campo Produto: já escolhido -> adiciona; código de barras/SKU exato -> escolhe e adiciona; texto livre -> pede o preço
+function rmPdvTeclaProduto(ev){
+  if(ev.key !== 'Enter') return;
+  ev.preventDefault();
+  if(rmPdvProdutoSelecionadoId){ rmAdicionarItemPdv(); return; }
+  const q = document.getElementById('rm-pdv-item-nome').value.trim().toLowerCase();
+  if(!q) return;
+  const exato = rmLoadProdutos().find(p => p.ativo !== false &&
+    ((p.codigoBarras || '').toLowerCase() === q || (p.codigo || '').toLowerCase() === q));
+  if(exato){
+    rmEscolherProdutoPdv(exato.id, true);
+    rmAdicionarItemPdv();
+    return;
+  }
+  if(rmParseMoeda(document.getElementById('rm-pdv-item-preco').value) > 0){ rmAdicionarItemPdv(); return; }
+  document.getElementById('rm-pdv-item-preco').focus();
 }
 
 function rmRemoverItemPdv(index){
   rmPdvCarrinho.splice(index, 1);
+  if(rmPdvEditandoIndex !== null){
+    if(index === rmPdvEditandoIndex) rmPdvResetarLinha();
+    else if(index < rmPdvEditandoIndex) rmPdvEditandoIndex--;
+  }
+  rmPdvUltimoIndex = null;
   rmRenderCarrinhoPdv();
 }
 
@@ -2628,40 +2752,43 @@ function rmCalcularDescontoPdv(subtotal){
 
 function rmRenderCarrinhoPdv(){
   const lista = document.getElementById('rm-pdv-carrinho-lista');
-  const subtotalEl = document.getElementById('rm-pdv-subtotal-valor');
   const totalEl = document.getElementById('rm-pdv-total-valor');
   if(!lista || !totalEl) return;
 
   if(rmPdvCarrinho.length === 0){
-    lista.innerHTML = '<div class="rm-problema-empty">Nenhum item adicionado ainda</div>';
+    lista.innerHTML = '<div class="rm-px-vazio">Nenhum item adicionado ainda</div>';
   } else {
-    lista.innerHTML = rmPdvCarrinho.map((item, i) => `
-      <div class="rm-pdv-cart-item">
-        <div>
-          <div class="rm-pdv-cart-item-nome">${item.nome}</div>
-          <div class="rm-pdv-cart-item-detalhe">${item.quantidade} × ${rmFormatMoeda(item.precoUnit)}</div>
-        </div>
-        <div class="rm-pdv-cart-item-right">
-          <span class="rm-pdv-cart-item-subtotal">${rmFormatMoeda(item.subtotal)}</span>
-          <button class="rm-pdv-cart-item-remove" onclick="rmRemoverItemPdv(${i})" title="Remover">&times;</button>
-        </div>
-      </div>
-    `).join('');
+    const linhas = rmPdvCarrinho.map((item, i) => {
+      const bruto = item.quantidade * item.precoUnit;
+      const cls = 'rm-px-l' + (i === rmPdvEditandoIndex ? ' rm-px-l-edit' : (i === rmPdvUltimoIndex ? ' rm-px-l-novo' : ''));
+      return `
+        <tr class="${cls}" onclick="rmEditarItemPdv(${i})">
+          <td class="rm-px-t-nome" title="${rmEscapeHtml(item.nome)}">${rmEscapeHtml(item.nome)}</td>
+          <td>${rmFmtQtd(item.quantidade)}</td>
+          <td>${rmFmtNum(item.precoUnit)}</td>
+          <td>${rmFmtNum(bruto)}</td>
+          <td>${rmFmtNum(item.desconto || 0)}</td>
+          <td>${rmFmtNum(item.subtotal)}</td>
+          <td class="rm-px-t-acao"><button type="button" class="rm-px-rem" onclick="event.stopPropagation(); rmRemoverItemPdv(${i})" title="Remover item">&times;</button></td>
+        </tr>`;
+    }).join('');
+    lista.innerHTML = `
+      <div class="rm-px-tabela-wrap">
+        <table class="rm-px-tabela">
+          <colgroup><col><col style="width:46px"><col style="width:76px"><col style="width:76px"><col style="width:64px"><col style="width:82px"><col style="width:34px"></colgroup>
+          <thead><tr><th>Produto/Serviço</th><th>Qtd.</th><th>Unit.</th><th>S. Tot.</th><th>Desc.</th><th>Total</th><th></th></tr></thead>
+          <tbody>${linhas}</tbody>
+        </table>
+      </div>`;
   }
+
   const subtotal = rmTotalCarrinhoPdv();
   const desconto = rmCalcularDescontoPdv(subtotal);
-  if(subtotalEl) subtotalEl.textContent = rmFormatMoeda(subtotal);
+  document.getElementById('rm-pdv-subtotal-valor').textContent = rmFormatMoeda(subtotal);
   totalEl.textContent = rmFormatMoeda(subtotal - desconto);
-
-  const descontoTexto = document.getElementById('rm-pdv-desconto-valor-texto');
-  const descontoLinha = document.getElementById('rm-pdv-desconto-line');
-  if(descontoTexto && descontoLinha){
-    descontoTexto.textContent = (desconto > 0 ? '-' : '') + rmFormatMoeda(desconto);
-    descontoLinha.classList.toggle('rm-pdv-desconto-ativo', desconto > 0);
-  }
-  if(document.getElementById('rm-pdv-troco-block') && document.getElementById('rm-pdv-troco-block').style.display !== 'none'){
-    rmCalcularTroco();
-  }
+  document.getElementById('rm-pdv-qtd-total').textContent = rmFmtQtd(rmPdvCarrinho.reduce((s, it) => s + it.quantidade, 0));
+  document.getElementById('rm-pdv-desconto-valor-texto').textContent = desconto > 0 ? ('Desconto -' + rmFormatMoeda(desconto)) : '';
+  rmCalcularTroco();
 }
 
 function rmRenderFormasPagamentoPdv(){
@@ -2675,39 +2802,34 @@ function rmRenderFormasPagamentoPdv(){
 function rmEscolherPagamentoPdv(forma){
   rmPdvFormaPagamento = forma;
   rmRenderFormasPagamentoPdv();
-  const trocoBlock = document.getElementById('rm-pdv-troco-block');
-  if(trocoBlock){
-    trocoBlock.style.display = forma === 'Dinheiro' ? '' : 'none';
-    if(forma !== 'Dinheiro'){
-      document.getElementById('rm-pdv-valor-recebido').value = '';
-      const linha = document.getElementById('rm-pdv-troco-linha');
-      linha.textContent = '';
-      linha.className = '';
-    } else {
-      rmCalcularTroco();
-    }
-  }
+}
+
+function rmPdvCiclarPagamento(passo){
+  if(rmPdvModo === 'orcamento') return;
+  const n = RM_FORMAS_PAGAMENTO.length;
+  const atual = RM_FORMAS_PAGAMENTO.indexOf(rmPdvFormaPagamento);
+  const prox = atual < 0 ? (passo > 0 ? 0 : n - 1) : (atual + passo + n) % n;
+  rmEscolherPagamentoPdv(RM_FORMAS_PAGAMENTO[prox]);
 }
 
 function rmCalcularTroco(){
-  const linha = document.getElementById('rm-pdv-troco-linha');
-  if(!linha) return;
+  const el = document.getElementById('rm-pdv-troco-linha');
+  if(!el) return;
   const recebido = rmParseMoeda(document.getElementById('rm-pdv-valor-recebido').value);
   const subtotal = rmTotalCarrinhoPdv();
-  const desconto = rmCalcularDescontoPdv(subtotal);
-  const total = subtotal - desconto;
+  const total = subtotal - rmCalcularDescontoPdv(subtotal);
   if(recebido <= 0){
-    linha.textContent = '';
-    linha.className = '';
+    el.textContent = '';
+    el.className = 'rm-px-big';
     return;
   }
   const troco = recebido - total;
   if(troco < 0){
-    linha.textContent = 'Falta ' + rmFormatMoeda(Math.abs(troco));
-    linha.className = 'rm-pdv-troco-falta';
+    el.textContent = 'Falta ' + rmFormatMoeda(Math.abs(troco));
+    el.className = 'rm-px-big rm-pdv-troco-falta';
   } else {
-    linha.textContent = 'Troco: ' + rmFormatMoeda(troco);
-    linha.className = 'rm-pdv-troco-ok';
+    el.textContent = rmFormatMoeda(troco);
+    el.className = 'rm-px-big rm-pdv-troco-ok';
   }
 }
 
@@ -2757,6 +2879,7 @@ function rmEscolherClienteModal(clienteId){
 
 function rmBuscarClientePdv(query){
   const lista = document.getElementById('rm-pdv-cliente-lista');
+  if(rmPdvClienteId){ lista.classList.remove('show'); return; }
   const q = (query||'').trim().toLowerCase();
   let clientes = rmLoadClientes();
   if(q){
@@ -2800,16 +2923,33 @@ function rmLimparClientePdv(){
 
 function rmRenderClienteSelecionadoPdv(){
   const wrap = document.getElementById('rm-pdv-cliente-wrap');
-  if(!wrap) return;
-  let tag = document.getElementById('rm-pdv-cliente-tag');
-  if(tag) tag.remove();
+  const input = document.getElementById('rm-pdv-cliente-busca');
+  if(!wrap || !input) return;
+  const botaoAntigo = document.getElementById('rm-pdv-cliente-tag');
+  if(botaoAntigo) botaoAntigo.remove();
+  const cli = rmPdvClienteId ? rmLoadClientes().find(x => x.id === rmPdvClienteId) : null;
+
   if(rmPdvClienteId){
-    const div = document.createElement('div');
-    div.className = 'rm-pdv-cliente-tag';
-    div.id = 'rm-pdv-cliente-tag';
-    div.innerHTML = `<span>${rmPdvClienteNome}</span><button onclick="rmLimparClientePdv()" title="Remover">&times;</button>`;
-    wrap.appendChild(div);
+    input.value = rmPdvClienteNome;
+    input.readOnly = true;
+    input.classList.add('rm-px-selecionado');
+    document.getElementById('rm-pdv-cliente-lista').classList.remove('show');
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.id = 'rm-pdv-cliente-tag';
+    b.className = 'rm-px-limpar';
+    b.title = 'Trocar cliente';
+    b.innerHTML = '&times;';
+    b.onclick = rmLimparClientePdv;
+    wrap.appendChild(b);
+  } else if(input.readOnly){
+    input.value = '';
+    input.readOnly = false;
+    input.classList.remove('rm-px-selecionado');
   }
+
+  const set = (id, v) => { const el = document.getElementById(id); if(el) el.value = v; };
+  set('rm-pdv-cliente-limite', cli && cli.limiteCredito ? rmFormatMoeda(cli.limiteCredito) : '');
 }
 
 document.addEventListener('click', function(e){
@@ -2867,13 +3007,13 @@ function rmFinalizarVenda(){
     tipo: isOrcamento ? 'orcamento' : 'venda',
     clienteId: rmPdvClienteId,
     clienteNome: rmPdvClienteNome || null,
-    vendedor: document.getElementById('rm-pdv-vendedor').value.trim(),
+    vendedor: '',
     itens: rmPdvCarrinho.slice(),
     subtotal: subtotal,
     desconto: desconto,
     total: subtotal - desconto,
     formaPagamento: isOrcamento ? null : rmPdvFormaPagamento,
-    observacao: null,
+    observacao: document.getElementById('rm-pdv-observacao').value.trim().toUpperCase() || null,
     criadoEm: new Date().toISOString()
   };
 
@@ -2890,12 +3030,12 @@ function rmFinalizarVenda(){
 
   rmPdvCarrinho = [];
   rmPdvFormaPagamento = null;
+  rmPdvUltimoIndex = null;
+  rmPdvResetarLinha();
   document.getElementById('rm-pdv-desconto-valor').value = '';
   document.getElementById('rm-pdv-desconto-tipo').value = 'valor';
   document.getElementById('rm-pdv-valor-recebido').value = '';
-  document.getElementById('rm-pdv-troco-linha').textContent = '';
-  document.getElementById('rm-pdv-troco-linha').className = '';
-  document.getElementById('rm-pdv-troco-block').style.display = 'none';
+  document.getElementById('rm-pdv-observacao').value = '';
   rmLimparClientePdv();
   rmRenderCarrinhoPdv();
   rmRenderFormasPagamentoPdv();
@@ -2953,7 +3093,7 @@ function rmAbrirDetalheVenda(id){
     <div class="rm-pdv-cart-item">
       <div>
         <div class="rm-pdv-cart-item-nome">${item.nome}</div>
-        <div class="rm-pdv-cart-item-detalhe">${item.quantidade} × ${rmFormatMoeda(item.precoUnit)}</div>
+        <div class="rm-pdv-cart-item-detalhe">${item.quantidade} × ${rmFormatMoeda(item.precoUnit)}${item.desconto > 0 ? ' · desc. -' + rmFormatMoeda(item.desconto) : ''}</div>
       </div>
       <span class="rm-pdv-cart-item-subtotal">${rmFormatMoeda(item.subtotal)}</span>
     </div>
@@ -3001,6 +3141,12 @@ function rmAbrirDetalheVenda(id){
       <div style="font-size:14px;">${v.vendedor}</div>
     </div>`:''}
 
+    ${v.observacao?`
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Observação</span>
+      <div style="font-size:14px;">${rmEscapeHtml(v.observacao)}</div>
+    </div>`:''}
+
     ${isOrcamento?`<button class="rm-primary" style="margin-bottom:10px;" onclick="rmConverterOrcamentoEmVenda('${v.id}')">Transformar em venda</button>`:''}
     <button class="rm-btn-excluir" onclick="rmExcluirVenda('${v.id}')">Excluir ${isOrcamento?'este orçamento':'esta venda'}</button>
   `;
@@ -3011,19 +3157,19 @@ function rmConverterOrcamentoEmVenda(id){
   const v = rmLoadVendas().find(x=>x.id===id);
   if(!v) return;
   rmPdvCarrinho = (v.itens||[]).map(item => Object.assign({}, item));
+  rmPdvUltimoIndex = null;
+  rmPdvResetarLinha();
   rmPdvClienteId = v.clienteId || null;
   rmPdvClienteNome = v.clienteNome || '';
   rmSetModoPdv('venda');
   rmCloseModal();
-  rmRenderCarrinhoPdv();
-  rmRenderClienteSelecionadoPdv();
-  const vendedorSelect = document.getElementById('rm-pdv-vendedor');
-  if(vendedorSelect && v.vendedor) vendedorSelect.value = v.vendedor;
+  document.getElementById('rm-pdv-observacao').value = v.observacao || '';
   if(v.desconto > 0){
     document.getElementById('rm-pdv-desconto-valor').value = String(v.desconto).replace('.',',');
     document.getElementById('rm-pdv-desconto-tipo').value = 'valor';
-    rmRenderCarrinhoPdv();
   }
+  rmRenderClienteSelecionadoPdv();
+  rmRenderCarrinhoPdv();
   rmShowToast('Orçamento carregado — escolha a forma de pagamento e finalize a venda');
 }
 
@@ -3149,20 +3295,6 @@ async function rmUploadFotoProduto(file, produtoId){
   } catch(err){
     console.error('Erro ao comprimir/enviar foto do produto:', err);
     return null;
-  }
-}
-
-async function rmUploadFotoModalProduto(input, id){
-  const file = input.files[0];
-  if(!file) return;
-  rmShowToast('Enviando foto...');
-  const url = await rmUploadFotoProduto(file, id);
-  if(url){
-    rmUpdateProduto(id, 'fotoUrl', url);
-    rmAbrirModalProduto(id);
-    rmShowToast('Foto atualizada');
-  } else {
-    alert('Não foi possível enviar a foto. Verifique a conexão e tente de novo.');
   }
 }
 
