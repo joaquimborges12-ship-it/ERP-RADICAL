@@ -894,6 +894,38 @@
   .rm-qm-checks{display:flex; flex-wrap:wrap; gap:10px 32px; padding-top:6px;}
   .rm-qm-check{display:flex; align-items:center; gap:9px; font-size:14px; color:var(--rm-text); cursor:pointer;}
   .rm-qm-check input{width:18px; height:18px; margin:0; accent-color:var(--rm-accent); cursor:pointer;}
+  /* ===== Ordem de serviço: produtos e serviços ===== */
+  .rm-modal.rm-modal-os{max-width:min(1400px, 96vw); max-height:94vh; padding:28px 34px;}
+  .rm-modal.rm-modal-os .rm-modal-body{gap:0 48px;}
+  .rm-os-titulo-sec{font-size:22px; font-weight:400; margin:4px 0 14px; color:var(--rm-text);}
+  .rm-os-item{background:#555; color:#fff; padding:14px 18px 18px; margin-bottom:16px;}
+  .rm-os-item-head{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; font-size:17px; font-weight:600; margin-bottom:10px; text-transform:uppercase;}
+  .rm-os-item-acoes{display:flex; gap:6px; flex:none;}
+  .rm-os-item-acoes button{background:none; border:none; color:#fff; font-size:22px; line-height:1; cursor:pointer; padding:0 4px;}
+  .rm-os-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px 24px;}
+  .rm-os-c3{grid-column:span 3;}
+  .rm-os-grid label, .rm-os-tgrid label, .rm-os-pag-row label{display:block; font-size:13px; margin-bottom:6px;}
+  .rm-os-in{width:100%; box-sizing:border-box; background:#fff; color:#333; border:1px solid #ccc; border-radius:0; padding:10px 12px; font-size:16px; text-align:right; font-family:inherit;}
+  .rm-os-left{text-align:left;}
+  .rm-os-ro{background:#f2f2f2;}
+  .rm-os-add-btn{background:#5cb85c; color:#fff; border:none; border-radius:0; padding:12px 20px; font-size:16px; cursor:pointer; margin:4px 0 20px;}
+  .rm-os-add-btn:hover{background:#4cae4c;}
+  .rm-os-box{border:1px solid #ddd; margin-bottom:18px; color:var(--rm-text);}
+  .rm-os-box-head{background:#f4f4f4; color:#555; padding:14px 18px; font-size:18px; border-bottom:1px solid #ddd;}
+  .rm-os-box-head-big{font-size:22px;}
+  .rm-os-box-body{padding:18px;}
+  .rm-os-tgrid{display:grid; grid-template-columns:150px repeat(5,1fr); gap:14px 20px; align-items:end;}
+  .rm-os-tlabel{align-self:center; font-size:14px;}
+  .rm-os-pag-row{display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start;}
+  .rm-os-lanc{width:220px;}
+  .rm-os-pag-grid{display:flex; flex-wrap:wrap; gap:8px;}
+  @media (max-width:760px){
+    .rm-os-grid{grid-template-columns:1fr 1fr;}
+    .rm-os-c3{grid-column:span 1;}
+    .rm-os-tgrid{grid-template-columns:1fr 1fr;}
+    .rm-os-tlabel{grid-column:1 / -1;}
+    .rm-os-lanc{width:100%;}
+  }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -2443,7 +2475,7 @@ function rmFormatMoeda(valor){
 }
 
 // ---- PDV ----
-const RM_FORMAS_PAGAMENTO = ['Dinheiro','Débito','Crédito','PIX','Boleto','Crediário'];
+const RM_FORMAS_PAGAMENTO = ['Dinheiro','Débito','Crédito','PIX','Boleto','Crediário','Promissória'];
 let rmPdvModo = 'venda';
 
 function rmSetModoPdv(modo){
@@ -3375,7 +3407,8 @@ function rmFromDbRow(row){
     pecasUsadas: row.pecas_usadas || [],
     pecasDescontoValor: row.pecas_desconto_valor || 0,
     pecasDescontoTipo: row.pecas_desconto_tipo || 'valor',
-    maoDeObra: row.mao_de_obra || 0
+    maoDeObra: row.mao_de_obra || 0,
+    formaPagamento: row.forma_pagamento || ''
   };
 }
 
@@ -3405,6 +3438,7 @@ function rmToDbRow(r){
     pecas_desconto_valor: r.pecasDescontoValor || 0,
     pecas_desconto_tipo: r.pecasDescontoTipo || 'valor',
     mao_de_obra: r.maoDeObra || 0,
+    forma_pagamento: r.formaPagamento || null,
     updated_at: new Date().toISOString()
   };
 }
@@ -5402,10 +5436,38 @@ function rmTotalPecasUsadas(r){
   return Math.max(0, subtotalGeral - desconto);
 }
 
+const rmOsFechados = new Set(); // blocos recolhidos (id+index)
+
+function rmOsTotais(r){
+  const itens = r.pecasUsadas || [];
+  let qP=0, qS=0, tP=0, tS=0;
+  const prods = rmLoadProdutos();
+  itens.forEach(it=>{
+    const p = prods.find(x=>x.id===it.produtoId);
+    const serv = it.servico || (p && p.ehServico);
+    if(serv){ qS += it.quantidade||0; tS += it.subtotal||0; }
+    else { qP += it.quantidade||0; tP += it.subtotal||0; }
+  });
+  tS += r.maoDeObra || 0;
+  const bruto = tP + tS;
+  const desc = rmCalcularDescontoPecasValor(r, bruto);
+  return { qP, qS, tP, tS, bruto, desc, total: Math.max(0, bruto - desc) };
+}
+
 function rmAtualizarTotalPecasModal(item){
-  document.getElementById('rm-modal-pecas-lista').innerHTML = rmPecasUsadasHtml(item);
-  document.getElementById('rm-modal-pecas-total').lastElementChild.textContent = rmFormatMoeda(rmSubtotalPecasUsadas(item));
-  document.getElementById('rm-modal-pecas-total-final-valor').textContent = rmFormatMoeda(rmTotalPecasUsadas(item));
+  const lista = document.getElementById('rm-modal-pecas-lista');
+  if(lista) lista.innerHTML = rmPecasUsadasHtml(item);
+  rmOsAtualizarTotais(item);
+}
+
+function rmOsAtualizarTotais(r){
+  const t = rmOsTotais(r);
+  const set = (id, v) => { const el = document.getElementById(id); if(el) el.value = v; };
+  set('rm-os-t-qp', rmFmtNum(t.qP)); set('rm-os-t-qs', rmFmtNum(t.qS));
+  set('rm-os-t-tp', rmFmtNum(t.tP)); set('rm-os-t-ts', rmFmtNum(t.tS));
+  set('rm-os-t-total', rmFmtNum(t.bruto)); set('rm-os-t-lanc', rmFmtNum(t.total));
+  const f = document.getElementById('rm-modal-pecas-total-final-valor');
+  if(f) f.textContent = rmFormatMoeda(t.total);
 }
 
 function rmAtualizarMecanicoPecas(id, mecanico){
@@ -5421,7 +5483,7 @@ function rmAtualizarMaoDeObra(id){
   item.maoDeObra = rmParseMoeda(document.getElementById('rm-modal-mao-de-obra').value);
   rmSave(list);
   rmDbUpsertRecepcao(item);
-  document.getElementById('rm-modal-pecas-total-final-valor').textContent = rmFormatMoeda(rmTotalPecasUsadas(item));
+  rmOsAtualizarTotais(item);
 }
 
 function rmAtualizarDescontoPecas(id){
@@ -5432,24 +5494,102 @@ function rmAtualizarDescontoPecas(id){
   item.pecasDescontoTipo = document.getElementById('rm-modal-pecas-desconto-tipo').value;
   rmSave(list);
   rmDbUpsertRecepcao(item);
-  document.getElementById('rm-modal-pecas-total-final-valor').textContent = rmFormatMoeda(rmTotalPecasUsadas(item));
+  rmOsAtualizarTotais(item);
+}
+
+function rmOsEscolherPagamento(id, forma){
+  const list = rmLoad();
+  const item = list.find(r=>r.id===id);
+  if(!item) return;
+  item.formaPagamento = item.formaPagamento === forma ? '' : forma;
+  rmSave(list);
+  rmDbUpsertRecepcao(item);
+  document.getElementById('rm-os-pag-grid').innerHTML = rmOsPagamentoHtml(item);
+}
+
+function rmOsPagamentoHtml(r){
+  return RM_FORMAS_PAGAMENTO.map(f =>
+    `<button class="rm-pdv-pag-btn${r.formaPagamento===f?' active':''}" onclick="rmOsEscolherPagamento('${r.id}','${f}')">${f}</button>`
+  ).join('');
+}
+
+function rmOsTituloItem(it){
+  const p = rmLoadProdutos().find(x=>x.id===it.produtoId);
+  const cat = it.categoria || (p && p.categoria) || '';
+  return `${rmFmtQtd ? rmFmtQtd(it.quantidade) : it.quantidade} ${rmEscapeHtml(it.nome||'')}${it.localizacao?' #'+rmEscapeHtml(it.localizacao):''}${cat?' ('+rmEscapeHtml(cat)+')':''}`;
 }
 
 function rmPecasUsadasHtml(r){
   const pecas = r.pecasUsadas || [];
-  if(pecas.length === 0) return '<div class="rm-problema-empty">Nenhuma peça adicionada ainda</div>';
-  return pecas.map((item, i) => `
-    <div class="rm-pdv-cart-item">
-      <div>
-        <div class="rm-pdv-cart-item-nome">${item.nome}${item.codigo?` <span class="rm-autocomplete-apelido">(${item.codigo})</span>`:''}${item.localizacao?` · ${item.localizacao}`:''}</div>
-        <div class="rm-pdv-cart-item-detalhe">${item.quantidade} × ${rmFormatMoeda(item.precoUnit)}</div>
+  if(pecas.length === 0) return '<div class="rm-problema-empty">Nenhum produto ou serviço adicionado ainda</div>';
+  return pecas.map((it, i) => {
+    const bruto = (it.quantidade||0) * (it.precoUnit||0);
+    const fechado = rmOsFechados.has(r.id+'_'+i);
+    return `
+    <div class="rm-os-item" id="rm-os-item-${i}">
+      <div class="rm-os-item-head">
+        <span id="rm-os-titulo-${i}">${rmOsTituloItem(it)}</span>
+        <span class="rm-os-item-acoes">
+          <button onclick="rmOsToggleItem('${r.id}',${i})" title="Recolher/expandir">${fechado?'&#9660;':'&#8964;'}</button>
+          <button onclick="rmRemoverPecaMoto('${r.id}', ${i})" title="Remover">&times;</button>
+        </span>
       </div>
-      <div class="rm-pdv-cart-item-right">
-        <span class="rm-pdv-cart-item-subtotal">${rmFormatMoeda(item.subtotal)}</span>
-        <button class="rm-pdv-cart-item-remove" onclick="rmRemoverPecaMoto('${r.id}', ${i})" title="Remover">&times;</button>
+      <div class="rm-os-item-body" style="${fechado?'display:none':''}">
+        <div class="rm-os-grid">
+          <div class="rm-os-c3"><label>Produto/Serviço</label><input class="rm-os-in rm-os-left" value="${rmEscapeHtml(it.nome||'')}${it.localizacao?' #'+rmEscapeHtml(it.localizacao):''}" readonly></div>
+          <div><label>Quantidade</label><input class="rm-os-in" inputmode="decimal" value="${rmFmtNum(it.quantidade)}" onchange="rmOsEditarItem('${r.id}',${i},'quantidade',this.value)"></div>
+          <div><label>Valor Unitário</label><input class="rm-os-in" inputmode="decimal" value="${rmFmtNum(it.precoUnit)}" onchange="rmOsEditarItem('${r.id}',${i},'precoUnit',this.value)"></div>
+          <div><label>Sub-total</label><input class="rm-os-in rm-os-ro" id="rm-os-bruto-${i}" value="${rmFmtNum(bruto)}" readonly></div>
+          <div><label>Desconto</label><input class="rm-os-in" inputmode="decimal" value="${rmFmtNum(it.desconto||0)}" onchange="rmOsEditarItem('${r.id}',${i},'desconto',this.value)"></div>
+          <div><label>Valor Total</label><input class="rm-os-in rm-os-ro" id="rm-os-total-${i}" value="${rmFmtNum(it.subtotal||0)}" readonly></div>
+        </div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
+}
+
+function rmOsToggleItem(id, i){
+  const k = id+'_'+i;
+  rmOsFechados.has(k) ? rmOsFechados.delete(k) : rmOsFechados.add(k);
+  const r = rmLoad().find(x=>x.id===id);
+  if(r) document.getElementById('rm-modal-pecas-lista').innerHTML = rmPecasUsadasHtml(r);
+}
+
+function rmOsEditarItem(id, i, campo, valor){
+  const list = rmLoad();
+  const r = list.find(x=>x.id===id);
+  if(!r || !r.pecasUsadas || !r.pecasUsadas[i]) return;
+  const it = r.pecasUsadas[i];
+  const v = Math.max(0, rmParseMoeda(valor));
+  if(campo === 'quantidade'){
+    const novaQtd = v || 1;
+    const delta = novaQtd - (it.quantidade||0);
+    if(delta && it.produtoId){
+      const produtos = rmLoadProdutos();
+      const p = produtos.find(x=>x.id===it.produtoId);
+      if(p && !p.ehServico){ p.estoqueAtual = (p.estoqueAtual||0) - delta; rmSaveProdutos(produtos); rmDbUpsertProduto(p); }
+    }
+    it.quantidade = novaQtd;
+  } else {
+    it[campo] = v;
+  }
+  const bruto = (it.quantidade||0) * (it.precoUnit||0);
+  it.desconto = Math.min(it.desconto||0, bruto);
+  it.subtotal = bruto - it.desconto;
+  rmSave(list);
+  rmDbUpsertRecepcao(r);
+  // atualiza só o bloco, sem perder o foco
+  const s = (elId, val) => { const el = document.getElementById(elId); if(el) el.value = val; };
+  s('rm-os-bruto-'+i, rmFmtNum(bruto)); s('rm-os-total-'+i, rmFmtNum(it.subtotal));
+  const t = document.getElementById('rm-os-titulo-'+i); if(t) t.innerHTML = rmOsTituloItem(it);
+  rmOsAtualizarTotais(r);
+}
+
+function rmOsAbrirBusca(){
+  const box = document.getElementById('rm-os-busca-box');
+  box.style.display = '';
+  const inp = document.getElementById('rm-modal-peca-nome');
+  inp.value = ''; inp.focus();
 }
 
 function rmBuscarProdutoMoto(query){
@@ -5479,51 +5619,27 @@ function rmBuscarProdutoMoto(query){
 }
 
 function rmEscolherProdutoMoto(produtoId){
-  const p = rmLoadProdutos().find(x=>x.id===produtoId);
-  if(!p) return;
-  rmModalPecaProdutoSelecionadoId = p.id;
-  document.getElementById('rm-modal-peca-nome').value = p.nome || '';
-  document.getElementById('rm-modal-peca-lista').classList.remove('show');
-  document.getElementById('rm-modal-peca-qtd').focus();
-  document.getElementById('rm-modal-peca-qtd').select();
-}
-
-function rmAdicionarPecaMoto(id){
-  if(!rmModalPecaProdutoSelecionadoId){
-    alert('Busque e escolha um produto da lista primeiro.');
-    return;
-  }
-  const qtd = rmParseMoeda(document.getElementById('rm-modal-peca-qtd').value) || 1;
+  const inp = document.getElementById('rm-modal-peca-nome');
+  const id = inp.dataset.os;
   const produtos = rmLoadProdutos();
-  const p = produtos.find(x=>x.id===rmModalPecaProdutoSelecionadoId);
+  const p = produtos.find(x=>x.id===produtoId);
   if(!p) return;
-
   const list = rmLoad();
   const item = list.find(r=>r.id===id);
   if(!item) return;
   if(!item.pecasUsadas) item.pecasUsadas = [];
   item.pecasUsadas.push({
-    produtoId: p.id,
-    nome: p.nome,
-    codigo: p.codigo || '',
-    localizacao: p.localizacao || '',
-    quantidade: qtd,
-    precoUnit: p.precoConsumidor || 0,
-    subtotal: (p.precoConsumidor || 0) * qtd
+    produtoId: p.id, nome: p.nome, codigo: p.codigo || '', localizacao: p.localizacao || '',
+    categoria: p.categoria || '', servico: !!p.ehServico,
+    quantidade: 1, precoUnit: p.precoConsumidor || 0, desconto: 0, subtotal: p.precoConsumidor || 0
   });
   rmSave(list);
   rmDbUpsertRecepcao(item);
-
-  p.estoqueAtual = (p.estoqueAtual || 0) - qtd;
-  rmSaveProdutos(produtos);
-  rmDbUpsertProduto(p);
-
-  document.getElementById('rm-modal-peca-nome').value = '';
-  document.getElementById('rm-modal-peca-qtd').value = '1';
-  rmModalPecaProdutoSelecionadoId = null;
-
+  if(!p.ehServico){ p.estoqueAtual = (p.estoqueAtual || 0) - 1; rmSaveProdutos(produtos); rmDbUpsertProduto(p); }
+  inp.value = '';
+  document.getElementById('rm-modal-peca-lista').classList.remove('show');
+  document.getElementById('rm-os-busca-box').style.display = 'none';
   rmAtualizarTotalPecasModal(item);
-  document.getElementById('rm-modal-peca-nome').focus();
 }
 
 function rmRemoverPecaMoto(id, index){
@@ -5573,6 +5689,7 @@ function rmOpenModal(id, large){
 
   const modal = document.getElementById('rm-modal');
   modal.classList.toggle('rm-modal-large', rmActiveModalLarge);
+  modal.classList.add('rm-modal-os');
   modal.innerHTML = `
     <div class="rm-modal-header">
       <div>
@@ -5693,63 +5810,69 @@ function rmOpenModal(id, large){
     </div>
     </div>
 
-    <div class="rm-modal-section" style="margin-top:6px;">
-      <span class="rm-modal-section-label">Peças utilizadas nesta moto</span>
-      <div class="rm-pdv-add-row" style="margin-bottom:12px;">
-        <div class="rm-pdv-add-field rm-pdv-add-nome">
-          <label class="rm-pdv-mini-label">Produto</label>
-          <div class="rm-autocomplete-wrap" id="rm-modal-peca-wrap">
-            <input class="rm-input" id="rm-modal-peca-nome" autocapitalize="characters" autocomplete="off" oninput="rmBuscarProdutoMoto(this.value)" onfocus="rmBuscarProdutoMoto(this.value)">
-            <div class="rm-autocomplete-list" id="rm-modal-peca-lista"></div>
+    <div class="rm-modal-section rm-os-wrap" style="margin-top:6px;">
+      <div class="rm-os-titulo-sec">&#124;&#124;&#124;&#124; Produtos e Serviços</div>
+      <div id="rm-modal-pecas-lista">${rmPecasUsadasHtml(r)}</div>
+
+      <div id="rm-os-busca-box" style="display:none; margin-bottom:12px;">
+        <div class="rm-autocomplete-wrap" id="rm-modal-peca-wrap">
+          <input class="rm-input" id="rm-modal-peca-nome" data-os="${r.id}" placeholder="Digite nome, código, aplicação ou código de barras" autocapitalize="characters" autocomplete="off" oninput="rmBuscarProdutoMoto(this.value)" onfocus="rmBuscarProdutoMoto(this.value)">
+          <div class="rm-autocomplete-list" id="rm-modal-peca-lista"></div>
+        </div>
+      </div>
+      <button class="rm-os-add-btn" onclick="rmOsAbrirBusca()">&#8853; Adicionar mais um produto</button>
+
+      <div class="rm-os-box">
+        <div class="rm-os-box-head">Totais dos produtos e serviços</div>
+        <div class="rm-os-box-body">
+          <div class="rm-os-tgrid">
+            <div class="rm-os-tlabel">Produtos/Serviços</div>
+            <div><label>Quantidade Produtos:</label><input class="rm-os-in rm-os-ro" id="rm-os-t-qp" readonly></div>
+            <div><label>Quantidade Serviços:</label><input class="rm-os-in rm-os-ro" id="rm-os-t-qs" readonly></div>
+            <div><label>Total Produtos:</label><input class="rm-os-in rm-os-ro" id="rm-os-t-tp" readonly></div>
+            <div><label>Total Serviços:</label><input class="rm-os-in rm-os-ro" id="rm-os-t-ts" readonly></div>
+            <div><label>Total:</label><input class="rm-os-in rm-os-ro" id="rm-os-t-total" readonly></div>
+            <div class="rm-os-tlabel">Outros Valores</div>
+            <div><label>Mão de obra (mecânico):</label><input class="rm-os-in" id="rm-modal-mao-de-obra" value="${r.maoDeObra?rmFmtNum(r.maoDeObra):''}" inputmode="decimal" onchange="rmAtualizarMaoDeObra('${r.id}')"></div>
+            <div><label>Desconto:</label>
+              <div style="display:flex;">
+                <input class="rm-os-in" id="rm-modal-pecas-desconto-valor" value="${r.pecasDescontoValor?rmFmtNum(r.pecasDescontoValor):''}" inputmode="decimal" onchange="rmAtualizarDescontoPecas('${r.id}')">
+                <select class="rm-os-in" style="width:62px;flex:none;text-align:left;" id="rm-modal-pecas-desconto-tipo" onchange="rmAtualizarDescontoPecas('${r.id}')">
+                  <option value="valor"${r.pecasDescontoTipo!=='percentual'?' selected':''}>R$</option>
+                  <option value="percentual"${r.pecasDescontoTipo==='percentual'?' selected':''}>%</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="rm-pdv-add-field rm-pdv-add-qtd">
-          <label class="rm-pdv-mini-label">Qtd</label>
-          <input class="rm-input" id="rm-modal-peca-qtd" value="1" inputmode="numeric">
-        </div>
-        <button class="rm-pdv-add-btn" onclick="rmAdicionarPecaMoto('${r.id}')" title="Adicionar">&#43;</button>
-      </div>
-      <div id="rm-modal-pecas-lista" class="rm-pdv-cart-list">${rmPecasUsadasHtml(r)}</div>
-      <div id="rm-modal-pecas-total" style="display:flex; justify-content:space-between; font-weight:700; font-size:15px; padding:12px 2px 0;">
-        <span>Total de peças</span>
-        <span>${rmFormatMoeda(rmSubtotalPecasUsadas(r))}</span>
       </div>
 
-      <div class="rm-row" style="margin-top:10px; margin-bottom:0;">
-        <div>
-          <label class="rm-label">Mecânico</label>
-          <select class="rm-input" id="rm-modal-mecanico-pecas" onchange="rmAtualizarMecanicoPecas('${r.id}', this.value)">
-            ${rmMecanicoOptionsHtml(r.mecanico||'')}
-          </select>
+      <div class="rm-os-box">
+        <div class="rm-os-box-head rm-os-box-head-big">Valor total e forma de pagamento</div>
+        <div class="rm-os-box-body">
+          <div class="rm-os-pag-row">
+            <div><label>Valor do lançamento:</label><input class="rm-os-in rm-os-ro rm-os-lanc" id="rm-os-t-lanc" readonly></div>
+            <div style="flex:1;"><label>Forma de pagamento:</label><div class="rm-pdv-pagamento-grid rm-os-pag-grid" id="rm-os-pag-grid">${rmOsPagamentoHtml(r)}</div></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-weight:700; font-size:16px; padding:12px 2px 0; color:var(--rm-accent);">
+            <span>Total da ordem de serviço</span>
+            <span id="rm-modal-pecas-total-final-valor">${rmFormatMoeda(rmOsTotais(r).total)}</span>
+          </div>
         </div>
-        <div>
-          <label class="rm-label">Mão de obra</label>
-          <input class="rm-input" id="rm-modal-mao-de-obra" value="${r.maoDeObra?String(r.maoDeObra).replace('.',','):''}" inputmode="decimal" onchange="rmAtualizarMaoDeObra('${r.id}')">
-        </div>
-      </div>
-
-      <div class="rm-pdv-desconto-inline" style="margin-top:0;">
-        <input class="rm-input" id="rm-modal-pecas-desconto-valor" value="${r.pecasDescontoValor?String(r.pecasDescontoValor).replace('.',','):''}" inputmode="decimal" onchange="rmAtualizarDescontoPecas('${r.id}')" placeholder="Aplicar desconto">
-        <select class="rm-input" id="rm-modal-pecas-desconto-tipo" onchange="rmAtualizarDescontoPecas('${r.id}')">
-          <option value="valor"${r.pecasDescontoTipo!=='percentual'?' selected':''}>R$</option>
-          <option value="percentual"${r.pecasDescontoTipo==='percentual'?' selected':''}>%</option>
-        </select>
-      </div>
-      <div style="display:flex; justify-content:space-between; font-weight:700; font-size:16px; padding:10px 2px 0; border-top:1px solid var(--rm-border); margin-top:10px; color:var(--rm-accent);">
-        <span>Total do serviço</span>
-        <span id="rm-modal-pecas-total-final-valor">${rmFormatMoeda(rmTotalPecasUsadas(r))}</span>
       </div>
     </div>
 
     <button class="rm-btn-excluir" onclick="rmExcluirRecepcao('${r.id}')">Excluir esta moto</button>
   `;
 
+  rmOsAtualizarTotais(r);
   document.getElementById('rm-modal-backdrop').classList.add('show');
 }
 
 function rmCloseModal(){
   document.getElementById('rm-modal-backdrop').classList.remove('show');
   document.getElementById('rm-modal').classList.remove('rm-modal-quadrado');
+  document.getElementById('rm-modal').classList.remove('rm-modal-os');
   rmActiveModalId = null;
   rmRenderActiveBoard();
 }
