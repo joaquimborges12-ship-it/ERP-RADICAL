@@ -64,6 +64,8 @@
     border-radius:7px; width:36px; height:36px; font-size:16px; cursor:pointer; line-height:1;
   }
   .rm-settings-btn:hover{color:var(--rm-text); border-color:var(--rm-text-dim);}
+  .rm-settings-btn{display:flex; align-items:center; justify-content:center;}
+  .rm-settings-btn svg, .rm-sidebar-toggle svg, .rm-sidebar-expand svg{width:18px; height:18px; fill:currentColor; display:block;}
   .rm-settings-menu{
     display:none; position:absolute; top:44px; right:0; background:var(--rm-panel);
     border:1px solid var(--rm-border); border-radius:9px; padding:6px; min-width:180px;
@@ -86,7 +88,8 @@
     padding:8px 14px; border-radius:7px; cursor:pointer; transition:all .15s ease;
     display:flex; align-items:center; gap:7px; white-space:nowrap;
   }
-  .rm-nav-icon{font-size:13px; line-height:1; opacity:0.85;}
+  .rm-nav-icon{font-size:13px; line-height:1; opacity:0.85; display:flex;}
+  .rm-nav-icon svg{width:18px; height:18px; fill:currentColor; display:block;}
   .rm-nav-text{display:flex; flex-direction:column; align-items:flex-start; line-height:1.35;}
   .rm-nav-sub{display:none; font-size:11px; font-weight:500; color:var(--rm-text-dim);}
   .rm-nav-btn.active{background:var(--rm-panel); color:var(--rm-accent); box-shadow:0 1px 4px rgba(0,0,0,0.1);}
@@ -242,6 +245,13 @@
     display:flex; flex-direction:column; align-items:center; gap:6px; min-width:76px;
   }
   .rm-subnav-icon{font-size:19px; line-height:1;}
+  .rm-subnav-icon-badge-wrap{position:relative; display:inline-block;}
+  .rm-badge{
+    position:absolute; top:-6px; right:-9px; min-width:16px; height:16px; padding:0 4px;
+    background:var(--rm-accent); color:var(--rm-accent-ink); font-family:var(--rm-font-body);
+    font-size:10px; font-weight:700; line-height:16px; text-align:center; border-radius:20px;
+    box-shadow:0 0 0 2px var(--rm-panel);
+  }
   .rm-subnav-btn.active{background:var(--rm-accent); color:var(--rm-accent-ink);}
   .rm-subnav-btn:hover:not(.active){color:var(--rm-text); background:var(--rm-panel-2);}
 
@@ -310,6 +320,12 @@
     display:inline-block; margin-top:6px; font-size:11px; font-weight:700; color:var(--rm-text-dim);
     text-transform:uppercase; letter-spacing:0.03em; background:var(--rm-panel-2); padding:2px 9px; border-radius:20px;
   }
+  .rm-avisos-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start;}
+  @media (max-width:900px){ .rm-avisos-grid{grid-template-columns:1fr; gap:0;} }
+  .rm-avisos-historico-scroll{max-height:75vh; overflow-y:auto; padding:2px;}
+  .rm-aviso-item-historico{box-shadow:none; background:var(--rm-panel-2);}
+  .rm-aviso-item-historico .rm-aviso-item-texto{color:var(--rm-text-dim);}
+  .rm-aviso-item-meta{font-size:11.5px; color:var(--rm-text-dim); margin-top:8px;}
   .rm-aviso-item-remover{background:none; border:none; color:var(--rm-text-dim); font-size:18px; cursor:pointer; flex-shrink:0; line-height:1;}
   .rm-aviso-item-remover:hover{color:var(--rm-red);}
   .rm-mec-chip{
@@ -363,8 +379,8 @@
   table.rm-table thead th{
     text-align:left; padding:9px 12px; color:var(--rm-text-dim); font-weight:700;
     font-size:10.5px; text-transform:uppercase; letter-spacing:0.03em;
-    border:1px solid var(--rm-border); background:var(--rm-panel-2); white-space:nowrap;
-    position:relative;
+    border:1px solid var(--rm-border); border-left:none; border-right:none; border-top:none;
+    background:var(--rm-panel-2); white-space:nowrap; position:relative;
   }
   .rm-th-sortable{cursor:pointer; user-select:none;}
   .rm-th-sortable:hover{color:var(--rm-text);}
@@ -375,12 +391,15 @@
   }
   .rm-col-resize-handle:hover, .rm-col-resize-handle.rm-resizing{background:var(--rm-accent);}
   table.rm-table tbody td{
-    padding:9px 12px; border:1px solid var(--rm-border); vertical-align:middle;
+    padding:9px 12px; border:1px solid var(--rm-border); border-left:none; border-right:none; vertical-align:middle;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
   table.rm-table tbody tr{cursor:pointer;}
+  table.rm-table tbody tr:last-child td{border-bottom:none;}
   table.rm-table tbody tr:nth-child(even){background:rgba(0,0,0,0.018);}
   table.rm-table tbody tr:hover{background:var(--rm-panel-2);}
+  table.rm-table tbody tr.rm-lista-row-pago{background:rgba(76,175,125,0.16);}
+  table.rm-table tbody tr.rm-lista-row-pago:hover{background:rgba(76,175,125,0.26);}
   .rm-lista-code{font-weight:700;}
   .rm-lista-foto-icon{
     display:inline-flex; align-items:center; justify-content:center; font-size:11px;
@@ -492,6 +511,78 @@
   .rm-modal-title{font-family:var(--rm-font-display); font-size:20px; font-weight:600;}
   .rm-modal-sub{font-size:12.5px; color:var(--rm-text-dim); margin-top:3px;}
   .rm-modal-close{background:none; border:none; color:var(--rm-text-dim); font-size:22px; cursor:pointer; line-height:1;}
+
+  /* Painel "Novo produto": estilo todo quadrado, com abas e grade de campos */
+  .rm-modal-backdrop:has(.rm-modal-quadrado){align-items:flex-start; padding-top:6vh;}
+  .rm-modal.rm-modal-quadrado{border-radius:0; max-width:940px; max-height:88vh; padding:0; box-shadow:0 12px 44px rgba(0,0,0,0.3);}
+  .rm-qm-header{
+    display:flex; justify-content:space-between; align-items:center; padding:16px 24px;
+    border-bottom:1px solid var(--rm-border); position:sticky; top:0; background:var(--rm-panel); z-index:3;
+  }
+  .rm-qm-title{font-family:var(--rm-font-display); font-size:22px; font-weight:500;}
+  .rm-qm-close{background:none; border:none; font-size:32px; line-height:1; color:#b5b5b5; cursor:pointer; padding:0 4px; border-radius:0;}
+  .rm-qm-close:hover{color:var(--rm-text);}
+  .rm-qm-body{padding:22px 24px 26px;}
+  .rm-qm-tabs{display:flex; gap:6px; flex-wrap:wrap; border-bottom:1px solid var(--rm-border); margin-bottom:22px;}
+  .rm-qm-tab{
+    background:#ececec; border:1px solid var(--rm-border); border-radius:0; margin-bottom:-1px;
+    padding:11px 18px; font-family:var(--rm-font-body); font-size:14px; color:var(--rm-text-dim); cursor:pointer;
+  }
+  .rm-qm-tab:hover{color:var(--rm-text);}
+  .rm-qm-tab.active{background:var(--rm-panel); color:var(--rm-text); font-weight:600; border-bottom-color:var(--rm-panel);}
+  .rm-qm-grid{display:grid; grid-template-columns:repeat(12, 1fr); gap:16px 20px; align-items:start;}
+  .rm-qm-grid .c2{grid-column:span 2;}
+  .rm-qm-grid .c3{grid-column:span 3;}
+  .rm-qm-grid .c4{grid-column:span 4;}
+  .rm-qm-grid .c6{grid-column:span 6;}
+  .rm-qm-grid .c8{grid-column:span 8;}
+  .rm-qm-grid .c12{grid-column:span 12;}
+  @media (max-width:760px){
+    .rm-qm-grid .c2, .rm-qm-grid .c3, .rm-qm-grid .c4, .rm-qm-grid .c6{grid-column:span 6;}
+    .rm-qm-grid .c8{grid-column:span 12;}
+  }
+  .rm-qm-label{display:block; font-size:14px; color:var(--rm-text); margin-bottom:6px; text-transform:none;}
+  .rm-qm-label::after{content:':';}
+  .rm-qm-panel input.rm-input, .rm-qm-panel select.rm-input, .rm-qm-panel textarea.rm-input{
+    border-radius:0; margin-bottom:0; padding:10px 12px; font-size:14.5px; border:1px solid #d6d6d6; background:#fff;
+  }
+  .rm-qm-panel input.rm-input:focus, .rm-qm-panel select.rm-input:focus, .rm-qm-panel textarea.rm-input:focus{border-color:var(--rm-accent);}
+  .rm-qm-grid textarea.rm-input{min-height:84px;}
+  .rm-qm-grid input.rm-qm-num{text-align:right;}
+  .rm-qm-req .rm-qm-label{color:#d98a12; font-weight:700;}
+  .rm-qm-req input.rm-input{background:#f4f7c0; border-color:#dd8f2b;}
+  .rm-qm-foto-box{display:flex; flex-direction:column; align-items:flex-start; gap:12px; padding:4px 0 10px;}
+  .rm-qm-foto-img{max-width:320px; width:100%; border:1px solid var(--rm-border); display:block;}
+  .rm-qm-foto-vazio{color:var(--rm-text-dim); font-size:14px;}
+  .rm-qm-footer{
+    display:flex; justify-content:flex-end; gap:10px; padding:14px 24px; border-top:1px solid var(--rm-border);
+    background:#fafafa; position:sticky; bottom:0; z-index:3;
+  }
+  .rm-qm-btn{
+    border-radius:0; padding:11px 26px; font-family:var(--rm-font-body); font-size:14px; font-weight:700;
+    cursor:pointer; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text);
+  }
+  .rm-qm-btn:hover{border-color:var(--rm-text-dim);}
+  .rm-qm-btn.rm-qm-btn-salvar{background:var(--rm-accent); color:var(--rm-accent-ink); border-color:var(--rm-accent);}
+  .rm-qm-btn.rm-qm-btn-salvar:hover{filter:brightness(1.06);}
+
+  /* Lista de aplicação (motos compatíveis) — usada no cadastro e na edição */
+  .rm-aplic-add{display:flex; gap:10px; align-items:flex-end;}
+  .rm-aplic-add > div{flex:1;}
+  .rm-aplic-add input.rm-input{margin-bottom:0;}
+  .rm-aplic-titulo{margin:16px 0 8px; min-height:16px; font-size:12px; font-weight:700; color:var(--rm-text-dim); text-transform:uppercase; letter-spacing:0.03em;}
+  .rm-aplic-lista{border:1px solid var(--rm-border); border-radius:9px; background:var(--rm-panel); max-height:300px; overflow-y:auto;}
+  .rm-modal-quadrado .rm-aplic-lista{border-radius:0;}
+  .rm-aplic-item{display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-bottom:1px solid var(--rm-border); font-size:14.5px; text-transform:uppercase;}
+  .rm-aplic-item:last-child{border-bottom:none;}
+  .rm-aplic-item button{background:none; border:none; color:var(--rm-text-dim); font-size:20px; line-height:1; cursor:pointer; padding:0 4px; border-radius:0;}
+  .rm-aplic-item button:hover{color:var(--rm-red);}
+  .rm-aplic-vazio{padding:18px 14px; color:var(--rm-text-dim); font-size:14px;}
+
+  /* Página de cadastro (celular): também quadrada */
+  #rm-view-produtos-cadastro input.rm-input, #rm-view-produtos-cadastro select.rm-input,
+  #rm-view-produtos-cadastro textarea.rm-input, #rm-view-produtos-cadastro button.rm-primary,
+  #rm-view-produtos-cadastro button.rm-btn-add{border-radius:0;}
   button.rm-btn-etiqueta{
     width:100%; background:var(--rm-panel-2); color:var(--rm-text); border:1px solid var(--rm-border);
     border-radius:9px; padding:11px; font-size:13.5px; font-weight:700; font-family:var(--rm-font-body);
@@ -603,51 +694,66 @@
 
   /* Barra lateral esquerda em telas de computador */
   @media (min-width: 860px){
-    .rm-brand{ justify-content:space-between; }
-    .rm-sidebar-toggle{
-      background:transparent; border:1px solid var(--rm-border); color:var(--rm-text-dim);
-      border-radius:6px; width:24px; height:24px; font-size:15px; cursor:pointer; line-height:1;
-      flex-shrink:0; display:flex; align-items:center; justify-content:center;
-    }
-    .rm-sidebar-toggle:hover{color:var(--rm-text); border-color:var(--rm-text-dim);}
-    .rm-sidebar-expand{
-      display:none; position:fixed; left:0; top:18px; z-index:25;
-      background:var(--rm-panel); border:1px solid var(--rm-border); border-left:none;
-      border-radius:0 8px 8px 0; width:26px; height:36px; color:var(--rm-text-dim);
-      font-size:15px; cursor:pointer; align-items:center; justify-content:center;
-      box-shadow:1px 0 6px rgba(0,0,0,0.06);
-    }
-    .rm-sidebar-expand:hover{color:var(--rm-text);}
-    #rm-app.rm-sidebar-collapsed .rm-header{ display:none; }
-    #rm-app.rm-sidebar-collapsed .rm-sidebar-expand{ display:flex; }
     #rm-app{ display:flex; align-items:stretch; }
+    main{ flex:1; min-width:0; }
+
     .rm-header{
       flex-direction:column; align-items:stretch; justify-content:flex-start;
-      width:210px; flex-shrink:0; height:100vh; position:sticky; top:0;
+      width:224px; flex-shrink:0; height:100vh; position:sticky; top:0;
       border-bottom:none; border-right:1px solid var(--rm-border);
-      padding:22px 10px; gap:26px; overflow-y:auto;
+      padding:12px 0 0; gap:12px; overflow-y:auto; background:#fafafa;
     }
-    .rm-brand{ padding:0 2px; }
-    .rm-header-right{
-      flex-direction:column; align-items:stretch; width:100%; gap:22px; flex:1; min-height:0;
+    .rm-brand{ justify-content:space-between; padding:0 14px; }
+
+    /* botão que esconde a barra (quadrado cinza, como na referência) */
+    .rm-sidebar-toggle{
+      background:#e4e4e4; border:none; color:#8c8c8c; width:34px; height:28px;
+      cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:0;
     }
+    .rm-sidebar-toggle:hover{ background:#d8d8d8; color:var(--rm-text); }
+    .rm-sidebar-expand{
+      display:none; position:fixed; left:0; top:14px; z-index:25;
+      background:#e4e4e4; border:none; width:28px; height:32px; color:#8c8c8c;
+      cursor:pointer; align-items:center; justify-content:center; padding:0;
+    }
+    .rm-sidebar-expand:hover{ background:#d8d8d8; color:var(--rm-text); }
+    #rm-app.rm-sidebar-collapsed .rm-header{ display:none; }
+    #rm-app.rm-sidebar-collapsed .rm-sidebar-expand{ display:flex; }
+
+    .rm-header-right{ flex-direction:column; align-items:stretch; width:100%; gap:0; flex:1; min-height:0; }
+
+    /* itens do menu: ícone + título + descrição, separados por linhas */
     .rm-nav{
-      flex-direction:column; align-items:stretch; background:transparent; border:none; padding:0; gap:2px; overflow:visible;
-      order:1;
+      flex-direction:column; align-items:stretch; background:transparent; padding:0; gap:0;
+      overflow:visible; order:1; border:none; border-top:1px solid var(--rm-border);
     }
-    .rm-nav-btn{ justify-content:flex-start; align-items:center; padding:11px 8px; font-size:13px; gap:0; border-radius:8px; width:100%; }
-    .rm-nav-btn.active{box-shadow:inset 3px 0 0 0 var(--rm-accent); background:var(--rm-panel-2);}
-    .rm-nav-icon{ display:none; }
-    .rm-nav-sub{ display:none; }
-    .rm-nav-label{ text-transform:uppercase; letter-spacing:0.04em; font-weight:700; }
-    .rm-sync-status{ order:2; margin-top:auto; padding:0 2px; }
-    .rm-settings-wrap{ order:3; padding:0 2px; }
-    .rm-settings-btn{ width:100%; border-radius:8px; }
-    .rm-settings-menu{ top:auto; bottom:44px; left:0; right:auto; width:100%; }
-    main{ flex:1; min-width:0; }
-  }
-  @media (min-width: 1400px){
-    .rm-header{ padding:22px 14px; }
+    .rm-nav-btn{
+      justify-content:flex-start; align-items:center; gap:12px; width:100%;
+      padding:11px 14px; font-size:13px; text-align:left; white-space:normal;
+      background:transparent; color:var(--rm-text); box-shadow:none;
+      border:none; border-bottom:1px solid var(--rm-border);
+    }
+    .rm-nav-btn:hover:not(.active){ background:#f1f1f1; color:var(--rm-text); }
+    .rm-nav-icon{ display:flex; width:20px; flex-shrink:0; color:#9b9b9b; opacity:1; }
+    .rm-nav-icon svg{ width:20px; height:20px; }
+    .rm-nav-label{ font-size:15px; font-weight:500; text-transform:none; letter-spacing:0; }
+    .rm-nav-sub{ display:block; font-size:11.5px; font-weight:400; color:var(--rm-text-dim); margin-top:1px; }
+
+    /* item ativo: bloco vermelho com ponta de seta à direita */
+    .rm-nav-btn.active{
+      background:var(--rm-accent); color:var(--rm-accent-ink); box-shadow:none;
+      clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+      padding-right:20px;
+      border-bottom-color:transparent;
+    }
+    .rm-nav-btn.active .rm-nav-icon{ color:var(--rm-accent-ink); }
+    .rm-nav-btn.active .rm-nav-label{ font-weight:700; }
+    .rm-nav-btn.active .rm-nav-sub{ color:rgba(255,255,255,0.92); }
+
+    .rm-sync-status{ order:2; margin-top:auto; padding:0 14px 10px; }
+    .rm-settings-wrap{ order:3; padding:0 14px 14px; }
+    .rm-settings-btn{ width:100%; height:36px; }
+    .rm-settings-menu{ top:auto; bottom:100%; left:14px; right:14px; width:auto; margin-bottom:6px; }
   }
   @media (max-width: 640px){
     .rm-row{flex-direction:column;}
@@ -671,6 +777,16 @@
     .rm-nav-icon{ font-size:15px; }
     .rm-settings-btn{ width:32px; height:32px; flex-shrink:0; }
   }
+
+  /* ===== ESTILO QUADRADO (todo o sistema) =====
+     Deixa todos os cantos retos: painéis, botões, campos, abas, cartões, etiquetas.
+     Para voltar ao estilo arredondado, é só apagar este bloco. */
+  *, *::before, *::after{border-radius:0 !important;}
+
+  /* Botão de excluir no rodapé dos painéis quadrados */
+  .rm-qm-btn.rm-qm-btn-excluir{margin-right:auto; color:var(--rm-red); border-color:var(--rm-red);}
+  .rm-qm-btn.rm-qm-btn-excluir:hover{background:var(--rm-red); color:#fff; border-color:var(--rm-red);}
+  .rm-qm-title{overflow-wrap:anywhere;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
@@ -692,7 +808,7 @@
   <header class="rm-header">
     <div class="rm-brand">
       <div class="rm-brand-mark"></div>
-      <button class="rm-sidebar-toggle" onclick="rmToggleSidebar()" title="Esconder barra lateral">&#8249;</button>
+      <button class="rm-sidebar-toggle" onclick="rmToggleSidebar()" title="Esconder barra lateral"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></button>
     </div>
     <div class="rm-header-right">
       <div class="rm-sync-status" title="Status da sincronização entre dispositivos">
@@ -700,17 +816,17 @@
         <span id="rm-sync-label">Sincronizando...</span>
       </div>
       <nav class="rm-nav">
-        <button class="rm-nav-btn" id="rm-btn-visao-geral" onclick="rmSetSection('visao-geral')" title="Visão Geral"><span class="rm-nav-icon">&#128065;</span><span class="rm-nav-text"><span class="rm-nav-label">Visão Geral</span><span class="rm-nav-sub">Resumo do dia</span></span></button>
-        <button class="rm-nav-btn" id="rm-btn-pdv" onclick="rmSetSection('pdv')" title="PDV"><span class="rm-nav-icon">&#128421;</span><span class="rm-nav-text"><span class="rm-nav-label">PDV</span><span class="rm-nav-sub">Ponto de venda</span></span></button>
-        <button class="rm-nav-btn" id="rm-btn-oficina" onclick="rmSetSection('oficina')" title="Oficina"><span class="rm-nav-icon">&#128295;</span><span class="rm-nav-text"><span class="rm-nav-label">Oficina</span><span class="rm-nav-sub">Recepção, painel, mecânicos</span></span></button>
-        <button class="rm-nav-btn" id="rm-btn-clientes" onclick="rmSetSection('clientes')" title="Clientes"><span class="rm-nav-icon">&#128100;</span><span class="rm-nav-text"><span class="rm-nav-label">Clientes</span><span class="rm-nav-sub">Cadastro de clientes</span></span></button>
-        <button class="rm-nav-btn" id="rm-btn-produtos" onclick="rmSetSection('produtos')" title="Produtos"><span class="rm-nav-icon">&#128230;</span><span class="rm-nav-text"><span class="rm-nav-label">Produtos</span><span class="rm-nav-sub">Estoque e peças</span></span></button>
-        <button class="rm-nav-btn" id="rm-btn-financeiro" onclick="rmSetSection('financeiro')" title="Financeiro"><span class="rm-nav-icon">&#128176;</span><span class="rm-nav-text"><span class="rm-nav-label">Financeiro</span><span class="rm-nav-sub">Vendas, contas, caixa</span></span></button>
-        <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon">&#128202;</span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
-        <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon">&#9881;</span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-visao-geral" onclick="rmSetSection('visao-geral')" title="Visão Geral"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Visão Geral</span><span class="rm-nav-sub">Resumo do dia</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-pdv" onclick="rmSetSection('pdv')" title="PDV"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">PDV</span><span class="rm-nav-sub">Ponto de venda</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-oficina" onclick="rmSetSection('oficina')" title="Oficina"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Oficina</span><span class="rm-nav-sub">Motos e mecânicos</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-clientes" onclick="rmSetSection('clientes')" title="Clientes"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Clientes</span><span class="rm-nav-sub">Cadastro de clientes</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-produtos" onclick="rmSetSection('produtos')" title="Produtos"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Produtos</span><span class="rm-nav-sub">Estoque e peças</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-financeiro" onclick="rmSetSection('financeiro')" title="Financeiro"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Financeiro</span><span class="rm-nav-sub">Vendas, contas, caixa</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
       <div class="rm-settings-wrap">
-        <button class="rm-settings-btn" onclick="rmToggleSettingsMenu(event)" title="Backup dos dados">&#9881;</button>
+        <button class="rm-settings-btn" onclick="rmToggleSettingsMenu(event)" title="Backup dos dados"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></button>
         <div class="rm-settings-menu" id="rm-settings-menu">
           <button class="rm-settings-item" onclick="rmExportarBackup(); rmToggleSettingsMenu();">Exportar backup</button>
           <button class="rm-settings-item" onclick="document.getElementById('rm-import-file').click(); rmToggleSettingsMenu();">Importar backup</button>
@@ -729,7 +845,7 @@
     </div>
   </header>
 
-  <button class="rm-sidebar-expand" id="rm-sidebar-expand-btn" onclick="rmToggleSidebar()" title="Mostrar barra lateral">&#8250;</button>
+  <button class="rm-sidebar-expand" id="rm-sidebar-expand-btn" onclick="rmToggleSidebar()" title="Mostrar barra lateral"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></button>
 
   <main>
     <div id="rm-section-visao-geral" class="rm-section">
@@ -863,7 +979,7 @@
         <button class="rm-subnav-btn" id="rm-btn-dashboard" onclick="rmSetView('dashboard')"><span class="rm-subnav-icon">&#9638;</span><span>Painel</span></button>
         <button class="rm-subnav-btn" id="rm-btn-mecanicos" onclick="rmSetView('mecanicos')"><span class="rm-subnav-icon">&#128295;</span><span>Mecânicos</span></button>
         <button class="rm-subnav-btn" id="rm-btn-lista" onclick="rmSetView('lista')"><span class="rm-subnav-icon">&#9776;</span><span>Lista</span></button>
-        <button class="rm-subnav-btn" id="rm-btn-avisos" onclick="rmSetView('avisos')"><span class="rm-subnav-icon">&#128226;</span><span>Aviso</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-avisos" onclick="rmSetView('avisos')"><span class="rm-subnav-icon rm-subnav-icon-badge-wrap">&#128226;<span class="rm-badge" id="rm-badge-avisos" style="display:none;">0</span></span><span>Aviso</span></button>
       </div>
 
     <section id="rm-view-reception" class="rm-view">
@@ -1018,7 +1134,7 @@
         <table class="rm-table">
           <colgroup>
             <col style="width:110px"><col style="width:70px"><col style="width:130px"><col style="width:110px">
-            <col style="width:150px"><col style="width:170px"><col style="width:130px"><col>
+            <col style="width:150px"><col style="width:170px"><col style="width:130px"><col style="width:100px"><col>
           </colgroup>
           <thead>
             <tr>
@@ -1029,6 +1145,7 @@
               <th class="rm-th-sortable" data-key="moto" data-label="Moto" onclick="rmListaSortClick('moto')">Moto</th>
               <th class="rm-th-sortable" data-key="cliente" data-label="Cliente" onclick="rmListaSortClick('cliente')">Cliente</th>
               <th class="rm-th-sortable" data-key="status" data-label="Status" onclick="rmListaSortClick('status')">Status</th>
+              <th class="rm-th-sortable" data-key="valor" data-label="Valor" onclick="rmListaSortClick('valor')">Valor</th>
               <th class="rm-th-sortable" data-key="problemas" data-label="Problemas" onclick="rmListaSortClick('problemas')">Problemas</th>
             </tr>
           </thead>
@@ -1039,20 +1156,29 @@
     </section>
 
     <section id="rm-view-avisos" class="rm-view">
-      <div class="rm-form-wrap" style="max-width:640px;">
-        <div class="rm-fieldgroup">
-          <span class="rm-fieldgroup-label">Novo aviso</span>
-          <label class="rm-label">Mensagem</label>
-          <textarea class="rm-input" id="rm-aviso-texto" autocapitalize="characters"></textarea>
-          <label class="rm-label">Para quem</label>
-          <select class="rm-input" id="rm-aviso-destino"></select>
-          <button class="rm-primary" style="margin-top:8px;" onclick="rmEnviarAviso()">Enviar aviso</button>
-        </div>
-      </div>
+      <div class="rm-avisos-grid">
+        <div>
+          <div class="rm-fieldgroup">
+            <span class="rm-fieldgroup-label">Novo aviso</span>
+            <label class="rm-label">Mensagem</label>
+            <textarea class="rm-input" id="rm-aviso-texto" autocapitalize="characters"></textarea>
+            <label class="rm-label">Para quem</label>
+            <select class="rm-input" id="rm-aviso-destino"></select>
+            <button class="rm-primary" style="margin-top:8px;" onclick="rmEnviarAviso()">Enviar aviso</button>
+          </div>
 
-      <div class="rm-fieldgroup" style="margin-top:8px;">
-        <span class="rm-fieldgroup-label">Avisos ativos</span>
-        <div id="rm-avisos-lista"></div>
+          <div class="rm-fieldgroup">
+            <span class="rm-fieldgroup-label">Avisos ativos</span>
+            <div id="rm-avisos-lista"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="rm-fieldgroup">
+            <span class="rm-fieldgroup-label">Histórico</span>
+            <div id="rm-avisos-historico" class="rm-avisos-historico-scroll"></div>
+          </div>
+        </div>
       </div>
     </section>
     </div>
@@ -1103,7 +1229,7 @@
 
         <div class="rm-table-wrap">
           <table class="rm-table" id="rm-produtos-table">
-            <colgroup id="rm-produtos-colgroup"><col><col style="width:110px"><col style="width:110px"><col style="width:120px"><col style="width:120px"><col style="width:110px"><col style="width:90px"><col style="width:90px"></colgroup>
+            <colgroup id="rm-produtos-colgroup"><col><col style="width:110px"><col style="width:110px"><col style="width:120px"><col style="width:145px"><col style="width:120px"><col style="width:90px"><col style="width:90px"></colgroup>
             <thead>
               <tr>
                 <th class="rm-th-sortable" data-key="nome" data-label="Nome" onclick="rmProdutosSortClick('nome')">Nome<span class="rm-col-resize-handle"></span></th>
@@ -1351,126 +1477,235 @@ function rmCliqueCadastroProduto(){
   }
 }
 
+let rmNovoProdutoId = null;
+let rmNovoProdutoFotoUrl = null;
+
+function rmEscapeHtml(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// A aplicação continua guardada como texto separado por vírgula ("TITAN 150, CG 160"),
+// então a busca e os produtos antigos seguem funcionando.
+function rmAplicacaoParse(texto){
+  const vistos = new Set();
+  const lista = [];
+  String(texto || '').split(/[,;]+/).forEach(t => {
+    const v = t.trim().toUpperCase();
+    if(v && !vistos.has(v)){ vistos.add(v); lista.push(v); }
+  });
+  return lista;
+}
+
+function rmAplicacaoListaHtml(lista, onclickRemover){
+  if(lista.length === 0) return '<div class="rm-aplic-vazio">Nenhuma moto adicionada ainda</div>';
+  return lista.map((moto, i) => `
+    <div class="rm-aplic-item">
+      <span>${rmEscapeHtml(moto)}</span>
+      <button type="button" onclick="${onclickRemover(i)}" title="Remover">&times;</button>
+    </div>
+  `).join('');
+}
+
+function rmAplicacaoTituloTexto(n){
+  return n === 0 ? '' : (n === 1 ? '1 moto na lista' : n + ' motos na lista');
+}
+
+let rmNovoProdutoAplicacao = [];
+
+function rmRenderAplicacaoNovo(){
+  const lista = document.getElementById('rm-qm-aplic-lista');
+  if(!lista) return;
+  lista.innerHTML = rmAplicacaoListaHtml(rmNovoProdutoAplicacao, i => `rmRemoverAplicacaoNovo(${i})`);
+  const titulo = document.getElementById('rm-qm-aplic-titulo');
+  if(titulo) titulo.textContent = rmAplicacaoTituloTexto(rmNovoProdutoAplicacao.length);
+}
+
+function rmAdicionarAplicacaoNovo(){
+  const input = document.getElementById('rm-qm-aplic-input');
+  if(!input) return;
+  rmAplicacaoParse(input.value).forEach(m => {
+    if(!rmNovoProdutoAplicacao.includes(m)) rmNovoProdutoAplicacao.push(m);
+  });
+  input.value = '';
+  rmRenderAplicacaoNovo();
+  input.focus();
+}
+
+function rmRemoverAplicacaoNovo(i){
+  rmNovoProdutoAplicacao.splice(i, 1);
+  rmRenderAplicacaoNovo();
+}
+
+function rmRenderAplicacaoEdicao(id){
+  const p = rmLoadProdutos().find(x => x.id === id);
+  if(!p) return;
+  const lista = rmAplicacaoParse(p.aplicacao);
+  const el = document.getElementById('rm-modal-aplic-lista');
+  if(el) el.innerHTML = rmAplicacaoListaHtml(lista, i => `rmRemoverAplicacaoEdicao('${id}', ${i})`);
+  const titulo = document.getElementById('rm-modal-aplic-titulo');
+  if(titulo) titulo.textContent = rmAplicacaoTituloTexto(lista.length);
+}
+
+function rmAdicionarAplicacaoEdicao(id){
+  const p = rmLoadProdutos().find(x => x.id === id);
+  const input = document.getElementById('rm-modal-aplic-input');
+  if(!p || !input) return;
+  const lista = rmAplicacaoParse(p.aplicacao);
+  rmAplicacaoParse(input.value).forEach(m => { if(!lista.includes(m)) lista.push(m); });
+  input.value = '';
+  rmUpdateProduto(id, 'aplicacao', lista.join(', '));
+  rmRenderAplicacaoEdicao(id);
+  input.focus();
+}
+
+function rmRemoverAplicacaoEdicao(id, i){
+  const p = rmLoadProdutos().find(x => x.id === id);
+  if(!p) return;
+  const lista = rmAplicacaoParse(p.aplicacao);
+  lista.splice(i, 1);
+  rmUpdateProduto(id, 'aplicacao', lista.join(', '));
+  rmRenderAplicacaoEdicao(id);
+}
+
+
 function rmAbrirCadastroProdutoRapido(){
+  rmNovoProdutoId = 'p' + Date.now();
+  rmNovoProdutoFotoUrl = null;
+  rmNovoProdutoAplicacao = [];
+
+  const grupos = [...new Set(rmLoadProdutos().map(p => (p.categoria||'').trim()).filter(Boolean))]
+    .sort((a,b) => a.localeCompare(b, 'pt-BR'));
+  const gruposOptions = grupos.map(g => `<option value="${g.replace(/"/g,'&quot;')}">`).join('');
+  const unidadesOptions = ['UN','PAR','L','KG','CX','M'].map((u,i) => `<option value="${u}"${i===0?' selected':''}>${u}</option>`).join('');
+
+  const campo = (span, rotulo, conteudo, extra) =>
+    `<div class="rm-qm-field c${span}${extra||''}"><label class="rm-qm-label">${rotulo}</label>${conteudo}</div>`;
+
   const modal = document.getElementById('rm-modal');
-  modal.classList.add('rm-modal-large');
+  modal.classList.remove('rm-modal-large');
+  modal.classList.add('rm-modal-quadrado');
   modal.innerHTML = `
-    <div class="rm-modal-header">
-      <div><div class="rm-modal-title">Novo produto</div></div>
-      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
+    <div class="rm-qm-header">
+      <div class="rm-qm-title">Novo produto</div>
+      <button class="rm-qm-close" onclick="rmCloseModal()" title="Fechar">&times;</button>
     </div>
 
-    <div class="rm-modal-body">
-    <div class="rm-modal-col">
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Nome</span>
-      <input class="rm-input" id="rm-pqf-nome" autocapitalize="characters">
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Código / SKU</span>
-      <input class="rm-input" id="rm-pqf-codigo">
-      <label class="rm-label">Código de barras / EAN</label>
-      <input class="rm-input" id="rm-pqf-codigo-barras" inputmode="numeric">
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Marca</span>
-      <input class="rm-input" id="rm-pqf-marca" autocapitalize="characters">
-      <label class="rm-label">Aplicação (modelos que serve)</label>
-      <input class="rm-input" id="rm-pqf-aplicacao" autocapitalize="characters">
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Categoria</span>
-      <input class="rm-input" id="rm-pqf-categoria" autocapitalize="characters">
-      <label class="rm-label">Subcategoria</label>
-      <input class="rm-input" id="rm-pqf-subcategoria" autocapitalize="characters">
-      <label class="rm-label">NCM</label>
-      <input class="rm-input" id="rm-pqf-ncm" inputmode="numeric">
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Fornecedor</span>
-      <input class="rm-input" id="rm-pqf-fornecedor" autocapitalize="characters">
-      <label class="rm-label">Código no fornecedor</label>
-      <input class="rm-input" id="rm-pqf-fornecedor-codigo">
-    </div>
-    </div>
+    <div class="rm-qm-body">
+      <div class="rm-qm-tabs">
+        <button class="rm-qm-tab active" id="rm-qm-tab-basico" onclick="rmSetTabNovoProduto('basico')">Informações básicas</button>
+        <button class="rm-qm-tab" id="rm-qm-tab-aplicacao" onclick="rmSetTabNovoProduto('aplicacao')">Aplicação</button>
+        <button class="rm-qm-tab" id="rm-qm-tab-estoque" onclick="rmSetTabNovoProduto('estoque')">Estoque</button>
+        <button class="rm-qm-tab" id="rm-qm-tab-extra" onclick="rmSetTabNovoProduto('extra')">Fornecedor e medidas</button>
+        <button class="rm-qm-tab" id="rm-qm-tab-nfe" onclick="rmSetTabNovoProduto('nfe')">Informações para NF-e</button>
+        <button class="rm-qm-tab" id="rm-qm-tab-fotos" onclick="rmSetTabNovoProduto('fotos')">Fotos</button>
+      </div>
 
-    <div class="rm-modal-col">
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Preço de custo</span>
-      <input class="rm-input" id="rm-pqf-preco-custo" inputmode="decimal" oninput="rmAtualizarMargens('rm-pqf')">
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Preço consumidor</span>
-      <input class="rm-input" id="rm-pqf-preco-consumidor" inputmode="decimal" oninput="rmAtualizarMargens('rm-pqf')">
-      <span class="rm-margem-texto" id="rm-pqf-margem-consumidor"></span>
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Preço parceiro</span>
-      <input class="rm-input" id="rm-pqf-preco-parceiro" inputmode="decimal" oninput="rmAtualizarMargens('rm-pqf')">
-      <span class="rm-margem-texto" id="rm-pqf-margem-parceiro"></span>
-    </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Estoque</span>
-      <div class="rm-row">
-        <div>
-          <label class="rm-label">Atual</label>
-          <input class="rm-input" id="rm-pqf-estoque-atual" inputmode="decimal" value="0">
-        </div>
-        <div>
-          <label class="rm-label">Mínimo</label>
-          <input class="rm-input" id="rm-pqf-estoque-minimo" inputmode="decimal">
-        </div>
-        <div>
-          <label class="rm-label">Máximo</label>
-          <input class="rm-input" id="rm-pqf-estoque-maximo" inputmode="decimal">
+      <div class="rm-qm-panel" id="rm-qm-panel-basico">
+        <div class="rm-qm-grid">
+          ${campo(4, 'Código / SKU', '<input class="rm-input" id="rm-pqf-codigo">')}
+          ${campo(4, 'Localização', '<input class="rm-input" id="rm-pqf-localizacao" autocapitalize="characters">')}
+          ${campo(4, 'Código de barras / EAN', '<input class="rm-input" id="rm-pqf-codigo-barras" inputmode="numeric">')}
+
+          ${campo(8, 'Nome', '<input class="rm-input" id="rm-pqf-nome" autocapitalize="characters">', ' rm-qm-req')}
+          ${campo(4, 'Marca (fabricante)', '<input class="rm-input" id="rm-pqf-marca" autocapitalize="characters">')}
+
+          ${campo(4, 'Custo', '<input class="rm-input rm-qm-num" id="rm-pqf-preco-custo" inputmode="decimal" oninput="rmAtualizarMargens(\'rm-pqf\')">')}
+          ${campo(4, 'Preço consumidor', '<input class="rm-input rm-qm-num" id="rm-pqf-preco-consumidor" inputmode="decimal" oninput="rmAtualizarMargens(\'rm-pqf\')"><span class="rm-margem-texto" id="rm-pqf-margem-consumidor"></span>')}
+          ${campo(4, 'Preço parceiro', '<input class="rm-input rm-qm-num" id="rm-pqf-preco-parceiro" inputmode="decimal" oninput="rmAtualizarMargens(\'rm-pqf\')"><span class="rm-margem-texto" id="rm-pqf-margem-parceiro"></span>')}
+
+          ${campo(12, 'Observação', '<textarea class="rm-input" id="rm-pqf-observacao" autocapitalize="characters"></textarea>')}
         </div>
       </div>
-      <div class="rm-row">
-        <div>
-          <label class="rm-label">Unidade</label>
-          <select class="rm-input" id="rm-pqf-unidade">
-            <option value="UN" selected>UN</option>
-            <option value="PAR">PAR</option>
-            <option value="L">L (litro)</option>
-            <option value="KG">KG</option>
-            <option value="CX">CX (caixa)</option>
-            <option value="M">M (metro)</option>
-          </select>
+
+      <div class="rm-qm-panel" id="rm-qm-panel-aplicacao" style="display:none;">
+        <div class="rm-aplic-add">
+          <div class="rm-qm-field">
+            <label class="rm-qm-label">Moto / modelo</label>
+            <input class="rm-input" id="rm-qm-aplic-input" autocapitalize="characters" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarAplicacaoNovo();}">
+          </div>
+          <button type="button" class="rm-qm-btn rm-qm-btn-salvar" onclick="rmAdicionarAplicacaoNovo()">Adicionar</button>
         </div>
-        <div>
-          <label class="rm-label">Localização</label>
-          <input class="rm-input" id="rm-pqf-localizacao" autocapitalize="characters">
+        <div class="rm-aplic-titulo" id="rm-qm-aplic-titulo"></div>
+        <div class="rm-aplic-lista" id="rm-qm-aplic-lista"></div>
+      </div>
+
+      <div class="rm-qm-panel" id="rm-qm-panel-estoque" style="display:none;">
+        <div class="rm-qm-grid">
+          ${campo(8, 'Grupo', `<input class="rm-input" id="rm-pqf-categoria" list="rm-pqf-grupos-lista" autocomplete="off" autocapitalize="characters"><datalist id="rm-pqf-grupos-lista">${gruposOptions}</datalist>`)}
+          ${campo(4, 'Curva', '<select class="rm-input" id="rm-pqf-curva"><option value="" selected>Sem curva</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select>')}
+
+          ${campo(3, 'Unidade', `<select class="rm-input" id="rm-pqf-unidade">${unidadesOptions}</select>`)}
+          ${campo(3, 'Estoque mínimo', '<input class="rm-input rm-qm-num" id="rm-pqf-estoque-minimo" inputmode="decimal">')}
+          ${campo(3, 'Estoque máximo', '<input class="rm-input rm-qm-num" id="rm-pqf-estoque-maximo" inputmode="decimal">')}
+          ${campo(3, 'Estoque atual', '<input class="rm-input rm-qm-num" id="rm-pqf-estoque-atual" inputmode="decimal" value="0">')}
+        </div>
+      </div>
+
+      <div class="rm-qm-panel" id="rm-qm-panel-extra" style="display:none;">
+        <div class="rm-qm-grid">
+          ${campo(6, 'Fornecedor', '<input class="rm-input" id="rm-pqf-fornecedor" autocapitalize="characters">')}
+          ${campo(6, 'Código no fornecedor', '<input class="rm-input" id="rm-pqf-fornecedor-codigo">')}
+          ${campo(3, 'Peso bruto (kg)', '<input class="rm-input rm-qm-num" id="rm-pqf-peso" inputmode="decimal">')}
+          ${campo(3, 'Peso líquido (kg)', '<input class="rm-input rm-qm-num" id="rm-pqf-peso-liquido" inputmode="decimal">')}
+          ${campo(2, 'Compr. (cm)', '<input class="rm-input rm-qm-num" id="rm-pqf-comprimento" inputmode="decimal">')}
+          ${campo(2, 'Larg. (cm)', '<input class="rm-input rm-qm-num" id="rm-pqf-largura" inputmode="decimal">')}
+          ${campo(2, 'Alt. (cm)', '<input class="rm-input rm-qm-num" id="rm-pqf-altura" inputmode="decimal">')}
+        </div>
+      </div>
+
+      <div class="rm-qm-panel" id="rm-qm-panel-nfe" style="display:none;">
+        <div class="rm-qm-grid">
+          ${campo(4, 'NCM', '<input class="rm-input" id="rm-pqf-ncm" inputmode="numeric">')}
+          ${campo(4, 'CEST', '<input class="rm-input" id="rm-pqf-cest" inputmode="numeric">')}
+        </div>
+      </div>
+
+      <div class="rm-qm-panel" id="rm-qm-panel-fotos" style="display:none;">
+        <div class="rm-qm-foto-box">
+          <img id="rm-qm-foto-preview" class="rm-qm-foto-img" style="display:none;">
+          <div id="rm-qm-foto-vazio" class="rm-qm-foto-vazio">Nenhuma foto adicionada</div>
+          <input type="file" accept="image/*" id="rm-qm-foto-input" style="display:none;" onchange="rmUploadFotoNovoProduto(this)">
+          <button type="button" class="rm-qm-btn" id="rm-qm-foto-btn" onclick="document.getElementById('rm-qm-foto-input').click()">Adicionar foto</button>
         </div>
       </div>
     </div>
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Peso e dimensões</span>
-      <div class="rm-row">
-        <div>
-          <label class="rm-label">Peso (kg)</label>
-          <input class="rm-input" id="rm-pqf-peso" inputmode="decimal">
-        </div>
-        <div>
-          <label class="rm-label">Compr. (cm)</label>
-          <input class="rm-input" id="rm-pqf-comprimento" inputmode="decimal">
-        </div>
-        <div>
-          <label class="rm-label">Larg. (cm)</label>
-          <input class="rm-input" id="rm-pqf-largura" inputmode="decimal">
-        </div>
-        <div>
-          <label class="rm-label">Alt. (cm)</label>
-          <input class="rm-input" id="rm-pqf-altura" inputmode="decimal">
-        </div>
-      </div>
-    </div>
-    </div>
-    </div>
 
-    <button class="rm-primary" onclick="rmSalvarProdutoRapido()">Cadastrar produto</button>
+    <div class="rm-qm-footer">
+      <button class="rm-qm-btn" onclick="rmCloseModal()">Cancelar</button>
+      <button class="rm-qm-btn rm-qm-btn-salvar" onclick="rmSalvarProdutoRapido()">Cadastrar produto</button>
+    </div>
   `;
+  rmRenderAplicacaoNovo();
   document.getElementById('rm-modal-backdrop').classList.add('show');
   setTimeout(()=>{ const f = document.getElementById('rm-pqf-nome'); if(f) f.focus(); }, 150);
+}
+
+function rmSetTabNovoProduto(tab){
+  ['basico','aplicacao','estoque','extra','nfe','fotos'].forEach(t=>{
+    const painel = document.getElementById('rm-qm-panel-'+t);
+    const btn = document.getElementById('rm-qm-tab-'+t);
+    if(painel) painel.style.display = (t===tab) ? '' : 'none';
+    if(btn) btn.classList.toggle('active', t===tab);
+  });
+}
+
+async function rmUploadFotoNovoProduto(input){
+  const file = input.files[0];
+  if(!file) return;
+  rmShowToast('Enviando foto...');
+  const url = await rmUploadFotoProduto(file, rmNovoProdutoId);
+  if(!url){
+    alert('Não foi possível enviar a foto. Verifique a conexão e tente de novo.');
+    return;
+  }
+  rmNovoProdutoFotoUrl = url;
+  const img = document.getElementById('rm-qm-foto-preview');
+  if(img){ img.src = url; img.style.display = 'block'; }
+  const vazio = document.getElementById('rm-qm-foto-vazio');
+  if(vazio) vazio.style.display = 'none';
+  const btn = document.getElementById('rm-qm-foto-btn');
+  if(btn) btn.textContent = 'Trocar foto';
+  rmShowToast('Foto adicionada');
 }
 
 let rmImportacaoPendente = null;
@@ -1534,6 +1769,9 @@ function rmProcessarArquivoCsv(input){
         fornecedor: existente ? existente.fornecedor : '',
         fornecedorCodigo: existente ? existente.fornecedorCodigo : '',
         estoqueMaximo: existente ? (existente.estoqueMaximo||0) : 0,
+        aplicacao: existente ? existente.aplicacao : '',
+        fotoUrl: existente ? existente.fotoUrl : null,
+        curva: existente ? existente.curva : '',
         comprimentoCm: existente ? existente.comprimentoCm : null,
         larguraCm: existente ? existente.larguraCm : null,
         alturaCm: existente ? existente.alturaCm : null,
@@ -1622,19 +1860,22 @@ async function rmConfirmarImportacaoCsv(){
 function rmSalvarProdutoRapido(){
   const nome = document.getElementById('rm-pqf-nome').value.trim().toUpperCase();
   if(!nome){
+    rmSetTabNovoProduto('basico');
     alert('Preencha ao menos o nome do produto.');
+    document.getElementById('rm-pqf-nome').focus();
     return;
   }
+  rmAdicionarAplicacaoNovo();
   const produto = {
-    id: 'p' + Date.now(),
+    id: rmNovoProdutoId || ('p' + Date.now()),
     nome,
     codigo: document.getElementById('rm-pqf-codigo').value.trim().toUpperCase(),
     codigoBarras: document.getElementById('rm-pqf-codigo-barras').value.trim(),
     marca: document.getElementById('rm-pqf-marca').value.trim().toUpperCase(),
-    aplicacao: document.getElementById('rm-pqf-aplicacao').value.trim().toUpperCase(),
+    aplicacao: rmNovoProdutoAplicacao.join(', '),
     categoria: document.getElementById('rm-pqf-categoria').value.trim().toUpperCase(),
-    subcategoria: document.getElementById('rm-pqf-subcategoria').value.trim().toUpperCase(),
     ncm: document.getElementById('rm-pqf-ncm').value.trim(),
+    cest: document.getElementById('rm-pqf-cest').value.trim(),
     localizacao: document.getElementById('rm-pqf-localizacao').value.trim().toUpperCase(),
     fornecedor: document.getElementById('rm-pqf-fornecedor').value.trim().toUpperCase(),
     fornecedorCodigo: document.getElementById('rm-pqf-fornecedor-codigo').value.trim().toUpperCase(),
@@ -1645,10 +1886,14 @@ function rmSalvarProdutoRapido(){
     estoqueMinimo: rmParseMoeda(document.getElementById('rm-pqf-estoque-minimo').value),
     estoqueMaximo: rmParseMoeda(document.getElementById('rm-pqf-estoque-maximo').value),
     unidade: document.getElementById('rm-pqf-unidade').value,
+    curva: document.getElementById('rm-pqf-curva').value,
     pesoKg: rmParseMoeda(document.getElementById('rm-pqf-peso').value) || null,
+    pesoLiquidoKg: rmParseMoeda(document.getElementById('rm-pqf-peso-liquido').value) || null,
     comprimentoCm: rmParseMoeda(document.getElementById('rm-pqf-comprimento').value) || null,
     larguraCm: rmParseMoeda(document.getElementById('rm-pqf-largura').value) || null,
     alturaCm: rmParseMoeda(document.getElementById('rm-pqf-altura').value) || null,
+    observacao: document.getElementById('rm-pqf-observacao').value.trim().toUpperCase(),
+    fotoUrl: rmNovoProdutoFotoUrl || null,
     ativo: true,
     criadoEm: new Date().toISOString()
   };
@@ -1657,6 +1902,9 @@ function rmSalvarProdutoRapido(){
   rmSaveProdutos(list);
   rmDbUpsertProduto(produto);
 
+  rmNovoProdutoId = null;
+  rmNovoProdutoFotoUrl = null;
+  rmNovoProdutoAplicacao = [];
   rmShowToast(nome + ' cadastrado com sucesso');
   rmCloseModal();
   rmRenderProdutos();
@@ -1905,21 +2153,24 @@ function rmAbrirModalProduto(id){
   if(!p) return;
 
   const modal = document.getElementById('rm-modal');
-  modal.classList.add('rm-modal-large');
+  modal.classList.remove('rm-modal-large');
+  modal.classList.add('rm-modal-quadrado');
   modal.innerHTML = `
-    <div class="rm-modal-header">
+    <div class="rm-qm-header">
       <div>
-        <div class="rm-modal-title">${p.nome||''}</div>
+        <div class="rm-qm-title">${p.nome||''}</div>
         <div class="rm-modal-sub">${p.codigo ? p.codigo : 'Sem código'}</div>
       </div>
-      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
+      <button class="rm-qm-close" onclick="rmCloseModal()" title="Fechar">&times;</button>
     </div>
 
-    <div class="rm-prodtab-bar">
-      <button class="rm-pdv-modo-btn active" id="rm-prodtab-btn-cadastro" onclick="rmSetTabModalProduto('cadastro')">Cadastro</button>
-      <button class="rm-pdv-modo-btn" id="rm-prodtab-btn-estoque" onclick="rmSetTabModalProduto('estoque')">Estoque</button>
-      <button class="rm-pdv-modo-btn" id="rm-prodtab-btn-nfe" onclick="rmSetTabModalProduto('nfe')">NFE</button>
-      <button class="rm-pdv-modo-btn" id="rm-prodtab-btn-fotos" onclick="rmSetTabModalProduto('fotos')">Fotos</button>
+    <div class="rm-qm-body">
+    <div class="rm-qm-tabs">
+      <button class="rm-qm-tab active" id="rm-prodtab-btn-cadastro" onclick="rmSetTabModalProduto('cadastro')">Cadastro</button>
+      <button class="rm-qm-tab" id="rm-prodtab-btn-aplicacao" onclick="rmSetTabModalProduto('aplicacao')">Aplicação</button>
+      <button class="rm-qm-tab" id="rm-prodtab-btn-estoque" onclick="rmSetTabModalProduto('estoque')">Estoque</button>
+      <button class="rm-qm-tab" id="rm-prodtab-btn-nfe" onclick="rmSetTabModalProduto('nfe')">NFE</button>
+      <button class="rm-qm-tab" id="rm-prodtab-btn-fotos" onclick="rmSetTabModalProduto('fotos')">Fotos</button>
     </div>
 
     <div id="rm-prodtab-cadastro" class="rm-prodtab-content">
@@ -1936,10 +2187,6 @@ function rmAbrirModalProduto(id){
       <div class="rm-modal-section">
         <span class="rm-modal-section-label">Marca (fabricante da peça)</span>
         <input class="rm-input" value="${p.marca||''}" onchange="rmUpdateProduto('${p.id}','marca',this.value.trim().toUpperCase())">
-      </div>
-      <div class="rm-modal-section">
-        <span class="rm-modal-section-label">Aplicação (modelos que essa peça serve)</span>
-        <input class="rm-input" value="${p.aplicacao||''}" onchange="rmUpdateProduto('${p.id}','aplicacao',this.value.trim().toUpperCase())">
       </div>
       <div class="rm-modal-section">
         <span class="rm-modal-section-label">Grupo (categoria)</span>
@@ -1983,6 +2230,20 @@ function rmAbrirModalProduto(id){
       </div>
     </div>
 
+    <div id="rm-prodtab-aplicacao" class="rm-prodtab-content" style="display:none;">
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Motos que essa peça serve</span>
+        <div class="rm-aplic-add">
+          <div>
+            <input class="rm-input" id="rm-modal-aplic-input" autocapitalize="characters" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarAplicacaoEdicao('${p.id}');}">
+          </div>
+          <button type="button" class="rm-btn-add" onclick="rmAdicionarAplicacaoEdicao('${p.id}')">Adicionar</button>
+        </div>
+        <div class="rm-aplic-titulo" id="rm-modal-aplic-titulo"></div>
+        <div class="rm-aplic-lista" id="rm-modal-aplic-lista"></div>
+      </div>
+    </div>
+
     <div id="rm-prodtab-estoque" class="rm-prodtab-content" style="display:none;">
       <div class="rm-modal-section">
         <span class="rm-modal-section-label">Estoque</span>
@@ -2006,6 +2267,13 @@ function rmAbrirModalProduto(id){
         <select class="rm-input" onchange="rmUpdateProduto('${p.id}','unidade',this.value)">
           ${!['UN','PAR','L','KG','CX','M'].includes(p.unidade)&&p.unidade?`<option value="${p.unidade}" selected>${p.unidade}</option>`:''}
           ${['UN','PAR','L','KG','CX','M'].map(u=>`<option value="${u}"${p.unidade===u?' selected':''}>${u}</option>`).join('')}
+        </select>
+      </div>
+      <div class="rm-modal-section">
+        <span class="rm-modal-section-label">Curva</span>
+        <select class="rm-input" onchange="rmUpdateProduto('${p.id}','curva',this.value)">
+          <option value=""${!p.curva?' selected':''}>Sem curva</option>
+          ${['A','B','C'].map(k=>`<option value="${k}"${p.curva===k?' selected':''}>${k}</option>`).join('')}
         </select>
       </div>
       <div class="rm-modal-section">
@@ -2067,14 +2335,20 @@ function rmAbrirModalProduto(id){
       </div>
     </div>
 
-    <button class="rm-btn-excluir" onclick="rmExcluirProduto('${p.id}')">Excluir este produto</button>
+    </div>
+
+    <div class="rm-qm-footer">
+      <button class="rm-qm-btn rm-qm-btn-excluir" onclick="rmExcluirProduto('${p.id}')">Excluir este produto</button>
+      <button class="rm-qm-btn" onclick="rmCloseModal()">Fechar</button>
+    </div>
   `;
   document.getElementById('rm-modal-backdrop').classList.add('show');
   rmAtualizarMargemModalProduto(p.id);
+  rmRenderAplicacaoEdicao(p.id);
 }
 
 function rmSetTabModalProduto(tab){
-  ['cadastro','estoque','nfe','fotos'].forEach(t=>{
+  ['cadastro','aplicacao','estoque','nfe','fotos'].forEach(t=>{
     const content = document.getElementById('rm-prodtab-'+t);
     const btn = document.getElementById('rm-prodtab-btn-'+t);
     if(content) content.style.display = (t===tab) ? '' : 'none';
@@ -2913,7 +3187,11 @@ function rmFromDbRow(row){
     clienteId: row.cliente_id,
     dataManual: row.data_manual,
     fotoUrl: row.foto_url,
-    pago: row.pago
+    pago: row.pago,
+    pecasUsadas: row.pecas_usadas || [],
+    pecasDescontoValor: row.pecas_desconto_valor || 0,
+    pecasDescontoTipo: row.pecas_desconto_tipo || 'valor',
+    maoDeObra: row.mao_de_obra || 0
   };
 }
 
@@ -2939,6 +3217,10 @@ function rmToDbRow(r){
     data_manual: r.dataManual || null,
     foto_url: r.fotoUrl || null,
     pago: !!r.pago,
+    pecas_usadas: r.pecasUsadas || [],
+    pecas_desconto_valor: r.pecasDescontoValor || 0,
+    pecas_desconto_tipo: r.pecasDescontoTipo || 'valor',
+    mao_de_obra: r.maoDeObra || 0,
     updated_at: new Date().toISOString()
   };
 }
@@ -3021,6 +3303,7 @@ async function rmSyncFromSupabase(){
   if(document.getElementById('rm-view-produtos-estoque') && document.getElementById('rm-view-produtos-estoque').classList.contains('active')){
     rmRenderProdutos();
   }
+  rmAtualizarBadgeAvisos();
   if(document.getElementById('rm-view-avisos') && document.getElementById('rm-view-avisos').classList.contains('active')){
     rmRenderAvisosLista();
   }
@@ -3172,10 +3455,14 @@ function rmLoadAvisos(){
 function rmSaveAvisos(list){ localStorage.setItem(RM_AVISOS_KEY, JSON.stringify(list)); }
 
 function rmFromDbRowAviso(row){
-  return { id: row.id, texto: row.texto, mecanico: row.mecanico, criadoEm: row.criado_em };
+  return { id: row.id, texto: row.texto, mecanico: row.mecanico, criadoEm: row.criado_em, ativo: row.ativo !== false, removidoEm: row.removido_em };
 }
 function rmToDbRowAviso(a){
-  return { id: a.id, texto: a.texto || null, mecanico: a.mecanico || null, criado_em: a.criadoEm };
+  return { id: a.id, texto: a.texto || null, mecanico: a.mecanico || null, criado_em: a.criadoEm, ativo: a.ativo !== false, removido_em: a.removidoEm || null };
+}
+
+function rmAvisosAtivos(){
+  return rmLoadAvisos().filter(a => a.ativo !== false);
 }
 
 async function rmDbUpsertAviso(aviso){
@@ -3202,6 +3489,7 @@ function rmFromDbRowProduto(row){
     codigoBarras: row.codigo_barras,
     marca: row.marca,
     aplicacao: row.aplicacao,
+    curva: row.curva || '',
     categoria: row.categoria,
     subcategoria: row.subcategoria,
     ncm: row.ncm,
@@ -3237,6 +3525,7 @@ function rmToDbRowProduto(p){
     codigo_barras: p.codigoBarras || null,
     marca: p.marca || null,
     aplicacao: p.aplicacao || null,
+    curva: p.curva || null,
     categoria: p.categoria || null,
     subcategoria: p.subcategoria || null,
     ncm: p.ncm || null,
@@ -3421,7 +3710,7 @@ function rmVerificarModoBancada(){
 function rmRenderBancadaAvisos(){
   const container = document.getElementById('rm-bancada-avisos');
   if(!container || !rmBancadaMecanico) return;
-  const avisos = rmLoadAvisos()
+  const avisos = rmAvisosAtivos()
     .filter(a => !a.mecanico || a.mecanico === rmBancadaMecanico)
     .sort((a,b) => new Date(b.criadoEm) - new Date(a.criadoEm));
 
@@ -3480,6 +3769,14 @@ function rmCopiarLinkBancada(nome){
   }
 }
 
+function rmAtualizarBadgeAvisos(){
+  const badge = document.getElementById('rm-badge-avisos');
+  if(!badge) return;
+  const total = rmAvisosAtivos().length;
+  badge.textContent = total;
+  badge.style.display = total > 0 ? 'block' : 'none';
+}
+
 function rmRenderAvisosForm(){
   const select = document.getElementById('rm-aviso-destino');
   if(!select) return;
@@ -3507,34 +3804,64 @@ function rmEnviarAviso(){
   document.getElementById('rm-aviso-destino').value = '';
   rmShowToast('Aviso enviado');
   rmRenderAvisosLista();
+  rmAtualizarBadgeAvisos();
 }
 
 function rmRenderAvisosLista(){
   const container = document.getElementById('rm-avisos-lista');
+  if(container){
+    const list = rmAvisosAtivos().sort((a,b) => new Date(b.criadoEm) - new Date(a.criadoEm));
+
+    if(list.length === 0){
+      container.innerHTML = '<div class="rm-lista-empty">Nenhum aviso ativo</div>';
+    } else {
+      container.innerHTML = list.map(a => `
+        <div class="rm-aviso-item">
+          <div>
+            <div class="rm-aviso-item-texto">${a.texto}</div>
+            <span class="rm-aviso-item-destino">${a.mecanico ? 'Só ' + a.mecanico : 'Todos os mecânicos'}</span>
+          </div>
+          <button class="rm-aviso-item-remover" onclick="rmEncerrarAviso('${a.id}')" title="Remover aviso">&times;</button>
+        </div>
+      `).join('');
+    }
+  }
+  rmRenderAvisosHistorico();
+}
+
+function rmRenderAvisosHistorico(){
+  const container = document.getElementById('rm-avisos-historico');
   if(!container) return;
-  const list = rmLoadAvisos().slice().sort((a,b) => new Date(b.criadoEm) - new Date(a.criadoEm));
+  const list = rmLoadAvisos()
+    .filter(a => a.ativo === false)
+    .sort((a,b) => new Date(b.removidoEm || b.criadoEm) - new Date(a.removidoEm || a.criadoEm));
 
   if(list.length === 0){
-    container.innerHTML = '<div class="rm-lista-empty">Nenhum aviso ativo</div>';
+    container.innerHTML = '<div class="rm-lista-empty">Nenhum aviso no histórico ainda</div>';
     return;
   }
 
   container.innerHTML = list.map(a => `
-    <div class="rm-aviso-item">
+    <div class="rm-aviso-item rm-aviso-item-historico">
       <div>
         <div class="rm-aviso-item-texto">${a.texto}</div>
         <span class="rm-aviso-item-destino">${a.mecanico ? 'Só ' + a.mecanico : 'Todos os mecânicos'}</span>
+        <div class="rm-aviso-item-meta">Enviado ${rmFormatData(a.criadoEm)}${a.removidoEm ? ' · Removido ' + rmFormatData(a.removidoEm) : ''}</div>
       </div>
-      <button class="rm-aviso-item-remover" onclick="rmExcluirAviso('${a.id}')" title="Remover aviso">&times;</button>
     </div>
   `).join('');
 }
 
-function rmExcluirAviso(id){
-  const list = rmLoadAvisos().filter(a => a.id !== id);
+function rmEncerrarAviso(id){
+  const list = rmLoadAvisos();
+  const aviso = list.find(a => a.id === id);
+  if(!aviso) return;
+  aviso.ativo = false;
+  aviso.removidoEm = new Date().toISOString();
   rmSaveAvisos(list);
-  rmDbDeleteAviso(id);
+  rmDbUpsertAviso(aviso);
   rmRenderAvisosLista();
+  rmAtualizarBadgeAvisos();
 }
 
 function rmMecanicoOptionsHtml(selected){
@@ -3619,6 +3946,11 @@ document.addEventListener('click', function(e){
   const pdvProdLista = document.getElementById('rm-pdv-produto-lista');
   if(pdvProdWrap && pdvProdLista && !pdvProdWrap.contains(e.target)){
     pdvProdLista.classList.remove('show');
+  }
+  const pecaWrap = document.getElementById('rm-modal-peca-wrap');
+  const pecaLista = document.getElementById('rm-modal-peca-lista');
+  if(pecaWrap && pecaLista && !pecaWrap.contains(e.target)){
+    pecaLista.classList.remove('show');
   }
 });
 
@@ -4211,6 +4543,7 @@ function rmListaSortValue(r, key){
     }
     case 'problemas': return (r.problemas||[]).length;
     case 'pago': return r.pago ? 1 : 0;
+    case 'valor': return rmTotalPecasUsadas(r);
     default: return new Date(r.entrada).getTime();
   }
 }
@@ -4500,6 +4833,7 @@ function rmRenderLista(){
     const parado = rmTempoParado(r);
     const flags = [r.entrega?'Entrega':'', r.buscar?'Buscar':''].filter(Boolean).join(' · ');
     const tr = document.createElement('tr');
+    if(r.pago) tr.classList.add('rm-lista-row-pago');
     tr.innerHTML = `
       <td data-label="OS">
         <div class="rm-lista-code">${r.codigoApp||''} ${r.fotoUrl?`<span class="rm-lista-foto-icon" title="Essa moto tem foto" onmouseenter="rmShowFotoPreview(event, '${r.fotoUrl}')" onmouseleave="rmHideFotoPreview()">&#128247;</span>`:''}</div>
@@ -4516,6 +4850,7 @@ function rmRenderLista(){
       <td data-label="Moto" title="${r.modelo}">${r.modelo}</td>
       <td data-label="Cliente" title="${r.nome||''}">${r.nome || '—'}</td>
       <td data-label="Status"><span class="rm-lista-status-pill" style="background:${statusInfo.color}">${statusInfo.label}</span></td>
+      <td data-label="Valor">${rmTotalPecasUsadas(r) > 0 ? rmFormatMoeda(rmTotalPecasUsadas(r)) : '—'}</td>
       <td data-label="Problemas" title="${r.problemas && r.problemas.length ? rmProblemasResumo(r.problemas) : ''}"><span class="rm-lista-problemas">${r.problemas && r.problemas.length ? rmProblemasResumo(r.problemas) : '—'}</span></td>
     `;
     tr.onclick = () => rmOpenModal(r.id, true);
@@ -4791,11 +5126,189 @@ async function rmDbDeleteRecepcao(id){
 
 let rmActiveModalLarge = false;
 
+const RM_MODAL_DETALHES_OCULTO_KEY = 'radicalMotos_modalDetalhesOculto_v1';
+
+function rmToggleDetalhesModal(){
+  const body = document.getElementById('rm-modal-body-detalhes');
+  const btn = document.getElementById('rm-modal-toggle-detalhes');
+  const oculto = body.style.display === 'none';
+  body.style.display = oculto ? '' : 'none';
+  btn.innerHTML = oculto ? '&#9662; Ocultar detalhes da moto' : '&#9656; Mostrar detalhes da moto';
+  localStorage.setItem(RM_MODAL_DETALHES_OCULTO_KEY, oculto ? 'false' : 'true');
+}
+
+let rmModalPecaProdutoSelecionadoId = null;
+
+function rmSubtotalPecasUsadas(r){
+  return (r.pecasUsadas||[]).reduce((soma, item) => soma + (item.subtotal||0), 0);
+}
+
+function rmCalcularDescontoPecasValor(r, subtotalGeral){
+  const valor = r.pecasDescontoValor || 0;
+  if(valor <= 0) return 0;
+  return r.pecasDescontoTipo === 'percentual' ? subtotalGeral * (valor / 100) : valor;
+}
+
+function rmTotalPecasUsadas(r){
+  const subtotalGeral = rmSubtotalPecasUsadas(r) + (r.maoDeObra || 0);
+  const desconto = rmCalcularDescontoPecasValor(r, subtotalGeral);
+  return Math.max(0, subtotalGeral - desconto);
+}
+
+function rmAtualizarTotalPecasModal(item){
+  document.getElementById('rm-modal-pecas-lista').innerHTML = rmPecasUsadasHtml(item);
+  document.getElementById('rm-modal-pecas-total').lastElementChild.textContent = rmFormatMoeda(rmSubtotalPecasUsadas(item));
+  document.getElementById('rm-modal-pecas-total-final-valor').textContent = rmFormatMoeda(rmTotalPecasUsadas(item));
+}
+
+function rmAtualizarMecanicoPecas(id, mecanico){
+  rmUpdateField(id, 'mecanico', mecanico);
+  const outroSelect = document.getElementById('rm-modal-mecanico');
+  if(outroSelect) outroSelect.value = mecanico;
+}
+
+function rmAtualizarMaoDeObra(id){
+  const list = rmLoad();
+  const item = list.find(r=>r.id===id);
+  if(!item) return;
+  item.maoDeObra = rmParseMoeda(document.getElementById('rm-modal-mao-de-obra').value);
+  rmSave(list);
+  rmDbUpsertRecepcao(item);
+  document.getElementById('rm-modal-pecas-total-final-valor').textContent = rmFormatMoeda(rmTotalPecasUsadas(item));
+}
+
+function rmAtualizarDescontoPecas(id){
+  const list = rmLoad();
+  const item = list.find(r=>r.id===id);
+  if(!item) return;
+  item.pecasDescontoValor = rmParseMoeda(document.getElementById('rm-modal-pecas-desconto-valor').value);
+  item.pecasDescontoTipo = document.getElementById('rm-modal-pecas-desconto-tipo').value;
+  rmSave(list);
+  rmDbUpsertRecepcao(item);
+  document.getElementById('rm-modal-pecas-total-final-valor').textContent = rmFormatMoeda(rmTotalPecasUsadas(item));
+}
+
+function rmPecasUsadasHtml(r){
+  const pecas = r.pecasUsadas || [];
+  if(pecas.length === 0) return '<div class="rm-problema-empty">Nenhuma peça adicionada ainda</div>';
+  return pecas.map((item, i) => `
+    <div class="rm-pdv-cart-item">
+      <div>
+        <div class="rm-pdv-cart-item-nome">${item.nome}${item.codigo?` <span class="rm-autocomplete-apelido">(${item.codigo})</span>`:''}${item.localizacao?` · ${item.localizacao}`:''}</div>
+        <div class="rm-pdv-cart-item-detalhe">${item.quantidade} × ${rmFormatMoeda(item.precoUnit)}</div>
+      </div>
+      <div class="rm-pdv-cart-item-right">
+        <span class="rm-pdv-cart-item-subtotal">${rmFormatMoeda(item.subtotal)}</span>
+        <button class="rm-pdv-cart-item-remove" onclick="rmRemoverPecaMoto('${r.id}', ${i})" title="Remover">&times;</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function rmBuscarProdutoMoto(query){
+  const lista = document.getElementById('rm-modal-peca-lista');
+  rmModalPecaProdutoSelecionadoId = null;
+  const q = (query||'').trim().toLowerCase();
+  if(!q){ lista.classList.remove('show'); return; }
+  let produtos = rmLoadProdutos().filter(p => p.ativo !== false);
+  produtos = produtos.filter(p =>
+    rmBuscaInteligente(p.nome, q) ||
+    rmBuscaInteligente(p.aplicacao, q) ||
+    (p.codigo||'').toLowerCase().includes(q) ||
+    (p.codigoBarras||'').toLowerCase().includes(q)
+  ).slice(0, 8);
+
+  if(produtos.length === 0){
+    lista.innerHTML = '<div class="rm-autocomplete-empty">Nenhum produto encontrado</div>';
+  } else {
+    lista.innerHTML = produtos.map(p => `
+      <div class="rm-autocomplete-item" onclick="rmEscolherProdutoMoto('${p.id}')">
+        <div class="rm-autocomplete-nome">${p.nome}${p.codigo?` <span class="rm-autocomplete-apelido">(${p.codigo})</span>`:''}${p.localizacao?` · ${p.localizacao}`:''}</div>
+        <div class="rm-autocomplete-tel">${rmFormatMoeda(p.precoConsumidor)} · estoque: ${p.estoqueAtual}${p.unidade?' '+p.unidade:''}</div>
+      </div>
+    `).join('');
+  }
+  lista.classList.add('show');
+}
+
+function rmEscolherProdutoMoto(produtoId){
+  const p = rmLoadProdutos().find(x=>x.id===produtoId);
+  if(!p) return;
+  rmModalPecaProdutoSelecionadoId = p.id;
+  document.getElementById('rm-modal-peca-nome').value = p.nome || '';
+  document.getElementById('rm-modal-peca-lista').classList.remove('show');
+  document.getElementById('rm-modal-peca-qtd').focus();
+  document.getElementById('rm-modal-peca-qtd').select();
+}
+
+function rmAdicionarPecaMoto(id){
+  if(!rmModalPecaProdutoSelecionadoId){
+    alert('Busque e escolha um produto da lista primeiro.');
+    return;
+  }
+  const qtd = rmParseMoeda(document.getElementById('rm-modal-peca-qtd').value) || 1;
+  const produtos = rmLoadProdutos();
+  const p = produtos.find(x=>x.id===rmModalPecaProdutoSelecionadoId);
+  if(!p) return;
+
+  const list = rmLoad();
+  const item = list.find(r=>r.id===id);
+  if(!item) return;
+  if(!item.pecasUsadas) item.pecasUsadas = [];
+  item.pecasUsadas.push({
+    produtoId: p.id,
+    nome: p.nome,
+    codigo: p.codigo || '',
+    localizacao: p.localizacao || '',
+    quantidade: qtd,
+    precoUnit: p.precoConsumidor || 0,
+    subtotal: (p.precoConsumidor || 0) * qtd
+  });
+  rmSave(list);
+  rmDbUpsertRecepcao(item);
+
+  p.estoqueAtual = (p.estoqueAtual || 0) - qtd;
+  rmSaveProdutos(produtos);
+  rmDbUpsertProduto(p);
+
+  document.getElementById('rm-modal-peca-nome').value = '';
+  document.getElementById('rm-modal-peca-qtd').value = '1';
+  rmModalPecaProdutoSelecionadoId = null;
+
+  rmAtualizarTotalPecasModal(item);
+  document.getElementById('rm-modal-peca-nome').focus();
+}
+
+function rmRemoverPecaMoto(id, index){
+  const list = rmLoad();
+  const item = list.find(r=>r.id===id);
+  if(!item || !item.pecasUsadas || !item.pecasUsadas[index]) return;
+  const peca = item.pecasUsadas[index];
+
+  item.pecasUsadas.splice(index, 1);
+  rmSave(list);
+  rmDbUpsertRecepcao(item);
+
+  if(peca.produtoId){
+    const produtos = rmLoadProdutos();
+    const p = produtos.find(x=>x.id===peca.produtoId);
+    if(p){
+      p.estoqueAtual = (p.estoqueAtual || 0) + peca.quantidade;
+      rmSaveProdutos(produtos);
+      rmDbUpsertProduto(p);
+    }
+  }
+
+  rmAtualizarTotalPecasModal(item);
+}
+
 function rmOpenModal(id, large){
   rmActiveModalId = id;
   rmActiveModalLarge = !!large;
   const r = rmLoad().find(x=>x.id===id);
   if(!r) return;
+
+  const detalhesOculto = localStorage.getItem(RM_MODAL_DETALHES_OCULTO_KEY) === 'true';
 
   const statusPills = RM_STATUS_ORDER.map(key=>{
     const isCurrent = r.status===key;
@@ -4825,7 +5338,9 @@ function rmOpenModal(id, large){
       </div>
     </div>
 
-    <div class="rm-modal-body">
+    <button class="rm-btn-add" id="rm-modal-toggle-detalhes" style="width:100%; margin-bottom:14px;" onclick="rmToggleDetalhesModal()">${detalhesOculto?'&#9656; Mostrar detalhes da moto':'&#9662; Ocultar detalhes da moto'}</button>
+
+    <div class="rm-modal-body" id="rm-modal-body-detalhes" style="${detalhesOculto?'display:none;':''}">
     <div class="rm-modal-col">
     <div class="rm-modal-section">
       <span class="rm-modal-section-label">Status</span>
@@ -4879,7 +5394,7 @@ function rmOpenModal(id, large){
     <div class="rm-modal-col">
     <div class="rm-modal-section">
       <span class="rm-modal-section-label">Mecânico responsável</span>
-      <select class="rm-input" id="rm-modal-mecanico" onchange="rmUpdateField('${r.id}','mecanico',this.value)">
+      <select class="rm-input" id="rm-modal-mecanico" onchange="rmUpdateField('${r.id}','mecanico',this.value); const o=document.getElementById('rm-modal-mecanico-pecas'); if(o) o.value=this.value;">
         ${rmMecanicoOptionsHtml(r.mecanico||'')}
       </select>
     </div>
@@ -4931,6 +5446,54 @@ function rmOpenModal(id, large){
     </div>
     </div>
 
+    <div class="rm-modal-section" style="margin-top:6px;">
+      <span class="rm-modal-section-label">Peças utilizadas nesta moto</span>
+      <div class="rm-pdv-add-row" style="margin-bottom:12px;">
+        <div class="rm-pdv-add-field rm-pdv-add-nome">
+          <label class="rm-pdv-mini-label">Produto</label>
+          <div class="rm-autocomplete-wrap" id="rm-modal-peca-wrap">
+            <input class="rm-input" id="rm-modal-peca-nome" autocapitalize="characters" autocomplete="off" oninput="rmBuscarProdutoMoto(this.value)" onfocus="rmBuscarProdutoMoto(this.value)">
+            <div class="rm-autocomplete-list" id="rm-modal-peca-lista"></div>
+          </div>
+        </div>
+        <div class="rm-pdv-add-field rm-pdv-add-qtd">
+          <label class="rm-pdv-mini-label">Qtd</label>
+          <input class="rm-input" id="rm-modal-peca-qtd" value="1" inputmode="numeric">
+        </div>
+        <button class="rm-pdv-add-btn" onclick="rmAdicionarPecaMoto('${r.id}')" title="Adicionar">&#43;</button>
+      </div>
+      <div id="rm-modal-pecas-lista" class="rm-pdv-cart-list">${rmPecasUsadasHtml(r)}</div>
+      <div id="rm-modal-pecas-total" style="display:flex; justify-content:space-between; font-weight:700; font-size:15px; padding:12px 2px 0;">
+        <span>Total de peças</span>
+        <span>${rmFormatMoeda(rmSubtotalPecasUsadas(r))}</span>
+      </div>
+
+      <div class="rm-row" style="margin-top:10px; margin-bottom:0;">
+        <div>
+          <label class="rm-label">Mecânico</label>
+          <select class="rm-input" id="rm-modal-mecanico-pecas" onchange="rmAtualizarMecanicoPecas('${r.id}', this.value)">
+            ${rmMecanicoOptionsHtml(r.mecanico||'')}
+          </select>
+        </div>
+        <div>
+          <label class="rm-label">Mão de obra</label>
+          <input class="rm-input" id="rm-modal-mao-de-obra" value="${r.maoDeObra?String(r.maoDeObra).replace('.',','):''}" inputmode="decimal" onchange="rmAtualizarMaoDeObra('${r.id}')">
+        </div>
+      </div>
+
+      <div class="rm-pdv-desconto-inline" style="margin-top:0;">
+        <input class="rm-input" id="rm-modal-pecas-desconto-valor" value="${r.pecasDescontoValor?String(r.pecasDescontoValor).replace('.',','):''}" inputmode="decimal" onchange="rmAtualizarDescontoPecas('${r.id}')" placeholder="Aplicar desconto">
+        <select class="rm-input" id="rm-modal-pecas-desconto-tipo" onchange="rmAtualizarDescontoPecas('${r.id}')">
+          <option value="valor"${r.pecasDescontoTipo!=='percentual'?' selected':''}>R$</option>
+          <option value="percentual"${r.pecasDescontoTipo==='percentual'?' selected':''}>%</option>
+        </select>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-weight:700; font-size:16px; padding:10px 2px 0; border-top:1px solid var(--rm-border); margin-top:10px; color:var(--rm-accent);">
+        <span>Total do serviço</span>
+        <span id="rm-modal-pecas-total-final-valor">${rmFormatMoeda(rmTotalPecasUsadas(r))}</span>
+      </div>
+    </div>
+
     <button class="rm-btn-excluir" onclick="rmExcluirRecepcao('${r.id}')">Excluir esta moto</button>
   `;
 
@@ -4939,6 +5502,7 @@ function rmOpenModal(id, large){
 
 function rmCloseModal(){
   document.getElementById('rm-modal-backdrop').classList.remove('show');
+  document.getElementById('rm-modal').classList.remove('rm-modal-quadrado');
   rmActiveModalId = null;
   rmRenderActiveBoard();
 }
