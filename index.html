@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<script>try{ if(localStorage.getItem("radicalMotos_tema")==="dark") document.documentElement.dataset.tema="dark"; }catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <title>Recepção de Motos — Radical Motos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1190,6 +1191,64 @@
     .rm-os-tlabel{grid-column:1 / -1;}
     .rm-os-lanc{width:100%;}
   }
+
+  /* ===================== MODO ESCURO ===================== */
+  html[data-tema="dark"]{
+    --rm-bg:#121418; --rm-panel:#1b1e24; --rm-panel-2:#252931; --rm-border:#363b45;
+    --rm-text:#e6e7ea; --rm-text-dim:#9aa1ac;
+    --rm-shadow:0 1px 2px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.35); --rm-shadow-sm:0 1px 3px rgba(0,0,0,0.4);
+    color-scheme:dark;
+  }
+  html[data-tema="dark"] input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),
+  html[data-tema="dark"] select, html[data-tema="dark"] textarea{background-color:#22262d; color:var(--rm-text); border-color:var(--rm-border);}
+  html[data-tema="dark"] input::placeholder, html[data-tema="dark"] textarea::placeholder{color:#7d8490;}
+  html[data-tema="dark"] .rm-os-ro, html[data-tema="dark"] .rm-px-card input.rm-px-ro{background-color:#1a1d22 !important;}
+  html[data-tema="dark"] .rm-nav-btn:hover:not(.active){background:#262a31;}
+  html[data-tema="dark"] .rm-px-card{background:var(--rm-panel);}
+  html[data-tema="dark"] .rm-px-tabela tr.rm-px-l:hover{background:#2a2e36;}
+  html[data-tema="dark"] .rm-px-tabela tr.rm-px-l-novo, html[data-tema="dark"] .rm-px-tabela tr.rm-px-l-edit{background:#2f2a1c;}
+  html[data-tema="dark"] .rm-os-item{background:#30343c;}
+  html[data-tema="dark"] .rm-os-lapis{background:#2a2e35; color:var(--rm-text); border-color:var(--rm-border);}
+  html[data-tema="dark"] .rm-os-box{border-color:var(--rm-border);}
+  html[data-tema="dark"] .rm-os-box-head{background:var(--rm-panel-2); color:var(--rm-text); border-color:var(--rm-border);}
+  html[data-tema="dark"] .rm-os-item .rm-autocomplete-list, html[data-tema="dark"] .rm-autocomplete-list{background:var(--rm-panel); color:var(--rm-text);}
+  html[data-tema="dark"] .rm-os-item .rm-autocomplete-item{color:var(--rm-text); border-color:var(--rm-border);}
+  html[data-tema="dark"] .rm-os-item .rm-autocomplete-item:hover, html[data-tema="dark"] .rm-autocomplete-item:hover{background:var(--rm-panel-2);}
+  html[data-tema="dark"] .rm-os-finalizada{background:#1d3324; color:#8fd19e; border-color:#2c5a3a;}
+  html[data-tema="dark"] .rm-osl-wrap{background:var(--rm-panel); border-color:var(--rm-border);}
+  html[data-tema="dark"] table.rm-osl{color:var(--rm-text);}
+  html[data-tema="dark"] .rm-osl th{background:var(--rm-panel); border-color:var(--rm-border);}
+  html[data-tema="dark"] .rm-osl td{border-color:var(--rm-border);}
+  html[data-tema="dark"] .rm-osl tbody tr:hover{background:#242830;}
+  html[data-tema="dark"] .rm-osl-sel{color:var(--rm-text);}
+  html[data-tema="dark"] .rm-osl-svg circle[stroke="#222"]{stroke:#d5d8de;}
+  html[data-tema="dark"] .rm-osl-naopago{background:#3a1f1e; border-color:#6b2f2b; color:#f19a93;}
+  html[data-tema="dark"] .rm-osl-at-pronta{background:#1d3324; border-color:#2c5a3a; color:#8fd19e;}
+  html[data-tema="dark"] .rm-fab{background:#2a2e35; color:#fff; border-color:#444;}
+  html[data-tema="dark"] .rm-pe2-aviso, html[data-tema="dark"] .rm-pe-soma-erro, html[data-tema="dark"] .rm-pdv-edicao-banner{background:#3a321a; color:#f0d27a; border-color:#5c4d1f;}
+  html[data-tema="dark"] .rm-pe-soma{background:#1d3324; color:#8fd19e;}
+  html[data-tema="dark"] .rm-av-linha.rm-av-quita{background:#1d3324; border-color:#2c5a3a;}
+  html[data-tema="dark"] .rm-av-linha.rm-av-parcial{background:#3a321a; border-color:#5c4d1f;}
+  html[data-tema="dark"] .rm-prom-sit-aberta{background:#1b2c40; color:#8ab8ec;}
+  html[data-tema="dark"] .rm-prom-sit-vencida{background:#3a1f1e; color:#f19a93;}
+  html[data-tema="dark"] .rm-prom-sit-paga{background:#1d3324; color:#8fd19e;}
+  html[data-tema="dark"] .rm-prom-sit-parcial{background:#3a321a; color:#f0d27a;}
+  html[data-tema="dark"] .rm-ped-livre{background:#1b2c40; color:#8ab8ec;}
+  html[data-tema="dark"] .rm-tl-divida .rm-tl-dot{background:#3a1f1e;}
+  html[data-tema="dark"] .rm-tl-pagamento .rm-tl-dot{background:#1d3324;}
+  html[data-tema="dark"] .rm-tl-avista .rm-tl-dot{background:#1b2c40;}
+  html[data-tema="dark"] .rm-tl-divida .rm-tl-valor{color:#f19a93;}
+  html[data-tema="dark"] .rm-tl-pagamento .rm-tl-valor{color:#8fd19e;}
+  html[data-tema="dark"] .rm-problema-check{background:var(--rm-panel-2);}
+  html[data-tema="dark"] img{opacity:0.95;}
+  html[data-tema="dark"] .rm-header{background:#16191e !important; border-color:var(--rm-border);}
+  html[data-tema="dark"] .rm-sidebar-toggle, html[data-tema="dark"] .rm-sidebar-expand{background:#2a2e35; color:#a9afb9;}
+  html[data-tema="dark"] .rm-sidebar-toggle:hover, html[data-tema="dark"] .rm-sidebar-expand:hover{background:#343944; color:var(--rm-text);}
+  html[data-tema="dark"] .rm-nav{background:transparent;}
+  html[data-tema="dark"] .rm-nav-btn{color:var(--rm-text);}
+  html[data-tema="dark"] .rm-nav-btn:hover:not(.active){background:#242830 !important;}
+  html[data-tema="dark"] .rm-nav-icon{color:#8d939d;}
+  html[data-tema="dark"] .rm-nav-btn.active .rm-nav-icon{color:var(--rm-accent-ink);}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -4756,6 +4815,13 @@ setTimeout(rmSyncEmpresa, 2500);
 
 const RM_CFG_CAMPOS = [['nome','Nome fantasia'],['razao','Razão social'],['doc','CNPJ'],['ie','Inscrição estadual'],
   ['endereco','Endereço'],['cidade','Bairro, cidade - UF'],['cep','CEP'],['telefone','Telefone'],['whatsapp','WhatsApp'],['pix','Chave PIX (sai no comprovante)'],['rodape','Mensagem no rodapé (opcional)']];
+function rmSetTema(t){
+  if(t === 'dark') document.documentElement.dataset.tema = 'dark';
+  else delete document.documentElement.dataset.tema;
+  localStorage.setItem('radicalMotos_tema', t);
+  rmRenderConfigEmpresa();
+}
+
 function rmRenderConfigEmpresa(){
   const box = document.getElementById('rm-config-empresa'); if(!box) return;
   const e = rmEmpresa();
@@ -4771,6 +4837,13 @@ function rmRenderConfigEmpresa(){
       </div>
       <button class="rm-primary" style="width:auto; padding:10px 24px;" onclick="rmSalvarConfigEmpresa()">Salvar</button>
       <button class="rm-pe2-btn" style="margin-left:8px;" onclick="rmImprimirTesteA4()">Imprimir página de teste</button>
+    </div>
+    <div class="rm-cfg-card" style="margin-top:14px;">
+      <div class="rm-cfg-tit">Aparência neste computador</div>
+      <div style="display:flex; gap:8px;">
+        <button class="rm-pe2-btn${document.documentElement.dataset.tema!=='dark'?' rm-sel-ativo':''}" onclick="rmSetTema('claro')">&#9728; Claro</button>
+        <button class="rm-pe2-btn${document.documentElement.dataset.tema==='dark'?' rm-sel-ativo':''}" onclick="rmSetTema('dark')">&#9790; Escuro</button>
+      </div>
     </div>
     <div class="rm-cfg-card" style="margin-top:14px;">
       <div class="rm-cfg-tit">Impressão neste computador</div>
