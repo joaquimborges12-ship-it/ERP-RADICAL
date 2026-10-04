@@ -940,8 +940,111 @@
   .rm-prom-sit-parcial{background:#fff3cd; color:#7a5b00;}
   .rm-prom-pg-hist{margin-top:8px; border-top:1px dashed var(--rm-border); padding-top:6px; font-size:13px;}
   .rm-prom-pg-hist div{display:flex; justify-content:space-between; padding:2px 0; color:var(--rm-text-dim);}
+  .rm-pe-parc{border:1px solid var(--rm-border); padding:10px 12px; margin-bottom:8px;}
+  .rm-pe-linha{display:flex; align-items:flex-end; gap:10px; flex-wrap:wrap;}
+  .rm-pe-linha label{display:flex; flex-direction:column; gap:3px; font-size:11px; color:var(--rm-text-dim); flex:1; min-width:110px;}
+  .rm-pe-linha input, .rm-pe-linha select{padding:7px 8px; font-size:14px; border:1px solid var(--rm-border); border-radius:0; background:#fff; color:#333; font-family:inherit;}
+  .rm-pe-n{width:38px; padding-bottom:8px; font-size:14px;}
+  .rm-pe-pg{margin-top:8px; padding-left:12px; border-left:3px solid #c3e6cb;}
+  .rm-pe-pg .rm-pe-n{font-size:11px; font-weight:600; color:#3c763d;}
+  .rm-pe-resta{font-size:12px; color:var(--rm-text-dim); padding-bottom:9px; min-width:90px;}
+  .rm-pe-x{background:none; border:1px solid var(--rm-border); color:#b3261e; width:32px; height:32px; font-size:18px; cursor:pointer; border-radius:0;}
+  .rm-pe-add{background:none; border:1px dashed var(--rm-border); color:var(--rm-text); padding:5px 10px; font-size:12px; cursor:pointer; margin-top:8px; border-radius:0;}
+  .rm-pe-soma{font-size:13px; padding:8px 10px; background:#dff0d8; color:#3c763d; margin-bottom:12px;}
+  .rm-pe-soma-erro{background:#fff3cd; color:#7a5b00;}
+  .rm-pe2-resumo{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:10px;}
+  .rm-pe2-resumo div{border:1px solid var(--rm-border); padding:8px 10px; display:flex; flex-direction:column; gap:2px;}
+  .rm-pe2-resumo span, .rm-pe2-mini span{font-size:11px; color:var(--rm-text-dim); text-transform:uppercase; letter-spacing:0.03em;}
+  .rm-pe2-resumo b{font-size:16px;}
+  .rm-pe2-aviso{background:#fff3cd; color:#7a5b00; padding:8px 10px; font-size:13px; margin-bottom:10px;}
+  .rm-pe2-grid{display:grid; grid-template-columns:260px 1fr; gap:16px; align-items:start; margin-top:6px;}
+  .rm-pe2-lista{display:flex; flex-direction:column; gap:6px; max-height:52vh; overflow-y:auto;}
+  .rm-pe2-item{text-align:left; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); padding:9px 11px; cursor:pointer; border-radius:0; font-family:inherit;}
+  .rm-pe2-item.active{border-color:var(--rm-accent); box-shadow:inset 3px 0 0 var(--rm-accent);}
+  .rm-pe2-item-top, .rm-pe2-item-bot{display:flex; justify-content:space-between; align-items:center; gap:8px;}
+  .rm-pe2-item-top{font-size:14px;}
+  .rm-pe2-item-bot{font-size:12px; color:var(--rm-text-dim); margin-top:4px;}
+  .rm-pe2-det{border:1px solid var(--rm-border); padding:14px 16px; min-height:220px;}
+  .rm-pe2-det-tit{font-size:17px; font-weight:700; margin-bottom:10px;}
+  .rm-pe2-det-tit small{font-weight:400; color:var(--rm-text-dim); font-size:13px;}
+  .rm-pe2-campos{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .rm-pe2-campos label{display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--rm-text-dim);}
+  .rm-pe2-campos input, .rm-pe2-tab input, .rm-pe2-tab select{padding:8px 10px; font-size:14px; border:1px solid var(--rm-border); border-radius:0; background:#fff; color:#333; font-family:inherit; width:100%; box-sizing:border-box;}
+  .rm-pe2-mini{display:flex; gap:24px; margin:12px 0 4px;}
+  .rm-pe2-mini div{display:flex; flex-direction:column;}
+  .rm-pe2-mini b{font-size:16px;}
+  .rm-pe2-sec{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--rm-text-dim); margin:14px 0 6px; padding-top:10px; border-top:1px solid var(--rm-border);}
+  .rm-pe2-tab{width:100%; border-collapse:collapse;}
+  .rm-pe2-tab th{font-size:11px; font-weight:600; color:var(--rm-text-dim); text-align:left; padding:0 4px 4px;}
+  .rm-pe2-tab td{padding:3px 4px;}
+  .rm-pe2-tab td:nth-child(1){width:44%;} .rm-pe2-tab td:nth-child(3){width:24%;} .rm-pe2-tab td:nth-child(4){width:40px;}
+  .rm-pe2-del{background:none; border:1px solid var(--rm-border); width:34px; height:34px; cursor:pointer; border-radius:0;}
+  .rm-pe2-vazio{font-size:13px; color:var(--rm-text-dim); padding:10px 0;}
+  .rm-pe2-acoes{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;}
+  .rm-pe2-btn{border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); padding:8px 14px; font-size:13px; cursor:pointer; border-radius:0; font-family:inherit;}
+  .rm-pe2-btn:hover{background:var(--rm-panel-2);}
+  .rm-pe2-btn-del{color:#b3261e;}
+  .rm-pe2-rodape{display:flex; justify-content:flex-end; gap:10px; margin-top:16px; padding-top:14px; border-top:1px solid var(--rm-border);}
+  @media (max-width:760px){
+    .rm-pe2-resumo{grid-template-columns:1fr 1fr;}
+    .rm-pe2-grid{grid-template-columns:1fr;}
+    .rm-pe2-lista{max-height:none;}
+  }
+  .rm-prom-acoes{display:flex; justify-content:flex-end; align-items:center; gap:6px; flex-wrap:nowrap;}
+  .rm-prom-acoes .rm-prom-btn{height:30px; display:inline-flex; align-items:center; justify-content:center; line-height:1; white-space:nowrap;}
   .rm-prom-btn{border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); padding:5px 10px; font-size:12px; cursor:pointer; border-radius:0;}
   .rm-prom-btn-ok{background:#5cb85c; border-color:#5cb85c; color:#fff; font-weight:600;}
+  .rm-cli-periodo{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:-8px 0 14px; font-size:13px; color:var(--rm-text-dim);}
+  .rm-cli-periodo select, .rm-cli-periodo input{padding:6px 8px; font-size:13px; border:1px solid var(--rm-border); border-radius:0; background:#fff; color:#333; font-family:inherit;}
+  .rm-cli-periodo label{display:flex; align-items:center; gap:6px;}
+  .rm-av-btn{width:100%; background:#5cb85c; color:#fff; border:none; border-radius:0; padding:12px; font-size:15px; font-weight:700; cursor:pointer; margin:2px 0 12px;}
+  .rm-av-btn:hover{background:#4cae4c;}
+  .rm-av-lista{display:flex; flex-direction:column; gap:4px; max-height:260px; overflow-y:auto;}
+  .rm-av-linha{display:grid; grid-template-columns:130px 110px 110px 1fr; gap:8px; align-items:center; font-size:13px; padding:6px 8px; border:1px solid var(--rm-border);}
+  .rm-av-linha.rm-av-quita{background:#dff0d8; border-color:#c3e6cb;}
+  .rm-av-linha.rm-av-parcial{background:#fff3cd; border-color:#ffe08a;}
+  .rm-av-cod{font-weight:700;}
+  .rm-av-venc, .rm-av-de{color:var(--rm-text-dim);}
+  .rm-av-res{text-align:right;}
+  .rm-av-total{margin-top:10px; font-size:14px;}
+  @media (max-width:600px){ .rm-av-linha{grid-template-columns:1fr 1fr;} .rm-av-res{text-align:left;} }
+  .rm-cfg-card{background:var(--rm-panel); border:1px solid var(--rm-border); padding:18px; max-width:760px;}
+  .rm-cfg-tit{font-weight:700; margin-bottom:12px;}
+  .rm-cfg-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 16px; margin-bottom:14px;}
+  .rm-cfg-campo{display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--rm-text-dim);}
+  .rm-cfg-campo .rm-input{margin:0;}
+  @media (max-width:600px){ .rm-cfg-grid{grid-template-columns:1fr;} }
+  .rm-sel-filtro{display:flex; gap:6px; margin-bottom:12px;}
+  .rm-sel-ativo{background:var(--rm-accent) !important; color:#fff !important; border-color:var(--rm-accent) !important;}
+  .rm-sel-todas{display:flex; align-items:center; gap:8px; font-size:13px; margin-bottom:8px; cursor:pointer;}
+  .rm-sel-lista{display:flex; flex-direction:column; gap:4px; max-height:55vh; overflow-y:auto; margin-bottom:12px;}
+  .rm-sel-item{display:flex; align-items:center; gap:10px; padding:8px 10px; border:1px solid var(--rm-border); cursor:pointer; font-size:13px; background:var(--rm-panel);}
+  .rm-sel-item:hover{background:var(--rm-panel-2);}
+  .rm-sel-item input{width:16px; height:16px;}
+  .rm-sel-desc{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--rm-text-dim);}
+  .rm-sel-data{color:var(--rm-text-dim); white-space:nowrap;}
+  .rm-tl-topo{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:4px 0 16px;}
+  .rm-tl-topo div{border:1px solid var(--rm-border); padding:8px 12px; display:flex; flex-direction:column; gap:2px;}
+  .rm-tl-topo span{font-size:11px; color:var(--rm-text-dim); text-transform:uppercase; letter-spacing:0.03em;}
+  .rm-tl-topo b{font-size:18px;}
+  .rm-tl{position:relative; padding-left:6px;}
+  .rm-tl::before{content:''; position:absolute; left:21px; top:6px; bottom:6px; width:2px; background:var(--rm-border);}
+  .rm-tl-ev{display:flex; gap:12px; margin-bottom:10px; position:relative;}
+  .rm-tl-dot{flex:none; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; z-index:1; border:2px solid var(--rm-panel);}
+  .rm-tl-divida .rm-tl-dot{background:#fbe3e1; color:#b3261e;}
+  .rm-tl-pagamento .rm-tl-dot{background:#dff0d8; color:#3c763d;}
+  .rm-tl-avista .rm-tl-dot{background:#e8f1fb; color:#1f4e79;}
+  .rm-tl-card{flex:1; min-width:0; border:1px solid var(--rm-border); padding:8px 12px; cursor:pointer; background:var(--rm-panel);}
+  .rm-tl-card:hover{background:var(--rm-panel-2);}
+  .rm-tl-l1{display:flex; justify-content:space-between; gap:10px;}
+  .rm-tl-data{font-size:12px; color:var(--rm-text-dim);}
+  .rm-tl-valor{font-weight:700; font-size:15px; white-space:nowrap;}
+  .rm-tl-divida .rm-tl-valor{color:#b3261e;}
+  .rm-tl-pagamento .rm-tl-valor{color:#3c763d;}
+  .rm-tl-txt{font-size:14px; margin-top:2px;}
+  .rm-tl-sub{font-size:11px; color:var(--rm-text-dim); margin-top:3px;}
+  .rm-tl-saldo{font-size:12px; margin-top:6px; padding-top:5px; border-top:1px dashed var(--rm-border); color:var(--rm-text-dim);}
+  .rm-tl-saldo b{color:var(--rm-text);}
   .rm-cli-pag-tit{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--rm-text-dim); margin:14px 0 6px;}
   .rm-cli-hist-resumo{font-size:13px; color:var(--rm-text-dim); margin:4px 0 10px;}
   .rm-cli-hist{border:1px solid var(--rm-border); margin-bottom:6px; background:var(--rm-panel);}
@@ -1664,7 +1767,7 @@
     <div id="rm-section-financeiro" class="rm-section">
       <div class="rm-subnav">
         <button class="rm-subnav-btn active" id="rm-btn-fin-vendas" onclick="rmSetViewFin('vendas')"><span class="rm-subnav-icon">&#128176;</span><span>Vendas</span></button>
-        <button class="rm-subnav-btn" id="rm-btn-fin-prom" onclick="rmSetViewFin('prom')"><span class="rm-subnav-icon">&#128221;</span><span>Promissórias</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-fin-prom" onclick="rmSetViewFin('prom')"><span class="rm-subnav-icon">&#128221;</span><span>A prazo</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-cli" onclick="rmSetViewFin('cli')"><span class="rm-subnav-icon">&#128101;</span><span>Clientes</span></button>
       </div>
       <div id="rm-view-fin-vendas" class="rm-view active">
@@ -1713,7 +1816,7 @@
         </div>
       </div>
       <div id="rm-view-fin-prom" class="rm-view">
-        <h1 class="rm-title">Promissórias</h1>
+        <h1 class="rm-title">Vendas a prazo</h1>
         <div class="rm-toolbar">
           <input class="rm-search" id="rm-fin-prom-busca" placeholder="Buscar por cliente ou código da venda..." oninput="rmRenderFinProm()">
           <select class="rm-date-select" id="rm-fin-prom-status" onchange="rmRenderFinProm()">
@@ -1725,7 +1828,7 @@
         </div>
         <div class="rm-table-wrap">
           <table class="rm-table">
-            <colgroup><col style="width:105px"><col><col style="width:150px"><col style="width:70px"><col style="width:110px"><col style="width:190px"><col style="width:150px"></colgroup>
+            <colgroup><col style="width:105px"><col><col style="width:150px"><col style="width:70px"><col style="width:110px"><col style="width:190px"><col style="width:230px"></colgroup>
             <thead><tr><th>Vencimento</th><th>Cliente</th><th>Venda</th><th>Parcela</th><th style="text-align:right">Valor</th><th>Situação</th><th></th></tr></thead>
             <tbody id="rm-fin-prom-body"></tbody>
           </table>
@@ -1741,7 +1844,7 @@
 
     <div id="rm-section-configuracoes" class="rm-section">
       <h1 class="rm-title">Configurações</h1>
-      <p class="rm-placeholder-text">Essa área ainda vai ser construída.</p>
+      <div id="rm-config-empresa"></div>
     </div>
   </main>
 </div>
@@ -2605,7 +2708,9 @@ function rmFormatMoeda(valor){
 }
 
 // ---- PDV ----
-const RM_FORMAS_PAGAMENTO = ['Dinheiro','Débito','Crédito','PIX','Boleto','Promissória'];
+const RM_FORMAS_PAGAMENTO = ['Dinheiro','Débito','Crédito','PIX','Boleto','A prazo'];
+// 'Promissória' é o nome antigo de 'A prazo' (registros antigos)
+function rmAPrazo(f){ return f === 'A prazo' || f === 'Promissória'; }
 let rmPdvModo = 'venda';
 
 function rmSetModoPdv(modo){
@@ -3204,7 +3309,7 @@ function rmEditarVenda(id){
   document.getElementById('rm-pdv-observacao').value = v.observacao || '';
   document.getElementById('rm-pdv-desconto-valor').value = v.desconto > 0 ? String(v.desconto).replace('.',',') : '';
   document.getElementById('rm-pdv-desconto-tipo').value = 'valor';
-  rmPdvFormaPagamento = v.formaPagamento || null;
+  rmPdvFormaPagamento = rmAPrazo(v.formaPagamento) ? 'A prazo' : (v.formaPagamento || null);
   const promEx = rmLoadProms().find(p => p.refId === v.id);
   if(promEx){ rmPdvPromN = promEx.parcelas.length; rmPdvPromVenc = promEx.parcelas[0].vencimento; }
   rmRenderClienteSelecionadoPdv();
@@ -3257,8 +3362,8 @@ function rmFinalizarVenda(){
       alert('Selecione a forma de pagamento.');
       return;
     }
-    if(rmPdvFormaPagamento === 'Promissória' && !rmPdvClienteId){
-      alert('Pra vender na promissória, selecione o cliente primeiro.');
+    if(rmAPrazo(rmPdvFormaPagamento) && !rmPdvClienteId){
+      alert('Pra vender a prazo, selecione o cliente primeiro.');
       return;
     }
   }
@@ -3298,13 +3403,15 @@ function rmFinalizarVenda(){
   if(!isOrcamento){
     rmDescontarEstoqueVenda(venda.itens);
   }
-  if(!isOrcamento && venda.formaPagamento === 'Promissória'){
+  if(!isOrcamento && rmAPrazo(venda.formaPagamento)){
     if(!rmPdvPromVenc) rmPdvPromVenc = rmAddDiasISO(rmHojeISO(), 30);
     rmCriarPromissoria({ origem:'PDV', refId:venda.id, refCodigo:venda.codigoVenda, clienteId:venda.clienteId,
       clienteNome:venda.clienteNome, total:venda.total, nParc:rmPdvPromN, venc:rmPdvPromVenc });
   }
   rmPdvPromN = 1; rmPdvPromVenc = null;
 
+  const vendaImp = venda;
+  setTimeout(() => { if(confirm((isOrcamento ? 'Orçamento ' : 'Venda ') + vendaImp.codigoVenda + ' salva. Imprimir em A4?')) rmImprimirVendaA4(vendaImp.id); }, 200);
   rmShowToast(venda.codigoVenda + (ed ? ' alterada — ' : (isOrcamento ? ' salvo — ' : ' finalizada — ')) + rmFormatMoeda(venda.total));
   rmPdvEditandoVenda = null;
   rmPdvAtualizarBannerEdicao();
@@ -3430,6 +3537,7 @@ function rmAbrirDetalheVenda(id){
 
     ${isOrcamento?`<button class="rm-primary" style="margin-bottom:10px;" onclick="rmConverterOrcamentoEmVenda('${v.id}')">Transformar em venda</button>`:''}
     ${rmPromResumoHtml(v.id)}
+    <button class="rm-pe2-btn" style="width:100%; margin-bottom:10px; padding:11px;" onclick="rmImprimirVendaA4('${v.id}')">&#128424; Imprimir em A4</button>
     <button class="rm-primary" style="margin-bottom:10px;" onclick="rmEditarVenda('${v.id}')">Editar ${isOrcamento?'orçamento':'venda'}</button>
     <button class="rm-btn-excluir" onclick="rmExcluirVenda('${v.id}')">Excluir ${isOrcamento?'este orçamento':'esta venda'}</button>
   `;
@@ -4470,6 +4578,298 @@ function rmToggleSidebar(){
 
 const RM_SECTIONS = ['visao-geral','pdv','oficina','clientes','produtos','financeiro','relatorio','configuracoes'];
 
+// ===================== IMPRESSÃO A4 (modelo igual ao da OS antiga) =====================
+const RM_EMPRESA_KEY = 'radicalMotos_empresa';
+const RM_LOGO_PADRAO = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCADwAPADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD7KooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKxvDninw94iutTtdE1e1vp9KumtL6OJ8tBKOqsPz56HB9DWzQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAV5f8fPiN4o+GOkweItO8FDxJoaAi/eG7MU1oc8OV2NlD69j1616hTZESWNo5EV0cFWVhkMD1BHcUAfK2k/tteCpmUap4P16zB6mCSKYD8ytdpov7WXwY1FlWfWdR00n/n70+TH5puFcF+0N+yVZaw9x4j+GCwafftl5tHdtsEx7mI/8s2/2T8vptr4r1/RtW8P6vcaRrenXOnX9u22W3uIyjofof596AP1M0H4yfCrXCF03x/4fdz0SW8WFv++Xwa7Wyu7W9gE9ncwXMTdHhkDqfxFfmJpf7PnxW1fwnY+KNE8Ox6rpl9AJ4Hs72F2Kn/Z3ZyOQRjIIIr0T9kX4QeKZfH82ueKpNX8LaJoEym5jmlks2uZ/vLEckfL0LHuMDvwAff1FVLLUtOvv+PK/tLn/AK4zK/8AI1boAKKKwvHZ8WHw5PH4KTSv7ZlISKXUncQQg9ZCFBLEdl4yepxQBtTyxQRNLPKkUa8s7sFA/E1gT+OvBEEhjn8ZeHYnHVX1OEEfgWr5l8d/APUr5Trnxv8Aj55cDsdsbYihB6lYxI4UfRUryrxN4S/ZV0eIwQfEXxjqtyBy1hbRuuf+BRqp/wC+qAPvnT/FPhjUWC6f4k0e7Y9BBfRuT+TVrjkZHINfkD4sTw1FrDDwndatcacB8r6jBHFNn6IzDHvn8K1PCfxK8f8AhSRX8PeMNZsFXpGl0xiP1RiVP4igD9MPGI+IWhO+peGJbbxBZDLSabeIFnUf9M5Fxu+jZP1rhdS+MsHiXw9eaHZau3gHxKwMaXOoWn2iGJuhGeNp92HHoa8T+Ef7ZWv213b6b8Q9Hj1a2dgn2/T4xHcLnjJj+6/0G0/Wvpzx/wDDvwz8TNDg1aKN7HULi3WW2vhAY5CrDKiVGAJHPQ4I9q56kKkfepv5M93AYnL6yVHH07LpOOjXqtmvlf1Pie38PfGL9nzxrD47gtzqumu5NxqFjMbmyv4mOWWRhyueoLAEHkV99/DjxhpHjzwVpvivQ5C9nfxbwrH5onBw8bf7SsCD9K+UJbnx78IPEcmlm4ktlbJ8pv3lpdp0yFPBB6diPavZvgT8SPA9yJdGg0my8LajezmeSCABLW4mIALJ2VjgfLxn3NZ0cbCb5JaM7804SxOEpfWcPJVaT1vHe3mv1V/Ox7XRRRXYfJhRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABXDfFr4U+CvifpX2PxRpSyXCKRb30OEuYP91+4/wBk5HtXc0UAfKXgrwx8VP2btXlis4Ljxz8N7iUyXEdnGTd2OesqxcnOOoXKtjPymvYfinafCnxz8P7DWPGsdtf+HLgobbUSXVbbzeFcyLgxDOFJbABwGxXplVL/AE3T7/TLnTLyygnsrpHjngdAUkV87gR3zk5oA+O/iP8Asc3lqjax8K/FDy5HmR2V7KEdh1HlzpgH23Af71eMQ/Ez48fCPXDo2o65r2nzwHmx1XNxEy+qiTcCp9UP0NfSra9r37M/jG20TWZLvVvhRqkxXTrt8yTaM5OfKJ6lB1x3HI5DA+3ePfBfgr4s+C0s9Zt7bVNOuohNZXsDAvFuHyyRSDp29j0IIoA+c/hV+2hZXU0On/EbQhYliFOpaaC0Y93iOWA91LfSvrDw/rOleINHttY0TULbUNPuU3w3Fu4dHH1H8uor86vGf7O134M8T3sHi7xx4b0HQIZT9nvrm48y5uYuoMdrHmQtjqDgZ745rpdA+P3g74VeBrnwT8MNB1HXY7iRpLrUtdmMaTOyhSUgjOVXAHG5T65oA+uviT8Wvht4SmNhrmpwajqiZ2aXZQ/bLon08tc7T/vYrwDx98YPiZ4iQweAvgJdWVu3CXuqaIZ5SPUJsCL+JavGPCnjf43/ABI1htB8CudMRvmlh0G1j0+CBD1aSVACF93Y5967fRdM8EeCdTil8QavqHxa8dK48uxt7mSTTreUdmc5adgewBHsOtTOcYK8mb4fC1cTPkpRuziL/wCCnx68d662p6v4QuYZpB8890sFlFGo/wBkbQoHPQUsvw9+EvgXLfEL4hHxDqcf3tG8KqJAG/uvcv8AIPQgDNe+al8Ovjx8aVH/AAm2v/8ACH+HpcH+z4QVZl9DCpyf+2jfhXpXw0/Z1+FPw9SO9OlR6tqMeD9v1dlkKt6qhwi/UDPvShPmV7DxGH9jPk5k35anzZ8Pn+IuvSovwM+D+m+EdP6Jrd5AJ7kj+99quBj8I14r2Lw58BfGEsses/FX4z+IJnUh3t9P1KSCId8eaxHH+6q+xr0jxxe2l5M8X/C3rHw/Zjhbez8hXUe7li35YryzVfCPwwvZmk1L4y3V7KTy0rCX/GsKtdxei/FI9zLsmjWjepUaT7U5yf5Jfc2d78YvEnwp1TwhLoWq6/Bd3EEeLR7Ym5nikAwG3DOc45yee9fKI69a9ZuPAXwqP/Ht8W4lP/TSyz/IiqMnw08PXDFdI+Kfha4Y/dW5YwE/jk15eJVStLmaXya/zP0rIKuX5RQdGNSo03f3oSSXp7ul+up2nwG+M01vPb+GPF90ZbdyI7S/lb5oz0CSHuvYMenfjp9JV8U638JPHenRrPFox1S1kGUuNNkFwjD1+Xn9K+p/g4NeT4baPF4kgmg1GKIxus3+s2qxCFvfaBXdgalXWnUT0PjOMsvy5cuNwM4+87OKa37pdPPzOvooor0D4QKKKKACiiigAooooAKKKKACiiuW+J/j3w38OfCk/iPxPe/Z7WM7Yo1GZbiQjiONe7HH0HU4FAHU1m6vr+haOM6vrWm6dxn/AEq6SL/0Iivz1+MX7UvxC8a3M1poN3J4W0UkhIbKQi4kX/ppMOc+y7R9eteIpHq2t3zskd7qV2/zMQGmkb3PUmgD9atP8beDNRmEGn+LvD93KeAkGpQu35Bq3wQQCDkHoa/HC9s7ywuDBe2s9rMBkxzRlGH4Hmu7+GXxn+I3w9u4n0DxHdNZofmsLtzNbOPTYx+X6rg+9AH6d+NvDGi+MvC194a8QWa3enXsZjlQ9V9GU9mBwQexFfKPws8Za3+zl8UpPhL4+u5Ljwfey+ZpGpSD5YFdvlf2Qnh1/hbJHGc+y/s6/Hzw58W7I2RRdJ8S28e+4053yJFHWSFv4l9R1Hfjk2P2qPhXB8Ufhnc21tAp1/TVa60qT+IuB80WfRwMfXae1AHhX7cPwO1C71K4+KnhKB72GaNW1e1iG5k2qALhAOqlQNwHTG7oTjwf4V/Ce78R6YfFfiV7zSfCccoiWaG3Mt1qMx6W9pF1kkOMZ+6vJPQivqP9hH4tT+IdDn+GviSd31bR4i1g833pbYHaYznq0ZIH+6R/dNfTkVjZQi3EVnbxi2BWALEAIgRghePl49KAPkGPwJq8nhyHSfE1/D8KPAR+aPw5pzedq2pj+/csoJZjjnOQOm0YrrvC3iDTPBln9g+Enwj1Bm27TqN7ayNNL7kgFj9NwHtXvPjjVdQ0HSm1jT9AOs+RzcRRSBZhGP4kBB3Y9OPaud8D/GHwX4qmS0jvn02+c4W3vQELH0Vs7T9M59q5arvPl5rfL9WfR5ZT5MM6/wBWdVLf3nZesY6/e7Hkeraj+0P4gJ22Gq2ETf8ALO2hS2x+JO79a5XUPhd8W9TkMuoaPqN256me+Rz+r19a65r+h6GqNrOr2OnhwSn2idULY64BPNcRr/xw+HmlIwi1aTU5R/BZQs+f+BHC/rXPVwtL/l5Uf3nu5dxFmLssBgoW/uwl+aZ83XPwm+ItqMv4SvmH/TIo/wD6CxrjbmGe2uZba4jeGaJykiMMFGBwQR6g17R4/wD2gNc1i3lsfDloNGt5BtNwz77gj2PRPwyfevHbG0u9T1GGzs4Zbq8uZAkcajc8jk/zry60aSdqTbP0nKK+Z1KTqZjCMOyV7+berS+/1IIo3lmSKJHkkchURRlmJ6AAdTXpEXw7/wCEX0q11zxxo3iS/Nwc22iaHYPcXUuO8rgbYV6dTmtPV/EvgH9nOwik1iFPEnxCnh3rYwuNlkCONzc7Prgs3YAc14X45/al+L3iWd/smuR+H7Qk7YNMiCED3kbLk/iPpXo4bL0lzVfuPgOIuOZ1JOhl7tHrLq/TsvPftY+nPDPx4n0S3t9L/wCFCePtH0eAbUa309pPLXPUrtH1PJP1r2vwP4x0HxlpZ1DQ7qR1Q7ZoJ4Xhnhb+68bgMp/DB7Zr8vz8XvioZfN/4WL4q35zn+1Zv/iq6/wb+038YfDl0kj+Jm1qAEbrfVIlmDD038OPwavVStoj83lJyblJ3bP0xorwT4AftM+FfiVdw6Dq0A8P+I5OIreSTdBdN6ROcfN/stz6E173QSFFFFABRRRQAUUUUAFFFFABX5j/ALWPxOu/iR8VL4xXLNoWkyvaaZED8hVThpcerkZz6bR2r9I/GFvqd34T1e10Vo11Oaxmjs2kbaolZCEJPYZI5r4v0X9kfxtb/DrxFa3qaFN4lvLi1Wwf7WxjhgVi0p3bMhmOwdOgPrQB8xeEf7DHibTn8Tx3r6GtyhvxZ484xZ+YLnjOK+/fB/x6/Zt8H+HYrTwzqFvpVsiD/R7fSZllP+8dmWb3JP1ruPgR8LdM8A/CWw8L3+labcahJCX1ZvLEi3MzZLAlh8ygYUZHQdK+RL39j74szXk80I8NxRPIzJGL9vlUngfc7UAH7X/xz8H/ABUs9L0nwzodxiwuDM2qXcSxysu0jy0AJOw5ycnqo4r0j4z/ALMfhHW/hhbeMvhXbvaX0WnR3gtFmaSK/i8sMdu4krJjkYOCeMZOa8w/4Y6+L397w7/4Ht/8RXoGifCP9rHRfDFr4Z0jxtp9jpdohSCGHUNpRSScB/K3Y5OOeO1AHyT4Z1zVfDXiCy13RbySy1GxmEsEyHBVh/MHoR0IJFfpv8OPi9pHiv4P2XjiOIS3bRbLnToJo1kFyp2ui+YygDPIJI+Ug18gSfse/GGSRpJJfDrOxJYnUGySe/3K0/DX7GHxFvNSWLXta0PS7EcvNDK9w/0VNqjP1IoA6D4T/DrXbj9plPiFHqvhXwtbS6rJdjSV1yC6unSTIeFUiJBLBm7jGeM4r7arx/4Ofs6/Dv4a3EGp2llJq+uRcrqN+QzRt6xoPlT64Le9ewUAFfOn7R/wpihin8Z+G7baoJfUrWMcD1mUf+hD8fWvoumyIkkbRyIrowKsrDIIPUGsa9GNaHLI9TJ82r5ViVXpP1XRrs/60Pjrwj4/tdQ0ZPBvxCSTUdEYhba+PNzp7dAyt1ZR6enqOK5vx94P1DwlqaQzyJd2FyvmWF/DzFcxnoQfX1Hb6V6Z4w/Z+8Sv4lv5PDh07+ypJS9ss1wVZFPO0jaehyB7AV0fgL4YeNLPSZPCni610vU/DNw24Il4fOspP+ekJK8e4/8Arg+R9Xqz9ya9H/XQ/VVn2W4T/asJVjyy1lTvbfrFdJLqtpeup82EE8V6roE9t8IvgxqPxb1G3jm1q8X7J4fglGQrvkCQj3wzf7q/7VbVz+zr4lTxGkEOpWE+jGZd1wzlJhFnn5MEbse+K2P2uPhD40+JGjeFtA8FDTINL0rzGmS5uDEA21UjwApzhQ/51tgsJKM3KotjyOMeKaGIwccPgql+f4mui7fPr6eZ+fmtanqGtatdatqt3LeX13K0088rZaRyckk19H/sm/B34U+NdDbXvG3iu2uL1ZmT+w1vFtjGoPDSEkO27qNuBjuTkDufhV+yTcaN8XjqPiyLTtT8I2au1rC0xd7mQABPMTaBtyWYjOOAORR+0f8Asr6t4j8eR6x8MtM0PTNNmtF+1WzTeQgnDMCURVIAK7emOc165+WndePPC37KnhbwxdxaxY+EoFELBY7a5El6xwcbNrGTd6H1618yfAj4AN8XvA+u63o3iSPT9S0698iCyuINySKUDKWcHK5yRkKelav/AAx38X/73h3/AMD2/wDiK9v/AGRfg/8AFH4S+LNSGvLo8ug6rbhbgW96XeOVMmNwpUZ6sp+oPagD4d8RaPrXhLxPdaPqtvPp2rabPskTOHjdTkEEfgQR14Ir9Hf2Q/ifcfEz4Vxz6tN5uuaTJ9jv37y4GUlPuy9f9pWrgP2u/wBnvxN8S/G+m+JfByaWk32L7PqH2mcxF2Rv3bDCnJ2kj6KK0/2OPg147+E+reIX8USaabPUoIREtpcmQ+YjNyQVGOGNAH0jRRRQAUUUUAFFFFADZHSKNpJHVEQFmZjgKB1JPpWJ/wAJl4P/AOhr0H/wYxf/ABVeVftteOv+EN+CV7ZWs2zUdfb+zoMH5hGwzM3/AHxlfq4r86vDejal4i1+x0LR7ZrnUL+dYLeIEDc7HAGTwB7npQB+tX/CZeD/APobNB/8GMX/AMVR/wAJl4P/AOhs0H/wYxf/ABVfnwP2T/jYT/yLtkP+4lB/8VXkvjbw1qvg/wAUXvhvW0hj1GxcR3CRTLIqMQDjcuQSM8+hoA/XLS9U0zVYWm0vUbO/jQ7We2nWRQfQlSadqWo6fpkAuNSv7WyhJwJLiZY1z6ZYgV8M/wDBPSwvrLxN4q8aXN7JZ+HdL0sx3pJxHI5IcE9vkVGOe24eteHfGj4i638S/HV/r+q3c72zTMLG1ZzstYM/Iir0BxjJ7nJoA/UT/hMvCA6+K9C/8GEX/wAVR/wmXhD/AKGvQv8AwYRf/FV+bvgX9nj4q+NPC9n4l0HQYZdNvAxgklvIoi4DFSdrMDjIOPWsX4qfCHxx8MbWxuPGFja2a37slusd5HKzlQCxwpJAGRz7igD9PP8AhMvCH/Q16F/4MIv/AIqr8msaTFpa6rJqlimntgrdNcIITk4Hz5x1461+Rvgzw/feKvFmleG9NQvd6ldR20fGcFmA3H2AyT7CvqH9vDxDZeG/DnhH4N6A4Sz021juLpFOPlRfLhVsd+HY/VTQB9hf8Jl4P/6GvQf/AAYxf/FUf8Jl4P8A+hr0H/wYxf8AxVflb8NPAPij4jeIm0Hwnp4vb5IGuHVpVjVUUgElmIA5IH413fib9mr4s+G/D1/r2s6PYWun2EDT3Ep1KE7UUZPAbJPoB1NAH6L/APCZeD+P+Ks0Hnp/xMYv/iq2DcQC1N15yeQE8zzA2V24znPpjvX42190eD9ch+GP7FWk/wDCa6xfW7a0HFnFDH5lwIZSXWKMMQBmME5Jwu/6Ck20tC6UYymlJ2V9X2PYE+OngCSdYILnUp5WbaiRWLsXPsBya77w/q9trelrqFqk0UbMylJ02OhBwQy5+U+x5r8z9V+KOv63exeHPAOmjw9DfSraxm3kMl/clyFCvPgEAkj5UCD1zXrf7WfiSf4afD3wn8D/AAxqckHkWAuNblgcq87MSdrEc4d/Mcjvle1ZUlVteo18jvzGeAcuXBRkl3k1d/JLT72fZUni/wAJRSNHL4p0NHU4ZW1CIEH0I3Un/CZeD/8Aoa9B/wDBjF/8VX5W/DPwD4o+I3iJtA8J2C3l8sDXDq0qxqqKQCSzEAckD8a9M/4ZO+Nn/QvWP/gzg/8Aiq2PNP0G/wCEy8H/APQ16D/4MYv/AIqta0vLS8s0vLS6guLZxuSaKQMjD1DDgivzos/2SvjNLdwx3Gi2EELyKskp1GFtik8tgNk4HOBXeftteNT4R0vw98FfCF9LZ6dpunRnUlgfYZRtAjjcj2Bdh33rmgD7Gfxh4SRir+KdDVgcEHUIgQf++qT/AITHwh/0NWhf+DCL/wCKr8r/AIZfD/xV8R9fk0PwlpwvbyKBriQNKsaogIBJZiAOWA/GvQNV/Ze+MOl6Xdanf6JYW9paQvPPK2pwYRFBZifm7AGgD9EP+Ey8H/8AQ16D/wCDGL/4qrel69oeqzNBpetabfyqu5ktrpJGC9MkKTxyK/HqvsX9nKCH4Pfsv+J/i5fRqmr6whi0sOOSoJjhA9mkLOfVVBoA+uJvFvhSGV4ZvE+iRyRsVdHv4gykcEEbuDV7S9V0vVYnl0vUrO/jQ7Xa2nWQKfQlScV+PE8stzcSTzO0s0rl3ZjksxOST7k1+oP7LPgJfh78GdH0uaAR6leJ9v1DIw3nSAHaf91dq/8AAaAPUqKKKACiiuT+L/jC38BfDTXfFlwUzYWjNArHh5j8sa/i5UUAfCf7dfjv/hLPjNNotrNv07w5H9iQA8Gc8zN9c4T/AIBXlXw4Tx3ZayniLwJp+ryX9ixC3VjZNOYSykdlYAkE1zd/dXF9fT3t3K0txcSNLLI3V3Y5JP1JNfpr+yR4E/4QL4J6RaXEPlalqa/2jfZGGDyAFVP+6gQY9QaAPhmT9oX42Ru0cnj3VEdSQytHECCOoPyVz/h7wP8AEj4l6xLqeleH9Y1u41C5d5r7yT5Tys2XZpThByecmvRv24Ph1/whXxdm1ixt/L0nxEGvYdo+VJ8/vk/76If/AIH7V2P/AATz+IjaV4vv/h5qFxiz1dTc2IY8LcovzKP99B+aD1oA6D422cPwG/ZP0/4b21zE2v8AiWZv7QliP3xw05HcqB5cQ9Qa+NFxuG7JXPOOtez/ALZXjweOPjbqQtZ/N0zRR/ZtptOVOwnzHH1ctz6AV1H7F3wS0P4my65rnjCznuNEsQttbxxzNF5lw2GJ3KQcKuOP9selAHWeG/2y7Dw94e07QtM+GflWWn20dtAn9rdERQo/5ZdeK8Q/aK+Ll98YPGFtrU+n/wBmWlnai3trMTeaE5LO27AyWJ9OgFfUHx2+BPwN+HXwq1vxSfDtz9qt4DHZI+pz/PcP8sYxu5AJyR6A18JgEkAAknoBQB9R/wDBP7whbSeJdd+JesBY9O8O2rRwyuPlWVlJd/8AgMYP/fYrwX4t+L7nx58SNc8WXJb/AImF0zxIx/1cQ+WNPwQKPwr6f+K8o+CX7HeieAoSIPEPilS18AfnUOA8+foDHF9DXxtQB97f8E9fAZ0T4eX/AI2vYSt3r03l2xYci2iJGR/vPu/BVqt/wUQ8e/2V4K0zwFZTYutZk+03gU8i3jPyg/70mP8Av2a+dvDn7THxc8PaDY6HpGt2NtYWECW9vENMgOxFGAMlcnp1PWvP/iN438SfEHxM/iLxTfC91F4kh3rGsaqijhQqgADqfqSaANH4G+C5fiD8VNB8LKrGC6uQ12y/wwJ80h9vlBA9yK9V/bx8axa38UbfwdpjKmleFrcWqxx8IJ2AL4H+yAie201237J/hqT4T/C3xb8bPFmnPazCxMWkw3C7HkTg5APIEknlqPYE9DXyVrOo3er6vearqExmvLyd7ieQ9Wd2LMfzJoA92/Ye8IWuq/Eq78bayAmi+EbRr+aVx8omwfLz/ugO/wDwAV5N8V/F9348+Iut+LLzcG1C6aSNCf8AVxD5Y0/BAo/CvprV/DmsfDD9g1xZWMo1LxPPFNq0ir80FvNyN3oNioh9DIa+PaAPvn/gnx4COhfDq98a3sG281+XZbFhyLWMkA/8CfcfcKtfT1fmb4f/AGmvi7oOh2OiaVrdhb2FjAlvbxDTIDsRAAoyV54HU1fH7WHxtz/yMVkf+4ZB/wDE0Afotr2qWWiaJfazqMwhs7G3e4nc/wAKIpYn8hX5K/EfxRe+NfHWs+Kr8nz9Su3n2k/cUnCJ9FUAfhX15+1f488S6J+zT4a8M+Jb9ZvFfiiJJNSKRrFshXEjrtUADlo098NXyJ8NvC15428eaN4VsMibUrtIdwGdiZy7/RVDN+FAHpf7Nfxx0/4N2WrbfB/9sahqUib7o3vk7IkB2oBsbuWJOeePSuv+M/7WV74++HWpeEdP8KHRTqIWOe5+3+afKDAsgGxfvYwTnoTX0Uv7KHwSCgHw5eMQMZOpz5P/AI9Xwb8bYfCNp8UNb0/wNaNbaDZXBtrfdO0pkKfK8m5iSQzBiPbFAGV8PPDN54z8caN4WsAfP1K7SAMBnYpPzP8ARVyT9K+jv29/E9jpx8MfCLQCItO0G0jmuIkPAbZshQ+4TLf8DFJ+wX4YsdMHif4v6+BFp2g2kkNtI/QPs3zOPcJhf+2hr5y+IPia98ZeN9Y8U6iT9o1O7edlznYCflQeyrhR7CgDv/2R/AH/AAsD40aXa3MPmaXpZ/tG/wAjKlIyNqH/AHnKjHpmv06r8o/hT8WPGfww+3nwfd2lo9/s+0PLaRyswTO0AsDgfMeBXd/8NZ/Gv/oO6f8A+CyH/wCJoA/SGivNf2adZ8ZeJfhHpfiTxzeRXGpaoWuYhHbrEI7cnEYwoGcgbs/7Qr0qgAqpqum6dq1obPVNPtL+2LBjDcwrKhI6HawIzVuigDnR4F8Eg5Hg7w6Mf9QyH/4muhAAGAMAUtFAHkH7XHw7/wCFh/BzUba0g8zV9KzqGn4HzMyA74x/vJuGPXbX5s+GNa1Dw34j0/XtLlMN9p9ylxA/o6MCM+3GCK/YWvzJ/a7+HZ+Hvxj1CK0g8vSNWJ1CwwPlVXJ3xj/dfIx6FaAPvb4d2Pw78c+CNJ8W6f4Q8PNBqdss5B02ElHP30J29VYMD9K7TSdM03SLX7JpWnWlhb7i/lW0KxJuPU4UAZr4+/4J2fEXDap8M9Rn4O7UNLDH6CaMfo4H++a+v9f1O30XQ77V7tsQWcDzv9FBOP0pN21KhFzkoxWrIdStvD+u7tL1K30vVPKbe1rcJHNsYcbijZweeuO9Z8ng7wJZp9pk8K+G7dYyD5jafAgU54OdvHNfMfwu1+/0L4p6T4x15xbWfiBrhpZpDhSjOwYn2DgfgK0fjJ41134gXFpDpUU1v4cmvfsmnxtlWvphgGQjuASoA7ZHfOOFY5cjlbXsfZz4NqxxkaPtFyNXcuieqaWurTT+WrPpbVtK8L63DHf6tpujanFGp8ue6gimVVzzhmBwM1jjQfheSANG8HZP/Trbf4V4/o2kWnjXx/ceBdS1WW18L+FLVbZLSKcRfaZkwrufXL7jnsMdM1c+K3w1+F3hTwRqGqW8kyXwj22afbt5eU9BtPUdz7Zq3iJuLkkrLzOSORYSFeGHq1Zc87WSheyltd8y1tZu2x65deEvh5aIj3XhnwtAr/daWwt1DfTK81HbaP8ADW2nSe20vwjDKhykkdvbqyn1BA4rh/B/w30nxH8KvDcvjr7dJJY2kkkam5aMQxuxcZHqF29egGK4r4H/AAz8NeNl13WdRs7pdIW8MGmRLOynaMkkt1PBQfXNN16l4pRWvn/wCKeT4BU606leX7p2dopp3bSt72t0r/efRN1Hoev6dJBdR6dqtkGHmJIEmiyORkHIyOtc/wD2D8LwxH9jeDQR1H2W2/wryHUNA0qf4mx/CfR72fR/DVspvNSC3GJLqUop27m6gDYAOg+Y10Hir4TfCXQfDl9qtzJcRLbwMykagSS2DtCjuSeAKFXqNNpLTfX/AIAnk+CpShGrVneaTilBN2e1/eWr7K57R5drc2flbIZrWRNuzAaNl6Yx0Irmrvw18OLWbybvQPCcEmM7JbO3VsfQiuP/AGWba9sfhY15qMkiW091JPbrIThIgACRnoCVY/rXjCa34T8R+N/EPiLxnpGuanDeT4sVsAQI0UkDccj+EKMfWlPF8sIytqzTC8Ne2xeIo87caWl4q7bvayTaXe+vQ+lYPDfw0nlWKHQPCMsjHCqlnbsT9ABUlz4X+HdhKn2nw74VtZPvJ5llboeO4yK+bNS8OaL4qvdP0/4Z+EvEdjeeeDcXl47CONPXOSBg85yDx3zVzXFvvG3xJ1jUR4YvPFmnaaq6fGsV55GCgwHLdTuIdsf7VZ/XZW+H8/8ALodj4Uo8ybrNJJuSaipLVJfbt72trtbH0ZrEPgTWZ0n1iLw1qM0a7Uku1glZVznALZIFTWmgeDdCnj1K00XQNLlAIjuYrWGFhkYOGAHUe9eP+Cfhp4V1DTdS1DxN4CuvD6Wa740fVnmaZQpZjgdAMCs/4ZaDpPxVOp+J/G2qSNElz9nsNPS78pLaIAEYGcgYIA9cEnNarET0Vld7a/nocM8kwaU5qrLkp25nyxer2UeWbT631VrHvx1vRMEHV9Ox3/0lP8azB4F8CsN48G+GyDzu/syHn3+7XFw/BT4WSzLHHFLK56INRYlsewNct8YfiXY3+qx/D/Qtbt9I00HydT1Uk7UQcGKPbyeBgkdTx0yacq7pxvUS8tTno5PSxtZUsFKTtdyco25V30bb9N29j2fTLDwrJpc2jaZZaK+ntnzrO3iiMJz13IoxzjuO1U7nwb4BtYjLc+FfDMEY4LyafAoH4la8L+D954d8P/H59M8Lamt7oWpWfkQy5J+cIHwcgc7kb/vqtP47aH4t134jxynw/ca74etYFWG2gvliVmIO4kg5DbvboBUrFN03JK7vbQ6p8OQhjo4edXlg4Kackov0s2lzX0s2eq/2B8Lv+gL4N/8AAW2/wq3a+DvAF1D5tr4V8MTxk43x6fAy5+oWvmTXtN07w7ZJea58KbqztmcRh21xzlsZwMZ7A19QfDjRdK0LwdYWmjWUtlayxi58mWQu6tIAxDE9SM4/CqoV5VJNNWt6/qkYZxk1DAUI1YTcuZ2XwW031jOXl0N63hht4I7e3iSGGJQkcaKFVFAwAAOAAO1SUUV1HzgUUUUAFFFFABXnnxv+EPhf4uaTYWHiOS9tmsJzLb3FmyrKu4YZMsrDacAnjqor0OigD5+8B/sp+CPBfjDTPFOi+JPE6X+nTiaLfNCVbsVYCMZUgkEZ6E17X4v0Cy8UeHrrQtRkuEtLoASmCTY5AYHGcHjitaik0mrMunUlSmpwdmtU/NHCa98KPB2t6Jo+kX1rc/ZtHiMNr5c5RtpxncR1zjP1zV2f4eeGZdc0PVRbzRHQoxHYW0b4gjAyclccnJznPUCuuoqPYw7f0jr/ALTxllH2srK/V/a3++7uebeKfgp4G8Ra5c6zdwX1vdXTb5vs1xtV2PVsEHBPfFJ4c+CPgHRNSjv0sbq+liYNGt5P5iKR0O0AA/jmvSqKn6vSvflVzb+3Mx9l7L28uW1rXe3Yo67pkGs6LeaTcvNHBdwtDI0L7XCsMHB7cVV8HeHNM8KeHrbQ9ISRbS33FTI252LEkknucmtiitOVX5upwKvUVL2XN7t726X2ucB45+Efg7xhrJ1jU4byG9dQskltPs8zAwCwIIzjjNZWl/AT4fWV5HcSW+oXoQ5EVzc5jJ9woGfpXqlFZvD0m+ZxVz0KeeZjTpKlCvJRSta72KGp6Va32g3GinfbWk9ubci3IQohG3C8ccVV8GeGtK8JeH4ND0eN0tYSzAyNudixyST3NbNFacqvfqef7ep7N0uZ8rd7efcZPGJYXiLModSpKnBGR1HvXk//AAz74E5xca4M8nF4OT/3zXrdFTOlCp8SudGEzHFYK/1eo433t1scB4J+EnhPwlrDapp39oXE7QtCBd3HmIFb73GByRx9Ca5zxP8As/8AhC8tLt9EFxp99LzAXmLwRHPPy9SMZ4zXsVFS8NSceVx0OmnnuY063to1pcztfXe21+55b4P+CXhrQLUyLe6k2py2ht5ruKYIRuxvMYwdmRkdzgmup8L/AA/8JeHtJTTbLRbWaNWLGS6iWWRye5YiupopwoU4bIyxGbY3Et+1qt331+77uhx2rfDbwtf+KNM8RrayWN9ppVofsZWJGKtuG5QOe4+lc3f/AAF8D3t7cXlxPrTS3ErSyH7YOWY5P8Pqa9VoolQpy3iVRznH0bezrSVlbfpvY8v0f4E+ANO1GG9Nvf3phYMsV1c7o8jpkADP0PFenjgYHApaKqFOFP4VY58Xj8TjGpYio5NbXdwoooqzkCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Z';
+const RM_EMPRESA_PADRAO = { nome:'Radical Motos', razao:'J. R. BORGES NETO LTDA', doc:'11.395.301/0001-88', ie:'152938540',
+  endereco:'Av. Santo António , 62 - Castelo dos Sonhos', cidade:'Centro, Altamira - PA', cep:'68379-200',
+  telefone:'', whatsapp:'(66) 98123-0620', pix:'TELEFONE : 66 98123-0620', rodape:'', logo:'' };
+function rmEmpresa(){
+  try{ return Object.assign({}, RM_EMPRESA_PADRAO, JSON.parse(localStorage.getItem(RM_EMPRESA_KEY)) || {}); }
+  catch(e){ return Object.assign({}, RM_EMPRESA_PADRAO); }
+}
+async function rmSyncEmpresa(){
+  try{
+    const { data, error } = await rmSb.from('configuracoes').select('*').eq('id','empresa').maybeSingle();
+    if(!error && data && data.dados) localStorage.setItem(RM_EMPRESA_KEY, JSON.stringify(data.dados));
+  }catch(e){}
+}
+setTimeout(rmSyncEmpresa, 2500);
+
+const RM_CFG_CAMPOS = [['nome','Nome fantasia'],['razao','Razão social'],['doc','CNPJ'],['ie','Inscrição estadual'],
+  ['endereco','Endereço'],['cidade','Bairro, cidade - UF'],['cep','CEP'],['telefone','Telefone'],['whatsapp','WhatsApp'],['pix','Chave PIX (sai no comprovante)'],['rodape','Mensagem no rodapé (opcional)']];
+function rmRenderConfigEmpresa(){
+  const box = document.getElementById('rm-config-empresa'); if(!box) return;
+  const e = rmEmpresa();
+  box.innerHTML = `
+    <div class="rm-cfg-card">
+      <div class="rm-cfg-tit">Dados da empresa (aparecem nas impressões A4)</div>
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+        <img id="rm-cfg-logo-prev" src="${e.logo || RM_LOGO_PADRAO}" style="width:72px; height:72px; object-fit:contain; border:1px solid var(--rm-border); background:#fff;">
+        <label class="rm-pe2-btn" style="cursor:pointer;">Trocar logo<input type="file" accept="image/*" style="display:none" onchange="rmCfgLogo(this)"></label>
+      </div>
+      <div class="rm-cfg-grid">
+        ${RM_CFG_CAMPOS.map(([k,l]) => `<label class="rm-cfg-campo">${l}<input class="rm-input" id="rm-cfg-${k}" value="${rmEscapeHtml(e[k]||'')}"></label>`).join('')}
+      </div>
+      <button class="rm-primary" style="width:auto; padding:10px 24px;" onclick="rmSalvarConfigEmpresa()">Salvar</button>
+      <button class="rm-pe2-btn" style="margin-left:8px;" onclick="rmImprimirTesteA4()">Imprimir página de teste</button>
+    </div>`;
+}
+let rmCfgLogoNovo = null;
+function rmCfgLogo(input){
+  const f = input.files[0]; if(!f) return;
+  const img = new Image(), rd = new FileReader();
+  rd.onload = ev => { img.onload = () => {
+    const c = document.createElement('canvas'), k = Math.min(1, 240 / Math.max(img.width, img.height));
+    c.width = img.width * k; c.height = img.height * k;
+    const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0,0,c.width,c.height); g.drawImage(img, 0, 0, c.width, c.height);
+    rmCfgLogoNovo = c.toDataURL('image/jpeg', 0.85);
+    document.getElementById('rm-cfg-logo-prev').src = rmCfgLogoNovo;
+  }; img.src = ev.target.result; };
+  rd.readAsDataURL(f);
+}
+async function rmSalvarConfigEmpresa(){
+  const e = rmEmpresa();
+  RM_CFG_CAMPOS.forEach(([k]) => e[k] = document.getElementById('rm-cfg-'+k).value.trim());
+  if(rmCfgLogoNovo) e.logo = rmCfgLogoNovo;
+  localStorage.setItem(RM_EMPRESA_KEY, JSON.stringify(e));
+  try{ const { error } = await rmSb.from('configuracoes').upsert({ id:'empresa', dados:e }); if(error) console.error(error); }catch(err){}
+  rmCfgLogoNovo = null;
+  rmShowToast('Dados da empresa salvos');
+}
+
+const rmH = v => rmEscapeHtml(v == null ? '' : String(v));
+
+function rmA4Cabecalho(titulo, numero, data, vendedor, naoFiscal){
+  const e = rmEmpresa();
+  const tels = [e.telefone, e.whatsapp && 'WHATSAPP: ' + e.whatsapp].filter(Boolean).join(' . ');
+  return `<div class="a4-cab">
+    <img class="a4-logo" src="${e.logo || RM_LOGO_PADRAO}">
+    <div class="a4-emp">
+      <b>${rmH(e.nome)}</b><br>
+      ${e.razao ? rmH(e.razao) + '<br>' : ''}
+      ${e.doc || e.ie ? rmH([e.doc && 'CNPJ ' + e.doc, e.ie && 'I.E. ' + e.ie].filter(Boolean).join(' - ')) + '<br>' : ''}
+      ${e.endereco ? rmH(e.endereco) + '<br>' : ''}
+      ${e.cidade || e.cep ? rmH([e.cidade, e.cep && 'CEP ' + e.cep].filter(Boolean).join(' - ')) + '<br>' : ''}
+      ${rmH(tels)}
+    </div>
+    <div class="a4-doc">
+      <div class="a4-doc-tit">${titulo}${numero ? '<br>' + rmH(numero) : ''}</div>
+      <div class="a4-doc-data">${data}</div>
+      ${naoFiscal ? '<div class="a4-naofiscal">Não é Documento Fiscal</div>' : ''}
+      ${vendedor ? `<div class="a4-vend">Vendedor:<br>${rmH(vendedor)}</div>` : ''}
+    </div>
+  </div>`;
+}
+function rmA4Secao(titulo, conteudo){ return `<div class="a4-sec"><div class="a4-sec-tit">${titulo}</div><div class="a4-sec-corpo">${conteudo}</div></div>`; }
+function rmA4Duas(esq, dir){ return `<div class="a4-duas"><div>${esq.join('<br>')}</div><div>${dir.join('<br>')}</div></div>`; }
+function rmA4ClienteTxt(cli){
+  return rmA4Secao('Dados do Cliente:', rmH((cli && cli.nome) || 'Consumidor'));
+}
+function rmA4Itens(itens, extras, simples){
+  const prods = rmLoadProdutos();
+  itens = itens || [];
+  let qtd = 0, tot = 0;
+  const linhas = itens.map((it, i) => {
+    const p = it.produtoId ? prods.find(x => x.id === it.produtoId) : null;
+    const serv = it.servico || (p && p.ehServico);
+    qtd += Number(it.quantidade) || 0; tot += Number(it.subtotal) || 0;
+    const zerado = p && !p.ehServico && (p.estoqueAtual || 0) <= 0;
+    return `<tr><td class="c">${i+1}</td><td>${rmH(it.codigo || (p && p.codigo) || it.localizacao || (p && p.localizacao) || '')}</td>
+      <td>${rmH(it.nome)}${it.localizacao ? ' #' + rmH(it.localizacao) : ''}${(it.categoria || (p && p.categoria)) ? ' (' + rmH(it.categoria || p.categoria) + ')' : ''}${zerado ? ' *' : ''}</td>
+      ${simples ? '' : `<td class="c">${serv ? 'S' : 'P'}</td>`}<td class="r">${rmFmtQtd(it.quantidade)}</td>${simples ? '' : `<td>${rmH((p && p.unidade) || 'UN')}</td>`}
+      <td class="r">${rmFmtNum(it.precoUnit)}</td><td class="r">${rmFmtNum(it.subtotal)}</td></tr>`;
+  }).join('');
+  const temZerado = itens.some(it => { const p = it.produtoId ? prods.find(x => x.id === it.produtoId) : null; return p && !p.ehServico && (p.estoqueAtual || 0) <= 0; });
+  return rmA4Secao('Produtos e Serviços', `
+    <table class="a4-tab">
+      <thead><tr><th class="c" style="width:34px">Item</th><th style="width:80px">Código</th><th>Descrição</th>${simples ? '' : '<th class="c" style="width:22px">T</th>'}<th class="r" style="width:38px">Qtd.</th>${simples ? '' : '<th style="width:38px">Unid.</th>'}<th class="r" style="width:90px">Valor Un. (R$)</th><th class="r" style="width:80px">Total (R$)</th></tr></thead>
+      <tbody>${linhas || `<tr><td colspan="${simples?6:8}" class="c" style="color:#777">Nenhum item</td></tr>`}</tbody>
+      <tfoot>
+        <tr><td colspan="${simples?3:4}" class="r"><b>Totais Produtos</b></td><td class="r">${rmFmtQtd(qtd)}</td>${simples ? '' : '<td></td>'}<td></td><td class="r"><b>${rmFmtNum(tot)}</b></td></tr>
+        ${(extras||[]).filter(Boolean).map(([k,v,forte]) => `<tr class="${forte?'a4-forte':''}"><td colspan="${simples?5:7}" class="r"><b>${k}</b></td><td class="r"><b>${v}</b></td></tr>`).join('')}
+      </tfoot>
+    </table>
+    ${temZerado ? '<div class="a4-nota">* Produtos com estoque zero ou negativo</div>' : ''}`);
+}
+function rmA4Prom(refId){
+  const nota = rmLoadProms().find(n => n.refId === refId);
+  if(!nota) return '';
+  return rmA4Secao('A prazo · ' + nota.parcelas.length + 'x', `
+    <table class="a4-tab"><thead><tr><th class="c" style="width:60px">Parcela</th><th>Vencimento</th><th class="r">Valor (R$)</th><th class="r">Pago (R$)</th></tr></thead>
+    <tbody>${nota.parcelas.map(p => `<tr><td class="c">${p.n}/${nota.parcelas.length}</td><td>${rmDataBR(p.vencimento)}</td><td class="r">${rmFmtNum(p.valor)}</td><td class="r">${rmParcPago(p) > 0 ? rmFmtNum(rmParcPago(p)) : '—'}</td></tr>`).join('')}</tbody></table>`);
+}
+function rmA4Pagamentos(refId, forma, total, data, subtotal, desconto){
+  const nota = rmLoadProms().find(n => n.refId === refId);
+  const dia = d => d ? new Date(String(d).length <= 10 ? d + 'T12:00:00' : d).toLocaleDateString('pt-BR') : '';
+  let linhas;
+  if(nota){
+    linhas = nota.parcelas.map(p => {
+      const quit = rmParcRestante(p) <= 0.004;
+      return `<tr><td class="c">${p.n}</td><td>A prazo</td><td>${rmDataBR(p.vencimento)}</td><td>${quit ? dia(p.pagoEm) : (rmParcPago(p) > 0 ? 'parcial: ' + rmFmtNum(rmParcPago(p)) : '')}</td><td>${quit ? 'Sim' : 'Não'}</td><td class="r">${rmFmtNum(p.valor)}</td></tr>`;
+    }).join('');
+  } else {
+    linhas = `<tr><td class="c">1</td><td>${rmH(forma || '—')}</td><td>${dia(data)}</td><td>${dia(data)}</td><td>Sim</td><td class="r">${rmFmtNum(total)}</td></tr>`;
+  }
+  return rmA4Secao('Pagamentos', `
+    <table class="a4-tab">
+      <thead><tr><th class="c" style="width:50px">Parcela</th><th>Forma Pagamento</th><th>Vencimento</th><th>Data Quitação</th><th>Quitada</th><th class="r">Valor (R$)</th></tr></thead>
+      <tbody>${linhas}</tbody>
+      <tfoot>
+        <tr><td colspan="5" class="r"><b>Sub-Total (R$)</b></td><td class="r"><b>${rmFmtNum(subtotal)}</b></td></tr>
+        ${desconto > 0 ? `<tr><td colspan="5" class="r"><b>Desconto (R$)</b></td><td class="r"><b>- ${rmFmtNum(desconto)}</b></td></tr>` : ''}
+        <tr class="a4-forte"><td colspan="5" class="r"><b>Total (R$)</b></td><td class="r"><b>${rmFmtNum(total)}</b></td></tr>
+      </tfoot>
+    </table>`);
+}
+function rmA4AssinaturaFinal(nomeCliente){
+  const e = rmEmpresa();
+  return `<div class="a4-fim">
+    <div class="a4-fim-ass">______________________________________<br>${rmH(nomeCliente || 'Cliente')}</div>
+    ${e.pix ? `<div class="a4-fim-pix">PIX ${rmH(e.pix)}</div>` : ''}
+    <div class="a4-fim-emp">${rmH(e.razao ? e.razao + ' ( ' + e.nome.toUpperCase() + ' )' : e.nome)}</div>
+  </div>`;
+}
+
+function rmA4Assinaturas(esq, dir){
+  return `<div class="a4-ass"><div>______________________________<br>${esq}</div>${dir ? `<div>______________________________<br>${dir}</div>` : ''}</div>`;
+}
+
+function rmImprimirA4(titulo, corpo, varias){
+  const e = rmEmpresa();
+  const agora = new Date().toLocaleString('pt-BR').replace(',', '');
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${rmH(titulo)}</title><style>
+    @page{ size:A4; margin:9mm 10mm 12mm; }
+    *{box-sizing:border-box;}
+    body{font-family:"DejaVu Sans", Verdana, Arial, sans-serif; color:#222; font-size:9.5px; margin:0;}
+    .a4-cab{display:flex; align-items:flex-start; gap:12px; border-bottom:2px solid #333; padding-bottom:7px; margin-bottom:12px;}
+    .a4-logo{width:62px; height:62px; object-fit:contain;}
+    .a4-emp{flex:1; font-size:9px; line-height:1.35; padding-left:16px;}
+    .a4-emp b{font-size:10.5px;}
+    .a4-doc{text-align:right; min-width:170px;}
+    .a4-doc-tit{font-size:14px; line-height:1.15;}
+    .a4-doc-data{font-size:11.5px; margin-top:5px;}
+    .a4-vend{font-size:9px; margin-top:5px;}
+    .a4-sec{margin-bottom:9px;}
+    .a4-sec-tit{font-size:13px; margin-bottom:4px;}
+    .a4-sec-corpo{padding-left:10px; font-size:9.5px; line-height:1.4;}
+    .a4-duas{display:flex; gap:20px;} .a4-duas > div{flex:1;}
+    .a4-tab{width:100%; border-collapse:collapse; font-size:9px;}
+    .a4-tab th{background:#d0d0d0; font-weight:400; text-align:left; padding:3px 5px;}
+    .a4-tab td{padding:3px 5px; border-bottom:1px solid #e3e3e3; vertical-align:top;}
+    .a4-tab tfoot td{border-bottom:none; padding:3px 5px;}
+    .a4-tab tfoot tr:first-child td{border-top:1px solid #bbb;}
+    .a4-tab .a4-forte td{font-size:11px; border-top:1px solid #bbb;}
+    .c{text-align:center;} .r{text-align:right;}
+    .a4-nota{text-align:right; font-size:8.5px; margin-top:2px;}
+    .a4-txt{font-size:10px; line-height:1.5;}
+    .a4-valor{font-size:13px; text-align:right; margin:2px 0 6px;}
+    .a4-ass{display:flex; justify-content:space-around; margin-top:34px; text-align:center; font-size:9.5px; gap:20px;}
+    .a4-naofiscal{font-size:9px; margin-top:3px;}
+    .a4-fim{margin-top:30px; text-align:center; font-size:9.5px; line-height:1.45;}
+    .a4-fim-pix{margin-top:8px;}
+    .a4-fim-emp{margin-top:2px;}
+    .a4-quebra{page-break-after:always; break-after:page; height:0;}
+    .a4-rodmsg{margin-top:10px; text-align:center; font-size:9px; color:#444;}
+    .a4-rod{position:fixed; bottom:0; left:0; right:0; border-top:1px solid #333; padding-top:4px; display:flex; justify-content:space-between; font-size:8.5px; font-style:italic; font-weight:700;}
+    .a4-rod span:first-child{width:33%;} .a4-rod span:nth-child(2){width:34%; text-align:center;} .a4-rod span:last-child{width:33%; text-align:right;}
+  </style></head><body>${corpo}${e.rodape ? `<div class="a4-rodmsg">${rmH(e.rodape)}</div>` : ''}
+    <div class="a4-rod"><span></span><span>${varias ? '' : '1/1'}</span><span>Impresso em ${agora}</span></div></body></html>`;
+  let frame = document.getElementById('rm-print-a4');
+  if(!frame){
+    frame = document.createElement('iframe');
+    frame.id = 'rm-print-a4';
+    frame.style.cssText = 'position:fixed; width:0; height:0; border:0; right:0; bottom:0;';
+    document.body.appendChild(frame);
+  }
+  const doc = frame.contentWindow.document;
+  doc.open(); doc.write(html); doc.close();
+  setTimeout(() => { frame.contentWindow.focus(); frame.contentWindow.print(); }, 450);
+}
+
+function rmImprimirTesteA4(){
+  rmImprimirA4('Teste', rmA4Cabecalho('Página de teste', '', new Date().toLocaleDateString('pt-BR')) + rmA4Secao('Teste', 'Se esta página saiu em A4 com o cabeçalho certo, a impressora está configurada.'));
+}
+
+// ---- Venda (PDV) ----
+function rmImprimirVendaA4(id){ const c = rmCorpoVendaA4(id); if(c) rmImprimirA4(c.titulo, c.corpo); }
+function rmCorpoVendaA4(id){
+  const v = rmLoadVendas().find(x => x.id === id); if(!v) return null;
+  const cli = v.clienteId ? (rmLoadClientes().find(c => c.id === v.clienteId) || { nome: v.clienteNome }) : { nome: v.clienteNome };
+  const orc = v.tipo === 'orcamento';
+  const sub = Number(v.subtotal) || (v.itens||[]).reduce((s,i) => s + (Number(i.subtotal)||0), 0);
+  const corpo = rmA4Cabecalho(orc ? 'Orçamento:' : 'Comprovante da Venda:', v.codigoVenda, new Date(v.criadoEm).toLocaleDateString('pt-BR'), v.vendedor, true)
+    + rmA4ClienteTxt(cli)
+    + rmA4Itens(v.itens, [], true)
+    + (orc ? rmA4Secao('Totais', `<div class="a4-valor">Total (R$): <b>${rmFmtNum(v.total)}</b></div>`)
+           : rmA4Pagamentos(v.id, v.formaPagamento, v.total, v.criadoEm, sub, v.desconto))
+    + (v.observacao ? rmA4Secao('Observações', rmH(v.observacao)) : '')
+    + (orc ? '' : rmA4AssinaturaFinal(cli && cli.nome));
+  return { titulo: v.codigoVenda, corpo };
+}
+
+// ---- Ordem de serviço ----
+function rmImprimirOSA4(id){ const c = rmCorpoOSA4(id); if(c) rmImprimirA4(c.titulo, c.corpo); }
+function rmCorpoOSA4(id){
+  const r = rmLoad().find(x => x.id === id); if(!r) return null;
+  const t = rmOsTotais(r);
+  const cli = r.clienteId ? (rmLoadClientes().find(c => c.id === r.clienteId) || { nome:r.nome, telefone:r.telefone }) : { nome:r.nome, telefone:r.telefone };
+  const probs = (r.problemas||[]).map(p => typeof p === 'string' ? p : (p.texto||'')).filter(Boolean);
+  const st = r.pago ? 'Finalizada' : ((RM_STATUS[r.status]||{}).label || '');
+  const corpo = rmA4Cabecalho('Ordem Serviço nº', r.codigoApp, new Date(r.pagoEm || r.entrada).toLocaleDateString('pt-BR'), r.vendedor || r.atendente)
+    + rmA4Secao('Dados Gerais', rmA4Duas(
+        ['Data Serviço: ' + rmFormatData(r.entrada), 'Data Entrega: ' + (r.pagoEm ? rmDataHoraBR(r.pagoEm) : (r.entrega || ''))],
+        ['Responsável: ' + rmH(r.mecanico || ''), 'Status: ' + rmH(st), r.modelo ? 'Moto: ' + rmH(r.modelo) : ''].filter(Boolean)))
+    + rmA4ClienteTxt(cli)
+    + rmA4Itens(r.pecasUsadas, [ r.maoDeObra > 0 ? ['Mão de obra', rmFmtNum(r.maoDeObra)] : null ])
+    + (r.pago ? rmA4Pagamentos(r.id, r.formaPagamento, t.total, r.pagoEm, t.bruto, t.desc)
+              : rmA4Secao('Totais', `<div class="a4-valor">Total (R$): <b>${rmFmtNum(t.total)}</b></div>`))
+    + (r.observacao ? rmA4Secao('Observações', rmH(r.observacao)) : '')
+    + rmA4AssinaturaFinal(cli && cli.nome);
+  return { titulo: r.codigoApp, corpo };
+}
+
+// ---- Recibo de pagamento de promissória ----  itens: [{ nota, p, pg }]
+function rmImprimirReciboA4(itens){
+  if(!itens || !itens.length) return;
+  const nota0 = itens[0].nota;
+  const cli = nota0.clienteId ? (rmLoadClientes().find(c => c.id === nota0.clienteId) || { nome: nota0.clienteNome }) : { nome: nota0.clienteNome };
+  const total = itens.reduce((s,x) => s + (Number(x.pg.valor)||0), 0);
+  const quando = itens[0].pg.data;
+  const formas = [...new Set(itens.map(x => x.pg.forma).filter(Boolean))].join(', ');
+  const notasCli = rmLoadProms().filter(n => (cli.id && n.clienteId === cli.id) || n.clienteNome === nota0.clienteNome);
+  const deve = notasCli.reduce((s,n) => s + n.parcelas.reduce((a,p) => a + rmParcRestante(p), 0), 0);
+  const e = rmEmpresa();
+  const numero = 'R-' + String(new Date(String(quando).length <= 10 ? quando + 'T12:00:00' : quando).getTime()).slice(-8);
+  const corpo = rmA4Cabecalho('Recibo nº', numero, new Date(String(quando).length <= 10 ? quando + 'T12:00:00' : quando).toLocaleDateString('pt-BR'))
+    + rmA4Secao('Dados Gerais', rmA4Duas(['Data do pagamento: ' + rmDataHoraBR(quando)], ['Forma de pagamento: ' + rmH(formas || '—')]))
+    + rmA4ClienteTxt(cli)
+    + rmA4Secao('Recibo', `<div class="a4-valor">Valor: <b>R$ ${rmFmtNum(total)}</b></div>
+        <div class="a4-txt">Recebemos de <b>${rmH(cli.nome)}</b>, a importância de <b>R$ ${rmFmtNum(total)}</b> (${rmExtenso(total)}), referente ao pagamento das parcelas da compra a prazo abaixo.</div>`)
+    + rmA4Secao('Parcelas a prazo', `
+        <table class="a4-tab"><thead><tr><th>Nota / Parcela</th><th>Vencimento</th><th class="r">Valor parcela (R$)</th><th class="r">Pago agora (R$)</th><th class="r">Restante (R$)</th></tr></thead>
+        <tbody>${itens.map(({nota,p,pg}) => `<tr><td>${rmH(nota.refCodigo)}-${p.n}/${nota.parcelas.length}</td><td>${rmDataBR(p.vencimento)}</td><td class="r">${rmFmtNum(p.valor)}</td><td class="r"><b>${rmFmtNum(pg.valor)}</b></td><td class="r">${rmParcRestante(p) > 0.004 ? rmFmtNum(rmParcRestante(p)) : 'quitada'}</td></tr>`).join('')}</tbody>
+        <tfoot><tr class="a4-forte"><td colspan="3" class="r"><b>Total pago (R$)</b></td><td class="r"><b>${rmFmtNum(total)}</b></td><td></td></tr>
+        <tr><td colspan="3" class="r"><b>Saldo devedor do cliente (R$)</b></td><td class="r"><b>${rmFmtNum(deve)}</b></td><td></td></tr></tfoot></table>`)
+    + `<div class="a4-txt" style="margin-top:14px;">${rmH(e.cidade || '')}${e.cidade ? ', ' : ''}${new Date(String(quando).length <= 10 ? quando + 'T12:00:00' : quando).toLocaleDateString('pt-BR', { day:'numeric', month:'long', year:'numeric' })}.</div>`
+    + rmA4Assinaturas(rmH(e.nome));
+  rmImprimirA4('Recibo', corpo);
+}
+
+// reimprimir o recibo de um pagamento (junta os do mesmo lançamento avulso)
+function rmReimprimirRecibo(notaId, n, j){
+  const lista = rmLoadProms();
+  const nota = lista.find(x => x.id === notaId); if(!nota) return;
+  const p = nota.parcelas.find(x => x.n === n); if(!p) return;
+  const pg = rmParcPagamentos(p)[j]; if(!pg) return;
+  let itens = [{ nota, p, pg }];
+  if(pg.lote){
+    itens = [];
+    lista.forEach(nt => nt.parcelas.forEach(pp => rmParcPagamentos(pp).forEach(x => { if(x.lote === pg.lote) itens.push({ nota:nt, p:pp, pg:x }); })));
+  }
+  rmImprimirReciboA4(itens);
+}
+
 // ===================== NOTAS PROMISSÓRIAS =====================
 const RM_PROM_KEY = 'radicalMotos_promissorias';
 function rmLoadProms(){ try{ return JSON.parse(localStorage.getItem(RM_PROM_KEY)) || []; }catch(e){ return []; } }
@@ -4539,7 +4939,7 @@ function rmCriarPromissoria({ origem, refId, refCodigo, clienteId, clienteNome, 
   const existente = lista.find(p => p.refId === refId);
   if(existente){
     if(existente.parcelas.some(x => rmParcPago(x) > 0)){
-      alert('Essa venda já tem parcelas da promissória recebidas. A nota antiga foi mantida — ajuste em Financeiro > Promissórias se precisar.');
+      alert('Essa venda já tem parcelas recebidas. As parcelas antigas foram mantidas — ajuste em Financeiro > A prazo se precisar.');
       return existente;
     }
   }
@@ -4563,7 +4963,7 @@ function rmRenderPromPdv(){
   if(!block) return;
   let box = document.getElementById('rm-pdv-prom-box');
   if(!box){ box = document.createElement('div'); box.id = 'rm-pdv-prom-box'; block.appendChild(box); }
-  if(rmPdvFormaPagamento !== 'Promissória'){ box.innerHTML = ''; return; }
+  if(!rmAPrazo(rmPdvFormaPagamento)){ box.innerHTML = ''; return; }
   if(!rmPdvPromVenc) rmPdvPromVenc = rmAddDiasISO(rmHojeISO(), 30);
   const sub = rmTotalCarrinhoPdv();
   box.innerHTML = rmPromConfigHtml('rm-pdv', sub - rmCalcularDescontoPdv(sub), rmPdvPromN, rmPdvPromVenc, 'rmPdvPromMudou()');
@@ -4576,7 +4976,7 @@ function rmPdvPromMudou(){
 
 // ---- OS ----
 function rmOsPromHtml(r){
-  if(r.formaPagamento !== 'Promissória') return '';
+  if(!rmAPrazo(r.formaPagamento)) return '';
   if(!r.promVenc) r.promVenc = rmAddDiasISO(rmHojeISO(), 30);
   return rmPromConfigHtml('rm-os', rmOsTotais(r).total, r.promParcelas || 1, r.promVenc, `rmOsPromMudou('${r.id}')`);
 }
@@ -4637,8 +5037,8 @@ function rmRenderFinClientes(){
       pagoProm += rmParcPago(p);
     }));
     // total pago = vendas/OS pagas fora da promissória + o que já entrou das promissórias
-    const pagoDireto = pdv.filter(v => v.formaPagamento !== 'Promissória').reduce((s,v) => s + (Number(v.total)||0), 0)
-      + os.filter(m => m.pago && m.formaPagamento !== 'Promissória').reduce((s,m) => s + (m.valorPago || rmOsTotais(m).total), 0);
+    const pagoDireto = pdv.filter(v => !rmAPrazo(v.formaPagamento)).reduce((s,v) => s + (Number(v.total)||0), 0)
+      + os.filter(m => m.pago && !rmAPrazo(m.formaPagamento)).reduce((s,m) => s + (m.valorPago || rmOsTotais(m).total), 0);
     return { c, compras: os.length + pdv.length, pago: pagoDireto + pagoProm, receber, vencido };
   }).filter(l =>
     (filtro === 'todos' || (filtro === 'receber' ? l.receber > 0.004 : l.vencido > 0.004)) &&
@@ -4685,11 +5085,10 @@ function rmRenderFinProm(){
       <td>${p.n}/${nota.parcelas.length}</td>
       <td style="text-align:right; font-weight:700;">${rmFormatMoeda(sit==='paga' ? p.valor : resta)}${parcial?`<div style="font-size:11px; font-weight:400; color:var(--rm-text-dim);">de ${rmFormatMoeda(p.valor)}</div>`:''}</td>
       <td><span class="rm-prom-sit rm-prom-sit-${sit}">${rot[sit]}${sit==='paga'?' '+rmDataHoraBR(p.pagoEm):''}</span>${parcial?` <span class="rm-prom-sit rm-prom-sit-parcial">pago ${rmFormatMoeda(pago)}</span>`:''}</td>
-      <td style="text-align:right; white-space:nowrap;" onclick="event.stopPropagation()">
+      <td onclick="event.stopPropagation()"><div class="rm-prom-acoes">
         ${sit!=='paga' ? `<button class="rm-prom-btn rm-prom-btn-ok" onclick="rmPromReceber('${nota.id}',${p.n})">Receber</button>` : ''}
-        ${pago > 0 ? `<button class="rm-prom-btn" onclick="rmPromEstornar('${nota.id}',${p.n})" title="Desfazer o último pagamento">Estornar</button>` : ''}
-        <button class="rm-prom-btn" onclick="rmPromImprimir('${nota.id}')" title="Imprimir notas">&#128424;</button>
-      </td>
+        <button class="rm-prom-btn" onclick="rmPromImprimir('${nota.id}')" title="Imprimir notas promissórias para o cliente assinar (opcional)">&#128424;</button>
+      </div></td>
     </tr>`;
   }).join('');
 }
@@ -4698,7 +5097,7 @@ function rmPromReceber(notaId, n){
   const nota = rmLoadProms().find(x=>x.id===notaId); if(!nota) return;
   const p = nota.parcelas.find(x=>x.n===n); if(!p) return;
   const pgs = rmParcPagamentos(p), resta = rmParcRestante(p);
-  const formas = RM_FORMAS_PAGAMENTO.filter(f => f !== 'Promissória');
+  const formas = RM_FORMAS_PAGAMENTO.filter(f => !rmAPrazo(f));
   const modal = document.getElementById('rm-modal');
   modal.classList.remove('rm-modal-large','rm-modal-os');
   modal.innerHTML = `
@@ -4741,6 +5140,8 @@ function rmPromConfirmarRecebimento(notaId, n){
   rmSaveProms(lista); rmDbUpsertProm(nota);
   rmCloseModal();
   const falta = rmParcRestante(p);
+  const pgNovo = rmParcPagamentos(p)[rmParcPagamentos(p).length-1];
+  setTimeout(() => { if(confirm('Pagamento registrado. Imprimir recibo em A4?')) rmImprimirReciboA4([{ nota, p, pg: pgNovo }]); }, 200);
   rmShowToast(falta > 0 ? `Recebido ${rmFormatMoeda(valor)} · falta ${rmFormatMoeda(falta)}` : `Parcela quitada · ${rmFormatMoeda(valor)}`);
   rmRenderFinProm();
 }
@@ -4872,6 +5273,7 @@ function rmSetSection(section){
     if(btn) btn.classList.toggle('active', s===section);
   });
   if(section === 'clientes'){ rmRenderClientes(); rmSyncProms(); }
+  if(section === 'configuracoes'){ rmRenderConfigEmpresa(); rmSyncEmpresa().then(rmRenderConfigEmpresa); }
   if(section === 'financeiro'){ rmRenderFinVendas(); rmSyncProms(); }
   if(section === 'pdv'){ rmInicializarPdv(); }
   if(section === 'produtos'){
@@ -5497,7 +5899,7 @@ function rmAbrirModalCliente(id){
 
 function rmSetAbaCliente(aba){
   rmClienteAba = aba;
-  ['dados','endereco','motos','pagamentos'].forEach(t=>{
+  ['dados','endereco','motos','pagamentos','historico'].forEach(t=>{
     const p = document.getElementById('rm-cli-panel-'+t), b = document.getElementById('rm-cli-tab-'+t);
     if(p) p.style.display = t===aba ? '' : 'none';
     if(b) b.classList.toggle('active', t===aba);
@@ -5578,7 +5980,8 @@ function rmRenderModalCliente(c, novo){
       <button class="rm-qm-tab" id="rm-cli-tab-dados" onclick="rmSetAbaCliente('dados')">Dados</button>
       <button class="rm-qm-tab" id="rm-cli-tab-endereco" onclick="rmSetAbaCliente('endereco')">Endereço</button>
       ${novo ? '' : `<button class="rm-qm-tab" id="rm-cli-tab-motos" onclick="rmSetAbaCliente('motos')">Motos e compras</button>
-      <button class="rm-qm-tab" id="rm-cli-tab-pagamentos" onclick="rmSetAbaCliente('pagamentos')">Pagamentos</button>`}
+      <button class="rm-qm-tab" id="rm-cli-tab-pagamentos" onclick="rmSetAbaCliente('pagamentos')">Pagamentos</button>
+      <button class="rm-qm-tab" id="rm-cli-tab-historico" onclick="rmSetAbaCliente('historico')">Histórico</button>`}
     </div>
 
     <div id="rm-cli-panel-dados">
@@ -5618,7 +6021,8 @@ function rmRenderModalCliente(c, novo){
     </div>
 
     ${novo ? '' : `<div id="rm-cli-panel-motos">${rmClienteHistoricoHtml(c)}</div>
-    <div id="rm-cli-panel-pagamentos">${rmClientePagamentosHtml(c)}</div>`}
+    <div id="rm-cli-panel-pagamentos">${rmClientePagamentosHtml(c)}</div>
+    <div id="rm-cli-panel-historico">${rmClienteTimelineHtml(c)}</div>`}
 
     <div id="rm-cli-panel-endereco">
     <div class="rm-modal-body">
@@ -5651,12 +6055,18 @@ function rmRenderModalCliente(c, novo){
   // aberto pelo Financeiro: só histórico e pagamentos
   const modoFin = !novo && document.getElementById('rm-section-financeiro').classList.contains('active');
   if(modoFin){
+    const tabs = modal.querySelector('.rm-qm-tabs');
+    if(tabs) tabs.insertAdjacentHTML('afterend', rmCliPeriodoHtml(c.id));
     ['dados','endereco'].forEach(t => {
       const b = document.getElementById('rm-cli-tab-'+t); if(b) b.style.display = 'none';
       const p = document.getElementById('rm-cli-panel-'+t); if(p) p.remove();
     });
     const ex = modal.querySelector('.rm-btn-excluir'); if(ex) ex.remove();
     if(rmClienteAba === 'dados' || rmClienteAba === 'endereco') rmClienteAba = 'motos';
+  } else {
+    const hb = document.getElementById('rm-cli-tab-historico'); if(hb) hb.remove();
+    const hp = document.getElementById('rm-cli-panel-historico'); if(hp) hp.remove();
+    if(rmClienteAba === 'historico') rmClienteAba = 'dados';
   }
   rmSetAbaCliente(rmClienteAba);
   document.getElementById('rm-modal-backdrop').classList.add('show');
@@ -5667,8 +6077,8 @@ function rmClienteHistoricoHtml(c){
     total: m.valorPago || rmOsTotais(m).total, forma:m.formaPagamento||'', status:(RM_STATUS[m.status]||{}).label||'', pago:!!m.pago }));
   const pdv = rmLoadVendas().filter(v => v.clienteId === c.id && v.tipo !== 'orcamento').map(v => ({ tipo:'PDV', id:v.id, data:v.criadoEm,
     codigo:v.codigoVenda||'', titulo:'Venda balcão', total:Number(v.total)||0, forma:v.formaPagamento||'', status:'', pago:true }));
-  const lista = os.concat(pdv).sort((a,b) => new Date(b.data) - new Date(a.data));
-  if(!lista.length) return '<div class="rm-problema-empty" style="padding:16px;">Nenhuma ordem de serviço ou venda para este cliente ainda</div>';
+  const lista = os.concat(pdv).filter(x => rmCliNoPeriodo(x.data)).sort((a,b) => new Date(b.data) - new Date(a.data));
+  if(!lista.length) return `<div class="rm-problema-empty" style="padding:16px;">${rmCliRange() ? 'Nada neste período' : 'Nenhuma ordem de serviço ou venda para este cliente ainda'}</div>`;
   const total = lista.filter(x=>x.pago).reduce((s,x)=>s+x.total, 0);
   return `<div class="rm-cli-hist-resumo">${lista.length} registro${lista.length===1?'':'s'} · total pago ${rmFormatMoeda(total)}</div>` +
     lista.map(x => `
@@ -5687,22 +6097,373 @@ function rmClienteHistoricoHtml(c){
 let rmVoltarParaCliente = null;
 let rmVoltarParaClienteAba = 'motos';
 
+// ===== período do cliente (só no Financeiro) =====
+let rmCliPeriodo = { tipo:'todos', de:'', ate:'' };
+function rmCliRange(){
+  if(!document.getElementById('rm-section-financeiro').classList.contains('active')) return null;
+  const p = rmCliPeriodo, hoje = rmHojeISO();
+  if(p.tipo === 'todos') return null;
+  if(p.tipo === 'custom') return (p.de || p.ate) ? { de: p.de || '0000-01-01', ate: p.ate || '9999-12-31' } : null;
+  if(p.tipo === 'mes'){ return { de: hoje.slice(0,8) + '01', ate: hoje }; }
+  return { de: rmAddDiasISO(hoje, -parseInt(p.tipo)), ate: hoje };
+}
+function rmCliNoPeriodo(v){
+  const r = rmCliRange(); if(!r) return true;
+  if(!v) return false;
+  let d = String(v);
+  if(d.length > 10){ const x = new Date(d); d = new Date(x.getTime() - x.getTimezoneOffset()*6e4).toISOString().slice(0,10); }
+  return d >= r.de && d <= r.ate;
+}
+function rmCliPeriodoHtml(clienteId){
+  const p = rmCliPeriodo;
+  const op = (v, t) => `<option value="${v}"${p.tipo===v?' selected':''}>${t}</option>`;
+  return `<div class="rm-cli-periodo">
+    <span>Período:</span>
+    <select onchange="rmCliPeriodo.tipo=this.value; rmAbrirModalCliente('${clienteId}')">
+      ${op('todos','Todo o histórico')}${op('mes','Este mês')}${op('30','Últimos 30 dias')}${op('90','Últimos 3 meses')}${op('180','Últimos 6 meses')}${op('365','Último ano')}${op('custom','Escolher datas...')}
+    </select>
+    ${p.tipo==='custom' ? `
+      <label>de <input type="date" value="${p.de}" onchange="rmCliPeriodo.de=this.value; rmAbrirModalCliente('${clienteId}')"></label>
+      <label>até <input type="date" value="${p.ate}" onchange="rmCliPeriodo.ate=this.value; rmAbrirModalCliente('${clienteId}')"></label>` : ''}
+    <button class="rm-pe2-btn" style="margin-left:auto;" onclick="rmCliSelecionarNotas('${clienteId}')">&#128424; Imprimir notas</button>
+    <button class="rm-pe2-btn" onclick="rmImprimirRelatorioCliente('${clienteId}')">&#128424; Imprimir relatório</button>
+  </div>`;
+}
+
+// ===== Relatório (extrato) do cliente para imprimir em A4 =====
+function rmCliEventos(c){
+  const quando = v => !v ? 0 : new Date(String(v).length <= 10 ? v + 'T12:00:00' : v).getTime();
+  const ev = [];
+  const notas = rmLoadProms().filter(n => n.clienteId === c.id || (!n.clienteId && c.nome && n.clienteNome === c.nome));
+  const refsProm = new Set(notas.map(n => n.refId));
+  notas.forEach(n => {
+    ev.push({ t: quando(n.criadoEm), tipo:'divida', valor: n.parcelas.reduce((s,p) => s + (Number(p.valor)||0), 0),
+      desc: `${n.refCodigo || ''} · Compra a prazo em ${n.parcelas.length}x` });
+    n.parcelas.forEach(p => rmParcPagamentos(p).forEach(pg => ev.push({ t: quando(pg.data), tipo:'pagamento', valor: Number(pg.valor)||0,
+      desc: `${n.refCodigo || ''}-${p.n}/${n.parcelas.length} · Pagamento${pg.forma ? ' (' + pg.forma + ')' : ''}` })));
+  });
+  rmLoadVendas().filter(v => v.clienteId === c.id && v.tipo !== 'orcamento' && !rmAPrazo(v.formaPagamento) && !refsProm.has(v.id))
+    .forEach(v => ev.push({ t: quando(v.criadoEm), tipo:'avista', valor: Number(v.total)||0, desc: `${v.codigoVenda || ''} · Compra paga na hora${v.formaPagamento ? ' (' + v.formaPagamento + ')' : ''}` }));
+  rmMotosDoCliente(c).filter(m => m.pago && !rmAPrazo(m.formaPagamento) && !refsProm.has(m.id))
+    .forEach(m => ev.push({ t: quando(m.pagoEm || m.entrada), tipo:'avista', valor: m.valorPago || rmOsTotais(m).total,
+      desc: `${m.codigoApp || ''} · Ordem de serviço${m.modelo ? ' ' + m.modelo : ''}${m.formaPagamento ? ' (' + m.formaPagamento + ')' : ''}` }));
+  const ordem = { divida:0, avista:1, pagamento:2 };
+  ev.sort((a,b) => (a.t - b.t) || (ordem[a.tipo] - ordem[b.tipo]));
+  let saldo = 0;
+  ev.forEach(e => {
+    if(e.tipo === 'divida') saldo += e.valor;
+    if(e.tipo === 'pagamento') saldo -= e.valor;
+    e.saldo = Math.max(0, Math.round(saldo * 100) / 100);
+  });
+  return { ev, notas, saldo: Math.max(0, saldo) };
+}
+
+function rmCliNotasLista(c){
+  const os = rmMotosDoCliente(c).map(m => ({ tipo:'OS', id:m.id, data:m.pagoEm || m.entrada, codigo:m.codigoApp||'', desc:'Ordem de serviço' + (m.modelo ? ' · ' + m.modelo : ''), total: m.valorPago || rmOsTotais(m).total, forma:m.formaPagamento||'' }));
+  const pdv = rmLoadVendas().filter(v => v.clienteId === c.id && v.tipo !== 'orcamento').map(v => ({ tipo:'PDV', id:v.id, data:v.criadoEm, codigo:v.codigoVenda||'', desc:'Venda balcão · ' + (v.itens||[]).length + ' item(ns)', total:Number(v.total)||0, forma:v.formaPagamento||'' }));
+  const proms = rmLoadProms();
+  return os.concat(pdv).filter(x => rmCliNoPeriodo(x.data)).map(x => {
+    const n = proms.find(p => p.refId === x.id);
+    x.deve = n ? n.parcelas.reduce((s,p) => s + rmParcRestante(p), 0) : 0;
+    return x;
+  }).sort((a,b) => new Date(b.data) - new Date(a.data));
+}
+let rmSelSoAbertas = false;
+
+function rmCliSelecionarNotas(clienteId){
+  const c = rmLoadClientes().find(x => x.id === clienteId); if(!c) return;
+  const todas = rmCliNotasLista(c);
+  const lista = rmSelSoAbertas ? todas.filter(x => x.deve > 0.004) : todas;
+  rmVoltarParaCliente = clienteId;
+  rmVoltarParaClienteAba = rmClienteAba || 'motos';
+  const modal = document.getElementById('rm-modal');
+  modal.classList.remove('rm-modal-large','rm-modal-os');
+  modal.innerHTML = `
+    <div class="rm-modal-header">
+      <div><div class="rm-modal-title">Imprimir notas</div>
+      <div class="rm-modal-sub">${rmEscapeHtml(c.nome||'')} · ${lista.length} nota${lista.length===1?'':'s'}${rmCliRange()?' no período':''}</div></div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
+    </div>
+    <div class="rm-sel-filtro">
+      <button class="rm-pe2-btn${!rmSelSoAbertas?' rm-sel-ativo':''}" onclick="rmSelSoAbertas=false; rmCliSelecionarNotas('${clienteId}')">Todas as notas</button>
+      <button class="rm-pe2-btn${rmSelSoAbertas?' rm-sel-ativo':''}" onclick="rmSelSoAbertas=true; rmCliSelecionarNotas('${clienteId}')">Só as não pagas</button>
+    </div>
+    ${lista.length ? `
+    <label class="rm-sel-todas"><input type="checkbox" onchange="document.querySelectorAll('.rm-sel-nota').forEach(x => x.checked = this.checked); rmCliSelContar()"> Selecionar todas</label>
+    <div class="rm-sel-lista">
+      ${lista.map(x => `<label class="rm-sel-item">
+        <input type="checkbox" class="rm-sel-nota" data-tipo="${x.tipo}" data-id="${x.id}" onchange="rmCliSelContar()">
+        <span class="rm-fin-tag rm-fin-tag-${x.tipo}">${x.tipo}</span>
+        <b>${rmEscapeHtml(x.codigo)}</b>
+        <span class="rm-sel-desc">${rmEscapeHtml(x.desc)}${x.forma ? ' · ' + rmEscapeHtml(x.forma) : ''}</span>
+        <span class="rm-sel-data">${x.data ? new Date(x.data).toLocaleDateString('pt-BR') : '—'}</span>
+        ${x.deve > 0.004 ? `<span class="rm-prom-sit rm-prom-sit-vencida">deve ${rmFormatMoeda(x.deve)}</span>` : '<span class="rm-prom-sit rm-prom-sit-paga">paga</span>'}
+        <b>${rmFormatMoeda(x.total)}</b>
+      </label>`).join('')}
+    </div>
+    <button class="rm-primary" id="rm-sel-btn" onclick="rmCliImprimirSelecionadas('${clienteId}')" disabled>Selecione as notas</button>`
+    : `<div class="rm-problema-empty" style="padding:16px;">${rmSelSoAbertas ? 'Nenhuma nota em aberto' : 'Nenhuma nota'}${rmCliRange()?' neste período':''}</div>`}`;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+
+function rmCliSelContar(){
+  const n = document.querySelectorAll('.rm-sel-nota:checked').length;
+  const b = document.getElementById('rm-sel-btn');
+  b.disabled = !n;
+  b.textContent = n ? `🖨 Imprimir ${n} nota${n===1?'':'s'}` : 'Selecione as notas';
+}
+
+function rmCliImprimirSelecionadas(){
+  const sel = [...document.querySelectorAll('.rm-sel-nota:checked')];
+  const partes = sel.map(el => el.dataset.tipo === 'OS' ? rmCorpoOSA4(el.dataset.id) : rmCorpoVendaA4(el.dataset.id)).filter(Boolean);
+  if(!partes.length) return;
+  if(partes.length === 1){ rmImprimirA4(partes[0].titulo, partes[0].corpo); return; }
+  rmImprimirA4('Notas', partes.map(p => p.corpo).join('<div class="a4-quebra"></div>'), true);
+}
+
+function rmImprimirRelatorioCliente(clienteId){
+  const c = rmLoadClientes().find(x => x.id === clienteId); if(!c) return;
+  const { ev, notas, saldo } = rmCliEventos(c);
+  const r = rmCliRange();
+  const noPer = e => rmCliNoPeriodo(new Date(e.t).toISOString());
+  const vis = ev.filter(noPer);
+  // saldo antes do período
+  const anteriores = ev.filter(e => !noPer(e) && (!r || new Date(e.t).toISOString().slice(0,10) < r.de));
+  const saldoInicial = anteriores.length ? anteriores[anteriores.length-1].saldo : 0;
+  let comprado = 0, pago = 0;
+  vis.forEach(e => { if(e.tipo !== 'pagamento') comprado += e.valor; if(e.tipo !== 'divida') pago += e.valor; });
+  const periodoTxt = r ? `${rmDataBR(r.de)} a ${rmDataBR(r.ate > rmHojeISO() ? rmHojeISO() : r.ate)}` : 'Todo o histórico';
+  const hoje = rmHojeISO();
+  const abertas = [];
+  notas.forEach(n => n.parcelas.forEach(p => { if(rmParcRestante(p) > 0.004) abertas.push({ n, p }); }));
+  abertas.sort((a,b) => a.p.vencimento.localeCompare(b.p.vencimento));
+  const vencido = abertas.filter(x => x.p.vencimento < hoje).reduce((s,x) => s + rmParcRestante(x.p), 0);
+  const dt = t => new Date(t).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }).replace(',', '');
+
+  const corpo = rmA4Cabecalho('Extrato do Cliente', '', new Date().toLocaleDateString('pt-BR'))
+    + rmA4Secao('Dados do Cliente:', rmH(c.nome || ''))
+    + rmA4Secao('Resumo', rmA4Duas(
+        ['Período: ' + periodoTxt, 'Comprado no período: R$ ' + rmFmtNum(comprado), 'Pago no período: R$ ' + rmFmtNum(pago)],
+        [`<b>Saldo devedor hoje: R$ ${rmFmtNum(saldo)}</b>`, 'Parcelas em aberto: ' + abertas.length, 'Valor vencido: R$ ' + rmFmtNum(vencido)]))
+    + rmA4Secao('Movimentações', `
+      <table class="a4-tab">
+        <thead><tr><th style="width:95px">Data</th><th>Descrição</th><th class="r" style="width:80px">Compra (R$)</th><th class="r" style="width:80px">Pago (R$)</th><th class="r" style="width:85px">Saldo (R$)</th></tr></thead>
+        <tbody>
+          ${r ? `<tr><td></td><td><i>Saldo anterior ao período</i></td><td></td><td></td><td class="r">${rmFmtNum(saldoInicial)}</td></tr>` : ''}
+          ${vis.map(e => `<tr><td>${dt(e.t)}</td><td>${rmH(e.desc)}</td>
+            <td class="r">${e.tipo !== 'pagamento' ? rmFmtNum(e.valor) : ''}</td>
+            <td class="r">${e.tipo !== 'divida' ? rmFmtNum(e.valor) : ''}</td>
+            <td class="r">${rmFmtNum(e.saldo)}</td></tr>`).join('') || '<tr><td colspan="5" class="c" style="color:#777">Nenhuma movimentação no período</td></tr>'}
+        </tbody>
+        <tfoot>
+          <tr><td colspan="2" class="r"><b>Totais do período</b></td><td class="r"><b>${rmFmtNum(comprado)}</b></td><td class="r"><b>${rmFmtNum(pago)}</b></td><td></td></tr>
+          <tr class="a4-forte"><td colspan="4" class="r"><b>Saldo devedor hoje (R$)</b></td><td class="r"><b>${rmFmtNum(saldo)}</b></td></tr>
+        </tfoot>
+      </table>
+      <div class="a4-nota">Compras pagas na hora aparecem em "Compra" e em "Pago" e não alteram o saldo.</div>`)
+    + (abertas.length ? rmA4Secao('Parcelas em aberto', `
+      <table class="a4-tab">
+        <thead><tr><th>Venda / Parcela</th><th>Vencimento</th><th class="r">Valor (R$)</th><th class="r">Pago (R$)</th><th class="r">Falta (R$)</th><th>Situação</th></tr></thead>
+        <tbody>${abertas.map(({n,p}) => `<tr><td>${rmH(n.refCodigo)}-${p.n}/${n.parcelas.length}</td><td>${rmDataBR(p.vencimento)}</td><td class="r">${rmFmtNum(p.valor)}</td><td class="r">${rmParcPago(p) > 0 ? rmFmtNum(rmParcPago(p)) : '—'}</td><td class="r"><b>${rmFmtNum(rmParcRestante(p))}</b></td><td>${p.vencimento < hoje ? '<b>Vencida</b>' : 'A vencer'}</td></tr>`).join('')}</tbody>
+      </table>`) : '')
+    + rmA4AssinaturaFinal(c.nome);
+  rmImprimirA4('Extrato ' + (c.nome || ''), corpo);
+}
+
+// linha do tempo financeira do cliente: compras, dívidas (promissórias) e pagamentos com saldo após cada um
+function rmClienteTimelineHtml(c){
+  const quando = v => !v ? 0 : new Date(String(v).length <= 10 ? v + 'T12:00:00' : v).getTime();
+  const ev = [];
+  const notas = rmLoadProms().filter(n => n.clienteId === c.id || (!n.clienteId && c.nome && n.clienteNome === c.nome));
+  const refsProm = new Set(notas.map(n => n.refId));
+  notas.forEach(n => {
+    const divida = n.parcelas.reduce((s,p) => s + (Number(p.valor)||0), 0);
+    ev.push({ t: quando(n.criadoEm), tipo:'divida', valor: divida, cod: n.refCodigo, origem: n.origem, refId: n.refId,
+      txt: `Compra a prazo em ${n.parcelas.length}x`, sub: n.parcelas.map(p => `${p.n}ª ${rmDataBR(p.vencimento)} · ${rmFormatMoeda(p.valor)}`).join('  |  ') });
+    n.parcelas.forEach(p => rmParcPagamentos(p).forEach(pg => ev.push({
+      t: quando(pg.data), tipo:'pagamento', valor: Number(pg.valor)||0, cod: n.refCodigo, origem: n.origem, refId: n.refId,
+      txt: `Pagamento da ${p.n}ª parcela${pg.forma ? ' · ' + pg.forma : ''}`, data: pg.data
+    })));
+  });
+  // compras pagas na hora (não mexem no saldo)
+  rmLoadVendas().filter(v => v.clienteId === c.id && v.tipo !== 'orcamento' && !rmAPrazo(v.formaPagamento) && !refsProm.has(v.id))
+    .forEach(v => ev.push({ t: quando(v.criadoEm), tipo:'avista', valor: Number(v.total)||0, cod: v.codigoVenda, origem:'PDV', refId: v.id,
+      txt: `Compra paga na hora${v.formaPagamento ? ' · ' + v.formaPagamento : ''}`, data: v.criadoEm }));
+  rmMotosDoCliente(c).filter(m => m.pago && !rmAPrazo(m.formaPagamento) && !refsProm.has(m.id))
+    .forEach(m => ev.push({ t: quando(m.pagoEm || m.entrada), tipo:'avista', valor: m.valorPago || rmOsTotais(m).total, cod: m.codigoApp, origem:'OS', refId: m.id,
+      txt: `Ordem de serviço paga${m.formaPagamento ? ' · ' + m.formaPagamento : ''}${m.modelo ? ' · ' + m.modelo : ''}`, data: m.pagoEm || m.entrada }));
+
+  if(!ev.length) return '<div class="rm-problema-empty" style="padding:16px;">Nenhuma movimentação para este cliente ainda</div>';
+
+  // ordem cronológica para calcular o saldo; dívida antes do pagamento no mesmo instante
+  const ordem = { divida:0, avista:1, pagamento:2 };
+  ev.sort((a,b) => (a.t - b.t) || (ordem[a.tipo] - ordem[b.tipo]));
+  let saldo = 0, totalComprado = 0, totalPago = 0;
+  ev.forEach(e => {
+    if(e.tipo === 'divida') saldo += e.valor;
+    if(e.tipo === 'pagamento') saldo -= e.valor;
+    e.saldo = Math.max(0, Math.round(saldo * 100) / 100);
+    e.noPeriodo = rmCliNoPeriodo(new Date(e.t).toISOString());
+    if(e.noPeriodo){
+      if(e.tipo !== 'pagamento') totalComprado += e.valor;
+      if(e.tipo !== 'divida') totalPago += e.valor;
+    }
+  });
+  const visiveis = ev.filter(e => e.noPeriodo);
+  const fmtData = t => new Date(t).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }).replace(',', ' às');
+  const icone = { divida:'&#128221;', pagamento:'&#10004;', avista:'&#128722;' };
+  const sinal = { divida:'+', pagamento:'−', avista:'' };
+
+  return `
+    <div class="rm-tl-topo">
+      <div><span>Deve hoje</span><b style="color:${saldo>0.004?'#b3261e':'#3c763d'}">${rmFormatMoeda(Math.max(0,saldo))}</b></div>
+      <div><span>Comprado${rmCliRange()?' no período':''}</span><b>${rmFormatMoeda(totalComprado)}</b></div>
+      <div><span>Pago${rmCliRange()?' no período':''}</span><b>${rmFormatMoeda(totalPago)}</b></div>
+    </div>
+    ${visiveis.length ? '' : '<div class="rm-problema-empty" style="padding:16px;">Nenhuma movimentação neste período</div>'}
+    <div class="rm-tl">
+      ${visiveis.slice().reverse().map(e => `
+        <div class="rm-tl-ev rm-tl-${e.tipo}">
+          <div class="rm-tl-dot">${icone[e.tipo]}</div>
+          <div class="rm-tl-card" onclick="rmClienteAbrirHist('${c.id}','${e.origem}','${e.refId}','historico')">
+            <div class="rm-tl-l1">
+              <span class="rm-tl-data">${fmtData(e.t)}</span>
+              <span class="rm-tl-valor">${sinal[e.tipo]} ${rmFormatMoeda(e.valor)}</span>
+            </div>
+            <div class="rm-tl-txt"><b>${rmEscapeHtml(e.cod||'')}</b> · ${rmEscapeHtml(e.txt)}</div>
+            ${e.sub ? `<div class="rm-tl-sub">${rmEscapeHtml(e.sub)}</div>` : ''}
+            <div class="rm-tl-saldo">${e.tipo === 'avista' ? 'Saldo devedor continua' : (e.tipo === 'pagamento' ? 'Ficou faltando' : 'Saldo devedor passou a')}: <b>${rmFormatMoeda(e.saldo)}</b>${e.tipo==='pagamento' && e.saldo <= 0.004 ? ' · <span style="color:#3c763d">tudo quitado</span>' : ''}</div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ===== Pagamento avulso: cliente paga um valor e o sistema dá baixa nas parcelas mais antigas primeiro =====
+function rmCliParcelasAbertas(c){
+  const lista = [];
+  rmLoadProms().filter(n => n.clienteId === c.id || (!n.clienteId && c.nome && n.clienteNome === c.nome))
+    .forEach(n => n.parcelas.forEach(p => { if(rmParcRestante(p) > 0.004) lista.push({ n, p }); }));
+  return lista.sort((a,b) => a.p.vencimento.localeCompare(b.p.vencimento) || String(a.n.criadoEm).localeCompare(String(b.n.criadoEm)) || a.p.n - b.p.n);
+}
+
+function rmCliDistribuir(abertas, valor){
+  let sobra = Math.round(valor * 100) / 100;
+  const plano = [];
+  abertas.forEach(({n, p}) => {
+    if(sobra <= 0.004) return;
+    const resta = rmParcRestante(p);
+    const usa = Math.min(resta, sobra);
+    plano.push({ n, p, usa, depois: Math.round((resta - usa) * 100) / 100 });
+    sobra = Math.round((sobra - usa) * 100) / 100;
+  });
+  return { plano, sobra };
+}
+
+function rmCliAbrirPagamentoAvulso(clienteId, aba){
+  const c = rmLoadClientes().find(x => x.id === clienteId); if(!c) return;
+  const abertas = rmCliParcelasAbertas(c);
+  if(!abertas.length){ alert('Este cliente não tem parcelas em aberto.'); return; }
+  rmVoltarParaCliente = clienteId;
+  rmVoltarParaClienteAba = aba || 'pagamentos';
+  const total = abertas.reduce((s,x) => s + rmParcRestante(x.p), 0);
+  const formas = RM_FORMAS_PAGAMENTO.filter(f => !rmAPrazo(f));
+  const modal = document.getElementById('rm-modal');
+  modal.classList.remove('rm-modal-large','rm-modal-os');
+  modal.innerHTML = `
+    <div class="rm-modal-header">
+      <div><div class="rm-modal-title">Receber valor do cliente</div>
+      <div class="rm-modal-sub">${rmEscapeHtml(c.nome||'')} · deve ${rmFormatMoeda(total)} em ${abertas.length} parcela${abertas.length===1?'':'s'}</div></div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Quanto o cliente pagou</span>
+      <input class="rm-input" id="rm-av-valor" inputmode="decimal" placeholder="0,00" oninput="rmCliAvulsoPrevia('${clienteId}')" style="font-size:20px;">
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Forma de pagamento</span>
+      <div class="rm-pdv-pagamento-grid" id="rm-av-formas">${formas.map(f=>`<button class="rm-pdv-pag-btn" onclick="document.querySelectorAll('#rm-av-formas .rm-pdv-pag-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">${f}</button>`).join('')}</div>
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Como vai ser dada a baixa (da mais antiga para a mais nova)</span>
+      <div id="rm-av-previa"></div>
+    </div>
+    <button class="rm-primary" onclick="rmCliConfirmarAvulso('${clienteId}')">Confirmar pagamento</button>`;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+  rmCliAvulsoPrevia(clienteId);
+  setTimeout(() => document.getElementById('rm-av-valor').focus(), 50);
+}
+
+function rmCliAvulsoPrevia(clienteId){
+  const c = rmLoadClientes().find(x => x.id === clienteId); if(!c) return;
+  const abertas = rmCliParcelasAbertas(c);
+  const valor = rmParseMoeda(document.getElementById('rm-av-valor').value) || 0;
+  const { plano, sobra } = rmCliDistribuir(abertas, valor);
+  const usadas = new Set(plano.map(x => x.p));
+  const totalDepois = abertas.reduce((s,x) => s + rmParcRestante(x.p), 0) - (valor - sobra);
+  document.getElementById('rm-av-previa').innerHTML = `
+    <div class="rm-av-lista">
+      ${abertas.map(({n, p}) => {
+        const pl = plano.find(x => x.p === p);
+        const resta = rmParcRestante(p);
+        return `<div class="rm-av-linha${pl ? (pl.depois <= 0.004 ? ' rm-av-quita' : ' rm-av-parcial') : ''}">
+          <span class="rm-av-cod">${rmEscapeHtml(n.refCodigo||'')}-${p.n}/${n.parcelas.length}</span>
+          <span class="rm-av-venc">vence ${rmDataBR(p.vencimento)}</span>
+          <span class="rm-av-de">deve ${rmFormatMoeda(resta)}</span>
+          <span class="rm-av-res">${pl ? `− ${rmFormatMoeda(pl.usa)} → ${pl.depois <= 0.004 ? '<b>quitada</b>' : 'falta <b>' + rmFormatMoeda(pl.depois) + '</b>'}` : '<span style="color:var(--rm-text-dim)">continua igual</span>'}</span>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="rm-av-total">Depois desse pagamento o cliente fica devendo <b>${rmFormatMoeda(Math.max(0,totalDepois))}</b></div>
+    ${sobra > 0.004 ? `<div class="rm-pe2-aviso" style="margin-top:8px;">O valor passa ${rmFormatMoeda(sobra)} do que o cliente deve. Esse excesso não será lançado.</div>` : ''}`;
+}
+
+function rmCliConfirmarAvulso(clienteId){
+  const c = rmLoadClientes().find(x => x.id === clienteId); if(!c) return;
+  const valor = rmParseMoeda(document.getElementById('rm-av-valor').value) || 0;
+  if(!(valor > 0)){ alert('Informe o valor que o cliente pagou.'); return; }
+  const forma = document.querySelector('#rm-av-formas .rm-pdv-pag-btn.active');
+  if(!forma){ alert('Escolha a forma de pagamento.'); return; }
+  const lista = rmLoadProms();
+  // refaz a distribuição em cima da lista que vai ser salva
+  const abertas = [];
+  lista.filter(n => n.clienteId === c.id || (!n.clienteId && c.nome && n.clienteNome === c.nome))
+    .forEach(n => n.parcelas.forEach(p => { if(rmParcRestante(p) > 0.004) abertas.push({ n, p }); }));
+  abertas.sort((a,b) => a.p.vencimento.localeCompare(b.p.vencimento) || String(a.n.criadoEm).localeCompare(String(b.n.criadoEm)) || a.p.n - b.p.n);
+  const { plano, sobra } = rmCliDistribuir(abertas, valor);
+  if(sobra > 0.004 && !confirm(`O valor passa ${rmFormatMoeda(sobra)} do que o cliente deve. Lançar só ${rmFormatMoeda(valor - sobra)}?`)) return;
+  const agora = new Date().toISOString();
+  const lote = 'av' + Date.now();
+  const notasMexidas = new Set();
+  plano.forEach(({ n, p, usa }) => {
+    rmParcPagamentos(p).push({ valor: usa, data: agora, forma: forma.textContent, lote });
+    rmParcAtualizar(p);
+    notasMexidas.add(n);
+  });
+  rmSaveProms(lista);
+  notasMexidas.forEach(n => rmDbUpsertProm(n));
+  const itensRecibo = plano.map(({ n, p }) => ({ nota:n, p, pg: rmParcPagamentos(p)[rmParcPagamentos(p).length-1] }));
+  setTimeout(() => { if(confirm('Pagamento registrado. Imprimir recibo em A4?')) rmImprimirReciboA4(itensRecibo); }, 200);
+  rmShowToast(`Recebido ${rmFormatMoeda(valor - sobra)} · baixa em ${plano.length} parcela${plano.length===1?'':'s'}`);
+  rmCloseModal();
+}
+
 function rmClientePagamentosHtml(c){
   const notas = rmLoadProms().filter(n => n.clienteId === c.id || (!n.clienteId && c.nome && n.clienteNome === c.nome));
   const abertas = [], recebidos = [];
   notas.forEach(n => n.parcelas.forEach(p => {
     const sit = rmPromSituacao(p);
-    if(sit !== 'paga') abertas.push({ n, p, sit });
-    rmParcPagamentos(p).forEach(pg => recebidos.push({ n, p, pg, quitada: sit === 'paga' }));
+    if(sit !== 'paga' && rmCliNoPeriodo(p.vencimento)) abertas.push({ n, p, sit });
+    rmParcPagamentos(p).forEach((pg, j) => { if(rmCliNoPeriodo(pg.data)) recebidos.push({ n, p, pg, j, quitada: sit === 'paga' }); });
   }));
-  if(!abertas.length && !recebidos.length) return '<div class="rm-problema-empty" style="padding:16px;">Nenhuma nota promissória para este cliente</div>';
+  if(!abertas.length && !recebidos.length) return `<div class="rm-problema-empty" style="padding:16px;">${rmCliRange() ? 'Nada neste período' : 'Nenhuma compra a prazo para este cliente'}</div>`;
   abertas.sort((a,b) => a.p.vencimento.localeCompare(b.p.vencimento));
   recebidos.sort((a,b) => String(b.pg.data).localeCompare(String(a.pg.data)));
   const totAberto = abertas.reduce((s,x) => s + rmParcRestante(x.p), 0);
   const totPago = recebidos.reduce((s,x) => s + (Number(x.pg.valor)||0), 0);
   const cod = x => `${rmEscapeHtml(x.n.refCodigo||'')}-${x.p.n}/${x.n.parcelas.length}`;
   return `
-    <div class="rm-cli-hist-resumo">A receber: <b>${rmFormatMoeda(totAberto)}</b> · Já pago: <b>${rmFormatMoeda(totPago)}</b></div>
+    ${abertas.length || rmCliParcelasAbertas(c).length ? `<button class="rm-av-btn" onclick="rmCliAbrirPagamentoAvulso('${c.id}','pagamentos')">&#128176; Receber valor (dá baixa nas mais antigas)</button>` : ''}
+    <div class="rm-cli-hist-resumo">${rmCliRange() ? 'No período · vencendo' : 'A receber'}: <b>${rmFormatMoeda(totAberto)}</b> · ${rmCliRange() ? 'recebido' : 'Já pago'}: <b>${rmFormatMoeda(totPago)}</b></div>
     ${abertas.length ? `<div class="rm-cli-pag-tit">Em aberto</div>${abertas.map(x => {
       const pago = rmParcPago(x.p);
       return `<div class="rm-cli-hist"><div class="rm-cli-hist-linha" onclick="rmClienteAbrirHist('${c.id}','${x.n.origem}','${x.n.refId}','pagamentos')">
@@ -5719,6 +6480,7 @@ function rmClientePagamentosHtml(c){
         <span class="rm-cli-hist-cod">${cod(x)}</span>
         <span class="rm-cli-hist-tit">${rmDataHoraBR(x.pg.data)}${x.pg.forma?' · '+rmEscapeHtml(x.pg.forma):''} <small>(parcela de ${rmFormatMoeda(x.p.valor)}, venc. ${rmDataBR(x.p.vencimento)})</small></span>
         <b>${rmFormatMoeda(x.pg.valor)}</b>
+        <button class="rm-prom-btn" title="Imprimir recibo A4" onclick="event.stopPropagation(); rmReimprimirRecibo('${x.n.id}',${x.p.n},${x.j})">&#128424;</button>
       </div></div>`).join('')}` : ''}`;
 }
 
@@ -5740,7 +6502,7 @@ function rmPromResumoHtml(refId){
   const rot = { aberta:'Em aberto', vencida:'Vencida', paga:'Paga' };
   return `
     <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Promissória · ${nota.parcelas.length}x</span>
+      <span class="rm-modal-section-label" style="display:flex; justify-content:space-between; align-items:center;">A prazo · ${nota.parcelas.length}x <button class="rm-prom-btn" onclick="rmPromAbrirEditor('${nota.id}')">&#9998; Editar parcelas e pagamentos</button></span>
       ${nota.parcelas.map(p => {
         const sit = rmPromSituacao(p), pago = rmParcPago(p);
         return `<div class="rm-pdv-hero-line" style="padding:3px 0;">
@@ -5748,6 +6510,142 @@ function rmPromResumoHtml(refId){
           <b>${rmFormatMoeda(p.valor)}</b></div>`;
       }).join('')}
     </div>`;
+}
+
+// ===== Editor da promissória (aberto pelo resumo da venda/OS) =====
+let rmPromDraft = null;
+let rmPromSel = 0;
+
+function rmPromAbrirEditor(notaId){
+  const nota = rmLoadProms().find(n => n.id === notaId);
+  if(!nota) return;
+  rmPromDraft = JSON.parse(JSON.stringify(nota));
+  rmPromDraft.parcelas.forEach(p => rmParcPagamentos(p));
+  const ab = rmPromDraft.parcelas.findIndex(p => rmParcRestante(p) > 0);
+  rmPromSel = ab >= 0 ? ab : 0;
+  rmPromRenderEditor();
+}
+
+function rmPeDataInput(v){
+  if(!v) return '';
+  if(String(v).length <= 10) return v + 'T12:00';
+  const x = new Date(v); return new Date(x.getTime() - x.getTimezoneOffset()*6e4).toISOString().slice(0,16);
+}
+
+function rmPromRenderEditor(){
+  const d = rmPromDraft;
+  if(rmPromSel >= d.parcelas.length) rmPromSel = Math.max(0, d.parcelas.length - 1);
+  const formas = RM_FORMAS_PAGAMENTO.filter(f => !rmAPrazo(f));
+  const soma = d.parcelas.reduce((s,p) => s + (Number(p.valor)||0), 0);
+  const recebido = d.parcelas.reduce((s,p) => s + rmParcPago(p), 0);
+  const falta = d.parcelas.reduce((s,p) => s + rmParcRestante(p), 0);
+  const dif = Math.round((soma - d.total) * 100) / 100;
+  const rot = { aberta:'Em aberto', vencida:'Vencida', paga:'Paga' };
+  const p = d.parcelas[rmPromSel];
+
+  const lista = d.parcelas.map((x, i) => {
+    const sit = rmPromSituacao(x), pago = rmParcPago(x);
+    return `<button class="rm-pe2-item${i===rmPromSel?' active':''}" onclick="rmPromSel=${i}; rmPromRenderEditor()">
+      <div class="rm-pe2-item-top"><b>${i+1}ª parcela</b><span>${rmFormatMoeda(x.valor)}</span></div>
+      <div class="rm-pe2-item-bot"><span>vence ${rmDataBR(x.vencimento)}</span>
+        <span class="rm-prom-sit rm-prom-sit-${sit!=='paga'&&pago>0?'parcial':sit}">${sit!=='paga'&&pago>0?'Parcial':rot[sit]}</span></div>
+    </button>`;
+  }).join('');
+
+  const detalhe = !p ? '<div class="rm-problema-empty">Nenhuma parcela</div>' : `
+    <div class="rm-pe2-det-tit">${rmPromSel+1}ª parcela <small>de ${d.parcelas.length}</small></div>
+    <div class="rm-pe2-campos">
+      <label>Vencimento<input type="date" value="${p.vencimento}" onchange="rmPromDraft.parcelas[rmPromSel].vencimento=this.value; rmPromRenderEditor()"></label>
+      <label>Valor da parcela<input inputmode="decimal" value="${rmFmtNum(p.valor)}" onfocus="this.select()" onchange="rmPromDraft.parcelas[rmPromSel].valor=rmParseMoeda(this.value); rmPromRenderEditor()"></label>
+    </div>
+    <div class="rm-pe2-mini">
+      <div><span>Pago</span><b>${rmFormatMoeda(rmParcPago(p))}</b></div>
+      <div><span>Falta</span><b style="color:${rmParcRestante(p)>0?'#b3261e':'#3c763d'}">${rmFormatMoeda(rmParcRestante(p))}</b></div>
+    </div>
+
+    <div class="rm-pe2-sec">Pagamentos desta parcela</div>
+    ${p.pagamentos.length ? `
+      <table class="rm-pe2-tab">
+        <thead><tr><th>Data e hora</th><th>Forma</th><th style="text-align:right">Valor</th><th></th></tr></thead>
+        <tbody>${p.pagamentos.map((pg, j) => `
+          <tr>
+            <td><input type="datetime-local" value="${rmPeDataInput(pg.data)}" onchange="if(this.value) rmPromDraft.parcelas[rmPromSel].pagamentos[${j}].data = new Date(this.value).toISOString()"></td>
+            <td><select onchange="rmPromDraft.parcelas[rmPromSel].pagamentos[${j}].forma=this.value">${formas.map(f=>`<option${f===pg.forma?' selected':''}>${f}</option>`).join('')}${pg.forma && !formas.includes(pg.forma)?`<option selected>${rmEscapeHtml(pg.forma)}</option>`:''}</select></td>
+            <td><input inputmode="decimal" style="text-align:right" value="${rmFmtNum(pg.valor)}" onfocus="this.select()" onchange="rmPromDraft.parcelas[rmPromSel].pagamentos[${j}].valor=rmParseMoeda(this.value); rmPromRenderEditor()"></td>
+            <td><button class="rm-pe2-del" title="Apagar pagamento" onclick="rmPromDraft.parcelas[rmPromSel].pagamentos.splice(${j},1); rmPromRenderEditor()">&#128465;</button></td>
+          </tr>`).join('')}</tbody>
+      </table>` : '<div class="rm-pe2-vazio">Nenhum pagamento lançado nesta parcela</div>'}
+    <div class="rm-pe2-acoes">
+      <button class="rm-pe2-btn" onclick="rmPromDraft.parcelas[rmPromSel].pagamentos.push({ valor: rmParcRestante(rmPromDraft.parcelas[rmPromSel]), data: new Date().toISOString(), forma: 'Dinheiro' }); rmPromRenderEditor()">+ Lançar pagamento</button>
+      ${p.pagamentos.length ? '' : `<button class="rm-pe2-btn rm-pe2-btn-del" onclick="if(confirm('Remover a ${rmPromSel+1}ª parcela?')){ rmPromDraft.parcelas.splice(rmPromSel,1); rmPromRenderEditor(); }">Remover parcela</button>`}
+    </div>`;
+
+  const modal = document.getElementById('rm-modal');
+  modal.classList.remove('rm-modal-os');
+  modal.classList.add('rm-modal-large');
+  modal.innerHTML = `
+    <div class="rm-modal-header">
+      <div><div class="rm-modal-title">Editar parcelas ${rmEscapeHtml(d.refCodigo||'')}</div>
+      <div class="rm-modal-sub">${rmEscapeHtml(d.clienteNome||'')}</div></div>
+      <button class="rm-modal-close" onclick="rmPromFecharEditor()">&times;</button>
+    </div>
+
+    <div class="rm-pe2-resumo">
+      <div><span>Total da venda</span><b>${rmFormatMoeda(d.total)}</b></div>
+      <div><span>Soma das parcelas</span><b style="color:${Math.abs(dif)>0.004?'#b3261e':'inherit'}">${rmFormatMoeda(soma)}</b></div>
+      <div><span>Recebido</span><b style="color:#3c763d">${rmFormatMoeda(recebido)}</b></div>
+      <div><span>Falta receber</span><b>${rmFormatMoeda(falta)}</b></div>
+    </div>
+    ${Math.abs(dif) > 0.004 ? `<div class="rm-pe2-aviso">A soma das parcelas ${dif > 0 ? 'passa' : 'fica'} ${rmFormatMoeda(Math.abs(dif))} ${dif > 0 ? 'do' : 'abaixo do'} total da venda.</div>` : ''}
+
+    <div class="rm-pe2-grid">
+      <div class="rm-pe2-lista">
+        ${lista}
+        <button class="rm-pe2-btn" style="width:100%; margin-top:4px;" onclick="rmPromAddParcela()">+ Adicionar parcela</button>
+      </div>
+      <div class="rm-pe2-det">${detalhe}</div>
+    </div>
+
+    <div class="rm-pe2-rodape">
+      <button class="rm-pe2-btn" onclick="rmPromFecharEditor()">Cancelar</button>
+      <button class="rm-primary" style="width:auto; padding:12px 28px; margin:0;" onclick="rmPromSalvarEditor()">Salvar alterações</button>
+    </div>`;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+
+function rmPromAddParcela(){
+  const ps = rmPromDraft.parcelas;
+  const ult = ps[ps.length-1];
+  ps.push({ n: ps.length+1, valor: 0, vencimento: ult ? rmAddMesesISO(ult.vencimento, 1) : rmAddDiasISO(rmHojeISO(), 30), pagamentos: [], pagoEm:null, valorPago:0, formaPagamento:null });
+  rmPromSel = ps.length - 1;
+  rmPromRenderEditor();
+}
+
+function rmPromSalvarEditor(){
+  const d = rmPromDraft;
+  if(!d.parcelas.length){ alert('A nota precisa ter pelo menos uma parcela.'); return; }
+  const soma = d.parcelas.reduce((s,p) => s + (Number(p.valor)||0), 0);
+  if(Math.abs(soma - d.total) > 0.004 && !confirm(`A soma das parcelas (${rmFormatMoeda(soma)}) é diferente do total da venda (${rmFormatMoeda(d.total)}). Salvar mesmo assim?`)) return;
+  d.parcelas.forEach((p, i) => {
+    p.n = i + 1;
+    p.pagamentos = p.pagamentos.filter(x => (Number(x.valor)||0) > 0).sort((a,b) => String(a.data).localeCompare(String(b.data)));
+    rmParcAtualizar(p);
+  });
+  const lista = rmLoadProms().map(n => n.id === d.id ? d : n);
+  rmSaveProms(lista);
+  rmDbUpsertProm(d);
+  rmShowToast('Parcelas atualizadas');
+  rmPromFecharEditor();
+}
+
+// volta pro resumo da venda/OS de onde o editor foi aberto
+function rmPromFecharEditor(){
+  const d = rmPromDraft;
+  rmPromDraft = null;
+  document.getElementById('rm-modal').classList.remove('rm-modal-large');
+  if(!d){ rmCloseModal(); return; }
+  if(d.origem === 'PDV') rmAbrirDetalheVenda(d.refId); else rmAbrirDetalheOS(d.refId);
+  if(document.getElementById('rm-section-financeiro').classList.contains('active')){ rmRenderFinProm(); rmRenderFinClientes(); }
 }
 
 function rmAbrirDetalheOS(id){
@@ -5813,6 +6711,7 @@ function rmAbrirDetalheOS(id){
     </div>`:''}
 
     ${rmPromResumoHtml(r.id)}
+    <button class="rm-pe2-btn" style="width:100%; margin-bottom:10px; padding:11px;" onclick="rmImprimirOSA4('${r.id}')">&#128424; Imprimir em A4</button>
     <button class="rm-primary" onclick="rmVoltarParaCliente = null; rmOpenModal('${r.id}', true)">Abrir ordem de serviço</button>
   `;
   document.getElementById('rm-modal-backdrop').classList.add('show');
@@ -6424,20 +7323,21 @@ function rmOsFinalizar(id){
   const r = list.find(x=>x.id===id);
   if(!r) return;
   if(!r.formaPagamento){ alert('Escolha a forma de pagamento antes de finalizar.'); return; }
-  if(r.formaPagamento === 'Promissória' && !r.clienteId && !r.nome){ alert('Para promissória, a moto precisa ter o cliente informado.'); return; }
+  if(rmAPrazo(r.formaPagamento) && !r.clienteId && !r.nome){ alert('Para vender a prazo, a moto precisa ter o cliente informado.'); return; }
   if(!confirm('Finalizar esta moto? Ela fica como PAGA e PRONTA.\nTotal: ' + rmFormatMoeda(rmOsTotais(r).total) + ' · ' + r.formaPagamento)) return;
   r.pago = true;
   r.pagoEm = new Date().toISOString();
   r.valorPago = rmOsTotais(r).total;
   rmSave(list);
   rmDbUpsertRecepcao(r);
-  if(r.formaPagamento === 'Promissória'){
+  if(rmAPrazo(r.formaPagamento)){
     rmCriarPromissoria({ origem:'OS', refId:r.id, refCodigo:r.codigoApp || ('OS-'+r.id), clienteId:r.clienteId,
       clienteNome:r.nome, total:r.valorPago, nParc:r.promParcelas || 1, venc:r.promVenc || rmAddDiasISO(rmHojeISO(), 30) });
   }
   if(!rmChangeStatus(id, 'prontas')) {}
   rmOpenModal(id, rmActiveModalLarge);
   rmShowToast('Moto finalizada · ' + rmFormatMoeda(r.valorPago));
+  setTimeout(() => { if(confirm('Moto finalizada. Imprimir a ordem de serviço em A4 para o cliente?')) rmImprimirOSA4(id); }, 200);
 }
 
 function rmOsAbrirBusca(){
@@ -6800,7 +7700,7 @@ function rmOpenModal(id, large){
         </div>
       </div>
       ${r.pago
-        ? `<div class="rm-os-finalizada">&#10004; Moto finalizada e paga${r.pagoEm?' em '+rmDataHoraBR(r.pagoEm):''}${r.formaPagamento?' · '+r.formaPagamento:''}</div>`
+        ? `<button class="rm-pe2-btn" style="float:right; margin:8px 10px 0 0;" onclick="rmImprimirOSA4('${r.id}')">&#128424; Imprimir A4</button><div class="rm-os-finalizada">&#10004; Moto finalizada e paga${r.pagoEm?' em '+rmDataHoraBR(r.pagoEm):''}${r.formaPagamento?' · '+r.formaPagamento:''}</div>`
         : `<button class="rm-os-finalizar" onclick="rmOsFinalizar('${r.id}')">Finalizar moto</button>`}
     </div>
 
