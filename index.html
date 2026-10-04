@@ -1014,6 +1014,14 @@
   .rm-cfg-campo{display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--rm-text-dim);}
   .rm-cfg-campo .rm-input{margin:0;}
   @media (max-width:600px){ .rm-cfg-grid{grid-template-columns:1fr;} }
+  .rm-org-grupo{background:var(--rm-panel); border:1px solid var(--rm-border); margin-bottom:12px;}
+  .rm-org-cab{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px 14px; background:var(--rm-panel-2); border-bottom:1px solid var(--rm-border);}
+  .rm-org-cab span{font-size:13px; color:var(--rm-text-dim); margin-left:8px;}
+  .rm-org-nota{display:flex; align-items:center; gap:10px; padding:9px 14px; border-bottom:1px solid var(--rm-border); font-size:13px;}
+  .rm-org-nota:last-child{border-bottom:none;}
+  .rm-org-ok{opacity:0.65;}
+  .rm-org-num{font-weight:800; font-size:15px; cursor:pointer; text-decoration:underline dotted; min-width:92px;}
+  .rm-org-info{flex:1; min-width:0; color:var(--rm-text-dim);}
   .rm-sel-filtro{display:flex; gap:6px; margin-bottom:12px;}
   .rm-sel-ativo{background:var(--rm-accent) !important; color:#fff !important; border-color:var(--rm-accent) !important;}
   .rm-sel-todas{display:flex; align-items:center; gap:8px; font-size:13px; margin-bottom:8px; cursor:pointer;}
@@ -1769,6 +1777,7 @@
         <button class="rm-subnav-btn active" id="rm-btn-fin-vendas" onclick="rmSetViewFin('vendas')"><span class="rm-subnav-icon">&#128176;</span><span>Vendas</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-prom" onclick="rmSetViewFin('prom')"><span class="rm-subnav-icon">&#128221;</span><span>A prazo</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-cli" onclick="rmSetViewFin('cli')"><span class="rm-subnav-icon">&#128101;</span><span>Clientes</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-fin-org" onclick="rmSetViewFin('org')"><span class="rm-subnav-icon">&#128194;</span><span>Organizar</span></button>
       </div>
       <div id="rm-view-fin-vendas" class="rm-view active">
         <h1 class="rm-title">Vendas</h1>
@@ -1795,6 +1804,20 @@
           </table>
           <div class="rm-problema-empty" id="rm-fin-vendas-empty" style="display:none; padding:20px;">Nenhuma venda no período</div>
         </div>
+      </div>
+      <div id="rm-view-fin-org" class="rm-view">
+        <h1 class="rm-title">Organizar notas</h1>
+        <p style="color:var(--rm-text-dim); font-size:13px; margin:-6px 0 14px;">Notas a prazo já quitadas. Junte as notas assinadas de cada cliente e marque como entregue quando devolver.</p>
+        <div class="rm-toolbar">
+          <input class="rm-search" id="rm-fin-org-busca" placeholder="Número da nota (ex.: 155 ou V-000155) ou nome do cliente..." oninput="rmRenderFinOrg()">
+          <select class="rm-date-select" id="rm-fin-org-status" onchange="rmRenderFinOrg()">
+            <option value="entregar" selected>Para entregar</option>
+            <option value="entregues">Já entregues</option>
+            <option value="todas">Todas quitadas</option>
+          </select>
+          <span id="rm-fin-org-cont" style="font-size:13px; color:var(--rm-text-dim); align-self:center;"></span>
+        </div>
+        <div id="rm-fin-org-lista"></div>
       </div>
       <div id="rm-view-fin-cli" class="rm-view">
         <h1 class="rm-title">Clientes</h1>
@@ -4877,11 +4900,11 @@ function rmSaveProms(l){ localStorage.setItem(RM_PROM_KEY, JSON.stringify(l)); }
 
 function rmPromFromDb(r){
   return { id:r.id, origem:r.origem, refId:r.ref_id, refCodigo:r.ref_codigo, clienteId:r.cliente_id,
-    clienteNome:r.cliente_nome, total:Number(r.total)||0, parcelas:r.parcelas||[], observacao:r.observacao, criadoEm:r.criado_em };
+    clienteNome:r.cliente_nome, total:Number(r.total)||0, parcelas:r.parcelas||[], observacao:r.observacao, criadoEm:r.criado_em, entregueEm:r.entregue_em || null };
 }
 function rmPromToDb(p){
   return { id:p.id, origem:p.origem, ref_id:p.refId, ref_codigo:p.refCodigo, cliente_id:p.clienteId||null,
-    cliente_nome:p.clienteNome||null, total:p.total, parcelas:p.parcelas, observacao:p.observacao||null, criado_em:p.criadoEm };
+    cliente_nome:p.clienteNome||null, total:p.total, parcelas:p.parcelas, observacao:p.observacao||null, criado_em:p.criadoEm, entregue_em:p.entregueEm||null };
 }
 async function rmDbUpsertProm(p){
   try{ const { error } = await rmSb.from('promissorias').upsert(rmPromToDb(p)); if(error) console.error('Supabase promissória:', error); }
@@ -4990,12 +5013,13 @@ function rmOsPromMudou(id){
 
 // ---- Financeiro > Promissórias ----
 function rmSetViewFin(view){
-  ['vendas','prom','cli'].forEach(v=>{
+  ['vendas','prom','cli','org'].forEach(v=>{
     document.getElementById('rm-view-fin-'+v).classList.toggle('active', v===view);
     document.getElementById('rm-btn-fin-'+v).classList.toggle('active', v===view);
   });
   if(view === 'vendas') rmRenderFinVendas();
   if(view === 'prom'){ rmRenderFinProm(); rmSyncProms().then(rmRenderFinProm); }
+  if(view === 'org'){ rmRenderFinOrg(); rmSyncProms().then(rmRenderFinOrg); }
   if(view === 'cli'){ rmRenderFinClientes(); rmSyncProms().then(rmRenderFinClientes); }
 }
 
@@ -5014,6 +5038,60 @@ function rmParcAtualizar(p){
   const quitada = rmParcRestante(p) <= 0.004;
   p.pagoEm = quitada && pg.length ? pg[pg.length-1].data : null;
   p.formaPagamento = quitada && pg.length ? pg[pg.length-1].forma : null;
+}
+
+// ===== Financeiro > Organizar: notas a prazo já quitadas para devolver ao cliente =====
+function rmNotaQuitada(n){ return n.parcelas.length > 0 && n.parcelas.every(p => rmParcRestante(p) <= 0.004); }
+function rmNotaQuitadaEm(n){
+  let ult = '';
+  n.parcelas.forEach(p => rmParcPagamentos(p).forEach(pg => { if(String(pg.data) > ult) ult = String(pg.data); }));
+  return ult;
+}
+
+function rmRenderFinOrg(){
+  const box = document.getElementById('rm-fin-org-lista'); if(!box) return;
+  const q = (document.getElementById('rm-fin-org-busca').value || '').trim().toLowerCase();
+  const filtro = document.getElementById('rm-fin-org-status').value;
+  const notas = rmLoadProms().filter(rmNotaQuitada).filter(n =>
+    (filtro === 'todas' || (filtro === 'entregar' ? !n.entregueEm : !!n.entregueEm)) &&
+    (!q || ((n.refCodigo||'') + ' ' + (n.clienteNome||'')).toLowerCase().includes(q) || (n.refCodigo||'').replace(/\D/g,'').replace(/^0+/,'') === q.replace(/\D/g,'').replace(/^0+/,'') && q.replace(/\D/g,'') !== '')
+  );
+  // agrupa por cliente
+  const grupos = {};
+  notas.forEach(n => { const k = n.clienteId || ('nome:' + (n.clienteNome||'')); (grupos[k] = grupos[k] || { nome: n.clienteNome || 'Sem cliente', notas: [] }).notas.push(n); });
+  const lista = Object.values(grupos).sort((a,b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+  lista.forEach(g => g.notas.sort((a,b) => String(a.refCodigo).localeCompare(String(b.refCodigo))));
+  const total = notas.length;
+  document.getElementById('rm-fin-org-cont').textContent = total ? `${total} nota${total===1?'':'s'} · ${lista.length} cliente${lista.length===1?'':'s'}` : '';
+  if(!lista.length){ box.innerHTML = `<div class="rm-problema-empty" style="padding:20px;">${filtro==='entregar' ? 'Nenhuma nota quitada esperando entrega' : 'Nenhuma nota encontrada'}</div>`; return; }
+  box.innerHTML = lista.map(g => {
+    const pend = g.notas.filter(n => !n.entregueEm);
+    return `<div class="rm-org-grupo">
+      <div class="rm-org-cab">
+        <div><b>${rmEscapeHtml(g.nome)}</b> <span>${g.notas.length} nota${g.notas.length===1?'':'s'}${pend.length ? ` · <b style="color:#b3261e">${pend.length} para entregar</b>` : ''}</span></div>
+        ${pend.length > 1 ? `<button class="rm-prom-btn rm-prom-btn-ok" onclick="rmOrgMarcar([${pend.map(n => `'${n.id}'`).join(',')}], true)">Entregar todas (${pend.length})</button>` : ''}
+      </div>
+      ${g.notas.map(n => `
+        <div class="rm-org-nota${n.entregueEm ? ' rm-org-ok' : ''}">
+          <span class="rm-org-num" onclick="${n.origem==='PDV' ? `rmAbrirDetalheVenda('${n.refId}')` : `rmAbrirDetalheOS('${n.refId}')`}">${rmEscapeHtml(n.refCodigo||'')}</span>
+          <span class="rm-fin-tag rm-fin-tag-${n.origem}">${n.origem}</span>
+          <span class="rm-org-info">venda ${rmDataBR(String(n.criadoEm).slice(0,10))} · ${n.parcelas.length}x · ${rmFormatMoeda(n.parcelas.reduce((s,p)=>s+(Number(p.valor)||0),0))} · quitada em ${rmDataHoraBR(rmNotaQuitadaEm(n))}</span>
+          ${n.entregueEm
+            ? `<span class="rm-prom-sit rm-prom-sit-paga">Entregue ${rmDataHoraBR(n.entregueEm)}</span><button class="rm-prom-btn" title="Desfazer" onclick="rmOrgMarcar(['${n.id}'], false)">&#8634;</button>`
+            : `<button class="rm-prom-btn rm-prom-btn-ok" onclick="rmOrgMarcar(['${n.id}'], true)">&#10004; Entregue</button>`}
+        </div>`).join('')}
+    </div>`;
+  }).join('');
+}
+
+function rmOrgMarcar(ids, entregue){
+  if(entregue && ids.length > 1 && !confirm(`Marcar ${ids.length} notas como entregues ao cliente?`)) return;
+  const lista = rmLoadProms();
+  const agora = new Date().toISOString();
+  lista.forEach(n => { if(ids.includes(n.id)){ n.entregueEm = entregue ? agora : null; rmDbUpsertProm(n); } });
+  rmSaveProms(lista);
+  rmShowToast(entregue ? (ids.length > 1 ? ids.length + ' notas entregues' : 'Nota entregue') : 'Entrega desfeita');
+  rmRenderFinOrg();
 }
 
 function rmRenderFinClientes(){
@@ -7731,7 +7809,7 @@ function rmCloseModal(){
   document.getElementById('rm-modal').classList.remove('rm-modal-os');
   rmActiveModalId = null;
   rmRenderActiveBoard();
-  if(document.getElementById('rm-section-financeiro').classList.contains('active')){ rmRenderFinClientes(); rmRenderFinProm(); rmRenderFinVendas(); }
+  if(document.getElementById('rm-section-financeiro').classList.contains('active')){ rmRenderFinClientes(); rmRenderFinProm(); rmRenderFinVendas(); rmRenderFinOrg(); }
 }
 
 function rmUpdateStatus(id, novoStatus){
