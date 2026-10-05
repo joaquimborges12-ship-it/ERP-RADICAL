@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<script>try{ if(localStorage.getItem("radicalMotos_tema")==="dark") document.documentElement.dataset.tema="dark"; }catch(e){}</script>
+<script>document.documentElement.classList.add("rm-sem-login"); try{ if(localStorage.getItem("radicalMotos_tema")==="dark") document.documentElement.dataset.tema="dark"; }catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <title>Recepção de Motos — Radical Motos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1070,6 +1070,8 @@
   @media print{ .rm-fab, .rm-fab-painel{display:none !important;} }
   .rm-osl-fin-tit{font-size:18px; font-weight:700; margin:34px 0 10px; padding-top:18px; border-top:2px solid var(--rm-border);}
   .rm-osl-fin-tit span{font-weight:400; font-size:14px; color:var(--rm-text-dim);}
+  .rm-pdv-para-os{flex:none; width:100%; margin-bottom:8px; padding:10px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-weight:700; font-size:14px; cursor:pointer; border-radius:0; font-family:inherit;}
+  .rm-pdv-para-os:hover{background:var(--rm-panel-2);}
   .rm-osl-topo{display:flex; justify-content:flex-end; gap:8px; margin-bottom:6px;}
   .rm-osl-atalho{font-size:12.5px; font-weight:700; padding:5px 12px; cursor:pointer; border-radius:0; font-family:inherit;}
   .rm-osl-at-pronta{border:1px solid #9fd3ad; background:#eaf7ee; color:#1e7a37;}
@@ -1117,6 +1119,27 @@
   .rm-osl-ok{background:#1e8e3e; color:#fff;}
   .rm-osl-andam{border:2.5px solid #1e8e3e;}
   .rm-osl-vazio{border:2.5px solid #222;}
+  html.rm-sem-login #rm-app, html.rm-sem-login #rm-bancada, html.rm-sem-login .rm-fab{visibility:hidden;}
+  #rm-login{position:fixed; inset:0; z-index:20000; display:flex; align-items:center; justify-content:center; background:var(--rm-bg);}
+  .rm-login-card{background:var(--rm-panel); border:1px solid var(--rm-border); box-shadow:var(--rm-shadow); padding:30px 28px; width:320px; display:flex; flex-direction:column; gap:10px; text-align:center;}
+  .rm-login-logo{width:110px; height:110px; object-fit:contain; margin:0 auto 4px;}
+  .rm-login-tit{font-family:var(--rm-font-display); font-size:20px; font-weight:700; margin-bottom:6px;}
+  .rm-login-card input{padding:12px; font-size:16px; border:1px solid var(--rm-border); border-radius:0; background:var(--rm-panel); color:var(--rm-text); font-family:inherit;}
+  #rm-login-msg{min-height:18px; font-size:13px; color:#b3261e;}
+  #rm-login-btn{padding:12px; font-size:16px; font-weight:700; background:var(--rm-accent); color:#fff; border:none; cursor:pointer; border-radius:0;}
+  #rm-login-btn:disabled{opacity:0.6;}
+  .rm-user-box{order:2; padding:8px 14px; border-top:1px solid var(--rm-border); font-size:13px;}
+  .rm-user-nome{font-weight:700; display:flex; flex-direction:column;}
+  .rm-user-nome small{font-weight:400; color:var(--rm-text-dim); font-size:11.5px;}
+  .rm-user-acoes{display:flex; gap:6px; margin-top:6px;}
+  .rm-user-acoes button{flex:1; padding:5px; font-size:12px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); cursor:pointer; border-radius:0;}
+  .rm-us-linha{display:flex; flex-wrap:wrap; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--rm-border);}
+  .rm-us-linha .rm-input{width:200px; margin:0;}
+  .rm-us-info{flex:1; min-width:180px;}
+  .rm-us-info span{color:var(--rm-text-dim); font-size:12.5px;}
+  .rm-us-off{opacity:0.55;}
+  .rm-us-chk{display:inline-flex; align-items:center; gap:4px; margin:0 12px 6px 0; font-size:13px;}
+  .rm-us-perms-ed{flex-basis:100%;}
   .rm-sel-filtro{display:flex; gap:6px; margin-bottom:12px;}
   .rm-sel-ativo{background:var(--rm-accent) !important; color:#fff !important; border-color:var(--rm-accent) !important;}
   .rm-sel-todas{display:flex; align-items:center; gap:8px; font-size:13px; margin-bottom:8px; cursor:pointer;}
@@ -1289,11 +1312,12 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
+      <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap">
         <button class="rm-settings-btn" onclick="rmToggleSettingsMenu(event)" title="Backup dos dados"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></button>
         <div class="rm-settings-menu" id="rm-settings-menu">
-          <button class="rm-settings-item" onclick="rmExportarBackup(); rmToggleSettingsMenu();">Exportar backup</button>
-          <button class="rm-settings-item" onclick="document.getElementById('rm-import-file').click(); rmToggleSettingsMenu();">Importar backup</button>
+          <button class="rm-settings-item" onclick="rmBackupCompleto(); rmToggleSettingsMenu();">Baixar backup completo</button>
+          <button class="rm-settings-item" onclick="rmBackupEscolherArquivo(); rmToggleSettingsMenu();">Restaurar backup</button>
           <div class="rm-settings-divider"></div>
           <div class="rm-settings-toggle-item">
             <span>Imprimir etiqueta ao chegar moto nova</span>
@@ -1439,6 +1463,7 @@
             <div class="rm-pdv-pagamento-grid" id="rm-pdv-pagamento-grid"></div>
           </div>
 
+          <button class="rm-pdv-para-os" id="rm-pdv-para-os-btn" style="display:none;" onclick="rmOrcamentoParaOS({ tipo:'carrinho' })">&#128295; Transformar em ordem de serviço</button>
           <button class="rm-pdv-finalizar" id="rm-pdv-finalizar-btn" onclick="rmFinalizarVenda()">Finalizar venda</button>
         </div>
       </div>
@@ -2060,8 +2085,18 @@
     </div>
 
     <div id="rm-section-configuracoes" class="rm-section">
-      <h1 class="rm-title">Configurações</h1>
-      <div id="rm-config-empresa"></div>
+      <div class="rm-subnav">
+        <button class="rm-subnav-btn active" id="rm-btn-cfg-empresa" onclick="rmSetViewCfg('empresa')"><span class="rm-subnav-icon">&#127970;</span><span>Empresa</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-cfg-impressao" onclick="rmSetViewCfg('impressao')"><span class="rm-subnav-icon">&#128424;</span><span>Impressão</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-cfg-aparencia" onclick="rmSetViewCfg('aparencia')"><span class="rm-subnav-icon">&#127763;</span><span>Aparência</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-cfg-backup" onclick="rmSetViewCfg('backup')"><span class="rm-subnav-icon">&#128190;</span><span>Backup</span></button>
+        <button class="rm-subnav-btn rm-so-admin" id="rm-btn-cfg-usuarios" onclick="rmSetViewCfg('usuarios')"><span class="rm-subnav-icon">&#128101;</span><span>Usuários</span></button>
+        <button class="rm-subnav-btn rm-so-admin" id="rm-btn-cfg-registro" onclick="rmSetViewCfg('registro')"><span class="rm-subnav-icon">&#128220;</span><span>Registro</span></button>
+      </div>
+      <div class="rm-view active">
+        <h1 class="rm-title" id="rm-cfg-titulo">Empresa</h1>
+        <div id="rm-config-empresa"></div>
+      </div>
     </div>
   </main>
 </div>
@@ -2534,6 +2569,7 @@ async function rmUpsertComRetry(rows){
 }
 
 async function rmConfirmarImportacaoCsv(){
+  rmLog('Importou planilha de produtos', '', (rmImportacaoPendente || []).length + ' produtos');
   const mapeados = rmImportacaoPendente;
   if(!mapeados) return;
   const btn = document.getElementById('rm-import-confirmar-btn');
@@ -2584,6 +2620,7 @@ async function rmConfirmarImportacaoCsv(){
 }
 
 function rmSalvarProdutoRapido(){
+  { const nm = (document.getElementById('rm-pqf-nome') || {}).value; if(nm) rmLog('Salvou produto', '', nm.toUpperCase()); }
   const val = id => document.getElementById('rm-pqf-' + id).value;
   const nome = val('nome').trim().toUpperCase();
   if(!nome){
@@ -2938,6 +2975,7 @@ function rmSetModoPdv(modo){
   document.getElementById('rm-pdv-pagamento-block').style.display = orcamento ? 'none' : '';
   document.getElementById('rm-pdv-pago-row').style.display = orcamento ? 'none' : '';
   document.getElementById('rm-pdv-finalizar-btn').textContent = orcamento ? 'Salvar orçamento' : 'Finalizar venda';
+  const bo = document.getElementById('rm-pdv-para-os-btn'); if(bo) bo.style.display = orcamento ? '' : 'none';
 }
 let rmPdvCarrinho = [];
 let rmPdvEditandoIndex = null;
@@ -3596,7 +3634,7 @@ function rmFinalizarVenda(){
     tipo: isOrcamento ? 'orcamento' : 'venda',
     clienteId: rmPdvClienteId,
     clienteNome: rmPdvClienteNome || null,
-    vendedor: '',
+    vendedor: ed && ed.vendedor ? ed.vendedor : rmNomeUsuario(),
     itens: rmPdvCarrinho.slice(),
     subtotal: subtotal,
     desconto: desconto,
@@ -3627,6 +3665,7 @@ function rmFinalizarVenda(){
   }
   rmPdvPromN = 1; rmPdvPromVenc = null;
 
+  rmLog(ed ? 'Editou venda' : (isOrcamento ? 'Salvou orçamento' : 'Finalizou venda'), venda.codigoVenda, rmFormatMoeda(venda.total) + (venda.formaPagamento ? ' · ' + venda.formaPagamento : '') + (venda.clienteNome ? ' · ' + venda.clienteNome : ''));
   const vendaImp = venda;
   setTimeout(() => { if(confirm((isOrcamento ? 'Orçamento ' : 'Venda ') + vendaImp.codigoVenda + ' salva. Deseja imprimir?')) rmImprimirVendaA4(vendaImp.id); }, 200);
   rmShowToast(venda.codigoVenda + (ed ? ' alterada — ' : (isOrcamento ? ' salvo — ' : ' finalizada — ')) + rmFormatMoeda(venda.total));
@@ -3752,6 +3791,7 @@ function rmAbrirDetalheVenda(id){
       <div style="font-size:14px;">${rmEscapeHtml(v.observacao)}</div>
     </div>`:''}
 
+    ${isOrcamento?`<button class="rm-pe2-btn" style="width:100%; margin-bottom:10px; padding:11px; font-weight:700;" onclick="rmOrcamentoParaOS({ tipo:'orcamento', id:'${v.id}' })">&#128295; Transformar em ordem de serviço</button>`:''}
     ${isOrcamento?`<button class="rm-primary" style="margin-bottom:10px;" onclick="rmConverterOrcamentoEmVenda('${v.id}')">Transformar em venda</button>`:''}
     ${rmPromResumoHtml(v.id)}
     <button class="rm-pe2-btn" style="width:100%; margin-bottom:10px; padding:11px;" onclick="rmImprimirVendaA4('${v.id}')">&#128424; Imprimir</button>
@@ -3759,6 +3799,108 @@ function rmAbrirDetalheVenda(id){
     <button class="rm-btn-excluir" onclick="rmExcluirVenda('${v.id}')">Excluir ${isOrcamento?'este orçamento':'esta venda'}</button>
   `;
   document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+
+// ===== Orçamento do PDV -> Ordem de serviço =====
+let rmOrcOSOrigem = null; // { tipo:'carrinho' } ou { tipo:'orcamento', id }
+function rmOrcamentoParaOS(origem){
+  let itens, clienteId, clienteNome, desconto = 0, obs = '';
+  if(origem.tipo === 'carrinho'){
+    if(!rmPdvCarrinho.length){ alert('O orçamento está vazio.'); return; }
+    itens = rmPdvCarrinho; clienteId = rmPdvClienteId; clienteNome = rmPdvClienteNome;
+    const sub = rmTotalCarrinhoPdv(); desconto = rmCalcularDescontoPdv(sub);
+    obs = document.getElementById('rm-pdv-observacao').value.trim();
+  } else {
+    const v = rmLoadVendas().find(x => x.id === origem.id); if(!v) return;
+    itens = v.itens || []; clienteId = v.clienteId; clienteNome = v.clienteNome; desconto = Number(v.desconto) || 0; obs = v.observacao || '';
+  }
+  rmOrcOSOrigem = origem;
+  const mecs = (typeof rmLoadMecanicos === 'function' ? rmLoadMecanicos() : []).map(m => typeof m === 'string' ? m : m.nome).filter(Boolean);
+  const total = itens.reduce((s,i) => s + (Number(i.subtotal)||0), 0) - desconto;
+  const modal = document.getElementById('rm-modal');
+  modal.classList.remove('rm-modal-large','rm-modal-os');
+  modal.innerHTML = `
+    <div class="rm-modal-header">
+      <div><div class="rm-modal-title">Transformar em ordem de serviço</div>
+      <div class="rm-modal-sub">${itens.length} item(ns) · ${rmFormatMoeda(total)}${clienteNome ? ' · ' + rmEscapeHtml(clienteNome) : ''}</div></div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Modelo da moto *</span>
+      <input class="rm-input" id="rm-o2s-modelo" placeholder="Ex.: BROS 160 PRETA" style="text-transform:uppercase" onkeydown="if(event.key==='Enter') rmOrcamentoParaOSConfirmar()">
+    </div>
+    ${clienteNome ? '' : `<div class="rm-modal-section">
+      <span class="rm-modal-section-label">Nome do cliente</span>
+      <input class="rm-input" id="rm-o2s-nome" style="text-transform:uppercase">
+    </div>`}
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Mecânico responsável</span>
+      <input class="rm-input" id="rm-o2s-mec" list="rm-o2s-mecs" style="text-transform:uppercase">
+      <datalist id="rm-o2s-mecs">${mecs.map(m => `<option value="${rmEscapeHtml(m)}">`).join('')}</datalist>
+    </div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Problemas relatados (um por linha, opcional)</span>
+      <textarea class="rm-input" id="rm-o2s-probs" rows="3" style="text-transform:uppercase"></textarea>
+    </div>
+    <div class="rm-modal-section" style="font-size:13px; color:var(--rm-text-dim);">Todos os itens do orçamento entram na OS com as mesmas quantidades e valores${desconto > 0 ? ', e o desconto de ' + rmFormatMoeda(desconto) + ' também' : ''}. As peças saem do estoque agora.</div>
+    <button class="rm-primary" onclick="rmOrcamentoParaOSConfirmar()">Criar ordem de serviço</button>`;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+  setTimeout(() => { const f = document.getElementById('rm-o2s-modelo'); if(f) f.focus(); }, 50);
+}
+
+function rmOrcamentoParaOSConfirmar(){
+  const origem = rmOrcOSOrigem; if(!origem) return;
+  const modelo = document.getElementById('rm-o2s-modelo').value.trim().toUpperCase();
+  if(!modelo){ alert('Preencha o modelo da moto.'); return; }
+  let itens, clienteId, clienteNome, desconto = 0, obs = '', venda = null;
+  if(origem.tipo === 'carrinho'){
+    itens = rmPdvCarrinho.map(i => Object.assign({}, i)); clienteId = rmPdvClienteId; clienteNome = rmPdvClienteNome;
+    const sub = rmTotalCarrinhoPdv(); desconto = rmCalcularDescontoPdv(sub);
+    obs = document.getElementById('rm-pdv-observacao').value.trim();
+  } else {
+    venda = rmLoadVendas().find(x => x.id === origem.id); if(!venda) return;
+    itens = (venda.itens || []).map(i => Object.assign({}, i)); clienteId = venda.clienteId; clienteNome = venda.clienteNome; desconto = Number(venda.desconto) || 0; obs = venda.observacao || '';
+  }
+  const nomeEl = document.getElementById('rm-o2s-nome');
+  if(!clienteNome && nomeEl) clienteNome = nomeEl.value.trim().toUpperCase();
+  const cli = clienteId ? rmLoadClientes().find(c => c.id === clienteId) : null;
+  const produtos = rmLoadProdutos();
+  const pecas = itens.map(i => {
+    const p = i.produtoId ? produtos.find(x => x.id === i.produtoId) : null;
+    const q = Number(i.quantidade) || 1, un = Number(i.precoUnit) || 0, d = Number(i.desconto) || 0;
+    return { produtoId: i.produtoId || null, nome: i.nome, codigo: (p && p.codigo) || '', localizacao: (p && p.localizacao) || '',
+      categoria: (p && p.categoria) || '', servico: !!(p && p.ehServico) || !i.produtoId,
+      quantidade: q, precoUnit: un, desconto: d, subtotal: Number(i.subtotal) || (q * un - d) };
+  });
+  const agora = new Date().toISOString();
+  const probs = document.getElementById('rm-o2s-probs').value.split('\n').map(t => t.trim().toUpperCase()).filter(Boolean).map(texto => ({ texto, feito:false }));
+  const registro = {
+    id: 'r' + Date.now(), codigoApp: rmNextNumeroDoc(), nome: clienteNome || '', telefone: (cli && cli.telefone) || '',
+    observacao: obs.toUpperCase(), modelo, entrega:false, buscar:false, problemas: probs,
+    mecanico: document.getElementById('rm-o2s-mec').value.trim().toUpperCase(), codigoInterno:'', itens:'',
+    status:'aberto', entrada: agora, historico:[{ status:'aberto', em: agora }], clienteId: clienteId || null,
+    pecasUsadas: pecas, pecasDescontoValor: desconto, pecasDescontoTipo: 'valor', maoDeObra: 0
+  };
+  const list = rmLoad(); list.unshift(registro); rmSave(list); rmDbUpsertRecepcao(registro);
+  // tira do estoque (o orçamento não tinha tirado)
+  pecas.forEach(pc => {
+    const p = pc.produtoId ? produtos.find(x => x.id === pc.produtoId) : null;
+    if(p && !p.ehServico){ p.estoqueAtual = (Number(p.estoqueAtual) || 0) - pc.quantidade; rmDbUpsertProduto(p); }
+  });
+  rmSaveProdutos(produtos);
+  if(venda){
+    const vs = rmLoadVendas(); const v = vs.find(x => x.id === venda.id);
+    if(v){ v.observacao = ((v.observacao ? v.observacao + ' · ' : '') + 'VIROU OS ' + registro.codigoApp); rmSaveVendas(vs); rmDbUpsertVenda(v); }
+  } else {
+    rmPdvCarrinho = []; rmPdvUltimoIndex = null; rmPdvResetarLinha();
+    document.getElementById('rm-pdv-desconto-valor').value = '';
+    document.getElementById('rm-pdv-observacao').value = '';
+    rmLimparClientePdv(); rmRenderCarrinhoPdv();
+  }
+  rmOrcOSOrigem = null;
+  rmShowToast('Ordem de serviço ' + registro.codigoApp + ' criada');
+  rmLog('Transformou orçamento em OS', registro.codigoApp, modelo);
+  rmOpenModal(registro.id, true);
 }
 
 function rmConverterOrcamentoEmVenda(id){
@@ -3787,6 +3929,7 @@ async function rmDbDeleteVenda(id){
 }
 
 function rmExcluirVenda(id){
+  { const vv = rmLoadVendas().find(x => x.id === id); if(vv) setTimeout(() => { if(!rmLoadVendas().some(x => x.id === id)) rmLog('Excluiu venda', vv.codigoVenda, rmFormatMoeda(vv.total)); }, 500); }
   const v = rmLoadVendas().find(x=>x.id===id);
   if(!v) return;
   const tipoTexto = v.tipo === 'orcamento' ? 'este orçamento' : 'esta venda';
@@ -4146,6 +4289,307 @@ function rmLoad(){
   try{ return JSON.parse(localStorage.getItem(RM_KEY)) || []; }catch(e){ return []; }
 }
 function rmSave(list){ localStorage.setItem(RM_KEY, JSON.stringify(list)); }
+
+// ===================== LOGIN, PERMISSÕES E REGISTRO =====================
+const RM_LOGIN_DOMINIO = '@radicalmotos.app.br';
+let rmUsuario = null; // perfil do usuário logado
+const RM_PERMS = [['pdv','PDV'],['oficina','Oficina'],['financeiro','Financeiro'],['clientes','Clientes'],['produtos','Produtos'],['relatorio','Relatório'],['visao-geral','Visão geral'],['configuracoes','Configurações']];
+const RM_PAPEIS = {
+  admin:   { nome:'Administrador (tudo)', perms: RM_PERMS.map(p => p[0]) },
+  balcao:  { nome:'Balcão', perms: ['pdv','oficina','clientes','produtos'] },
+  mecanico:{ nome:'Mecânico', perms: ['oficina'] },
+  personalizado: { nome:'Personalizado', perms: [] }
+};
+function rmEhAdmin(){ return !!(rmUsuario && rmUsuario.papel === 'admin'); }
+function rmPode(sec){
+  if(!rmUsuario) return false;
+  if(rmEhAdmin()) return true;
+  const perms = rmUsuario.papel === 'personalizado' ? (rmUsuario.permissoes || []) : (RM_PAPEIS[rmUsuario.papel] || {}).perms || [];
+  return perms.includes(sec);
+}
+function rmNomeUsuario(){ return rmUsuario ? (rmUsuario.nome || rmUsuario.usuario) : ''; }
+
+// registro de atividades (quem fez o quê)
+function rmLog(acao, ref, detalhe){
+  if(!rmUsuario) return;
+  try{
+    rmSb.from('auditoria').insert({ usuario_id: rmUsuario.id, usuario: rmNomeUsuario(), acao, ref: ref ? String(ref) : null, detalhe: detalhe ? String(detalhe).slice(0, 500) : null })
+      .then(r => { if(r && r.error) console.warn('auditoria', r.error); });
+  }catch(e){}
+}
+
+function rmMostrarLogin(msg){
+  let el = document.getElementById('rm-login');
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'rm-login';
+    el.innerHTML = `
+      <div class="rm-login-card">
+        <img src="${typeof RM_LOGO_PADRAO !== 'undefined' ? RM_LOGO_PADRAO : ''}" class="rm-login-logo" alt="">
+        <div class="rm-login-tit">Entrar no sistema</div>
+        <input id="rm-login-user" placeholder="Usuário" autocomplete="username" autocapitalize="none" onkeydown="if(event.key==='Enter') document.getElementById('rm-login-pass').focus()">
+        <input id="rm-login-pass" type="password" placeholder="Senha" autocomplete="current-password" onkeydown="if(event.key==='Enter') rmFazerLogin()">
+        <div id="rm-login-msg"></div>
+        <button id="rm-login-btn" onclick="rmFazerLogin()">Entrar</button>
+      </div>`;
+    document.body.appendChild(el);
+  }
+  el.style.display = 'flex';
+  document.getElementById('rm-login-msg').textContent = msg || '';
+  setTimeout(() => { const u = document.getElementById('rm-login-user'); if(u) u.focus(); }, 50);
+}
+
+async function rmFazerLogin(){
+  const u = document.getElementById('rm-login-user').value.trim().toLowerCase().replace(/\s+/g, '');
+  const p = document.getElementById('rm-login-pass').value;
+  const msg = document.getElementById('rm-login-msg');
+  if(!u || !p){ msg.textContent = 'Preencha usuário e senha.'; return; }
+  const btn = document.getElementById('rm-login-btn'); btn.disabled = true; btn.textContent = 'Entrando...';
+  const { data, error } = await rmSb.auth.signInWithPassword({ email: u.includes('@') ? u : u + RM_LOGIN_DOMINIO, password: p });
+  btn.disabled = false; btn.textContent = 'Entrar';
+  if(error || !data || !data.user){ msg.textContent = 'Usuário ou senha incorretos.'; return; }
+  const ok = await rmCarregarPerfil(data.user);
+  if(ok){ rmLog('Entrou no sistema'); location.reload(); }
+}
+
+async function rmCarregarPerfil(user){
+  const { data: perfil, error } = await rmSb.from('perfis').select('*').eq('id', user.id).maybeSingle();
+  if(error || !perfil){ await rmSb.auth.signOut(); rmMostrarLogin('Este usuário não tem cadastro no sistema. Fale com o administrador.'); return false; }
+  if(!perfil.ativo){ await rmSb.auth.signOut(); rmMostrarLogin('Este usuário está desativado.'); return false; }
+  rmUsuario = perfil;
+  return true;
+}
+
+async function rmAuthIniciar(){
+  // o app fica escondido até confirmar o login
+  document.documentElement.classList.add('rm-sem-login');
+  let sessao = null;
+  try{ const { data } = await rmSb.auth.getSession(); sessao = data && data.session; }catch(e){}
+  if(!sessao){ rmMostrarLogin(); return; }
+  if(!(await rmCarregarPerfil(sessao.user))) return;
+  document.documentElement.classList.remove('rm-sem-login');
+  const l = document.getElementById('rm-login'); if(l) l.style.display = 'none';
+  rmAplicarPermissoes();
+  rmInit();
+}
+
+function rmAplicarPermissoes(){
+  RM_PERMS.forEach(([sec]) => { const b = document.getElementById('rm-btn-' + sec); if(b) b.style.display = rmPode(sec) ? '' : 'none'; });
+  const box = document.getElementById('rm-user-box');
+  if(box) box.innerHTML = `
+    <div class="rm-user-nome">&#128100; ${rmEscapeHtml(rmNomeUsuario())}<small>${rmEscapeHtml((RM_PAPEIS[rmUsuario.papel] || {}).nome || rmUsuario.papel)}</small></div>
+    <div class="rm-user-acoes"><button onclick="rmTrocarMinhaSenha()">Trocar senha</button><button onclick="rmSair()">Sair</button></div>`;
+}
+function rmPrimeiraSecaoPermitida(){
+  const ordem = ['oficina','pdv','financeiro','clientes','produtos','visao-geral','relatorio','configuracoes'];
+  return ordem.find(s => rmPode(s)) || 'oficina';
+}
+
+async function rmSair(){
+  if(!confirm('Sair do sistema?')) return;
+  rmLog('Saiu do sistema');
+  await rmSb.auth.signOut();
+  location.reload();
+}
+async function rmTrocarMinhaSenha(){
+  const n1 = prompt('Nova senha (mínimo 6 caracteres):'); if(!n1) return;
+  if(n1.length < 6){ alert('A senha precisa ter pelo menos 6 caracteres.'); return; }
+  const n2 = prompt('Digite a nova senha de novo:'); if(n1 !== n2){ alert('As senhas não conferem.'); return; }
+  const { error } = await rmSb.auth.updateUser({ password: n1 });
+  if(error) alert('Não foi possível trocar a senha: ' + error.message);
+  else { rmShowToast('Senha alterada'); rmLog('Trocou a própria senha'); }
+}
+
+// ----- Configurações > Usuários (só administrador) -----
+let rmUsuariosCache = [];
+async function rmCarregarUsuarios(){
+  const { data, error } = await rmSb.from('perfis').select('*').order('nome');
+  rmUsuariosCache = error ? [] : (data || []);
+  rmRenderConfigEmpresa();
+}
+function rmUsuariosHtml(){
+  if(!rmEhAdmin()) return '<div class="rm-cfg-card">Só o administrador pode gerenciar usuários.</div>';
+  const permsChk = (pref, sel) => RM_PERMS.map(([k, l]) => `<label class="rm-us-chk"><input type="checkbox" class="${pref}" value="${k}"${sel.includes(k)?' checked':''}> ${l}</label>`).join('');
+  return `
+    <div class="rm-cfg-card">
+      <div class="rm-cfg-tit">Novo usuário</div>
+      <div class="rm-cfg-grid">
+        <label class="rm-cfg-campo">Nome<input class="rm-input" id="rm-us-nome" placeholder="Ex.: EMERSON"></label>
+        <label class="rm-cfg-campo">Usuário (para entrar)<input class="rm-input" id="rm-us-user" placeholder="Ex.: emerson" autocapitalize="none"></label>
+        <label class="rm-cfg-campo">Senha (mínimo 6)<input class="rm-input" id="rm-us-pass" type="text"></label>
+        <label class="rm-cfg-campo">Tipo<select class="rm-input" id="rm-us-papel" onchange="document.getElementById('rm-us-perms').style.display = this.value==='personalizado' ? '' : 'none'">
+          ${Object.entries(RM_PAPEIS).map(([k, p]) => `<option value="${k}"${k==='balcao'?' selected':''}>${p.nome}</option>`).join('')}</select></label>
+      </div>
+      <div id="rm-us-perms" style="display:none; margin-bottom:12px;"><div style="font-size:12px; color:var(--rm-text-dim); margin-bottom:6px;">Pode acessar:</div>${permsChk('rm-us-novo-perm', [])}</div>
+      <div style="font-size:12px; color:var(--rm-text-dim); margin-bottom:12px;">Balcão: PDV, Oficina, Clientes e Produtos · Mecânico: só Oficina · Administrador: tudo, inclusive Financeiro, Configurações, usuários e registro.</div>
+      <button class="rm-primary" style="width:auto; padding:10px 22px;" onclick="rmCriarUsuario()">Criar usuário</button>
+    </div>
+    <div class="rm-cfg-card" style="margin-top:14px;">
+      <div class="rm-cfg-tit">Usuários cadastrados</div>
+      ${rmUsuariosCache.length ? rmUsuariosCache.map(u => {
+        const sel = u.papel === 'personalizado' ? (u.permissoes || []) : ((RM_PAPEIS[u.papel] || {}).perms || []);
+        return `<div class="rm-us-linha${u.ativo ? '' : ' rm-us-off'}">
+          <div class="rm-us-info"><b>${rmEscapeHtml(u.nome)}</b> <span>${rmEscapeHtml(u.usuario)}</span>${u.ativo ? '' : ' <span class="rm-prom-sit rm-prom-sit-vencida">desativado</span>'}${u.id === rmUsuario.id ? ' <span class="rm-prom-sit rm-prom-sit-aberta">você</span>' : ''}</div>
+          <select class="rm-input" onchange="rmAlterarUsuario('${u.id}', { papel: this.value })"${u.id === rmUsuario.id ? ' disabled' : ''}>
+            ${Object.entries(RM_PAPEIS).map(([k, p]) => `<option value="${k}"${k===u.papel?' selected':''}>${p.nome}</option>`).join('')}</select>
+          ${u.id === rmUsuario.id ? '' : `<button class="rm-pe2-btn" onclick="rmAlterarUsuario('${u.id}', { ativo: ${!u.ativo} })">${u.ativo ? 'Desativar' : 'Reativar'}</button>`}
+          ${u.papel === 'personalizado' ? `<div class="rm-us-perms-ed">${RM_PERMS.map(([k, l]) => `<label class="rm-us-chk"><input type="checkbox"${sel.includes(k)?' checked':''} onchange="rmTogglePermUsuario('${u.id}','${k}', this.checked)"> ${l}</label>`).join('')}</div>` : ''}
+        </div>`;
+      }).join('') : '<div style="color:var(--rm-text-dim)">Carregando...</div>'}
+      <div style="font-size:12px; color:var(--rm-text-dim); margin-top:10px;">Para trocar a senha de alguém: a própria pessoa usa "Trocar senha" no menu, ou você redefine no painel do Supabase (Authentication → Users).</div>
+    </div>`;
+}
+
+async function rmCriarUsuario(){
+  const nome = document.getElementById('rm-us-nome').value.trim().toUpperCase();
+  const usuario = document.getElementById('rm-us-user').value.trim().toLowerCase().replace(/\s+/g, '');
+  const senha = document.getElementById('rm-us-pass').value;
+  const papel = document.getElementById('rm-us-papel').value;
+  if(!nome || !usuario || !senha){ alert('Preencha nome, usuário e senha.'); return; }
+  if(!/^[a-z0-9._-]+$/.test(usuario)){ alert('O usuário só pode ter letras sem acento, números, ponto, traço ou _.'); return; }
+  if(senha.length < 6){ alert('A senha precisa ter pelo menos 6 caracteres.'); return; }
+  if(rmUsuariosCache.some(u => u.usuario === usuario)){ alert('Já existe um usuário com esse nome de login.'); return; }
+  const permissoes = papel === 'personalizado' ? [...document.querySelectorAll('.rm-us-novo-perm:checked')].map(x => x.value) : [];
+  // cliente separado para não deslogar o administrador
+  const tmp = supabase.createClient(RM_SUPABASE_URL, RM_SUPABASE_KEY, { auth: { persistSession:false, autoRefreshToken:false, storageKey:'rm-tmp-cadastro' } });
+  const { data, error } = await tmp.auth.signUp({ email: usuario + RM_LOGIN_DOMINIO, password: senha });
+  if(error || !data || !data.user){ alert('Não foi possível criar: ' + (error ? error.message : 'erro desconhecido') + '\n\nConfira se "Confirm email" está desligado no Supabase.'); return; }
+  const r = await rmSb.from('perfis').insert({ id: data.user.id, usuario, nome, papel, permissoes, ativo: true });
+  if(r.error){ alert('Usuário criado, mas falhou ao salvar o perfil: ' + r.error.message); return; }
+  rmLog('Criou usuário', usuario, nome + ' · ' + RM_PAPEIS[papel].nome);
+  rmShowToast('Usuário ' + usuario + ' criado');
+  rmCarregarUsuarios();
+}
+async function rmAlterarUsuario(id, campos){
+  const u = rmUsuariosCache.find(x => x.id === id); if(!u) return;
+  if(campos.ativo === false && !confirm('Desativar ' + u.nome + '? Ele não vai conseguir mais entrar.')) return;
+  const { error } = await rmSb.from('perfis').update(campos).eq('id', id);
+  if(error){ alert('Erro: ' + error.message); return; }
+  rmLog('Alterou usuário', u.usuario, JSON.stringify(campos));
+  rmCarregarUsuarios();
+}
+function rmTogglePermUsuario(id, perm, marcado){
+  const u = rmUsuariosCache.find(x => x.id === id); if(!u) return;
+  const lista = new Set(u.permissoes || []); marcado ? lista.add(perm) : lista.delete(perm);
+  rmAlterarUsuario(id, { permissoes: [...lista] });
+}
+
+// ----- Configurações > Registro (só administrador) -----
+let rmRegistroCache = null;
+async function rmCarregarRegistro(){
+  const dias = parseInt((document.getElementById('rm-reg-dias') || {}).value || '7');
+  const desde = new Date(Date.now() - dias * 864e5).toISOString();
+  const { data, error } = await rmSb.from('auditoria').select('*').gte('quando', desde).order('quando', { ascending:false }).limit(2000);
+  rmRegistroCache = error ? [] : (data || []);
+  rmRenderRegistro();
+}
+function rmRegistroHtml(){
+  if(!rmEhAdmin()) return '<div class="rm-cfg-card">Só o administrador pode ver o registro.</div>';
+  return `<div class="rm-osl-filtros">
+      <input class="rm-search" id="rm-reg-busca" placeholder="Buscar ação, código, detalhe..." oninput="rmRenderRegistro()">
+      <select class="rm-osl-sel" id="rm-reg-user" onchange="rmRenderRegistro()"><option value="">Todos os usuários</option></select>
+      <select class="rm-osl-sel" id="rm-reg-dias" onchange="rmCarregarRegistro()"><option value="1">Hoje / 24h</option><option value="7" selected>Últimos 7 dias</option><option value="30">Últimos 30 dias</option><option value="90">Últimos 3 meses</option><option value="365">Último ano</option></select>
+    </div>
+    <div class="rm-osl-wrap"><table class="rm-osl"><thead><tr><th>Quando</th><th>Usuário</th><th>Ação</th><th>Código</th><th>Detalhe</th></tr></thead><tbody id="rm-reg-body"><tr><td colspan="5">Carregando...</td></tr></tbody></table></div>`;
+}
+function rmRenderRegistro(){
+  const body = document.getElementById('rm-reg-body'); if(!body || !rmRegistroCache) return;
+  const q = (document.getElementById('rm-reg-busca').value || '').toLowerCase();
+  const sel = document.getElementById('rm-reg-user');
+  const atual = sel.value;
+  const nomes = [...new Set(rmRegistroCache.map(r => r.usuario).filter(Boolean))].sort();
+  sel.innerHTML = '<option value="">Todos os usuários</option>' + nomes.map(n => `<option${n===atual?' selected':''}>${rmEscapeHtml(n)}</option>`).join('');
+  const lista = rmRegistroCache.filter(r => (!atual || r.usuario === atual) && (!q || [r.acao, r.ref, r.detalhe].some(x => (x||'').toLowerCase().includes(q))));
+  body.innerHTML = lista.length ? lista.map(r => `<tr style="cursor:default"><td>${new Date(r.quando).toLocaleString('pt-BR').replace(',', '')}</td><td>${rmEscapeHtml(r.usuario||'')}</td><td><b>${rmEscapeHtml(r.acao||'')}</b></td><td>${rmEscapeHtml(r.ref||'')}</td><td style="white-space:normal; color:var(--rm-text-dim);">${rmEscapeHtml(r.detalhe||'')}</td></tr>`).join('')
+    : '<tr><td colspan="5" style="color:var(--rm-text-dim)">Nada registrado nesse período</td></tr>';
+}
+
+// ===================== BACKUP COMPLETO =====================
+const RM_BKP_TABELAS = [['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome']];
+const RM_BKP_ULTIMO_KEY = 'radicalMotos_ultimoBackup';
+
+async function rmBackupCompleto(){
+  rmShowToast('Gerando backup, aguarde...');
+  const dados = { app:'radical-motos', versao:2, geradoEm:new Date().toISOString(), tabelas:{} };
+  const falhas = [];
+  for(const [t, ordem] of RM_BKP_TABELAS){
+    const { data, error } = await rmSelectTudo(t, '*', ordem);
+    if(error){ falhas.push(t); continue; }
+    dados.tabelas[t] = data || [];
+  }
+  if(falhas.length){
+    if(!confirm('Não consegui baixar do servidor: ' + falhas.join(', ') + '.\nVerifique a internet.\n\nBaixar o backup mesmo assim (sem essas partes)?')) return;
+  }
+  const blob = new Blob([JSON.stringify(dados)], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const d = new Date(); const pad = n => String(n).padStart(2,'0');
+  a.href = url;
+  a.download = `backup-radical-motos-${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}_${pad(d.getHours())}h${pad(d.getMinutes())}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  localStorage.setItem(RM_BKP_ULTIMO_KEY, dados.geradoEm);
+  rmLog('Baixou backup completo');
+  const resumo = Object.entries(dados.tabelas).map(([t, l]) => l.length + ' ' + t).join(', ');
+  rmShowToast('Backup baixado · ' + resumo);
+  rmRenderConfigEmpresa();
+}
+
+function rmBackupEscolherArquivo(){
+  let inp = document.getElementById('rm-bkp-file');
+  if(!inp){
+    inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'application/json,.json'; inp.id = 'rm-bkp-file'; inp.style.display = 'none';
+    inp.onchange = () => rmBackupRestaurar(inp);
+    document.body.appendChild(inp);
+  }
+  inp.value = ''; inp.click();
+}
+
+async function rmBackupRestaurar(input){
+  const f = input.files[0]; if(!f) return;
+  let dados;
+  try{ dados = JSON.parse(await f.text()); }catch(e){ alert('Não consegui ler esse arquivo. Escolha um backup .json gerado pelo sistema.'); return; }
+  if(!dados || dados.versao !== 2 || !dados.tabelas){
+    // backup antigo (só motos e mecânicos)
+    if(dados && Array.isArray(dados.recepcoes)){ rmImportarBackup({ files:[f], value:'' }); return; }
+    alert('Esse arquivo não é um backup válido do sistema.'); return;
+  }
+  const resumo = Object.entries(dados.tabelas).map(([t, l]) => '• ' + l.length + ' ' + t).join('\n');
+  if(!confirm(`Restaurar o backup de ${new Date(dados.geradoEm).toLocaleString('pt-BR')}?\n\n${resumo}\n\nOs registros do backup vão SUBSTITUIR os que têm o mesmo código no sistema. O que foi criado depois do backup continua.\n\nContinuar?`)) return;
+  rmShowToast('Restaurando backup...');
+  const falhas = [];
+  for(const [t] of RM_BKP_TABELAS){
+    const linhas = dados.tabelas[t]; if(!linhas || !linhas.length) continue;
+    for(let i = 0; i < linhas.length; i += 200){
+      const lote = linhas.slice(i, i + 200);
+      let r;
+      try{ r = await rmSb.from(t).upsert(lote); }catch(e){ r = { error:e }; }
+      if(r.error){ console.error('Restaurar', t, r.error); falhas.push(t); break; }
+    }
+  }
+  try{ await rmSyncFromSupabase(); }catch(e){}
+  try{ await rmSyncProms(); await rmSyncEmpresa(); await rmPedidoSync(); }catch(e){}
+  rmLog('Restaurou backup', '', new Date(dados.geradoEm).toLocaleString('pt-BR'));
+  if(falhas.length) alert('Backup restaurado, mas houve erro em: ' + [...new Set(falhas)].join(', ') + '. Tente de novo com internet boa.');
+  else rmShowToast('Backup restaurado com sucesso');
+  if(typeof rmRenderActiveBoard === 'function') rmRenderActiveBoard();
+}
+
+function rmBackupCardHtml(){
+  const ult = localStorage.getItem(RM_BKP_ULTIMO_KEY);
+  const dias = ult ? Math.floor((Date.now() - new Date(ult).getTime()) / 864e5) : null;
+  const aviso = dias === null ? 'Nenhum backup feito neste computador ainda.'
+    : dias >= 7 ? `<b style="color:#b3261e">Último backup há ${dias} dias.</b> Faça um novo.`
+    : `Último backup: ${new Date(ult).toLocaleString('pt-BR')}`;
+  return `<div class="rm-cfg-card" style="margin-top:14px;">
+    <div class="rm-cfg-tit">Backup dos dados</div>
+    <div style="font-size:13px; color:var(--rm-text-dim); margin-bottom:10px;">Baixa um arquivo com <b>tudo</b>: motos/OS, clientes, vendas, produtos, a prazo, avisos, mecânicos e configurações. Guarde no computador, num pen drive ou no Google Drive.</div>
+    <div style="font-size:13px; margin-bottom:12px;">${aviso}</div>
+    <button class="rm-primary" style="width:auto; padding:10px 22px;" onclick="rmBackupCompleto()">&#11015; Baixar backup completo</button>
+    <button class="rm-pe2-btn" style="margin-left:8px;" onclick="rmBackupEscolherArquivo()">&#11014; Restaurar backup</button>
+  </div>`;
+}
 
 function rmExportarBackup(){
   const dados = {
@@ -4822,12 +5266,24 @@ function rmSetTema(t){
   rmRenderConfigEmpresa();
 }
 
+let rmCfgSub = 'empresa';
+const RM_CFG_TITULOS = { empresa:'Empresa', impressao:'Impressão', aparencia:'Aparência', backup:'Backup', usuarios:'Usuários', registro:'Registro de atividades' };
+function rmSetViewCfg(v){
+  if((v === 'usuarios' || v === 'registro') && !rmEhAdmin()) v = 'empresa';
+  rmCfgSub = v;
+  if(v === 'usuarios') rmCarregarUsuarios();
+  if(v === 'registro') setTimeout(rmCarregarRegistro, 0);
+  Object.keys(RM_CFG_TITULOS).forEach(k => { const b = document.getElementById('rm-btn-cfg-' + k); if(b) b.classList.toggle('active', k === v); });
+  rmRenderConfigEmpresa();
+}
 function rmRenderConfigEmpresa(){
   const box = document.getElementById('rm-config-empresa'); if(!box) return;
+  const t = document.getElementById('rm-cfg-titulo'); if(t) t.textContent = RM_CFG_TITULOS[rmCfgSub];
   const e = rmEmpresa();
-  box.innerHTML = `
+  const telas = {
+    empresa: () => `
     <div class="rm-cfg-card">
-      <div class="rm-cfg-tit">Dados da empresa (aparecem nas impressões A4)</div>
+      <div class="rm-cfg-tit">Dados da empresa (aparecem nas impressões)</div>
       <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
         <img id="rm-cfg-logo-prev" src="${e.logo || RM_LOGO_PADRAO}" style="width:72px; height:72px; object-fit:contain; border:1px solid var(--rm-border); background:#fff;">
         <label class="rm-pe2-btn" style="cursor:pointer;">Trocar logo<input type="file" accept="image/*" style="display:none" onchange="rmCfgLogo(this)"></label>
@@ -4836,24 +5292,36 @@ function rmRenderConfigEmpresa(){
         ${RM_CFG_CAMPOS.map(([k,l]) => `<label class="rm-cfg-campo">${l}<input class="rm-input" id="rm-cfg-${k}" value="${rmEscapeHtml(e[k]||'')}"></label>`).join('')}
       </div>
       <button class="rm-primary" style="width:auto; padding:10px 24px;" onclick="rmSalvarConfigEmpresa()">Salvar</button>
-      <button class="rm-pe2-btn" style="margin-left:8px;" onclick="rmImprimirTesteA4()">Imprimir página de teste</button>
-    </div>
-    <div class="rm-cfg-card" style="margin-top:14px;">
-      <div class="rm-cfg-tit">Aparência neste computador</div>
-      <div style="display:flex; gap:8px;">
-        <button class="rm-pe2-btn${document.documentElement.dataset.tema!=='dark'?' rm-sel-ativo':''}" onclick="rmSetTema('claro')">&#9728; Claro</button>
-        <button class="rm-pe2-btn${document.documentElement.dataset.tema==='dark'?' rm-sel-ativo':''}" onclick="rmSetTema('dark')">&#9790; Escuro</button>
-      </div>
-    </div>
-    <div class="rm-cfg-card" style="margin-top:14px;">
+    </div>`,
+    impressao: () => `
+    <div class="rm-cfg-card">
       <div class="rm-cfg-tit">Impressão neste computador</div>
       <label class="rm-cfg-campo" style="max-width:320px;">Formato padrão
         <select class="rm-input" onchange="localStorage.setItem(RM_FMT_IMP_KEY, this.value); rmShowToast('Formato salvo neste computador')">
           ${[['perguntar','Perguntar sempre (A4 ou cupom)'],['a4','Sempre folha A4'],['cupom','Sempre cupom 80mm (térmica)']].map(([v,t]) => `<option value="${v}"${(localStorage.getItem(RM_FMT_IMP_KEY)||'perguntar')===v?' selected':''}>${t}</option>`).join('')}
         </select>
       </label>
-      <div style="font-size:12px; color:var(--rm-text-dim); margin-top:6px;">Cada computador guarda o seu. Ex.: no balcão "Sempre cupom 80mm", no escritório "Sempre folha A4".</div>
-    </div>`;
+      <div style="font-size:12px; color:var(--rm-text-dim); margin:6px 0 14px;">Cada computador guarda o seu. Ex.: no balcão "Sempre cupom 80mm", no escritório "Sempre folha A4".</div>
+      <button class="rm-pe2-btn" onclick="rmImprimirTesteA4()">&#128424; Imprimir página de teste</button>
+      <div style="font-size:12px; color:var(--rm-text-dim); margin-top:14px; line-height:1.6;">
+        <b>Dica:</b> na janela de impressão do Chrome, desmarque "Cabeçalhos e rodapés".<br>
+        Para a térmica: papel 80mm (ou "Roll Paper 80 x 297mm") e margens "Nenhuma".
+      </div>
+    </div>`,
+    aparencia: () => `
+    <div class="rm-cfg-card">
+      <div class="rm-cfg-tit">Aparência neste computador</div>
+      <div style="display:flex; gap:8px;">
+        <button class="rm-pe2-btn${document.documentElement.dataset.tema!=='dark'?' rm-sel-ativo':''}" onclick="rmSetTema('claro')">&#9728; Claro</button>
+        <button class="rm-pe2-btn${document.documentElement.dataset.tema==='dark'?' rm-sel-ativo':''}" onclick="rmSetTema('dark')">&#9790; Escuro</button>
+      </div>
+    </div>`,
+    backup: () => rmBackupCardHtml().replace('style="margin-top:14px;"', ''),
+    usuarios: () => rmUsuariosHtml(),
+    registro: () => rmRegistroHtml()
+  };
+  document.querySelectorAll('.rm-so-admin').forEach(b => b.style.display = rmEhAdmin() ? '' : 'none');
+  box.innerHTML = (telas[rmCfgSub] || telas.empresa)();
 }
 let rmCfgLogoNovo = null;
 function rmCfgLogo(input){
@@ -5362,6 +5830,7 @@ function rmOrgMarcar(ids, entregue){
   const agora = new Date().toISOString();
   lista.forEach(n => { if(ids.includes(n.id)){ n.entregueEm = entregue ? agora : null; rmDbUpsertProm(n); } });
   rmSaveProms(lista);
+  rmLog(entregue ? 'Entregou notas ao cliente' : 'Desfez entrega de nota', lista.filter(n => ids.includes(n.id)).map(n => n.refCodigo).join(', '));
   rmShowToast(entregue ? (ids.length > 1 ? ids.length + ' notas entregues' : 'Nota entregue') : 'Entrega desfeita');
   rmRenderFinOrg();
 }
@@ -5485,7 +5954,8 @@ function rmPromConfirmarRecebimento(notaId, n){
   const p = nota.parcelas.find(x=>x.n===n);
   const resta = rmParcRestante(p);
   if(valor > resta + 0.004 && !confirm(`O valor (${rmFormatMoeda(valor)}) é maior que o restante da parcela (${rmFormatMoeda(resta)}). Registrar mesmo assim?`)) return;
-  rmParcPagamentos(p).push({ valor, data: new Date().toISOString(), forma: forma.textContent });
+  rmParcPagamentos(p).push({ valor, data: new Date().toISOString(), forma: forma.textContent, por: rmNomeUsuario() });
+  rmLog('Recebeu parcela', nota.refCodigo + '-' + p.n, rmFormatMoeda(valor) + ' · ' + forma.textContent + ' · ' + (nota.clienteNome||''));
   rmParcAtualizar(p);
   rmSaveProms(lista); rmDbUpsertProm(nota);
   rmCloseModal();
@@ -5653,6 +6123,7 @@ document.addEventListener('mousedown', ev => {
 setTimeout(() => { rmFabBadge(); rmPedidoSync().then(rmFabBadge); }, 3000);
 
 function rmSetSection(section){
+  if(rmUsuario && !rmPode(section)) section = rmPrimeiraSecaoPermitida();
   document.body.dataset.secao = section;
   RM_SECTIONS.forEach(s=>{
     const el = document.getElementById('rm-section-'+s);
@@ -6077,6 +6548,7 @@ function rmSalvarRecepcaoRapida(){
   }
 
   rmShowToast(registro.codigoApp + ' registrado com sucesso');
+  rmLog('Criou OS', registro.codigoApp, [registro.nome, registro.modelo].filter(Boolean).join(' · '));
   rmCloseModal();
 }
 
@@ -6103,7 +6575,7 @@ function rmSalvarRecepcao(){
     itens: document.getElementById('rm-f-itens').value.trim().toUpperCase(),
     status: 'aberto',
     entrada: agora,
-    historico: [{status:'aberto', em: agora}],
+    historico: [{status:'aberto', em: agora, por: rmNomeUsuario()}],
     clienteId: rmSelectedClienteId
   };
   const list = rmLoad();
@@ -6129,6 +6601,7 @@ function rmSalvarRecepcao(){
   rmRenderFormProblemas();
 
   rmShowToast(registro.codigoApp + ' registrado com sucesso');
+  rmLog('Criou OS', registro.codigoApp, [registro.nome, registro.modelo].filter(Boolean).join(' · '));
   rmPendingCode = null;
   rmPrepareNewOS();
 }
@@ -6936,7 +7409,7 @@ function rmCliAbrirPagamentoAvulso(clienteId, aba){
     <button class="rm-primary" onclick="rmCliConfirmarAvulso('${clienteId}')">Confirmar pagamento</button>`;
   document.getElementById('rm-modal-backdrop').classList.add('show');
   rmCliAvulsoPrevia(clienteId);
-  setTimeout(() => document.getElementById('rm-av-valor').focus(), 50);
+  setTimeout(() => { const f = document.getElementById('rm-av-valor'); if(f) f.focus(); }, 50);
 }
 
 function rmCliAvulsoPrevia(clienteId){
@@ -6981,7 +7454,7 @@ function rmCliConfirmarAvulso(clienteId){
   const lote = 'av' + Date.now();
   const notasMexidas = new Set();
   plano.forEach(({ n, p, usa }) => {
-    rmParcPagamentos(p).push({ valor: usa, data: agora, forma: forma.textContent, lote });
+    rmParcPagamentos(p).push({ valor: usa, data: agora, forma: forma.textContent, lote, por: rmNomeUsuario() });
     rmParcAtualizar(p);
     notasMexidas.add(n);
   });
@@ -6989,6 +7462,7 @@ function rmCliConfirmarAvulso(clienteId){
   notasMexidas.forEach(n => rmDbUpsertProm(n));
   const itensRecibo = plano.map(({ n, p }) => ({ nota:n, p, pg: rmParcPagamentos(p)[rmParcPagamentos(p).length-1] }));
   setTimeout(() => { if(confirm('Pagamento registrado. Imprimir recibo?')) rmImprimirReciboA4(itensRecibo); }, 200);
+  rmLog('Recebeu valor avulso', c.nome, rmFormatMoeda(valor - sobra) + ' · ' + forma.textContent + ' · ' + plano.length + ' parcela(s)');
   rmShowToast(`Recebido ${rmFormatMoeda(valor - sobra)} · baixa em ${plano.length} parcela${plano.length===1?'':'s'}`);
   rmCloseModal();
 }
@@ -7181,6 +7655,7 @@ function rmPromSalvarEditor(){
   rmSaveProms(lista);
   rmDbUpsertProm(d);
   rmShowToast('Parcelas atualizadas');
+  rmLog('Editou parcelas a prazo', d.refCodigo, d.clienteNome || '');
   rmPromFecharEditor();
 }
 
@@ -7319,6 +7794,7 @@ function rmCriarCliente(){
   rmClienteRascunho = null;
   rmCloseModal();
   rmShowToast('Cliente cadastrado');
+  rmLog('Cadastrou cliente', cliente.nome);
   rmRenderClientes();
 }
 
@@ -7336,6 +7812,7 @@ function rmUpdateCliente(id, field, value){
 }
 
 function rmExcluirCliente(id){
+  { const cc = rmLoadClientes().find(x => x.id === id); if(cc) setTimeout(() => { if(!rmLoadClientes().some(x => x.id === id)) rmLog('Excluiu cliente', cc.nome); }, 500); }
   const c = rmLoadClientes().find(x=>x.id===id);
   if(!c) return;
   const ok = confirm(`Excluir o cliente ${c.nome||''}? Essa ação não pode ser desfeita e remove em todos os dispositivos.`);
@@ -7607,7 +8084,8 @@ function rmChangeStatus(id, novoStatus){
   if(item && item.status !== novoStatus){
     item.status = novoStatus;
     if(!item.historico) item.historico = [];
-    item.historico.push({status: novoStatus, em: new Date().toISOString()});
+    item.historico.push({status: novoStatus, em: new Date().toISOString(), por: rmNomeUsuario()});
+    rmLog('Mudou status da OS', item.codigoApp, (RM_STATUS[novoStatus]||{}).label || novoStatus);
     rmSave(list);
     rmDbUpsertRecepcao(item);
     return true;
@@ -7711,6 +8189,7 @@ function rmImprimirEtiquetaRecord(r){
 }
 
 function rmExcluirRecepcao(id){
+  { const rr = rmLoad().find(x => x.id === id); if(rr) setTimeout(() => { if(!rmLoad().some(x => x.id === id)) rmLog('Excluiu OS', rr.codigoApp, [rr.nome, rr.modelo].filter(Boolean).join(' · ')); }, 500); }
   const r = rmLoad().find(x=>x.id===id);
   if(!r) return;
   const ok = confirm(`Excluir a moto ${r.codigoApp||''} (${r.modelo})? Essa ação não pode ser desfeita e remove em todos os dispositivos.`);
@@ -7940,6 +8419,9 @@ function rmOsFinalizar(id){
   if(!confirm('Finalizar esta moto? Ela fica como PAGA e PRONTA.\nTotal: ' + rmFormatMoeda(rmOsTotais(r).total) + ' · ' + r.formaPagamento)) return;
   r.pago = true;
   r.pagoEm = new Date().toISOString();
+  r.finalizadoPor = rmNomeUsuario();
+  if(!r.historico) r.historico = [];
+  r.historico.push({ status:'pago', em:r.pagoEm, por: rmNomeUsuario() });
   r.valorPago = rmOsTotais(r).total;
   rmSave(list);
   rmDbUpsertRecepcao(r);
@@ -7950,6 +8432,7 @@ function rmOsFinalizar(id){
   if(!rmChangeStatus(id, 'prontas')) {}
   rmOpenModal(id, rmActiveModalLarge);
   rmShowToast('Moto finalizada · ' + rmFormatMoeda(r.valorPago));
+  rmLog('Finalizou OS (pago)', r.codigoApp, rmFormatMoeda(r.valorPago) + ' · ' + r.formaPagamento);
   setTimeout(() => { if(confirm('Moto finalizada. Imprimir a ordem de serviço para o cliente?')) rmImprimirOSA4(id); }, 200);
 }
 
@@ -8013,6 +8496,7 @@ function rmOsEscolher(osId, idx, produtoId){
   rmDbUpsertRecepcao(r);
   rmAtualizarTotalPecasModal(r);
   rmShowToast('Produto trocado');
+  rmLog('Trocou item na OS', r.codigoApp, (velho ? velho.nome : '') + ' → ' + novo.nome);
 }
 
 function rmOsFecharBusca(){
@@ -8080,9 +8564,11 @@ function rmEscolherProdutoMoto(produtoId){
   document.getElementById('rm-modal-peca-lista').classList.remove('show');
   document.getElementById('rm-os-busca-box').style.display = 'none';
   rmAtualizarTotalPecasModal(item);
+  rmLog('Adicionou item na OS', item.codigoApp, p.nome + ' x' + qtd);
 }
 
 function rmRemoverPecaMoto(id, index){
+  { const rr = rmLoad().find(x => x.id === id); const it = rr && rr.pecasUsadas && rr.pecasUsadas[index]; if(it) rmLog('Removeu item da OS', rr.codigoApp, it.nome + ' x' + it.quantidade); }
   const list = rmLoad();
   const item = list.find(r=>r.id===id);
   if(!item || !item.pecasUsadas || !item.pecasUsadas[index]) return;
@@ -8471,10 +8957,10 @@ function rmUpdateField(id, field, value){
 
 
 
-(function rmInit(){
+function rmInit(){
   const emModoBancada = rmVerificarModoBancada();
   if(!emModoBancada){
-    rmSetSection('oficina');
+    rmSetSection(rmPrimeiraSecaoPermitida());
   }
   rmSyncFromSupabase();
   rmSetupRealtime();
@@ -8485,7 +8971,8 @@ function rmUpdateField(id, field, value){
     }
     rmInicializarResizeProdutos();
   }
-})();
+}
+rmAuthIniciar();
 </script>
 <!-- Botão rápido de pedido (fica sobre todas as telas) -->
 <button class="rm-fab" id="rm-fab" title="Anotar item para pedido" onclick="rmFabAbrir()">&#128722;</button>
