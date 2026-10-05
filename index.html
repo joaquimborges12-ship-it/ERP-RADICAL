@@ -4347,7 +4347,7 @@ async function rmFazerLogin(){
   const btn = document.getElementById('rm-login-btn'); btn.disabled = true; btn.textContent = 'Entrando...';
   const { data, error } = await rmSb.auth.signInWithPassword({ email: u.includes('@') ? u : u + RM_LOGIN_DOMINIO, password: p });
   btn.disabled = false; btn.textContent = 'Entrar';
-  if(error || !data || !data.user){ msg.textContent = 'Usuário ou senha incorretos.'; return; }
+  if(error || !data || !data.user){ msg.textContent = (error && /confirm/i.test(error.message)) ? 'Usuário ainda não confirmado no Supabase. Fale com o administrador.' : 'Usuário ou senha incorretos.'; return; }
   const ok = await rmCarregarPerfil(data.user);
   if(ok){ rmLog('Entrou no sistema'); location.reload(); }
 }
@@ -4456,6 +4456,8 @@ async function rmCriarUsuario(){
   if(error || !data || !data.user){ alert('Não foi possível criar: ' + (error ? error.message : 'erro desconhecido') + '\n\nConfira se "Confirm email" está desligado no Supabase.'); return; }
   const r = await rmSb.from('perfis').insert({ id: data.user.id, usuario, nome, papel, permissoes, ativo: true });
   if(r.error){ alert('Usuário criado, mas falhou ao salvar o perfil: ' + r.error.message); return; }
+  // confirma o usuário na hora (não depende da opção "Confirm email" do Supabase)
+  try{ const c = await rmSb.rpc('rm_confirmar_usuario', { uid: data.user.id }); if(c.error) console.warn('confirmar usuario', c.error); }catch(e){}
   rmLog('Criou usuário', usuario, nome + ' · ' + RM_PAPEIS[papel].nome);
   rmShowToast('Usuário ' + usuario + ' criado');
   rmCarregarUsuarios();
