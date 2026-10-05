@@ -2017,8 +2017,8 @@
         </div>
         <div class="rm-table-wrap">
           <table class="rm-table">
-            <colgroup><col style="width:140px"><col style="width:110px"><col style="width:70px"><col><col style="width:140px"><col style="width:120px"></colgroup>
-            <thead><tr><th>Data</th><th>Código</th><th>Origem</th><th>Cliente / Moto</th><th>Pagamento</th><th style="text-align:right">Total</th></tr></thead>
+            <colgroup><col style="width:140px"><col style="width:110px"><col style="width:70px"><col><col style="width:130px"><col style="width:140px"><col style="width:120px"></colgroup>
+            <thead><tr><th>Data</th><th>Código</th><th>Origem</th><th>Cliente / Moto</th><th>Feito por</th><th>Pagamento</th><th style="text-align:right">Total</th></tr></thead>
             <tbody id="rm-fin-vendas-body"></tbody>
           </table>
           <div class="rm-problema-empty" id="rm-fin-vendas-empty" style="display:none; padding:20px;">Nenhuma venda no período</div>
@@ -3878,7 +3878,7 @@ function rmOrcamentoParaOSConfirmar(){
     id: 'r' + Date.now(), codigoApp: rmNextNumeroDoc(), nome: clienteNome || '', telefone: (cli && cli.telefone) || '',
     observacao: obs.toUpperCase(), modelo, entrega:false, buscar:false, problemas: probs,
     mecanico: document.getElementById('rm-o2s-mec').value.trim().toUpperCase(), codigoInterno:'', itens:'',
-    status:'aberto', entrada: agora, historico:[{ status:'aberto', em: agora }], clienteId: clienteId || null,
+    status:'aberto', entrada: agora, historico:[{ status:'aberto', em: agora, por: rmNomeUsuario() }], criadoPor: rmNomeUsuario(), clienteId: clienteId || null,
     pecasUsadas: pecas, pecasDescontoValor: desconto, pecasDescontoTipo: 'valor', maoDeObra: 0
   };
   const list = rmLoad(); list.unshift(registro); rmSave(list); rmDbUpsertRecepcao(registro);
@@ -4079,7 +4079,8 @@ function rmFromDbRow(row){
     pagoEm: row.pago_em || null,
     promParcelas: row.prom_parcelas || 1,
     promVenc: row.prom_venc || null,
-    valorPago: row.valor_pago || 0
+    valorPago: row.valor_pago || 0,
+    criadoPor: row.criado_por || ((row.historico || [])[0] || {}).por || ''
   };
 }
 
@@ -4114,6 +4115,7 @@ function rmToDbRow(r){
     prom_parcelas: r.promParcelas || 1,
     prom_venc: r.promVenc || null,
     valor_pago: r.valorPago || 0,
+    criado_por: r.criadoPor || null,
     updated_at: new Date().toISOString()
   };
 }
@@ -5581,7 +5583,7 @@ function rmCorpoOSA4(id){
   const cli = r.clienteId ? (rmLoadClientes().find(c => c.id === r.clienteId) || { nome:r.nome, telefone:r.telefone }) : { nome:r.nome, telefone:r.telefone };
   const probs = (r.problemas||[]).map(p => typeof p === 'string' ? p : (p.texto||'')).filter(Boolean);
   const st = r.pago ? 'Finalizada' : ((RM_STATUS[r.status]||{}).label || '');
-  const corpo = rmA4Cabecalho('Ordem Serviço nº', r.codigoApp, new Date(r.pagoEm || r.entrada).toLocaleDateString('pt-BR'), r.vendedor || r.atendente)
+  const corpo = rmA4Cabecalho('Ordem Serviço nº', r.codigoApp, new Date(r.pagoEm || r.entrada).toLocaleDateString('pt-BR'), rmOsCriador(r))
     + rmA4Secao('Dados Gerais', rmA4Duas(
         ['Data Serviço: ' + rmFormatData(r.entrada), 'Data Entrega: ' + (r.pagoEm ? rmDataHoraBR(r.pagoEm) : (r.entrega || ''))],
         ['Responsável: ' + rmH(r.mecanico || ''), 'Status: ' + rmH(st), r.modelo ? 'Moto: ' + rmH(r.modelo) : ''].filter(Boolean)))
@@ -6043,12 +6045,12 @@ function rmPromImprimir(notaId){
 function rmFinTodasVendas(){
   const pdv = rmLoadVendas().filter(v => v.tipo !== 'orcamento').map(v => ({
     origem:'PDV', id:v.id, data:v.criadoEm, codigo:v.codigoVenda||'',
-    cliente:v.clienteNome||'', forma:v.formaPagamento||'', total:Number(v.total)||0
+    cliente:v.clienteNome||'', forma:v.formaPagamento||'', total:Number(v.total)||0, por:v.vendedor||''
   }));
   const os = rmLoad().filter(r => r.pago).map(r => ({
     origem:'OS', id:r.id, data:r.pagoEm || r.entrada, codigo:r.codigoApp||'',
     cliente:[r.nome, r.modelo].filter(Boolean).join(' · '), forma:r.formaPagamento||'',
-    total: r.valorPago || rmOsTotais(r).total
+    total: r.valorPago || rmOsTotais(r).total, por: r.finalizadoPor || rmOsCriador(r)
   }));
   return pdv.concat(os).sort((a,b) => new Date(b.data) - new Date(a.data));
 }
@@ -6073,7 +6075,7 @@ function rmRenderFinVendas(){
   const lista = rmFinTodasVendas().filter(v =>
     rmFinNoPeriodo(v.data, periodo) &&
     (!origem || v.origem === origem) &&
-    (!q || (v.codigo+' '+v.cliente+' '+v.forma).toLowerCase().includes(q))
+    (!q || (v.codigo+' '+v.cliente+' '+v.forma+' '+(v.por||'')).toLowerCase().includes(q))
   );
   document.getElementById('rm-fin-vendas-empty').style.display = lista.length ? 'none' : '';
   body.innerHTML = lista.map(v => `
@@ -6082,6 +6084,7 @@ function rmRenderFinVendas(){
       <td>${rmEscapeHtml(v.codigo)||'—'}</td>
       <td><span class="rm-fin-tag rm-fin-tag-${v.origem}">${v.origem}</span></td>
       <td>${rmEscapeHtml(v.cliente)||'—'}</td>
+      <td>${rmEscapeHtml(v.por)||'—'}</td>
       <td>${rmEscapeHtml(v.forma)||'—'}</td>
       <td style="text-align:right; font-weight:700;">${rmFormatMoeda(v.total)}</td>
     </tr>`).join('');
@@ -6534,7 +6537,8 @@ function rmSalvarRecepcaoRapida(){
     itens: document.getElementById('rm-qf-itens').value.trim().toUpperCase(),
     status: 'aberto',
     entrada: agora,
-    historico: [{status:'aberto', em: agora}],
+    historico: [{status:'aberto', em: agora, por: rmNomeUsuario()}],
+    criadoPor: rmNomeUsuario(),
     clienteId: rmQuickSelectedClienteId
   };
   const list = rmLoad();
@@ -6578,6 +6582,7 @@ function rmSalvarRecepcao(){
     status: 'aberto',
     entrada: agora,
     historico: [{status:'aberto', em: agora, por: rmNomeUsuario()}],
+    criadoPor: rmNomeUsuario(),
     clienteId: rmSelectedClienteId
   };
   const list = rmLoad();
@@ -7691,7 +7696,7 @@ function rmAbrirDetalheOS(id){
     <div class="rm-modal-header">
       <div>
         <div class="rm-modal-title">${rmEscapeHtml(r.codigoApp||'')}</div>
-        <div class="rm-modal-sub">${rmFormatData(r.entrada)} · Ordem de serviço${st?' · '+st:''}</div>
+        <div class="rm-modal-sub">${rmFormatData(r.entrada)} · Ordem de serviço${st?' · '+st:''}${rmOsCriador(r)?' · aberta por '+rmEscapeHtml(rmOsCriador(r)):''}</div>
       </div>
       <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
     </div>
@@ -7852,6 +7857,7 @@ function rmOslVal(r, k){
   }
   return '';
 }
+function rmOsCriador(r){ return r.criadoPor || ((r.historico || [])[0] || {}).por || ''; }
 function rmOslTel(r){
   if(r.telefone) return r.telefone;
   const c = r.clienteId ? rmLoadClientes().find(x => x.id === r.clienteId) : null;
@@ -8622,7 +8628,7 @@ function rmOpenModal(id, large){
     <div class="rm-modal-header">
       <div>
         <div class="rm-modal-title">${r.nome || 'Cliente não informado'}</div>
-        <div class="rm-modal-sub">${r.codigoApp} · ${r.modelo}</div>
+        <div class="rm-modal-sub">${r.codigoApp} · ${r.modelo}${rmOsCriador(r) ? ` · <span title="Quem abriu a OS">aberta por ${rmEscapeHtml(rmOsCriador(r))}</span>` : ''}</div>
         <div class="rm-modal-status-row rm-os-status-topo">${statusPills}</div>
       </div>
       <div class="rm-modal-header-actions">
