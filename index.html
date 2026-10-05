@@ -1012,6 +1012,9 @@
   .rm-cfg-card{background:var(--rm-panel); border:1px solid var(--rm-border); padding:18px; max-width:760px;}
   .rm-cfg-tit{font-weight:700; margin-bottom:12px;}
   .rm-cfg-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px 16px; margin-bottom:14px;}
+  .rm-cfg-check{display:flex; align-items:flex-start; gap:10px; margin-top:16px; padding-top:14px; border-top:1px solid var(--rm-border); cursor:pointer; font-size:14px;}
+  .rm-cfg-check input{width:18px; height:18px; margin-top:2px;}
+  .rm-cfg-check small{color:var(--rm-text-dim); font-size:12px;}
   .rm-cfg-campo{display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--rm-text-dim);}
   .rm-cfg-campo .rm-input{margin:0;}
   @media (max-width:600px){ .rm-cfg-grid{grid-template-columns:1fr;} }
@@ -1140,6 +1143,30 @@
   .rm-us-off{opacity:0.55;}
   .rm-us-chk{display:inline-flex; align-items:center; gap:4px; margin:0 12px 6px 0; font-size:13px;}
   .rm-us-perms-ed{flex-basis:100%;}
+  .rm-com-resumo{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:14px;}
+  .rm-com-resumo div{background:var(--rm-panel); border:1px solid var(--rm-border); padding:10px 14px; display:flex; flex-direction:column; gap:2px;}
+  .rm-com-resumo span{font-size:12px; color:var(--rm-text-dim);}
+  .rm-com-resumo b{font-size:20px;}
+  .rm-com-destaque b{color:var(--rm-accent); font-size:24px;}
+  .rm-com-tab tbody tr{cursor:pointer;}
+  .rm-com-det td{background:var(--rm-panel-2); white-space:normal;}
+  .rm-com-det:hover td{background:var(--rm-panel-2) !important;}
+  .rm-com-sub{width:100%; border-collapse:collapse; font-size:13px;}
+  .rm-com-sub th{text-align:left; font-weight:600; color:var(--rm-text-dim); padding:4px 8px; border-bottom:1px solid var(--rm-border); background:transparent; position:static;}
+  .rm-com-sub td{padding:5px 8px; border-bottom:1px solid var(--rm-border);}
+  .rm-com-sub .r{text-align:right;}
+  .rm-com-tab tfoot td{padding:11px 14px; border-top:2px solid var(--rm-border);}
+  .rm-com-nota{font-size:12.5px; color:var(--rm-text-dim); margin-top:10px; line-height:1.5;}
+  .rm-com-cfg-row{display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; margin-bottom:14px;}
+  .rm-com-cfg-row label, .rm-com-mec label{display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--rm-text-dim);}
+  .rm-com-cfg-row input, .rm-com-mec input{width:110px; padding:8px; font-size:15px; border:1px solid var(--rm-border); border-radius:0; background:var(--rm-panel); color:var(--rm-text);}
+  .rm-com-chk{flex-direction:row !important; align-items:center; gap:8px !important; font-size:14px !important; color:var(--rm-text) !important;}
+  .rm-com-chk input{width:18px !important; height:18px;}
+  .rm-com-sec{font-weight:700; margin:6px 0 8px; padding-top:10px; border-top:1px solid var(--rm-border);}
+  .rm-com-sec small{font-weight:400; color:var(--rm-text-dim);}
+  .rm-com-mec{display:flex; align-items:flex-end; gap:16px; padding:6px 0; border-bottom:1px solid var(--rm-border);}
+  .rm-com-mec b{min-width:180px; padding-bottom:9px;}
+  @media (max-width:760px){ .rm-com-resumo{grid-template-columns:1fr 1fr;} }
   .rm-sel-filtro{display:flex; gap:6px; margin-bottom:12px;}
   .rm-sel-ativo{background:var(--rm-accent) !important; color:#fff !important; border-color:var(--rm-accent) !important;}
   .rm-sel-todas{display:flex; align-items:center; gap:8px; font-size:13px; margin-bottom:8px; cursor:pointer;}
@@ -1264,6 +1291,32 @@
   html[data-tema="dark"] .rm-tl-pagamento .rm-tl-valor{color:#8fd19e;}
   html[data-tema="dark"] .rm-problema-check{background:var(--rm-panel-2);}
   html[data-tema="dark"] img{opacity:0.95;}
+  html[data-tema="dark"] .rm-qm-panel .rm-input, html[data-tema="dark"] .rm-px-card .rm-input,
+  html[data-tema="dark"] .rm-modal .rm-input, html[data-tema="dark"] textarea.rm-input, html[data-tema="dark"] input.rm-input, html[data-tema="dark"] select.rm-input{background-color:#22262d; color:var(--rm-text); border-color:var(--rm-border);}
+  html[data-tema="dark"] .rm-px-card input.rm-px-ro{background-color:#1a1d22 !important;}
+  html[data-tema="dark"] .rm-qm-tab{background:#22262d;}
+  html[data-tema="dark"] .rm-qm-tab.active{background:var(--rm-panel);}
+  html[data-tema="dark"] .rm-qm-req input.rm-input{background:#3a3618 !important; border-color:#8a6a1e;}
+  html[data-tema="dark"] .rm-qm-footer{background:var(--rm-panel-2);}
+  html[data-tema="dark"] .rm-px-edit-aviso{background:#3a321a; border-left-color:#c99a2e;}
+  html[data-tema="dark"] .rm-px-info{background:#1b2c40; color:#a9c9ec; border-left-color:#4a90d9;}
+  html[data-tema="dark"] div.rm-px-total-hero, html[data-tema="dark"] div.rm-px-big{background:#22262d; border-color:var(--rm-border);}
+  html[data-tema="dark"] .rm-px-card input.rm-input, html[data-tema="dark"] .rm-px-card select.rm-input, html[data-tema="dark"] .rm-px-card textarea.rm-input,
+  html[data-tema="dark"] .rm-qm-panel input.rm-input, html[data-tema="dark"] .rm-qm-panel select.rm-input, html[data-tema="dark"] .rm-qm-panel textarea.rm-input{border-color:var(--rm-border);}
+  html[data-tema="dark"] .rm-px-card input.rm-px-selecionado{background:#2a2e35 !important;}
+  html[data-tema="dark"] .rm-osl-sel{border-color:var(--rm-border);}
+  html[data-tema="dark"] .rm-os-lapis:hover{background:#343944;}
+  html[data-tema="dark"] .rm-os-box-head{color:var(--rm-text);}
+  html[data-tema="dark"] .rm-pe-pg{border-left-color:#2c5a3a;}
+  html[data-tema="dark"] .rm-pe-pg .rm-pe-n, html[data-tema="dark"] .rm-os-finalizada{color:#8fd19e;}
+  html[data-tema="dark"] .rm-osl-at-pronta:hover{background:#244030;}
+  html[data-tema="dark"] .rm-osl-naopago:hover{background:#4a2624;}
+  html[data-tema="dark"] .rm-ped-zero, html[data-tema="dark"] .rm-pe-x, html[data-tema="dark"] .rm-pe2-btn-del, html[data-tema="dark"] #rm-login-msg{color:#f19a93;}
+  html[data-tema="dark"] .rm-cfg-card, html[data-tema="dark"] .rm-ped-col, html[data-tema="dark"] .rm-org-grupo{background:var(--rm-panel);}
+  html[data-tema="dark"] [style*="background:#fff"]:not(img), html[data-tema="dark"] [style*="background: #fff"]:not(img){background:var(--rm-panel) !important;}
+  html[data-tema="dark"] [style*="color:#3c763d"]{color:#8fd19e !important;}
+  html[data-tema="dark"] [style*="color:#b3261e"]{color:#f19a93 !important;}
+  html[data-tema="dark"] [style*="color:#1f4e79"]{color:#8ab8ec !important;}
   html[data-tema="dark"] .rm-header{background:#16191e !important; border-color:var(--rm-border);}
   html[data-tema="dark"] .rm-sidebar-toggle, html[data-tema="dark"] .rm-sidebar-expand{background:#2a2e35; color:#a9afb9;}
   html[data-tema="dark"] .rm-sidebar-toggle:hover, html[data-tema="dark"] .rm-sidebar-expand:hover{background:#343944; color:var(--rm-text);}
@@ -1313,20 +1366,7 @@
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
       <div class="rm-user-box" id="rm-user-box"></div>
-      <div class="rm-settings-wrap">
-        <button class="rm-settings-btn" onclick="rmToggleSettingsMenu(event)" title="Backup dos dados"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></button>
-        <div class="rm-settings-menu" id="rm-settings-menu">
-          <button class="rm-settings-item" onclick="rmBackupCompleto(); rmToggleSettingsMenu();">Baixar backup completo</button>
-          <button class="rm-settings-item" onclick="rmBackupEscolherArquivo(); rmToggleSettingsMenu();">Restaurar backup</button>
-          <div class="rm-settings-divider"></div>
-          <div class="rm-settings-toggle-item">
-            <span>Imprimir etiqueta ao chegar moto nova</span>
-            <label class="rm-switch">
-              <input type="checkbox" id="rm-autoprint-toggle" onchange="rmSetAutoprint(this.checked)">
-              <span class="rm-switch-track"></span>
-            </label>
-          </div>
-        </div>
+      <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
         <iframe id="rm-print-frame" style="display:none;"></iframe>
       </div>
@@ -2080,8 +2120,29 @@
     </div>
 
     <div id="rm-section-relatorio" class="rm-section">
-      <h1 class="rm-title">Relatório</h1>
-      <p class="rm-placeholder-text">Essa área ainda vai ser construída.</p>
+      <div class="rm-subnav">
+        <button class="rm-subnav-btn active" id="rm-btn-rel-mec" onclick="rmComSetModo('mec')"><span class="rm-subnav-icon">&#128295;</span><span>Comissão mecânicos</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-rel-vend" onclick="rmComSetModo('vend')"><span class="rm-subnav-icon">&#128722;</span><span>Comissão vendedores</span></button>
+      </div>
+      <div class="rm-view active">
+        <h1 class="rm-title" id="rm-com-titulo">Comissão dos mecânicos</h1>
+        <div class="rm-osl-filtros">
+          <select class="rm-osl-sel" id="rm-com-periodo" onchange="rmRenderComissao()">
+            <option value="p:mes" selected>Este Mês</option>
+            <option value="p:ultmes">Último Mês</option>
+            <option value="p:semana">Esta semana</option>
+            <option value="p:hoje">Hoje</option>
+            <option value="p:ontem">Ontem</option>
+            <option value="p:ult6">Últimos 6 meses</option>
+            <option value="p:ano">Este Ano</option>
+            <option value="personalizado">Outro período</option>
+          </select>
+          <span id="rm-com-datas" style="display:none;"><input type="date" class="rm-date-input" id="rm-com-de" onchange="rmRenderComissao()"> até <input type="date" class="rm-date-input" id="rm-com-ate" onchange="rmRenderComissao()"></span>
+          <button class="rm-pe2-btn" style="margin-left:auto;" onclick="rmComToggleConfig()">&#9881; Porcentagens</button>
+        </div>
+        <div id="rm-com-config" class="rm-cfg-card" style="display:none; max-width:none; margin-bottom:14px;"></div>
+        <div id="rm-com-conteudo"></div>
+      </div>
     </div>
 
     <div id="rm-section-configuracoes" class="rm-section">
@@ -4508,6 +4569,259 @@ function rmRenderRegistro(){
     : '<tr><td colspan="5" style="color:var(--rm-text-dim)">Nada registrado nesse período</td></tr>';
 }
 
+// ===================== RELATÓRIO > COMISSÃO DOS MECÂNICOS =====================
+let rmCom = { padraoServ: 30, padraoPecas: 0, abaterDesconto: true, mecanicos: {}, pagamentos: [] };
+try{ rmCom = Object.assign(rmCom, JSON.parse(localStorage.getItem('radicalMotos_comissoes')) || {}); }catch(e){}
+let rmComAberto = null; // pessoa com detalhe aberto
+let rmComModo = 'mec';    // 'mec' = mecânicos (OS entregues) · 'vend' = vendedores (PDV)
+function rmComSetModo(m){
+  rmComModo = m; rmComAberto = null;
+  document.getElementById('rm-btn-rel-mec').classList.toggle('active', m === 'mec');
+  document.getElementById('rm-btn-rel-vend').classList.toggle('active', m === 'vend');
+  document.getElementById('rm-com-titulo').textContent = m === 'mec' ? 'Comissão dos mecânicos' : 'Comissão dos vendedores';
+  const cfg = document.getElementById('rm-com-config'); if(cfg.style.display === '') rmComRenderConfig();
+  rmRenderComissao();
+}
+function rmComCfg(){ // campos de configuração do modo atual
+  if(rmComModo === 'vend'){
+    if(rmCom.vendPadraoServ == null) rmCom.vendPadraoServ = 0;
+    if(rmCom.vendPadraoPecas == null) rmCom.vendPadraoPecas = 0;
+    if(!rmCom.vendedores) rmCom.vendedores = {};
+    return { kServ:'vendPadraoServ', kPecas:'vendPadraoPecas', mapa: rmCom.vendedores };
+  }
+  return { kServ:'padraoServ', kPecas:'padraoPecas', mapa: rmCom.mecanicos };
+}
+async function rmComSync(){
+  try{
+    const { data, error } = await rmSb.from('configuracoes').select('*').eq('id','comissoes').maybeSingle();
+    if(!error && data && data.dados){ rmCom = Object.assign({ padraoServ:30, padraoPecas:0, abaterDesconto:true, mecanicos:{}, pagamentos:[] }, data.dados); localStorage.setItem('radicalMotos_comissoes', JSON.stringify(rmCom)); }
+  }catch(e){}
+}
+async function rmComSalvar(){
+  localStorage.setItem('radicalMotos_comissoes', JSON.stringify(rmCom));
+  try{ const { error } = await rmSb.from('configuracoes').upsert({ id:'comissoes', dados: rmCom }); if(error) console.error(error); }catch(e){}
+}
+function rmComPerc(mec){
+  const c = rmComCfg(); const m = c.mapa[mec] || {};
+  return { serv: m.serv != null && m.serv !== '' ? Number(m.serv) : Number(rmCom[c.kServ]) || 0,
+           pecas: m.pecas != null && m.pecas !== '' ? Number(m.pecas) : Number(rmCom[c.kPecas]) || 0 };
+}
+
+function rmComRange(){
+  const modo = (document.getElementById('rm-com-periodo') || {}).value || 'p:mes';
+  if(modo === 'personalizado'){
+    const de = document.getElementById('rm-com-de').value, ate = document.getElementById('rm-com-ate').value;
+    if(!de || !ate) return null;
+    return { start: new Date(de + 'T00:00:00'), end: new Date(new Date(ate + 'T00:00:00').getTime() + 864e5) };
+  }
+  return rmPresetRange(modo);
+}
+function rmComIso(d){ return new Date(d.getTime() - d.getTimezoneOffset()*6e4).toISOString().slice(0,10); }
+
+// ---- regras ----
+// Mecânico: mão de obra. Item "MAO DE OBRA - KAWAN" vai para o KAWAN (no PDV ou na OS).
+//   Mão de obra sem nome na OS vai para o mecânico responsável. OS conta quando a moto é ENTREGUE; PDV conta na data da venda.
+// Vendedor: peças (produtos que não são serviço), no PDV e na OS. Só conta quando PAGO:
+//   à vista = data da venda/finalização; a prazo = quando o cliente quita a nota inteira.
+function rmComNome(n){ return String(n || '').toUpperCase().replace(/[-–]?\s*MEC[AÂ]NICO\s*$/,'').replace(/\s+/g,' ').trim(); }
+function rmComEhServico(it, prods){
+  const p = it.produtoId ? prods.find(x => x.id === it.produtoId) : null;
+  return !!(it.servico || (p && p.ehServico) || /M[AÃ]O\s*DE\s*OBRA|SERVI[CÇ]O/i.test(it.nome || ''));
+}
+function rmComMecDoItem(it){
+  const m = /M[AÃ]O\s*DE\s*OBRA\s*[-–:]\s*(.+)$/i.exec(it.nome || '');
+  return m ? rmComNome(m[1]) : '';
+}
+function rmOsDataEntrega(o){
+  const h = (o.historico || []).filter(x => x.status === 'entregue');
+  return h.length ? h[h.length - 1].em : (o.status === 'entregue' ? (o.pagoEm || o.entrada) : null);
+}
+// data em que o documento ficou pago (a prazo = quando quitou a nota inteira)
+function rmComDataPago(refId, forma, dataAvista){
+  if(rmAPrazo(forma)){
+    const n = rmLoadProms().find(x => x.refId === refId);
+    if(!n || !rmNotaQuitada(n)) return null;
+    return rmNotaQuitadaEm(n) || null;
+  }
+  return dataAvista || null;
+}
+
+function rmComCalcular(){
+  const r = rmComRange();
+  const dentro = d => d && (!r || (new Date(String(d).length <= 10 ? d + 'T12:00:00' : d) >= r.start && new Date(String(d).length <= 10 ? d + 'T12:00:00' : d) < r.end));
+  const prods = rmLoadProdutos();
+  const porPessoa = {};
+  const add = (pessoa, tipo, doc, data, base, itensDesc) => {
+    if(base <= 0.004) return;
+    const nome = pessoa || 'SEM RESPONSÁVEL';
+    const perc = rmComPerc(nome);
+    const pct = rmComModo === 'mec' ? perc.serv : perc.pecas;
+    const g = porPessoa[nome] = porPessoa[nome] || { mec: nome, docs: [], base: 0, com: 0, pct };
+    let d = g.docs.find(x => x.doc === doc);
+    if(!d){ d = { tipo, doc, data, base: 0, com: 0, itens: [] }; g.docs.push(d); }
+    d.base += base; d.com += base * pct / 100; d.itens.push(itensDesc);
+    g.base += base; g.com += base * pct / 100;
+  };
+  // fator do desconto geral do documento (proporcional)
+  const fator = (bruto, desc) => (rmCom.abaterDesconto && bruto > 0 && desc > 0) ? Math.max(0, (bruto - desc) / bruto) : 1;
+
+  const docs = [];
+  rmLoad().forEach(o => {
+    const itens = o.pecasUsadas || [];
+    const bruto = itens.reduce((s,i) => s + (Number(i.subtotal)||0), 0) + (Number(o.maoDeObra)||0);
+    docs.push({ tipo:'OS', doc:o, itens, f: fator(bruto, rmCalcularDescontoPecasValor(o, bruto)),
+      dataMec: o.status === 'entregue' ? rmOsDataEntrega(o) : null,
+      dataVend: o.pago ? rmComDataPago(o.id, o.formaPagamento, o.pagoEm) : null,
+      mecPadrao: rmComNome(o.mecanico), vendPadrao: rmComNome(o.criadoPor || ((o.historico||[])[0]||{}).por), maoAntiga: Number(o.maoDeObra) || 0 });
+  });
+  rmLoadVendas().filter(v => v.tipo !== 'orcamento').forEach(v => {
+    const itens = v.itens || [];
+    const bruto = itens.reduce((s,i) => s + (Number(i.subtotal)||0), 0);
+    docs.push({ tipo:'PDV', doc:v, itens, f: fator(bruto, Number(v.desconto)||0),
+      dataMec: v.criadoEm, dataVend: rmComDataPago(v.id, v.formaPagamento, v.criadoEm),
+      mecPadrao: '', vendPadrao: rmComNome(v.vendedor), maoAntiga: 0 });
+  });
+
+  docs.forEach(D => {
+    if(rmComModo === 'mec'){
+      if(!dentro(D.dataMec)) return;
+      D.itens.forEach(it => {
+        if(!rmComEhServico(it, prods)) return;
+        const mec = rmComMecDoItem(it) || D.mecPadrao;
+        if(!mec) return;
+        add(mec, D.tipo, D.doc, D.dataMec, (Number(it.subtotal)||0) * D.f, it.nome);
+      });
+      if(D.maoAntiga > 0 && D.mecPadrao) add(D.mecPadrao, D.tipo, D.doc, D.dataMec, D.maoAntiga * D.f, 'MÃO DE OBRA');
+    } else {
+      if(!dentro(D.dataVend)) return;
+      D.itens.forEach(it => {
+        if(rmComEhServico(it, prods)) return;
+        const vend = rmComNome(it.por) || D.vendPadrao;
+        add(vend, D.tipo, D.doc, D.dataVend, (Number(it.subtotal)||0) * D.f, it.nome + ' x' + (it.quantidade||1));
+      });
+    }
+  });
+  return Object.values(porPessoa).sort((a,b) => b.com - a.com);
+}
+
+function rmComPagoNoPeriodo(mec){
+  const r = rmComRange(); if(!r) return null;
+  const de = rmComIso(r.start), ate = rmComIso(new Date(r.end.getTime() - 1));
+  return (rmCom.pagamentos || []).find(p => p.mecanico === mec && p.de === de && p.ate === ate && (p.modo || 'mec') === rmComModo) || null;
+}
+
+function rmComDocNum(x){ return x.tipo === 'OS' ? (x.doc.codigoApp || '') : (x.doc.codigoVenda || ''); }
+function rmComDocCli(x){ return x.tipo === 'OS' ? [x.doc.nome, x.doc.modelo].filter(Boolean).join(' · ') : (x.doc.clienteNome || ''); }
+
+function rmRenderComissao(){
+  const box = document.getElementById('rm-com-conteudo'); if(!box) return;
+  const per = document.getElementById('rm-com-periodo').value;
+  document.getElementById('rm-com-datas').style.display = per === 'personalizado' ? '' : 'none';
+  const mec = rmComModo === 'mec';
+  const lista = rmComCalcular();
+  const tot = lista.reduce((s,g) => ({ base: s.base + g.base, com: s.com + g.com, docs: s.docs + g.docs.length }), { base:0, com:0, docs:0 });
+  box.innerHTML = `
+    <div class="rm-com-resumo" style="grid-template-columns:repeat(3,1fr);">
+      <div><span>${mec ? 'OS e vendas com mão de obra' : 'Vendas e OS pagas com peças'}</span><b>${tot.docs}</b></div>
+      <div><span>${mec ? 'Total de mão de obra' : 'Total de peças vendidas'}</span><b>${rmFormatMoeda(tot.base)}</b></div>
+      <div class="rm-com-destaque"><span>Total de comissões</span><b>${rmFormatMoeda(tot.com)}</b></div>
+    </div>
+    ${lista.length ? `<div class="rm-osl-wrap"><table class="rm-osl rm-com-tab">
+      <thead><tr><th>${mec ? 'Mecânico' : 'Vendedor'}</th><th class="r">Notas</th><th class="r">${mec ? 'Mão de obra' : 'Peças'}</th><th class="r">%</th><th class="r">Comissão</th><th>Situação</th><th></th></tr></thead>
+      <tbody>${lista.map(g => {
+        const pago = rmComPagoNoPeriodo(g.mec);
+        const aberto = rmComAberto === g.mec;
+        return `<tr onclick="rmComAberto = rmComAberto === '${rmEscapeHtml(g.mec)}' ? null : '${rmEscapeHtml(g.mec)}'; rmRenderComissao()">
+          <td><b>${aberto ? '&#9662;' : '&#9656;'} ${rmEscapeHtml(g.mec)}</b></td>
+          <td class="r">${g.docs.length}</td>
+          <td class="r">${rmFmtNum(g.base)}</td><td class="r">${rmFmtNum(g.pct)}%</td>
+          <td class="r"><b>${rmFormatMoeda(g.com)}</b></td>
+          <td>${pago ? `<span class="rm-prom-sit rm-prom-sit-paga" title="por ${rmEscapeHtml(pago.por||'')}">Pago ${rmDataHoraBR(pago.em)}</span>` : '<span class="rm-prom-sit rm-prom-sit-aberta">A pagar</span>'}</td>
+          <td style="text-align:right; white-space:nowrap;" onclick="event.stopPropagation()">
+            <button class="rm-prom-btn" onclick="rmComImprimir('${rmEscapeHtml(g.mec)}')" title="Imprimir">&#128424;</button>
+            ${pago ? `<button class="rm-prom-btn" onclick="rmComDesfazerPago('${rmEscapeHtml(g.mec)}')">Desfazer</button>` : `<button class="rm-prom-btn rm-prom-btn-ok" onclick="rmComMarcarPago('${rmEscapeHtml(g.mec)}', ${g.com.toFixed(2)})">Marcar pago</button>`}
+          </td>
+        </tr>
+        ${aberto ? `<tr class="rm-com-det"><td colspan="7">
+          <table class="rm-com-sub"><thead><tr><th>Nº</th><th>Origem</th><th>Data</th><th>Cliente</th><th>Itens</th><th class="r">${mec ? 'Mão de obra' : 'Peças'}</th><th class="r">Comissão</th></tr></thead>
+          <tbody>${g.docs.sort((a,b) => new Date(a.data) - new Date(b.data)).map(x => `<tr onclick="${x.tipo === 'OS' ? `rmOpenModal('${x.doc.id}', true)` : `rmAbrirDetalheVenda('${x.doc.id}')`}" style="cursor:pointer">
+            <td>${rmEscapeHtml(rmComDocNum(x))}</td><td><span class="rm-fin-tag rm-fin-tag-${x.tipo}">${x.tipo}</span></td><td>${rmDataHoraBR(x.data)}</td>
+            <td>${rmEscapeHtml(rmComDocCli(x))}</td><td style="white-space:normal; color:var(--rm-text-dim);">${rmEscapeHtml(x.itens.join(', '))}</td>
+            <td class="r">${rmFmtNum(x.base)}</td><td class="r"><b>${rmFmtNum(x.com)}</b></td></tr>`).join('')}</tbody></table>
+        </td></tr>` : ''}`;
+      }).join('')}</tbody>
+      <tfoot><tr><td><b>Total</b></td><td class="r"><b>${tot.docs}</b></td><td class="r"><b>${rmFmtNum(tot.base)}</b></td><td></td><td class="r"><b>${rmFormatMoeda(tot.com)}</b></td><td colspan="2"></td></tr></tfoot>
+    </table></div>` : `<div class="rm-problema-empty" style="padding:20px;">Nada para comissão neste período</div>`}
+    <div class="rm-com-nota">${mec
+      ? 'Conta a <b>mão de obra</b>. O item "MAO DE OBRA - KAWAN" vai para o <b>KAWAN</b>, seja no PDV ou na ordem de serviço. Mão de obra sem nome na OS vai para o mecânico responsável. Na OS só entra com a moto <b>Entregue</b> (data da entrega); no PDV, na data da venda.'
+      : 'Conta as <b>peças vendidas</b> (o que não é serviço), no PDV e na ordem de serviço, para quem vendeu/lançou. Só entra quando está <b>pago</b>: à vista na data da venda; <b>a prazo só quando o cliente quita a nota inteira</b>, na data da quitação.'}
+      ${rmCom.abaterDesconto ? ' O desconto geral da nota é abatido proporcionalmente.' : ''}</div>`;
+}
+
+function rmComRenderConfig(){
+  const box = document.getElementById('rm-com-config'); if(!box) return;
+  const c = rmComCfg(), mec = rmComModo === 'mec', k = mec ? c.kServ : c.kPecas, campo = mec ? 'serv' : 'pecas';
+  const pessoas = mec
+    ? [...new Set(rmLoadMecanicos().map(m => rmComNome(typeof m === 'string' ? m : m.nome)).concat(rmLoad().map(o => rmComNome(o.mecanico))).filter(Boolean))].sort()
+    : [...new Set(rmLoadVendas().map(v => rmComNome(v.vendedor)).concat(rmLoad().map(o => rmComNome(o.criadoPor))).filter(Boolean))].sort();
+  box.innerHTML = `
+    <div class="rm-com-cfg-row">
+      <label>% padrão sobre ${mec ? 'mão de obra' : 'peças vendidas'}<input inputmode="decimal" value="${rmFmtNum(rmCom[k])}" onfocus="this.select()" onchange="rmCom['${k}'] = rmParseMoeda(this.value); rmComSalvar(); rmRenderComissao(); rmComRenderConfig()"></label>
+      <label class="rm-com-chk"><input type="checkbox" ${rmCom.abaterDesconto ? 'checked' : ''} onchange="rmCom.abaterDesconto = this.checked; rmComSalvar(); rmRenderComissao()"> Abater o desconto geral da nota</label>
+    </div>
+    <div class="rm-com-sec">Porcentagem por ${mec ? 'mecânico' : 'vendedor'} <small>(em branco = usa o padrão)</small></div>
+    ${pessoas.map(m => { const pc = c.mapa[m] || {}; return `<div class="rm-com-mec">
+      <b>${rmEscapeHtml(m)}</b>
+      <label>%<input inputmode="decimal" placeholder="${rmFmtNum(rmCom[k])}" value="${pc[campo] != null && pc[campo] !== '' ? rmFmtNum(pc[campo]) : ''}" onchange="rmComSetMec('${rmEscapeHtml(m)}','${campo}',this.value)"></label>
+    </div>`; }).join('') || `<div style="color:var(--rm-text-dim)">Ninguém ainda.</div>`}`;
+}
+
+function rmComImprimir(mec){
+  const g = rmComCalcular().find(x => x.mec === mec); if(!g) return;
+  const r = rmComRange(), ehMec = rmComModo === 'mec';
+  const periodo = r ? rmDataBR(rmComIso(r.start)) + ' a ' + rmDataBR(rmComIso(new Date(r.end.getTime() - 1))) : 'todo o período';
+  const corpo = rmA4Cabecalho(ehMec ? 'Comissão do Mecânico' : 'Comissão do Vendedor', '', new Date().toLocaleDateString('pt-BR'))
+    + rmA4Secao(ehMec ? 'Mecânico:' : 'Vendedor:', rmH(mec))
+    + rmA4Secao('Resumo', rmA4Duas(['Período: ' + periodo, 'Notas: ' + g.docs.length], [(ehMec ? 'Mão de obra' : 'Peças vendidas') + ': R$ ' + rmFmtNum(g.base), 'Comissão: ' + rmFmtNum(g.pct) + '%']))
+    + rmA4Secao(ehMec ? 'Mão de obra' : 'Peças vendidas', `<table class="a4-tab">
+        <thead><tr><th>Nº</th><th>Data</th><th class="cx">Cliente</th><th>Itens</th><th class="r">Base (R$)</th><th class="r">Comissão (R$)</th></tr></thead>
+        <tbody>${g.docs.map(x => `<tr><td>${rmH(rmComDocNum(x))}${x.tipo === 'PDV' ? ' (PDV)' : ''}</td><td>${new Date(x.data).toLocaleDateString('pt-BR')}</td><td class="cx">${rmH(rmComDocCli(x))}</td><td>${rmH(x.itens.join(', '))}</td><td class="r">${rmFmtNum(x.base)}</td><td class="r">${rmFmtNum(x.com)}</td></tr>`).join('')}</tbody>
+        <tfoot><tr class="a4-forte"><td colspan="3" class="r"><b>Total da comissão (R$)</b></td><td class="cx"></td><td></td><td class="r"><b>${rmFmtNum(g.com)}</b></td></tr></tfoot></table>`)
+    + `<div class="a4-txt" style="margin-top:14px;">Recebi de <b>${rmH(rmEmpresa().nome)}</b> a importância de <b>R$ ${rmFmtNum(g.com)}</b> (${rmExtenso(g.com)}), referente à comissão do período ${periodo}.</div>`
+    + rmA4Assinaturas(rmH(mec), rmH(rmEmpresa().nome));
+  rmImprimirA4('Comissão ' + mec, corpo);
+}
+
+function rmComSetMec(m, campo, v){
+  const mapa = rmComCfg().mapa;
+  mapa[m] = mapa[m] || {};
+  mapa[m][campo] = String(v).trim() === '' ? '' : rmParseMoeda(v);
+  rmComSalvar(); rmRenderComissao();
+  rmLog('Alterou % de comissão', m, campo + ': ' + (String(v).trim() || 'padrão'));
+}
+function rmComToggleConfig(){
+  const b = document.getElementById('rm-com-config');
+  b.style.display = b.style.display === 'none' ? '' : 'none';
+  if(b.style.display === '') rmComRenderConfig();
+}
+
+function rmComMarcarPago(mec, valor){
+  const r = rmComRange(); if(!r){ alert('Escolha o período.'); return; }
+  const de = rmComIso(r.start), ate = rmComIso(new Date(r.end.getTime() - 1));
+  if(!confirm(`Marcar a comissão de ${mec} como PAGA?\nPeríodo: ${rmDataBR(de)} a ${rmDataBR(ate)}\nValor: ${rmFormatMoeda(valor)}`)) return;
+  rmCom.pagamentos = (rmCom.pagamentos || []).filter(p => !(p.mecanico === mec && p.de === de && p.ate === ate && (p.modo || 'mec') === rmComModo));
+  rmCom.pagamentos.push({ mecanico: mec, modo: rmComModo, de, ate, valor, em: new Date().toISOString(), por: rmNomeUsuario() });
+  rmComSalvar(); rmRenderComissao();
+  rmLog('Pagou comissão', mec, rmFormatMoeda(valor) + ' · ' + rmDataBR(de) + ' a ' + rmDataBR(ate));
+}
+function rmComDesfazerPago(mec){
+  const p = rmComPagoNoPeriodo(mec); if(!p) return;
+  if(!confirm('Desfazer o pagamento da comissão de ' + mec + '?')) return;
+  rmCom.pagamentos = rmCom.pagamentos.filter(x => x !== p);
+  rmComSalvar(); rmRenderComissao();
+  rmLog('Desfez pagamento de comissão', mec, rmFormatMoeda(p.valor));
+}
+
 // ===================== BACKUP COMPLETO =====================
 const RM_BKP_TABELAS = [['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome']];
 const RM_BKP_ULTIMO_KEY = 'radicalMotos_ultimoBackup';
@@ -5307,6 +5621,10 @@ function rmRenderConfigEmpresa(){
       </label>
       <div style="font-size:12px; color:var(--rm-text-dim); margin:6px 0 14px;">Cada computador guarda o seu. Ex.: no balcão "Sempre cupom 80mm", no escritório "Sempre folha A4".</div>
       <button class="rm-pe2-btn" onclick="rmImprimirTesteA4()">&#128424; Imprimir página de teste</button>
+      <label class="rm-cfg-check">
+        <input type="checkbox" ${localStorage.getItem(RM_AUTOPRINT_KEY) === 'true' ? 'checked' : ''} onchange="rmSetAutoprint(this.checked); rmShowToast(this.checked ? 'Etiqueta automática ligada' : 'Etiqueta automática desligada')">
+        <span><b>Imprimir etiqueta ao chegar moto nova</b><br><small>Quando cadastrar uma moto na recepção, a etiqueta sai sozinha neste computador.</small></span>
+      </label>
       <div style="font-size:12px; color:var(--rm-text-dim); margin-top:14px; line-height:1.6;">
         <b>Dica:</b> na janela de impressão do Chrome, desmarque "Cabeçalhos e rodapés".<br>
         Para a térmica: papel 80mm (ou "Roll Paper 80 x 297mm") e margens "Nenhuma".
@@ -6137,6 +6455,7 @@ function rmSetSection(section){
     if(btn) btn.classList.toggle('active', s===section);
   });
   if(section === 'clientes'){ rmRenderClientes(); rmSyncProms(); }
+  if(section === 'relatorio'){ rmRenderComissao(); rmComSync().then(rmRenderComissao); }
   if(section === 'configuracoes'){ rmRenderConfigEmpresa(); rmSyncEmpresa().then(rmRenderConfigEmpresa); }
   if(section === 'financeiro'){ rmRenderFinVendas(); rmSyncProms(); }
   if(section === 'pdv'){ rmInicializarPdv(); }
@@ -8563,7 +8882,7 @@ function rmEscolherProdutoMoto(produtoId){
   item.pecasUsadas.push({
     produtoId: p.id, nome: p.nome, codigo: p.codigo || '', localizacao: p.localizacao || '',
     categoria: p.categoria || '', servico: !!p.ehServico,
-    quantidade: qtd, precoUnit: p.precoConsumidor || 0, desconto: 0, subtotal: (p.precoConsumidor || 0) * qtd
+    quantidade: qtd, precoUnit: p.precoConsumidor || 0, desconto: 0, subtotal: (p.precoConsumidor || 0) * qtd, por: rmNomeUsuario()
   });
   rmSave(list);
   rmDbUpsertRecepcao(item);
@@ -8770,7 +9089,7 @@ function rmOpenModal(id, large){
             <div><label>Total Serviços:</label><input class="rm-os-in rm-os-ro" id="rm-os-t-ts" readonly></div>
             <div><label>Total:</label><input class="rm-os-in rm-os-ro" id="rm-os-t-total" readonly></div>
             <div class="rm-os-tlabel">Outros Valores</div>
-            <div><label>Mão de obra (mecânico):</label><input class="rm-os-in" id="rm-modal-mao-de-obra" value="${r.maoDeObra?rmFmtNum(r.maoDeObra):''}" inputmode="decimal" onfocus="this.select()" onchange="rmAtualizarMaoDeObra('${r.id}')"></div>
+            ${r.maoDeObra > 0 ? `<div><label>Mão de obra (antiga):</label><input class="rm-os-in" id="rm-modal-mao-de-obra" value="${rmFmtNum(r.maoDeObra)}" inputmode="decimal" onfocus="this.select()" onchange="rmAtualizarMaoDeObra('${r.id}')" title="Lançada no campo antigo. Zere aqui e lance como produto/serviço."></div>` : ''}
             <div><label>Desconto:</label>
               <div style="display:flex;">
                 <input class="rm-os-in" id="rm-modal-pecas-desconto-valor" value="${r.pecasDescontoValor?rmFmtNum(r.pecasDescontoValor):''}" inputmode="decimal" onfocus="this.select()" onchange="rmAtualizarDescontoPecas('${r.id}')">
@@ -8973,7 +9292,7 @@ function rmInit(){
   rmSyncFromSupabase();
   rmSetupRealtime();
   if(!emModoBancada){
-    document.getElementById('rm-autoprint-toggle').checked = localStorage.getItem(RM_AUTOPRINT_KEY) === 'true';
+    { const t = document.getElementById('rm-autoprint-toggle'); if(t) t.checked = localStorage.getItem(RM_AUTOPRINT_KEY) === 'true'; }
     if(localStorage.getItem(RM_SIDEBAR_KEY) === 'true'){
       document.getElementById('rm-app').classList.add('rm-sidebar-collapsed');
     }
