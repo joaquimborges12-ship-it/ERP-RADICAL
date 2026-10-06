@@ -1298,11 +1298,68 @@
   .rm-inv-selo.forte{background:#1e8e3e; color:#fff; border-color:#1e8e3e;}
   html[data-tema="dark"] .rm-inv-selo{background:#1d3324; color:#8fd19e; border-color:#2c5a3a;}
   html[data-tema="dark"] .rm-inv-selo.forte{background:#1e8e3e; color:#fff;}
-  .rm-pdv-item-info{display:flex; flex-wrap:wrap; align-items:center; gap:4px 12px; font-size:13px; color:var(--rm-text-dim); margin-top:4px; min-height:0;}
+  .rm-pdv-item-info{display:flex; flex-wrap:wrap; align-items:center; gap:4px 12px; font-size:13px; color:var(--rm-text-dim); margin:-4px 0 8px;}
   .rm-pdv-item-info:empty{display:none;}
   .rm-pdv-loc{font-weight:800; color:var(--rm-text); background:#fff3cd; border:1px solid #ffe08a; padding:1px 8px;}
   html[data-tema="dark"] .rm-pdv-loc{background:#3a321a; border-color:#5c4d1f; color:#f0d27a;}
   .rm-pdv-loc-tab{font-size:11px; font-weight:700; color:var(--rm-text-dim); border:1px solid var(--rm-border); padding:0 5px; margin-left:4px; white-space:nowrap;}
+  .rm-sep-btn{float:right; font-size:12px; font-weight:600; padding:4px 10px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text-dim); cursor:pointer; border-radius:0; font-family:var(--rm-font-body); text-transform:none; letter-spacing:0;}
+  .rm-sep-btn:hover{color:var(--rm-text); border-color:var(--rm-text-dim);}
+  .rm-os-titulo-sec .rm-sep-btn{margin-top:4px;}
+  .rm-inv-nunca{font-size:12px; color:var(--rm-text-dim);}
+  .rm-inv-velho{font-size:12px; color:#c9961a;}
+  .rm-inv-bip-linha{display:flex; flex:2; min-width:260px; gap:6px;}
+  .rm-inv-bip-linha .rm-input{flex:1; margin:0; font-size:16px;}
+  .rm-inv-cam-btn{width:52px; flex:none; font-size:22px; border:1px solid var(--rm-border); background:var(--rm-panel); cursor:pointer; border-radius:0;}
+  .rm-inv-terminar{width:auto !important; margin:0 !important; padding:11px 22px !important;}
+  .rm-inv-esp{flex:1;}
+  #rm-inv-cam{position:fixed; inset:0; z-index:30000; background:#000; display:none; flex-direction:column; align-items:center; justify-content:center; gap:14px;}
+  #rm-inv-cam video{width:100%; max-height:70vh; object-fit:cover;}
+  .rm-inv-cam-mira{position:absolute; top:35%; left:12%; right:12%; height:22%; border:3px solid #2e8b57; box-shadow:0 0 0 2000px rgba(0,0,0,0.35); pointer-events:none;}
+  .rm-inv-cam-txt{color:#fff; font-size:16px; text-align:center; padding:0 16px;}
+  #rm-inv-cam button{padding:14px 28px; font-size:16px; font-weight:700; border:none; background:#fff; color:#000; border-radius:0;}
+  @media (max-width:700px){
+    .rm-inv-so-pc{display:none !important;}
+    .rm-inv-topo{gap:8px; margin-bottom:8px;}
+    .rm-inv-topo-tit b{font-size:16px;} .rm-inv-topo-tit small{display:none;}
+    .rm-inv-fixo{position:sticky; top:0; z-index:20; background:var(--rm-bg); padding:6px 0 4px;}
+    .rm-inv-prog{margin-bottom:6px;}
+    .rm-inv-bipar{gap:6px; margin-bottom:4px;}
+    .rm-inv-bip-linha{min-width:0; flex-basis:100%;}
+    .rm-inv-bip-linha .rm-input{padding:12px;}
+    .rm-inv-add-wrap{min-width:0 !important; flex-basis:100%;}
+    .rm-inv-bipar .rm-cfg-check{font-size:13px;}
+    .rm-inv-lista{gap:6px; padding-bottom:90px;}
+    .rm-inv-item{flex-wrap:wrap; padding:10px 12px; gap:6px 10px;}
+    .rm-inv-loc{width:auto; background:var(--rm-panel-2); padding:2px 8px; font-size:12px; color:var(--rm-text);}
+    .rm-inv-nome{flex-basis:calc(100% - 90px);}
+    .rm-inv-nome b{font-size:15px; line-height:1.25;}
+    .rm-inv-qtd{flex-basis:100%; justify-content:flex-end; gap:6px;}
+    .rm-inv-qtd button{width:56px; height:50px; font-size:26px;}
+    .rm-inv-qtd input{width:90px; height:50px; font-size:22px;}
+    .rm-inv-qtd span{width:auto;}
+    .rm-inv-rodape{position:fixed; left:0; right:0; bottom:0; z-index:25; margin:0; padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px)); background:var(--rm-panel); border-top:1px solid var(--rm-border); box-shadow:0 -4px 14px rgba(0,0,0,0.12);}
+    .rm-inv-rodape-contar .rm-pe2-btn-del{padding:10px 8px;}
+    .rm-inv-esp{display:none;}
+    .rm-inv-rodape-contar .rm-pe2-btn{flex:1; padding:12px 6px;}
+    .rm-inv-terminar{flex:1.4; padding:12px 6px !important; font-size:16px;}
+    .rm-inv-opcoes{grid-template-columns:1fr;}
+    .rm-inv-op{padding:14px;}
+    .rm-inv-passos{grid-template-columns:1fr;}
+    .rm-inv-linha{flex-wrap:wrap;}
+    .rm-inv-tab thead{display:none;}
+    .rm-inv-tab, .rm-inv-tab tbody, .rm-inv-tab tr, .rm-inv-tab td{display:block; width:100%;}
+    .rm-inv-tab tr{border:1px solid var(--rm-border); margin-bottom:8px; padding:8px 10px; background:var(--rm-panel);}
+    .rm-inv-tab td{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:4px 0; border:none; white-space:normal !important; text-align:right;}
+    .rm-inv-tab td::before{content:attr(data-l); font-size:12px; color:var(--rm-text-dim); text-align:left;}
+    .rm-inv-tab td.rm-inv-td-nome{display:block; text-align:left; font-size:15px;}
+    .rm-inv-tab td.rm-inv-td-nome::before{display:none;}
+    .rm-inv-rec{width:110px; padding:10px; font-size:16px;}
+    .rm-inv-mot{max-width:62%; padding:10px; font-size:14px;}
+    .rm-inv-certos{margin-bottom:90px;}
+    body:has(.rm-inv-rodape) .rm-fab{bottom:86px;}
+    body:has(.rm-inv-rodape) .rm-fab-painel{bottom:144px;}
+  }
   .rm-inv-guia{background:var(--rm-panel); border:1px solid var(--rm-border); border-left:4px solid #2f6fb5;}
   .rm-inv-guia summary{padding:12px 16px; cursor:pointer; font-weight:700;}
   .rm-inv-guia-corpo{padding:0 16px 14px; font-size:14px; line-height:1.5;}
@@ -1605,12 +1662,12 @@
                   <input class="rm-input" id="rm-pdv-item-nome" autocapitalize="characters" autocomplete="off" oninput="rmBuscarProdutoPdv(this.value)" onfocus="rmBuscarProdutoPdv(this.value)" onkeydown="rmPdvTeclaProduto(event)">
                   <div class="rm-autocomplete-list" id="rm-pdv-produto-lista"></div>
                 </div>
-                <div class="rm-pdv-item-info" id="rm-pdv-item-info"></div>
               </div>
               <div class="rm-px-campo rm-px-w-qtd">
                 <label class="rm-px-label">Qtd:</label>
                 <input class="rm-input rm-px-num" id="rm-pdv-item-qtd" value="1" inputmode="decimal" oninput="rmPdvAtualizarLinha()" onkeydown="rmPdvTeclaEnter(event)">
               </div>
+            <div class="rm-pdv-item-info" id="rm-pdv-item-info"></div>
             </div>
 
             <div class="rm-px-linha">
@@ -1641,7 +1698,8 @@
             <div class="rm-pdv-atalhos" id="rm-pdv-atalhos"></div>
 
             <div id="rm-pdv-carrinho-lista"></div>
-            <div class="rm-px-qtdtotal">Quantidade total de produtos: <b id="rm-pdv-qtd-total">0</b></div>
+            <div class="rm-px-qtdtotal">Quantidade total de produtos: <b id="rm-pdv-qtd-total">0</b>
+              <button class="rm-sep-btn" title="Imprimir a lista de peças para buscar no estoque, na ordem das prateleiras" onclick="rmImprimirSeparacao('Venda no balcão' + (rmPdvClienteNome ? ' · ' + rmPdvClienteNome : ''), '', rmPdvCarrinho)">&#128205; Buscar no estoque</button></div>
             <div class="rm-px-info">Clique na linha do produto se desejar editar os valores informados</div>
           </div>
 
@@ -2044,7 +2102,7 @@
 
         <div class="rm-table-wrap">
           <table class="rm-table" id="rm-produtos-table">
-            <colgroup id="rm-produtos-colgroup"><col style="width:70px"><col><col style="width:110px"><col style="width:110px"><col style="width:120px"><col style="width:145px"><col style="width:120px"><col style="width:90px"><col style="width:90px"></colgroup>
+            <colgroup id="rm-produtos-colgroup"><col style="width:70px"><col><col style="width:110px"><col style="width:110px"><col style="width:120px"><col style="width:145px"><col style="width:120px"><col style="width:90px"><col style="width:130px"><col style="width:90px"></colgroup>
             <thead>
               <tr>
                 <th class="rm-th-sortable" data-key="curva" data-label="Curva" onclick="rmProdutosSortClick('curva')">Curva<span class="rm-col-resize-handle"></span></th>
@@ -2055,6 +2113,7 @@
                 <th class="rm-th-sortable" data-key="precoConsumidor" data-label="Preço consumidor" onclick="rmProdutosSortClick('precoConsumidor')">Preço consumidor<span class="rm-col-resize-handle"></span></th>
                 <th class="rm-th-sortable" data-key="precoParceiro" data-label="Preço parceiro" onclick="rmProdutosSortClick('precoParceiro')">Preço parceiro<span class="rm-col-resize-handle"></span></th>
                 <th class="rm-th-sortable" data-key="estoque" data-label="Estoque" onclick="rmProdutosSortClick('estoque')">Estoque<span class="rm-col-resize-handle"></span></th>
+                <th class="rm-th-sortable" data-key="contagem" data-label="Contagem" onclick="rmProdutosSortClick('contagem')">Contagem<span class="rm-col-resize-handle"></span></th>
                 <th class="rm-th-sortable" data-key="status" data-label="Status" onclick="rmProdutosSortClick('status')">Status<span class="rm-col-resize-handle"></span></th>
               </tr>
             </thead>
@@ -3011,6 +3070,7 @@ function rmProdutosSortClick(key){
 
 function rmProdutosSortValue(p, key){
   switch(key){
+    case 'contagem': { const d = rmInvUltimasCache()[p.id]; return d ? new Date(d).getTime() : 0; }
     case 'curva': return ({A:1,B:2,C:3,D:4})[String(p.curva||'').toUpperCase()] || 9;
     case 'nome': return (p.nome||'').toLowerCase();
     case 'codigo': return (p.codigo||'').toLowerCase();
@@ -3077,12 +3137,12 @@ function rmIniciarResizeColuna(ev, th){
 function rmSalvarLargurasColunasProdutos(){
   const cols = Array.from(document.getElementById('rm-produtos-colgroup').children);
   const larguras = cols.map(c => c.style.width || '');
-  localStorage.setItem('radicalMotos_produtos_colunas_v2', JSON.stringify(larguras));
+  localStorage.setItem('radicalMotos_produtos_colunas_v3', JSON.stringify(larguras));
 }
 
 function rmRestaurarLargurasColunasProdutos(){
   try{
-    const larguras = JSON.parse(localStorage.getItem('radicalMotos_produtos_colunas_v2'));
+    const larguras = JSON.parse(localStorage.getItem('radicalMotos_produtos_colunas_v3'));
     if(!larguras) return;
     const cols = document.getElementById('rm-produtos-colgroup').children;
     larguras.forEach((w, i)=>{ if(w && cols[i]) cols[i].style.width = w; });
@@ -3214,6 +3274,7 @@ function rmRenderProdutos(){
       <td data-label="Preço consumidor">${rmFormatMoeda(p.precoConsumidor)}</td>
       <td data-label="Preço parceiro">${rmFormatMoeda(p.precoParceiro)}</td>
       <td data-label="Estoque"><span class="${estoqueBaixo?'rm-produto-estoque-baixo':''}">${p.estoqueAtual}${estoqueBaixo?' ⚠':''}</span></td>
+      <td data-label="Contagem">${rmInvSeloLista(p.id)}</td>
       <td data-label="Status">${p.ativo === false ? '<span class="rm-pdv-tag-orcamento">Inativo</span>' : 'Ativo'}</td>
     `;
     tr.onclick = () => rmAbrirCadastroProdutoRapido(p.id);
@@ -3331,12 +3392,28 @@ function rmBuscarProdutoPdv(query){
   lista.classList.add('show');
 }
 
+// lista para buscar as peças no estoque, na ordem das prateleiras
+function rmImprimirSeparacao(titulo, ref, itens){
+  const prods = rmLoadProdutos();
+  const linhas = (itens || []).map(it => {
+    const p = it.produtoId ? prods.find(x => x.id === it.produtoId) : null;
+    if(p && p.ehServico) return null;
+    if(!p && /M[AÃ]O\s*DE\s*OBRA|SERVI[CÇ]O/i.test(it.nome || '')) return null;
+    return { loc: (p && p.localizacao) || '', nome: it.nome || (p && p.nome) || '', qtd: Number(it.quantidade) || 1, un: (p && p.unidade) || 'UN', cod: (p && (p.codigo || p.codigoBarras)) || '', est: p ? (Number(p.estoqueAtual) || 0) : null };
+  }).filter(Boolean).sort((a,b) => (a.loc || 'ZZZ').localeCompare(b.loc || 'ZZZ', 'pt-BR', { numeric:true }));
+  if(!linhas.length){ alert('Não há peças para buscar no estoque (só serviços ou lista vazia).'); return; }
+  const corpo = `<div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:2px solid #000; padding-bottom:4px; margin-bottom:8px;"><b style="font-size:15px;">BUSCAR NO ESTOQUE${ref ? ' · ' + rmH(ref) : ''}</b><span style="font-size:10px;">${new Date().toLocaleString('pt-BR').replace(',', '')}</span></div>`
+    + rmA4Secao(rmH(titulo || ''), `<table class="a4-tab rm-sep">
+        <thead><tr><th style="width:110px">LOCAL</th><th class="r" style="width:50px">Qtd</th><th>Produto</th><th class="cx" style="width:90px">Código</th><th class="c" style="width:28px">✔</th></tr></thead>
+        <tbody>${linhas.map(l => `<tr><td class="sep-loc">${rmH(l.loc || '—')}</td><td class="r sep-qtd">${rmFmtQtd(l.qtd)}</td><td>${rmH(l.nome)}<div class="sep-un">${rmH(l.un)}${l.est != null && l.est < l.qtd ? ' · <b>estoque no sistema: ' + rmFmtQtd(l.est) + '</b>' : ''}</div></td><td class="cx">${rmH(l.cod)}</td><td class="c">☐</td></tr>`).join('')}</tbody></table>
+      <style>.rm-sep .sep-loc{font-size:15px; font-weight:800; letter-spacing:0.03em;} .rm-sep .sep-qtd{font-size:14px; font-weight:800;} .rm-sep .sep-un{font-size:9px; color:#555;} .rm-sep td{vertical-align:middle;}</style>`)
+    + `<div class="a4-txt">Separado por: ______________________</div>`;
+  rmImprimirA4('Buscar no estoque', corpo);
+}
 function rmPdvInfoProduto(p){
   const el = document.getElementById('rm-pdv-item-info'); if(!el) return;
   if(!p){ el.innerHTML = ''; return; }
-  el.innerHTML = `<span class="rm-pdv-loc">&#128205; ${p.localizacao ? rmEscapeHtml(p.localizacao) : 'sem localização'}</span>`
-    + `<span>estoque: <b>${rmFmtQtd(p.estoqueAtual || 0)}${p.unidade ? ' ' + rmEscapeHtml(p.unidade) : ''}</b></span>`
-    + (p.marca ? `<span>${rmEscapeHtml(p.marca)}</span>` : '') + rmInvSelo(p.id);
+  el.innerHTML = (p.marca ? `<span>${rmEscapeHtml(p.marca)}</span>` : '') + rmInvSelo(p.id);
 }
 function rmEscolherProdutoPdv(produtoId, semFoco){
   const p = rmLoadProdutos().find(x=>x.id===produtoId);
@@ -7393,6 +7470,15 @@ function rmInvSelo(pid){
   return `<span class="rm-inv-selo${dias <= 7 ? ' forte' : ''}" title="Estoque conferido no inventário ${quando} (${new Date(d).toLocaleDateString('pt-BR')})">&#10004; contado ${quando}</span>`;
 }
 
+function rmInvUltimasCache(){ if(!rmInvUltCache || Date.now() - rmInvUltCacheEm > 30000){ rmInvUltCache = rmInvUltimas(); rmInvUltCacheEm = Date.now(); } return rmInvUltCache; }
+// na lista de produtos: mostra sempre a última contagem (mesmo antiga) e o selo quando é recente
+function rmInvSeloLista(pid){
+  const d = rmInvUltimasCache()[pid];
+  if(!d) return '<span class="rm-inv-nunca">nunca contado</span>';
+  const selo = rmInvSelo(pid);
+  return selo || `<span class="rm-inv-velho" title="Última contagem">${new Date(d).toLocaleDateString('pt-BR')}</span>`;
+}
+
 // ---------- tela inicial ----------
 function rmRenderInventario(){
   const box = document.getElementById('rm-inv'); if(!box) return;
@@ -7515,17 +7601,22 @@ function rmInvRenderContagem(){
     <div class="rm-inv-topo">
       <button class="rm-pe2-btn" onclick="rmInvTela='home'; rmRenderInventario()">‹ Voltar</button>
       <div class="rm-inv-topo-tit"><b>${rmEscapeHtml(inv.titulo)}</b><small>contagem cega: a quantidade do sistema só aparece na revisão</small></div>
-      <button class="rm-pe2-btn" onclick="rmInvImprimirFolha()">&#128424; Folha para contar no papel</button>
+      <button class="rm-pe2-btn rm-inv-so-pc" onclick="rmInvImprimirFolha()">&#128424; Folha para contar no papel</button>
     </div>
+    <div class="rm-inv-fixo">
     <div class="rm-inv-prog"><div><i style="width:${tot ? feitos / tot * 100 : 0}%"></i></div><span><b>${feitos}</b> de ${tot} contados</span></div>
     <div class="rm-inv-bipar">
-      <input class="rm-input" id="rm-inv-bip" placeholder="&#128269; Bipe o código de barras ou digite nome/código e Enter (cada bipada soma 1)" autocomplete="off" onkeydown="if(event.key==='Enter'){ event.preventDefault(); rmInvBipar(this.value); this.value=''; }">
+      <div class="rm-inv-bip-linha">
+        <input class="rm-input" id="rm-inv-bip" enterkeyhint="search" placeholder="&#128269; Código de barras ou nome + Enter" autocomplete="off" onkeydown="if(event.key==='Enter'){ event.preventDefault(); rmInvBipar(this.value); this.value=''; }">
+        ${'BarcodeDetector' in window ? '<button class="rm-inv-cam-btn" onclick="rmInvCamera()" title="Ler código de barras com a câmera">&#128247;</button>' : ''}
+      </div>
       <label class="rm-cfg-check" style="border:none; margin:0; padding:0;"><input type="checkbox" ${rmInvSoFaltando ? 'checked' : ''} onchange="rmInvSoFaltando=this.checked; rmInvRenderContagem()"> <span>Mostrar só os que faltam</span></label>
       ${inv.tipo === 'escolhidos' || inv.tipo === 'geral' ? '' : ''}
-      <div class="rm-autocomplete-wrap" style="margin:0; flex:1; min-width:220px;">
+      <div class="rm-autocomplete-wrap rm-inv-add-wrap" style="margin:0; flex:1; min-width:220px;">
         <input class="rm-input" id="rm-inv-add" style="margin:0;" placeholder="+ Incluir outro produto na contagem" autocomplete="off" oninput="rmInvBuscarAdd(this)" onblur="setTimeout(()=>{const l=document.getElementById('rm-inv-add-lista'); if(l) l.classList.remove('show')},150)">
         <div class="rm-autocomplete-list" id="rm-inv-add-lista"></div>
       </div>
+    </div>
     </div>
     <div class="rm-inv-lista">
       ${lista.length ? lista.map(({ it, k }) => `
@@ -7534,19 +7625,20 @@ function rmInvRenderContagem(){
           <div class="rm-inv-nome"><b>${rmEscapeHtml(it.nome)}</b><small>${[it.codigo, it.barras, it.curva ? 'curva ' + it.curva : ''].filter(Boolean).map(rmEscapeHtml).join(' · ')}</small></div>
           <div class="rm-inv-qtd">
             <button onclick="rmInvSomar(${k}, -1)">−</button>
-            <input inputmode="decimal" value="${it.contado != null ? rmFmtQtd(it.contado) : ''}" placeholder="?" onfocus="this.select()" onchange="rmInvDefinir(${k}, this.value)">
+            <input inputmode="decimal" enterkeyhint="next" value="${it.contado != null ? rmFmtQtd(it.contado) : ''}" placeholder="?" onfocus="this.select()" onchange="rmInvDefinir(${k}, this.value)" onkeydown="if(event.key==='Enter'){ this.blur(); const n = document.querySelectorAll('.rm-inv-qtd input'); const i = [...n].indexOf(this); if(n[i+1]) n[i+1].focus(); }">
             <button onclick="rmInvSomar(${k}, 1)">+</button>
             <span>${rmEscapeHtml(it.un)}</span>
           </div>
         </div>`).join('') : `<div class="rm-problema-empty" style="padding:16px;">${rmInvSoFaltando ? 'Todos contados 👍' : 'Nenhum produto. Inclua pelo campo acima.'}</div>`}
     </div>
-    <div class="rm-inv-rodape">
-      <button class="rm-pe2-btn rm-pe2-btn-del" onclick="rmInvCancelar()">Cancelar contagem</button>
-      <span style="flex:1"></span>
-      <button class="rm-pe2-btn" onclick="rmInvTela='home'; rmRenderInventario(); rmShowToast('Contagem salva. Continue quando quiser.')">Salvar e continuar depois</button>
-      <button class="rm-primary" style="width:auto; margin:0; padding:11px 22px;" onclick="rmInvTerminar()">Terminar contagem →</button>
+    <div class="rm-inv-rodape rm-inv-rodape-contar">
+      <button class="rm-pe2-btn rm-pe2-btn-del" onclick="rmInvCancelar()">Cancelar</button>
+      <span class="rm-inv-esp"></span>
+      <button class="rm-pe2-btn" onclick="rmInvTela='home'; rmRenderInventario(); rmShowToast('Contagem salva. Continue quando quiser.')">Salvar e sair</button>
+      <button class="rm-primary rm-inv-terminar" onclick="rmInvTerminar()">Terminar →</button>
     </div>`;
-  setTimeout(() => { const b = document.getElementById('rm-inv-bip'); if(b && !document.activeElement.closest('.rm-inv-lista')) b.focus(); }, 30);
+  const toque = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
+  if(!toque) setTimeout(() => { const b = document.getElementById('rm-inv-bip'); if(b && !document.activeElement.closest('.rm-inv-lista')) b.focus(); }, 30);
 }
 function rmInvDefinir(k, v){
   const inv = rmInvGet(rmInvAtual); const it = inv.itens[k]; if(!it) return;
@@ -7573,14 +7665,51 @@ function rmInvBipar(txt){
   if(k < 0){
     const p = rmInvProdutosContaveis().find(p => (p.codigoBarras || '').toLowerCase() === q || (p.codigo || '').toLowerCase() === q);
     if(p && confirm(p.nome + ' não está nesta contagem. Incluir?')){ inv.itens.push(rmInvItemDe(p)); k = inv.itens.length - 1; }
-    else { rmShowToast('Produto não encontrado'); return; }
+    else { try{ navigator.vibrate && navigator.vibrate([80,60,80]); }catch(e){} rmShowToast('Produto não encontrado'); return; }
   }
   inv.itens[k].contado = (inv.itens[k].contado || 0) + 1;
+  try{ navigator.vibrate && navigator.vibrate(40); }catch(e){}
   rmInvSalvar(inv); rmInvRenderContagem();
   const el = document.getElementById('rm-inv-it-' + k);
   if(el){ el.scrollIntoView({ block:'center' }); el.classList.add('pisca'); setTimeout(() => el.classList.remove('pisca'), 700); }
   rmShowToast(inv.itens[k].nome + ' → ' + rmFmtQtd(inv.itens[k].contado));
 }
+let rmInvCamStream = null, rmInvCamUltimo = '', rmInvCamUltimoEm = 0;
+async function rmInvCamera(){
+  let ov = document.getElementById('rm-inv-cam');
+  if(!ov){
+    ov = document.createElement('div'); ov.id = 'rm-inv-cam';
+    ov.innerHTML = `<video playsinline muted></video><div class="rm-inv-cam-mira"></div><div class="rm-inv-cam-txt" id="rm-inv-cam-txt">Aponte para o código de barras</div><button onclick="rmInvCameraFechar()">Fechar câmera</button>`;
+    document.body.appendChild(ov);
+  }
+  ov.style.display = 'flex';
+  try{ rmInvCamStream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'environment' } }); }
+  catch(e){ ov.style.display = 'none'; alert('Não foi possível abrir a câmera. Libere o acesso à câmera para o site.'); return; }
+  const v = ov.querySelector('video'); v.srcObject = rmInvCamStream; await v.play();
+  const det = new BarcodeDetector({ formats:['ean_13','ean_8','code_128','code_39','upc_a','upc_e','itf'] });
+  const loop = async () => {
+    if(!rmInvCamStream) return;
+    try{
+      const r = await det.detect(v);
+      if(r.length){
+        const cod = r[0].rawValue;
+        if(cod !== rmInvCamUltimo || Date.now() - rmInvCamUltimoEm > 1500){
+          rmInvCamUltimo = cod; rmInvCamUltimoEm = Date.now();
+          rmInvBipar(cod);
+          const inv = rmInvGet(rmInvAtual), it = inv && inv.itens.find(x => x.barras === cod);
+          const t = document.getElementById('rm-inv-cam-txt'); if(t) t.innerHTML = it ? `<b>${rmEscapeHtml(it.nome)}</b> → ${rmFmtQtd(it.contado)}` : 'Código ' + rmEscapeHtml(cod);
+        }
+      }
+    }catch(e){}
+    setTimeout(loop, 250);
+  };
+  loop();
+}
+function rmInvCameraFechar(){
+  if(rmInvCamStream){ rmInvCamStream.getTracks().forEach(t => t.stop()); rmInvCamStream = null; }
+  const ov = document.getElementById('rm-inv-cam'); if(ov) ov.style.display = 'none';
+}
+
 function rmInvBuscarAdd(inp){
   const lista = document.getElementById('rm-inv-add-lista'), q = inp.value.trim().toLowerCase();
   if(!q){ lista.classList.remove('show'); return; }
@@ -7629,7 +7758,7 @@ function rmInvRenderRevisao(){
     <div class="rm-inv-topo">
       <button class="rm-pe2-btn" onclick="rmInvTela='home'; rmRenderInventario()">‹ Voltar</button>
       <div class="rm-inv-topo-tit"><b>${rmEscapeHtml(inv.titulo)}</b><small>${fin ? 'Ajustado em ' + rmDataHoraBR(inv.finalizadoEm) + ' por ' + rmEscapeHtml(inv.finalizadoPor || '') : 'Revisão: confira as diferenças antes de ajustar'}</small></div>
-      <button class="rm-pe2-btn" onclick="rmInvImprimirRelatorio()">&#128424; Imprimir relatório</button>
+      <button class="rm-pe2-btn rm-inv-so-pc" onclick="rmInvImprimirRelatorio()">&#128424; Imprimir relatório</button>
     </div>
     <div class="vg-kpis" style="margin-top:0;">
       ${rmInvKpi('🎯', c.acuracia >= 95 ? '#2e8b57' : c.acuracia >= 85 ? '#c9961a' : '#b3261e', 'Acurácia', c.acuracia.toFixed(1).replace('.', ',') + '%', c.linhas.length + ' contados · meta 95%')}
@@ -7642,12 +7771,12 @@ function rmInvRenderRevisao(){
       <div class="rm-osl-wrap"><table class="rm-osl rm-inv-tab">
         <thead><tr><th>Local</th><th>Produto</th><th class="r">Sistema</th><th class="r">Contado</th><th class="r">Recontagem</th><th class="r">Diferença</th><th class="r">Valor</th><th>Motivo</th></tr></thead>
         <tbody>${c.div.map(l => { const k = inv.itens.indexOf(l.it); return `<tr style="cursor:default">
-          <td>${rmEscapeHtml(l.it.loc || '—')}</td><td style="white-space:normal;"><b>${rmEscapeHtml(l.it.nome)}</b></td>
-          <td class="r">${rmFmtQtd(l.it.sistema)}</td><td class="r">${rmFmtQtd(l.it.contado)}</td>
-          <td class="r">${fin ? (l.it.recontado != null ? rmFmtQtd(l.it.recontado) : '—') : `<input class="rm-inv-rec" inputmode="decimal" placeholder="recontar" value="${l.it.recontado != null ? rmFmtQtd(l.it.recontado) : ''}" onchange="rmInvRecontar(${k}, this.value)">`}</td>
-          <td class="r"><b class="${l.dif < 0 ? 'rm-inv-neg' : 'rm-inv-pos'}">${l.dif > 0 ? '+' : ''}${rmFmtQtd(l.dif)}</b></td>
-          <td class="r">${rmFormatMoeda(l.valor)}</td>
-          <td>${fin ? rmEscapeHtml(l.it.motivo || '—') : `<select class="rm-inv-mot" onchange="rmInvMotivo(${k}, this.value)"><option value="">Escolha...</option>${RM_INV_MOTIVOS.map(m => `<option${m === l.it.motivo ? ' selected' : ''}>${m}</option>`).join('')}</select>`}</td>
+          <td data-l="Local">${rmEscapeHtml(l.it.loc || '—')}</td><td data-l="Produto" class="rm-inv-td-nome" style="white-space:normal;"><b>${rmEscapeHtml(l.it.nome)}</b></td>
+          <td data-l="Sistema" class="r">${rmFmtQtd(l.it.sistema)}</td><td data-l="Contado" class="r">${rmFmtQtd(l.it.contado)}</td>
+          <td data-l="Recontagem" class="r">${fin ? (l.it.recontado != null ? rmFmtQtd(l.it.recontado) : '—') : `<input class="rm-inv-rec" inputmode="decimal" placeholder="recontar" value="${l.it.recontado != null ? rmFmtQtd(l.it.recontado) : ''}" onchange="rmInvRecontar(${k}, this.value)">`}</td>
+          <td data-l="Diferença" class="r"><b class="${l.dif < 0 ? 'rm-inv-neg' : 'rm-inv-pos'}">${l.dif > 0 ? '+' : ''}${rmFmtQtd(l.dif)}</b></td>
+          <td data-l="Valor" class="r">${rmFormatMoeda(l.valor)}</td>
+          <td data-l="Motivo">${fin ? rmEscapeHtml(l.it.motivo || '—') : `<select class="rm-inv-mot" onchange="rmInvMotivo(${k}, this.value)"><option value="">Escolha...</option>${RM_INV_MOTIVOS.map(m => `<option${m === l.it.motivo ? ' selected' : ''}>${m}</option>`).join('')}</select>`}</td>
         </tr>`; }).join('')}</tbody>
       </table></div>` : '<div class="rm-problema-empty" style="padding:18px;">Nenhuma diferença. Estoque certinho! 👍</div>'}
     <details class="rm-inv-certos"><summary>Ver os ${c.linhas.length - c.div.length} produtos que bateram</summary>
@@ -10183,7 +10312,8 @@ function rmOpenModal(id, large){
     </div>
 
     <div class="rm-modal-section rm-os-wrap" style="margin-top:6px;">
-      <div class="rm-os-titulo-sec">&#124;&#124;&#124;&#124; Produtos e Serviços</div>
+      <div class="rm-os-titulo-sec">&#124;&#124;&#124;&#124; Produtos e Serviços
+        <button class="rm-sep-btn" title="Imprimir a lista de peças para buscar no estoque, na ordem das prateleiras" onclick="rmImprimirSeparacao('${rmEscapeHtml([r.nome, r.modelo].filter(Boolean).join(' · '))}', '${rmEscapeHtml(r.codigoApp || '')}', (rmLoad().find(x => x.id === '${r.id}') || {}).pecasUsadas)">&#128205; Buscar no estoque</button></div>
       <div id="rm-modal-pecas-lista">${rmPecasUsadasHtml(r)}</div>
 
       <div class="rm-os-item" id="rm-os-busca-box" style="display:none;">
