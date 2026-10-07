@@ -2419,7 +2419,7 @@
         </div>
       </div>
       <div id="rm-view-fin-prom" class="rm-view">
-        <h1 class="rm-title">Vendas a prazo</h1>
+        <h1 class="rm-title" style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">Vendas a prazo <button class="rm-pe2-btn rm-so-admin-fin" onclick="rmConferirRecebimentos()" title="Compara o livro-caixa com as notas e restaura algum recebimento que tenha sumido">&#128737; Conferir recebimentos</button></h1>
         <div class="rm-toolbar">
           <input class="rm-search" id="rm-fin-prom-busca" placeholder="Buscar por cliente ou código da venda..." oninput="rmRenderFinProm()">
           <select class="rm-date-select" id="rm-fin-prom-status" onchange="rmRenderFinProm()">
@@ -2540,6 +2540,8 @@ let rmNovoProdutoId = null;
 let rmNovoProdutoFotoUrl = null;
 let rmProdutoEmEdicao = null;
 
+// para colocar texto dentro de onclick="fn('...')" sem quebrar com apóstrofo (ex.: D'ÁVILA)
+function rmJs(s){ return rmEscapeHtml(String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/'/g, "\\'")); }
 function rmEscapeHtml(s){
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
@@ -4061,6 +4063,13 @@ function rmFinalizarVenda(){
   const desconto = rmCalcularDescontoPdv(subtotal);
 
   const ed = rmPdvEditandoVenda;
+  if(ed && rmAPrazo(ed.formaPagamento) && !isOrcamento && !rmAPrazo(rmPdvFormaPagamento)){
+    const nEd = rmPromDaRef(ed.id);
+    if(nEd && rmPromRecebidoReal(nEd) > 0.004){
+      alert('Esta venda a prazo já tem ' + rmFormatMoeda(rmPromRecebidoReal(nEd)) + ' recebido em parcelas, então não dá para trocar a forma de pagamento. Receba o restante pelo Financeiro → A prazo.');
+      return;
+    }
+  }
   const mantemCodigo = ed && (ed.tipo === 'orcamento') === isOrcamento;
   const venda = {
     id: ed ? ed.id : 'v' + Date.now(),
@@ -4092,6 +4101,7 @@ function rmFinalizarVenda(){
   if(!isOrcamento){
     rmDescontarEstoqueVenda(venda.itens);
   }
+  if(ed && (isOrcamento || !rmAPrazo(venda.formaPagamento))) rmPromApagarDaRef(ed.id); // deixou de ser a prazo
   if(!isOrcamento && rmAPrazo(venda.formaPagamento)){
     if(!rmPdvPromVenc) rmPdvPromVenc = rmAddDiasISO(rmHojeISO(), 30);
     rmCriarPromissoria({ origem:'PDV', refId:venda.id, refCodigo:venda.codigoVenda, clienteId:venda.clienteId,
@@ -4330,11 +4340,21 @@ function rmExcluirVenda(id){
   const v = rmLoadVendas().find(x=>x.id===id);
   if(!v) return;
   const tipoTexto = v.tipo === 'orcamento' ? 'este orçamento' : 'esta venda';
+  const notaV = rmPromDaRef(v.id);
+  if(notaV && rmPromRecebidoReal(notaV) > 0.004){
+    alert('Esta venda a prazo já tem ' + rmFormatMoeda(rmPromRecebidoReal(notaV)) + ' recebido em parcelas. Para excluir, primeiro apague os pagamentos no editor de parcelas (Financeiro → A prazo).');
+    return;
+  }
   const ok = confirm(`Excluir ${tipoTexto} (${v.codigoVenda||''})? Essa ação não pode ser desfeita e remove em todos os dispositivos.`);
   if(!ok) return;
   const list = rmLoadVendas().filter(x=>x.id!==id);
   rmSaveVendas(list);
   rmDbDeleteVenda(id);
+  if(v.tipo !== 'orcamento'){
+    // devolve as peças ao estoque
+    rmDescontarEstoqueVenda((v.itens||[]).map(it => Object.assign({}, it, { quantidade: -(Number(it.quantidade)||0) })));
+    rmPromApagarDaRef(v.id);
+  }
   rmCloseModal();
   rmShowToast((v.tipo==='orcamento'?'Orçamento':'Venda') + ' excluído(a)');
   rmRenderVendasHoje();
@@ -5110,15 +5130,15 @@ function rmRenderComissao(){
       <tbody>${lista.map(g => {
         const pago = rmComPagoNoPeriodo(g.mec);
         const aberto = rmComAberto === g.mec;
-        return `<tr onclick="rmComAberto = rmComAberto === '${rmEscapeHtml(g.mec)}' ? null : '${rmEscapeHtml(g.mec)}'; rmRenderComissao()">
+        return `<tr onclick="rmComAberto = rmComAberto === '${rmJs(g.mec)}' ? null : '${rmJs(g.mec)}'; rmRenderComissao()">
           <td><b>${aberto ? '&#9662;' : '&#9656;'} ${rmEscapeHtml(g.mec)}</b></td>
           <td class="r">${g.docs.length}</td>
           <td class="r">${rmFmtNum(g.base)}</td><td class="r">${rmFmtNum(g.pct)}%</td>
           <td class="r"><b>${rmFormatMoeda(g.com)}</b></td>
           <td>${pago ? `<span class="rm-prom-sit rm-prom-sit-paga" title="por ${rmEscapeHtml(pago.por||'')}">Pago ${rmDataHoraBR(pago.em)}</span>` : '<span class="rm-prom-sit rm-prom-sit-aberta">A pagar</span>'}</td>
           <td style="text-align:right; white-space:nowrap;" onclick="event.stopPropagation()">
-            <button class="rm-prom-btn" onclick="rmComImprimir('${rmEscapeHtml(g.mec)}')" title="Imprimir">&#128424;</button>
-            ${pago ? `<button class="rm-prom-btn" onclick="rmComDesfazerPago('${rmEscapeHtml(g.mec)}')">Desfazer</button>` : `<button class="rm-prom-btn rm-prom-btn-ok" onclick="rmComMarcarPago('${rmEscapeHtml(g.mec)}', ${g.com.toFixed(2)})">Marcar pago</button>`}
+            <button class="rm-prom-btn" onclick="rmComImprimir('${rmJs(g.mec)}')" title="Imprimir">&#128424;</button>
+            ${pago ? `<button class="rm-prom-btn" onclick="rmComDesfazerPago('${rmJs(g.mec)}')">Desfazer</button>` : `<button class="rm-prom-btn rm-prom-btn-ok" onclick="rmComMarcarPago('${rmJs(g.mec)}', ${g.com.toFixed(2)})">Marcar pago</button>`}
           </td>
         </tr>
         ${aberto ? `<tr class="rm-com-det"><td colspan="7">
@@ -5151,7 +5171,7 @@ function rmComRenderConfig(){
     <div class="rm-com-sec">Porcentagem por ${mec ? 'mecânico' : 'vendedor'} <small>(em branco = usa o padrão)</small></div>
     ${pessoas.map(m => { const pc = c.mapa[m] || {}; return `<div class="rm-com-mec">
       <b>${rmEscapeHtml(m)}</b>
-      <label>%<input inputmode="decimal" placeholder="${rmFmtNum(rmCom[k])}" value="${pc[campo] != null && pc[campo] !== '' ? rmFmtNum(pc[campo]) : ''}" onchange="rmComSetMec('${rmEscapeHtml(m)}','${campo}',this.value)"></label>
+      <label>%<input inputmode="decimal" placeholder="${rmFmtNum(rmCom[k])}" value="${pc[campo] != null && pc[campo] !== '' ? rmFmtNum(pc[campo]) : ''}" onchange="rmComSetMec('${rmJs(m)}','${campo}',this.value)"></label>
     </div>`; }).join('') || `<div style="color:var(--rm-text-dim)">Ninguém ainda.</div>`}`;
 }
 
@@ -5723,7 +5743,7 @@ function rmMobOficinaHtml(){
         </div>
         <div class="rm-mob-card-acoes">
           <button class="rm-mob-status" style="background:${st.color}" onclick="rmMobStatus('${o.id}')">${rmEscapeHtml(st.label)} ▾</button>
-          ${tel ? `<button class="rm-mob-wpp" onclick="rmAbrirWhatsapp('${rmEscapeHtml(tel)}', rmMobMsgMoto('${o.id}'))"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.3-.1z"/></svg></button>` : ''}
+          ${tel ? `<button class="rm-mob-wpp" onclick="rmAbrirWhatsapp('${rmJs(tel)}', rmMobMsgMoto('${o.id}'))"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.3-.1z"/></svg></button>` : ''}
         </div>
       </div>`;
     }).join('') : '<div class="rm-problema-empty" style="padding:24px;">Nenhuma moto aqui</div>'}`;
@@ -5732,7 +5752,7 @@ function rmMobStatus(id){
   const o = rmLoad().find(x => x.id === id); if(!o) return;
   const el = document.createElement('div'); el.id = 'rm-mob-mais';
   el.innerHTML = `<div class="rm-mob-sheet"><div class="rm-mob-sheet-user">${rmEscapeHtml(o.modelo || '')} · ${rmEscapeHtml(o.nome || '')}</div>
-    ${RM_STATUS_ORDER.map(k => `<button class="${o.status === k ? 'on' : ''}" onclick="document.getElementById('rm-mob-mais').remove(); rmChangeStatus('${id}','${k}'); try{navigator.vibrate&&navigator.vibrate(30)}catch(e){} rmMobRender(); rmShowToast('${rmEscapeHtml((RM_STATUS[k]||{}).label || k)}')"><i style="background:${(RM_STATUS[k]||{}).color}"></i>${rmEscapeHtml((RM_STATUS[k]||{}).label || k)}</button>`).join('')}
+    ${RM_STATUS_ORDER.map(k => `<button class="${o.status === k ? 'on' : ''}" onclick="document.getElementById('rm-mob-mais').remove(); rmChangeStatus('${id}','${k}'); try{navigator.vibrate&&navigator.vibrate(30)}catch(e){} rmMobRender(); rmShowToast('${rmJs((RM_STATUS[k]||{}).label || k)}')"><i style="background:${(RM_STATUS[k]||{}).color}"></i>${rmEscapeHtml((RM_STATUS[k]||{}).label || k)}</button>`).join('')}
   </div>`;
   el.addEventListener('click', ev => { if(ev.target === el) el.remove(); });
   document.body.appendChild(el);
@@ -5775,7 +5795,7 @@ function rmMobClientesHtml(){
         </div>
         <div class="rm-mob-card-acoes">
           <button class="rm-mob-ver" onclick="rmClienteAba='pagamentos'; rmClienteRascunho={id:'${c.id}'}; rmAbrirModalCliente('${c.id}')">Contas a receber</button>
-          ${c.telefone ? `<button class="rm-mob-wpp rm-mob-wpp-txt" onclick="rmAbrirWhatsapp('${rmEscapeHtml(c.telefone)}', rmMobMsgCliente('${c.id}'))">WhatsApp${venc > 0.004 ? ' · cobrar' : ''}</button>` : ''}
+          ${c.telefone ? `<button class="rm-mob-wpp rm-mob-wpp-txt" onclick="rmAbrirWhatsapp('${rmJs(c.telefone)}', rmMobMsgCliente('${c.id}'))">WhatsApp${venc > 0.004 ? ' · cobrar' : ''}</button>` : ''}
         </div>
       </div>`;
     }).join('') : `<div class="rm-problema-empty" style="padding:24px;">${q ? 'Nenhum cliente encontrado' : 'Ninguém devendo 👍'}</div>`}`;
@@ -5795,7 +5815,7 @@ function rmMobMsgCliente(id){
 window.addEventListener('resize', () => { if(rmUsuario && rmEhCelular()) rmMobInit(); });
 
 // ===================== BACKUP COMPLETO =====================
-const RM_BKP_TABELAS = [['inventarios','id'],['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome']];
+const RM_BKP_TABELAS = [['recebimentos','id'],['inventarios','id'],['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome']];
 const RM_BKP_ULTIMO_KEY = 'radicalMotos_ultimoBackup';
 
 async function rmBackupCompleto(){
@@ -5850,7 +5870,16 @@ async function rmBackupRestaurar(input){
   rmShowToast('Restaurando backup...');
   const falhas = [];
   for(const [t] of RM_BKP_TABELAS){
-    const linhas = dados.tabelas[t]; if(!linhas || !linhas.length) continue;
+    let linhas = dados.tabelas[t]; if(!linhas || !linhas.length) continue;
+    if(t === 'promissorias'){
+      const { data: atuais } = await rmSelectTudo('promissorias', '*');
+      linhas = linhas.map(row => { const at = (atuais || []).find(a => a.id === row.id); return at ? rmPromToDb(rmPromMesclar(rmPromFromDb(at), rmPromFromDb(row))) : row; });
+    }
+    if(t === 'recebimentos'){
+      const { data: atuais } = await rmSelectTudo('recebimentos', '*');
+      const ja = new Set((atuais || []).map(a => a.id)); linhas = linhas.filter(r => !ja.has(r.id));
+      if(!linhas.length) continue;
+    }
     for(let i = 0; i < linhas.length; i += 200){
       const lote = linhas.slice(i, i + 200);
       let r;
@@ -6955,20 +6984,181 @@ function rmLoadProms(){ try{ return JSON.parse(localStorage.getItem(RM_PROM_KEY)
 function rmSaveProms(l){ localStorage.setItem(RM_PROM_KEY, JSON.stringify(l)); }
 
 function rmPromFromDb(r){
+  const n = rmPromFromDbCru(r);
+  (n.parcelas || []).forEach(p => { if(Array.isArray(p.pagamentos)) rmParcAtualizar(p); });
+  return n;
+}
+function rmPromFromDbCru(r){
   return { id:r.id, origem:r.origem, refId:r.ref_id, refCodigo:r.ref_codigo, clienteId:r.cliente_id,
-    clienteNome:r.cliente_nome, total:Number(r.total)||0, parcelas:r.parcelas||[], observacao:r.observacao, criadoEm:r.criado_em, entregueEm:r.entregue_em || null };
+    clienteNome:r.cliente_nome, total:Number(r.total)||0, parcelas:r.parcelas||[], observacao:r.observacao, criadoEm:r.criado_em, entregueEm:r.entregue_em || null, removidos:r.removidos || [] };
 }
 function rmPromToDb(p){
   return { id:p.id, origem:p.origem, ref_id:p.refId, ref_codigo:p.refCodigo, cliente_id:p.clienteId||null,
-    cliente_nome:p.clienteNome||null, total:p.total, parcelas:p.parcelas, observacao:p.observacao||null, criado_em:p.criadoEm, entregue_em:p.entregueEm||null };
+    cliente_nome:p.clienteNome||null, total:p.total, parcelas:p.parcelas, observacao:p.observacao||null, criado_em:p.criadoEm, entregue_em:p.entregueEm||null, removidos:p.removidos||[] };
 }
+// ===================== BLINDAGEM DOS RECEBIMENTOS =====================
+// 1) cada pagamento tem um id único; 2) antes de gravar, junta com a versão do servidor (nunca apaga pagamento de outro aparelho);
+// 3) se a internet falhar, guarda na fila e tenta de novo; 4) todo recebimento vai também para um livro-caixa à parte (tabela recebimentos).
+function rmNovoPgId(){ return 'pg' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+function rmPgChave(pg){ return pg.id || (String(pg.data) + '|' + Number(pg.valor).toFixed(2) + '|' + (pg.forma || '')); }
+const RM_PROM_PEND_KEY = 'radicalMotos_promPendentes';
+const RM_LEDGER_PEND_KEY = 'radicalMotos_recebPendentes';
+function rmPendLer(k){ try{ return JSON.parse(localStorage.getItem(k)) || []; }catch(e){ return []; } }
+function rmPendGravar(k, v){ localStorage.setItem(k, JSON.stringify(v)); }
+
+// junta os pagamentos da versão do servidor que ainda não estão na versão local
+function rmPromMesclar(remota, local){
+  if(!remota) return local;
+  const m = JSON.parse(JSON.stringify(local));
+  const removidos = new Set([...(local.removidos || []), ...(remota.removidos || [])]);
+  m.removidos = [...removidos];
+  (remota.parcelas || []).forEach(pr => {
+    let pl = m.parcelas.find(x => x.n === pr.n) || (pr.entrada ? m.parcelas.find(x => x.entrada) : null);
+    const pgsR = Array.isArray(pr.pagamentos) ? pr.pagamentos : (pr.pagoEm ? [{ valor: pr.valorPago || pr.valor, data: pr.pagoEm, forma: pr.formaPagamento || '' }] : []);
+    if(!pgsR.length) return;
+    if(!pl){ pl = JSON.parse(JSON.stringify(pr)); pl.pagamentos = []; m.parcelas.push(pl); }
+    const tem = new Set(rmParcPagamentos(pl).map(rmPgChave));
+    pgsR.forEach(pg => { const k = rmPgChave(pg); if(!tem.has(k)){ pl.pagamentos.push(pg); tem.add(k); } });
+  });
+  m.parcelas.forEach(p => {
+    p.pagamentos = rmParcPagamentos(p).filter(pg => !removidos.has(rmPgChave(pg))); // apagado de propósito não volta
+    p.pagamentos.sort((a,b) => String(a.data).localeCompare(String(b.data)));
+    rmParcAtualizar(p);
+  });
+  return m;
+}
+
+let rmPromAvisouOffline = false;
+const rmEspera = ms => new Promise(r => setTimeout(r, ms));
+// grava a nota juntando com o servidor e CONFERE: se outro aparelho gravou ao mesmo tempo e um pagamento sumiu, junta de novo e regrava
 async function rmDbUpsertProm(p){
-  try{ const { error } = await rmSb.from('promissorias').upsert(rmPromToDb(p)); if(error) console.error('Supabase promissória:', error); }
-  catch(e){ console.error(e); }
+  const pend = new Set(rmPendLer(RM_PROM_PEND_KEY)); pend.add(p.id); rmPendGravar(RM_PROM_PEND_KEY, [...pend]);
+  try{
+    let atual = p;
+    for(let tentativa = 0; tentativa < 8; tentativa++){
+      const r = await rmSb.from('promissorias').select('*').eq('id', atual.id).maybeSingle();
+      if(r && r.error) throw r.error;
+      const final = r && r.data ? rmPromMesclar(rmPromFromDb(r.data), atual) : atual;
+      const { error } = await rmSb.from('promissorias').upsert(rmPromToDb(final));
+      if(error) throw error;
+      // confere o que ficou gravado
+      await rmEspera(120 + Math.random() * 380);
+      const v = await rmSb.from('promissorias').select('*').eq('id', atual.id).maybeSingle();
+      if(v && v.error) throw v.error;
+      const gravado = v && v.data ? rmPromFromDb(v.data) : null;
+      const removidos = new Set(final.removidos || []);
+      const chavesGravadas = new Set(gravado ? gravado.parcelas.flatMap(x => (x.pagamentos || []).map(rmPgChave)) : []);
+      const faltam = final.parcelas.flatMap(x => rmParcPagamentos(x)).filter(pg => !removidos.has(rmPgChave(pg)) && !chavesGravadas.has(rmPgChave(pg)));
+      const combinado = gravado ? rmPromMesclar(gravado, final) : final;
+      rmSaveProms(rmLoadProms().map(n => n.id === combinado.id ? combinado : n));
+      if(!faltam.length){
+        const pd = new Set(rmPendLer(RM_PROM_PEND_KEY)); pd.delete(p.id); rmPendGravar(RM_PROM_PEND_KEY, [...pd]);
+        rmPromAvisouOffline = false;
+        return true;
+      }
+      atual = combinado; // alguém gravou por cima ao mesmo tempo: junta e tenta de novo
+    }
+    throw new Error('não confirmou a gravação');
+  }catch(e){
+    console.error('Supabase promissória (vai tentar de novo):', e);
+    if(!rmPromAvisouOffline){ rmPromAvisouOffline = true; rmShowToast('Sem conexão: o recebimento ficou guardado neste aparelho e será enviado assim que a internet voltar.'); }
+    return false;
+  }
 }
+async function rmPromApagarServidor(id){
+  try{ const r = await rmSb.from('promissorias').delete().eq('id', id); if(r && r.error) throw r.error; }catch(e){ console.error(e); }
+}
+
+// livro-caixa dos recebimentos (só acrescenta; estorno fica marcado, nunca apagado)
+function rmLedgerRegistrar(nota, p, pg){
+  const row = { id: pg.id, nota_id: nota.id, ref_codigo: nota.refCodigo || null, cliente_id: nota.clienteId || null, cliente_nome: nota.clienteNome || null,
+    parcela_n: p.n, entrada: !!p.entrada, valor: Number(pg.valor) || 0, forma: pg.forma || null, data: pg.data, por: pg.por || null, lote: pg.lote || null, estornado_em: null, estornado_por: null };
+  const fila = rmPendLer(RM_LEDGER_PEND_KEY); fila.push({ op:'ins', row }); rmPendGravar(RM_LEDGER_PEND_KEY, fila);
+  rmLedgerEnviar();
+}
+function rmLedgerEstornar(pgId){
+  const fila = rmPendLer(RM_LEDGER_PEND_KEY); fila.push({ op:'est', id: pgId, em: new Date().toISOString(), por: rmNomeUsuario() }); rmPendGravar(RM_LEDGER_PEND_KEY, fila);
+  rmLedgerEnviar();
+}
+let rmLedgerEnviando = false;
+async function rmLedgerEnviar(){
+  if(rmLedgerEnviando) return; rmLedgerEnviando = true;
+  try{
+    let fila = rmPendLer(RM_LEDGER_PEND_KEY);
+    while(fila.length){
+      const it = fila[0]; let r;
+      try{
+        r = it.op === 'ins' ? await rmSb.from('recebimentos').upsert(it.row) : await rmSb.from('recebimentos').update({ estornado_em: it.em, estornado_por: it.por }).eq('id', it.id);
+      }catch(e){ r = { error: e }; }
+      if(r && r.error){ console.warn('recebimentos (vai tentar de novo):', r.error); break; }
+      fila = rmPendLer(RM_LEDGER_PEND_KEY); fila.shift(); rmPendGravar(RM_LEDGER_PEND_KEY, fila);
+    }
+  } finally { rmLedgerEnviando = false; }
+}
+
+// reenvia o que ficou pendente
+async function rmPromReenviarPendentes(){
+  const ids = rmPendLer(RM_PROM_PEND_KEY);
+  for(const id of ids){ const n = rmLoadProms().find(x => x.id === id); if(n) await rmDbUpsertProm(n); else { const pd = new Set(rmPendLer(RM_PROM_PEND_KEY)); pd.delete(id); rmPendGravar(RM_PROM_PEND_KEY, [...pd]); } }
+  rmLedgerEnviar();
+}
+setInterval(() => { if(typeof rmUsuario !== 'undefined' && rmUsuario) rmPromReenviarPendentes(); }, 20000);
+window.addEventListener('online', () => rmPromReenviarPendentes());
+
+// ----- Conferência: compara o livro-caixa com as notas e restaura o que tiver sumido -----
+async function rmConferirRecebimentos(){
+  rmShowToast('Conferindo recebimentos...');
+  await rmPromReenviarPendentes();
+  const { data, error } = await rmSelectTudo('recebimentos', '*');
+  if(error){ alert('Não consegui ler o livro de recebimentos: ' + (error.message || error)); return; }
+  await rmSyncProms();
+  const notas = rmLoadProms();
+  const presentes = new Set(); notas.forEach(n => n.parcelas.forEach(p => rmParcPagamentos(p).forEach(pg => presentes.add(rmPgChave(pg)))));
+  const ativos = (data || []).filter(r => !r.estornado_em);
+  const faltando = ativos.filter(r => !presentes.has(r.id));
+  const totalLivro = ativos.reduce((s,r) => s + (Number(r.valor)||0), 0);
+  const modal = document.getElementById('rm-modal');
+  modal.classList.remove('rm-modal-large','rm-modal-os');
+  modal.innerHTML = `
+    <div class="rm-modal-header"><div><div class="rm-modal-title">&#128737; Conferência de recebimentos</div>
+      <div class="rm-modal-sub">${ativos.length} recebimento(s) no livro-caixa · ${rmFormatMoeda(totalLivro)}</div></div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
+    ${faltando.length ? `<div class="rm-pe2-aviso">${faltando.length} recebimento(s) estão no livro-caixa mas <b>não aparecem nas notas</b>. Restaure para voltar a contar no saldo do cliente.</div>
+      ${faltando.map(r => `<div class="rm-inv-linha" style="cursor:default"><div class="rm-inv-linha-txt"><b>${rmEscapeHtml(r.cliente_nome || '')} · ${rmEscapeHtml(r.ref_codigo || '')}-${r.entrada ? 'Entrada' : r.parcela_n}</b><small>${rmDataHoraBR(r.data)} · ${rmEscapeHtml(r.forma || '')} · por ${rmEscapeHtml(r.por || '')}</small></div><div class="rm-inv-linha-num"><b>${rmFormatMoeda(r.valor)}</b></div></div>`).join('')}
+      <button class="rm-primary" onclick="rmRestaurarRecebimentos(${JSON.stringify(faltando.map(r => r.id)).replace(/"/g, '&quot;')})">Restaurar ${faltando.length} recebimento(s)</button>`
+    : `<div class="rm-pe-soma" style="font-size:15px;">&#10004; Tudo certo: todos os recebimentos do livro-caixa estão nas notas.</div>`}
+    <div style="font-size:12.5px; color:var(--rm-text-dim); margin-top:10px;">Pendentes de envio neste aparelho: ${rmPendLer(RM_PROM_PEND_KEY).length} nota(s) · ${rmPendLer(RM_LEDGER_PEND_KEY).length} registro(s).</div>`;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+  window.__rmFaltando = faltando;
+}
+async function rmRestaurarRecebimentos(ids){
+  const falt = (window.__rmFaltando || []).filter(r => ids.includes(r.id));
+  const lista = rmLoadProms(); const mexidas = new Set(); let semNota = 0;
+  falt.forEach(r => {
+    const n = lista.find(x => x.id === r.nota_id); if(!n){ semNota++; return; }
+    const p = n.parcelas.find(x => r.entrada ? x.entrada : x.n === r.parcela_n) || n.parcelas.find(x => rmParcRestante(x) > 0.004) || n.parcelas[n.parcelas.length - 1];
+    rmParcPagamentos(p).push({ id: r.id, valor: Number(r.valor), data: r.data, forma: r.forma || '', por: r.por || '', lote: r.lote || undefined, restaurado: true });
+    p.pagamentos.sort((a,b) => String(a.data).localeCompare(String(b.data)));
+    rmParcAtualizar(p); mexidas.add(n);
+  });
+  rmSaveProms(lista);
+  for(const n of mexidas) await rmDbUpsertProm(n);
+  rmLog('Restaurou recebimentos', '', falt.length + ' recebimento(s)');
+  if(semNota) alert(semNota + ' recebimento(s) são de notas que foram apagadas e não puderam ser restaurados automaticamente.');
+  rmShowToast('Recebimentos restaurados');
+  rmConferirRecebimentos();
+}
+
 async function rmSyncProms(){
   const { data, error } = await rmSelectTudo('promissorias', '*');
-  if(!error && data){ rmSaveProms(data.map(rmPromFromDb)); }
+  if(error || !data) return;
+  // o que ainda não subiu para o servidor NUNCA é substituído: junta com a versão de lá
+  const pend = new Set(rmPendLer(RM_PROM_PEND_KEY));
+  const locais = rmLoadProms();
+  const remotas = data.map(rmPromFromDb);
+  const final = remotas.map(r => pend.has(r.id) ? rmPromMesclar(r, locais.find(l => l.id === r.id) || r) : r);
+  locais.filter(l => pend.has(l.id) && !remotas.some(r => r.id === l.id)).forEach(l => final.unshift(l));
+  rmSaveProms(final);
 }
 
 function rmHojeISO(){ const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset()*6e4).toISOString().slice(0,10); }
@@ -7019,6 +7209,15 @@ function rmPromConfigHtml(prefixo, total, nParc, venc, onchange, entrada, formaE
     </div>`;
 }
 
+function rmPromDaRef(refId){ return rmLoadProms().find(n => n.refId === refId) || null; }
+function rmPromRecebidoReal(n){ return n ? n.parcelas.reduce((s,p) => s + rmParcPagamentos(p).filter(pg => !pg.entrada).reduce((a,pg) => a + (Number(pg.valor)||0), 0), 0) : 0; }
+function rmPromApagarDaRef(refId){
+  const n = rmPromDaRef(refId); if(!n) return;
+  rmSaveProms(rmLoadProms().filter(x => x.id !== n.id));
+  n.parcelas.forEach(p => rmParcPagamentos(p).forEach(pg => { if(pg.id) rmLedgerEstornar(pg.id); }));
+  const pd = new Set(rmPendLer(RM_PROM_PEND_KEY)); pd.delete(n.id); rmPendGravar(RM_PROM_PEND_KEY, [...pd]);
+  rmPromApagarServidor(n.id);
+}
 function rmCriarPromissoria({ origem, refId, refCodigo, clienteId, clienteNome, total, nParc, venc, entrada, formaEnt }){
   const lista = rmLoadProms();
   const existente = lista.find(p => p.refId === refId);
@@ -7035,7 +7234,7 @@ function rmCriarPromissoria({ origem, refId, refCodigo, clienteId, clienteNome, 
       const ent = Math.min(Math.max(Number(entrada) || 0, 0), total);
       const ps = [];
       if(ent > 0.004){
-        const pg = { valor: ent, data: new Date().toISOString(), forma: formaEnt || 'Dinheiro', por: (typeof rmNomeUsuario === 'function' ? rmNomeUsuario() : ''), entrada: true };
+        const pg = { id: rmNovoPgId(), valor: ent, data: new Date().toISOString(), forma: formaEnt || 'Dinheiro', por: (typeof rmNomeUsuario === 'function' ? rmNomeUsuario() : ''), entrada: true };
         ps.push({ n: 1, entrada: true, valor: ent, vencimento: rmHojeISO(), pagamentos: [pg], pagoEm: pg.data, valorPago: ent, formaPagamento: pg.forma });
       }
       if(total - ent > 0.004) rmGerarParcelas(total - ent, nParc, venc).forEach(p => { p.n = ps.length + 1; ps.push(p); });
@@ -7046,6 +7245,9 @@ function rmCriarPromissoria({ origem, refId, refCodigo, clienteId, clienteNome, 
   const nova = lista.filter(p => p.id !== prom.id); nova.unshift(prom);
   rmSaveProms(nova);
   rmDbUpsertProm(prom);
+  { const novosIds = new Set(prom.parcelas.flatMap(p => rmParcPagamentos(p).map(pg => pg.id)));
+    if(existente) existente.parcelas.forEach(p => rmParcPagamentos(p).forEach(pg => { if(pg.id && !novosIds.has(pg.id)) rmLedgerEstornar(pg.id); })); // nota refeita: a entrada antiga sai do livro
+    prom.parcelas.filter(p => p.entrada).forEach(p => rmParcPagamentos(p).forEach(pg => { if(pg.id && !(existente && existente.parcelas.some(x => rmParcPagamentos(x).some(y => y.id === pg.id)))) rmLedgerRegistrar(prom, p, pg); })); }
   return prom;
 }
 
@@ -7291,7 +7493,9 @@ function rmPromConfirmarRecebimento(notaId, n){
   const p = nota.parcelas.find(x=>x.n===n);
   const resta = rmParcRestante(p);
   if(valor > resta + 0.004 && !confirm(`O valor (${rmFormatMoeda(valor)}) é maior que o restante da parcela (${rmFormatMoeda(resta)}). Registrar mesmo assim?`)) return;
-  rmParcPagamentos(p).push({ valor, data: new Date().toISOString(), forma: forma.textContent, por: rmNomeUsuario() });
+  const pgNovoReg = { id: rmNovoPgId(), valor, data: new Date().toISOString(), forma: forma.textContent, por: rmNomeUsuario() };
+  rmParcPagamentos(p).push(pgNovoReg);
+  rmLedgerRegistrar(nota, p, pgNovoReg);
   rmLog('Recebeu parcela', nota.refCodigo + '-' + p.n, rmFormatMoeda(valor) + ' · ' + forma.textContent + ' · ' + (nota.clienteNome||''));
   rmParcAtualizar(p);
   rmSaveProms(lista); rmDbUpsertProm(nota);
@@ -9227,7 +9431,9 @@ function rmCliConfirmarAvulso(clienteId){
   const lote = 'av' + Date.now();
   const notasMexidas = new Set();
   plano.forEach(({ n, p, usa }) => {
-    rmParcPagamentos(p).push({ valor: usa, data: agora, forma: forma.textContent, lote, por: rmNomeUsuario() });
+    const pgAv = { id: rmNovoPgId(), valor: usa, data: agora, forma: forma.textContent, lote, por: rmNomeUsuario() };
+    rmParcPagamentos(p).push(pgAv);
+    rmLedgerRegistrar(n, p, pgAv);
     rmParcAtualizar(p);
     notasMexidas.add(n);
   });
@@ -9328,6 +9534,7 @@ function rmPromResumoHtml(refId){
 
 // ===== Editor da promissória (aberto pelo resumo da venda/OS) =====
 let rmPromDraft = null;
+let rmPromDraftBase = null;
 let rmPromSel = 0;
 
 function rmPromAbrirEditor(notaId){
@@ -9335,6 +9542,7 @@ function rmPromAbrirEditor(notaId){
   if(!nota) return;
   rmPromDraft = JSON.parse(JSON.stringify(nota));
   rmPromDraft.parcelas.forEach(p => rmParcPagamentos(p));
+  rmPromDraftBase = JSON.parse(JSON.stringify(rmPromDraft)); // como estava ao abrir
   const ab = rmPromDraft.parcelas.findIndex(p => rmParcRestante(p) > 0);
   rmPromSel = ab >= 0 ? ab : 0;
   rmPromRenderEditor();
@@ -9390,7 +9598,7 @@ function rmPromRenderEditor(){
           </tr>`).join('')}</tbody>
       </table>` : '<div class="rm-pe2-vazio">Nenhum pagamento lançado nesta parcela</div>'}
     <div class="rm-pe2-acoes">
-      <button class="rm-pe2-btn" onclick="rmPromDraft.parcelas[rmPromSel].pagamentos.push({ valor: rmParcRestante(rmPromDraft.parcelas[rmPromSel]), data: new Date().toISOString(), forma: 'Dinheiro' }); rmPromRenderEditor()">+ Lançar pagamento</button>
+      <button class="rm-pe2-btn" onclick="rmPromDraft.parcelas[rmPromSel].pagamentos.push({ id: rmNovoPgId(), valor: rmParcRestante(rmPromDraft.parcelas[rmPromSel]), data: new Date().toISOString(), forma: 'Dinheiro', por: rmNomeUsuario() }); rmPromRenderEditor()">+ Lançar pagamento</button>
       ${p.pagamentos.length ? '' : `<button class="rm-pe2-btn rm-pe2-btn-del" onclick="if(confirm('Remover a ${rmPromSel+1}ª parcela?')){ rmPromDraft.parcelas.splice(rmPromSel,1); rmPromRenderEditor(); }">Remover parcela</button>`}
     </div>`;
 
@@ -9435,8 +9643,18 @@ function rmPromAddParcela(){
   rmPromRenderEditor();
 }
 
-function rmPromSalvarEditor(){
+async function rmPromSalvarEditor(){
   const d = rmPromDraft;
+  // alguém recebeu nesta nota (em outro aparelho) enquanto o editor estava aberto?
+  try{
+    const r = await rmSb.from('promissorias').select('*').eq('id', d.id).maybeSingle();
+    if(r && r.data){
+      const rem = rmPromFromDb(r.data), base = rmPromDraftBase || d;
+      const chaves = n => new Set(n.parcelas.flatMap(p => (Array.isArray(p.pagamentos) ? p.pagamentos : []).map(rmPgChave)));
+      const kb = chaves(base), novos = [...chaves(rem)].filter(k => !kb.has(k));
+      if(novos.length){ alert('Enquanto você editava, ' + novos.length + ' pagamento(s) foram registrados nesta nota em outro aparelho.\nPara não perder nada, feche o editor e abra de novo.'); return; }
+    }
+  }catch(e){}
   if(!d.parcelas.length){ alert('A nota precisa ter pelo menos uma parcela.'); return; }
   const soma = d.parcelas.reduce((s,p) => s + (Number(p.valor)||0), 0);
   if(Math.abs(soma - d.total) > 0.004 && !confirm(`A soma das parcelas (${rmFormatMoeda(soma)}) é diferente do total da venda (${rmFormatMoeda(d.total)}). Salvar mesmo assim?`)) return;
@@ -9445,6 +9663,14 @@ function rmPromSalvarEditor(){
     p.pagamentos = p.pagamentos.filter(x => (Number(x.valor)||0) > 0).sort((a,b) => String(a.data).localeCompare(String(b.data)));
     rmParcAtualizar(p);
   });
+  // livro-caixa: pagamentos apagados viram estorno; novos são registrados. A nota lembra os apagados para não voltarem.
+  { const base = rmPromDraftBase || { parcelas: [] };
+    const antes = new Map(); base.parcelas.forEach(p => rmParcPagamentos(p).forEach(pg => antes.set(rmPgChave(pg), pg)));
+    const depois = new Map(); d.parcelas.forEach(p => p.pagamentos.forEach(pg => depois.set(rmPgChave(pg), { pg, p })));
+    d.removidos = d.removidos || [];
+    antes.forEach((pg, k) => { if(!depois.has(k)){ d.removidos.push(k); if(pg.id) rmLedgerEstornar(pg.id); rmLog('Apagou pagamento', d.refCodigo, rmFormatMoeda(pg.valor) + ' · ' + (pg.forma || '') + ' · ' + rmDataHoraBR(pg.data)); } });
+    depois.forEach(({ pg, p }, k) => { if(!antes.has(k)){ if(!pg.id) pg.id = rmNovoPgId(); rmLedgerRegistrar(d, p, pg); } });
+  }
   const lista = rmLoadProms().map(n => n.id === d.id ? d : n);
   rmSaveProms(lista);
   rmDbUpsertProm(d);
@@ -9734,7 +9960,7 @@ function rmRenderLista(){
       <td>${rmEscapeHtml(r.mecanico || '')}</td>
       <td class="rm-osl-cli">${rmEscapeHtml(r.nome || '')}</td>
       <td>${r.entrega ? '<span class="rm-osl-tag rm-osl-tag-ent">Entregar</span>' : ''}${r.buscar ? '<span class="rm-osl-tag rm-osl-tag-bus">Buscar</span>' : ''}</td>
-      <td class="c">${rmOslTel(r) ? `<span class="rm-osl-tip" data-tip="WhatsApp ${rmEscapeHtml(rmOslTel(r))}"><button class="rm-osl-wpp" onclick="event.stopPropagation(); rmAbrirWhatsapp('${rmEscapeHtml(rmOslTel(r))}')"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.3-.1z"/></svg></button></span>` : ''}</td>
+      <td class="c">${rmOslTel(r) ? `<span class="rm-osl-tip" data-tip="WhatsApp ${rmEscapeHtml(rmOslTel(r))}"><button class="rm-osl-wpp" onclick="event.stopPropagation(); rmAbrirWhatsapp('${rmJs(rmOslTel(r))}')"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.3-.1z"/></svg></button></span>` : ''}</td>
     </tr>`;
   body.innerHTML = sorted.map(linha).join('');
 }
@@ -9992,8 +10218,17 @@ function rmExcluirRecepcao(id){
   { const rr = rmLoad().find(x => x.id === id); if(rr) setTimeout(() => { if(!rmLoad().some(x => x.id === id)) rmLog('Excluiu OS', rr.codigoApp, [rr.nome, rr.modelo].filter(Boolean).join(' · ')); }, 500); }
   const r = rmLoad().find(x=>x.id===id);
   if(!r) return;
-  const ok = confirm(`Excluir a moto ${r.codigoApp||''} (${r.modelo})? Essa ação não pode ser desfeita e remove em todos os dispositivos.`);
+  const notaOS = rmPromDaRef(r.id);
+  if(notaOS && rmPromRecebidoReal(notaOS) > 0.004){
+    alert('Esta OS a prazo já tem ' + rmFormatMoeda(rmPromRecebidoReal(notaOS)) + ' recebido em parcelas. Para excluir, primeiro apague os pagamentos no editor de parcelas (Financeiro → A prazo).');
+    return;
+  }
+  const ok = confirm(`Excluir a moto ${r.codigoApp||''} (${r.modelo})? Essa ação não pode ser desfeita e remove em todos os dispositivos.${(r.pecasUsadas||[]).length ? '\nAs peças lançadas voltam para o estoque.' : ''}`);
   if(!ok) return;
+  { const prods = rmLoadProdutos(); let mexeu = false;
+    (r.pecasUsadas||[]).forEach(it => { const p = it.produtoId ? prods.find(x => x.id === it.produtoId) : null; if(p && !p.ehServico){ p.estoqueAtual = (Number(p.estoqueAtual)||0) + (Number(it.quantidade)||0); rmDbUpsertProduto(p); mexeu = true; } });
+    if(mexeu) rmSaveProdutos(prods); }
+  rmPromApagarDaRef(r.id);
 
   const list = rmLoad().filter(x => x.id !== id);
   rmSave(list);
@@ -10096,9 +10331,11 @@ function rmAtualizarDescontoPecas(id){
   if(!item) return;
   item.pecasDescontoValor = rmParseMoeda(document.getElementById('rm-modal-pecas-desconto-valor').value);
   item.pecasDescontoTipo = document.getElementById('rm-modal-pecas-desconto-tipo').value;
+  if(!rmOsPagaConfirmar(item)){ rmOpenModal(id, rmActiveModalLarge); return; }
   rmSave(list);
   rmDbUpsertRecepcao(item);
   rmOsAtualizarTotais(item);
+  rmOsPagaReajustar(id);
 }
 
 function rmOsEscolherPagamento(id, forma){
@@ -10173,6 +10410,7 @@ function rmOsEditarItem(id, i, campo, valor){
   const r = list.find(x=>x.id===id);
   if(!r || !r.pecasUsadas || !r.pecasUsadas[i]) return;
   const it = r.pecasUsadas[i];
+  if(!rmOsPagaConfirmar(r)){ rmAtualizarTotalPecasModal(r); return; }
   const v = Math.max(0, rmParseMoeda(valor));
   if(campo === 'quantidade'){
     const novaQtd = v || 1;
@@ -10196,6 +10434,7 @@ function rmOsEditarItem(id, i, campo, valor){
   s('rm-os-bruto-'+i, rmFmtNum(bruto)); s('rm-os-total-'+i, rmFmtNum(it.subtotal));
   const t = document.getElementById('rm-os-titulo-'+i); if(t) t.innerHTML = rmOsTituloItem(it);
   rmOsAtualizarTotais(r);
+  rmOsPagaReajustar(id);
 }
 
 function rmOsMarca(it){
@@ -10216,6 +10455,18 @@ function rmOsFinalizar(id){
   if(!r) return;
   if(!r.formaPagamento){ alert('Escolha a forma de pagamento antes de finalizar.'); return; }
   if(rmAPrazo(r.formaPagamento) && !r.clienteId && !r.nome){ alert('Para vender a prazo, a moto precisa ter o cliente informado.'); return; }
+  if(rmAPrazo(r.formaPagamento) && !r.clienteId){
+    const nomeUp = String(r.nome || '').trim().toUpperCase();
+    const clis = rmLoadClientes();
+    let c = clis.find(x => (x.nome || '').trim().toUpperCase() === nomeUp);
+    if(!c){
+      if(!confirm(`"${r.nome}" ainda não está no cadastro de clientes.\nPara vender a prazo, o cliente será cadastrado agora (com o telefone da moto). Continuar?`)) return;
+      c = { id:'c' + Date.now(), nome: nomeUp, telefone: r.telefone || '', situacao:'positivo', criadoEm: new Date().toISOString() };
+      clis.unshift(c); rmSaveClientes(clis); rmDbUpsertCliente(c);
+      rmLog('Cadastrou cliente (pela OS a prazo)', c.nome);
+    }
+    r.clienteId = c.id;
+  }
   if(!confirm('Finalizar esta moto? Ela fica como PAGA e PRONTA.\nTotal: ' + rmFormatMoeda(rmOsTotais(r).total) + ' · ' + r.formaPagamento)) return;
   r.pago = true;
   r.pagoEm = new Date().toISOString();
@@ -10279,6 +10530,7 @@ function rmOsEscolher(osId, idx, produtoId){
   const r = list.find(x=>x.id===osId);
   if(!r || !r.pecasUsadas || !r.pecasUsadas[idx]) return;
   const it = r.pecasUsadas[idx];
+  if(!rmOsPagaConfirmar(r)) return;
   const produtos = rmLoadProdutos();
   const novo = produtos.find(x=>x.id===produtoId);
   if(!novo) return;
@@ -10297,6 +10549,7 @@ function rmOsEscolher(osId, idx, produtoId){
   rmAtualizarTotalPecasModal(r);
   rmShowToast('Produto trocado');
   rmLog('Trocou item na OS', r.codigoApp, (velho ? velho.nome : '') + ' → ' + novo.nome);
+  rmOsPagaReajustar(osId);
 }
 
 function rmOsFecharBusca(){
@@ -10349,6 +10602,7 @@ function rmEscolherProdutoMoto(produtoId){
   const list = rmLoad();
   const item = list.find(r=>r.id===id);
   if(!item) return;
+  if(!rmOsPagaConfirmar(item)){ rmOsFecharBusca(); return; }
   if(!item.pecasUsadas) item.pecasUsadas = [];
   const qEl = document.getElementById('rm-os-nova-qtd');
   const qtd = (qEl && rmParseMoeda(qEl.value)) || 1;
@@ -10365,9 +10619,37 @@ function rmEscolherProdutoMoto(produtoId){
   document.getElementById('rm-os-busca-box').style.display = 'none';
   rmAtualizarTotalPecasModal(item);
   rmLog('Adicionou item na OS', item.codigoApp, p.nome + ' x' + qtd);
+  rmOsPagaReajustar(id);
+}
+
+// OS já paga: pede confirmação antes de mudar itens e depois acerta o valor pago e as parcelas
+function rmOsPagaConfirmar(r){
+  if(!r || !r.pago) return true;
+  return confirm(`Esta OS já foi finalizada e paga (${rmFormatMoeda(r.valorPago || rmOsTotais(r).total)} · ${r.formaPagamento || ''}).\nSe mudar os itens, o valor da OS muda. Continuar?`);
+}
+function rmOsPagaReajustar(id){
+  const list = rmLoad(); const r = list.find(x => x.id === id);
+  if(!r || !r.pago) return;
+  const novo = rmOsTotais(r).total, antigo = Number(r.valorPago) || 0;
+  if(Math.abs(novo - antigo) < 0.005) return;
+  r.valorPago = novo; rmSave(list); rmDbUpsertRecepcao(r);
+  rmLog('Alterou OS já paga', r.codigoApp, rmFormatMoeda(antigo) + ' → ' + rmFormatMoeda(novo));
+  if(rmAPrazo(r.formaPagamento)){
+    const n = rmPromDaRef(r.id);
+    if(n && rmPromRecebidoReal(n) <= 0.004){
+      const e = n.parcelas.find(p => p.entrada), ps = n.parcelas.filter(p => !p.entrada);
+      rmCriarPromissoria({ origem:'OS', refId:r.id, refCodigo:r.codigoApp, clienteId:r.clienteId, clienteNome:r.nome, total:novo, nParc: ps.length || 1, venc: (ps[0] || n.parcelas[0]).vencimento, entrada: e ? e.valor : 0, formaEnt: e && e.pagamentos[0] ? e.pagamentos[0].forma : 'Dinheiro' });
+      rmShowToast('Parcelas a prazo refeitas com o novo valor: ' + rmFormatMoeda(novo));
+    } else if(n){
+      alert('O valor da OS mudou para ' + rmFormatMoeda(novo) + ', mas ela já tem parcelas recebidas. Ajuste as parcelas no editor (Financeiro → A prazo → abrir a nota → Editar parcelas).');
+    }
+  } else {
+    rmShowToast('Valor da OS paga atualizado: ' + rmFormatMoeda(novo) + ' (diferença ' + rmFormatMoeda(novo - antigo) + ')');
+  }
 }
 
 function rmRemoverPecaMoto(id, index){
+  if(!rmOsPagaConfirmar(rmLoad().find(x => x.id === id))) return;
   { const rr = rmLoad().find(x => x.id === id); const it = rr && rr.pecasUsadas && rr.pecasUsadas[index]; if(it) rmLog('Removeu item da OS', rr.codigoApp, it.nome + ' x' + it.quantidade); }
   const list = rmLoad();
   const item = list.find(r=>r.id===id);
@@ -10381,7 +10663,7 @@ function rmRemoverPecaMoto(id, index){
   if(peca.produtoId){
     const produtos = rmLoadProdutos();
     const p = produtos.find(x=>x.id===peca.produtoId);
-    if(p){
+    if(p && !p.ehServico){
       p.estoqueAtual = (p.estoqueAtual || 0) + peca.quantidade;
       rmSaveProdutos(produtos);
       rmDbUpsertProduto(p);
@@ -10389,6 +10671,7 @@ function rmRemoverPecaMoto(id, index){
   }
 
   rmAtualizarTotalPecasModal(item);
+  rmOsPagaReajustar(id);
 }
 
 function rmOpenModal(id, large){
@@ -10529,7 +10812,7 @@ function rmOpenModal(id, large){
 
     <div class="rm-modal-section rm-os-wrap" style="margin-top:6px;">
       <div class="rm-os-titulo-sec">&#124;&#124;&#124;&#124; Produtos e Serviços
-        <button class="rm-sep-btn" title="Imprimir a lista de peças para buscar no estoque, na ordem das prateleiras" onclick="rmImprimirSeparacao('${rmEscapeHtml([r.nome, r.modelo].filter(Boolean).join(' · '))}', '${rmEscapeHtml(r.codigoApp || '')}', (rmLoad().find(x => x.id === '${r.id}') || {}).pecasUsadas)">&#128205; Buscar no estoque</button></div>
+        <button class="rm-sep-btn" title="Imprimir a lista de peças para buscar no estoque, na ordem das prateleiras" onclick="rmImprimirSeparacao('${rmJs([r.nome, r.modelo].filter(Boolean).join(' · '))}', '${rmJs(r.codigoApp || '')}', (rmLoad().find(x => x.id === '${r.id}') || {}).pecasUsadas)">&#128205; Buscar no estoque</button></div>
       <div id="rm-modal-pecas-lista">${rmPecasUsadasHtml(r)}</div>
 
       <div class="rm-os-item" id="rm-os-busca-box" style="display:none;">
