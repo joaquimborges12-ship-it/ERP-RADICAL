@@ -2,6 +2,11 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#d9433a">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <script>document.documentElement.classList.add("rm-sem-login"); try{ if(localStorage.getItem("radicalMotos_tema")==="dark") document.documentElement.dataset.tema="dark"; }catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <title>Recepção de Motos — Radical Motos</title>
@@ -1359,6 +1364,53 @@
     .rm-inv-certos{margin-bottom:90px;}
     body:has(.rm-inv-rodape) .rm-fab{bottom:86px;}
     body:has(.rm-inv-rodape) .rm-fab-painel{bottom:144px;}
+  }
+  #rm-mob-nav, #rm-mob-tela{display:none;}
+  @media (max-width:760px){
+    #rm-mob-nav{display:flex; position:fixed; left:0; right:0; bottom:0; z-index:9000; background:var(--rm-panel); border-top:1px solid var(--rm-border); box-shadow:0 -4px 16px rgba(0,0,0,0.12); padding-bottom:env(safe-area-inset-bottom,0px);}
+    #rm-mob-nav button{flex:1; border:none; background:none; color:var(--rm-text-dim); font-size:11px; font-weight:600; padding:7px 0 6px; display:flex; flex-direction:column; align-items:center; gap:2px; font-family:inherit;}
+    #rm-mob-nav button span{font-size:21px; line-height:1;}
+    #rm-mob-nav button.on{color:var(--rm-accent);}
+    body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px));}
+    .rm-fab{bottom:80px !important;} .rm-fab-painel{bottom:138px !important;}
+    body:has(.rm-inv-rodape) .rm-fab{bottom:150px !important;}
+    .rm-inv-rodape{bottom:calc(58px + env(safe-area-inset-bottom,0px)) !important;}
+    body.rm-mob-tela-on .rm-section{display:none !important;}
+    body.rm-mob-tela-on #rm-mob-tela{display:block; padding:4px 2px 20px;}
+    .rm-mob-cab{display:flex; flex-direction:column; margin:4px 0 10px;}
+    .rm-mob-cab b{font-family:var(--rm-font-display); font-size:26px;}
+    .rm-mob-cab small{color:var(--rm-text-dim); font-size:13px;}
+    .rm-mob-busca{margin:0 0 10px !important; font-size:16px !important; padding:12px !important;}
+    .rm-mob-dica{font-size:12.5px; color:var(--rm-text-dim); margin:-4px 0 10px;}
+    .rm-mob-filtros{display:flex; gap:6px; overflow-x:auto; padding-bottom:8px; margin-bottom:6px; scrollbar-width:none;}
+    .rm-mob-filtros::-webkit-scrollbar{display:none;}
+    .rm-mob-filtros button{flex:none; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); padding:8px 12px; font-size:13.5px; border-radius:20px; font-family:inherit;}
+    .rm-mob-filtros button b{color:var(--rm-text-dim); margin-left:2px;}
+    .rm-mob-filtros button.on{background:var(--rm-accent); color:#fff; border-color:var(--rm-accent);} .rm-mob-filtros button.on b{color:#fff;}
+    .rm-mob-card{background:var(--rm-panel); border:1px solid var(--rm-border); border-left:5px solid; margin-bottom:8px;}
+    .rm-mob-card-top{display:flex; align-items:center; gap:10px; padding:10px 12px;}
+    .rm-mob-foto{width:56px; height:56px; object-fit:cover; flex:none; background:var(--rm-panel-2);}
+    .rm-mob-sem-foto{display:flex; align-items:center; justify-content:center; font-size:26px;}
+    .rm-mob-av{width:46px; height:46px; flex:none; border-radius:50%; background:var(--rm-accent); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800;}
+    .rm-mob-card-info{flex:1; min-width:0; display:flex; flex-direction:column;}
+    .rm-mob-card-info b{font-size:16px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .rm-mob-card-info span{font-size:14px;}
+    .rm-mob-card-info small{font-size:12px; color:var(--rm-text-dim);}
+    .rm-mob-pago{font-size:11px; font-weight:800; color:#fff; background:#2e8b57; padding:2px 7px;}
+    .rm-mob-card-acoes{display:flex; gap:8px; padding:0 12px 10px;}
+    .rm-mob-status{flex:1; border:none; color:#fff; font-weight:700; font-size:15px; padding:11px; font-family:inherit;}
+    .rm-mob-wpp{width:52px; flex:none; border:none; background:#25d366; display:flex; align-items:center; justify-content:center;}
+    .rm-mob-wpp-txt{width:auto; flex:1; color:#fff; font-weight:700; font-size:14px; font-family:inherit;}
+    .rm-mob-ver{flex:1; border:1px solid var(--rm-border); background:var(--rm-panel-2); color:var(--rm-text); font-weight:700; font-size:14px; padding:11px; font-family:inherit;}
+    #rm-mob-mais{position:fixed; inset:0; z-index:9500; background:rgba(0,0,0,0.4); display:flex; align-items:flex-end;}
+    .rm-mob-sheet{background:var(--rm-panel); width:100%; padding:10px 12px calc(16px + env(safe-area-inset-bottom,0px)); max-height:80vh; overflow-y:auto;}
+    .rm-mob-sheet-user{font-size:13px; color:var(--rm-text-dim); padding:6px 4px 10px; border-bottom:1px solid var(--rm-border); margin-bottom:6px;}
+    .rm-mob-sheet > button{display:flex; align-items:center; gap:12px; width:100%; text-align:left; border:none; background:none; color:var(--rm-text); font-size:16px; padding:13px 6px; border-bottom:1px solid var(--rm-border); font-family:inherit;}
+    .rm-mob-sheet > button span{font-size:20px; width:26px;}
+    .rm-mob-sheet > button i{width:14px; height:14px; border-radius:50%; display:inline-block;}
+    .rm-mob-sheet > button.on{font-weight:800;}
+    .rm-mob-sheet-acoes{display:flex; gap:8px; margin-top:12px;}
+    .rm-mob-sheet-acoes button{flex:1; padding:12px; border:1px solid var(--rm-border); background:var(--rm-panel-2); color:var(--rm-text); font-family:inherit;}
   }
   .rm-inv-guia{background:var(--rm-panel); border:1px solid var(--rm-border); border-left:4px solid #2f6fb5;}
   .rm-inv-guia summary{padding:12px 16px; cursor:pointer; font-weight:700;}
@@ -4735,6 +4787,7 @@ async function rmAuthIniciar(){
   const l = document.getElementById('rm-login'); if(l) l.style.display = 'none';
   rmAplicarPermissoes();
   rmInit();
+  if(rmEhCelular()) rmMobInit();
   setTimeout(() => rmInvSync().catch(() => {}), 1500);
 }
 
@@ -5579,6 +5632,165 @@ function rmRenderVisaoGeral(){
     <div class="vg-nota">As setas comparam com o período anterior equivalente. Faturamento = vendas do PDV + ordens de serviço finalizadas (pagas). A receber e Vencido consideram as parcelas com vencimento no período escolhido; os alertas do topo mostram o total vencido de todos os períodos. Atualizado às ${new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}.</div>`;
   rmVgAplicarOcultos();
 }
+
+// ===================== MODO CELULAR =====================
+// Mesmo sistema; em tela pequena aparece a barra de baixo com as tarefas do dia a dia.
+const rmEhCelular = () => window.matchMedia('(max-width: 760px)').matches;
+let rmMobAba = null;           // 'oficina' | 'clientes' quando a tela de celular está aberta
+let rmMobFiltro = 'abertas';
+let rmMobBusca = '';
+
+function rmMobInit(){
+  if(document.getElementById('rm-mob-nav')) return;
+  const nav = document.createElement('nav');
+  nav.id = 'rm-mob-nav';
+  nav.innerHTML = `
+    <button data-m="receber" onclick="rmMobIr('receber')"><span>&#10133;</span>Receber</button>
+    <button data-m="oficina" onclick="rmMobIr('oficina')"><span>&#127949;</span>Oficina</button>
+    <button data-m="contar" onclick="rmMobIr('contar')"><span>&#128203;</span>Contar</button>
+    <button data-m="clientes" onclick="rmMobIr('clientes')"><span>&#128101;</span>Clientes</button>
+    <button data-m="mais" onclick="rmMobIr('mais')"><span>&#9776;</span>Mais</button>`;
+  document.body.appendChild(nav);
+  const tela = document.createElement('div');
+  tela.id = 'rm-mob-tela';
+  document.querySelector('main').appendChild(tela);
+  rmMobPermissoes();
+}
+function rmMobPermissoes(){
+  const pode = { receber: rmPode('oficina'), oficina: rmPode('oficina'), contar: rmPode('produtos'), clientes: rmPode('clientes') || rmPode('financeiro'), mais: true };
+  document.querySelectorAll('#rm-mob-nav button').forEach(b => b.style.display = pode[b.dataset.m] ? '' : 'none');
+}
+function rmMobMarcar(m){ document.querySelectorAll('#rm-mob-nav button').forEach(b => b.classList.toggle('on', b.dataset.m === m)); }
+function rmMobFecharTela(){ rmMobAba = null; document.body.classList.remove('rm-mob-tela-on'); const t = document.getElementById('rm-mob-tela'); if(t) t.innerHTML = ''; }
+function rmMobIr(m){
+  const sheet = document.getElementById('rm-mob-mais'); if(sheet) sheet.remove();
+  if(m === 'mais'){ rmMobMais(); return; }
+  rmCloseModal && document.getElementById('rm-modal-backdrop').classList.contains('show') && rmCloseModal();
+  rmMobMarcar(m);
+  if(m === 'receber'){ rmMobFecharTela(); rmSetSection('oficina'); rmSetView('reception'); window.scrollTo(0,0); return; }
+  if(m === 'contar'){ rmMobFecharTela(); rmSetSection('produtos'); rmSetViewProdutos('inventario'); window.scrollTo(0,0); return; }
+  rmMobAba = m;
+  document.body.classList.add('rm-mob-tela-on');
+  window.scrollTo(0,0);
+  rmMobRender();
+}
+function rmMobMais(){
+  const secs = [['visao-geral','📊','Visão Geral'],['pdv','🛒','PDV'],['oficina','🔧','Oficina (completo)'],['financeiro','💰','Financeiro'],['clientes','👥','Clientes (completo)'],['produtos','📦','Produtos'],['relatorio','📈','Relatório'],['configuracoes','⚙️','Configurações']].filter(([k]) => rmPode(k));
+  const el = document.createElement('div'); el.id = 'rm-mob-mais';
+  el.innerHTML = `<div class="rm-mob-sheet">
+      <div class="rm-mob-sheet-user">&#128100; ${rmEscapeHtml(rmNomeUsuario())}</div>
+      ${secs.map(([k, ic, n]) => `<button onclick="document.getElementById('rm-mob-mais').remove(); rmMobFecharTela(); rmMobMarcar('mais'); rmSetSection('${k}'); window.scrollTo(0,0);"><span>${ic}</span>${n}</button>`).join('')}
+      <div class="rm-mob-sheet-acoes"><button onclick="rmTrocarMinhaSenha()">Trocar senha</button><button onclick="rmSair()">Sair</button></div>
+    </div>`;
+  el.addEventListener('click', ev => { if(ev.target === el) el.remove(); });
+  document.body.appendChild(el);
+}
+function rmMobRender(){
+  const t = document.getElementById('rm-mob-tela'); if(!t || !rmMobAba) return;
+  if(rmMobAba === 'oficina') t.innerHTML = rmMobOficinaHtml();
+  if(rmMobAba === 'clientes') t.innerHTML = rmMobClientesHtml();
+}
+
+// ---------- Oficina no celular: cartões e status com um toque ----------
+function rmMobOficinaHtml(){
+  const todas = rmLoad();
+  const filtros = [['abertas','Na oficina'],['aberto','Em aberto'],['andamento','Andamento'],['peca','Peça'],['prontas','Prontas'],['entregue','Entregues']];
+  const conta = f => todas.filter(o => f === 'abertas' ? (o.status !== 'entregue' && o.status !== 'antigas') : o.status === f).length;
+  const q = rmMobBusca.toLowerCase();
+  let lista = todas.filter(o => rmMobFiltro === 'abertas' ? (o.status !== 'entregue' && o.status !== 'antigas') : o.status === rmMobFiltro)
+    .filter(o => !q || [o.nome, o.modelo, o.codigoApp, o.mecanico].some(x => (x || '').toLowerCase().includes(q)));
+  lista.sort((a,b) => rmMobFiltro === 'entregue' ? new Date(rmOsDataEntrega(b) || 0) - new Date(rmOsDataEntrega(a) || 0) : new Date(a.entrada) - new Date(b.entrada));
+  if(rmMobFiltro === 'entregue') lista = lista.slice(0, 40);
+  const dias = o => Math.floor((Date.now() - new Date(o.entrada)) / 864e5);
+  return `
+    <div class="rm-mob-cab"><b>Oficina</b><small>${conta('abertas')} moto(s) na oficina</small></div>
+    <input class="rm-input rm-mob-busca" placeholder="&#128269; Buscar moto, cliente, número..." value="${rmEscapeHtml(rmMobBusca)}" oninput="rmMobBusca=this.value; clearTimeout(window.__mobT); window.__mobT=setTimeout(()=>{ rmMobRender(); const i=document.querySelector('.rm-mob-busca'); i.focus(); i.setSelectionRange(i.value.length,i.value.length); },250)">
+    <div class="rm-mob-filtros">${filtros.map(([k, l]) => `<button class="${rmMobFiltro === k ? 'on' : ''}" onclick="rmMobFiltro='${k}'; rmMobRender()">${l} <b>${conta(k)}</b></button>`).join('')}</div>
+    ${lista.length ? lista.map(o => {
+      const st = RM_STATUS[o.status] || RM_STATUS['aberto'];
+      const tel = rmOslTel(o);
+      return `<div class="rm-mob-card" style="border-left-color:${st.color}">
+        <div class="rm-mob-card-top" onclick="rmOpenModal('${o.id}', true)">
+          ${o.fotoUrl ? `<img src="${o.fotoUrl}" class="rm-mob-foto" alt="">` : '<div class="rm-mob-foto rm-mob-sem-foto">🏍️</div>'}
+          <div class="rm-mob-card-info">
+            <b>${rmEscapeHtml(o.modelo || '—')}</b>
+            <span>${rmEscapeHtml(o.nome || 'sem cliente')}</span>
+            <small>${rmEscapeHtml(o.codigoApp || '')}${o.mecanico ? ' · ' + rmEscapeHtml(o.mecanico) : ''} · ${dias(o)}d${o.entrega ? ' · ENTREGAR' : ''}${o.buscar ? ' · BUSCAR' : ''}</small>
+          </div>
+          ${o.pago ? '<span class="rm-mob-pago">PAGO</span>' : ''}
+        </div>
+        <div class="rm-mob-card-acoes">
+          <button class="rm-mob-status" style="background:${st.color}" onclick="rmMobStatus('${o.id}')">${rmEscapeHtml(st.label)} ▾</button>
+          ${tel ? `<button class="rm-mob-wpp" onclick="rmAbrirWhatsapp('${rmEscapeHtml(tel)}', rmMobMsgMoto('${o.id}'))"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.3-.1z"/></svg></button>` : ''}
+        </div>
+      </div>`;
+    }).join('') : '<div class="rm-problema-empty" style="padding:24px;">Nenhuma moto aqui</div>'}`;
+}
+function rmMobStatus(id){
+  const o = rmLoad().find(x => x.id === id); if(!o) return;
+  const el = document.createElement('div'); el.id = 'rm-mob-mais';
+  el.innerHTML = `<div class="rm-mob-sheet"><div class="rm-mob-sheet-user">${rmEscapeHtml(o.modelo || '')} · ${rmEscapeHtml(o.nome || '')}</div>
+    ${RM_STATUS_ORDER.map(k => `<button class="${o.status === k ? 'on' : ''}" onclick="document.getElementById('rm-mob-mais').remove(); rmChangeStatus('${id}','${k}'); try{navigator.vibrate&&navigator.vibrate(30)}catch(e){} rmMobRender(); rmShowToast('${rmEscapeHtml((RM_STATUS[k]||{}).label || k)}')"><i style="background:${(RM_STATUS[k]||{}).color}"></i>${rmEscapeHtml((RM_STATUS[k]||{}).label || k)}</button>`).join('')}
+  </div>`;
+  el.addEventListener('click', ev => { if(ev.target === el) el.remove(); });
+  document.body.appendChild(el);
+}
+function rmMobMsgMoto(id){
+  const o = rmLoad().find(x => x.id === id); if(!o) return '';
+  const nome = (o.nome || '').split(' ')[0];
+  if(o.status === 'prontas') return `Olá ${nome}! Aqui é da ${rmEmpresa().nome}. Sua moto ${o.modelo || ''} está pronta para retirada. Total: ${rmFormatMoeda(rmOsTotais(o).total)}.`;
+  return `Olá ${nome}! Aqui é da ${rmEmpresa().nome}, sobre a sua moto ${o.modelo || ''}.`;
+}
+
+// ---------- Clientes no celular: WhatsApp e contas a receber ----------
+function rmMobClientesHtml(){
+  const q = rmMobBusca.toLowerCase().trim();
+  const hoje = rmHojeISO();
+  const proms = rmLoadProms();
+  const dados = rmLoadClientes().map(c => {
+    let deve = 0, venc = 0;
+    proms.filter(n => n.clienteId === c.id || (!n.clienteId && c.nome && n.clienteNome === c.nome)).forEach(n => n.parcelas.forEach(p => { const r = rmParcRestante(p); deve += r; if(r > 0.004 && p.vencimento < hoje) venc += r; }));
+    return { c, deve, venc };
+  });
+  let lista = q ? dados.filter(x => [x.c.nome, x.c.apelido, x.c.telefone, x.c.cpf].some(v => (v || '').toLowerCase().includes(q)))
+                : dados.filter(x => x.deve > 0.004).sort((a,b) => (b.venc - a.venc) || (b.deve - a.deve));
+  lista = lista.slice(0, 60);
+  const totDeve = dados.reduce((s,x) => s + x.deve, 0), totVenc = dados.reduce((s,x) => s + x.venc, 0);
+  return `
+    <div class="rm-mob-cab"><b>Clientes</b><small>A receber ${rmFormatMoeda(totDeve)} · <span style="color:#b3261e">vencido ${rmFormatMoeda(totVenc)}</span></small></div>
+    <input class="rm-input rm-mob-busca" placeholder="&#128269; Nome, apelido, telefone..." value="${rmEscapeHtml(rmMobBusca)}" oninput="rmMobBusca=this.value; clearTimeout(window.__mobT); window.__mobT=setTimeout(()=>{ rmMobRender(); const i=document.querySelector('.rm-mob-busca'); i.focus(); i.setSelectionRange(i.value.length,i.value.length); },250)">
+    ${q ? '' : '<div class="rm-mob-dica">Mostrando quem está devendo (vencidos primeiro). Busque para ver qualquer cliente.</div>'}
+    ${lista.length ? lista.map(({ c, deve, venc }) => {
+      const lim = Number(c.limiteCredito) || 0;
+      return `<div class="rm-mob-card" style="border-left-color:${venc > 0.004 ? '#b3261e' : deve > 0.004 ? '#c9961a' : '#2e8b57'}">
+        <div class="rm-mob-card-top" onclick="rmClienteAba='pagamentos'; rmClienteRascunho={id:'${c.id}'}; rmAbrirModalCliente('${c.id}')">
+          <div class="rm-mob-av">${rmEscapeHtml((c.nome || '?').split(/\s+/).slice(0,2).map(x => x[0]).join(''))}</div>
+          <div class="rm-mob-card-info">
+            <b>${rmEscapeHtml(c.nome || '')}</b>
+            <span>${deve > 0.004 ? 'Deve <b>' + rmFormatMoeda(deve) + '</b>' : 'Nada em aberto'}${venc > 0.004 ? ' · <b style="color:#b3261e">' + rmFormatMoeda(venc) + ' vencido</b>' : ''}</span>
+            <small>${rmEscapeHtml(c.telefone || 'sem telefone')}${lim ? ' · crédito disponível ' + rmFormatMoeda(lim - deve) : ''}</small>
+          </div>
+        </div>
+        <div class="rm-mob-card-acoes">
+          <button class="rm-mob-ver" onclick="rmClienteAba='pagamentos'; rmClienteRascunho={id:'${c.id}'}; rmAbrirModalCliente('${c.id}')">Contas a receber</button>
+          ${c.telefone ? `<button class="rm-mob-wpp rm-mob-wpp-txt" onclick="rmAbrirWhatsapp('${rmEscapeHtml(c.telefone)}', rmMobMsgCliente('${c.id}'))">WhatsApp${venc > 0.004 ? ' · cobrar' : ''}</button>` : ''}
+        </div>
+      </div>`;
+    }).join('') : `<div class="rm-problema-empty" style="padding:24px;">${q ? 'Nenhum cliente encontrado' : 'Ninguém devendo 👍'}</div>`}`;
+}
+function rmMobMsgCliente(id){
+  const c = rmLoadClientes().find(x => x.id === id); if(!c) return '';
+  const nome = (c.nome || '').split(' ')[0];
+  const hoje = rmHojeISO();
+  let venc = 0, prox = null;
+  rmLoadProms().filter(n => n.clienteId === c.id).forEach(n => n.parcelas.forEach(p => { const r = rmParcRestante(p); if(r <= 0.004) return; if(p.vencimento < hoje) venc += r; else if(!prox || p.vencimento < prox.v) prox = { v:p.vencimento, r }; }));
+  if(venc > 0.004) return `Olá ${nome}! Aqui é da ${rmEmpresa().nome}. Consta em aberto o valor de ${rmFormatMoeda(venc)} com vencimento já passado. ${rmEmpresa().pix ? 'PIX ' + rmEmpresa().pix + '. ' : ''}Qualquer dúvida, estamos à disposição.`;
+  if(prox) return `Olá ${nome}! Aqui é da ${rmEmpresa().nome}. Lembrando que sua próxima parcela de ${rmFormatMoeda(prox.r)} vence em ${rmDataBR(prox.v)}.`;
+  return `Olá ${nome}! Aqui é da ${rmEmpresa().nome}.`;
+}
+
+// abre o modo celular quando a tela é pequena
+window.addEventListener('resize', () => { if(rmUsuario && rmEhCelular()) rmMobInit(); });
 
 // ===================== BACKUP COMPLETO =====================
 const RM_BKP_TABELAS = [['inventarios','id'],['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome']];
@@ -7247,6 +7459,7 @@ document.addEventListener('mousedown', ev => {
 setTimeout(() => { rmFabBadge(); rmPedidoSync().then(rmFabBadge); }, 3000);
 
 function rmSetSection(section){
+  if(typeof rmMobAba !== 'undefined' && rmMobAba){ rmMobAba = null; document.body.classList.remove('rm-mob-tela-on'); }
   if(rmUsuario && !rmPode(section)) section = rmPrimeiraSecaoPermitida();
   document.body.dataset.secao = section;
   RM_SECTIONS.forEach(s=>{
@@ -7875,6 +8088,7 @@ function rmSetView(view){
 }
 
 function rmRenderActiveBoard(){
+  if(typeof rmMobAba !== 'undefined' && rmMobAba) rmMobRender();
   if(document.getElementById('rm-view-dashboard').classList.contains('active')) rmRenderBoard();
   if(document.getElementById('rm-view-mecanicos').classList.contains('active')) rmRenderMecanicosBoard();
   if(document.getElementById('rm-view-lista').classList.contains('active')) rmRenderLista();
@@ -10422,13 +10636,13 @@ function rmUpdateStatus(id, novoStatus){
   }
 }
 
-function rmAbrirWhatsapp(telefone){
+function rmAbrirWhatsapp(telefone, texto){
   let digits = (telefone || '').replace(/\D/g, '');
   if(!digits) return;
   if(digits.length <= 11){
     digits = '55' + digits;
   }
-  window.open('https://wa.me/' + digits, '_blank');
+  window.open('https://wa.me/' + digits + (texto ? '?text=' + encodeURIComponent(texto) : ''), '_blank');
 }
 
 function rmToDateInputValue(iso){
@@ -10560,6 +10774,7 @@ function rmInit(){
   }
 }
 rmAuthIniciar();
+if('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 </script>
 <!-- Botão rápido de pedido (fica sobre todas as telas) -->
 <button class="rm-fab" id="rm-fab" title="Anotar item para pedido" onclick="rmFabAbrir()">&#128722;</button>
