@@ -1058,6 +1058,9 @@
   .rm-ped-est{font-size:12px; color:var(--rm-text-dim); white-space:nowrap;}
   .rm-ped-zero{color:#b3261e; font-weight:700;}
   @media (max-width:900px){ .rm-ped-grid{grid-template-columns:1fr;} }
+  .rm-fab-lateral{order:2; margin:8px 14px 0; padding:9px 10px; border:1px dashed var(--rm-border); background:transparent; color:var(--rm-text); font-size:13px; font-weight:600; cursor:pointer; text-align:left; border-radius:0; font-family:inherit;}
+  .rm-fab-lateral:hover{border-color:var(--rm-accent); color:var(--rm-accent);}
+  @media (max-width:760px){ .rm-fab-lateral{display:none;} }
   .rm-fab{position:fixed; right:18px; bottom:18px; width:48px; height:48px; border-radius:50%; border:1px solid #ddd; background:#fff; color:#333; font-size:22px; cursor:pointer; z-index:10050; box-shadow:0 4px 14px rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:center; padding:0;}
   .rm-fab:hover{transform:scale(1.06);}
   body[data-secao="pdv"] .rm-fab{bottom:96px;}
@@ -1332,12 +1335,13 @@
     .rm-inv-bipar{gap:6px; margin-bottom:4px;}
     .rm-inv-bip-linha{min-width:0; flex-basis:100%;}
     .rm-inv-bip-linha .rm-input{padding:12px;}
-    .rm-inv-add-wrap{min-width:0 !important; flex-basis:100%;}
+    .rm-inv-add-wrap{min-width:0 !important; flex:1 1 100% !important;}
     .rm-inv-bipar .rm-cfg-check{font-size:13px;}
-    .rm-inv-lista{gap:6px; padding-bottom:90px;}
-    .rm-inv-item{flex-wrap:wrap; padding:10px 12px; gap:6px 10px;}
-    .rm-inv-loc{width:auto; background:var(--rm-panel-2); padding:2px 8px; font-size:12px; color:var(--rm-text);}
-    .rm-inv-nome{flex-basis:calc(100% - 90px);}
+    .rm-inv-lista{gap:6px; padding-bottom:170px;}
+    .rm-inv-item{display:grid; grid-template-columns:auto 1fr; align-items:start; padding:10px 12px; gap:6px 10px;}
+    .rm-inv-loc{width:auto; max-width:110px; background:var(--rm-panel-2); padding:2px 8px; font-size:12px; color:var(--rm-text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+    .rm-inv-nome{min-width:0;}
+    .rm-inv-qtd{grid-column:1 / -1;}
     .rm-inv-nome b{font-size:15px; line-height:1.25;}
     .rm-inv-qtd{flex-basis:100%; justify-content:flex-end; gap:6px;}
     .rm-inv-qtd button{width:56px; height:50px; font-size:26px;}
@@ -1373,6 +1377,12 @@
     #rm-mob-nav button.on{color:var(--rm-accent);}
     body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px));}
     .rm-header{display:none !important;}
+    /* botões presos no rodapé ficam acima da barra de baixo */
+    .rm-submit-bar{bottom:calc(60px + env(safe-area-inset-bottom,0px)) !important;}
+    .rm-subnav-btn{min-width:0; padding-left:4px !important; padding-right:4px !important;}
+    .rm-subnav-btn span:last-child{font-size:12px; white-space:normal; line-height:1.15; text-align:center;}
+    #rm-pdv-cliente-tag{min-width:0;}
+    body:has(.rm-section.active .rm-view.active .rm-submit-bar) .rm-fab{bottom:170px !important;}
     main{padding-top:calc(8px + env(safe-area-inset-top,0px)) !important;}
     .rm-fab{bottom:80px !important;} .rm-fab-painel{bottom:138px !important;}
     body:has(.rm-inv-rodape) .rm-fab{bottom:150px !important;}
@@ -1623,6 +1633,19 @@
   html[data-tema="dark"] .rm-nav-btn:hover:not(.active){background:#242830 !important;}
   html[data-tema="dark"] .rm-nav-icon{color:#8d939d;}
   html[data-tema="dark"] .rm-nav-btn.active .rm-nav-icon{color:var(--rm-accent-ink);}
+
+  /* ===== ajustes finais de celular (vêm por último para valer sobre as regras de computador) ===== */
+  @media (max-width:760px){
+    .rm-modal.rm-modal-large .rm-modal-body, .rm-modal.rm-modal-os .rm-modal-body{grid-template-columns:1fr !important; gap:0 !important;}
+    .rm-modal.rm-modal-os, .rm-modal.rm-modal-large{max-width:100vw !important; padding:18px 14px !important;}
+    body:has(#rm-modal-backdrop.show) .rm-fab, body:has(#rm-mob-mais) .rm-fab{display:none !important;}
+    #rm-inv .rm-inv-item{display:grid !important; grid-template-columns:auto minmax(0,1fr); align-items:start; gap:6px 10px;}
+    #rm-inv .rm-inv-loc{width:auto; max-width:120px;}
+    #rm-inv .rm-inv-nome{min-width:0;}
+    #rm-inv .rm-inv-qtd{grid-column:1 / -1; justify-content:flex-end;}
+    body:has(.rm-inv-rodape) .rm-fab{display:none !important;}
+    .rm-px-tabela th:first-child, .rm-px-tabela td:first-child{padding-right:8px;}
+  }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -1721,8 +1744,8 @@
                 <label class="rm-px-label">Qtd:</label>
                 <input class="rm-input rm-px-num" id="rm-pdv-item-qtd" value="1" inputmode="decimal" oninput="rmPdvAtualizarLinha()" onkeydown="rmPdvTeclaEnter(event)">
               </div>
-            <div class="rm-pdv-item-info" id="rm-pdv-item-info"></div>
             </div>
+            <div class="rm-pdv-item-info" id="rm-pdv-item-info"></div>
 
             <div class="rm-px-linha">
               <div class="rm-px-campo">
@@ -1753,7 +1776,8 @@
 
             <div id="rm-pdv-carrinho-lista"></div>
             <div class="rm-px-qtdtotal">Quantidade total de produtos: <b id="rm-pdv-qtd-total">0</b>
-              <button class="rm-sep-btn" title="Imprimir a lista de peças para buscar no estoque, na ordem das prateleiras" onclick="rmImprimirSeparacao('Venda no balcão' + (rmPdvClienteNome ? ' · ' + rmPdvClienteNome : ''), '', rmPdvCarrinho)">&#128205; Buscar no estoque</button></div>
+              <button class="rm-sep-btn" title="Imprimir a lista de peças para buscar no estoque, na ordem das prateleiras" onclick="rmImprimirSeparacao('Venda no balcão' + (rmPdvClienteNome ? ' · ' + rmPdvClienteNome : ''), '', rmPdvCarrinho)">&#128205; Buscar no estoque</button>
+              <button class="rm-sep-btn" id="rm-pdv-para-os-btn" style="margin-right:6px;" title="Leva estes itens para uma nova ordem de serviço" onclick="rmOrcamentoParaOS({ tipo:'carrinho' })">&#128295; Transformar em OS</button></div>
             <div class="rm-px-info">Clique na linha do produto se desejar editar os valores informados</div>
           </div>
 
@@ -1817,7 +1841,6 @@
             <div class="rm-pdv-pagamento-grid" id="rm-pdv-pagamento-grid"></div>
           </div>
 
-          <button class="rm-pdv-para-os" id="rm-pdv-para-os-btn" onclick="rmOrcamentoParaOS({ tipo:'carrinho' })">&#128295; Transformar em ordem de serviço</button>
           <button class="rm-pdv-finalizar" id="rm-pdv-finalizar-btn" onclick="rmFinalizarVenda()">Finalizar venda</button>
         </div>
       </div>
@@ -2599,7 +2622,7 @@ function rmRemoverAplicacaoNovo(i){
 }
 
 function rmAbrirCadastroProdutoRapido(produtoId){
-  const existente = produtoId ? rmLoadProdutos().find(x => x.id === produtoId) : null;
+  const existente = produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(produtoId) : null;
   const editando = !!existente;
   rmProdutoEmEdicao = existente ? { id: existente.id, estoqueInicial: existente.estoqueAtual || 0 } : null;
   rmNovoProdutoId = existente ? existente.id : ('p' + Date.now());
@@ -3317,7 +3340,8 @@ function rmRenderProdutos(){
   }
   empty.style.display = 'none';
 
-  list.forEach(p=>{
+  const totalProd = list.length;
+  rmLimitar('prod', list).forEach(p=>{
     const estoqueBaixo = p.estoqueMinimo > 0 && p.estoqueAtual <= p.estoqueMinimo;
     const tr = document.createElement('tr');
     if(p.ativo === false) tr.style.opacity = '0.5';
@@ -3336,10 +3360,11 @@ function rmRenderProdutos(){
     tr.onclick = () => rmAbrirCadastroProdutoRapido(p.id);
     body.appendChild(tr);
   });
+  body.insertAdjacentHTML('beforeend', rmMaisLinha('prod', totalProd, 'rmRenderProdutos'));
 }
 
 function rmExcluirProduto(id){
-  const p = rmLoadProdutos().find(x=>x.id===id);
+  const p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(id);
   if(!p) return;
   const ok = confirm(`Excluir o produto ${p.nome||''}? Essa ação não pode ser desfeita e remove em todos os dispositivos.`);
   if(!ok) return;
@@ -3357,6 +3382,62 @@ function rmParseMoeda(str){
   const n = parseFloat(limpo);
   return isNaN(n) ? 0 : n;
 }
+
+// ===================== DESEMPENHO =====================
+// 1) formatadores de número e data reaproveitados (criar um a cada valor deixava as telas lentas)
+(function(){
+  const nOrig = Number.prototype.toLocaleString, cacheN = new Map();
+  Number.prototype.toLocaleString = function(loc, opt){
+    if(loc !== 'pt-BR') return nOrig.call(this, loc, opt);
+    const k = opt ? JSON.stringify(opt) : '';
+    let f = cacheN.get(k); if(!f){ f = new Intl.NumberFormat('pt-BR', opt); cacheN.set(k, f); }
+    return f.format(this);
+  };
+  const cacheD = new Map();
+  const fmtD = (padrao) => function(loc, opt){
+    if(loc !== 'pt-BR' || isNaN(this.getTime())) return padrao.orig.call(this, loc, opt);
+    const o = opt || padrao.def;
+    const k = padrao.nome + JSON.stringify(o);
+    let f = cacheD.get(k); if(!f){ f = new Intl.DateTimeFormat('pt-BR', o); cacheD.set(k, f); }
+    return f.format(this);
+  };
+  const D = Date.prototype;
+  const defs = [
+    ['toLocaleString', { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit' }],
+    ['toLocaleDateString', { year:'numeric', month:'2-digit', day:'2-digit' }],
+    ['toLocaleTimeString', { hour:'2-digit', minute:'2-digit', second:'2-digit' }]
+  ];
+  defs.forEach(([nome, def]) => { const orig = D[nome]; D[nome] = fmtD({ nome, def, orig }); });
+})();
+// 2) índice por id: achar um produto/OS/venda direto, sem percorrer a lista inteira
+const rmIdxCache = new WeakMap();
+function rmIdx(arr, campo){
+  campo = campo || 'id';
+  let porCampo = rmIdxCache.get(arr); if(!porCampo){ porCampo = {}; rmIdxCache.set(arr, porCampo); }
+  let m = porCampo[campo];
+  if(!m){ m = new Map(); for(const x of arr){ const v = x[campo]; if(v != null && !m.has(v)) m.set(v, x); } porCampo[campo] = m; }
+  return m;
+}
+// agrupa uma lista por um campo (ex.: OS por cliente)
+const rmGrpCache = new WeakMap();
+function rmGrupo(arr, chaveFn, nome){
+  let g = rmGrpCache.get(arr); if(!g){ g = {}; rmGrpCache.set(arr, g); }
+  if(!g[nome]){ const m = new Map(); for(const x of arr){ const k = chaveFn(x); if(k == null || k === '') continue; if(!m.has(k)) m.set(k, []); m.get(k).push(x); } g[nome] = m; }
+  return g[nome];
+}
+
+// 3) listas grandes: desenha as primeiras linhas e um botão "Mostrar mais"
+const RM_LIM_PASSO = 200;
+const rmLim = {};
+function rmLimitar(chave, arr){ const n = rmLim[chave] || RM_LIM_PASSO; return arr.length > n ? arr.slice(0, n) : arr; }
+function rmMaisLinha(chave, total, render, colspan){
+  const n = rmLim[chave] || RM_LIM_PASSO; if(total <= n) return '';
+  return `<tr class="rm-mais-tr"><td colspan="${colspan || 30}" style="text-align:center; padding:12px;"><button class="rm-pe2-btn" onclick="event.stopPropagation(); rmLim['${chave}'] = ${n + RM_LIM_PASSO * 2}; ${render}()">Mostrar mais (mostrando ${n} de ${total})</button> <button class="rm-pe2-btn" onclick="event.stopPropagation(); rmLim['${chave}'] = 999999; ${render}()">Mostrar todos</button></td></tr>`;
+}
+function rmLimCol(){ return 60; }
+function rmMaisCol(resto){ return `<div class="rm-column-empty" style="padding:8px">+ ${resto} moto(s). Use a Lista para ver todas.</div>`; }
+// listas vindas da memória: a mesma lista enquanto não muda (para o índice valer entre chamadas)
+function rmMemLista(k){ return rmMem[k] || rmStoreLer(k); }
 
 function rmFormatMoeda(valor){
   return 'R$ ' + (Number(valor) || 0).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
@@ -3392,7 +3473,7 @@ function rmSetTabelaPrecoPdv(tabela){
   document.getElementById('rm-pdv-tabela-parceiro').classList.toggle('active', tabela==='parceiro');
 
   if(rmPdvProdutoSelecionadoId){
-    const p = rmLoadProdutos().find(x=>x.id===rmPdvProdutoSelecionadoId);
+    const p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(rmPdvProdutoSelecionadoId);
     if(p){
       const preco = tabela==='parceiro' ? p.precoParceiro : p.precoConsumidor;
       document.getElementById('rm-pdv-item-preco').value = preco ? String(preco).replace('.',',') : '';
@@ -3404,7 +3485,7 @@ function rmSetTabelaPrecoPdv(tabela){
   let mudouCarrinho = false;
   rmPdvCarrinho.forEach(item=>{
     if(!item.produtoId) return;
-    const p = produtos.find(x=>x.id===item.produtoId);
+    const p = rmIdx(produtos).get(item.produtoId);
     if(!p) return;
     const novoPreco = tabela==='parceiro' ? p.precoParceiro : p.precoConsumidor;
     if(novoPreco > 0 && novoPreco !== item.precoUnit){
@@ -3452,7 +3533,7 @@ function rmBuscarProdutoPdv(query){
 function rmImprimirSeparacao(titulo, ref, itens){
   const prods = rmLoadProdutos();
   const linhas = (itens || []).map(it => {
-    const p = it.produtoId ? prods.find(x => x.id === it.produtoId) : null;
+    const p = it.produtoId ? rmIdx(prods).get(it.produtoId) : null;
     if(p && p.ehServico) return null;
     if(!p && /M[AÃ]O\s*DE\s*OBRA|SERVI[CÇ]O/i.test(it.nome || '')) return null;
     return { loc: (p && p.localizacao) || '', nome: it.nome || (p && p.nome) || '', qtd: Number(it.quantidade) || 1, un: (p && p.unidade) || 'UN', cod: (p && (p.codigo || p.codigoBarras)) || '', est: p ? (Number(p.estoqueAtual) || 0) : null };
@@ -3472,7 +3553,7 @@ function rmPdvInfoProduto(p){
   el.innerHTML = (p.marca ? `<span>${rmEscapeHtml(p.marca)}</span>` : '') + rmInvSelo(p.id);
 }
 function rmEscolherProdutoPdv(produtoId, semFoco){
-  const p = rmLoadProdutos().find(x=>x.id===produtoId);
+  const p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(produtoId);
   if(!p) return;
   rmPdvProdutoSelecionadoId = p.id;
   document.getElementById('rm-pdv-item-nome').value = p.nome || '';
@@ -3580,7 +3661,7 @@ function rmDescontarEstoqueVenda(itens){
   let mudou = false;
   itens.forEach(item=>{
     if(!item.produtoId) return;
-    const p = produtos.find(x=>x.id===item.produtoId);
+    const p = rmIdx(produtos).get(item.produtoId);
     if(!p) return;
     p.estoqueAtual = (p.estoqueAtual || 0) - (item.quantidade || 0);
     mudou = true;
@@ -3675,7 +3756,7 @@ function rmEditarItemPdv(i){
   if(!item) return;
   rmPdvEditandoIndex = i;
   rmPdvProdutoSelecionadoId = item.produtoId || null;
-  rmPdvInfoProduto(item.produtoId ? rmLoadProdutos().find(x => x.id === item.produtoId) : null);
+  rmPdvInfoProduto(item.produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(item.produtoId) : null);
   document.getElementById('rm-pdv-item-nome').value = item.nome;
   document.getElementById('rm-pdv-item-preco').value = String(item.precoUnit).replace('.', ',');
   document.getElementById('rm-pdv-item-qtd').value = rmFmtQtd(item.quantidade);
@@ -3760,7 +3841,7 @@ function rmRenderCarrinhoPdv(){
       const cls = 'rm-px-l' + (i === rmPdvEditandoIndex ? ' rm-px-l-edit' : (i === rmPdvUltimoIndex ? ' rm-px-l-novo' : ''));
       return `
         <tr class="${cls}" onclick="rmEditarItemPdv(${i})">
-          <td class="rm-px-t-nome" title="${rmEscapeHtml(item.nome)}">${rmEscapeHtml(item.nome)}${(() => { const pp = item.produtoId ? rmLoadProdutos().find(x => x.id === item.produtoId) : null; return pp && pp.localizacao ? ` <span class="rm-pdv-loc-tab">${rmEscapeHtml(pp.localizacao)}</span>` : ''; })()}</td>
+          <td class="rm-px-t-nome" title="${rmEscapeHtml(item.nome)}">${rmEscapeHtml(item.nome)}${(() => { const pp = item.produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(item.produtoId) : null; return pp && pp.localizacao ? ` <span class="rm-pdv-loc-tab">${rmEscapeHtml(pp.localizacao)}</span>` : ''; })()}</td>
           <td>${rmFmtQtd(item.quantidade)}</td>
           <td>${rmFmtNum(item.precoUnit)}</td>
           <td>${rmFmtNum(bruto)}</td>
@@ -4279,7 +4360,7 @@ function rmAnexarItensPendentes(registro){
   rmOsItensPendentes = null;
   const produtos = rmLoadProdutos();
   registro.pecasUsadas = P.itens.map(i => {
-    const p = i.produtoId ? produtos.find(x => x.id === i.produtoId) : null;
+    const p = i.produtoId ? rmIdx(produtos).get(i.produtoId) : null;
     const q = Number(i.quantidade) || 1, un = Number(i.precoUnit) || 0, d = Number(i.desconto) || 0;
     return { produtoId: i.produtoId || null, nome: i.nome, codigo: (p && p.codigo) || '', localizacao: (p && p.localizacao) || '',
       categoria: (p && p.categoria) || '', servico: !!(p && p.ehServico) || (!i.produtoId && /M[AÃ]O\s*DE\s*OBRA|SERVI[CÇ]O/i.test(i.nome || '')),
@@ -4287,7 +4368,7 @@ function rmAnexarItensPendentes(registro){
   });
   registro.pecasDescontoValor = P.desconto; registro.pecasDescontoTipo = 'valor';
   registro.pecasUsadas.forEach(pc => {
-    const p = pc.produtoId ? produtos.find(x => x.id === pc.produtoId) : null;
+    const p = pc.produtoId ? rmIdx(produtos).get(pc.produtoId) : null;
     if(p && !p.ehServico){ p.estoqueAtual = (Number(p.estoqueAtual) || 0) - pc.quantidade; rmDbUpsertProduto(p); }
   });
   rmSaveProdutos(produtos);
@@ -4723,10 +4804,8 @@ function rmSetOnlineStatus(online){
   }
 }
 
-function rmLoad(){
-  try{ return JSON.parse(localStorage.getItem(RM_KEY)) || []; }catch(e){ return []; }
-}
-function rmSave(list){ localStorage.setItem(RM_KEY, JSON.stringify(list)); }
+function rmLoad(){ return rmStoreLer(RM_KEY); }
+function rmSave(list){ rmStoreSalvar(RM_KEY, list); }
 
 // ===================== LOGIN, PERMISSÕES E REGISTRO =====================
 const RM_LOGIN_DOMINIO = '@radicalmotos.app.br';
@@ -5020,7 +5099,7 @@ function rmComIso(d){ return new Date(d.getTime() - d.getTimezoneOffset()*6e4).t
 //   à vista = data da venda/finalização; a prazo = quando o cliente quita a nota inteira.
 function rmComNome(n){ return String(n || '').toUpperCase().replace(/[-–]?\s*MEC[AÂ]NICO\s*$/,'').replace(/\s+/g,' ').trim(); }
 function rmComEhServico(it, prods){
-  const p = it.produtoId ? prods.find(x => x.id === it.produtoId) : null;
+  const p = it.produtoId ? rmIdx(prods).get(it.produtoId) : null;
   return !!(it.servico || (p && p.ehServico) || /M[AÃ]O\s*DE\s*OBRA|SERVI[CÇ]O/i.test(it.nome || ''));
 }
 function rmComMecDoItem(it){
@@ -5034,7 +5113,7 @@ function rmOsDataEntrega(o){
 // data em que o documento ficou pago (a prazo = quando quitou a nota inteira)
 function rmComDataPago(refId, forma, dataAvista){
   if(rmAPrazo(forma)){
-    const n = rmLoadProms().find(x => x.refId === refId);
+    const n = rmIdx(rmMemLista(RM_PROM_KEY), 'refId').get(refId);
     if(!n || !rmNotaQuitada(n)) return null;
     return rmNotaQuitadaEm(n) || null;
   }
@@ -5294,7 +5373,7 @@ const rmVgDentro = (d, r) => { if(!d) return false; const t = new Date(String(d)
 // receitas (vendas PDV + OS pagas) num intervalo
 function rmVgReceitas(r){
   const prods = rmLoadProdutos();
-  const custoDe = it => { const p = it.produtoId ? prods.find(x => x.id === it.produtoId) : null; return p && !p.ehServico ? (Number(p.precoCusto) || 0) * (Number(it.quantidade) || 0) : 0; };
+  const custoDe = it => { const p = it.produtoId ? rmIdx(prods).get(it.produtoId) : null; return p && !p.ehServico ? (Number(p.precoCusto) || 0) * (Number(it.quantidade) || 0) : 0; };
   const docs = [];
   rmLoadVendas().filter(v => v.tipo !== 'orcamento' && rmVgDentro(v.criadoEm, r)).forEach(v => {
     docs.push({ tipo:'PDV', id:v.id, data:v.criadoEm, total:Number(v.total)||0, forma:v.formaPagamento||'—', itens:v.itens||[], cliente:v.clienteNome||'', clienteId:v.clienteId, custo:(v.itens||[]).reduce((s,i)=>s+custoDe(i),0) });
@@ -5689,10 +5768,11 @@ function rmMobIr(m){
   if(m === 'mais'){ rmMobMais(); return; }
   rmCloseModal && document.getElementById('rm-modal-backdrop').classList.contains('show') && rmCloseModal();
   rmMobMarcar(m);
-  if(m === 'receber'){ rmMobFecharTela(); rmSetSection('oficina'); rmSetView('reception'); window.scrollTo(0,0); return; }
-  if(m === 'contar'){ rmMobFecharTela(); rmSetSection('produtos'); rmSetViewProdutos('inventario'); window.scrollTo(0,0); return; }
+  if(m === 'receber'){ rmMobFecharTela(); rmSetSection('oficina'); rmSetView('reception'); rmMobMarcar(m); window.scrollTo(0,0); return; }
+  if(m === 'contar'){ rmMobFecharTela(); rmSetSection('produtos'); rmSetViewProdutos('inventario'); rmMobMarcar(m); window.scrollTo(0,0); return; }
   rmMobAba = m;
   document.body.classList.add('rm-mob-tela-on');
+  rmMobMarcar(m);
   window.scrollTo(0,0);
   rmMobRender();
 }
@@ -5749,7 +5829,7 @@ function rmMobOficinaHtml(){
     }).join('') : '<div class="rm-problema-empty" style="padding:24px;">Nenhuma moto aqui</div>'}`;
 }
 function rmMobStatus(id){
-  const o = rmLoad().find(x => x.id === id); if(!o) return;
+  const o = rmIdx(rmMemLista(RM_KEY)).get(id); if(!o) return;
   const el = document.createElement('div'); el.id = 'rm-mob-mais';
   el.innerHTML = `<div class="rm-mob-sheet"><div class="rm-mob-sheet-user">${rmEscapeHtml(o.modelo || '')} · ${rmEscapeHtml(o.nome || '')}</div>
     ${RM_STATUS_ORDER.map(k => `<button class="${o.status === k ? 'on' : ''}" onclick="document.getElementById('rm-mob-mais').remove(); rmChangeStatus('${id}','${k}'); try{navigator.vibrate&&navigator.vibrate(30)}catch(e){} rmMobRender(); rmShowToast('${rmJs((RM_STATUS[k]||{}).label || k)}')"><i style="background:${(RM_STATUS[k]||{}).color}"></i>${rmEscapeHtml((RM_STATUS[k]||{}).label || k)}</button>`).join('')}
@@ -5758,7 +5838,7 @@ function rmMobStatus(id){
   document.body.appendChild(el);
 }
 function rmMobMsgMoto(id){
-  const o = rmLoad().find(x => x.id === id); if(!o) return '';
+  const o = rmIdx(rmMemLista(RM_KEY)).get(id); if(!o) return '';
   const nome = (o.nome || '').split(' ')[0];
   if(o.status === 'prontas') return `Olá ${nome}! Aqui é da ${rmEmpresa().nome}. Sua moto ${o.modelo || ''} está pronta para retirada. Total: ${rmFormatMoeda(rmOsTotais(o).total)}.`;
   return `Olá ${nome}! Aqui é da ${rmEmpresa().nome}, sobre a sua moto ${o.modelo || ''}.`;
@@ -6004,10 +6084,8 @@ async function rmDbDeleteAviso(id){
 
 const RM_PRODUTOS_KEY = 'radicalMotos_produtos_v1';
 
-function rmLoadProdutos(){
-  try{ return JSON.parse(localStorage.getItem(RM_PRODUTOS_KEY)) || []; }catch(e){ return []; }
-}
-function rmSaveProdutos(list){ localStorage.setItem(RM_PRODUTOS_KEY, JSON.stringify(list)); }
+function rmLoadProdutos(){ return rmStoreLer(RM_PRODUTOS_KEY); }
+function rmSaveProdutos(list){ rmStoreSalvar(RM_PRODUTOS_KEY, list); }
 
 function rmFromDbRowProduto(row){
   return {
@@ -6091,10 +6169,8 @@ async function rmDbDeleteProduto(id){
   if(error) console.error('Supabase delete produto:', error);
 }
 
-function rmLoadVendas(){
-  try{ return JSON.parse(localStorage.getItem(RM_VENDAS_KEY)) || []; }catch(e){ return []; }
-}
-function rmSaveVendas(list){ localStorage.setItem(RM_VENDAS_KEY, JSON.stringify(list)); }
+function rmLoadVendas(){ return rmStoreLer(RM_VENDAS_KEY); }
+function rmSaveVendas(list){ rmStoreSalvar(RM_VENDAS_KEY, list); }
 
 function rmFromDbRowVenda(row){
   return {
@@ -6137,10 +6213,8 @@ async function rmDbUpsertVenda(venda){
   if(error) console.error('Supabase upsert venda:', error);
 }
 
-function rmLoadClientes(){
-  try{ return JSON.parse(localStorage.getItem(RM_CLIENTES_KEY)) || []; }catch(e){ return []; }
-}
-function rmSaveClientes(list){ localStorage.setItem(RM_CLIENTES_KEY, JSON.stringify(list)); }
+function rmLoadClientes(){ return rmStoreLer(RM_CLIENTES_KEY); }
+function rmSaveClientes(list){ rmStoreSalvar(RM_CLIENTES_KEY, list); }
 
 function rmFromDbRowCliente(row){
   return {
@@ -6724,7 +6798,7 @@ function rmA4Itens(itens, extras, simples){
   itens = itens || [];
   let qtd = 0, tot = 0;
   const linhas = itens.map((it, i) => {
-    const p = it.produtoId ? prods.find(x => x.id === it.produtoId) : null;
+    const p = it.produtoId ? rmIdx(prods).get(it.produtoId) : null;
     const serv = it.servico || (p && p.ehServico);
     qtd += Number(it.quantidade) || 0; tot += Number(it.subtotal) || 0;
     const zerado = p && !p.ehServico && (p.estoqueAtual || 0) <= 0;
@@ -6733,7 +6807,7 @@ function rmA4Itens(itens, extras, simples){
       ${simples ? '' : `<td class="c cx">${serv ? 'S' : 'P'}</td>`}<td class="r">${rmFmtQtd(it.quantidade)}</td>${simples ? '' : `<td class="cx">${rmH((p && p.unidade) || 'UN')}</td>`}
       <td class="r">${rmFmtNum(it.precoUnit)}</td><td class="r">${rmFmtNum(it.subtotal)}</td></tr>`;
   }).join('');
-  const temZerado = itens.some(it => { const p = it.produtoId ? prods.find(x => x.id === it.produtoId) : null; return p && !p.ehServico && (p.estoqueAtual || 0) <= 0; });
+  const temZerado = itens.some(it => { const p = it.produtoId ? rmIdx(prods).get(it.produtoId) : null; return p && !p.ehServico && (p.estoqueAtual || 0) <= 0; });
   return rmA4Secao('Produtos e Serviços', `
     <table class="a4-tab">
       <thead><tr><th class="c cx" style="width:34px">Item</th><th class="cx" style="width:80px">Código</th><th>Descrição</th>${simples ? '' : '<th class="c cx" style="width:22px">T</th>'}<th class="r" style="width:38px">Qtd.</th>${simples ? '' : '<th class="cx" style="width:38px">Unid.</th>'}<th class="r" style="width:90px">Valor Un. (R$)</th><th class="r" style="width:80px">Total (R$)</th></tr></thead>
@@ -6919,7 +6993,7 @@ function rmCorpoVendaA4(id){
 // ---- Ordem de serviço ----
 function rmImprimirOSA4(id){ const c = rmCorpoOSA4(id); if(c) rmImprimirA4(c.titulo, c.corpo); }
 function rmCorpoOSA4(id){
-  const r = rmLoad().find(x => x.id === id); if(!r) return null;
+  const r = rmIdx(rmMemLista(RM_KEY)).get(id); if(!r) return null;
   const t = rmOsTotais(r);
   const cli = r.clienteId ? (rmLoadClientes().find(c => c.id === r.clienteId) || { nome:r.nome, telefone:r.telefone }) : { nome:r.nome, telefone:r.telefone };
   const probs = (r.problemas||[]).map(p => typeof p === 'string' ? p : (p.texto||'')).filter(Boolean);
@@ -6980,8 +7054,8 @@ function rmReimprimirRecibo(notaId, n, j){
 
 // ===================== NOTAS PROMISSÓRIAS =====================
 const RM_PROM_KEY = 'radicalMotos_promissorias';
-function rmLoadProms(){ try{ return JSON.parse(localStorage.getItem(RM_PROM_KEY)) || []; }catch(e){ return []; } }
-function rmSaveProms(l){ localStorage.setItem(RM_PROM_KEY, JSON.stringify(l)); }
+function rmLoadProms(){ return rmStoreLer(RM_PROM_KEY); }
+function rmSaveProms(l){ rmStoreSalvar(RM_PROM_KEY, l); }
 
 function rmPromFromDb(r){
   const n = rmPromFromDbCru(r);
@@ -7385,8 +7459,8 @@ function rmRenderFinClientes(){
   const hoje = rmHojeISO();
   const linhas = rmLoadClientes().map(c => {
     const os = rmMotosDoCliente(c);
-    const pdv = vendas.filter(v => v.clienteId === c.id);
-    const notas = proms.filter(n => n.clienteId === c.id || (!n.clienteId && c.nome && n.clienteNome === c.nome));
+    const pdv = rmGrupo(vendas, v => v.clienteId, 'cli').get(c.id) || [];
+    const notas = (rmGrupo(proms, n => n.clienteId, 'cli').get(c.id) || []).concat(c.nome ? (rmGrupo(proms, n => n.clienteId ? null : n.clienteNome, 'nomeSemId').get(c.nome) || []) : []);
     let receber = 0, vencido = 0, pagoProm = 0;
     notas.forEach(n => n.parcelas.forEach(p => {
       const resta = rmParcRestante(p);
@@ -7403,7 +7477,7 @@ function rmRenderFinClientes(){
     (!q || [l.c.nome, l.c.apelido, l.c.cpf, l.c.telefone].some(x => (x||'').toLowerCase().includes(q)))
   ).sort((a,b) => (b.vencido - a.vencido) || (b.receber - a.receber) || (a.c.nome||'').localeCompare(b.c.nome||'', 'pt-BR'));
   document.getElementById('rm-fin-cli-empty').style.display = linhas.length ? 'none' : '';
-  body.innerHTML = linhas.map(l => `
+  body.innerHTML = rmLimitar('fcli', linhas).map(l => `
     <tr style="cursor:pointer" onclick="rmClienteAba='pagamentos'; rmClienteRascunho={id:'${l.c.id}'}; rmAbrirModalCliente('${l.c.id}')">
       <td>${rmEscapeHtml(l.c.nome||'—')}${l.c.apelido?` <small style="color:var(--rm-text-dim)">(${rmEscapeHtml(l.c.apelido)})</small>`:''}</td>
       <td>${rmEscapeHtml(l.c.telefone||'—')}</td>
@@ -7411,7 +7485,7 @@ function rmRenderFinClientes(){
       <td style="text-align:right">${rmFormatMoeda(l.pago)}</td>
       <td style="text-align:right; font-weight:${l.receber>0.004?700:400}">${l.receber>0.004 ? rmFormatMoeda(l.receber) : '—'}</td>
       <td style="text-align:right; font-weight:700; color:${l.vencido>0.004?'#b3261e':'inherit'}">${l.vencido>0.004 ? rmFormatMoeda(l.vencido) : '—'}</td>
-    </tr>`).join('');
+    </tr>`).join('') + rmMaisLinha('fcli', linhas.length, 'rmRenderFinClientes');
 }
 
 function rmPromSituacao(p){
@@ -7432,7 +7506,7 @@ function rmRenderFinProm(){
   ).sort((a,b) => filtro === 'paga' ? String(b.p.pagoEm).localeCompare(String(a.p.pagoEm)) : a.p.vencimento.localeCompare(b.p.vencimento));
   document.getElementById('rm-fin-prom-empty').style.display = lista.length ? 'none' : '';
   const rot = { aberta:'Em aberto', vencida:'Vencida', paga:'Paga' };
-  body.innerHTML = lista.map(({nota, p, sit}) => {
+  body.innerHTML = rmLimitar('prom', lista).map(({nota, p, sit}) => {
     const pago = rmParcPago(p), resta = rmParcRestante(p);
     const parcial = sit !== 'paga' && pago > 0;
     return `
@@ -7448,7 +7522,7 @@ function rmRenderFinProm(){
         <button class="rm-prom-btn" onclick="rmPromImprimir('${nota.id}')" title="Imprimir notas promissórias para o cliente assinar (opcional)">&#128424;</button>
       </div></td>
     </tr>`;
-  }).join('');
+  }).join('') + rmMaisLinha('prom', lista.length, 'rmRenderFinProm');
 }
 
 function rmPromReceber(notaId, n){
@@ -7589,7 +7663,8 @@ function rmFinTodasVendas(){
     cliente:[r.nome, r.modelo].filter(Boolean).join(' · '), forma:r.formaPagamento||'',
     total: r.valorPago || rmOsTotais(r).total, por: r.finalizadoPor || rmOsCriador(r)
   }));
-  return pdv.concat(os).sort((a,b) => new Date(b.data) - new Date(a.data));
+  const ts = x => x.__t != null ? x.__t : (x.__t = new Date(x.data).getTime() || 0);
+  return pdv.concat(os).sort((a,b) => ts(b) - ts(a));
 }
 
 function rmFinNoPeriodo(data, periodo){
@@ -7615,16 +7690,16 @@ function rmRenderFinVendas(){
     (!q || (v.codigo+' '+v.cliente+' '+v.forma+' '+(v.por||'')).toLowerCase().includes(q))
   );
   document.getElementById('rm-fin-vendas-empty').style.display = lista.length ? 'none' : '';
-  body.innerHTML = lista.map(v => `
+  body.innerHTML = rmLimitar('vend', lista).map(v => `
     <tr style="cursor:pointer" onclick="${v.origem==='PDV' ? `rmAbrirDetalheVenda('${v.id}')` : `rmOpenModal('${v.id}', true)`}">
       <td>${v.data ? new Date(v.data).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'}) : '—'}</td>
       <td>${rmEscapeHtml(v.codigo)||'—'}</td>
-      <td><span class="rm-fin-tag rm-fin-tag-${v.origem}">${v.origem}</span>${v.origem === 'OS' ? ' ' + rmFotoIconHtml(rmLoad().find(o => o.id === v.id)) : ''}</td>
+      <td><span class="rm-fin-tag rm-fin-tag-${v.origem}">${v.origem}</span>${v.origem === 'OS' ? ' ' + rmFotoIconHtml(rmIdx(rmMemLista(RM_KEY)).get(v.id)) : ''}</td>
       <td>${rmEscapeHtml(v.cliente)||'—'}</td>
       <td>${rmEscapeHtml(v.por)||'—'}</td>
       <td>${rmEscapeHtml(v.forma)||'—'}</td>
       <td style="text-align:right; font-weight:700;">${rmFormatMoeda(v.total)}</td>
-    </tr>`).join('');
+    </tr>`).join('') + rmMaisLinha('vend', lista.length, 'rmRenderFinVendas');
 }
 
 function rmFabBadge(){
@@ -7654,7 +7729,7 @@ function rmFabUltimos(){
   const ult = (rmPedido.itens || []).filter(i => !i.comprado).slice(-4).reverse();
   const prods = rmLoadProdutos();
   document.getElementById('rm-fab-ult').innerHTML = ult.length ? '<div class="rm-fab-ult-tit">Últimos anotados</div>' + ult.map(i => {
-    const p = i.produtoId ? prods.find(x => x.id === i.produtoId) : null;
+    const p = i.produtoId ? rmIdx(prods).get(i.produtoId) : null;
     return `<div>${rmFmtQtd(i.qtd)}× ${rmEscapeHtml(p ? p.nome : i.texto)}</div>`;
   }).join('') + `<a href="#" onclick="event.preventDefault(); rmFabFechar(); rmCloseModal(); rmSetSection('produtos'); rmSetViewProdutos('pedido');">Ver lista completa →</a>` : '';
 }
@@ -7665,6 +7740,7 @@ document.addEventListener('mousedown', ev => {
 setTimeout(() => { rmFabBadge(); rmPedidoSync().then(rmFabBadge); }, 3000);
 
 function rmSetSection(section){
+  if(typeof rmMobMarcar === 'function' && document.getElementById('rm-mob-nav')) rmMobMarcar(section === 'produtos' ? 'contar' : section === 'oficina' ? 'oficina' : section === 'clientes' ? 'clientes' : 'mais');
   if(typeof rmMobAba !== 'undefined' && rmMobAba){ rmMobAba = null; document.body.classList.remove('rm-mob-tela-on'); }
   if(rmUsuario && !rmPode(section)) section = rmPrimeiraSecaoPermitida();
   document.body.dataset.secao = section;
@@ -7742,7 +7818,7 @@ function rmRenderPedido(){
   const sugEl = document.getElementById('rm-ped-sug');
   document.getElementById('rm-ped-cont').textContent = itens.length ? `${pend} para comprar${itens.length - pend ? ' · ' + (itens.length - pend) + ' comprado(s)' : ''}` : '';
   listaEl.innerHTML = itens.length ? itens.map((i, k) => {
-    const p = i.produtoId ? rmLoadProdutos().find(x => x.id === i.produtoId) : null;
+    const p = i.produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(i.produtoId) : null;
     return `<div class="rm-ped-item${i.comprado ? ' rm-ped-ok' : ''}">
       <input type="checkbox" title="Comprado" ${i.comprado ? 'checked' : ''} onchange="rmPedido.itens[${k}].comprado=this.checked; rmPedidoSalvar(); rmRenderPedido()">
       <input class="rm-ped-qtd" inputmode="decimal" value="${rmFmtQtd(i.qtd)}" onfocus="this.select()" onchange="rmPedido.itens[${k}].qtd=rmParseMoeda(this.value)||1; rmPedidoSalvar()">
@@ -7804,7 +7880,7 @@ function rmPedidoLimparComprados(){
 function rmPedidoLinhas(){
   const prods = rmLoadProdutos();
   return rmPedido.itens.filter(i => !i.comprado).map(i => {
-    const p = i.produtoId ? prods.find(x => x.id === i.produtoId) : null;
+    const p = i.produtoId ? rmIdx(prods).get(i.produtoId) : null;
     return { qtd: i.qtd, nome: p ? p.nome : i.texto, loc: p && p.localizacao, forn: (p && p.fornecedor) || '', marca: p && p.marca, obs: i.obs, est: p ? (p.estoqueAtual||0) : null };
   });
 }
@@ -7841,8 +7917,8 @@ let rmInvAtual = null;   // id da contagem aberta
 let rmInvTela = 'home';  // home | contar | revisar
 let rmInvSoFaltando = false;
 
-function rmInvLoad(){ try{ return JSON.parse(localStorage.getItem(RM_INV_KEY)) || []; }catch(e){ return []; } }
-function rmInvSaveLocal(l){ localStorage.setItem(RM_INV_KEY, JSON.stringify(l)); }
+function rmInvLoad(){ return rmStoreLer(RM_INV_KEY); }
+function rmInvSaveLocal(l){ rmStoreSalvar(RM_INV_KEY, l); }
 function rmInvFromDb(r){ return { id:r.id, titulo:r.titulo, tipo:r.tipo, status:r.status, itens:r.itens || [], criadoEm:r.criado_em, criadoPor:r.criado_por, finalizadoEm:r.finalizado_em, finalizadoPor:r.finalizado_por, resumo:r.resumo || null }; }
 function rmInvToDb(i){ return { id:i.id, titulo:i.titulo, tipo:i.tipo, status:i.status, itens:i.itens, criado_em:i.criadoEm, criado_por:i.criadoPor||null, finalizado_em:i.finalizadoEm||null, finalizado_por:i.finalizadoPor||null, resumo:i.resumo||null }; }
 let rmInvTimer = {};
@@ -8138,7 +8214,7 @@ function rmInvBuscarAdd(inp){
   lista.classList.add('show');
 }
 function rmInvIncluir(pid){
-  const inv = rmInvGet(rmInvAtual), p = rmLoadProdutos().find(x => x.id === pid); if(!p) return;
+  const inv = rmInvGet(rmInvAtual), p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(pid); if(!p) return;
   inv.itens.push(rmInvItemDe(p)); rmInvOrdenar(inv); rmInvSalvar(inv); rmInvRenderContagem();
 }
 function rmInvCancelar(){
@@ -8217,7 +8293,7 @@ function rmInvAprovar(){
   if(!confirm(`Ajustar o estoque de ${c.div.length} produto(s)?\nFaltando: ${rmFormatMoeda(c.valorFalta)} · Sobrando: ${rmFormatMoeda(c.valorSobra)}`)) return;
   const prods = rmLoadProdutos();
   c.div.forEach(l => {
-    const p = prods.find(x => x.id === l.it.pid); if(!p) return;
+    const p = rmIdx(prods).get(l.it.pid); if(!p) return;
     p.estoqueAtual = Math.round(((Number(p.estoqueAtual) || 0) + l.dif) * 1000) / 1000; // soma a diferença (respeita vendas feitas durante a contagem)
     rmDbUpsertProduto(p);
   });
@@ -8815,15 +8891,15 @@ function rmUpdateListaHeaders(){
 
 function rmMotosDoCliente(cliente){
   const telefoneDigits = (cliente.telefone||'').replace(/\D/g,'');
-  const todos = rmLoad();
+  const todos = rmMemLista(RM_KEY);
   let motos;
-  const porVinculo = todos.filter(m => m.clienteId === cliente.id);
+  const porVinculo = rmGrupo(todos, m => m.clienteId, 'cli').get(cliente.id) || [];
   if(porVinculo.length > 0){
     motos = porVinculo;
   } else if(telefoneDigits){
-    motos = todos.filter(m => (m.telefone||'').replace(/\D/g,'') === telefoneDigits);
+    motos = rmGrupo(todos, m => (m.telefone||'').replace(/\D/g,''), 'tel').get(telefoneDigits) || [];
   } else {
-    motos = cliente.nome ? todos.filter(m => m.nome === cliente.nome) : [];
+    motos = cliente.nome ? (rmGrupo(todos, m => m.nome, 'nome').get(cliente.nome) || []) : [];
   }
   return motos.slice().sort((a,b) => new Date(b.entrada) - new Date(a.entrada));
 }
@@ -8850,7 +8926,8 @@ function rmRenderClientes(){
   }
   empty.style.display = 'none';
 
-  list.forEach(c=>{
+  const totalCli = list.length;
+  rmLimitar('cli', list).forEach(c=>{
     const qtdMotos = rmMotosDoCliente(c).length;
     const situacaoInfo = RM_SITUACAO[c.situacao] || RM_SITUACAO['positivo'];
     const tr = document.createElement('tr');
@@ -8869,6 +8946,7 @@ function rmRenderClientes(){
     tr.onclick = () => rmAbrirModalCliente(c.id);
     body.appendChild(tr);
   });
+  body.insertAdjacentHTML('beforeend', rmMaisLinha('cli', totalCli, 'rmRenderClientes'));
 }
 
 let rmClienteAba = 'dados';
@@ -9081,7 +9159,7 @@ function rmClienteHistoricoHtml(c){
     <div class="rm-cli-hist">
       <div class="rm-cli-hist-linha" onclick="rmClienteAbrirHist('${c.id}','${x.tipo}','${x.id}')">
         <span class="rm-fin-tag rm-fin-tag-${x.tipo}">${x.tipo}</span>
-        <span class="rm-cli-hist-cod">${rmEscapeHtml(x.codigo)}</span>${x.tipo === 'OS' ? rmFotoIconHtml(rmLoad().find(o => o.id === x.id)) : ''}
+        <span class="rm-cli-hist-cod">${rmEscapeHtml(x.codigo)}</span>${x.tipo === 'OS' ? rmFotoIconHtml(rmIdx(rmMemLista(RM_KEY)).get(x.id)) : ''}
         <span class="rm-cli-hist-tit">${rmEscapeHtml(x.titulo)}${x.status?` <small>· ${rmEscapeHtml(x.status)}${x.pago?' · pago':''}</small>`:''}</span>
         <span class="rm-cli-hist-data">${x.data ? new Date(x.data).toLocaleDateString('pt-BR') : '—'}</span>
         <b>${rmFormatMoeda(x.total)}</b>
@@ -9326,7 +9404,7 @@ function rmClienteTimelineHtml(c){
               <span class="rm-tl-data">${fmtData(e.t)}</span>
               <span class="rm-tl-valor">${sinal[e.tipo]} ${rmFormatMoeda(e.valor)}</span>
             </div>
-            <div class="rm-tl-txt"><b>${rmEscapeHtml(e.cod||'')}</b>${e.origem === 'OS' ? rmFotoIconHtml(rmLoad().find(o => o.id === e.refId)) : ''} · ${rmEscapeHtml(e.txt)}</div>
+            <div class="rm-tl-txt"><b>${rmEscapeHtml(e.cod||'')}</b>${e.origem === 'OS' ? rmFotoIconHtml(rmIdx(rmMemLista(RM_KEY)).get(e.refId)) : ''} · ${rmEscapeHtml(e.txt)}</div>
             ${e.sub ? `<div class="rm-tl-sub">${rmEscapeHtml(e.sub)}</div>` : ''}
             <div class="rm-tl-saldo">${e.tipo === 'avista' ? 'Saldo devedor continua' : (e.tipo === 'pagamento' ? 'Ficou faltando' : 'Saldo devedor passou a')}: <b>${rmFormatMoeda(e.saldo)}</b>${e.tipo==='pagamento' && e.saldo <= 0.004 ? ' · <span style="color:#3c763d">tudo quitado</span>' : ''}</div>
           </div>
@@ -9690,7 +9768,7 @@ function rmPromFecharEditor(){
 }
 
 function rmAbrirDetalheOS(id){
-  const r = rmLoad().find(x=>x.id===id);
+  const r = rmIdx(rmMemLista(RM_KEY)).get(id);
   if(!r) return;
   const t = rmOsTotais(r);
   const itensHtml = (r.pecasUsadas||[]).map(item => `
@@ -9764,7 +9842,7 @@ function rmClienteHistToggle(tipo, id){
   if(el.style.display !== 'none'){ el.style.display = 'none'; return; }
   let itens = [], linhas = [];
   if(tipo === 'OS'){
-    const r = rmLoad().find(x=>x.id===id); if(!r) return;
+    const r = rmIdx(rmMemLista(RM_KEY)).get(id); if(!r) return;
     const t = rmOsTotais(r);
     itens = r.pecasUsadas || [];
     linhas = [
@@ -9962,7 +10040,7 @@ function rmRenderLista(){
       <td>${r.entrega ? '<span class="rm-osl-tag rm-osl-tag-ent">Entregar</span>' : ''}${r.buscar ? '<span class="rm-osl-tag rm-osl-tag-bus">Buscar</span>' : ''}</td>
       <td class="c">${rmOslTel(r) ? `<span class="rm-osl-tip" data-tip="WhatsApp ${rmEscapeHtml(rmOslTel(r))}"><button class="rm-osl-wpp" onclick="event.stopPropagation(); rmAbrirWhatsapp('${rmJs(rmOslTel(r))}')"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.3-.1z"/></svg></button></span>` : ''}</td>
     </tr>`;
-  body.innerHTML = sorted.map(linha).join('');
+  body.innerHTML = rmLimitar('osl', sorted).map(linha).join('') + rmMaisLinha('osl', sorted.length, 'rmRenderLista');
 }
 
 function rmRenderMecanicosBoard(){
@@ -10000,7 +10078,7 @@ function rmRenderKanban(boardId, list, columns, getKeyForRecord, field){
       body.innerHTML = '<div class="rm-column-empty">Nenhuma moto aqui</div>';
       return;
     }
-    cards.forEach(r=>{
+    (cards.length > rmLimCol() ? (setTimeout(() => body.insertAdjacentHTML('beforeend', rmMaisCol(cards.length - rmLimCol())), 0), cards.slice(0, rmLimCol())) : cards).forEach(r=>{
       const card = document.createElement('div');
       const parado = rmTempoParado(r);
       card.className = 'rm-card' + (parado.level==='alert' ? ' rm-card-alert' : '');
@@ -10136,7 +10214,7 @@ function rmMoveCardGroup(id, field, key){
 }
 
 function rmImprimirEtiqueta(id){
-  const r = rmLoad().find(x=>x.id===id);
+  const r = rmIdx(rmMemLista(RM_KEY)).get(id);
   if(!r) return;
   rmImprimirEtiquetaRecord(r);
 }
@@ -10215,8 +10293,8 @@ function rmImprimirEtiquetaRecord(r){
 }
 
 function rmExcluirRecepcao(id){
-  { const rr = rmLoad().find(x => x.id === id); if(rr) setTimeout(() => { if(!rmLoad().some(x => x.id === id)) rmLog('Excluiu OS', rr.codigoApp, [rr.nome, rr.modelo].filter(Boolean).join(' · ')); }, 500); }
-  const r = rmLoad().find(x=>x.id===id);
+  { const rr = rmIdx(rmMemLista(RM_KEY)).get(id); if(rr) setTimeout(() => { if(!rmLoad().some(x => x.id === id)) rmLog('Excluiu OS', rr.codigoApp, [rr.nome, rr.modelo].filter(Boolean).join(' · ')); }, 500); }
+  const r = rmIdx(rmMemLista(RM_KEY)).get(id);
   if(!r) return;
   const notaOS = rmPromDaRef(r.id);
   if(notaOS && rmPromRecebidoReal(notaOS) > 0.004){
@@ -10226,7 +10304,7 @@ function rmExcluirRecepcao(id){
   const ok = confirm(`Excluir a moto ${r.codigoApp||''} (${r.modelo})? Essa ação não pode ser desfeita e remove em todos os dispositivos.${(r.pecasUsadas||[]).length ? '\nAs peças lançadas voltam para o estoque.' : ''}`);
   if(!ok) return;
   { const prods = rmLoadProdutos(); let mexeu = false;
-    (r.pecasUsadas||[]).forEach(it => { const p = it.produtoId ? prods.find(x => x.id === it.produtoId) : null; if(p && !p.ehServico){ p.estoqueAtual = (Number(p.estoqueAtual)||0) + (Number(it.quantidade)||0); rmDbUpsertProduto(p); mexeu = true; } });
+    (r.pecasUsadas||[]).forEach(it => { const p = it.produtoId ? rmIdx(prods).get(it.produtoId) : null; if(p && !p.ehServico){ p.estoqueAtual = (Number(p.estoqueAtual)||0) + (Number(it.quantidade)||0); rmDbUpsertProduto(p); mexeu = true; } });
     if(mexeu) rmSaveProdutos(prods); }
   rmPromApagarDaRef(r.id);
 
@@ -10280,7 +10358,7 @@ function rmOsTotais(r){
   let qP=0, qS=0, tP=0, tS=0;
   const prods = rmLoadProdutos();
   itens.forEach(it=>{
-    const p = prods.find(x=>x.id===it.produtoId);
+    const p = rmIdx(prods).get(it.produtoId);
     const serv = it.servico || (p && p.ehServico);
     if(serv){ qS += it.quantidade||0; tS += it.subtotal||0; }
     else { qP += it.quantidade||0; tP += it.subtotal||0; }
@@ -10356,7 +10434,7 @@ function rmOsPagamentoHtml(r){
 }
 
 function rmOsTituloItem(it){
-  const p = rmLoadProdutos().find(x=>x.id===it.produtoId);
+  const p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(it.produtoId);
   const cat = it.categoria || (p && p.categoria) || '';
   return `${rmFmtQtd ? rmFmtQtd(it.quantidade) : it.quantidade} ${rmEscapeHtml(it.nome||'')}${it.localizacao?' #'+rmEscapeHtml(it.localizacao):''}${cat?' ('+rmEscapeHtml(cat)+')':''}`;
 }
@@ -10401,7 +10479,7 @@ function rmPecasUsadasHtml(r){
 function rmOsToggleItem(id, i){
   const k = id+'_'+i;
   rmOsFechados.has(k) ? rmOsFechados.delete(k) : rmOsFechados.add(k);
-  const r = rmLoad().find(x=>x.id===id);
+  const r = rmIdx(rmMemLista(RM_KEY)).get(id);
   if(r) document.getElementById('rm-modal-pecas-lista').innerHTML = rmPecasUsadasHtml(r);
 }
 
@@ -10417,7 +10495,7 @@ function rmOsEditarItem(id, i, campo, valor){
     const delta = novaQtd - (it.quantidade||0);
     if(delta && it.produtoId){
       const produtos = rmLoadProdutos();
-      const p = produtos.find(x=>x.id===it.produtoId);
+      const p = rmIdx(produtos).get(it.produtoId);
       if(p && !p.ehServico){ p.estoqueAtual = (p.estoqueAtual||0) - delta; rmSaveProdutos(produtos); rmDbUpsertProduto(p); }
     }
     it.quantidade = novaQtd;
@@ -10438,7 +10516,7 @@ function rmOsEditarItem(id, i, campo, valor){
 }
 
 function rmOsMarca(it){
-  const p = it.produtoId ? rmLoadProdutos().find(x=>x.id===it.produtoId) : null;
+  const p = it.produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(it.produtoId) : null;
   return (p && p.marca) || it.marca || '';
 }
 
@@ -10532,9 +10610,9 @@ function rmOsEscolher(osId, idx, produtoId){
   const it = r.pecasUsadas[idx];
   if(!rmOsPagaConfirmar(r)) return;
   const produtos = rmLoadProdutos();
-  const novo = produtos.find(x=>x.id===produtoId);
+  const novo = rmIdx(produtos).get(produtoId);
   if(!novo) return;
-  const velho = it.produtoId ? produtos.find(x=>x.id===it.produtoId) : null;
+  const velho = it.produtoId ? rmIdx(produtos).get(it.produtoId) : null;
   const q = it.quantidade || 1;
   if(velho && !velho.ehServico){ velho.estoqueAtual = (velho.estoqueAtual||0) + q; rmDbUpsertProduto(velho); }
   if(!novo.ehServico){ novo.estoqueAtual = (novo.estoqueAtual||0) - q; rmDbUpsertProduto(novo); }
@@ -10597,7 +10675,7 @@ function rmEscolherProdutoMoto(produtoId){
   const inp = document.getElementById('rm-modal-peca-nome');
   const id = inp.dataset.os;
   const produtos = rmLoadProdutos();
-  const p = produtos.find(x=>x.id===produtoId);
+  const p = rmIdx(produtos).get(produtoId);
   if(!p) return;
   const list = rmLoad();
   const item = list.find(r=>r.id===id);
@@ -10649,8 +10727,8 @@ function rmOsPagaReajustar(id){
 }
 
 function rmRemoverPecaMoto(id, index){
-  if(!rmOsPagaConfirmar(rmLoad().find(x => x.id === id))) return;
-  { const rr = rmLoad().find(x => x.id === id); const it = rr && rr.pecasUsadas && rr.pecasUsadas[index]; if(it) rmLog('Removeu item da OS', rr.codigoApp, it.nome + ' x' + it.quantidade); }
+  if(!rmOsPagaConfirmar(rmIdx(rmMemLista(RM_KEY)).get(id))) return;
+  { const rr = rmIdx(rmMemLista(RM_KEY)).get(id); const it = rr && rr.pecasUsadas && rr.pecasUsadas[index]; if(it) rmLog('Removeu item da OS', rr.codigoApp, it.nome + ' x' + it.quantidade); }
   const list = rmLoad();
   const item = list.find(r=>r.id===id);
   if(!item || !item.pecasUsadas || !item.pecasUsadas[index]) return;
@@ -10662,7 +10740,7 @@ function rmRemoverPecaMoto(id, index){
 
   if(peca.produtoId){
     const produtos = rmLoadProdutos();
-    const p = produtos.find(x=>x.id===peca.produtoId);
+    const p = rmIdx(produtos).get(peca.produtoId);
     if(p && !p.ehServico){
       p.estoqueAtual = (p.estoqueAtual || 0) + peca.quantidade;
       rmSaveProdutos(produtos);
@@ -10677,7 +10755,7 @@ function rmRemoverPecaMoto(id, index){
 function rmOpenModal(id, large){
   rmActiveModalId = id;
   rmActiveModalLarge = !!large;
-  const r = rmLoad().find(x=>x.id===id);
+  const r = rmIdx(rmMemLista(RM_KEY)).get(id);
   if(!r) return;
 
   const detalhesOculto = localStorage.getItem(RM_MODAL_DETALHES_OCULTO_KEY) === 'true';
@@ -10812,7 +10890,7 @@ function rmOpenModal(id, large){
 
     <div class="rm-modal-section rm-os-wrap" style="margin-top:6px;">
       <div class="rm-os-titulo-sec">&#124;&#124;&#124;&#124; Produtos e Serviços
-        <button class="rm-sep-btn" title="Imprimir a lista de peças para buscar no estoque, na ordem das prateleiras" onclick="rmImprimirSeparacao('${rmJs([r.nome, r.modelo].filter(Boolean).join(' · '))}', '${rmJs(r.codigoApp || '')}', (rmLoad().find(x => x.id === '${r.id}') || {}).pecasUsadas)">&#128205; Buscar no estoque</button></div>
+        <button class="rm-sep-btn" title="Imprimir a lista de peças para buscar no estoque, na ordem das prateleiras" onclick="rmImprimirSeparacao('${rmJs([r.nome, r.modelo].filter(Boolean).join(' · '))}', '${rmJs(r.codigoApp || '')}', (rmIdx(rmMemLista(RM_KEY)).get('${r.id}') || {}).pecasUsadas)">&#128205; Buscar no estoque</button></div>
       <div id="rm-modal-pecas-lista">${rmPecasUsadasHtml(r)}</div>
 
       <div class="rm-os-item" id="rm-os-busca-box" style="display:none;">
@@ -11058,7 +11136,72 @@ function rmInit(){
     rmInicializarResizeProdutos();
   }
 }
-rmAuthIniciar();
+// ===================== ARMAZENAMENTO RÁPIDO =====================
+// Os dados grandes (OS, produtos, vendas, clientes, notas a prazo, inventários) ficam em memória
+// e são guardados no IndexedDB do navegador (sem o limite de 5 MB do localStorage).
+// Ler é instantâneo; gravar é feito em segundo plano.
+function rmStoreChaves(){ return [RM_KEY, RM_PRODUTOS_KEY, RM_VENDAS_KEY, RM_CLIENTES_KEY, RM_PROM_KEY, RM_INV_KEY]; }
+const rmMem = {};
+let rmIdb = null, rmStorePronto = false;
+const rmStoreTimers = {};
+function rmIdbAbrir(){
+  return new Promise(res => {
+    try{
+      const r = indexedDB.open('radicalmotos', 1);
+      r.onupgradeneeded = () => { try{ r.result.createObjectStore('kv'); }catch(e){} };
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => res(null);
+      setTimeout(() => res(null), 4000);
+    }catch(e){ res(null); }
+  });
+}
+function rmIdbGet(k){
+  return new Promise(res => { try{ const g = rmIdb.transaction('kv').objectStore('kv').get(k); g.onsuccess = () => res(g.result); g.onerror = () => res(undefined); }catch(e){ res(undefined); } });
+}
+function rmIdbPut(k, v){
+  return new Promise(res => { try{ const t = rmIdb.transaction('kv', 'readwrite'); t.objectStore('kv').put(v, k); t.oncomplete = () => res(true); t.onerror = t.onabort = () => res(false); }catch(e){ res(false); } });
+}
+async function rmStorePreparar(){
+  rmIdb = await rmIdbAbrir();
+  for(const k of rmStoreChaves()){
+    let v = rmIdb ? await rmIdbGet(k) : undefined;
+    if(v === undefined){
+      // primeira vez: traz o que estava no localStorage
+      try{ v = JSON.parse(localStorage.getItem(k)); }catch(e){ v = null; }
+      if(!Array.isArray(v)) v = [];
+      if(rmIdb && await rmIdbPut(k, v)){ try{ localStorage.removeItem(k); }catch(e){} }
+    } else if(rmIdb){ try{ localStorage.removeItem(k); }catch(e){} }
+    rmMem[k] = Array.isArray(v) ? v : [];
+  }
+  rmStorePronto = true;
+}
+function rmStoreLer(k){
+  if(rmMem[k]) return rmMem[k].slice();
+  try{ const v = JSON.parse(localStorage.getItem(k)); return Array.isArray(v) ? v : []; }catch(e){ return []; }
+}
+function rmStoreGravarAgora(k){
+  delete rmStoreTimers[k];
+  const v = rmMem[k]; if(!v) return;
+  if(rmIdb){ rmIdbPut(k, v).then(ok => { if(!ok) rmStoreGravarLocal(k, v); }); }
+  else rmStoreGravarLocal(k, v);
+}
+function rmStoreGravarLocal(k, v){
+  try{ localStorage.setItem(k, JSON.stringify(v)); }
+  catch(e){ console.warn('Armazenamento local cheio para ' + k + ' (os dados continuam no servidor).'); }
+}
+function rmStoreSalvar(k, list){
+  rmMem[k] = Array.isArray(list) ? list : [];
+  if(!rmStorePronto){ rmStoreGravarLocal(k, rmMem[k]); return; }
+  // grava logo em seguida (junta várias gravações da mesma ação numa só)
+  if(rmStoreTimers[k]) return;
+  rmStoreTimers[k] = true;
+  queueMicrotask(() => rmStoreGravarAgora(k));
+}
+function rmStoreGravarPendentes(){ Object.keys(rmStoreTimers).forEach(rmStoreGravarAgora); }
+window.addEventListener('pagehide', rmStoreGravarPendentes);
+document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'hidden') rmStoreGravarPendentes(); });
+
+rmStorePreparar().catch(e => console.error(e)).then(() => rmAuthIniciar());
 if('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 </script>
 <!-- Botão rápido de pedido (fica sobre todas as telas) -->
