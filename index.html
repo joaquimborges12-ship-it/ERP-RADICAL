@@ -1447,6 +1447,11 @@
   .rm-conc-btn{width:auto !important; margin:0 !important; padding:10px 20px !important;}
   .rm-conc-feito{color:#2e8b57; font-weight:700; font-size:13.5px;}
   .rm-conc-sumido{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:6px;}
+  .rm-cr-h{position:absolute; top:4px; bottom:4px; right:0; width:9px; cursor:col-resize; z-index:6; touch-action:none;}
+  .rm-cr-h::after{content:''; position:absolute; right:0; top:0; bottom:0; width:1px; background:var(--rm-border);}
+  .rm-cr-h:hover::after, .rm-cr-h.ativo::after{width:3px; background:var(--rm-accent);}
+  body.rm-cr-arrastando, body.rm-cr-arrastando *{cursor:col-resize !important; user-select:none !important;}
+  @media (max-width:760px){ .rm-cr-h{display:none;} }
   .rm-inv-guia{background:var(--rm-panel); border:1px solid var(--rm-border); border-left:4px solid #2f6fb5;}
   .rm-inv-guia summary{padding:12px 16px; cursor:pointer; font-weight:700;}
   .rm-inv-guia-corpo{padding:0 16px 14px; font-size:14px; line-height:1.5;}
@@ -6271,6 +6276,88 @@ function rmConcImprimir(){
       <tfoot><tr class="a4-forte"><td colspan="4" class="r"><b>Total a baixar</b></td><td class="r"><b>${rmFmtNum(pend.reduce((s,x) => s + x.valor, 0))}</b></td><td colspan="4"></td></tr></tfoot></table>`);
   rmImprimirA4('Baixas no sistema antigo', corpo);
 }
+
+// ===================== LARGURA DAS COLUNAS (todas as tabelas) =====================
+// Um risco no cabeçalho de cada coluna: arrasta para aumentar/diminuir; duplo clique volta ao padrão.
+// A largura fica salva neste computador, por tabela.
+const RM_CR_KEY = 'radicalMotos_larguraColunas';
+let rmCrSalvas = {}; try{ rmCrSalvas = JSON.parse(localStorage.getItem(RM_CR_KEY)) || {}; }catch(e){}
+function rmCrChave(t){
+  const base = t.id || (t.querySelector('tbody[id]') || {}).id || ((t.closest('[id]') || {}).id) || 'tabela';
+  const cab = [...t.tHead.rows[0].cells].map(c => (c.textContent || '').trim().slice(0, 12)).join('|');
+  return base + '#' + cab;
+}
+function rmCrCols(t){
+  const cells = [...t.tHead.rows[0].cells];
+  const cg = t.querySelector('colgroup');
+  const cols = cg ? [...cg.children] : [];
+  return { cells, cols: cols.length === cells.length ? cols : null };
+}
+function rmCrAplicar(t, larguras){
+  const { cells, cols } = rmCrCols(t);
+  if(larguras.length !== cells.length) return;
+  t.style.tableLayout = 'fixed';
+  t.style.width = larguras.reduce((s, w) => s + w, 0) + 'px';
+  t.style.minWidth = '100%';
+  cells.forEach((c, i) => {
+    if(c.dataset.crOrig === undefined) c.dataset.crOrig = c.style.width || '';
+    c.style.width = larguras[i] + 'px';
+    if(cols){ if(cols[i].dataset.crOrig === undefined) cols[i].dataset.crOrig = cols[i].style.width || ''; cols[i].style.width = larguras[i] + 'px'; }
+  });
+}
+function rmCrPreparar(t){
+  if(!t.tHead || !t.tHead.rows.length) return;
+  if(t.querySelector('.rm-col-resize-handle')) return; // tabela de produtos já tem o seu
+  const cells = [...t.tHead.rows[0].cells];
+  if(cells.length < 2) return;
+  const chave = rmCrChave(t);
+  if(t.dataset.crChave !== chave){ t.dataset.crChave = chave; }
+  if(rmCrSalvas[chave] && !cells[0].style.width) rmCrAplicar(t, rmCrSalvas[chave]); // cabeçalho redesenhado: aplica de novo
+  cells.forEach((th, i) => {
+    if(i === cells.length - 1 || th.querySelector('.rm-cr-h')) return;
+    if(getComputedStyle(th).position === 'static') th.style.position = 'relative';
+    const h = document.createElement('span');
+    h.className = 'rm-cr-h';
+    h.title = 'Arraste para mudar a largura · duplo clique volta ao padrão';
+    h.addEventListener('click', ev => ev.stopPropagation());
+    h.addEventListener('dblclick', ev => {
+      ev.stopPropagation();
+      delete rmCrSalvas[chave]; localStorage.setItem(RM_CR_KEY, JSON.stringify(rmCrSalvas));
+      t.style.tableLayout = ''; t.style.width = ''; t.style.minWidth = '';
+      const { cells: cs, cols } = rmCrCols(t);
+      cs.forEach(c => { c.style.width = c.dataset.crOrig || ''; }); if(cols) cols.forEach(c => { c.style.width = c.dataset.crOrig || ''; });
+      rmShowToast('Largura das colunas voltou ao padrão');
+    });
+    h.addEventListener('pointerdown', ev => {
+      ev.preventDefault(); ev.stopPropagation();
+      const larguras = [...t.tHead.rows[0].cells].map(c => c.getBoundingClientRect().width);
+      rmCrAplicar(t, larguras);
+      const x0 = ev.clientX, w0 = larguras[i];
+      h.classList.add('ativo'); document.body.classList.add('rm-cr-arrastando');
+      const mover = e => { larguras[i] = Math.max(40, w0 + e.clientX - x0); rmCrAplicar(t, larguras); };
+      const soltar = () => {
+        document.removeEventListener('pointermove', mover); document.removeEventListener('pointerup', soltar);
+        h.classList.remove('ativo'); document.body.classList.remove('rm-cr-arrastando');
+        rmCrSalvas[chave] = larguras.map(Math.round);
+        try{ localStorage.setItem(RM_CR_KEY, JSON.stringify(rmCrSalvas)); }catch(e){}
+        // evita que soltar o mouse dispare a ordenação da coluna
+        const bloqueia = e => { e.stopPropagation(); e.preventDefault(); };
+        th.addEventListener('click', bloqueia, { capture:true, once:true });
+        setTimeout(() => th.removeEventListener('click', bloqueia, { capture:true }), 50);
+      };
+      document.addEventListener('pointermove', mover); document.addEventListener('pointerup', soltar);
+    });
+    th.appendChild(h);
+  });
+}
+let rmCrAgendado = false;
+function rmCrVarrer(){
+  rmCrAgendado = false;
+  if(window.innerWidth <= 760) return;
+  document.querySelectorAll('table').forEach(t => { if(t.tHead && t.offsetParent !== null && !t.closest('#rm-print-a4, .a4-pagina')) rmCrPreparar(t); });
+}
+new MutationObserver(() => { if(!rmCrAgendado){ rmCrAgendado = true; requestAnimationFrame(rmCrVarrer); } })
+  .observe(document.body, { childList:true, subtree:true });
 
 // ===================== BACKUP COMPLETO =====================
 const RM_BKP_TABELAS = [['recebimentos','id'],['inventarios','id'],['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome']];
