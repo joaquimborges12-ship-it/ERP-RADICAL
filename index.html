@@ -1434,6 +1434,19 @@
   .rm-imp-tab .r{text-align:right;}
   .rm-imp-acoes{display:flex; justify-content:flex-end; align-items:center; gap:14px; margin-top:14px; position:sticky; bottom:0; background:var(--rm-panel); padding:10px 0;}
   .rm-fin-tag-Antigo{background:#6b6b6b; color:#fff;}
+  .rm-conc-card{background:var(--rm-panel); border:1px solid var(--rm-border); border-left:5px solid #c9961a; padding:12px 16px; margin-top:10px;}
+  .rm-conc-card.ok{border-left-color:#2e8b57; opacity:0.8;}
+  .rm-conc-topo{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;}
+  .rm-conc-topo b{font-size:16px;}
+  .rm-conc-fato{display:inline-block; background:#1d1f24; color:#fff; font-weight:800; padding:2px 8px; margin-right:6px; letter-spacing:0.03em;}
+  .rm-conc-valor{font-family:var(--rm-font-display); font-size:24px; font-weight:800;}
+  .rm-conc-passos{display:grid; grid-template-columns:repeat(auto-fill, minmax(190px,1fr)); gap:8px 16px; background:var(--rm-panel-2); padding:10px 12px;}
+  .rm-conc-passos div{display:flex; flex-direction:column;} .rm-conc-passos span{font-size:11.5px; color:var(--rm-text-dim);}
+  .rm-conc-dest{font-size:17px; color:var(--rm-accent);}
+  .rm-conc-acoes{display:flex; justify-content:flex-end; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap;}
+  .rm-conc-btn{width:auto !important; margin:0 !important; padding:10px 20px !important;}
+  .rm-conc-feito{color:#2e8b57; font-weight:700; font-size:13.5px;}
+  .rm-conc-sumido{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:6px;}
   .rm-inv-guia{background:var(--rm-panel); border:1px solid var(--rm-border); border-left:4px solid #2f6fb5;}
   .rm-inv-guia summary{padding:12px 16px; cursor:pointer; font-weight:700;}
   .rm-inv-guia-corpo{padding:0 16px 14px; font-size:14px; line-height:1.5;}
@@ -2399,6 +2412,7 @@
         <button class="rm-subnav-btn" id="rm-btn-fin-prom" onclick="rmSetViewFin('prom')"><span class="rm-subnav-icon">&#128221;</span><span>A prazo</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-cli" onclick="rmSetViewFin('cli')"><span class="rm-subnav-icon">&#128101;</span><span>Clientes</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-org" onclick="rmSetViewFin('org')"><span class="rm-subnav-icon">&#128194;</span><span>Organizar</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-fin-conc" onclick="rmSetViewFin('conc')"><span class="rm-subnav-icon">&#128260;</span><span>Conciliação</span></button>
       </div>
       <div id="rm-view-fin-vendas" class="rm-view active">
         <h1 class="rm-title">Vendas</h1>
@@ -2426,6 +2440,11 @@
           <div class="rm-problema-empty" id="rm-fin-vendas-empty" style="display:none; padding:20px;">Nenhuma venda no período</div>
         </div>
       </div>
+      <div id="rm-view-fin-conc" class="rm-view">
+        <h1 class="rm-title">Conciliação com o sistema antigo</h1>
+        <div id="rm-conc"></div>
+      </div>
+
       <div id="rm-view-fin-org" class="rm-view">
         <h1 class="rm-title">Organizar notas</h1>
         <p style="color:var(--rm-text-dim); font-size:13px; margin:-6px 0 14px;">Notas a prazo já quitadas. Junte as notas assinadas de cada cliente e marque como entregue quando devolver.</p>
@@ -6111,6 +6130,138 @@ function rmAbrirDetalheAntigo(refId){
   document.getElementById('rm-modal-backdrop').classList.add('show');
 }
 
+// ===================== FINANCEIRO > CONCILIAÇÃO (notas do sistema antigo) =====================
+// Lista cada recebimento feito no sistema NOVO em notas importadas do sistema ANTIGO,
+// com o passo a passo para dar a mesma baixa no sistema antigo. A marcação "baixado no antigo"
+// fica guardada à parte (configuracoes 'conciliacao') e NÃO altera as notas.
+let rmConc = { marcas: {} };
+try{ rmConc = JSON.parse(localStorage.getItem('radicalMotos_conciliacao')) || rmConc; }catch(e){}
+async function rmConcSync(){
+  try{
+    const { data } = await rmSb.from('configuracoes').select('*').eq('id','conciliacao').maybeSingle();
+    if(data && data.dados) rmConc = rmConcJuntar(data.dados, rmConc);
+    localStorage.setItem('radicalMotos_conciliacao', JSON.stringify(rmConc));
+  }catch(e){}
+}
+function rmConcJuntar(a, b){ // a marca mais recente de cada pagamento vence
+  const m = Object.assign({}, (a && a.marcas) || {});
+  Object.entries((b && b.marcas) || {}).forEach(([k, v]) => { if(!m[k] || String(v.em) > String(m[k].em)) m[k] = v; });
+  return { marcas: m };
+}
+async function rmConcMarcar(pgId, ok, info){
+  rmConc.marcas[pgId] = Object.assign({}, info || rmConc.marcas[pgId] || {}, { ok, em: new Date().toISOString(), por: rmNomeUsuario() });
+  localStorage.setItem('radicalMotos_conciliacao', JSON.stringify(rmConc));
+  rmRenderConciliacao();
+  try{
+    const { data } = await rmSb.from('configuracoes').select('*').eq('id','conciliacao').maybeSingle();
+    rmConc = rmConcJuntar(data && data.dados, rmConc);
+    await rmSb.from('configuracoes').upsert({ id:'conciliacao', dados: rmConc });
+    localStorage.setItem('radicalMotos_conciliacao', JSON.stringify(rmConc));
+  }catch(e){ console.warn(e); }
+}
+function rmConcItens(){
+  const itens = [];
+  rmLoadProms().filter(n => n.origem === 'Antigo').forEach(n => n.parcelas.forEach(p => {
+    const pgs = rmParcPagamentos(p).filter(pg => pg.id && !pg.entrada).sort((a,b) => String(a.data).localeCompare(String(b.data)));
+    let pagoAntes = 0;
+    pgs.forEach(pg => {
+      const valor = Number(pg.valor) || 0;
+      const faltaDepois = Math.max(0, Math.round((p.valor - pagoAntes - valor) * 100) / 100);
+      itens.push({ id: pg.id, nota: n, p, pg, valor, faltaDepois, total: faltaDepois <= 0.004, data: pg.data });
+      pagoAntes += valor;
+    });
+  }));
+  return itens.sort((a,b) => String(b.data).localeCompare(String(a.data)));
+}
+function rmConcRange(modo){
+  const h = new Date(), y = h.getFullYear(), m = h.getMonth(), d = h.getDate(), D = (a,b,c) => new Date(a,b,c);
+  if(modo === 'hoje') return { start:D(y,m,d), end:D(y,m,d+1) };
+  if(modo === 'ontem') return { start:D(y,m,d-1), end:D(y,m,d) };
+  if(modo === 'semana') return { start:D(y,m,d-6), end:D(y,m,d+1) };
+  return null;
+}
+function rmRenderConciliacao(){
+  const box = document.getElementById('rm-conc'); if(!box) return;
+  const modo = (document.getElementById('rm-conc-filtro') || {}).value || 'pendentes';
+  const todos = rmConcItens();
+  const r = rmConcRange(modo);
+  let lista = todos.filter(x => {
+    const marcado = rmConc.marcas[x.id] && rmConc.marcas[x.id].ok;
+    if(modo === 'pendentes') return !marcado;
+    if(modo === 'baixados') return marcado;
+    if(r){ const t = new Date(x.data); return t >= r.start && t < r.end; }
+    return true;
+  });
+  // pagamentos marcados como baixados no antigo mas que foram APAGADOS no sistema novo
+  const presentes = new Set(todos.map(x => x.id));
+  const sumidos = Object.entries(rmConc.marcas).filter(([k, v]) => v.ok && !presentes.has(k));
+  const pend = todos.filter(x => !(rmConc.marcas[x.id] && rmConc.marcas[x.id].ok));
+  const somaPend = pend.reduce((s,x) => s + x.valor, 0);
+  const somaLista = lista.reduce((s,x) => s + x.valor, 0);
+  box.innerHTML = `
+    <details class="rm-inv-guia"${Object.keys(rmConc.marcas).length ? '' : ' open'}>
+      <summary>&#128218; Como funciona a conciliação</summary>
+      <div class="rm-inv-guia-corpo">
+        <p>Enquanto os dois sistemas rodam juntos, toda nota trazida do sistema antigo que for recebida aqui precisa receber <b>a mesma baixa no sistema antigo</b>. No fim do dia:</p>
+        <div class="rm-inv-passos">
+          <div><b>1. Abra esta aba</b>No filtro "A baixar no antigo" aparecem todos os recebimentos que ainda não foram passados para o sistema antigo.</div>
+          <div><b>2. No sistema antigo</b>Vá em <b>Contas a Receber</b> e procure pelo <b>Nº do Fato</b> (ex.: FG2090) ou pelo nome do cliente.</div>
+          <div><b>3. Confira a parcela</b>Ache a parcela com o mesmo <b>número</b> (ex.: 1/1) e o mesmo <b>vencimento</b> mostrados aqui.</div>
+          <div><b>4. Dê a baixa</b>Use o <b>valor</b>, a <b>data</b> e a <b>forma de pagamento</b> mostrados no cartão. Se o cartão disser <b>baixa parcial</b>, baixe só esse valor: a parcela continua em aberto com o restante.</div>
+          <div><b>5. Marque aqui</b>Clique em <b>"Já dei baixa no antigo"</b>. O cartão sai da lista de pendentes.</div>
+        </div>
+        <p class="rm-inv-dica">Marcar aqui não altera a nota nem o recebimento; só registra que a baixa já foi feita no sistema antigo.</p>
+      </div>
+    </details>
+    ${sumidos.length ? `<div class="rm-pe2-aviso" style="margin-top:12px;">&#9888; ${sumidos.length} recebimento(s) que você já tinha baixado no sistema antigo foram <b>apagados no sistema novo</b>. Desfaça a baixa no sistema antigo:
+      ${sumidos.map(([k, v]) => `<div class="rm-conc-sumido"><b>${rmEscapeHtml(v.fato || '')}</b> · ${rmEscapeHtml(v.cliente || '')} · parcela ${rmEscapeHtml(v.parcela || '')} · ${rmFormatMoeda(v.valor || 0)} <button class="rm-pe2-btn" onclick="rmConcMarcar('${rmJs(k)}', false)">Já desfiz no antigo</button></div>`).join('')}</div>` : ''}
+    <div class="vg-kpis" style="margin-top:12px;">
+      ${rmInvKpi('⏳', pend.length ? '#c9961a' : '#2e8b57', 'A baixar no antigo', pend.length, pend.length ? rmFormatMoeda(somaPend) : 'tudo em dia 👍')}
+      ${rmInvKpi('✅', '#2e8b57', 'Já baixados', todos.length - pend.length, 'de ' + todos.length + ' recebimento(s)')}
+      ${rmInvKpi('🧾', '#2f6fb5', 'Nesta lista', lista.length, rmFormatMoeda(somaLista))}
+    </div>
+    <div class="rm-osl-filtros" style="margin-top:12px;">
+      <select class="rm-osl-sel" id="rm-conc-filtro" onchange="rmRenderConciliacao()">
+        ${[['pendentes','A baixar no antigo'],['hoje','Recebidos hoje'],['ontem','Recebidos ontem'],['semana','Últimos 7 dias'],['baixados','Já baixados no antigo'],['todos','Todos']].map(([v,t]) => `<option value="${v}"${v === modo ? ' selected' : ''}>${t}</option>`).join('')}
+      </select>
+      <button class="rm-pe2-btn" style="margin-left:auto;" onclick="rmConcImprimir()">&#128424; Imprimir lista para dar baixa</button>
+    </div>
+    ${lista.length ? lista.map(x => {
+      const mk = rmConc.marcas[x.id], ok = mk && mk.ok;
+      const parc = rmParcRotulo(x.p, x.nota);
+      const info = { fato: x.nota.refCodigo, cliente: x.nota.clienteNome, parcela: parc, valor: x.valor };
+      return `<div class="rm-conc-card${ok ? ' ok' : ''}">
+        <div class="rm-conc-topo">
+          <div><span class="rm-conc-fato">${rmEscapeHtml(x.nota.refCodigo || '')}</span> <b>${rmEscapeHtml(x.nota.clienteNome || '')}</b></div>
+          <div class="rm-conc-valor">${rmFormatMoeda(x.valor)}</div>
+        </div>
+        <div class="rm-conc-passos">
+          <div><span>Procurar no antigo</span><b>Fato ${rmEscapeHtml(x.nota.refCodigo || '')}</b></div>
+          <div><span>Parcela</span><b>${rmEscapeHtml(parc)} · vence ${rmDataBR(x.p.vencimento)}</b></div>
+          <div><span>Valor da parcela</span><b>${rmFormatMoeda(x.p.valor)}</b></div>
+          <div><span>Dar baixa de</span><b class="rm-conc-dest">${rmFormatMoeda(x.valor)}</b></div>
+          <div><span>Data do pagamento</span><b>${rmDataHoraBR(x.data)}</b></div>
+          <div><span>Forma</span><b>${rmEscapeHtml(x.pg.forma || '—')}</b></div>
+          <div><span>Tipo de baixa</span><b>${x.total ? '<span style="color:#2e8b57">Baixa total (quita a parcela)</span>' : '<span style="color:#c9961a">Baixa parcial · ficam ' + rmFormatMoeda(x.faltaDepois) + ' em aberto</span>'}</b></div>
+          <div><span>Recebido por</span><b>${rmEscapeHtml(x.pg.por || '—')}</b></div>
+        </div>
+        <div class="rm-conc-acoes">
+          ${ok ? `<span class="rm-conc-feito">&#10004; Baixado no antigo por ${rmEscapeHtml(mk.por || '')} em ${rmDataHoraBR(mk.em)}</span><button class="rm-pe2-btn" onclick="rmConcMarcar('${rmJs(x.id)}', false)">Desmarcar</button>`
+               : `<button class="rm-primary rm-conc-btn" onclick="rmConcMarcar('${rmJs(x.id)}', true, ${rmEscapeHtml(JSON.stringify(info))})">&#10004; Já dei baixa no antigo</button>`}
+        </div>
+      </div>`; }).join('') : `<div class="rm-problema-empty" style="padding:18px;">${modo === 'pendentes' ? 'Nenhuma baixa pendente. Os dois sistemas estão iguais 👍' : 'Nenhum recebimento neste filtro.'}</div>`}`;
+}
+function rmConcImprimir(){
+  const pend = rmConcItens().filter(x => !(rmConc.marcas[x.id] && rmConc.marcas[x.id].ok));
+  if(!pend.length){ alert('Não há baixas pendentes.'); return; }
+  const corpo = `<div style="display:flex; justify-content:space-between; border-bottom:2px solid #000; padding-bottom:4px; margin-bottom:8px;"><b style="font-size:15px;">BAIXAS A FAZER NO SISTEMA ANTIGO</b><span style="font-size:10px;">${new Date().toLocaleString('pt-BR').replace(',', '')}</span></div>`
+    + rmA4Secao('Contas a Receber → procurar o Fato → dar baixa na parcela', `<table class="a4-tab">
+      <thead><tr><th>Fato</th><th>Cliente</th><th>Parcela</th><th class="cx">Vencimento</th><th class="r">Baixar (R$)</th><th class="cx">Data pgto</th><th class="cx">Forma</th><th>Tipo</th><th class="c">✔</th></tr></thead>
+      <tbody>${pend.map(x => `<tr><td><b>${rmH(x.nota.refCodigo)}</b></td><td>${rmH(x.nota.clienteNome)}</td><td>${rmH(rmParcRotulo(x.p, x.nota))}</td><td class="cx">${rmDataBR(x.p.vencimento)}</td><td class="r"><b>${rmFmtNum(x.valor)}</b></td><td class="cx">${new Date(x.data).toLocaleDateString('pt-BR')}</td><td class="cx">${rmH(x.pg.forma || '')}</td><td>${x.total ? 'Total' : 'Parcial (resta ' + rmFmtNum(x.faltaDepois) + ')'}</td><td class="c">☐</td></tr>`).join('')}</tbody>
+      <tfoot><tr class="a4-forte"><td colspan="4" class="r"><b>Total a baixar</b></td><td class="r"><b>${rmFmtNum(pend.reduce((s,x) => s + x.valor, 0))}</b></td><td colspan="4"></td></tr></tfoot></table>`);
+  rmImprimirA4('Baixas no sistema antigo', corpo);
+}
+
 // ===================== BACKUP COMPLETO =====================
 const RM_BKP_TABELAS = [['recebimentos','id'],['inventarios','id'],['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome']];
 const RM_BKP_ULTIMO_KEY = 'radicalMotos_ultimoBackup';
@@ -7603,7 +7754,7 @@ function rmOsPromMudou(id){
 
 // ---- Financeiro > Promissórias ----
 function rmSetViewFin(view){
-  ['vendas','prom','cli','org'].forEach(v=>{
+  ['vendas','prom','cli','org','conc'].forEach(v=>{
     document.getElementById('rm-view-fin-'+v).classList.toggle('active', v===view);
     document.getElementById('rm-btn-fin-'+v).classList.toggle('active', v===view);
   });
@@ -7611,6 +7762,7 @@ function rmSetViewFin(view){
   if(view === 'prom'){ rmRenderFinProm(); rmSyncProms().then(rmRenderFinProm); }
   if(view === 'org'){ rmRenderFinOrg(); rmSyncProms().then(rmRenderFinOrg); }
   if(view === 'cli'){ rmRenderFinClientes(); rmSyncProms().then(rmRenderFinClientes); }
+  if(view === 'conc'){ rmRenderConciliacao(); Promise.all([rmSyncProms(), rmConcSync()]).then(rmRenderConciliacao); }
 }
 
 // pagamentos de uma parcela (aceita pagamento parcial). Notas antigas sem a lista viram 1 pagamento.
