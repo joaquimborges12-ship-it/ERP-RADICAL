@@ -3469,7 +3469,17 @@ const rmLim = {};
 function rmLimitar(chave, arr){ const n = rmLim[chave] || RM_LIM_PASSO; return arr.length > n ? arr.slice(0, n) : arr; }
 function rmMaisLinha(chave, total, render, colspan){
   const n = rmLim[chave] || RM_LIM_PASSO; if(total <= n) return '';
-  return `<tr class="rm-mais-tr"><td colspan="${colspan || 30}" style="text-align:center; padding:12px;"><button class="rm-pe2-btn" onclick="event.stopPropagation(); rmLim['${chave}'] = ${n + RM_LIM_PASSO * 2}; ${render}()">Mostrar mais (mostrando ${n} de ${total})</button> <button class="rm-pe2-btn" onclick="event.stopPropagation(); rmLim['${chave}'] = 999999; ${render}()">Mostrar todos</button></td></tr>`;
+  setTimeout(rmMaisAjustarColunas, 0);
+  return `<tr class="rm-mais-tr"><td colspan="1" style="text-align:center; padding:12px;"><button class="rm-pe2-btn" onclick="event.stopPropagation(); rmLim['${chave}'] = ${n + RM_LIM_PASSO * 2}; ${render}()">Mostrar mais (mostrando ${n} de ${total})</button> <button class="rm-pe2-btn" onclick="event.stopPropagation(); rmLim['${chave}'] = 999999; ${render}()">Mostrar todos</button></td></tr>`;
+}
+// a linha "Mostrar mais" ocupa exatamente as colunas da tabela (mais que isso espreme as colunas)
+function rmMaisAjustarColunas(){
+  document.querySelectorAll('tr.rm-mais-tr > td').forEach(td => {
+    const t = td.closest('table'); if(!t) return;
+    const cab = t.querySelector('thead tr') || t.querySelector('tbody tr:not(.rm-mais-tr)');
+    const n = cab ? [...cab.children].reduce((s, c) => s + (c.colSpan || 1), 0) : 1;
+    if(td.colSpan !== n) td.colSpan = n;
+  });
 }
 function rmLimCol(){ return 60; }
 function rmMaisCol(resto){ return `<div class="rm-column-empty" style="padding:8px">+ ${resto} moto(s). Use a Lista para ver todas.</div>`; }
