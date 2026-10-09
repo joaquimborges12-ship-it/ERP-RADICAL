@@ -1459,6 +1459,7 @@
   th.rm-ord-th:hover{color:var(--rm-text);}
   th.rm-ord-ativa{color:var(--rm-accent) !important;}
   .rm-ord-seta{font-size:10px;}
+  .rm-versao{font-size:10.5px; color:var(--rm-text-dim); padding:4px 14px; opacity:0.75;}
   .rm-inv-guia{background:var(--rm-panel); border:1px solid var(--rm-border); border-left:4px solid #2f6fb5;}
   .rm-inv-guia summary{padding:12px 16px; cursor:pointer; font-weight:700;}
   .rm-inv-guia-corpo{padding:0 16px 14px; font-size:14px; line-height:1.5;}
@@ -1721,6 +1722,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.08-23h10</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -11911,7 +11913,7 @@ window.addEventListener('pagehide', rmStoreGravarPendentes);
 document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'hidden') rmStoreGravarPendentes(); });
 
 rmStorePreparar().catch(e => console.error(e)).then(() => rmAuthIniciar());
-if('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
+if('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(r => r.update()).catch(() => {});
 </script>
 <!-- Botão rápido de pedido (fica sobre todas as telas) -->
 <button class="rm-fab" id="rm-fab" title="Anotar item para pedido" onclick="rmFabAbrir()">&#128722;</button>
