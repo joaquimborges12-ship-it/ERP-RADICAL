@@ -1455,6 +1455,10 @@
   .rm-cmp-acao{grid-column:1 / -1;} .rm-cmp-acao small{display:block; font-size:12px; color:var(--rm-text-dim); margin-top:2px;}
   .rm-prom-btn-parc{background:#fff6e0; color:#7a5b00; border-color:#f0dca4;}
   html[data-tema="dark"] .rm-prom-btn-parc{background:#3a321a; color:#f0d27a; border-color:#5c4d1f;}
+  th.rm-ord-th{cursor:pointer; user-select:none;}
+  th.rm-ord-th:hover{color:var(--rm-text);}
+  th.rm-ord-ativa{color:var(--rm-accent) !important;}
+  .rm-ord-seta{font-size:10px;}
   .rm-inv-guia{background:var(--rm-panel); border:1px solid var(--rm-border); border-left:4px solid #2f6fb5;}
   .rm-inv-guia summary{padding:12px 16px; cursor:pointer; font-weight:700;}
   .rm-inv-guia-corpo{padding:0 16px 14px; font-size:14px; line-height:1.5;}
@@ -6287,6 +6291,90 @@ function rmConcImprimir(){
   rmImprimirA4('Baixas no sistema antigo', corpo);
 }
 
+// ===================== ORDENAR PELO CABEÇALHO (todas as tabelas) =====================
+// Clique no título da coluna: 1º clique ordena do menor para o maior (A→Z), 2º do maior para o menor, 3º volta ao padrão.
+// Tabelas grandes (com "Mostrar mais") ordenam a lista inteira; as pequenas ordenam as linhas da tela.
+const rmOrd = {};
+try{ Object.assign(rmOrd, JSON.parse(localStorage.getItem('radicalMotos_ordem')) || {}); }catch(e){}
+// colunas das tabelas grandes: como pegar o valor de cada linha
+const RM_ORD_COLS = {
+  fcli:  [l => l.c.nome, l => l.c.telefone, l => l.compras, l => l.pago, l => l.receber, l => l.vencido],
+  vend:  [v => v.data, v => v.codigo, v => v.origem, v => v.cliente, v => v.por, v => v.forma, v => v.total],
+  prom:  [x => x.p.vencimento, x => x.nota.clienteNome, x => x.nota.refCodigo, x => rmParcRotulo(x.p, x.nota), x => x.sit === 'paga' ? x.p.valor : rmParcRestante(x.p), x => x.sit, null],
+  cli:   [c => c.nome, c => c.situacao, c => Number(c.limiteCredito) || 0, c => c.telefone, c => c.cpf, c => rmMotosDoCliente(c).length, c => c.observacao]
+};
+const RM_ORD_RENDER = { fcli:'rmRenderFinClientes', vend:'rmRenderFinVendas', prom:'rmRenderFinProm', cli:'rmRenderClientes' };
+function rmOrdCmp(a, b){
+  const va = a == null ? '' : a, vb = b == null ? '' : b;
+  if(typeof va === 'number' && typeof vb === 'number') return va - vb;
+  return String(va).localeCompare(String(vb), 'pt-BR', { numeric:true, sensitivity:'base' });
+}
+function rmOrdAplicar(chave, lista){
+  const o = rmOrd[chave]; const cols = RM_ORD_COLS[chave];
+  if(!o || !cols || !cols[o.col]) return lista;
+  const f = cols[o.col], m = o.dir === 'desc' ? -1 : 1;
+  return lista.map(x => [f(x), x]).sort((a, b) => m * rmOrdCmp(a[0], b[0])).map(p => p[1]);
+}
+function rmOrdClicar(chave, col, th){
+  const o = rmOrd[chave];
+  if(!o || o.col !== col) rmOrd[chave] = { col, dir:'asc' };
+  else if(o.dir === 'asc') o.dir = 'desc';
+  else delete rmOrd[chave];
+  try{ localStorage.setItem('radicalMotos_ordem', JSON.stringify(rmOrd)); }catch(e){}
+  if(RM_ORD_RENDER[chave]){ rmLim[chave] = 0; window[RM_ORD_RENDER[chave]](); }
+  else rmOrdDom(th.closest('table'), chave);
+  rmOrdSetas();
+}
+// tabelas pequenas: ordena as linhas que estão na tela (linhas de detalhe acompanham a linha de cima)
+function rmOrdValorCelula(td){
+  const t = (td ? td.innerText : '').trim();
+  const d = /^(\d{2})\/(\d{2})\/(\d{2,4})(?:\D+(\d{2}):(\d{2}))?/.exec(t);
+  if(d) return Number((d[3].length === 2 ? '20' + d[3] : d[3]) + d[2] + d[1] + (d[4] || '00') + (d[5] || '00'));
+  const n = t.replace(/R\$\s?/,'').replace(/%$/,'').trim();
+  if(/^-?[\d.]+(,\d+)?$/.test(n)) return Number(n.replace(/\./g,'').replace(',','.'));
+  return t.toLowerCase();
+}
+function rmOrdDom(t, chave){
+  const tb = t.tBodies[0]; if(!tb) return;
+  if(!t.__ordOriginal) t.__ordOriginal = [...tb.rows];
+  const o = rmOrd[chave];
+  const grupos = []; (o ? [...tb.rows] : t.__ordOriginal).forEach(r => {
+    if(r.classList.contains('rm-mais-tr')) return;
+    if(grupos.length && (r.classList.contains('rm-com-det') || r.cells.length === 1 && r.cells[0].colSpan > 1)) grupos[grupos.length - 1].push(r); else grupos.push([r]);
+  });
+  if(o){ const m = o.dir === 'desc' ? -1 : 1; grupos.sort((a, b) => m * rmOrdCmp(rmOrdValorCelula(a[0].cells[o.col]), rmOrdValorCelula(b[0].cells[o.col]))); }
+  grupos.forEach(g => g.forEach(r => tb.appendChild(r)));
+}
+function rmOrdChaveDom(t){ return 'dom:' + (t.id || (t.tBodies[0] && t.tBodies[0].id) || ((t.closest('[id]') || {}).id) || ''); }
+function rmOrdChaveTabela(t){
+  const id = t.tBodies[0] && t.tBodies[0].id;
+  return { 'rm-fin-cli-body':'fcli', 'rm-fin-vendas-body':'vend', 'rm-fin-prom-body':'prom', 'rm-clientes-body':'cli' }[id] || null;
+}
+function rmOrdPreparar(t){
+  if(!t.tHead || !t.tHead.rows.length) return;
+  const ths = [...t.tHead.rows[0].cells];
+  if(ths.some(th => th.hasAttribute('onclick') || th.classList.contains('rm-th-sortable'))) return; // já tem ordenação própria
+  const grande = rmOrdChaveTabela(t), chave = grande || rmOrdChaveDom(t);
+  t.dataset.ordChave = chave;
+  ths.forEach((th, i) => {
+    if(th.dataset.ordOk || !th.textContent.trim()) return;
+    if(grande && !RM_ORD_COLS[grande][i]) return;
+    th.dataset.ordOk = '1'; th.classList.add('rm-ord-th');
+    th.insertAdjacentHTML('beforeend', '<span class="rm-ord-seta"></span>');
+    th.addEventListener('click', ev => { if(ev.target.closest('.rm-cr-h')) return; rmOrdClicar(chave, i, th); });
+  });
+  if(!grande && t.tBodies[0] && [...t.tBodies[0].rows].some(r => !r.__ordVisto)){ // linhas novas na tela
+    t.__ordOriginal = null; [...t.tBodies[0].rows].forEach(r => r.__ordVisto = true);
+    if(rmOrd[chave]) rmOrdDom(t, chave);
+  }
+}
+function rmOrdSetas(){
+  document.querySelectorAll('table[data-ord-chave]').forEach(t => {
+    const o = rmOrd[t.dataset.ordChave];
+    [...t.tHead.rows[0].cells].forEach((th, i) => { const s = th.querySelector('.rm-ord-seta'); if(s){ s.textContent = o && o.col === i ? (o.dir === 'asc' ? ' ▲' : ' ▼') : ''; th.classList.toggle('rm-ord-ativa', !!(o && o.col === i)); } });
+  });
+}
+
 // ===================== LARGURA DAS COLUNAS (todas as tabelas) =====================
 // Um risco no cabeçalho de cada coluna: arrasta para aumentar/diminuir; duplo clique volta ao padrão.
 // A largura fica salva neste computador, por tabela.
@@ -6364,7 +6452,8 @@ let rmCrAgendado = false;
 function rmCrVarrer(){
   rmCrAgendado = false;
   if(window.innerWidth <= 760) return;
-  document.querySelectorAll('table').forEach(t => { if(t.tHead && t.offsetParent !== null && !t.closest('#rm-print-a4, .a4-pagina')) rmCrPreparar(t); });
+  document.querySelectorAll('table').forEach(t => { if(t.tHead && t.offsetParent !== null && !t.closest('#rm-print-a4, .a4-pagina')){ rmOrdPreparar(t); rmCrPreparar(t); } });
+  rmOrdSetas();
 }
 new MutationObserver(() => { if(!rmCrAgendado){ rmCrAgendado = true; requestAnimationFrame(rmCrVarrer); } })
   .observe(document.body, { childList:true, subtree:true });
@@ -8064,7 +8153,8 @@ function rmRenderFinClientes(){
     (!q || [l.c.nome, l.c.apelido, l.c.cpf, l.c.telefone].some(x => (x||'').toLowerCase().includes(q)))
   ).sort((a,b) => (b.vencido - a.vencido) || (b.receber - a.receber) || (a.c.nome||'').localeCompare(b.c.nome||'', 'pt-BR'));
   document.getElementById('rm-fin-cli-empty').style.display = linhas.length ? 'none' : '';
-  body.innerHTML = rmLimitar('fcli', linhas).map(l => `
+  const linhasOrd = rmOrdAplicar('fcli', linhas);
+  body.innerHTML = rmLimitar('fcli', linhasOrd).map(l => `
     <tr style="cursor:pointer" onclick="rmClienteAba='pagamentos'; rmClienteRascunho={id:'${l.c.id}'}; rmAbrirModalCliente('${l.c.id}')">
       <td>${rmEscapeHtml(l.c.nome||'—')}${l.c.apelido?` <small style="color:var(--rm-text-dim)">(${rmEscapeHtml(l.c.apelido)})</small>`:''}</td>
       <td>${rmEscapeHtml(l.c.telefone||'—')}</td>
@@ -8093,7 +8183,8 @@ function rmRenderFinProm(){
   ).sort((a,b) => filtro === 'paga' ? String(b.p.pagoEm).localeCompare(String(a.p.pagoEm)) : a.p.vencimento.localeCompare(b.p.vencimento));
   document.getElementById('rm-fin-prom-empty').style.display = lista.length ? 'none' : '';
   const rot = { aberta:'Em aberto', vencida:'Vencida', paga:'Paga' };
-  body.innerHTML = rmLimitar('prom', lista).map(({nota, p, sit}) => {
+  const listaOrdP = rmOrdAplicar('prom', lista);
+  body.innerHTML = rmLimitar('prom', listaOrdP).map(({nota, p, sit}) => {
     const pago = rmParcPago(p), resta = rmParcRestante(p);
     const parcial = sit !== 'paga' && pago > 0;
     return `
@@ -8285,7 +8376,8 @@ function rmRenderFinVendas(){
     (!q || (v.codigo+' '+v.cliente+' '+v.forma+' '+(v.por||'')).toLowerCase().includes(q))
   );
   document.getElementById('rm-fin-vendas-empty').style.display = lista.length ? 'none' : '';
-  body.innerHTML = rmLimitar('vend', lista).map(v => `
+  const listaOrdV = rmOrdAplicar('vend', lista);
+  body.innerHTML = rmLimitar('vend', listaOrdV).map(v => `
     <tr style="cursor:pointer" onclick="${v.origem==='PDV' ? `rmAbrirDetalheVenda('${v.id}')` : `rmOpenModal('${v.id}', true)`}">
       <td>${v.data ? new Date(v.data).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'}) : '—'}</td>
       <td>${rmEscapeHtml(v.codigo)||'—'}</td>
@@ -9530,7 +9622,7 @@ function rmRenderClientes(){
       (c.telefone||'').toLowerCase().includes(search)
     );
   }
-  list = list.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR'));
+  list = rmOrdAplicar('cli', list.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR')));
 
   const body = document.getElementById('rm-clientes-body');
   const empty = document.getElementById('rm-clientes-empty');
