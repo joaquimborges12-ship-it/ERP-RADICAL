@@ -4885,6 +4885,24 @@ async function rmCarregarPerfil(user){
   return true;
 }
 
+// Quando o banco é limpo pelo SQL de limpeza, ele grava a data em configuracoes('limpeza').
+// Cada aparelho, ao entrar, vê que houve limpeza e apaga a SUA cópia local (para não reenviar dados de teste).
+async function rmChecarLimpeza(){
+  try{
+    const { data } = await rmSb.from('configuracoes').select('*').eq('id','limpeza').maybeSingle();
+    const em = data && data.dados && data.dados.em;
+    if(!em || localStorage.getItem('radicalMotos_limpezaVista') === em) return;
+    [RM_KEY, RM_VENDAS_KEY, RM_CLIENTES_KEY, RM_PROM_KEY, RM_INV_KEY].forEach(k => rmStoreSalvar(k, []));
+    rmStoreGravarPendentes();
+    [RM_PROM_PEND_KEY, RM_LEDGER_PEND_KEY, RM_PEDIDO_KEY, 'radicalMotos_comissoes', RM_AVISOS_KEY].forEach(k => { try{ localStorage.removeItem(k); }catch(e){} });
+    localStorage.setItem(RM_COUNTER_KEY, '0');
+    try{ rmPedido = { itens: [] }; }catch(e){}
+    try{ rmCom.pagamentos = []; }catch(e){}
+    localStorage.setItem('radicalMotos_limpezaVista', em);
+    console.info('Dados locais apagados após a limpeza do sistema em ' + em);
+  }catch(e){ console.warn('Não consegui conferir a limpeza:', e); }
+}
+
 async function rmAuthIniciar(){
   // o app fica escondido até confirmar o login
   document.documentElement.classList.add('rm-sem-login');
@@ -4892,6 +4910,7 @@ async function rmAuthIniciar(){
   try{ const { data } = await rmSb.auth.getSession(); sessao = data && data.session; }catch(e){}
   if(!sessao){ rmMostrarLogin(); return; }
   if(!(await rmCarregarPerfil(sessao.user))) return;
+  await rmChecarLimpeza();
   document.documentElement.classList.remove('rm-sem-login');
   const l = document.getElementById('rm-login'); if(l) l.style.display = 'none';
   rmAplicarPermissoes();
@@ -6578,6 +6597,8 @@ function rmNextNumeroDoc(){
   let max = 0;
   rmLoad().forEach(r => { max = Math.max(max, rmNumeroDoc(r.codigoApp)); });
   rmLoadVendas().forEach(v => { if(v.tipo !== 'orcamento') max = Math.max(max, rmNumeroDoc(v.codigoVenda)); });
+  const ini = parseInt(rmEmpresa().numeroInicial) || 0;
+  if(ini > 0) max = Math.max(max, ini - 1);
   return 'V-' + String(max + 1).padStart(6, '0');
 }
 // se o número reservado no formulário já foi usado por outra venda/OS, pega o próximo
@@ -6695,6 +6716,14 @@ function rmRenderConfigEmpresa(){
       <button class="rm-primary" style="width:auto; padding:10px 24px;" onclick="rmSalvarConfigEmpresa()">Salvar</button>
     </div>
     ${rmEhAdmin() ? `<div class="rm-cfg-card" style="margin-top:14px;">
+      <div class="rm-cfg-tit">&#128290; Numeração das OS e vendas</div>
+      <div style="font-size:13px; color:var(--rm-text-dim); margin-bottom:10px;">Próximo número que o sistema vai usar: <b>${rmNextNumeroDoc()}</b>. Para não repetir números do sistema antigo, informe a partir de qual número começar.</div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+        <input class="rm-input" id="rm-cfg-numini" inputmode="numeric" placeholder="Ex.: 9000" value="${rmEmpresa().numeroInicial || ''}" style="margin:0; max-width:180px;">
+        <button class="rm-pe2-btn" onclick="rmSalvarNumeroInicial()">Salvar numeração</button>
+      </div>
+    </div>
+    <div class="rm-cfg-card" style="margin-top:14px;">
       <div class="rm-cfg-tit">&#128274; Senha dos valores da Visão Geral</div>
       <div style="font-size:13px; color:var(--rm-text-dim); margin-bottom:10px;">Os valores em dinheiro da Visão Geral ficam ocultos. Com esta senha eles aparecem por 5 minutos e depois se ocultam sozinhos.</div>
       <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
@@ -6761,6 +6790,16 @@ async function rmSalvarSenhaVg(){
   document.getElementById('rm-cfg-vgsenha').value = ''; document.getElementById('rm-cfg-vgsenha2').value = '';
   rmLog('Alterou a senha dos valores da Visão Geral');
   rmShowToast('Senha salva');
+}
+
+async function rmSalvarNumeroInicial(){
+  const n = parseInt(String(document.getElementById('rm-cfg-numini').value).replace(/\D/g,'')) || 0;
+  const e = rmEmpresa(); e.numeroInicial = n;
+  localStorage.setItem(RM_EMPRESA_KEY, JSON.stringify(e));
+  try{ const { error } = await rmSb.from('configuracoes').upsert({ id:'empresa', dados:e }); if(error) throw error; }catch(err){ alert('Não consegui salvar no servidor: ' + (err.message || err)); return; }
+  rmLog('Alterou a numeração inicial', '', String(n));
+  rmShowToast(n ? 'Próxima OS/venda será ' + rmNextNumeroDoc() : 'Numeração automática');
+  rmRenderConfigEmpresa();
 }
 
 async function rmSalvarConfigEmpresa(){
