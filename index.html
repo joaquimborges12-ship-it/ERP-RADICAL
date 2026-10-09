@@ -1961,19 +1961,26 @@
       <h1 class="rm-title">Painel de recepções</h1>
 
       <div class="rm-toolbar">
-        <input class="rm-search" id="rm-search" placeholder="Buscar por cliente, moto, OS, mecânico ou anotações..." oninput="rmRenderBoard()">
-        <select class="rm-date-select" id="rm-date-mode" onchange="rmOnDateModeChange('rm-date-mode','rm-date-value','rm-date-range'); rmRenderBoard();">
+        <input class="rm-search" id="rm-search" placeholder="Buscar por cliente, moto, OS, mecânico ou anotações..." oninput="rmOfiFiltroMudou('painel')">
+        <select class="rm-date-select" id="rm-date-mode" onchange="rmOfiFiltroMudou('painel')">
+          <option value="p:oficina" selected>Na oficina agora</option>
           <option value="todos">Todos os períodos</option>
-          <option value="dia">Dia</option>
-          <option value="semana">Semana</option>
-          <option value="mes">Mês</option>
-          <option value="personalizado">Período personalizado</option>
+          <option value="p:ult6">Últimos 6 meses</option>
+          <option value="p:ultmes">Último Mês</option>
+          <option value="p:ontem">Ontem</option>
+          <option value="p:hoje">Hoje</option>
+          <option value="p:semana">Esta semana</option>
+          <option value="p:mes">Este Mês</option>
+          <option value="p:proxmes">Próximo Mês</option>
+          <option value="p:prox6">Próximos 6 meses</option>
+          <option value="p:ano">Este Ano</option>
+          <option value="personalizado">Outro período</option>
         </select>
-        <input class="rm-date-input" id="rm-date-value" style="display:none;" oninput="rmRenderBoard()">
+        <input class="rm-date-input" id="rm-date-value" style="display:none;">
         <div class="rm-date-range" id="rm-date-range" style="display:none;">
-          <input type="date" class="rm-date-input" id="rm-date-start" oninput="rmRenderBoard()">
+          <input type="date" class="rm-date-input" id="rm-date-start" oninput="rmOfiFiltroMudou('painel')">
           <span class="rm-date-range-sep">até</span>
-          <input type="date" class="rm-date-input" id="rm-date-end" oninput="rmRenderBoard()">
+          <input type="date" class="rm-date-input" id="rm-date-end" oninput="rmOfiFiltroMudou('painel')">
         </div>
       </div>
 
@@ -2020,7 +2027,7 @@
         <button class="rm-osl-atalho rm-osl-naopago" id="rm-osl-naopago" onclick="rmOslAtalho = rmOslAtalho==='naopago' ? null : 'naopago'; rmRenderLista()">Não pago, entregue <span id="rm-osl-naopago-n"></span></button>
       </div>
       <div class="rm-osl-filtros">
-        <input class="rm-search" id="rm-search-lista" placeholder="Buscar nº, cliente, moto..." oninput="rmRenderLista()">
+        <input class="rm-search" id="rm-search-lista" placeholder="Buscar nº, cliente, moto..." oninput="rmOfiFiltroMudou('lista')">
         <select class="rm-osl-sel" id="rm-osl-resp" onchange="rmRenderLista()"><option value="">Selecione o Responsável</option></select>
         <select class="rm-osl-sel" id="rm-osl-cli" onchange="rmRenderLista()"><option value="">Selecione o Cliente</option></select>
         <select class="rm-osl-sel" id="rm-osl-status" onchange="rmRenderLista()">
@@ -2034,12 +2041,13 @@
           <option value="pagas">Pagas</option>
           <option value="naopagas">Não pagas</option>
         </select>
-        <select class="rm-osl-sel" id="rm-date-mode-lista" onchange="rmOnDateModeChange('rm-date-mode-lista','rm-date-value-lista','rm-date-range-lista'); rmRenderLista();">
+        <select class="rm-osl-sel" id="rm-date-mode-lista" onchange="rmOfiFiltroMudou('lista')">
+          <option value="p:oficina" selected>Na oficina agora</option>
           <option value="todos">Todos os períodos</option>
           <option value="p:ult6">Últimos 6 meses</option>
           <option value="p:ultmes">Último Mês</option>
           <option value="p:ontem">Ontem</option>
-          <option value="p:hoje" selected>Hoje</option>
+          <option value="p:hoje">Hoje</option>
           <option value="p:semana">Esta semana</option>
           <option value="p:mes">Este Mês</option>
           <option value="p:proxmes">Próximo Mês</option>
@@ -2049,9 +2057,9 @@
         </select>
         <input class="rm-date-input" id="rm-date-value-lista" style="display:none;" oninput="rmRenderLista()">
         <div class="rm-date-range" id="rm-date-range-lista" style="display:none;">
-          <input type="date" class="rm-date-input" id="rm-date-start-lista" oninput="rmRenderLista()">
+          <input type="date" class="rm-date-input" id="rm-date-start-lista" oninput="rmOfiFiltroMudou('lista')">
           <span class="rm-date-range-sep">até</span>
-          <input type="date" class="rm-date-input" id="rm-date-end-lista" oninput="rmRenderLista()">
+          <input type="date" class="rm-date-input" id="rm-date-end-lista" oninput="rmOfiFiltroMudou('lista')">
         </div>
       </div>
 
@@ -8708,7 +8716,9 @@ function rmFilteredList(searchInputId, dateModeId, dateValueId, dateStartId, dat
 
   if(dateModeId){
     const mode = document.getElementById(dateModeId).value;
-    if(mode !== 'todos'){
+    if(mode === 'p:oficina'){
+      filtered = filtered.filter(r => r.status !== 'entregue' && r.status !== 'antigas');
+    } else if(mode !== 'todos'){
       let range = null;
       if(mode.startsWith('p:')){
         range = rmPresetRange(mode);
@@ -8817,6 +8827,24 @@ function rmOnDateModeChange(modeId, valueId, rangeId){
     else if(mode==='semana') valueInput.value = rmIsoWeekStringFromDate(now);
   }
 }
+
+// Painel e Lista usam o MESMO período e a MESMA busca: mudou num, muda no outro
+function rmOfiFiltroMudou(origem){
+  const P = { modo:'rm-date-mode', ini:'rm-date-start', fim:'rm-date-end', faixa:'rm-date-range', busca:'rm-search' };
+  const L = { modo:'rm-date-mode-lista', ini:'rm-date-start-lista', fim:'rm-date-end-lista', faixa:'rm-date-range-lista', busca:'rm-search-lista' };
+  const [de, para] = origem === 'painel' ? [P, L] : [L, P];
+  ['modo','ini','fim','busca'].forEach(k => { const a = document.getElementById(de[k]), b = document.getElementById(para[k]); if(a && b && b.value !== a.value) b.value = a.value; });
+  [P, L].forEach(x => { const f = document.getElementById(x.faixa); if(f) f.style.display = document.getElementById(x.modo).value === 'personalizado' ? '' : 'none'; });
+  try{ localStorage.setItem('radicalMotos_ofiPeriodo', document.getElementById(L.modo).value); }catch(e){}
+  if(origem === 'lista') rmOslAtalho = rmOslAtalho; // mantém atalhos da lista
+  rmRenderLista(); rmRenderBoard();
+  if(typeof rmRenderMecanicosBoard === 'function' && document.getElementById('rm-view-mecanicos').classList.contains('active')) rmRenderMecanicosBoard();
+}
+// lembra o período escolhido neste computador
+(function(){ try{ const v = localStorage.getItem('radicalMotos_ofiPeriodo'); if(!v) return;
+  const aplica = () => ['rm-date-mode','rm-date-mode-lista'].forEach(id => { const e = document.getElementById(id); if(e && [...e.options].some(o => o.value === v)) e.value = v; });
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', aplica); else aplica();
+}catch(e){} })();
 
 function rmRenderBoard(){
   const list = rmFilteredList('rm-search', 'rm-date-mode', 'rm-date-value', 'rm-date-start', 'rm-date-end');
@@ -10099,6 +10127,7 @@ function rmRenderKanban(boardId, list, columns, getKeyForRecord, field){
           ${r.mecanico?`<span class="rm-card-mecanico">${r.mecanico}</span>`:''}
         </div>
       `;
+      card.dataset.id = r.id;
       card.onclick = () => { if(!card._rmSuppressClick) rmOpenModal(r.id, true); };
       rmAttachDragHandlers(card, r.id, field);
       body.appendChild(card);
