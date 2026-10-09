@@ -1452,6 +1452,7 @@
   .rm-cr-h:hover::after, .rm-cr-h.ativo::after{width:3px; background:var(--rm-accent);}
   body.rm-cr-arrastando, body.rm-cr-arrastando *{cursor:col-resize !important; user-select:none !important;}
   @media (max-width:760px){ .rm-cr-h{display:none;} }
+  .rm-cmp-acao{grid-column:1 / -1;} .rm-cmp-acao small{display:block; font-size:12px; color:var(--rm-text-dim); margin-top:2px;}
   .rm-inv-guia{background:var(--rm-panel); border:1px solid var(--rm-border); border-left:4px solid #2f6fb5;}
   .rm-inv-guia summary{padding:12px 16px; cursor:pointer; font-weight:700;}
   .rm-inv-guia-corpo{padding:0 16px 14px; font-size:14px; line-height:1.5;}
@@ -6011,14 +6012,13 @@ function rmImpLerArquivo(f){
     r.readAsArrayBuffer(f);
   });
 }
-async function rmImpLer(files){
-  const box = document.getElementById('rm-imp-prev');
-  box.innerHTML = '<div class="rm-problema-empty" style="padding:16px;">Lendo arquivos...</div>';
+async function rmImpParse(files){
   const arquivos = [], linhas = [], vistos = new Set();
   for(const f of files){
     const rows = await rmImpLerArquivo(f);
+    { const tit = rows.slice(0, 5).map(r => r.join(' ')).join(' '); const m = /(\d{2}\/\d{2}\/\d{4})\s*a\s*(\d{2}\/\d{2}\/\d{4})/.exec(tit); if(m){ f.__de = rmImpData(m[1]); f.__ate = rmImpData(m[2]); } }
     const hi = rows.findIndex(r => { const n = r.map(rmImpNorm); return n.includes('CLIENTE') && n.includes('VALOR') && n.some(x => x.startsWith('PARCELA')); });
-    const info = { nome: f.name, lidas: 0, soma: 0, totalArq: null, dup: 0, erro: hi < 0 ? 'Não achei as colunas Cliente / Valor / Parcela' : '' };
+    const info = { de: f.__de || null, ate: f.__ate || null, nome: f.name, lidas: 0, soma: 0, totalArq: null, dup: 0, erro: hi < 0 ? 'Não achei as colunas Cliente / Valor / Parcela' : '' };
     if(hi >= 0){
       const H = rows[hi].map(rmImpNorm);
       const col = (...nomes) => H.findIndex(h => nomes.some(n => h === n || h.startsWith(n)));
@@ -6033,11 +6033,18 @@ async function rmImpLer(files){
           valor, obs: g(c.obs), compra: rmImpData(g(c.comp)) || venc, vendedor: rmComNome(g(c.vend)), cidade: g(c.cid) };
         const chave = [L.fato || L.nota || '', L.parcela, L.venc, L.valor.toFixed(2), rmImpNorm(L.cliente)].join('|');
         if(vistos.has(chave)){ info.dup++; return; }
-        vistos.add(chave); linhas.push(L); info.lidas++; info.soma += valor;
+        L.__arq = f.name; vistos.add(chave); linhas.push(L); info.lidas++; info.soma += valor;
       });
     }
     arquivos.push(info);
   }
+  return { arquivos, linhas };
+}
+
+async function rmImpLer(files){
+  const box = document.getElementById('rm-imp-prev');
+  box.innerHTML = '<div class="rm-problema-empty" style="padding:16px;">Lendo arquivos...</div>';
+  const { arquivos, linhas } = await rmImpParse(files);
   // agrupa por venda (Fato); sem número → cliente + data da compra
   const grupos = new Map();
   linhas.forEach(L => {
@@ -6239,7 +6246,8 @@ function rmRenderConciliacao(){
       <select class="rm-osl-sel" id="rm-conc-filtro" onchange="rmRenderConciliacao()">
         ${[['pendentes','A baixar no antigo'],['hoje','Recebidos hoje'],['ontem','Recebidos ontem'],['semana','Últimos 7 dias'],['baixados','Já baixados no antigo'],['todos','Todos']].map(([v,t]) => `<option value="${v}"${v === modo ? ' selected' : ''}>${t}</option>`).join('')}
       </select>
-      <button class="rm-pe2-btn" style="margin-left:auto;" onclick="rmConcImprimir()">&#128424; Imprimir lista para dar baixa</button>
+      <button class="rm-pe2-btn" style="margin-left:auto;" onclick="rmCmpAbrir()" title="Compara o que está em aberto no sistema antigo com o sistema novo (não altera nada)">&#128269; Comparar com o sistema antigo</button>
+      <button class="rm-pe2-btn" onclick="rmConcImprimir()">&#128424; Imprimir lista para dar baixa</button>
     </div>
     ${lista.length ? lista.map(x => {
       const mk = rmConc.marcas[x.id], ok = mk && mk.ok;
@@ -6358,6 +6366,97 @@ function rmCrVarrer(){
 }
 new MutationObserver(() => { if(!rmCrAgendado){ rmCrAgendado = true; requestAnimationFrame(rmCrVarrer); } })
   .observe(document.body, { childList:true, subtree:true });
+
+// ===================== COMPARAR COM O SISTEMA ANTIGO (só leitura) =====================
+// Lê o "Contas a Receber" atual do sistema antigo e mostra onde os valores em aberto não batem com o sistema novo.
+// NÃO altera nada: só aponta o que lançar e em qual sistema.
+function rmCmpAbrir(){
+  const modal = document.getElementById('rm-modal');
+  modal.classList.remove('rm-modal-os'); modal.classList.add('rm-modal-large');
+  modal.innerHTML = `
+    <div class="rm-modal-header"><div><div class="rm-modal-title">&#128269; Comparar com o sistema antigo</div>
+      <div class="rm-modal-sub">Escolha o "Contas a Receber" exportado agora do sistema antigo (um ou vários anos). Nada é alterado.</div></div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
+    <div style="grid-column:1/-1;">
+      <label class="rm-imp-drop"><input type="file" multiple accept=".xls,.xlsx,.csv,.html,.htm" onchange="rmCmpLer(this.files)">
+        <b>Clique para escolher os arquivos</b><span>Só leitura: nenhuma nota ou recebimento é alterado</span></label>
+      <div id="rm-cmp-res"></div>
+    </div>`;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+async function rmCmpLer(files){
+  const box = document.getElementById('rm-cmp-res');
+  box.innerHTML = '<div class="rm-problema-empty" style="padding:16px;">Comparando...</div>';
+  await Promise.all([rmSyncProms().catch(() => {}), rmConcSync().catch(() => {})]);
+  const { arquivos, linhas } = await rmImpParse(files);
+  // períodos cobertos pelos arquivos (pela data de vencimento)
+  const periodos = arquivos.map(a => {
+    const minhas = linhas.filter(l => l.__arq === a.nome);
+    const vs = minhas.map(l => l.venc).sort();
+    return { de: a.de || vs[0] || '9999', ate: a.ate || vs[vs.length - 1] || '0000' };
+  });
+  const coberto = d => periodos.some(p => d >= p.de && d <= p.ate);
+  // antigo: Fato → parcelas em aberto
+  const antigo = new Map();
+  linhas.forEach(l => {
+    const k = l.fato || l.nota || ('SEMNUM-' + rmImpNorm(l.cliente) + '-' + l.compra);
+    if(!antigo.has(k)) antigo.set(k, { cliente: l.cliente, parcelas: [] });
+    antigo.get(k).parcelas.push(l);
+  });
+  // pendências da Conciliação (recebido no novo, ainda não baixado no antigo) por parcela
+  const pendConc = new Map();
+  rmConcItens().forEach(x => { if(rmConc.marcas[x.id] && rmConc.marcas[x.id].ok) return; const k = x.nota.id + '|' + x.p.n; pendConc.set(k, (pendConc.get(k) || 0) + x.valor); });
+  const novas = rmLoadProms().filter(n => n.origem === 'Antigo');
+  const porRef = new Map(novas.map(n => [n.refId.replace(/^antigo-/, ''), n]));
+  const dif = []; let iguais = 0, aguardando = 0;
+  const r2 = v => Math.round(v * 100) / 100;
+  // 1) notas do sistema novo dentro do período dos arquivos
+  novas.forEach(n => {
+    const k = n.refId.replace(/^antigo-/, '');
+    const A = antigo.get(k);
+    n.parcelas.forEach(p => {
+      if(!coberto(p.vencimento)) return;
+      const novoAberto = r2(rmParcRestante(p));
+      const la = A && (A.parcelas.find(x => x.parcela && x.parcela === p.rotulo) || A.parcelas.find(x => x.venc === p.vencimento));
+      const antigoAberto = la ? r2(la.valor) : 0;
+      const pend = r2(pendConc.get(n.id + '|' + p.n) || 0);
+      const d = r2(antigoAberto - novoAberto);
+      if(Math.abs(d) < 0.01){ iguais++; return; }
+      if(d > 0 && Math.abs(d - pend) < 0.01){ aguardando++; return; } // é só a baixa que ainda falta fazer no antigo
+      dif.push({ n, p, antigoAberto, novoAberto, pend, d });
+    });
+  });
+  // 2) notas que estão em aberto no antigo e não existem no novo
+  const faltando = [];
+  antigo.forEach((A, k) => { if(!porRef.has(k)) faltando.push({ k, A, total: r2(A.parcelas.reduce((s, x) => s + x.valor, 0)) }); });
+  const acao = x => {
+    if(x.d < 0) return `<b class="rm-conc-dest">Lançar no sistema NOVO um recebimento de ${rmFormatMoeda(-x.d)}</b><small>No antigo falta menos: provavelmente o cliente pagou lá. Depois de lançar, marque "Já dei baixa no antigo" na Conciliação.</small>`;
+    return `<b style="color:#c9961a">Dar baixa de ${rmFormatMoeda(x.d - x.pend)} no sistema ANTIGO</b><small>No novo falta menos. ${x.pend ? 'Já descontei ' + rmFormatMoeda(x.pend) + ' que está pendente na Conciliação. ' : ''}Confira se esse recebimento foi feito mesmo.</small>`;
+  };
+  const vazio = !dif.length && !faltando.length;
+  box.innerHTML = `
+    <div class="vg-kpis">
+      ${rmInvKpi(vazio ? '👍' : '⚠️', vazio ? '#2e8b57' : '#c9961a', 'Diferenças', dif.length, vazio ? 'os dois sistemas estão iguais' : 'parcelas com valor diferente')}
+      ${rmInvKpi('✅', '#2e8b57', 'Parcelas iguais', iguais, 'mesmo valor em aberto')}
+      ${rmInvKpi('⏳', '#2f6fb5', 'Só falta conciliar', aguardando, 'baixas pendentes na Conciliação')}
+      ${rmInvKpi('🆕', faltando.length ? '#c9961a' : '#8a8f98', 'Notas só no antigo', faltando.length, faltando.length ? 'use "Importar do sistema antigo"' : 'nenhuma')}
+    </div>
+    <div class="rm-com-nota">Arquivos: ${arquivos.map(a => rmEscapeHtml(a.nome) + ' (' + a.lidas + ' parcelas)').join(' · ')}. Só são comparadas as parcelas com vencimento dentro do período desses arquivos.</div>
+    ${dif.map(x => `<div class="rm-conc-card">
+      <div class="rm-conc-topo"><div><span class="rm-conc-fato">${rmEscapeHtml(x.n.refCodigo || '')}</span> <b>${rmEscapeHtml(x.n.clienteNome || '')}</b></div>
+        <button class="rm-pe2-btn" onclick="rmAbrirDetalheAntigo('${rmJs(x.n.refId)}')">Abrir nota</button></div>
+      <div class="rm-conc-passos">
+        <div><span>Parcela</span><b>${rmEscapeHtml(rmParcRotulo(x.p, x.n))} · vence ${rmDataBR(x.p.vencimento)}</b></div>
+        <div><span>Em aberto no ANTIGO</span><b>${rmFormatMoeda(x.antigoAberto)}${x.antigoAberto ? '' : ' (quitada lá)'}</b></div>
+        <div><span>Em aberto no NOVO</span><b>${rmFormatMoeda(x.novoAberto)}</b></div>
+        <div class="rm-cmp-acao">${acao(x)}</div>
+      </div></div>`).join('')}
+    ${faltando.length ? `<div class="rm-imp-sec">Notas em aberto no antigo que não estão no sistema novo</div>
+      <table class="rm-imp-tab"><thead><tr><th>Fato</th><th>Cliente</th><th>Parcelas</th><th class="r">Em aberto</th></tr></thead><tbody>
+      ${faltando.slice(0, 100).map(f => `<tr><td>${rmEscapeHtml(f.A.parcelas[0].fato || f.k)}</td><td>${rmEscapeHtml(f.A.cliente)}</td><td>${f.A.parcelas.map(p => rmEscapeHtml(p.parcela || '') + ' · ' + rmDataBR(p.venc)).join('<br>')}</td><td class="r">${rmFormatMoeda(f.total)}</td></tr>`).join('')}
+      </tbody></table>` : ''}
+    ${vazio ? '<div class="rm-pe-soma" style="font-size:15px; margin-top:12px;">&#10004; Tudo igual: o que está em aberto no sistema antigo é o mesmo que está no sistema novo.</div>' : ''}`;
+}
 
 // ===================== BACKUP COMPLETO =====================
 const RM_BKP_TABELAS = [['recebimentos','id'],['inventarios','id'],['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome']];
