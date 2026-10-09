@@ -1424,6 +1424,16 @@
     .rm-mob-sheet-acoes{display:flex; gap:8px; margin-top:12px;}
     .rm-mob-sheet-acoes button{flex:1; padding:12px; border:1px solid var(--rm-border); background:var(--rm-panel-2); color:var(--rm-text); font-family:inherit;}
   }
+  .rm-imp-drop{display:flex; flex-direction:column; align-items:center; gap:4px; border:2px dashed var(--rm-border); padding:22px; cursor:pointer; text-align:center; margin-bottom:12px;}
+  .rm-imp-drop:hover{border-color:var(--rm-accent);}
+  .rm-imp-drop input{display:none;} .rm-imp-drop span{font-size:12.5px; color:var(--rm-text-dim);}
+  .rm-imp-sec{font-weight:700; margin:14px 0 6px;}
+  .rm-imp-tab{width:100%; border-collapse:collapse; font-size:13px;}
+  .rm-imp-tab th{text-align:left; color:var(--rm-text-dim); font-weight:600; padding:5px 8px; border-bottom:1px solid var(--rm-border);}
+  .rm-imp-tab td{padding:5px 8px; border-bottom:1px solid var(--rm-border); vertical-align:top;}
+  .rm-imp-tab .r{text-align:right;}
+  .rm-imp-acoes{display:flex; justify-content:flex-end; align-items:center; gap:14px; margin-top:14px; position:sticky; bottom:0; background:var(--rm-panel); padding:10px 0;}
+  .rm-fin-tag-Antigo{background:#6b6b6b; color:#fff;}
   .rm-inv-guia{background:var(--rm-panel); border:1px solid var(--rm-border); border-left:4px solid #2f6fb5;}
   .rm-inv-guia summary{padding:12px 16px; cursor:pointer; font-weight:700;}
   .rm-inv-guia-corpo{padding:0 16px 14px; font-size:14px; line-height:1.5;}
@@ -2450,7 +2460,7 @@
         </div>
       </div>
       <div id="rm-view-fin-prom" class="rm-view">
-        <h1 class="rm-title" style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">Vendas a prazo <button class="rm-pe2-btn rm-so-admin-fin" onclick="rmConferirRecebimentos()" title="Compara o livro-caixa com as notas e restaura algum recebimento que tenha sumido">&#128737; Conferir recebimentos</button></h1>
+        <h1 class="rm-title" style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">Vendas a prazo <span style="display:flex; gap:6px; flex-wrap:wrap;"><button class="rm-pe2-btn rm-so-admin-fin" onclick="rmConferirRecebimentos()" title="Compara o livro-caixa com as notas e restaura algum recebimento que tenha sumido">&#128737; Conferir recebimentos</button><button class="rm-pe2-btn rm-so-admin-fin" onclick="rmImpAbrir()" title="Trazer as notas a receber do sistema antigo">&#128229; Importar do sistema antigo</button></span></h1>
         <div class="rm-toolbar">
           <input class="rm-search" id="rm-fin-prom-busca" placeholder="Buscar por cliente ou código da venda..." oninput="rmRenderFinProm()">
           <select class="rm-date-select" id="rm-fin-prom-status" onchange="rmRenderFinProm()">
@@ -4262,6 +4272,7 @@ function rmRenderVendasHoje(){
 }
 
 function rmAbrirDetalheVenda(id){
+  if(String(id).startsWith('antigo-')) return rmAbrirDetalheAntigo(id);
   const v = rmLoadVendas().find(x=>x.id===id);
   if(!v) return;
   const isOrcamento = v.tipo === 'orcamento';
@@ -5921,6 +5932,185 @@ function rmMobMsgCliente(id){
 // abre o modo celular quando a tela é pequena
 window.addEventListener('resize', () => { if(rmUsuario && rmEhCelular()) rmMobInit(); });
 
+// ===================== IMPORTAR NOTAS A PRAZO DO SISTEMA ANTIGO =====================
+// Lê o relatório "Contas a Receber" exportado do sistema antigo (.xls que na verdade é uma tabela HTML; também aceita .xlsx/.csv).
+// Cada linha é uma parcela EM ABERTO. Agrupa pelo número do Fato (venda) → uma nota a prazo por venda.
+let rmImpDados = null;
+function rmImpNorm(t){ return String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase().replace(/[^A-Z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); }
+function rmImpData(t){ const m = /(\d{1,2})\/(\d{1,2})\/(\d{2,4})/.exec(String(t || '')); if(!m) return null; const y = m[3].length === 2 ? '20' + m[3] : m[3]; return y + '-' + m[2].padStart(2,'0') + '-' + m[1].padStart(2,'0'); }
+function rmImpNum(t){ return rmParseMoeda(String(t || '').replace(/[^\d,.-]/g, '')) || 0; }
+function rmImpAbrir(){
+  rmImpDados = null;
+  const modal = document.getElementById('rm-modal');
+  modal.classList.remove('rm-modal-os'); modal.classList.add('rm-modal-large');
+  modal.innerHTML = `
+    <div class="rm-modal-header"><div><div class="rm-modal-title">&#128229; Importar notas do sistema antigo</div>
+      <div class="rm-modal-sub">Relatório "Contas a Receber" (pode escolher vários arquivos de uma vez, um por ano)</div></div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
+    <div style="grid-column:1/-1;">
+      <label class="rm-imp-drop"><input type="file" multiple accept=".xls,.xlsx,.csv,.html,.htm" onchange="rmImpLer(this.files)">
+        <b>Clique para escolher os arquivos</b><span>Exportados do sistema antigo · .xls / .xlsx / .csv</span></label>
+      <div id="rm-imp-prev"></div>
+    </div>`;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+function rmImpLerArquivo(f){
+  return new Promise(res => {
+    const r = new FileReader();
+    r.onload = () => {
+      const buf = new Uint8Array(r.result);
+      const ehZip = buf[0] === 0x50 && buf[1] === 0x4B;
+      if(ehZip && window.XLSX){
+        try{ const wb = XLSX.read(buf, { type:'array' }); res(XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header:1, raw:false, defval:'' })); }catch(e){ res([]); }
+        return;
+      }
+      let txt; try{ txt = new TextDecoder('utf-8', { fatal:true }).decode(buf); }catch(e){ txt = new TextDecoder('iso-8859-1').decode(buf); }
+      if(/<table/i.test(txt)){
+        const doc = new DOMParser().parseFromString(txt, 'text/html');
+        res([...doc.querySelectorAll('tr')].map(tr => [...tr.querySelectorAll('th,td')].map(c => c.textContent.replace(/\s+/g, ' ').trim())));
+      } else {
+        const sep = (txt.split('\n')[0].match(/;/g) || []).length > (txt.split('\n')[0].match(/,/g) || []).length ? ';' : ',';
+        res(txt.split(/\r?\n/).map(l => l.split(sep).map(c => c.replace(/^"|"$/g, '').trim())));
+      }
+    };
+    r.onerror = () => res([]);
+    r.readAsArrayBuffer(f);
+  });
+}
+async function rmImpLer(files){
+  const box = document.getElementById('rm-imp-prev');
+  box.innerHTML = '<div class="rm-problema-empty" style="padding:16px;">Lendo arquivos...</div>';
+  const arquivos = [], linhas = [], vistos = new Set();
+  for(const f of files){
+    const rows = await rmImpLerArquivo(f);
+    const hi = rows.findIndex(r => { const n = r.map(rmImpNorm); return n.includes('CLIENTE') && n.includes('VALOR') && n.some(x => x.startsWith('PARCELA')); });
+    const info = { nome: f.name, lidas: 0, soma: 0, totalArq: null, dup: 0, erro: hi < 0 ? 'Não achei as colunas Cliente / Valor / Parcela' : '' };
+    if(hi >= 0){
+      const H = rows[hi].map(rmImpNorm);
+      const col = (...nomes) => H.findIndex(h => nomes.some(n => h === n || h.startsWith(n)));
+      const c = { venc: col('DATA', 'VENCIMENTO'), cat: col('CATEGORIA'), parc: col('PARCELA'), nota: col('NUM NOTA', 'NM ZM NOTA', 'NOTA'), fato: col('NUM FATO', 'NM ZM FATO', 'FATO'),
+        cli: col('CLIENTE'), tel: col('TELEFONE', 'FONE', 'CELULAR'), valor: col('VALOR'), obs: col('OBSERVACAO', 'OBS'), comp: col('DATA COMP', 'EMISSAO'), vend: col('VENDEDOR'), cid: col('CIDADE') };
+      rows.slice(hi + 1).forEach(r => {
+        const g = i => i >= 0 ? (r[i] || '').trim() : '';
+        if(rmImpNorm(r[0]) === 'TOTAL'){ info.totalArq = rmImpNum(g(c.valor)); return; }
+        const cliente = g(c.cli), valor = rmImpNum(g(c.valor)), venc = rmImpData(g(c.venc));
+        if(!cliente || !(valor > 0) || !venc) return;
+        const L = { venc, categoria: g(c.cat), parcela: g(c.parc), nota: g(c.nota), fato: g(c.fato), cliente: cliente.toUpperCase(), telefone: g(c.tel),
+          valor, obs: g(c.obs), compra: rmImpData(g(c.comp)) || venc, vendedor: rmComNome(g(c.vend)), cidade: g(c.cid) };
+        const chave = [L.fato || L.nota || '', L.parcela, L.venc, L.valor.toFixed(2), rmImpNorm(L.cliente)].join('|');
+        if(vistos.has(chave)){ info.dup++; return; }
+        vistos.add(chave); linhas.push(L); info.lidas++; info.soma += valor;
+      });
+    }
+    arquivos.push(info);
+  }
+  // agrupa por venda (Fato); sem número → cliente + data da compra
+  const grupos = new Map();
+  linhas.forEach(L => {
+    const k = L.fato || L.nota || ('SEMNUM-' + rmImpNorm(L.cliente) + '-' + L.compra);
+    if(!grupos.has(k)) grupos.set(k, []); grupos.get(k).push(L);
+  });
+  // clientes: procura por telefone e depois por nome
+  const clis = rmLoadClientes();
+  const porTel = new Map(), porNome = new Map();
+  clis.forEach(c => { const t = (c.telefone || '').replace(/\D/g, '').slice(-8); if(t.length === 8) porTel.set(t, c); porNome.set(rmImpNorm(c.nome), c); });
+  const novosCli = new Map();
+  const existentes = new Set(rmLoadProms().map(n => n.refId));
+  const notas = []; let jaImportadas = 0;
+  grupos.forEach((ls, k) => {
+    const refId = 'antigo-' + k;
+    if(existentes.has(refId)){ jaImportadas++; return; }
+    const L0 = ls[0];
+    const tel = (ls.find(x => x.telefone) || {}).telefone || '';
+    const t8 = tel.replace(/\D/g, '').slice(-8);
+    let cli = (t8.length === 8 && porTel.get(t8)) || porNome.get(rmImpNorm(L0.cliente)) || novosCli.get(rmImpNorm(L0.cliente));
+    if(!cli){
+      cli = { id: 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7), nome: L0.cliente, telefone: tel, cidade: (ls.find(x => x.cidade) || {}).cidade || '', situacao: 'positivo', criadoEm: new Date().toISOString(), observacao: 'Importado do sistema antigo', __novo: true };
+      novosCli.set(rmImpNorm(L0.cliente), cli);
+      if(t8.length === 8) porTel.set(t8, cli);
+    }
+    ls.sort((a, b) => a.venc.localeCompare(b.venc));
+    const total = ls.reduce((s, x) => s + x.valor, 0);
+    notas.push({ id: 'np' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8), origem: 'Antigo', refId, refCodigo: L0.fato || L0.nota || 'S/N',
+      clienteId: cli.id, clienteNome: cli.nome, total: Math.round(total * 100) / 100, criadoEm: L0.compra + 'T12:00:00',
+      observacao: ['Importada do sistema antigo', L0.categoria, L0.vendedor ? 'vendedor ' + L0.vendedor : ''].filter(Boolean).join(' · '),
+      antigo: { vendedor: L0.vendedor, categoria: L0.categoria, nota: L0.nota, compra: L0.compra },
+      parcelas: ls.map((x, i) => ({ n: i + 1, rotulo: x.parcela || '', valor: x.valor, vencimento: x.venc, pagamentos: [], pagoEm: null, valorPago: 0, formaPagamento: null, obsAntiga: x.obs || '' })) });
+  });
+  rmImpDados = { notas, novosCli: [...novosCli.values()], arquivos };
+  const hoje = rmHojeISO();
+  const totalGeral = notas.reduce((s, n) => s + n.total, 0);
+  const vencido = notas.reduce((s, n) => s + n.parcelas.filter(p => p.vencimento < hoje).reduce((a, p) => a + p.valor, 0), 0);
+  const parcelas = notas.reduce((s, n) => s + n.parcelas.length, 0);
+  const algumErro = arquivos.some(a => a.erro || (a.totalArq != null && Math.abs(a.totalArq - a.soma) > 0.01 && !a.dup));
+  box.innerHTML = `
+    <div class="rm-imp-sec">Conferência por arquivo</div>
+    <table class="rm-imp-tab"><thead><tr><th>Arquivo</th><th class="r">Parcelas</th><th class="r">Soma lida</th><th class="r">Total do relatório</th><th></th></tr></thead><tbody>
+      ${arquivos.map(a => { const bate = a.totalArq == null || Math.abs(a.totalArq - a.soma) < 0.011; return `<tr><td>${rmEscapeHtml(a.nome)}${a.dup ? ` <small>(${a.dup} repetida(s) ignorada(s))</small>` : ''}</td><td class="r">${a.lidas}</td><td class="r">${rmFormatMoeda(a.soma)}</td><td class="r">${a.totalArq == null ? '—' : rmFormatMoeda(a.totalArq)}</td>
+        <td>${a.erro ? `<span class="rm-inv-neg">${rmEscapeHtml(a.erro)}</span>` : bate ? '<span style="color:#2e8b57; font-weight:700;">✔ bate</span>' : (a.dup ? '<span style="color:#c9961a; font-weight:700;">repetidas ignoradas</span>' : '<span class="rm-inv-neg">✘ não bate</span>')}</td></tr>`; }).join('')}
+    </tbody></table>
+    <div class="vg-kpis" style="margin-top:12px;">
+      ${rmInvKpi('🧾', '#2f6fb5', 'Notas a importar', notas.length, parcelas + ' parcela(s) em aberto')}
+      ${rmInvKpi('💰', '#2e8b57', 'Total a receber', rmFormatMoeda(totalGeral), 'vencido: ' + rmFormatMoeda(vencido))}
+      ${rmInvKpi('👥', '#6a4fc4', 'Clientes', new Set(notas.map(n => n.clienteId)).size, rmImpDados.novosCli.length + ' novo(s) serão cadastrados')}
+      ${rmInvKpi('⏭️', '#8a8f98', 'Já importadas antes', jaImportadas, 'serão ignoradas')}
+    </div>
+    ${notas.length ? `<div class="rm-imp-sec">Prévia (${Math.min(40, notas.length)} de ${notas.length})</div>
+    <table class="rm-imp-tab"><thead><tr><th>Nº</th><th>Cliente</th><th>Compra</th><th>Parcelas</th><th class="r">Em aberto</th></tr></thead><tbody>
+      ${notas.slice(0, 40).map(n => `<tr><td>${rmEscapeHtml(n.refCodigo)}</td><td>${rmEscapeHtml(n.clienteNome)}</td><td>${rmDataBR(n.antigo.compra)}</td><td>${n.parcelas.map(p => rmEscapeHtml(p.rotulo || p.n) + ' · ' + rmDataBR(p.vencimento)).join('<br>')}</td><td class="r">${rmFormatMoeda(n.total)}</td></tr>`).join('')}
+    </tbody></table>
+    ${algumErro ? '<div class="rm-pe2-aviso" style="margin-top:12px;">Algum arquivo não bateu com o total do relatório. Confira antes de importar.</div>' : ''}
+    <div class="rm-imp-acoes"><span id="rm-imp-prog"></span><button class="rm-primary" style="width:auto; margin:0; padding:12px 26px;" onclick="rmImpConfirmar()">Importar ${notas.length} nota(s)</button></div>`
+    : '<div class="rm-problema-empty" style="padding:16px;">Nenhuma nota nova para importar.</div>'}`;
+}
+async function rmImpConfirmar(){
+  const D = rmImpDados; if(!D || !D.notas.length) return;
+  const tot = D.notas.reduce((s, n) => s + n.total, 0);
+  if(!confirm(`Importar ${D.notas.length} nota(s) a prazo, somando ${rmFormatMoeda(tot)}, e cadastrar ${D.novosCli.length} cliente(s) novo(s)?`)) return;
+  const btn = document.querySelector('.rm-imp-acoes button'); if(btn){ btn.disabled = true; btn.textContent = 'Importando...'; }
+  const prog = t => { const e = document.getElementById('rm-imp-prog'); if(e) e.textContent = t; };
+  const lote = async (tabela, linhas, rot) => {
+    for(let i = 0; i < linhas.length; i += 200){
+      prog(rot + ' ' + Math.min(i + 200, linhas.length) + ' de ' + linhas.length + '...');
+      let ok = false;
+      for(let t = 0; t < 4 && !ok; t++){ const { error } = await rmSb.from(tabela).upsert(linhas.slice(i, i + 200)); ok = !error; if(error){ console.error(error); await rmEspera(1500); } }
+      if(!ok) throw new Error('falha ao gravar ' + tabela + ' (verifique a internet e tente de novo: o que já foi gravado não duplica)');
+    }
+  };
+  try{
+    const clis = D.novosCli.map(c => { const x = Object.assign({}, c); delete x.__novo; return x; });
+    await lote('clientes', clis.map(rmToDbRowCliente), 'Clientes');
+    rmSaveClientes(rmLoadClientes().concat(clis));
+    await lote('promissorias', D.notas.map(rmPromToDb), 'Notas');
+    const ja = new Set(rmLoadProms().map(n => n.id));
+    rmSaveProms(rmLoadProms().concat(D.notas.filter(n => !ja.has(n.id))));
+    rmLog('Importou notas do sistema antigo', '', D.notas.length + ' nota(s) · ' + rmFormatMoeda(tot) + ' · ' + clis.length + ' cliente(s) novo(s)');
+    rmImpDados = null;
+    rmCloseModal();
+    alert(`Pronto! ${D.notas.length} nota(s) importada(s), total ${rmFormatMoeda(tot)}.\nConfira em Financeiro → A prazo e Financeiro → Clientes.`);
+    if(typeof rmRenderFinProm === 'function') rmRenderFinProm();
+    if(typeof rmRenderFinClientes === 'function') rmRenderFinClientes();
+  }catch(e){
+    alert('A importação parou: ' + e.message);
+    if(btn){ btn.disabled = false; btn.textContent = 'Tentar de novo'; }
+  }
+}
+// resumo de uma nota importada (não tem venda/OS no sistema novo)
+function rmAbrirDetalheAntigo(refId){
+  const n = rmLoadProms().find(x => x.refId === refId); if(!n) return;
+  const a = n.antigo || {};
+  const modal = document.getElementById('rm-modal');
+  modal.classList.remove('rm-modal-large', 'rm-modal-os');
+  modal.innerHTML = `
+    <div class="rm-modal-header"><div>
+      <div class="rm-modal-title">${rmEscapeHtml(n.refCodigo || '')} <span class="rm-fin-tag rm-fin-tag-Antigo">Sistema antigo</span></div>
+      <div class="rm-modal-sub">${rmEscapeHtml(n.clienteNome || '')} · compra em ${rmDataBR(a.compra || String(n.criadoEm).slice(0,10))}${a.vendedor ? ' · vendedor ' + rmEscapeHtml(a.vendedor) : ''}</div></div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
+    <div class="rm-pe2-aviso" style="margin-bottom:12px;">Nota trazida do sistema antigo: aqui estão só as parcelas que estavam em aberto. Os produtos desta venda ficam no sistema antigo (${rmEscapeHtml(n.refCodigo || '')}).</div>
+    ${rmPromResumoHtml(refId)}`;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+
 // ===================== BACKUP COMPLETO =====================
 const RM_BKP_TABELAS = [['recebimentos','id'],['inventarios','id'],['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome']];
 const RM_BKP_ULTIMO_KEY = 'radicalMotos_ultimoBackup';
@@ -7311,7 +7501,7 @@ function rmGerarParcelas(total, n, primeiroVenc){
 }
 
 // config + prévia de parcelas (usado no PDV e na OS)
-function rmParcRotulo(p, nota){ return p.entrada ? 'Entrada' : (p.n - (nota && nota.parcelas[0] && nota.parcelas[0].entrada ? 1 : 0)) + '/' + (nota ? nota.parcelas.filter(x => !x.entrada).length : ''); }
+function rmParcRotulo(p, nota){ if(p.rotulo) return p.rotulo; return p.entrada ? 'Entrada' : (p.n - (nota && nota.parcelas[0] && nota.parcelas[0].entrada ? 1 : 0)) + '/' + (nota ? nota.parcelas.filter(x => !x.entrada).length : ''); }
 function rmPromConfigHtml(prefixo, total, nParc, venc, onchange, entrada, formaEnt){
   const ent = Math.min(Math.max(Number(entrada) || 0, 0), total);
   const parc = rmGerarParcelas(total - ent, nParc, venc);
@@ -9671,7 +9861,7 @@ function rmPromResumoHtml(refId){
       ${nota.parcelas.map(p => {
         const sit = rmPromSituacao(p), pago = rmParcPago(p);
         return `<div class="rm-pdv-hero-line" style="padding:3px 0;">
-          <span>${p.entrada ? 'Entrada' : p.n + 'ª'} · ${p.entrada ? 'paga na compra' : 'vence ' + rmDataBR(p.vencimento)} <span class="rm-prom-sit rm-prom-sit-${sit}">${rot[sit]}${sit==='paga'?' '+rmDataHoraBR(p.pagoEm):''}</span>${sit!=='paga'&&pago>0?` <span class="rm-prom-sit rm-prom-sit-parcial">pago ${rmFormatMoeda(pago)}</span>`:''}</span>
+          <span>${p.entrada ? 'Entrada' : (p.rotulo || p.n + 'ª')} · ${p.entrada ? 'paga na compra' : 'vence ' + rmDataBR(p.vencimento)} <span class="rm-prom-sit rm-prom-sit-${sit}">${rot[sit]}${sit==='paga'?' '+rmDataHoraBR(p.pagoEm):''}</span>${sit!=='paga'&&pago>0?` <span class="rm-prom-sit rm-prom-sit-parcial">pago ${rmFormatMoeda(pago)}</span>`:''}</span>
           <b>${rmFormatMoeda(p.valor)}</b></div>`;
       }).join('')}
     </div>`;
@@ -9835,6 +10025,7 @@ function rmPromFecharEditor(){
 }
 
 function rmAbrirDetalheOS(id){
+  if(String(id).startsWith('antigo-')) return rmAbrirDetalheAntigo(id);
   const r = rmIdx(rmMemLista(RM_KEY)).get(id);
   if(!r) return;
   const t = rmOsTotais(r);
