@@ -1453,6 +1453,8 @@
   body.rm-cr-arrastando, body.rm-cr-arrastando *{cursor:col-resize !important; user-select:none !important;}
   @media (max-width:760px){ .rm-cr-h{display:none;} }
   .rm-cmp-acao{grid-column:1 / -1;} .rm-cmp-acao small{display:block; font-size:12px; color:var(--rm-text-dim); margin-top:2px;}
+  .rm-prom-btn-parc{background:#fff6e0; color:#7a5b00; border-color:#f0dca4;}
+  html[data-tema="dark"] .rm-prom-btn-parc{background:#3a321a; color:#f0d27a; border-color:#5c4d1f;}
   .rm-inv-guia{background:var(--rm-panel); border:1px solid var(--rm-border); border-left:4px solid #2f6fb5;}
   .rm-inv-guia summary{padding:12px 16px; cursor:pointer; font-weight:700;}
   .rm-inv-guia-corpo{padding:0 16px 14px; font-size:14px; line-height:1.5;}
@@ -8103,13 +8105,21 @@ function rmRenderFinProm(){
       <td style="text-align:right; font-weight:700;">${rmFormatMoeda(sit==='paga' ? p.valor : resta)}${parcial?`<div style="font-size:11px; font-weight:400; color:var(--rm-text-dim);">de ${rmFormatMoeda(p.valor)}</div>`:''}</td>
       <td><span class="rm-prom-sit rm-prom-sit-${sit}">${rot[sit]}${sit==='paga'?' '+rmDataHoraBR(p.pagoEm):''}</span>${parcial?` <span class="rm-prom-sit rm-prom-sit-parcial">pago ${rmFormatMoeda(pago)}</span>`:''}</td>
       <td onclick="event.stopPropagation()"><div class="rm-prom-acoes">
-        ${sit!=='paga' ? `<button class="rm-prom-btn rm-prom-btn-ok" onclick="rmPromReceber('${nota.id}',${p.n})">Receber</button>` : ''}
+        ${sit!=='paga' ? `<button class="rm-prom-btn rm-prom-btn-ok" onclick="rmPromReceber('${nota.id}',${p.n})" title="Receber o que falta da parcela">Receber</button><button class="rm-prom-btn rm-prom-btn-parc" onclick="rmPromReceberParcial('${nota.id}',${p.n})" title="Receber só uma parte da parcela">Parcial</button>` : ''}
         <button class="rm-prom-btn" onclick="rmPromImprimir('${nota.id}')" title="Imprimir notas promissórias para o cliente assinar (opcional)">&#128424;</button>
       </div></td>
     </tr>`;
   }).join('') + rmMaisLinha('prom', lista.length, 'rmRenderFinProm');
 }
 
+// mesma janela do Receber, mas com o valor em branco para digitar só o que o cliente pagou
+function rmPromReceberParcial(notaId, n){
+  rmPromReceber(notaId, n);
+  const v = document.getElementById('rm-prom-rec-valor'); if(!v) return;
+  v.value = ''; v.placeholder = 'Quanto o cliente pagou agora';
+  const t = document.querySelector('#rm-modal .rm-modal-title'); if(t) t.textContent = t.textContent.replace(/^Receber parcela/, 'Receber parcial');
+  setTimeout(() => v.focus(), 50);
+}
 function rmPromReceber(notaId, n){
   const nota = rmLoadProms().find(x=>x.id===notaId); if(!nota) return;
   const p = nota.parcelas.find(x=>x.n===n); if(!p) return;
