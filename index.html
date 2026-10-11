@@ -705,7 +705,7 @@
       flex-direction:column; align-items:stretch; justify-content:flex-start;
       width:224px; flex-shrink:0; height:100vh; position:sticky; top:0;
       border-bottom:none; border-right:1px solid var(--rm-border);
-      padding:12px 0 0; gap:12px; overflow-y:auto; background:#fafafa;
+      padding:12px 0 0; gap:12px; overflow-y:auto; background:#fafafa; flex-wrap:nowrap;
     }
     .rm-brand{ justify-content:space-between; padding:0 14px; }
 
@@ -724,13 +724,17 @@
     #rm-app.rm-sidebar-collapsed .rm-header{ display:none; }
     #rm-app.rm-sidebar-collapsed .rm-sidebar-expand{ display:flex; }
 
-    .rm-header-right{ flex-direction:column; align-items:stretch; width:100%; gap:0; flex:1; min-height:0; }
+    .rm-header-right{ flex-direction:column; align-items:stretch; width:100%; gap:0; flex:1; min-height:0; flex-wrap:nowrap; }
+
 
     /* itens do menu: ícone + título + descrição, separados por linhas */
     .rm-nav{
       flex-direction:column; align-items:stretch; background:transparent; padding:0; gap:0;
-      overflow:visible; order:1; border:none; border-top:1px solid var(--rm-border);
+      overflow-x:hidden; overflow-y:auto; order:1; border:none; border-top:1px solid var(--rm-border);
+      flex:0 1 auto; min-height:0; scrollbar-width:thin;
     }
+    .rm-sync-status, .rm-user-box{ flex-shrink:0; }
+    .rm-sync-status{ padding-top:10px !important; }
     .rm-nav-btn{
       justify-content:flex-start; align-items:center; gap:12px; width:100%;
       padding:11px 14px; font-size:13px; text-align:left; white-space:normal;
@@ -1460,6 +1464,69 @@
   th.rm-ord-ativa{color:var(--rm-accent) !important;}
   .rm-ord-seta{font-size:10px;}
   .rm-versao{font-size:10.5px; color:var(--rm-text-dim); padding:4px 14px; opacity:0.75;}
+  .rm-nav-btn{position:relative;}
+  .rm-nav-badge{position:absolute; right:16px; top:50%; transform:translateY(-50%); min-width:22px; height:22px; padding:0 6px; border-radius:11px; background:#e53935; color:#fff; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 2px #fff; animation:rmLemPulso 1.6s infinite;}
+  .rm-nav-btn.active .rm-nav-badge{background:#fff; color:#e53935; box-shadow:none;}
+  .rm-subnav-btn{position:relative;}
+  .rm-sub-badge{position:absolute; top:4px; right:6px; min-width:18px; height:18px; padding:0 5px; border-radius:9px; background:#e53935; color:#fff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center;}
+  #rm-mob-nav button{position:relative;}
+  @keyframes rmLemPulso{0%,100%{transform:translateY(-50%) scale(1)} 50%{transform:translateY(-50%) scale(1.12)}}
+  .rm-lem-grade{display:grid; grid-template-columns:repeat(auto-fill, minmax(270px, 1fr)); gap:18px; align-items:start; margin-top:6px;}
+  .rm-lem-nota{position:relative; color:#2b2b2b; padding:18px 18px 14px; min-height:240px; display:flex; flex-direction:column; gap:8px; box-shadow:0 6px 14px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08); transform:rotate(-0.8deg); transition:transform .15s;}
+  .rm-lem-nota:nth-child(even){transform:rotate(0.7deg);}
+  .rm-lem-nota:hover{transform:rotate(0) translateY(-2px);}
+  .rm-lem-nota::before{content:''; position:absolute; top:-8px; left:50%; width:70px; height:16px; margin-left:-35px; background:rgba(255,255,255,0.55); box-shadow:0 1px 2px rgba(0,0,0,0.08);}
+  .rm-lem-nota.venc{outline:3px solid #e53935; outline-offset:2px;}
+  .rm-lem-nota.visto{opacity:0.75; transform:none;}
+  .rm-lem-alerta{background:#e53935; color:#fff; font-weight:800; font-size:12px; padding:3px 8px; width:max-content; animation:rmLemPisca 1.4s infinite;}
+  @keyframes rmLemPisca{50%{opacity:0.55}}
+  .rm-lem-texto{flex:1; white-space:pre-wrap; word-break:break-word; font-size:15.5px; line-height:1.4;}
+  .rm-lem-rodape{display:flex; flex-direction:column; gap:1px; font-size:12.5px;}
+  .rm-lem-rodape span{font-weight:700;} .rm-lem-rodape small{color:rgba(0,0,0,0.55);}
+  .rm-lem-ok{color:#1e7a37 !important; font-weight:700;}
+  .rm-lem-acoes{display:flex; justify-content:flex-end; gap:6px;}
+  .rm-lem-acoes .rm-pe2-btn{background:rgba(255,255,255,0.6); border-color:rgba(0,0,0,0.12); color:#333;}
+  .rm-lem-ok-btn, .rm-lem-salvar{width:auto !important; margin:0 !important; padding:8px 14px !important; font-size:13.5px !important;}
+  .rm-lem-form{transform:none !important; border:2px dashed rgba(0,0,0,0.18);}
+  .rm-lem-form textarea{flex:1; min-height:150px; border:none; background:transparent; resize:vertical; font-family:inherit; font-size:15.5px; color:#2b2b2b; outline:none;}
+  .rm-lem-form textarea::placeholder{color:rgba(0,0,0,0.4);}
+  .rm-lem-cores{display:flex; gap:6px;}
+  .rm-lem-cores button{width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,0.2); cursor:pointer; padding:0;}
+  .rm-lem-cores button.on{outline:2px solid #333; outline-offset:1px;}
+  .rm-lem-quando{display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:#444;}
+  .rm-lem-quando input{flex:1; min-width:0;}
+  .rm-lem-quando select{padding:6px 4px; border:1px solid rgba(0,0,0,0.18); background:rgba(255,255,255,0.7); font-family:inherit; font-size:14px; color:#222; border-radius:0;}
+  .rm-lem-quando input{padding:6px 8px; border:1px solid rgba(0,0,0,0.18); background:rgba(255,255,255,0.7); font-family:inherit; font-size:14px; color:#222; border-radius:0;}
+  .rm-vale-barra{display:flex; gap:8px; align-items:center; margin-bottom:10px;}
+  .rm-vale-barra .rm-pe2-btn{width:auto; padding:7px 14px;}
+  #rm-vale-status{font-size:12px; color:var(--rm-text-dim);}
+  #rm-vale{overflow:auto; max-height:calc(100vh - 210px); background:var(--rm-panel); border:1px solid var(--rm-border);}
+  .rm-vale-tab{border-collapse:collapse; font-size:14px; background:var(--rm-panel); color:var(--rm-text);}
+  .rm-vale-tab th, .rm-vale-tab td{border:1px solid var(--rm-border); padding:0; min-width:130px; background:var(--rm-panel); color:var(--rm-text);}
+  .rm-vale-tab thead th{position:sticky; top:0; background:var(--rm-panel-2); z-index:2;}
+  .rm-vale-tab tfoot td{position:sticky; bottom:0; background:var(--rm-panel-2); font-weight:800; padding:6px 8px; text-align:right;}
+  .rm-vale-tab .n{min-width:38px; width:38px; text-align:center; color:var(--rm-text-dim); background:var(--rm-panel-2); font-size:12px; position:sticky; left:0; z-index:1;}
+  .rm-vale-tab thead .n, .rm-vale-tab tfoot .n{z-index:3;}
+  #rm-vale .rm-vale-tab input{width:100%; border:none !important; border-radius:0 !important; box-shadow:none; padding:6px 8px; margin:0; height:auto; font-family:inherit; font-size:14px; background:transparent !important; outline:none; color:var(--rm-text) !important;}
+  #rm-vale .rm-vale-tab input::placeholder{color:var(--rm-text-dim);}
+  .rm-vale-tab thead input{font-weight:800; text-align:center;}
+  #rm-vale .rm-vale-tab input:focus{box-shadow:inset 0 0 0 2px #2f6fb5; background:rgba(47,111,181,0.10) !important;}
+  .rm-vale-tab th .x{position:absolute; right:2px; top:2px; border:none; background:none; color:var(--rm-text-dim); cursor:pointer; font-size:13px; padding:2px 4px; display:none;}
+  .rm-vale-tab th:hover .x{display:block;}
+  .rm-vale-tab th{position:relative;}
+  #rm-vale-hist{background:var(--rm-panel); border:1px solid var(--rm-border); padding:12px 14px; margin-bottom:12px;}
+  .rm-vh-topo{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:8px;}
+  .rm-vh-topo b{font-size:15px; margin-right:auto;}
+  .rm-vh-wrap{max-height:340px; overflow:auto;}
+  .rm-vh{width:100%; border-collapse:collapse; font-size:13.5px;}
+  .rm-vh th, .rm-vh td{padding:6px 8px; border-bottom:1px solid var(--rm-border); text-align:left; vertical-align:top;}
+  .rm-vh th{position:sticky; top:0; background:var(--rm-panel-2); font-size:12px; color:var(--rm-text-dim);}
+  .rm-vh .de{color:#c0392b; text-decoration:line-through;} .rm-vh .para{color:#1e8a45; font-weight:700;}
+  .rm-vh .rm-pe2-btn{width:auto; padding:4px 10px; font-size:12.5px;}
+  .rm-vale-tab td.mudou input{background:rgba(255,193,7,0.25) !important;}
+  .rm-lem-vazio{color:var(--rm-text-dim); font-size:14px; margin:14px 0;}
+  .rm-lem-vistos{margin-top:28px; border-top:1px solid var(--rm-border); padding-top:12px;}
+  .rm-lem-vistos summary{cursor:pointer; font-weight:700; color:var(--rm-text-dim); margin-bottom:12px;}
   .rm-inv-guia{background:var(--rm-panel); border:1px solid var(--rm-border); border-left:4px solid #2f6fb5;}
   .rm-inv-guia summary{padding:12px 16px; cursor:pointer; font-weight:700;}
   .rm-inv-guia-corpo{padding:0 16px 14px; font-size:14px; line-height:1.5;}
@@ -1713,6 +1780,7 @@
       </div>
       <nav class="rm-nav">
         <button class="rm-nav-btn" id="rm-btn-visao-geral" onclick="rmSetSection('visao-geral')" title="Visão Geral"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Visão Geral</span><span class="rm-nav-sub">Resumo do dia</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-planilha" onclick="rmSetSection('planilha')" title="Planilha"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v3h5V5H5zm7 0v3h7V5h-7zM5 10v4h5v-4H5zm7 0v4h7v-4h-7zm-7 6v3h5v-3H5zm7 0v3h7v-3h-7z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Planilha</span><span class="rm-nav-sub">Vales e lembretes</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-pdv" onclick="rmSetSection('pdv')" title="PDV"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">PDV</span><span class="rm-nav-sub">Ponto de venda</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-oficina" onclick="rmSetSection('oficina')" title="Oficina"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Oficina</span><span class="rm-nav-sub">Motos e mecânicos</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-financeiro" onclick="rmSetSection('financeiro')" title="Financeiro"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Financeiro</span><span class="rm-nav-sub">Vendas, contas, caixa</span></span></button>
@@ -1722,7 +1790,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.08-23h10</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-17h05</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2511,6 +2579,23 @@
           </table>
           <div class="rm-problema-empty" id="rm-fin-prom-empty" style="display:none; padding:20px;">Nenhuma parcela encontrada</div>
         </div>
+      </div>
+    </div>
+
+    <div id="rm-section-planilha" class="rm-section">
+      <div class="rm-subnav">
+        <button class="rm-subnav-btn active" id="rm-btn-pla-vale" onclick="rmSetViewPlanilha('vale')"><span class="rm-subnav-icon">&#128181;</span><span>Vale</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-pla-lembretes" onclick="rmSetViewPlanilha('lembretes')"><span class="rm-subnav-icon">&#128221;</span><span>Lembretes</span></button>
+      </div>
+      <div class="rm-view active" id="rm-view-pla-vale">
+        <h1 class="rm-title">Vale</h1>
+        <div class="rm-vale-barra"><button class="rm-pe2-btn" onclick="rmValeAddCol()">+ Pessoa</button><button class="rm-pe2-btn" onclick="rmValeAddLinhas(5)">+ Linhas</button><button class="rm-pe2-btn" onclick="rmValeHistAbrir()">&#128338; Histórico</button><span id="rm-vale-status"></span></div>
+        <div id="rm-vale-hist" style="display:none"></div>
+        <div id="rm-vale"></div>
+      </div>
+      <div class="rm-view" id="rm-view-pla-lembretes">
+        <h1 class="rm-title">Lembretes</h1>
+        <div id="rm-lem"></div>
       </div>
     </div>
 
@@ -4872,7 +4957,7 @@ function rmSave(list){ rmStoreSalvar(RM_KEY, list); }
 // ===================== LOGIN, PERMISSÕES E REGISTRO =====================
 const RM_LOGIN_DOMINIO = '@radicalmotos.app.br';
 let rmUsuario = null; // perfil do usuário logado
-const RM_PERMS = [['pdv','PDV'],['oficina','Oficina'],['financeiro','Financeiro'],['clientes','Clientes'],['produtos','Produtos'],['relatorio','Relatório'],['visao-geral','Visão geral'],['configuracoes','Configurações']];
+const RM_PERMS = [['pdv','PDV'],['oficina','Oficina'],['financeiro','Financeiro'],['clientes','Clientes'],['produtos','Produtos'],['relatorio','Relatório'],['planilha','Planilha'],['visao-geral','Visão geral'],['configuracoes','Configurações']];
 const RM_PAPEIS = {
   admin:   { nome:'Administrador (tudo)', perms: RM_PERMS.map(p => p[0]) },
   balcao:  { nome:'Balcão', perms: ['pdv','oficina','clientes','produtos'] },
@@ -4971,6 +5056,7 @@ async function rmAuthIniciar(){
   rmInit();
   if(rmEhCelular()) rmMobInit();
   setTimeout(() => rmInvSync().catch(() => {}), 1500);
+  setTimeout(() => rmLemSync().catch(() => {}), 1000);
 }
 
 function rmAplicarPermissoes(){
@@ -4981,7 +5067,7 @@ function rmAplicarPermissoes(){
     <div class="rm-user-acoes"><button onclick="rmTrocarMinhaSenha()">Trocar senha</button><button onclick="rmSair()">Sair</button></div>`;
 }
 function rmPrimeiraSecaoPermitida(){
-  const ordem = ['oficina','pdv','financeiro','clientes','produtos','visao-geral','relatorio','configuracoes'];
+  const ordem = ['oficina','pdv','financeiro','clientes','produtos','visao-geral','relatorio','planilha','configuracoes'];
   return ordem.find(s => rmPode(s)) || 'oficina';
 }
 
@@ -5102,7 +5188,7 @@ function rmRenderRegistro(){
   const nomes = [...new Set(rmRegistroCache.map(r => r.usuario).filter(Boolean))].sort();
   sel.innerHTML = '<option value="">Todos os usuários</option>' + nomes.map(n => `<option${n===atual?' selected':''}>${rmEscapeHtml(n)}</option>`).join('');
   const lista = rmRegistroCache.filter(r => (!atual || r.usuario === atual) && (!q || [r.acao, r.ref, r.detalhe].some(x => (x||'').toLowerCase().includes(q))));
-  body.innerHTML = lista.length ? lista.map(r => `<tr style="cursor:default"><td>${new Date(r.quando).toLocaleString('pt-BR').replace(',', '')}</td><td>${rmEscapeHtml(r.usuario||'')}</td><td><b>${rmEscapeHtml(r.acao||'')}</b></td><td>${rmEscapeHtml(r.ref||'')}</td><td style="white-space:normal; color:var(--rm-text-dim);">${rmEscapeHtml(r.detalhe||'')}</td></tr>`).join('')
+  body.innerHTML = lista.length ? lista.map(r => `<tr style="cursor:default"><td>${new Date(r.quando).toLocaleString('pt-BR').replace(',', '')}</td><td>${rmEscapeHtml(r.usuario||'')}</td><td><b>${rmEscapeHtml(r.acao||'')}</b></td><td>${r.acao === 'Vale' ? '' : rmEscapeHtml(r.ref||'')}</td><td style="white-space:normal; color:var(--rm-text-dim);">${rmEscapeHtml(r.detalhe||'')}</td></tr>`).join('')
     : '<tr><td colspan="5" style="color:var(--rm-text-dim)">Nada registrado nesse período</td></tr>';
 }
 
@@ -5858,7 +5944,7 @@ function rmMobIr(m){
   rmMobRender();
 }
 function rmMobMais(){
-  const secs = [['visao-geral','📊','Visão Geral'],['pdv','🛒','PDV'],['oficina','🔧','Oficina (completo)'],['financeiro','💰','Financeiro'],['clientes','👥','Clientes (completo)'],['produtos','📦','Produtos'],['relatorio','📈','Relatório'],['configuracoes','⚙️','Configurações']].filter(([k]) => rmPode(k));
+  const secs = [['visao-geral','📊','Visão Geral'],['pdv','🛒','PDV'],['oficina','🔧','Oficina (completo)'],['financeiro','💰','Financeiro'],['clientes','👥','Clientes (completo)'],['produtos','📦','Produtos'],['relatorio','📈','Relatório'],['planilha','📋','Planilha'],['configuracoes','⚙️','Configurações']].filter(([k]) => rmPode(k));
   const el = document.createElement('div'); el.id = 'rm-mob-mais';
   el.innerHTML = `<div class="rm-mob-sheet">
       <div class="rm-mob-sheet-user">&#128100; ${rmEscapeHtml(rmNomeUsuario())}</div>
@@ -6356,6 +6442,7 @@ function rmOrdPreparar(t){
   if(!t.tHead || !t.tHead.rows.length) return;
   const ths = [...t.tHead.rows[0].cells];
   if(ths.some(th => th.hasAttribute('onclick') || th.classList.contains('rm-th-sortable'))) return; // já tem ordenação própria
+  if(t.classList.contains('rm-vale-tab')) return; // planilha de vale: sem ordenar
   const grande = rmOrdChaveTabela(t), chave = grande || rmOrdChaveDom(t);
   t.dataset.ordChave = chave;
   ths.forEach((th, i) => {
@@ -6550,6 +6637,376 @@ async function rmCmpLer(files){
       </tbody></table>` : ''}
     ${vazio ? '<div class="rm-pe-soma" style="font-size:15px; margin-top:12px;">&#10004; Tudo igual: o que está em aberto no sistema antigo é o mesmo que está no sistema novo.</div>' : ''}`;
 }
+
+// ===================== PLANILHA > LEMBRETES (post-its) =====================
+// Guardados em configuracoes('lembretes') para aparecer em todos os aparelhos. Nunca são apagados:
+// ao marcar "OK, visto" vão para a área de vistos/resolvidos.
+const RM_LEM_CORES = [['amarelo','#fff3a6'],['rosa','#ffd6e0'],['azul','#d4e9ff'],['verde','#d6f5d6'],['laranja','#ffe1c2'],['lilas','#e6dcff']];
+let rmLem = { itens: [] };
+try{ rmLem = JSON.parse(localStorage.getItem('radicalMotos_lembretes')) || rmLem; }catch(e){}
+let rmLemEditando = null, rmLemCorNova = 'amarelo';
+function rmLemJuntar(a, b){
+  const m = new Map();
+  [...((a && a.itens) || []), ...((b && b.itens) || [])].forEach(x => { const y = m.get(x.id); if(!y || String(x.atualizadoEm) > String(y.atualizadoEm)) m.set(x.id, x); });
+  return { itens: [...m.values()] };
+}
+function rmLemGuardarLocal(){ try{ localStorage.setItem('radicalMotos_lembretes', JSON.stringify(rmLem)); }catch(e){} }
+async function rmLemSync(){
+  try{
+    const { data } = await rmSb.from('configuracoes').select('*').eq('id','lembretes').maybeSingle();
+    if(data && data.dados) rmLem = rmLemJuntar(data.dados, rmLem);
+    rmLemGuardarLocal();
+  }catch(e){}
+  rmLemBadge();
+}
+async function rmLemSalvarItem(item){
+  item.atualizadoEm = new Date().toISOString();
+  rmLem.itens = rmLem.itens.filter(x => x.id !== item.id).concat([item]);
+  rmLemGuardarLocal(); rmLemBadge(); rmRenderLembretes();
+  try{
+    const { data } = await rmSb.from('configuracoes').select('*').eq('id','lembretes').maybeSingle();
+    rmLem = rmLemJuntar(data && data.dados, rmLem);
+    const { error } = await rmSb.from('configuracoes').upsert({ id:'lembretes', dados: rmLem });
+    if(error) throw error;
+    rmLemGuardarLocal();
+  }catch(e){ console.warn('lembretes:', e); }
+}
+const rmLemVencido = x => !x.visto && x.quando && new Date(x.quando).getTime() <= Date.now();
+function rmLemBadge(){
+  const n = rmLem.itens.filter(rmLemVencido).length;
+  [['rm-btn-planilha','rm-nav-badge'],['rm-btn-pla-lembretes','rm-sub-badge']].forEach(([id, cls]) => {
+    const b = document.getElementById(id); if(!b) return;
+    let s = b.querySelector('.' + cls);
+    if(!n){ if(s) s.remove(); return; }
+    if(!s){ s = document.createElement('span'); s.className = cls; b.appendChild(s); }
+    s.textContent = n > 99 ? '99+' : n;
+    s.title = n + ' lembrete(s) para ver';
+  });
+  const mob = document.querySelector('#rm-mob-nav button[data-m="mais"]');
+  if(mob){ let s = mob.querySelector('.rm-sub-badge'); if(!n){ if(s) s.remove(); } else { if(!s){ s = document.createElement('span'); s.className = 'rm-sub-badge'; mob.appendChild(s); } s.textContent = n; } }
+  document.title = (n ? '(' + n + ') ' : '') + document.title.replace(/^\(\d+\+?\)\s*/, '');
+}
+function rmLemDataPadrao(){ const d = new Date(Date.now() + 3600e3); d.setMinutes(0, 0, 0); return new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0,16); }
+// cor sorteada: diferente da do último post-it criado
+function rmLemCorSorteada(){
+  const ult = rmLem.itens.slice().sort((a, b) => String(b.criadoEm || '').localeCompare(String(a.criadoEm || '')))[0];
+  const op = RM_LEM_CORES.map(c => c[0]).filter(c => !ult || c !== ult.cor);
+  return op[Math.floor(Math.random() * op.length)];
+}
+// dia + hora cheia (sem minutos)
+function rmLemQuandoHtml(sf, iso){
+  const v = iso ? rmLemParaInput(iso) : rmLemDataPadrao();
+  const dia = v.slice(0, 10), h = +v.slice(11, 13);
+  let ops = ''; for(let i = 0; i < 24; i++) ops += `<option value="${i}"${i === h ? ' selected' : ''}>${String(i).padStart(2,'0')}h</option>`;
+  return `<div class="rm-lem-quando">&#128276;<input type="date" id="rm-lem-quando-${sf}" value="${dia}"><select id="rm-lem-hora-${sf}">${ops}</select></div>`;
+}
+function rmLemParaInput(iso){ if(!iso) return ''; const d = new Date(iso); return new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0,16); }
+function rmLemQuandoTxt(iso){
+  if(!iso) return 'sem horário';
+  const d = new Date(iso), hoje = new Date(), am = new Date(Date.now() + 864e5);
+  const h = String(d.getHours()).padStart(2,'0') + 'h' + (d.getMinutes() ? String(d.getMinutes()).padStart(2,'0') : '');
+  if(d.toDateString() === hoje.toDateString()) return 'hoje às ' + h;
+  if(d.toDateString() === am.toDateString()) return 'amanhã às ' + h;
+  return d.toLocaleDateString('pt-BR', { weekday:'short', day:'2-digit', month:'2-digit' }) + ' às ' + h;
+}
+function rmLemCor(c){ return (RM_LEM_CORES.find(x => x[0] === c) || RM_LEM_CORES[0])[1]; }
+function rmLemCoresHtml(sel, onclick){ return `<div class="rm-lem-cores">${RM_LEM_CORES.map(([k, v]) => `<button type="button" class="${k === sel ? 'on' : ''}" style="background:${v}" title="${k}" onclick="${onclick.replace('%C', k)}"></button>`).join('')}</div>`; }
+function rmLemFormHtml(x){
+  const novo = !x, sf = novo ? 'n' : 'e';
+  const cor = novo ? 'amarelo' : x.cor;
+  return `<div class="rm-lem-nota rm-lem-form" style="background:${rmLemCor(cor)}">
+    <textarea id="rm-lem-txt-${sf}" placeholder="${novo ? 'Escreva o lembrete...' : ''}">${novo ? '' : rmEscapeHtml(x.texto)}</textarea>
+    ${rmLemQuandoHtml(sf, novo ? null : x.quando)}
+    <div class="rm-lem-acoes">
+      ${novo ? '' : '<button class="rm-pe2-btn" onclick="rmLemEditando=null; rmRenderLembretes(true)">Cancelar</button>'}
+      <button class="rm-primary rm-lem-salvar" data-sf="${sf}" onclick="rmLemSalvarForm(${novo ? 'null' : `'${rmJs(x.id)}'`})">${novo ? '+ Colar post-it' : 'Salvar'}</button>
+    </div>
+  </div>`;
+}
+// troca a cor sem perder o que já foi digitado
+function rmLemTrocarCor(sf, c){
+  const campo = id => document.getElementById(id);
+  const guarda = ['n','e'].map(k => [k, campo('rm-lem-txt-' + k) && campo('rm-lem-txt-' + k).value, campo('rm-lem-quando-' + k) && campo('rm-lem-quando-' + k).value]);
+  if(sf === 'n') rmLemCorNova = c;
+  else { const x = rmLem.itens.find(i => i.id === rmLemEditando); if(x) x.__cor = c; }
+  rmRenderLembretes();
+  guarda.forEach(([k, t, q]) => { if(t != null && campo('rm-lem-txt-' + k)) campo('rm-lem-txt-' + k).value = t; if(q && campo('rm-lem-quando-' + k)) campo('rm-lem-quando-' + k).value = q; });
+}
+function rmLemSalvarForm(id){
+  const sf = id ? 'e' : 'n';
+  const texto = document.getElementById('rm-lem-txt-' + sf).value.trim();
+  const dia = document.getElementById('rm-lem-quando-' + sf).value;
+  const hora = +document.getElementById('rm-lem-hora-' + sf).value;
+  if(!texto){ alert('Escreva o lembrete.'); return; }
+  if(!dia){ alert('Escolha o dia do lembrete.'); return; }
+  const [a, m, d] = dia.split('-').map(Number);
+  const quando = new Date(a, m - 1, d, hora, 0, 0).toISOString();
+  if(!id){
+    rmLemSalvarItem({ id:'lem' + Date.now().toString(36) + Math.random().toString(36).slice(2,6), texto, cor: rmLemCorSorteada(), quando, criadoEm: new Date().toISOString(), criadoPor: rmNomeUsuario(), visto:false });
+    rmLog('Criou lembrete', '', texto.slice(0, 60));
+    rmRenderLembretes();
+  } else {
+    const orig = rmLem.itens.find(i => i.id === id);
+    const x = Object.assign({}, orig);
+    if(orig.__cor){ x.cor = orig.__cor; delete orig.__cor; } delete x.__cor;
+    x.texto = texto; x.quando = quando; rmLemEditando = null;
+    rmLemSalvarItem(x);
+  }
+}
+function rmLemVisto(id, visto){
+  const x = Object.assign({}, rmLem.itens.find(i => i.id === id)); if(!x.id) return;
+  x.visto = visto; x.vistoEm = visto ? new Date().toISOString() : null; x.vistoPor = visto ? rmNomeUsuario() : null;
+  rmLemSalvarItem(x);
+  if(visto) rmLog('Lembrete visto', '', x.texto.slice(0, 60));
+}
+function rmLemNotaHtml(x){
+  if(rmLemEditando === x.id) return rmLemFormHtml(Object.assign({}, x, x.__cor ? { cor: x.__cor } : {}));
+  const venc = rmLemVencido(x);
+  return `<div class="rm-lem-nota${venc ? ' venc' : ''}${x.visto ? ' visto' : ''}" style="background:${rmLemCor(x.cor)}">
+    ${venc ? '<div class="rm-lem-alerta">&#9200; Ver agora</div>' : ''}
+    <div class="rm-lem-texto">${rmEscapeHtml(x.texto)}</div>
+    <div class="rm-lem-rodape">
+      <span>&#128276; ${rmLemQuandoTxt(x.quando)}</span>
+      <small>por ${rmEscapeHtml(x.criadoPor || '')}</small>
+      ${x.visto ? `<small class="rm-lem-ok">&#10004; Visto por ${rmEscapeHtml(x.vistoPor || '')} em ${rmDataHoraBR(x.vistoEm)}</small>` : ''}
+    </div>
+    <div class="rm-lem-acoes">
+      ${x.visto ? `<button class="rm-pe2-btn" onclick="rmLemVisto('${rmJs(x.id)}', false)">Voltar para os ativos</button>`
+                : `<button class="rm-pe2-btn" title="Editar" onclick="rmLemEditando='${rmJs(x.id)}'; rmRenderLembretes()">&#9999;&#65039;</button><button class="rm-primary rm-lem-ok-btn" onclick="rmLemVisto('${rmJs(x.id)}', true)">&#10004; OK, visto</button>`}
+    </div>
+  </div>`;
+}
+function rmRenderLembretes(manterTexto){
+  const box = document.getElementById('rm-lem'); if(!box) return;
+  const guarda = manterTexto ? ['n','e'].map(k => [k, (document.getElementById('rm-lem-txt-' + k) || {}).value, (document.getElementById('rm-lem-quando-' + k) || {}).value, (document.getElementById('rm-lem-hora-' + k) || {}).value]) : [];
+  const ord = (a, b) => String(a.quando || '').localeCompare(String(b.quando || ''));
+  const agora = rmLem.itens.filter(rmLemVencido).sort(ord);
+  const futuros = rmLem.itens.filter(x => !x.visto && !rmLemVencido(x)).sort(ord);
+  const vistos = rmLem.itens.filter(x => x.visto).sort((a, b) => String(b.vistoEm).localeCompare(String(a.vistoEm)));
+  const abertoVistos = box.querySelector('details.rm-lem-vistos') && box.querySelector('details.rm-lem-vistos').open;
+  box.innerHTML = `
+    <div class="rm-lem-grade">${rmLemFormHtml(null)}${agora.map(rmLemNotaHtml).join('')}${futuros.map(rmLemNotaHtml).join('')}</div>
+    ${!agora.length && !futuros.length ? '<div class="rm-lem-vazio">Nenhum lembrete ativo. Escreva no post-it acima para criar um.</div>' : ''}
+    <details class="rm-lem-vistos"${abertoVistos ? ' open' : ''}><summary>&#10004; Vistos / resolvidos (${vistos.length})</summary>
+      <div class="rm-lem-grade">${vistos.map(rmLemNotaHtml).join('') || '<div class="rm-lem-vazio">Nenhum ainda.</div>'}</div>
+    </details>`;
+  guarda.forEach(([k, t, q, h]) => { const T = document.getElementById('rm-lem-txt-' + k), Q = document.getElementById('rm-lem-quando-' + k), H = document.getElementById('rm-lem-hora-' + k); if(T && t != null) T.value = t; if(Q && q) Q.value = q; if(H && h != null) H.value = h; });
+  rmLemBadge();
+}
+// confere a cada 30 segundos se chegou a hora de algum lembrete; a cada 2 minutos busca os dos outros aparelhos
+setInterval(() => {
+  rmLemBadge();
+  const v = document.getElementById('rm-view-pla-lembretes');
+  if(v && v.classList.contains('active') && !(document.activeElement && document.activeElement.closest && document.activeElement.closest('.rm-lem-form')) && !rmLemEditando) rmRenderLembretes(true);
+}, 30000);
+setInterval(() => { if(typeof rmUsuario !== 'undefined' && rmUsuario) rmLemSync(); }, 120000);
+
+// ===================== PLANILHA > VALE (planilha simples) =====================
+// Guardada em configuracoes('vale'). Cada célula guarda o horário em que foi mudada, assim dois aparelhos não apagam o que o outro escreveu.
+let rmVale = { colunas: [], linhas: 20, celulas: {} };
+try{ rmVale = JSON.parse(localStorage.getItem('radicalMotos_vale')) || rmVale; }catch(e){}
+if(!rmVale.colunas.length) rmVale.colunas = [1,2,3,4,5].map(i => ({ id:'c' + i, nome:'', t:'' }));
+function rmValeJuntar(a, b){
+  const r = { colunas: [], linhas: Math.max((a && a.linhas) || 0, (b && b.linhas) || 0, 20), celulas: {} };
+  const cm = new Map();
+  [...((a && a.colunas) || []), ...((b && b.colunas) || [])].forEach(c => { const y = cm.get(c.id); if(!y || String(c.t) > String(y.t)) cm.set(c.id, c); });
+  r.colunas = [...cm.values()].sort((x, y) => (+x.id.slice(1)) - (+y.id.slice(1)));
+  [(a && a.celulas) || {}, (b && b.celulas) || {}].forEach(o => Object.keys(o).forEach(k => { const y = r.celulas[k]; if(!y || String(o[k].t) > String(y.t)) r.celulas[k] = o[k]; }));
+  return r;
+}
+function rmValeGuardarLocal(){ try{ localStorage.setItem('radicalMotos_vale', JSON.stringify(rmVale)); }catch(e){} }
+function rmValeStatus(t){ const e = document.getElementById('rm-vale-status'); if(e) e.textContent = t; }
+async function rmValeSync(){
+  try{
+    const { data } = await rmSb.from('configuracoes').select('*').eq('id','vale').maybeSingle();
+    if(data && data.dados) rmVale = rmValeJuntar(data.dados, rmVale);
+    rmValeGuardarLocal();
+  }catch(e){}
+}
+let rmValeTimer = null;
+function rmValeAgendarSalvar(){ rmValeGuardarLocal(); rmValeStatus('salvando...'); clearTimeout(rmValeTimer); rmValeTimer = setTimeout(rmValeSalvar, 700); }
+async function rmValeSalvar(){
+  try{
+    const { data } = await rmSb.from('configuracoes').select('*').eq('id','vale').maybeSingle();
+    rmVale = rmValeJuntar(data && data.dados, rmVale);
+    const { error } = await rmSb.from('configuracoes').upsert({ id:'vale', dados: rmVale });
+    if(error) throw error;
+    rmValeGuardarLocal(); rmValeStatus('✔ salvo');
+  }catch(e){ rmValeStatus('sem conexão — salvo neste aparelho, envia quando voltar'); clearTimeout(rmValeTimer); rmValeTimer = setTimeout(rmValeSalvar, 30000); }
+}
+function rmValeNum(v){
+  let t = String(v || '').replace(/R\$|\s/g, ''); if(!t) return null;
+  if(/^-?[\d.]+,\d{1,2}$/.test(t)) t = t.replace(/\./g, '').replace(',', '.');
+  else if(/^-?\d+,\d+$/.test(t)) t = t.replace(',', '.');
+  return /^-?\d+(\.\d+)?$/.test(t) ? parseFloat(t) : null;
+}
+const rmValeCols = () => rmVale.colunas.filter(c => !c.removida);
+function rmValeTotal(cid){ let s = 0, tem = false; for(let r = 0; r < rmVale.linhas; r++){ const n = rmValeNum((rmVale.celulas[r + ':' + cid] || {}).v); if(n != null){ s += n; tem = true; } } return tem ? rmFormatMoeda(s) : ''; }
+function rmRenderVale(){
+  const box = document.getElementById('rm-vale'); if(!box) return;
+  const cols = rmValeCols();
+  let h = '<table class="rm-vale-tab"><thead><tr><th class="n"></th>' + cols.map(c => `<th><input data-col="${c.id}" value="${rmEscapeHtml(c.nome || '')}" placeholder="Nome"><button class="x" title="Tirar esta coluna" onclick="rmValeRemCol('${c.id}')">&times;</button></th>`).join('') + '</tr></thead><tbody>';
+  for(let r = 0; r < rmVale.linhas; r++){
+    h += `<tr><td class="n">${r + 1}</td>` + cols.map(c => `<td><input data-r="${r}" data-c="${c.id}" value="${rmEscapeHtml((rmVale.celulas[r + ':' + c.id] || {}).v || '')}"></td>`).join('') + '</tr>';
+  }
+  h += '</tbody><tfoot><tr><td class="n">&Sigma;</td>' + cols.map(c => `<td data-tot="${c.id}">${rmValeTotal(c.id)}</td>`).join('') + '</tr></tfoot></table>';
+  box.innerHTML = h;
+}
+function rmValeAddCol(){
+  const n = rmVale.colunas.reduce((m, c) => Math.max(m, +c.id.slice(1) || 0), 0) + 1;
+  rmVale.colunas.push({ id:'c' + n, nome:'', t:new Date().toISOString() });
+  rmValeAgendarSalvar(); rmRenderVale();
+  const i = document.querySelector(`#rm-vale input[data-col="c${n}"]`); if(i) i.focus();
+}
+function rmValeAddLinhas(q){ rmVale.linhas += q; rmValeAgendarSalvar(); rmRenderVale(); }
+function rmValeRemCol(id){
+  const c = rmVale.colunas.find(x => x.id === id); if(!c) return;
+  if(!confirm('Tirar a coluna "' + (c.nome || 'sem nome') + '" da planilha?')) return;
+  c.removida = true; c.t = new Date().toISOString(); rmValeAgendarSalvar(); rmRenderVale();
+  rmValeHistReg({ tipo:'remcol', k:'col:' + id, cid:id, col: c.nome || 'sem nome', de:'', para:'' });
+}
+document.addEventListener('input', e => {
+  const i = e.target; if(!i.closest || !i.closest('#rm-vale')) return;
+  const t = new Date().toISOString();
+  if(i.dataset.col){ const c = rmVale.colunas.find(x => x.id === i.dataset.col); if(c){ c.nome = i.value; c.t = t; } }
+  else {
+    const r = +i.dataset.r, cid = i.dataset.c;
+    rmVale.celulas[r + ':' + cid] = { v: i.value, t };
+    const td = document.querySelector(`#rm-vale td[data-tot="${cid}"]`); if(td) td.textContent = rmValeTotal(cid);
+    if(r >= rmVale.linhas - 1 && i.value){ const antes = i.dataset.antes; i.dataset.antes = i.value; rmVale.linhas += 5; rmRenderVale(); const n = document.querySelector(`#rm-vale input[data-r="${r}"][data-c="${cid}"]`); if(n){ n.focus(); n.dataset.antes = antes || ''; n.setSelectionRange(n.value.length, n.value.length); } }
+  }
+  rmValeAgendarSalvar();
+});
+// ----- histórico do Vale: cada mudança vai para o registro (auditoria, que não pode ser apagado) -----
+// e também fica uma cópia no aparelho. Se estiver sem internet, guarda e envia depois.
+const RM_VH_LOCAL = 'radicalMotos_valeHist', RM_VH_PEND = 'radicalMotos_valeHistPend';
+const rmVhLer = k => { try{ return JSON.parse(localStorage.getItem(k)) || []; }catch(e){ return []; } };
+const rmVhGravar = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
+function rmValeNomeCol(cid){ const c = rmVale.colunas.find(x => x.id === cid); return (c && c.nome) || 'coluna sem nome'; }
+function rmValeHistReg(e){
+  e.id = 'vh' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  e.em = new Date().toISOString(); e.por = (typeof rmNomeUsuario === 'function' && rmUsuario) ? rmNomeUsuario() : '';
+  const loc = rmVhLer(RM_VH_LOCAL); loc.push(e); rmVhGravar(RM_VH_LOCAL, loc.slice(-2000));
+  const pend = rmVhLer(RM_VH_PEND); pend.push(e); rmVhGravar(RM_VH_PEND, pend);
+  rmValeHistEnviar();
+  if(document.getElementById('rm-vale-hist').style.display !== 'none') rmValeHistRender();
+}
+function rmValeHistTexto(e){
+  const q = v => '"' + String(v || '').slice(0, 120) + '"';
+  if(e.tipo === 'nome') return `Nome da coluna: ${q(e.de)} → ${q(e.para)}`;
+  if(e.tipo === 'remcol') return `Tirou a coluna ${q(e.col)}`;
+  return `${e.col}, linha ${e.linha}: ${e.de ? q(e.de) : '(vazio)'} → ${e.para ? q(e.para) : '(apagou)'}`;
+}
+let rmVhEnviando = false;
+async function rmValeHistEnviar(){
+  if(rmVhEnviando || typeof rmUsuario === 'undefined' || !rmUsuario) return;
+  rmVhEnviando = true;
+  try{
+    let pend = rmVhLer(RM_VH_PEND);
+    while(pend.length){
+      const e = pend[0];
+      const r = await rmSb.from('auditoria').insert({ usuario_id: rmUsuario.id, usuario: e.por, quando: e.em, acao: 'Vale', ref: JSON.stringify(e), detalhe: rmValeHistTexto(e).slice(0, 500) });
+      if(r && r.error) throw r.error;
+      pend = rmVhLer(RM_VH_PEND).filter(x => x.id !== e.id); rmVhGravar(RM_VH_PEND, pend);
+    }
+  }catch(err){ console.warn('histórico do vale:', err); }
+  rmVhEnviando = false;
+}
+setInterval(rmValeHistEnviar, 60000);
+document.addEventListener('focusin', e => { const i = e.target; if(i.closest && i.closest('#rm-vale') && i.tagName === 'INPUT') i.dataset.antes = i.value; });
+document.addEventListener('change', e => {
+  const i = e.target; if(!i.closest || !i.closest('#rm-vale') || i.tagName !== 'INPUT') return;
+  const de = i.dataset.antes || '', para = i.value;
+  if(de === para) return;
+  i.dataset.antes = para;
+  if(i.dataset.col) rmValeHistReg({ tipo:'nome', k:'col:' + i.dataset.col, cid:i.dataset.col, de, para });
+  else rmValeHistReg({ tipo:'cel', k: i.dataset.r + ':' + i.dataset.c, cid:i.dataset.c, col: rmValeNomeCol(i.dataset.c), linha: +i.dataset.r + 1, de, para });
+});
+let rmVhServidor = null, rmVhErro = '';
+async function rmValeHistAbrir(){
+  const box = document.getElementById('rm-vale-hist');
+  if(box.style.display !== 'none'){ box.style.display = 'none'; return; }
+  box.style.display = ''; rmVhServidor = null; rmVhErro = ''; rmValeHistRender();
+  await rmValeHistEnviar();
+  try{
+    const { data, error } = await rmSb.from('auditoria').select('*').eq('acao', 'Vale').order('quando', { ascending:false }).limit(3000);
+    if(error) throw error;
+    rmVhServidor = (data || []).map(r => { try{ return JSON.parse(r.ref); }catch(e){ return null; } }).filter(Boolean);
+  }catch(e){ rmVhServidor = []; rmVhErro = rmEhAdmin() ? 'Sem conexão: mostrando só o que foi feito neste aparelho.' : 'O histórico completo (de todos os aparelhos) só o administrador vê. Abaixo, o que foi feito neste aparelho.'; }
+  rmValeHistRender();
+}
+function rmValeHistRender(){
+  const box = document.getElementById('rm-vale-hist'); if(!box || box.style.display === 'none') return;
+  const m = new Map();
+  [...(rmVhServidor || []), ...rmVhLer(RM_VH_LOCAL)].forEach(e => m.set(e.id, e));
+  const filtro = (document.getElementById('rm-vh-col') || {}).value || '';
+  const todos = [...m.values()].sort((a, b) => String(b.em).localeCompare(String(a.em)));
+  const lista = todos.filter(e => !filtro || e.cid === filtro);
+  const cols = rmVale.colunas.filter(c => todos.some(e => e.cid === c.id));
+  box.innerHTML = `<div class="rm-vh-topo"><b>&#128338; Histórico de mudanças do Vale</b>
+      <select class="rm-osl-sel" id="rm-vh-col" onchange="rmValeHistRender()"><option value="">Todas as pessoas</option>${cols.map(c => `<option value="${c.id}"${c.id === filtro ? ' selected' : ''}>${rmEscapeHtml(c.nome || 'coluna sem nome')}${c.removida ? ' (tirada)' : ''}</option>`).join('')}</select>
+      <button class="rm-pe2-btn" style="width:auto; padding:6px 12px" onclick="document.getElementById('rm-vale-hist').style.display='none'">Fechar</button></div>
+    ${rmVhServidor === null ? '<div style="color:var(--rm-text-dim); font-size:13px">Buscando no banco de dados...</div>' : ''}
+    ${rmVhErro ? `<div style="color:var(--rm-text-dim); font-size:13px; margin-bottom:6px">${rmVhErro}</div>` : ''}
+    <div class="rm-vh-wrap"><table class="rm-vh"><thead><tr><th>Quando</th><th>Quem</th><th>Onde</th><th>Antes</th><th>Depois</th><th></th></tr></thead><tbody>
+    ${lista.slice(0, 1000).map(e => `<tr>
+      <td>${new Date(e.em).toLocaleString('pt-BR').replace(',', '').slice(0, 16)}</td>
+      <td>${rmEscapeHtml(e.por || '')}</td>
+      <td>${e.tipo === 'cel' ? rmEscapeHtml(e.col) + ' · linha ' + e.linha : e.tipo === 'nome' ? 'nome da coluna' : 'tirou a coluna ' + rmEscapeHtml(e.col || '')}${e.restaurado ? ' <small style="color:var(--rm-text-dim)">(voltou)</small>' : ''}</td>
+      <td class="de">${rmEscapeHtml(e.de || '')}</td><td class="para">${rmEscapeHtml(e.para || '')}</td>
+      <td>${e.tipo !== 'remcol' ? `<button class="rm-pe2-btn" title="Volta o valor que estava antes desta mudança" onclick="rmValeHistRestaurar('${rmJs(e.id)}')">&#8634; Voltar</button>` : `<button class="rm-pe2-btn" onclick="rmValeVoltarCol('${rmJs(e.cid)}')">&#8634; Voltar coluna</button>`}</td></tr>`).join('') || '<tr><td colspan="6" style="color:var(--rm-text-dim)">Nenhuma mudança registrada ainda.</td></tr>'}
+    </tbody></table></div>`;
+}
+function rmValeHistAchar(id){ return [...(rmVhServidor || []), ...rmVhLer(RM_VH_LOCAL)].find(e => e.id === id); }
+function rmValeHistRestaurar(id){
+  const e = rmValeHistAchar(id); if(!e) return;
+  const t = new Date().toISOString();
+  if(e.tipo === 'nome'){
+    const c = rmVale.colunas.find(x => x.id === e.cid); if(!c) return;
+    if(!confirm(`Voltar o nome da coluna para "${e.de || '(vazio)'}"?`)) return;
+    const atual = c.nome || ''; c.nome = e.de || ''; c.t = t;
+    rmValeHistReg({ tipo:'nome', k:e.k, cid:e.cid, de: atual, para: c.nome, restaurado: true });
+  } else {
+    const atual = (rmVale.celulas[e.k] || {}).v || '';
+    if(!confirm(`${e.col}, linha ${e.linha}:\nagora está "${atual || '(vazio)'}"\nvoltar para "${e.de || '(vazio)'}"?`)) return;
+    rmVale.celulas[e.k] = { v: e.de || '', t };
+    const c = rmVale.colunas.find(x => x.id === e.cid); if(c && c.removida){ c.removida = false; c.t = t; }
+    if(+e.k.split(':')[0] >= rmVale.linhas) rmVale.linhas = +e.k.split(':')[0] + 5;
+    rmValeHistReg({ tipo:'cel', k:e.k, cid:e.cid, col: rmValeNomeCol(e.cid), linha:e.linha, de: atual, para: e.de || '', restaurado: true });
+  }
+  rmValeAgendarSalvar(); rmRenderVale();
+  const td = document.querySelector(`#rm-vale input[data-r="${e.k.split(':')[0]}"][data-c="${e.cid}"]`);
+  if(td){ td.parentElement.classList.add('mudou'); td.scrollIntoView({ block:'nearest', inline:'nearest' }); }
+}
+function rmValeVoltarCol(cid){
+  const c = rmVale.colunas.find(x => x.id === cid); if(!c || !c.removida) return alert('Essa coluna já está na planilha.');
+  c.removida = false; c.t = new Date().toISOString();
+  rmValeHistReg({ tipo:'nome', k:'col:' + cid, cid, de:'(coluna tirada)', para: c.nome || '', restaurado:true });
+  rmValeAgendarSalvar(); rmRenderVale();
+}
+
+// Enter e setas andam entre as células, como no Excel
+document.addEventListener('keydown', e => {
+  const i = e.target; if(!i.closest || !i.closest('#rm-vale') || i.tagName !== 'INPUT') return;
+  const cols = rmValeCols().map(c => c.id);
+  let r = i.dataset.col ? -1 : +i.dataset.r, c = cols.indexOf(i.dataset.col || i.dataset.c);
+  const k = e.key;
+  if(k === 'Enter' || k === 'ArrowDown') r++;
+  else if(k === 'ArrowUp') r--;
+  else if(k === 'ArrowRight' && i.selectionStart === i.value.length) c++;
+  else if(k === 'ArrowLeft' && i.selectionStart === 0) c--;
+  else return;
+  if(c < 0 || c >= cols.length || r < -1) return;
+  if(r >= rmVale.linhas){ i.dispatchEvent(new Event('change', { bubbles:true })); rmVale.linhas += 5; rmRenderVale(); }
+  const alvo = r === -1 ? document.querySelector(`#rm-vale input[data-col="${cols[c]}"]`) : document.querySelector(`#rm-vale input[data-r="${r}"][data-c="${cols[c]}"]`);
+  if(alvo){ e.preventDefault(); alvo.focus(); alvo.select(); }
+});
+setInterval(() => {
+  const v = document.getElementById('rm-view-pla-vale');
+  if(!v || !v.classList.contains('active') || !v.offsetParent || typeof rmUsuario === 'undefined' || !rmUsuario) return;
+  if(document.activeElement && document.activeElement.closest && document.activeElement.closest('#rm-vale')) return;
+  rmValeSync().then(rmRenderVale);
+}, 60000);
 
 // ===================== BACKUP COMPLETO =====================
 const RM_BKP_TABELAS = [['recebimentos','id'],['inventarios','id'],['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome']];
@@ -7289,7 +7746,16 @@ function rmToggleSidebar(){
   localStorage.setItem(RM_SIDEBAR_KEY, collapsed ? 'true' : 'false');
 }
 
-const RM_SECTIONS = ['visao-geral','pdv','oficina','clientes','produtos','financeiro','relatorio','configuracoes'];
+const RM_SECTIONS = ['visao-geral','pdv','oficina','clientes','produtos','financeiro','relatorio','planilha','configuracoes'];
+function rmSetViewPlanilha(v){
+  ['vale','lembretes'].forEach(x => {
+    document.getElementById('rm-view-pla-' + x).classList.toggle('active', x === v);
+    document.getElementById('rm-btn-pla-' + x).classList.toggle('active', x === v);
+  });
+  if(v === 'lembretes'){ rmRenderLembretes(); rmLemSync().then(() => rmRenderLembretes(true)); }
+  if(v === 'vale'){ rmRenderVale(); rmValeSync().then(rmValeRenderSeLivre); }
+}
+function rmValeRenderSeLivre(){ if(!(document.activeElement && document.activeElement.closest && document.activeElement.closest('#rm-vale'))) rmRenderVale(); }
 
 // ===================== IMPRESSÃO A4 (modelo igual ao da OS antiga) =====================
 const RM_EMPRESA_KEY = 'radicalMotos_empresa';
@@ -8441,6 +8907,7 @@ function rmSetSection(section){
   });
   if(section === 'clientes'){ rmRenderClientes(); rmSyncProms(); }
   if(section === 'visao-geral'){ rmVgSyncSenha(); rmRenderVisaoGeral(); rmSyncProms().then(rmRenderVisaoGeral); }
+  if(section === 'planilha'){ if(document.getElementById('rm-view-pla-vale').classList.contains('active')){ rmRenderVale(); rmValeSync().then(rmValeRenderSeLivre); } if(document.getElementById('rm-view-pla-lembretes').classList.contains('active')){ rmRenderLembretes(); rmLemSync().then(() => rmRenderLembretes(true)); } }
   if(section === 'relatorio'){ rmRenderComissao(); rmComSync().then(rmRenderComissao); }
   if(section === 'configuracoes'){ rmRenderConfigEmpresa(); rmSyncEmpresa().then(rmRenderConfigEmpresa); }
   if(section === 'financeiro'){ rmRenderFinVendas(); rmSyncProms(); }
