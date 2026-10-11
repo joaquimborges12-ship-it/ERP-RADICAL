@@ -1097,6 +1097,23 @@
   .rm-chat-env{display:flex; gap:6px; padding:8px; border-top:1px solid var(--rm-border); background:var(--rm-panel);}
   .rm-chat-env textarea{flex:1; resize:none; height:42px; max-height:110px; padding:9px 10px; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit; font-size:14.5px; outline:none; border-radius:0;}
   .rm-chat-env button{width:46px; border:none; background:var(--rm-accent); color:#fff; font-size:18px; cursor:pointer;}
+  .rm-chat-env .rm-chat-imp{width:40px; background:var(--rm-panel-2); color:var(--rm-text-dim); border:1px solid var(--rm-border); font-size:17px; font-weight:900;}
+  .rm-chat-env .rm-chat-imp.on{background:#ffd54f; color:#b71c1c; border-color:#e53935;}
+  .rm-chat-env.imp textarea{border:2px solid #e53935;}
+  .rm-chat-imp-dica{padding:4px 10px; background:#fff3cd; color:#8a4b00; font-size:12.5px; font-weight:700; border-top:1px solid #f0d78c;}
+  .rm-chat-b.imp{border:2px solid #e53935 !important;}
+  .rm-chat-b .rm-chat-tag{display:block; font-size:11px; font-weight:900; color:#e53935; margin-bottom:2px; letter-spacing:0.3px;}
+  .rm-imp-fundo{position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:10080; display:flex; align-items:center; justify-content:center; padding:16px;}
+  .rm-imp-caixa{background:#fff; color:#1d1d1d; width:min(640px, 100%); border-top:12px solid #e53935; box-shadow:0 24px 60px rgba(0,0,0,0.5); animation:rmImpEntra .25s ease-out;}
+  @keyframes rmImpEntra{from{transform:scale(0.9); opacity:0}}
+  .rm-imp-cab{background:#e53935; color:#fff; padding:14px 22px; font-size:22px; font-weight:900; letter-spacing:0.5px; display:flex; align-items:center; gap:10px; animation:rmLemPisca 1.4s infinite;}
+  .rm-imp-de{padding:16px 22px 0; font-size:15px; color:#555;}
+  .rm-imp-de b{color:#111; font-size:17px;}
+  .rm-imp-txt{padding:10px 22px 18px; font-size:24px; line-height:1.35; font-weight:700; white-space:pre-wrap; word-break:break-word; max-height:50vh; overflow:auto;}
+  .rm-imp-acoes{display:flex; gap:10px; padding:0 22px 22px; justify-content:flex-end; flex-wrap:wrap;}
+  .rm-imp-acoes button{padding:12px 22px; font-size:16px; font-weight:800; cursor:pointer; border:none; font-family:inherit;}
+  .rm-imp-ok{background:#e53935; color:#fff;} .rm-imp-resp{background:#eee; color:#222;}
+  .rm-imp-mais{padding:0 22px 12px; font-size:13px; color:#888;}
   .rm-chat-vazio{padding:20px; color:var(--rm-text-dim); font-size:13.5px; text-align:center;}
   .rm-chat-aviso{position:fixed; right:18px; bottom:140px; background:#1f2329; color:#fff; padding:10px 14px; z-index:10053; box-shadow:0 8px 24px rgba(0,0,0,0.3); font-size:14px; cursor:pointer; max-width:300px; border-left:4px solid var(--rm-accent);}
   @media (max-width:760px){
@@ -1826,7 +1843,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-17h30</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-17h50</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -7070,7 +7087,7 @@ async function rmChatIniciar(){
         .subscribe();
     }catch(e){}
   }
-  rmChatBadge();
+  rmChatBadge(); rmChatImpBanner();
   await rmChatCarregarPessoas();
   await rmChatBuscar();
 }
@@ -7105,8 +7122,50 @@ function rmChatChegou(lista, silencioso){
   rmChatGuardar();
   if(rmChatAberto && rmChatCom) rmChatMarcarLidas(rmChatCom);
   rmChatRender(true); rmChatBadge();
-  const paraAvisar = novas.filter(x => !(rmChatAberto && rmChatCom === x.de) && Date.now() - new Date(x.criado_em).getTime() < 10 * 60e3);
+  rmChatImpBanner();
+  const paraAvisar = novas.filter(x => !rmChatEhImp(x) && !(rmChatAberto && rmChatCom === x.de) && Date.now() - new Date(x.criado_em).getTime() < 10 * 60e3);
   if(paraAvisar.length) rmChatAvisar(paraAvisar[paraAvisar.length - 1]);
+}
+const RM_CHAT_MARCA_IMP = '[IMPORTANTE] ';
+let rmChatImp = false;
+const rmChatEhImp = m => !!(m && (m.importante || String(m.texto || '').startsWith(RM_CHAT_MARCA_IMP)));
+const rmChatTexto = m => String(m.texto || '').startsWith(RM_CHAT_MARCA_IMP) ? String(m.texto).slice(RM_CHAT_MARCA_IMP.length) : String(m.texto || '');
+function rmChatImpAlternar(){
+  const t = document.getElementById('rm-chat-txt'), v = t ? t.value : '';
+  rmChatImp = !rmChatImp; rmChatRender();
+  const t2 = document.getElementById('rm-chat-txt'); if(t2){ t2.value = v; t2.focus(); }
+}
+// aviso grande na tela para mensagem importante ainda não lida
+function rmChatImpBanner(){
+  const pend = rmChat.msgs.filter(x => x.para === rmChatUid && !x.lida_em && rmChatEhImp(x));
+  let f = document.getElementById('rm-imp-fundo');
+  if(!pend.length){ if(f) f.remove(); return; }
+  const m = pend[0];
+  if(f && f.dataset.id === m.id) return;
+  if(!f){ f = document.createElement('div'); f.id = 'rm-imp-fundo'; f.className = 'rm-imp-fundo'; document.body.appendChild(f); rmChatBip(3); }
+  f.dataset.id = m.id;
+  const d = new Date(m.criado_em);
+  f.innerHTML = `<div class="rm-imp-caixa" role="alertdialog">
+    <div class="rm-imp-cab">&#10071; MENSAGEM IMPORTANTE</div>
+    <div class="rm-imp-de">De <b>${rmEscapeHtml(m.de_nome || rmChatNome(m.de))}</b> · ${d.toLocaleDateString('pt-BR')} às ${d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' })}</div>
+    <div class="rm-imp-txt">${rmEscapeHtml(rmChatTexto(m))}</div>
+    ${pend.length > 1 ? `<div class="rm-imp-mais">+ ${pend.length - 1} outra(s) mensagem(ns) importante(s) esperando</div>` : ''}
+    <div class="rm-imp-acoes"><button class="rm-imp-resp" onclick="rmChatImpOk('${rmJs(m.id)}', true)">&#128172; Responder</button><button class="rm-imp-ok" onclick="rmChatImpOk('${rmJs(m.id)}')">&#10004; OK, li</button></div>
+  </div>`;
+}
+async function rmChatImpOk(id, responder){
+  const m = rmChat.msgs.find(x => x.id === id); if(!m) return;
+  const ag = new Date().toISOString(); m.lida_em = ag; rmChatGuardar(); rmChatBadge();
+  const f = document.getElementById('rm-imp-fundo'); if(f) f.remove();
+  rmChatImpBanner();
+  if(responder) rmChatAbrirCom(m.de); else rmChatRender(true);
+  try{ await rmSb.from('mensagens').update({ lida_em: ag }).eq('id', id).eq('para', rmChatUid); }catch(e){}
+}
+function rmChatBip(vezes){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    for(let i = 0; i < (vezes || 1); i++){ const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = 880; g.gain.value = 0.12; o.connect(g); g.connect(ctx.destination); const t0 = ctx.currentTime + i * 0.3; o.start(t0); o.stop(t0 + 0.18); }
+  }catch(e){}
 }
 function rmChatNome(id){ const p = rmChatPessoas.find(x => x.id === id); return p ? p.nome : (rmChat.msgs.find(m => m.de === id) || {}).de_nome || 'Usuário'; }
 function rmChatNaoLidas(de){ return rmChat.msgs.filter(x => x.para === rmChatUid && !x.lida_em && (!de || x.de === de)).length; }
@@ -7118,10 +7177,10 @@ function rmChatBadge(){
   b.title = n ? n + ' mensagem(ns) nova(s)' : 'Conversar com a equipe';
 }
 function rmChatAvisar(m){
-  try{ const ctx = new (window.AudioContext || window.webkitAudioContext)(); const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = 880; g.gain.value = 0.08; o.connect(g); g.connect(ctx.destination); o.start(); o.stop(ctx.currentTime + 0.15); }catch(e){}
+  rmChatBip(1);
   let a = document.getElementById('rm-chat-aviso'); if(a) a.remove();
   a = document.createElement('div'); a.id = 'rm-chat-aviso'; a.className = 'rm-chat-aviso';
-  a.innerHTML = `&#128172; <b>${rmEscapeHtml(m.de_nome || rmChatNome(m.de))}</b>: ${rmEscapeHtml(String(m.texto).slice(0, 80))}`;
+  a.innerHTML = `&#128172; <b>${rmEscapeHtml(m.de_nome || rmChatNome(m.de))}</b>: ${rmEscapeHtml(rmChatTexto(m).slice(0, 80))}`;
   a.onclick = () => { a.remove(); rmChatAbrirCom(m.de); };
   document.body.appendChild(a); setTimeout(() => a.remove(), 7000);
 }
@@ -7163,7 +7222,7 @@ function rmChatRender(soAtualizar){
       ${rmChatSemTabela ? '<div class="rm-chat-vazio">O chat ainda não foi ativado no banco de dados. Rode o arquivo <b>chat-supabase.sql</b> no Supabase.</div>' : ''}
       ${conv.map(({ p, ult, n }) => `<div class="rm-chat-pessoa${n ? ' nova' : ''}" onclick="rmChatAbrirCom('${rmJs(p.id)}')">
         <div class="rm-chat-av">${rmEscapeHtml((p.nome || '?').trim().charAt(0).toUpperCase())}</div>
-        <div class="rm-chat-pinfo"><b>${rmEscapeHtml(p.nome)}</b><small>${ult ? (ult.de === rmChatUid ? 'Você: ' : '') + rmEscapeHtml(String(ult.texto).slice(0, 60)) : 'Toque para conversar'}</small></div>
+        <div class="rm-chat-pinfo"><b>${rmEscapeHtml(p.nome)}</b><small>${ult ? (ult.de === rmChatUid ? 'Você: ' : '') + (rmChatEhImp(ult) ? '&#10071; ' : '') + rmEscapeHtml(rmChatTexto(ult).slice(0, 60)) : 'Toque para conversar'}</small></div>
         ${ult ? `<div class="rm-chat-hora">${rmChatHora(ult.criado_em)}</div>` : ''}${n ? `<div class="rm-chat-n">${n}</div>` : ''}
       </div>`).join('') || '<div class="rm-chat-vazio">Nenhum outro usuário cadastrado.</div>'}
       </div>`;
@@ -7177,14 +7236,15 @@ function rmChatRender(soAtualizar){
     const d = rmChatDiaTxt(m.criado_em); if(d !== dia){ dia = d; h += `<div class="rm-chat-dia">${d}</div>`; }
     const eu = m.de === rmChatUid;
     const st = !eu ? '' : m.__local ? ' &#9203;' : m.lida_em ? ' <span class="ok" title="Lida">&#10003;&#10003;</span>' : ' <span title="Enviada">&#10003;</span>';
-    h += `<div class="rm-chat-b ${eu ? 'eu' : 'ele'}">${rmEscapeHtml(m.texto)}<small>${new Date(m.criado_em).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' })}${st}</small></div>`;
+    h += `<div class="rm-chat-b ${eu ? 'eu' : 'ele'}${rmChatEhImp(m) ? ' imp' : ''}">${rmChatEhImp(m) ? '<span class="rm-chat-tag">&#10071; IMPORTANTE</span>' : ''}${rmEscapeHtml(rmChatTexto(m))}<small>${new Date(m.criado_em).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' })}${st}</small></div>`;
   });
   if(soAtualizar && area && document.getElementById('rm-chat-txt')){
     area.innerHTML = h || '<div class="rm-chat-vazio">Nenhuma mensagem ainda. Escreva abaixo.</div>';
   } else {
     box.innerHTML = `<div class="rm-chat-topo"><button onclick="rmChatVoltar()" title="Voltar">&#8592;</button><span>${rmEscapeHtml(rmChatNome(rmChatCom))}</span><button onclick="rmChatFechar()" title="Fechar">&times;</button></div>
       <div class="rm-chat-msgs" id="rm-chat-msgs">${h || '<div class="rm-chat-vazio">Nenhuma mensagem ainda. Escreva abaixo.</div>'}</div>
-      <div class="rm-chat-env"><textarea id="rm-chat-txt" placeholder="Escreva uma mensagem..." onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); rmChatEnviar(); }"></textarea><button onclick="rmChatEnviar()" title="Enviar">&#10148;</button></div>`;
+      ${rmChatImp ? '<div class="rm-chat-imp-dica">&#10071; Mensagem importante: vai abrir um aviso grande na tela de ' + rmEscapeHtml(rmChatNome(rmChatCom)) + '</div>' : ''}
+      <div class="rm-chat-env${rmChatImp ? ' imp' : ''}"><button class="rm-chat-imp${rmChatImp ? ' on' : ''}" title="Marcar como mensagem importante (abre um aviso grande na tela da pessoa)" onclick="rmChatImpAlternar()">!</button><textarea id="rm-chat-txt" placeholder="${rmChatImp ? 'Escreva a mensagem importante...' : 'Escreva uma mensagem...'}" onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); rmChatEnviar(); }"></textarea><button onclick="rmChatEnviar()" title="Enviar">&#10148;</button></div>`;
     if(txtAntes) document.getElementById('rm-chat-txt').value = txtAntes;
   }
   const a2 = document.getElementById('rm-chat-msgs'); if(a2 && (noFim || !soAtualizar)) a2.scrollTop = a2.scrollHeight;
@@ -7192,10 +7252,11 @@ function rmChatRender(soAtualizar){
 function rmChatEnviar(){
   const t = document.getElementById('rm-chat-txt'); if(!t || !rmChatCom) return;
   const texto = t.value.trim(); if(!texto) return;
-  const m = { id:'m' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8), de: rmChatUid, de_nome: rmNomeUsuario(), para: rmChatCom, para_nome: rmChatNome(rmChatCom), texto, criado_em: new Date().toISOString(), lida_em: null, __local: true };
+  const m = { id:'m' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8), de: rmChatUid, de_nome: rmNomeUsuario(), para: rmChatCom, para_nome: rmChatNome(rmChatCom), texto, importante: !!rmChatImp, criado_em: new Date().toISOString(), lida_em: null, __local: true };
   rmChat.msgs.push(m); rmChat.pend.push(m.id); rmChatGuardar();
-  t.value = ''; t.focus();
-  rmChatRender(true);
+  t.value = '';
+  if(rmChatImp){ rmChatImp = false; rmChatRender(); } else rmChatRender(true);
+  const t2 = document.getElementById('rm-chat-txt'); if(t2) t2.focus();
   rmChatEnviarPend();
 }
 let rmChatEnviando = false;
@@ -7207,7 +7268,11 @@ async function rmChatEnviarPend(){
       const m = rmChat.msgs.find(x => x.id === rmChat.pend[0]);
       if(!m){ rmChat.pend.shift(); continue; }
       const { id, de, de_nome, para, para_nome, texto } = m;
-      const r = await rmSb.from('mensagens').insert({ id, de, de_nome, para, para_nome, texto });
+      const linha = { id, de, de_nome, para, para_nome, texto };
+      if(m.importante) linha.importante = true;
+      let r = await rmSb.from('mensagens').insert(linha);
+      // banco ainda sem a coluna "importante": manda com a marca no texto, e o outro lado entende igual
+      if(r && r.error && m.importante && /importante/i.test(r.error.message || '')){ delete linha.importante; linha.texto = RM_CHAT_MARCA_IMP + texto; r = await rmSb.from('mensagens').insert(linha); }
       if(r && r.error && !/duplicate|23505/.test((r.error.message || '') + (r.error.code || ''))) throw r.error;
       delete m.__local; rmChat.pend.shift(); rmChatGuardar(); rmChatRender(true);
     }
