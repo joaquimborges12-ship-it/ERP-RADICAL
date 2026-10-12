@@ -1844,7 +1844,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-20h40</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-21h45</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -5072,7 +5072,10 @@ async function rmFazerLogin(){
 }
 
 async function rmCarregarPerfil(user){
-  const { data: perfil, error } = await rmSb.from('perfis').select('*').eq('id', user.id).maybeSingle();
+  let { data: perfil, error } = await rmSb.from('perfis').select('*').eq('id', user.id).maybeSingle();
+  // sem internet: usa o cadastro guardado da última vez (não desloga ninguém por falta de conexão)
+  if(error && !perfil){ try{ perfil = JSON.parse(localStorage.getItem('radicalMotos_perfil_' + user.id)); if(perfil) error = null; }catch(e){} }
+  if(perfil && !error){ try{ localStorage.setItem('radicalMotos_perfil_' + user.id, JSON.stringify(perfil)); }catch(e){} }
   if(error || !perfil){ await rmSb.auth.signOut(); rmMostrarLogin('Este usuário não tem cadastro no sistema. Fale com o administrador.'); return false; }
   if(!perfil.ativo){ await rmSb.auth.signOut(); rmMostrarLogin('Este usuário está desativado.'); return false; }
   rmUsuario = perfil;
@@ -9354,16 +9357,46 @@ function rmInvSaveLocal(l){ rmStoreSalvar(RM_INV_KEY, l); }
 function rmInvFromDb(r){ return { id:r.id, titulo:r.titulo, tipo:r.tipo, status:r.status, itens:r.itens || [], criadoEm:r.criado_em, criadoPor:r.criado_por, finalizadoEm:r.finalizado_em, finalizadoPor:r.finalizado_por, resumo:r.resumo || null }; }
 function rmInvToDb(i){ return { id:i.id, titulo:i.titulo, tipo:i.tipo, status:i.status, itens:i.itens, criado_em:i.criadoEm, criado_por:i.criadoPor||null, finalizado_em:i.finalizadoEm||null, finalizado_por:i.finalizadoPor||null, resumo:i.resumo||null }; }
 let rmInvTimer = {};
+// contagens feitas sem internet ficam marcadas como "pendentes" e são enviadas quando a conexão voltar;
+// enquanto estiverem pendentes, a cópia do aparelho nunca é trocada pela do servidor
+const RM_INV_PEND_KEY = 'radicalMotos_invPendentes';
+const rmInvPend = () => { try{ return JSON.parse(localStorage.getItem(RM_INV_PEND_KEY)) || []; }catch(e){ return []; } };
+const rmInvPendSet = l => { try{ localStorage.setItem(RM_INV_PEND_KEY, JSON.stringify([...new Set(l)])); }catch(e){} };
+async function rmInvEnviar(id){
+  const inv = rmInvGet(id); if(!inv) return false;
+  try{
+    const { error } = await rmSb.from('inventarios').upsert(rmInvToDb(inv));
+    if(error) throw error;
+    const atual = rmInvGet(id);
+    if(atual && JSON.stringify(rmInvToDb(atual)) === JSON.stringify(rmInvToDb(inv))) rmInvPendSet(rmInvPend().filter(x => x !== id)); // não mudou enquanto enviava
+    rmInvStatus();
+    return true;
+  }catch(e){ console.warn('inventario (fica guardado no aparelho):', e); rmInvStatus(); return false; }
+}
+async function rmInvEnviarPendentes(){ for(const id of rmInvPend()) await rmInvEnviar(id); }
+function rmInvStatus(){
+  const n = rmInvPend().length, e = document.getElementById('rm-inv-pend');
+  if(e){ e.style.display = n ? '' : 'none'; e.textContent = n ? '⏳ Contagem salva no aparelho · envia quando tiver internet' : ''; }
+}
 function rmInvSalvar(inv, imediato){
   const l = rmInvLoad().filter(x => x.id !== inv.id); l.unshift(inv); rmInvSaveLocal(l);
+  rmInvPendSet(rmInvPend().concat([inv.id]));
   clearTimeout(rmInvTimer[inv.id]);
-  const envia = async () => { try{ const { error } = await rmSb.from('inventarios').upsert(rmInvToDb(inv)); if(error) console.error('inventario', error); }catch(e){} };
-  if(imediato) envia(); else rmInvTimer[inv.id] = setTimeout(envia, 800);
+  if(imediato) rmInvEnviar(inv.id); else rmInvTimer[inv.id] = setTimeout(() => rmInvEnviar(inv.id), 800);
 }
 async function rmInvSync(){
+  await rmInvEnviarPendentes();
   const { data, error } = await rmSelectTudo('inventarios', '*');
-  if(!error && data) rmInvSaveLocal(data.map(rmInvFromDb).sort((a,b) => String(b.criadoEm).localeCompare(String(a.criadoEm))));
+  if(!error && data){
+    const pend = rmInvPend(), local = rmInvLoad();
+    const m = new Map(data.map(rmInvFromDb).map(x => [x.id, x]));
+    local.forEach(x => { if(pend.includes(x.id)) m.set(x.id, x); });
+    rmInvSaveLocal([...m.values()].sort((a,b) => String(b.criadoEm).localeCompare(String(a.criadoEm))));
+  }
+  rmInvStatus();
 }
+window.addEventListener('online', () => { if(typeof rmUsuario !== 'undefined' && rmUsuario) rmInvEnviarPendentes(); });
+setInterval(() => { if(typeof rmUsuario !== 'undefined' && rmUsuario && rmInvPend().length) rmInvEnviarPendentes(); }, 30000);
 function rmInvGet(id){ return rmInvLoad().find(x => x.id === id); }
 
 // última contagem de cada produto (contagens finalizadas)
@@ -9522,9 +9555,11 @@ function rmInvAbrir(id){
 // ---------- tela de contagem (cega) ----------
 function rmInvRenderContagem(){
   const inv = rmInvGet(rmInvAtual), box = document.getElementById('rm-inv');
+  setTimeout(rmInvStatus);
   const feitos = inv.itens.filter(x => x.contado != null).length, tot = inv.itens.length;
   const lista = inv.itens.map((it, k) => ({ it, k })).filter(x => !rmInvSoFaltando || x.it.contado == null);
   box.innerHTML = `
+    <div id="rm-inv-pend" class="rm-inv-aviso" style="display:none; margin-bottom:8px;"></div>
     <div class="rm-inv-topo">
       <button class="rm-pe2-btn" onclick="rmInvTela='home'; rmRenderInventario()">‹ Voltar</button>
       <div class="rm-inv-topo-tit"><b>${rmEscapeHtml(inv.titulo)}</b><small>contagem cega: a quantidade do sistema só aparece na revisão</small></div>
@@ -9719,6 +9754,7 @@ function rmInvRenderRevisao(){
 function rmInvRecontar(k, v){ const inv = rmInvGet(rmInvAtual); inv.itens[k].recontado = String(v).trim() === '' ? null : Math.max(0, rmParseMoeda(v)); rmInvSalvar(inv); rmInvRenderRevisao(); }
 function rmInvMotivo(k, v){ const inv = rmInvGet(rmInvAtual); inv.itens[k].motivo = v; rmInvSalvar(inv); }
 function rmInvAprovar(){
+  if(navigator.onLine === false){ alert('Para aprovar e ajustar o estoque precisa estar com internet.\nA contagem está salva no aparelho: conecte e aprove depois.'); return; }
   const inv = rmInvGet(rmInvAtual), c = rmInvCalc(inv);
   const semMotivo = c.div.filter(l => !l.it.motivo).length;
   if(semMotivo && !confirm(`${semMotivo} diferença(s) estão sem motivo. Ajustar mesmo assim?`)) return;
