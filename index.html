@@ -1880,7 +1880,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-23h10</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-23h20</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2901,7 +2901,7 @@ function rmAbrirCadastroProdutoRapido(produtoId, novoNaFamilia){
 
           ${campo(8, 'Nome', '<input class="rm-input" id="rm-pqf-nome" autocapitalize="characters">', ' rm-qm-req')}
           ${campo(4, 'Marca (fabricante)', '<input class="rm-input" id="rm-pqf-marca" autocapitalize="characters">')}
-          ${campo(12, '&#128106; Família <small style="font-weight:500; color:var(--rm-text-dim)">(a mesma peça de outras marcas — deixe vazio se não tiver)</small>', '<input class="rm-input" id="rm-pqf-familia" list="rm-pqf-familias" autocapitalize="characters" placeholder="ex.: BIELA POP 110"><datalist id="rm-pqf-familias">' + Object.values(rmFam.fams).filter(f => !f.removida).map(f => '<option value="' + rmEscapeHtml(f.nome) + '">').join('') + '</datalist>')}
+          ${campo(12, '&#128106; Família <small style="font-weight:500; color:var(--rm-text-dim)">(a mesma peça de outras marcas — deixe vazio se não tiver)</small>', '<input class="rm-input" id="rm-pqf-familia" list="rm-pqf-familias" autocapitalize="characters" placeholder="ex.: BIELA POP 110" onchange="rmFamPreencherDoCampo(this.value)"><datalist id="rm-pqf-familias">' + Object.values(rmFam.fams).filter(f => !f.removida).map(f => '<option value="' + rmEscapeHtml(f.nome) + '">').join('') + '</datalist>')}
 
           ${campo(4, 'Custo', '<input class="rm-input rm-qm-num" id="rm-pqf-preco-custo" inputmode="decimal" oninput="rmAtualizarMargens(\'rm-pqf\')">')}
           ${campo(4, 'Preço consumidor', '<input class="rm-input rm-qm-num" id="rm-pqf-preco-consumidor" inputmode="decimal" oninput="rmAtualizarMargens(\'rm-pqf\')"><span class="rm-margem-texto" id="rm-pqf-margem-consumidor"></span>')}
@@ -3016,6 +3016,7 @@ function rmAbrirCadastroProdutoRapido(produtoId, novoNaFamilia){
     if(!existente && fa){ // nova marca de uma família: já vem com o nome e a curva da família
       document.getElementById('rm-pqf-nome').value = fa.nome + ' - ';
       if(fa.curva) document.getElementById('rm-pqf-curva').value = fa.curva;
+      const loc = rmFamLocal(fa.id); if(loc) document.getElementById('rm-pqf-localizacao').value = loc;
     } }
   rmRenderAplicacaoNovo();
   document.getElementById('rm-modal-backdrop').classList.add('show');
@@ -7416,6 +7417,12 @@ function rmFamVendidos(){ // quantidade vendida por produto (PDV + OS)
   return rmFamVendCache = m;
 }
 function rmFamOrdenarMarcas(ps){ const v = rmFamVendidos(); return ps.slice().sort((a,b) => (v.get(b.id) || 0) - (v.get(a.id) || 0) || (Number(b.estoqueAtual) || 0) - (Number(a.estoqueAtual) || 0) || (a.nome || '').localeCompare(b.nome || '')); }
+// localização da família = a mais usada entre as marcas (todas ficam no mesmo lugar)
+function rmFamLocal(fid, prods){
+  const c = new Map();
+  (prods ? rmFamMembrosDe(fid, prods) : rmFamMembros(fid)).forEach(p => { const l = String(p.localizacao || '').trim().toUpperCase(); if(l) c.set(l, (c.get(l) || 0) + 1); });
+  return [...c.entries()].sort((a,b) => b[1] - a[1])[0]?.[0] || '';
+}
 function rmFamEstoque(fid){ return rmFamMembros(fid).reduce((s,p) => s + (Number(p.estoqueAtual) || 0), 0); }
 function rmFamMarcaDe(p){ return (p.marca || '').trim() || rmFamSeparar(p.nome).marca || (p.nome || ''); }
 
@@ -7535,9 +7542,18 @@ function rmFamCriar(nome, itens, curva, fidExistente, semSalvar){
   const prods = rmLoadProdutos(), idx = rmIdx(prods), mudou = [];
   itens.forEach(i => { const p = idx.get(i.pid); if(p && !String(p.marca || '').trim() && i.marca){ p.marca = i.marca; mudou.push(p); } });
   if(f.curva) rmFamMembrosDe(f.id, prods).forEach(p => { if(p.curva !== f.curva){ p.curva = f.curva; if(!mudou.includes(p)) mudou.push(p); } });
+  { const loc = rmFamLocal(f.id, prods); // marca que entra sem localização fica no mesmo lugar das outras
+    if(loc) itens.forEach(i => { const p = idx.get(i.pid); if(p && !String(p.localizacao || '').trim()){ p.localizacao = loc; if(!mudou.includes(p)) mudou.push(p); } }); }
   if(mudou.length){ rmSaveProdutos(prods); if(!semSalvar) rmDbUpsertProdutosLote(mudou); }
   if(!semSalvar) rmFamSalvar();
   return { f, mudou };
+}
+// escolheu a família no cadastro: localização (e curva) vêm da família se estiverem vazias
+function rmFamPreencherDoCampo(v){
+  const f = Object.values(rmFam.fams).find(x => !x.removida && rmFamNorm(x.nome) === rmFamNorm(v)); if(!f) return;
+  const l = document.getElementById('rm-pqf-localizacao'), c = document.getElementById('rm-pqf-curva'), loc = rmFamLocal(f.id);
+  if(l && !l.value.trim() && loc){ l.value = loc; rmShowToast('Localização da família: ' + loc); }
+  if(c && !c.value && f.curva) c.value = f.curva;
 }
 // campo "Família" do cadastro de produto: entra, troca ou sai da família
 function rmFamAplicarDoCadastro(produto, nomeFam){
