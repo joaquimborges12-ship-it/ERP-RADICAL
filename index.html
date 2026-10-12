@@ -1889,7 +1889,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.12-00h10</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.12-00h20</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2785,6 +2785,13 @@ const RM_STATUS = {
 };
 const RM_STATUS_ORDER = ['aberto','andamento','prontas','peca','antigas','entregue'];
 
+// cliente inativo ou negativado não compra a prazo (só à vista)
+function rmCliBloqueioAPrazo(clienteId, nome){
+  const clis = rmLoadClientes();
+  const c = (clienteId && clis.find(x => x.id === clienteId)) || (!clienteId && nome ? clis.find(x => (x.nome || '').trim().toUpperCase() === String(nome).trim().toUpperCase()) : null);
+  if(!c || !['inativo','negativado'].includes(c.situacao)) return '';
+  return `VENDA A PRAZO BLOQUEADA\n\n${c.nome} está ${c.situacao === 'negativado' ? 'NEGATIVADO' : 'INATIVO'} no cadastro.\nPara esse cliente, só venda à vista (dinheiro, PIX, cartão).\n\nPara liberar, mude a situação no cadastro do cliente.`;
+}
 const RM_SITUACAO = {
   positivo:   {label:'Cadastro positivo', color:'#4caf7d'},
   inativo:    {label:'Inativo',           color:'#7a7f87'},
@@ -4151,6 +4158,7 @@ function rmRenderFormasPagamentoPdv(){
 }
 
 function rmEscolherPagamentoPdv(forma){
+  if(rmAPrazo(forma) && rmPdvModo !== 'orcamento' && !(rmPdvEditandoVenda && rmAPrazo(rmPdvEditandoVenda.formaPagamento))){ const b = rmCliBloqueioAPrazo(rmPdvClienteId); if(b){ alert(b); return; } }
   rmPdvFormaPagamento = forma;
   rmRenderFormasPagamentoPdv();
   rmRenderPromPdv();
@@ -4304,7 +4312,10 @@ function rmRenderClienteSelecionadoPdv(){
   {
     const el = document.getElementById('rm-pdv-cliente-limite');
     if(el){
-      if(cli && Number(cli.limiteCredito) > 0){
+      if(cli && ['inativo','negativado'].includes(cli.situacao)){
+        el.value = 'BLOQUEADO (' + (cli.situacao === 'negativado' ? 'negativado' : 'inativo') + ')';
+        el.title = 'Cliente ' + cli.situacao + ': não pode comprar a prazo'; el.style.color = '#b3261e';
+      } else if(cli && Number(cli.limiteCredito) > 0){
         const disp = Number(cli.limiteCredito) - rmCliSaldoDevedor(cli);
         el.value = (disp < 0 ? '- ' : '') + rmFormatMoeda(Math.abs(disp));
         el.title = 'Limite ' + rmFormatMoeda(cli.limiteCredito) + ' · em aberto ' + rmFormatMoeda(rmCliSaldoDevedor(cli));
@@ -4410,6 +4421,8 @@ function rmFinalizarVenda(){
       alert('Pra vender a prazo, selecione o cliente primeiro.');
       return;
     }
+    // (editar uma venda que já era a prazo continua permitido, para corrigir itens)
+    if(rmAPrazo(rmPdvFormaPagamento) && !(rmPdvEditandoVenda && rmAPrazo(rmPdvEditandoVenda.formaPagamento) && rmPdvEditandoVenda.clienteId === rmPdvClienteId)){ const b = rmCliBloqueioAPrazo(rmPdvClienteId); if(b){ alert(b); return; } }
   }
 
   const subtotal = rmTotalCarrinhoPdv();
@@ -12523,6 +12536,7 @@ function rmOsEscolherPagamento(id, forma){
   const list = rmLoad();
   const item = list.find(r=>r.id===id);
   if(!item) return;
+  if(rmAPrazo(forma) && item.formaPagamento !== forma){ const b = rmCliBloqueioAPrazo(item.clienteId, item.nome); if(b){ alert(b); return; } }
   item.formaPagamento = item.formaPagamento === forma ? '' : forma;
   rmSave(list);
   rmDbUpsertRecepcao(item);
@@ -12636,6 +12650,7 @@ function rmOsFinalizar(id){
   if(!r) return;
   if(!r.formaPagamento){ alert('Escolha a forma de pagamento antes de finalizar.'); return; }
   if(rmAPrazo(r.formaPagamento) && !r.clienteId && !r.nome){ alert('Para vender a prazo, a moto precisa ter o cliente informado.'); return; }
+  if(rmAPrazo(r.formaPagamento)){ const b = rmCliBloqueioAPrazo(r.clienteId, r.nome); if(b){ alert(b); return; } }
   if(rmAPrazo(r.formaPagamento) && !r.clienteId){
     const nomeUp = String(r.nome || '').trim().toUpperCase();
     const clis = rmLoadClientes();
