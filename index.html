@@ -1880,7 +1880,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-22h30</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-23h10</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2853,7 +2853,7 @@ function rmRemoverAplicacaoNovo(i){
   rmRenderAplicacaoNovo();
 }
 
-function rmAbrirCadastroProdutoRapido(produtoId){
+function rmAbrirCadastroProdutoRapido(produtoId, novoNaFamilia){
   const existente = produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(produtoId) : null;
   const editando = !!existente;
   rmProdutoEmEdicao = existente ? { id: existente.id, estoqueInicial: existente.estoqueAtual || 0 } : null;
@@ -2901,6 +2901,7 @@ function rmAbrirCadastroProdutoRapido(produtoId){
 
           ${campo(8, 'Nome', '<input class="rm-input" id="rm-pqf-nome" autocapitalize="characters">', ' rm-qm-req')}
           ${campo(4, 'Marca (fabricante)', '<input class="rm-input" id="rm-pqf-marca" autocapitalize="characters">')}
+          ${campo(12, '&#128106; Família <small style="font-weight:500; color:var(--rm-text-dim)">(a mesma peça de outras marcas — deixe vazio se não tiver)</small>', '<input class="rm-input" id="rm-pqf-familia" list="rm-pqf-familias" autocapitalize="characters" placeholder="ex.: BIELA POP 110"><datalist id="rm-pqf-familias">' + Object.values(rmFam.fams).filter(f => !f.removida).map(f => '<option value="' + rmEscapeHtml(f.nome) + '">').join('') + '</datalist>')}
 
           ${campo(4, 'Custo', '<input class="rm-input rm-qm-num" id="rm-pqf-preco-custo" inputmode="decimal" oninput="rmAtualizarMargens(\'rm-pqf\')">')}
           ${campo(4, 'Preço consumidor', '<input class="rm-input rm-qm-num" id="rm-pqf-preco-consumidor" inputmode="decimal" oninput="rmAtualizarMargens(\'rm-pqf\')"><span class="rm-margem-texto" id="rm-pqf-margem-consumidor"></span>')}
@@ -3010,9 +3011,15 @@ function rmAbrirCadastroProdutoRapido(produtoId){
     rmAtualizarMargens('rm-pqf');
   }
 
+  { const ff = document.getElementById('rm-pqf-familia'); const fa = existente ? rmFamDoProduto(existente.id) : (novoNaFamilia ? rmFam.fams[novoNaFamilia] : null);
+    if(ff && fa) ff.value = fa.nome;
+    if(!existente && fa){ // nova marca de uma família: já vem com o nome e a curva da família
+      document.getElementById('rm-pqf-nome').value = fa.nome + ' - ';
+      if(fa.curva) document.getElementById('rm-pqf-curva').value = fa.curva;
+    } }
   rmRenderAplicacaoNovo();
   document.getElementById('rm-modal-backdrop').classList.add('show');
-  if(!editando) setTimeout(()=>{ const f = document.getElementById('rm-pqf-nome'); if(f) f.focus(); }, 150);
+  if(!editando) setTimeout(()=>{ const f = document.getElementById('rm-pqf-nome'); if(f){ f.focus(); f.setSelectionRange(f.value.length, f.value.length); } }, 150);
 }
 
 function rmSetTabNovoProduto(tab){
@@ -3338,6 +3345,7 @@ function rmSalvarProdutoRapido(){
   }
   rmSaveProdutos(list);
   rmDbUpsertProduto(produto);
+  rmFamAplicarDoCadastro(produto, (document.getElementById('rm-pqf-familia') || {}).value);
 
   const foiEdicao = !!rmProdutoEmEdicao;
   rmProdutoEmEdicao = null;
@@ -7531,6 +7539,23 @@ function rmFamCriar(nome, itens, curva, fidExistente, semSalvar){
   if(!semSalvar) rmFamSalvar();
   return { f, mudou };
 }
+// campo "Família" do cadastro de produto: entra, troca ou sai da família
+function rmFamAplicarDoCadastro(produto, nomeFam){
+  const nome = rmFamNorm(nomeFam), atual = rmFamDoProduto(produto.id);
+  if(!nome){
+    if(atual){ rmFam.map[produto.id] = { f:'', t:new Date().toISOString() }; rmFamSalvar(); rmRenderFamilias(); }
+    return;
+  }
+  if(atual && rmFamNorm(atual.nome) === nome){
+    if((produto.curva || '') !== (atual.curva || '')) rmFamDefinirCurva(atual.id, produto.curva || ''); // curva da família vale para todas as marcas
+    return;
+  }
+  const existe = Object.values(rmFam.fams).find(f => !f.removida && rmFamNorm(f.nome) === nome);
+  const marca = (produto.marca || '').trim() || rmFamSeparar(produto.nome).marca;
+  rmFamCriar(nome, [{ pid: produto.id, marca }], existe ? (existe.curva || produto.curva || '') : (produto.curva || ''), existe && existe.id);
+  rmShowToast(existe ? 'Entrou na família ' + nome : 'Família criada: ' + nome);
+  rmRenderFamilias();
+}
 function rmFamMembrosDe(fid, prods){ const idx = rmIdx(prods); return (rmFamIndice().membros.get(fid) || []).map(id => idx.get(id)).filter(Boolean); }
 function rmFamDefinirCurva(fid, c){
   const f = rmFam.fams[fid]; if(!f) return;
@@ -7607,7 +7632,7 @@ function rmRenderFamilias(){
         <table class="rm-fam-tab"><thead><tr><th>Marca</th><th>Produto</th><th class="r">Preço</th><th class="r">Estoque</th><th class="r">Vendidos</th><th></th></tr></thead><tbody>
         ${ms.map(p => `<tr><td><b>${rmEscapeHtml(rmFamMarcaDe(p))}</b></td><td>${rmEscapeHtml(p.nome)}${p.localizacao ? ' <small>#' + rmEscapeHtml(p.localizacao) + '</small>' : ''}</td><td class="r">${rmFormatMoeda(p.precoConsumidor)}</td><td class="r">${rmFmtQtd(p.estoqueAtual || 0)}</td><td class="r">${rmFmtQtd(v.get(p.id) || 0)}</td><td class="r"><button class="rm-pe2-btn rm-fam-x" title="Tirar da família" onclick="rmFamTirar('${p.id}')">&times;</button></td></tr>`).join('')}
         </tbody></table>
-        <div class="rm-fam-card-acoes"><div class="rm-fam-add"><input placeholder="+ adicionar marca (buscar produto)..." oninput="rmFamBuscarAdd(this, '${f.id}')" onblur="setTimeout(()=>{const l=this.nextElementSibling; if(l) l.classList.remove('show')},150)"><div class="rm-autocomplete-list"></div></div><button class="rm-pe2-btn" onclick="rmFamDesfazer('${f.id}')">Desfazer família</button></div>
+        <div class="rm-fam-card-acoes"><div class="rm-fam-add"><input placeholder="+ adicionar marca (buscar produto)..." oninput="rmFamBuscarAdd(this, '${f.id}')" onblur="setTimeout(()=>{const l=this.nextElementSibling; if(l) l.classList.remove('show')},150)"><div class="rm-autocomplete-list"></div></div><button class="rm-pe2-btn" onclick="rmAbrirCadastroProdutoRapido(null, '${f.id}')">+ Cadastrar marca nova</button><button class="rm-pe2-btn" onclick="rmFamDesfazer('${f.id}')">Desfazer família</button></div>
       </div>`; }).join('') || '<div class="rm-problema-empty" style="padding:18px">Nenhuma família ainda. Comece pelas sugestões.</div>'}
       ${lst.length > rmFamLimite ? `<button class="rm-pe2-btn rm-fam-mais" onclick="rmFamLimite+=30; rmRenderFamilias()">Mostrar mais (${lst.length - rmFamLimite})</button>` : ''}
       ${ign.length ? `<details class="rm-fam-ign"><summary>Sugestões ignoradas (${ign.length})</summary>${ign.map(b => `<div>${rmEscapeHtml(b)} <button class="rm-pe2-btn" onclick="rmFam.ignorados['${rmJs(b)}']={sim:false,t:new Date().toISOString()}; rmFamSalvar(); rmRenderFamilias()">voltar para sugestões</button></div>`).join('')}</details>` : ''}`;
