@@ -1614,6 +1614,15 @@
   .rm-ac-fam:hover{filter:brightness(0.97);}
   .rm-autocomplete-item.rm-ac-marca{padding-left:28px; border-left:4px solid #2f6fb5;}
   .rm-ac-marca-nome{font-size:12px; color:var(--rm-text-dim); font-weight:400;}
+  .rm-inv-fam{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:10px; padding:8px 12px; background:var(--rm-panel-2); border-left:4px solid #2f6fb5; font-size:14.5px;}
+  .rm-inv-fam span{font-size:12px; color:var(--rm-text-dim);}
+  .rm-inv-item.rm-inv-marca{border-left:4px solid #2f6fb5; margin-left:10px;}
+  .rm-inv-marca-tag{display:inline-block; background:#2f6fb5; color:#fff; font-size:11.5px; font-weight:800; padding:1px 7px; margin-right:6px; letter-spacing:0.02em;}
+  .rm-inv-acoes{display:flex; gap:6px; margin-top:4px; flex-wrap:wrap;}
+  .rm-inv-acoes button{border:1px solid var(--rm-border); background:transparent; color:var(--rm-text-dim); font-size:11.5px; font-weight:700; padding:2px 8px; cursor:pointer; font-family:inherit;}
+  .rm-inv-acoes button:hover{color:var(--rm-accent); border-color:var(--rm-accent);}
+  .rm-inv-item.rm-inv-inativo{opacity:0.55;} .rm-inv-item.rm-inv-inativo .rm-inv-qtd{pointer-events:none;}
+  .rm-inv-inat-tag{display:inline-block; background:#777; color:#fff; font-size:11px; font-weight:800; padding:1px 7px; margin-right:6px;}
   .rm-lem-vazio{color:var(--rm-text-dim); font-size:14px; margin:14px 0;}
   .rm-lem-vistos{margin-top:28px; border-top:1px solid var(--rm-border); padding-top:12px;}
   .rm-lem-vistos summary{cursor:pointer; font-weight:700; color:var(--rm-text-dim); margin-bottom:12px;}
@@ -1880,7 +1889,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-23h20</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-23h55</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -7424,7 +7433,7 @@ function rmFamLocal(fid, prods){
   return [...c.entries()].sort((a,b) => b[1] - a[1])[0]?.[0] || '';
 }
 function rmFamEstoque(fid){ return rmFamMembros(fid).reduce((s,p) => s + (Number(p.estoqueAtual) || 0), 0); }
-function rmFamMarcaDe(p){ return (p.marca || '').trim() || rmFamSeparar(p.nome).marca || (p.nome || ''); }
+function rmFamMarcaDe(p){ return (p.marca || '').trim() || rmFamSeparar(p.nome).marca || 'SEM MARCA'; }
 
 // ----- separar o nome em "produto" + "marca" (a marca está só no nome) -----
 const RM_FAM_MARCAS = ['VEDAMOTORS','VEDA MOTORS','VEDAMOTOS','MHX','COFAP','RIFFEL','VAZ','COBREQ','FRAS-LE','FRASLE','FRAS LE','DIAFRAG','DIA-FRAG','DIA FRAG','NGK','DENSO','KMC','DID','MAGNETRON','METAL LEVE','METAL-LEVE','METALLEVE','SABO','ORIGINAL','MOBENSANI','PRO TORK','PROTORK','SCUD','COMETA','MAXPAR','KINGS','POLIMET','TECFIL','VEDAMAX','WGK','TAKAO','KYB','GP','IMA','MAGNETI MARELLI','MARELLI','ATHENA','NAKATA','DUNLOP','PIRELLI','LEVORIN','TECHNIC','RINALDI','METZELER','MICHELIN','IRA','BRANDY','ALLEN','RMX','NTN','SKF','FAG','NSK','KOYO','BIRIBA','HIPPER','VINI','SMARTFOX','MAGNUM','DISAN','VIPAL','MOTOBATT','HEINER','MOURA','ACDELCO','CHAMPION','BOSCH','MAHLE','WURTH','MOTUL','MOBIL','CASTROL','LUBRAX','IPIRANGA','YPF','SHELL','ELF','PETRONAS','HAVOLINE','MULTILASER','ROSSO'];
@@ -9983,17 +9992,17 @@ function rmInvNova(tipo){
     if(!at.length){ alert('Nenhum produto está na hora de contar. Tudo em dia!'); return; }
     const n = parseInt(prompt(`${at.length} produtos estão na hora de ser contados.\nQuantos você quer contar agora? (recomendado: 20 a 30)`, String(Math.min(25, at.length))));
     if(!n || n < 1) return;
-    escolha = at.slice(0, n).map(x => x.p); titulo = 'Contagem do dia · ' + escolha.length + ' produtos';
+    escolha = rmInvComFamilias(at.slice(0, n).map(x => x.p)); titulo = 'Contagem do dia · ' + escolha.length + ' produtos';
   } else if(tipo === 'local'){
     const locs = [...new Set(prods.map(p => (p.localizacao || '').toUpperCase().replace(/[0-9]+$/,'')).filter(Boolean))].sort();
     const l = (prompt('Qual localização/prateleira? (o começo do código já basta)\nExistentes: ' + locs.slice(0, 40).join(', '), locs[0] || '') || '').trim().toUpperCase();
     if(!l) return;
-    escolha = prods.filter(p => (p.localizacao || '').toUpperCase().startsWith(l)); titulo = 'Prateleira ' + l;
+    escolha = rmInvComFamilias(prods.filter(p => (p.localizacao || '').toUpperCase().startsWith(l))); titulo = 'Prateleira ' + l;
   } else if(tipo === 'categoria'){
     const cats = [...new Set(prods.map(p => (p.categoria || '').toUpperCase()).filter(Boolean))].sort();
     const c = (prompt('Qual categoria?\nExistentes: ' + cats.slice(0, 40).join(', '), cats[0] || '') || '').trim().toUpperCase();
     if(!c) return;
-    escolha = prods.filter(p => (p.categoria || '').toUpperCase().includes(c)); titulo = 'Categoria ' + c;
+    escolha = rmInvComFamilias(prods.filter(p => (p.categoria || '').toUpperCase().includes(c))); titulo = 'Categoria ' + c;
   } else if(tipo === 'geral'){
     if(!confirm(`Inventário geral com ${prods.length} produtos. Pode ser feito em várias etapas, salvando e continuando depois. Começar?`)) return;
     escolha = prods; titulo = 'Inventário geral ' + new Date().getFullYear();
@@ -10010,7 +10019,15 @@ function rmInvNova(tipo){
   rmRenderInventario();
 }
 function rmInvItemDe(p){ return { pid:p.id, nome:p.nome, loc:p.localizacao || '', barras:p.codigoBarras || '', codigo:p.codigo || '', curva:p.curva || '', un:p.unidade || 'UN', custo:Number(p.precoCusto)||0, sistema:Number(p.estoqueAtual)||0, contado:null, recontado:null, motivo:'' }; }
-function rmInvOrdenar(inv){ inv.itens.sort((a,b) => (a.loc || 'ZZZ').localeCompare(b.loc || 'ZZZ', 'pt-BR', { numeric:true }) || a.nome.localeCompare(b.nome, 'pt-BR')); }
+// ordem da prateleira; as marcas da mesma família ficam juntas
+function rmInvFamNome(it){ const f = typeof rmFamDoProduto === 'function' ? rmFamDoProduto(it.pid) : null; return f ? f.nome : ''; }
+function rmInvOrdenar(inv){ inv.itens.sort((a,b) => (a.loc || 'ZZZ').localeCompare(b.loc || 'ZZZ', 'pt-BR', { numeric:true }) || (rmInvFamNome(a) || a.nome).localeCompare(rmInvFamNome(b) || b.nome, 'pt-BR') || a.nome.localeCompare(b.nome, 'pt-BR')); }
+// se um produto de uma família entra na contagem, todas as marcas dela entram juntas (conta tudo de uma vez na prateleira)
+function rmInvComFamilias(ps){
+  const ids = new Set(ps.map(p => p.id)), out = ps.slice();
+  ps.forEach(p => { const f = rmFamDoProduto(p.id); if(f) rmFamMembros(f.id).forEach(m => { if(!ids.has(m.id) && !m.ehServico){ ids.add(m.id); out.push(m); } }); });
+  return out;
+}
 function rmInvAbrir(id){
   const i = rmInvGet(id); if(!i) return;
   rmInvAtual = id;
@@ -10047,17 +10064,21 @@ function rmInvRenderContagem(){
     </div>
     </div>
     <div class="rm-inv-lista">
-      ${lista.length ? lista.map(({ it, k }) => `
-        <div class="rm-inv-item${it.contado != null ? ' ok' : ''}" id="rm-inv-it-${k}">
+      ${lista.length ? lista.map(({ it, k }, n) => { const f = rmFamDoProduto(it.pid), fAnt = n ? rmFamDoProduto(lista[n-1].it.pid) : null;
+        const cab = f && (!fAnt || fAnt.id !== f.id) ? (() => { const ms = lista.filter(x => (rmFamDoProduto(x.it.pid) || {}).id === f.id); const ok = ms.filter(x => x.it.contado != null).length; return `<div class="rm-inv-fam">&#128106; <b>${rmEscapeHtml(f.nome)}</b><span>${ms.length} marca${ms.length > 1 ? 's' : ''} · ${ok} contada${ok === 1 ? '' : 's'} · conte cada marca separada</span></div>`; })() : '';
+        const p = f ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(it.pid) : null;
+        return cab + `
+        <div class="rm-inv-item${it.contado != null ? ' ok' : ''}${f ? ' rm-inv-marca' : ''}${it.inativado ? ' rm-inv-inativo' : ''}" id="rm-inv-it-${k}">
           <div class="rm-inv-loc">${rmEscapeHtml(it.loc || '—')}</div>
-          <div class="rm-inv-nome"><b>${rmEscapeHtml(it.nome)}</b><small>${[it.codigo, it.barras, it.curva ? 'curva ' + it.curva : ''].filter(Boolean).map(rmEscapeHtml).join(' · ')}</small></div>
+          <div class="rm-inv-nome">${it.inativado ? '<span class="rm-inv-inat-tag">INATIVADO</span>' : ''}${f ? `<span class="rm-inv-marca-tag">${rmEscapeHtml(p ? rmFamMarcaDe(p) : '')}</span>` : ''}<b>${rmEscapeHtml(it.nome)}</b>
+            <span class="rm-inv-acoes">${it.inativado ? `<button onclick="rmInvReativar(${k})">&#8634; reativar</button>` : `<button onclick="rmInvNovaMarca(${k})">+ outra marca</button><button onclick="rmInvInativar(${k})">inativar</button>`}</span><small>${[it.codigo, it.barras, it.curva ? 'curva ' + it.curva : ''].filter(Boolean).map(rmEscapeHtml).join(' · ')}</small></div>
           <div class="rm-inv-qtd">
             <button onclick="rmInvSomar(${k}, -1)">−</button>
             <input inputmode="decimal" enterkeyhint="next" value="${it.contado != null ? rmFmtQtd(it.contado) : ''}" placeholder="?" onfocus="this.select()" onchange="rmInvDefinir(${k}, this.value)" onkeydown="if(event.key==='Enter'){ this.blur(); const n = document.querySelectorAll('.rm-inv-qtd input'); const i = [...n].indexOf(this); if(n[i+1]) n[i+1].focus(); }">
             <button onclick="rmInvSomar(${k}, 1)">+</button>
             <span>${rmEscapeHtml(it.un)}</span>
           </div>
-        </div>`).join('') : `<div class="rm-problema-empty" style="padding:16px;">${rmInvSoFaltando ? 'Todos contados 👍' : 'Nenhum produto. Inclua pelo campo acima.'}</div>`}
+        </div>`; }).join('') : `<div class="rm-problema-empty" style="padding:16px;">${rmInvSoFaltando ? 'Todos contados 👍' : 'Nenhum produto. Inclua pelo campo acima.'}</div>`}
     </div>
     <div class="rm-inv-rodape rm-inv-rodape-contar">
       <button class="rm-pe2-btn rm-pe2-btn-del" onclick="rmInvCancelar()">Cancelar</button>
@@ -10067,6 +10088,82 @@ function rmInvRenderContagem(){
     </div>`;
   const toque = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
   if(!toque) setTimeout(() => { const b = document.getElementById('rm-inv-bip'); if(b && !document.activeElement.closest('.rm-inv-lista')) b.focus(); }, 30);
+}
+// ----- na contagem: cadastrar marca nova (sem sair da contagem) e inativar marca que não existe mais -----
+function rmInvNovaMarca(k){
+  const inv = rmInvGet(rmInvAtual), it = inv.itens[k]; if(!it) return;
+  const f = rmFamDoProduto(it.pid);
+  const base = f ? f.nome : rmFamSeparar(it.nome).base;
+  const modal = document.getElementById('rm-modal');
+  modal.classList.remove('rm-modal-large','rm-modal-os','rm-modal-quadrado');
+  modal.innerHTML = `
+    <div class="rm-modal-header"><div><div class="rm-modal-title">+ Marca nova</div><div class="rm-modal-sub">Cadastra e já entra na contagem${it.loc ? ' · local ' + rmEscapeHtml(it.loc) : ''}</div></div><button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">&#128106; Família (a peça sem a marca)</span>
+      <input class="rm-input" id="rm-inm-fam" value="${rmEscapeHtml(base)}" autocapitalize="characters" ${f ? 'readonly style="opacity:.75"' : ''}>
+      <span class="rm-modal-section-label" style="margin-top:10px">Marca *</span>
+      <input class="rm-input" id="rm-inm-marca" autocapitalize="characters" placeholder="ex.: COFAP" oninput="document.getElementById('rm-inm-nome').textContent = (document.getElementById('rm-inm-fam').value.trim().toUpperCase() + ' - ' + this.value.trim().toUpperCase())">
+      <div style="font-size:12.5px; color:var(--rm-text-dim); margin-top:4px">Nome do produto: <b id="rm-inm-nome">${rmEscapeHtml(base)} - </b></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px">
+        <div><span class="rm-modal-section-label">Quantidade contada *</span><input class="rm-input" id="rm-inm-qtd" inputmode="decimal" placeholder="0"></div>
+        <div><span class="rm-modal-section-label">Preço de venda</span><input class="rm-input" id="rm-inm-preco" inputmode="decimal" placeholder="0,00"></div>
+        <div><span class="rm-modal-section-label">Custo</span><input class="rm-input" id="rm-inm-custo" inputmode="decimal" placeholder="0,00"></div>
+        <div><span class="rm-modal-section-label">Código de barras</span><input class="rm-input" id="rm-inm-barras" inputmode="numeric"></div>
+      </div>
+      <div style="font-size:12.5px; color:var(--rm-text-dim); margin-top:8px">Localização, curva, unidade e grupo vêm de <b>${rmEscapeHtml(it.nome)}</b>. Os outros dados você completa depois no cadastro.</div>
+    </div>
+    <button class="rm-primary" onclick="rmInvNovaMarcaSalvar(${k})">&#10004; Cadastrar e contar</button>`;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+  setTimeout(() => document.getElementById('rm-inm-marca').focus(), 80);
+}
+function rmInvNovaMarcaSalvar(k){
+  const inv = rmInvGet(rmInvAtual), it = inv.itens[k]; if(!it) return;
+  const val = id => document.getElementById(id).value.trim();
+  const fam = rmFamNorm(val('rm-inm-fam')), marca = rmFamNorm(val('rm-inm-marca')), qtdTxt = val('rm-inm-qtd');
+  if(!fam){ alert('Escreva o nome da família.'); return; }
+  if(!marca){ alert('Escreva a marca.'); return; }
+  if(qtdTxt === ''){ alert('Informe a quantidade contada (pode ser 0).'); return; }
+  const nome = fam + ' - ' + marca;
+  const prods = rmLoadProdutos();
+  if(prods.some(x => x.ativo !== false && rmFamNorm(x.nome) === nome)){ alert('Já existe um produto com o nome "' + nome + '". Use o campo "+ Incluir outro produto" para colocar ele na contagem.'); return; }
+  const barras = val('rm-inm-barras');
+  if(barras && prods.some(x => (x.codigoBarras || '') === barras)){ if(!confirm('Esse código de barras já está em outro produto. Cadastrar mesmo assim?')) return; }
+  const orig = rmIdx(prods).get(it.pid) || {};
+  const qtd = Math.max(0, rmParseMoeda(qtdTxt) || 0);
+  const fExist = rmFamDoProduto(it.pid);
+  const novo = { id:'p' + Date.now(), nome, marca, codigoBarras: barras || '', localizacao: it.loc || orig.localizacao || '', categoria: orig.categoria || '', subcategoria: orig.subcategoria || '',
+    aplicacao: orig.aplicacao || '', curva: (fExist && fExist.curva) || orig.curva || '', unidade: orig.unidade || 'UN', ncm: orig.ncm || '', cest: orig.cest || '',
+    precoConsumidor: rmParseMoeda(val('rm-inm-preco')) || 0, precoCusto: rmParseMoeda(val('rm-inm-custo')) || 0, precoParceiro: 0,
+    estoqueAtual: qtd, estoqueMinimo: 0, estoqueMaximo: 0, ativo: true, criadoEm: new Date().toISOString(), observacao: 'CADASTRADO NA CONTAGEM ' + new Date().toLocaleDateString('pt-BR') };
+  prods.unshift(novo); rmSaveProdutos(prods); rmDbUpsertProduto(novo);
+  // família: junta o produto da linha (se ainda não estava) + a marca nova
+  const itens = [{ pid: novo.id, marca }];
+  if(!fExist) itens.unshift({ pid: it.pid, marca: rmFamSeparar(it.nome).marca });
+  rmFamCriar(fam, itens, novo.curva, fExist && fExist.id);
+  // entra na contagem já contado (o estoque do sistema já começa com a quantidade contada, então não gera diferença)
+  const novoIt = rmInvItemDe(novo); novoIt.contado = qtd; novoIt.novo = true;
+  inv.itens.push(novoIt); rmInvOrdenar(inv); rmInvSalvar(inv, true);
+  rmLog('Cadastrou marca nova na contagem', nome, 'qtd ' + rmFmtQtd(qtd) + (novo.localizacao ? ' · ' + novo.localizacao : ''));
+  rmCloseModal(); rmShowToast(nome + ' cadastrado · ' + rmFmtQtd(qtd) + ' ' + novo.unidade);
+  rmInvRenderContagem();
+}
+function rmInvInativar(k){
+  const inv = rmInvGet(rmInvAtual), it = inv.itens[k]; if(!it) return;
+  const p = rmIdx(rmLoadProdutos()).get(it.pid);
+  const est = p ? Number(p.estoqueAtual) || 0 : 0;
+  if(!confirm(`Inativar "${it.nome}"?\n\nEle deixa de aparecer no PDV, na OS e nas buscas (o histórico de vendas continua).` + (est ? `\n\nO sistema tem ${rmFmtQtd(est)} ${it.un} dele: a contagem fica 0 e, ao aprovar o inventário, o estoque é zerado.` : ''))) return;
+  it.inativado = true; it.contado = 0;
+  if(p){ const prods = rmLoadProdutos(), x = rmIdx(prods).get(it.pid); x.ativo = false; rmSaveProdutos(prods); rmDbUpsertProduto(x); }
+  rmInvSalvar(inv, true);
+  rmLog('Inativou produto na contagem', it.nome, est ? 'estoque no sistema ' + rmFmtQtd(est) : '');
+  rmShowToast('Inativado: ' + it.nome); rmFamLimparCache(); rmInvRenderContagem();
+}
+function rmInvReativar(k){
+  const inv = rmInvGet(rmInvAtual), it = inv.itens[k]; if(!it) return;
+  it.inativado = false; it.contado = null;
+  const prods = rmLoadProdutos(), x = rmIdx(prods).get(it.pid);
+  if(x){ x.ativo = true; rmSaveProdutos(prods); rmDbUpsertProduto(x); }
+  rmInvSalvar(inv, true); rmLog('Reativou produto na contagem', it.nome); rmFamLimparCache(); rmInvRenderContagem();
 }
 function rmInvDefinir(k, v){
   const inv = rmInvGet(rmInvAtual); const it = inv.itens[k]; if(!it) return;
@@ -10148,7 +10245,11 @@ function rmInvBuscarAdd(inp){
 }
 function rmInvIncluir(pid){
   const inv = rmInvGet(rmInvAtual), p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(pid); if(!p) return;
-  inv.itens.push(rmInvItemDe(p)); rmInvOrdenar(inv); rmInvSalvar(inv); rmInvRenderContagem();
+  const ja = new Set(inv.itens.map(i => i.pid));
+  const novos = rmInvComFamilias([p]).filter(x => !ja.has(x.id));
+  novos.forEach(x => inv.itens.push(rmInvItemDe(x)));
+  if(novos.length > 1) rmShowToast('Entraram as ' + novos.length + ' marcas da família ' + (rmFamDoProduto(p.id) || {}).nome);
+  rmInvOrdenar(inv); rmInvSalvar(inv); rmInvRenderContagem();
 }
 function rmInvCancelar(){
   if(!confirm('Cancelar esta contagem? Nada será ajustado no estoque.')) return;
@@ -13166,6 +13267,8 @@ function rmStoreGravarLocal(k, v){
 }
 function rmStoreSalvar(k, list){
   rmMem[k] = Array.isArray(list) ? list : [];
+  // a lista pode ter sido mexida depois de indexada: joga fora os índices antigos dela
+  try{ rmIdxCache.delete(rmMem[k]); if(typeof rmGrpCache !== 'undefined') rmGrpCache.delete(rmMem[k]); }catch(e){}
   if(!rmStorePronto){ rmStoreGravarLocal(k, rmMem[k]); return; }
   // grava logo em seguida (junta várias gravações da mesma ação numa só)
   if(rmStoreTimers[k]) return;
