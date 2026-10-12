@@ -1889,7 +1889,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-23h55</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.12-00h10</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -7592,7 +7592,41 @@ function rmFamDefinirCurva(fid, c){
   rmRenderFamilias();
 }
 function rmFamDefinirMin(fid, v){ const f = rmFam.fams[fid]; if(!f) return; f.min = Math.max(0, rmParseMoeda(v) || 0); f.t = new Date().toISOString(); rmFamSalvar(); rmRenderFamilias(); }
-function rmFamRenomear(fid, v){ const f = rmFam.fams[fid]; v = rmFamNorm(v); if(!f || !v) return; f.nome = v; f.t = new Date().toISOString(); rmFamSalvar(); rmRenderFamilias(); }
+// renomear a família: oferece renomear também os produtos para "NOVO NOME - MARCA" (mostra antes e depois)
+function rmFamRenomear(fid, v){
+  const f = rmFam.fams[fid]; v = rmFamNorm(v); if(!f || !v || v === f.nome){ rmRenderFamilias(); return; }
+  const antigo = f.nome;
+  f.nome = v; f.t = new Date().toISOString(); rmFamSalvar();
+  const mud = rmFamMembros(fid).map(p => {
+    const m = rmFamMarcaDe(p);
+    const novo = m && m !== 'SEM MARCA' ? v + ' - ' + m : v;
+    return { p, novo };
+  }).filter(x => rmFamNorm(x.p.nome) !== x.novo);
+  rmRenderFamilias();
+  if(!mud.length) return;
+  const modal = document.getElementById('rm-modal');
+  modal.classList.remove('rm-modal-large','rm-modal-os','rm-modal-quadrado');
+  modal.innerHTML = `
+    <div class="rm-modal-header"><div><div class="rm-modal-title">Renomear os produtos também?</div><div class="rm-modal-sub">Família: ${rmEscapeHtml(antigo)} → <b>${rmEscapeHtml(v)}</b></div></div><button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
+    <div class="rm-modal-section">
+      <div style="font-size:13px; color:var(--rm-text-dim); margin-bottom:8px">Fica no padrão <b>FAMÍLIA - MARCA</b>. Desmarque o que não quiser mudar. Vendas e OS antigas continuam com o nome antigo.</div>
+      <table class="rm-fam-tab"><thead><tr><th></th><th>Hoje</th><th>Vai ficar</th></tr></thead><tbody>
+      ${mud.map(x => `<tr><td><input type="checkbox" checked class="rm-famren" data-pid="${x.p.id}" data-novo="${rmEscapeHtml(x.novo)}"></td><td style="color:var(--rm-text-dim)">${rmEscapeHtml(x.p.nome)}</td><td><b>${rmEscapeHtml(x.novo)}</b></td></tr>`).join('')}
+      </tbody></table>
+    </div>
+    <div style="display:flex; gap:8px; padding:0 0 4px">
+      <button class="rm-pe2-btn" style="flex:1" onclick="rmCloseModal()">Só a família</button>
+      <button class="rm-primary" style="flex:2; margin:0" onclick="rmFamRenomearProdutos()">&#10004; Renomear os marcados</button>
+    </div>`;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+function rmFamRenomearProdutos(){
+  const sel = [...document.querySelectorAll('.rm-famren:checked')].map(c => ({ pid: c.dataset.pid, novo: c.dataset.novo }));
+  const prods = rmLoadProdutos(), idx = rmIdx(prods), mud = [];
+  sel.forEach(x => { const p = idx.get(x.pid); if(p && p.nome !== x.novo){ rmLog('Renomeou produto (família)', p.nome, '→ ' + x.novo); p.nome = x.novo; mud.push(p); } });
+  if(mud.length){ rmSaveProdutos(prods); rmDbUpsertProdutosLote(mud); }
+  rmCloseModal(); rmShowToast(mud.length + ' produto(s) renomeado(s)'); rmRenderFamilias();
+}
 function rmFamTirar(pid){
   const p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(pid);
   if(!confirm('Tirar "' + ((p && p.nome) || '') + '" da família?\nO produto continua cadastrado normalmente.')) return;
