@@ -1578,6 +1578,42 @@
   .rm-vh .de{color:#c0392b; text-decoration:line-through;} .rm-vh .para{color:#1e8a45; font-weight:700;}
   .rm-vh .rm-pe2-btn{width:auto; padding:4px 10px; font-size:12.5px;}
   .rm-vale-tab td.mudou input{background:rgba(255,193,7,0.25) !important;}
+  .rm-fam-dica{background:var(--rm-panel-2); border-left:4px solid #2f6fb5; padding:9px 12px; font-size:13.5px; margin:10px 0;}
+  .rm-fam-barra{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:14px;}
+  .rm-fam-barra .rm-search{flex:1; min-width:200px; margin:0;}
+  .rm-fam-abas{display:flex; border:1px solid var(--rm-border); background:var(--rm-panel);}
+  .rm-fam-abas button{border:none; background:transparent; padding:9px 14px; font-family:inherit; font-size:14px; font-weight:700; color:var(--rm-text-dim); cursor:pointer;}
+  .rm-fam-abas button.on{background:var(--rm-accent); color:#fff;}
+  .rm-fam-acoes-topo{display:flex; justify-content:space-between; align-items:center; margin:8px 0; font-size:13px; color:var(--rm-text-dim);}
+  .rm-fam-acoes-topo .rm-pe2-btn, .rm-fam-mais{width:auto; padding:7px 14px;}
+  .rm-fam-mais{display:block; margin:10px auto;}
+  .rm-fam-card{overflow-x:auto; background:var(--rm-panel); border:1px solid var(--rm-border); padding:12px 14px; margin-bottom:12px; box-shadow:var(--rm-shadow-sm);}
+  .rm-fam-card-topo{display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+  .rm-fam-ic{font-size:20px;}
+  .rm-fam-nome{flex:1; min-width:180px; font-weight:800; font-size:15px; padding:7px 9px; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit; text-transform:uppercase;}
+  .rm-fam-curva{padding:7px 6px; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit;}
+  .rm-fam-min{display:flex; align-items:center; gap:5px; font-size:12.5px; font-weight:700; color:var(--rm-text-dim);}
+  .rm-fam-min input{width:60px; padding:7px 6px; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); text-align:center; font-family:inherit;}
+  .rm-fam-tot{font-size:13px; color:var(--rm-text-dim);} .rm-fam-tot b{color:var(--rm-text); font-size:15px;} .rm-fam-tot.baixo b{color:#c62828;}
+  .rm-fam-tab{width:100%; border-collapse:collapse; margin-top:8px; font-size:13.5px;}
+  .rm-fam-tab th{text-align:left; font-size:11.5px; color:var(--rm-text-dim); font-weight:700; padding:4px 6px; border-bottom:1px solid var(--rm-border);}
+  .rm-fam-tab td{padding:6px; border-bottom:1px solid var(--rm-border); vertical-align:middle;}
+  .rm-fam-tab .r{text-align:right; white-space:nowrap;} .rm-fam-tab small{color:var(--rm-text-dim);}
+  .rm-fam-tab input[type=checkbox]{width:18px; height:18px;}
+  .rm-fam-card-acoes{display:flex; justify-content:flex-end; gap:8px; margin-top:10px; flex-wrap:wrap; align-items:center;}
+  .rm-fam-card-acoes .rm-pe2-btn{width:auto; padding:8px 14px;}
+  .rm-fam-ok{width:auto !important; margin:0 !important; padding:9px 18px !important;}
+  .rm-fam-x{width:auto !important; padding:2px 9px !important;}
+  .rm-fam-add{position:relative; flex:1; min-width:200px;}
+  .rm-fam-add input{width:100%; padding:8px 10px; border:1px dashed var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit;}
+  .rm-fam-ign{margin-top:16px; font-size:13px;} .rm-fam-ign summary{cursor:pointer; color:var(--rm-text-dim); font-weight:700;} .rm-fam-ign div{padding:4px 0;} .rm-fam-ign .rm-pe2-btn{width:auto; padding:3px 9px; font-size:12px;}
+  .rm-fam-tag{font-size:11.5px; color:#2f6fb5; font-weight:700; margin-top:2px;}
+  html[data-tema="dark"] .rm-fam-tag{color:#7fb8ff;}
+  .rm-ac-fam{justify-content:flex-start; text-align:left; padding:8px 12px; background:var(--rm-panel-2); border-bottom:1px solid var(--rm-border); cursor:pointer; font-size:14px; display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+  .rm-ac-fam span{margin-left:auto; font-size:12px; color:var(--rm-text-dim);}
+  .rm-ac-fam:hover{filter:brightness(0.97);}
+  .rm-autocomplete-item.rm-ac-marca{padding-left:28px; border-left:4px solid #2f6fb5;}
+  .rm-ac-marca-nome{font-size:12px; color:var(--rm-text-dim); font-weight:400;}
   .rm-lem-vazio{color:var(--rm-text-dim); font-size:14px; margin:14px 0;}
   .rm-lem-vistos{margin-top:28px; border-top:1px solid var(--rm-border); padding-top:12px;}
   .rm-lem-vistos summary{cursor:pointer; font-weight:700; color:var(--rm-text-dim); margin-bottom:12px;}
@@ -1844,7 +1880,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-21h45</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.11-22h30</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2296,6 +2332,12 @@
         <button class="rm-subnav-btn" id="rm-btn-produtos-etiquetas" onclick="rmSetViewProdutos('etiquetas')"><span class="rm-subnav-icon">&#127991;</span><span>Etiquetas</span></button>
         <button class="rm-subnav-btn" id="rm-btn-produtos-pedido" onclick="rmSetViewProdutos('pedido')"><span class="rm-subnav-icon">&#128722;</span><span>Pedido</span></button>
         <button class="rm-subnav-btn" id="rm-btn-produtos-inventario" onclick="rmSetViewProdutos('inventario')"><span class="rm-subnav-icon">&#128203;</span><span>Inventário</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-produtos-familias" onclick="rmSetViewProdutos('familias')"><span class="rm-subnav-icon">&#128106;</span><span>Famílias</span></button>
+      </div>
+
+      <div id="rm-view-produtos-familias" class="rm-view">
+        <h1 class="rm-title">Famílias de produtos <small style="font-size:14px; font-weight:500; color:var(--rm-text-dim)">· a mesma peça com marcas diferentes</small></h1>
+        <div id="rm-fam"></div>
       </div>
 
       <div id="rm-view-produtos-inventario" class="rm-view">
@@ -3466,6 +3508,7 @@ function rmSalvarProduto(){
   list.unshift(produto);
   rmSaveProdutos(list);
   rmDbUpsertProduto(produto);
+  { const f = rmFamDoProduto(produto.id); if(f && (produto.curva || '') !== (f.curva || '')) setTimeout(() => rmFamDefinirCurva(f.id, produto.curva || ''), 0); } // curva da família vale para todas as marcas
 
   ['rm-prod-nome','rm-prod-codigo','rm-prod-codigo-barras','rm-prod-marca','rm-prod-aplicacao','rm-prod-categoria','rm-prod-subcategoria','rm-prod-ncm','rm-prod-cest',
    'rm-prod-localizacao','rm-prod-fornecedor','rm-prod-fornecedor-codigo','rm-prod-preco-custo','rm-prod-preco-consumidor',
@@ -3537,7 +3580,7 @@ function rmRenderProdutos(){
     if(p.ativo === false) tr.style.opacity = '0.5';
     tr.innerHTML = `
       <td data-label="Curva">${rmBadgeCurva(p.curva) || '—'}</td>
-      <td data-label="Nome">${p.nome || '—'}</td>
+      <td data-label="Nome">${p.nome || '—'}${(f => f ? `<div class="rm-fam-tag" title="Família">&#128106; ${rmEscapeHtml(f.nome)}</div>` : '')(rmFamDoProduto(p.id))}</td>
       <td data-label="Código">${p.codigo || '—'}</td>
       <td data-label="Marca">${p.marca || '—'}</td>
       <td data-label="Localização">${p.localizacao || '—'}</td>
@@ -3702,6 +3745,7 @@ function rmSetTabelaPrecoPdv(tabela){
   }
 }
 
+let rmPdvPrimeiraDaFamilia = null;
 function rmBuscarProdutoPdv(query){
   const lista = document.getElementById('rm-pdv-produto-lista');
   rmPdvProdutoSelecionadoId = null;
@@ -3709,13 +3753,21 @@ function rmBuscarProdutoPdv(query){
   if(!q){ lista.classList.remove('show'); return; }
   let produtos = rmLoadProdutos().filter(p => p.ativo !== false);
   produtos = produtos.filter(p => rmProdutoBateBusca(p, q))
-    .sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR'))
-    .slice(0, 40);
+    .sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR'));
+  const grupos = rmFamAgrupar(produtos, 40);
+  rmPdvPrimeiraDaFamilia = grupos.length && grupos[0].fam ? grupos[0].marcas[0].id : null;
 
-  if(produtos.length === 0){
+  if(grupos.length === 0){
     lista.innerHTML = '<div class="rm-autocomplete-empty">Nenhum produto encontrado</div>';
   } else {
-    lista.innerHTML = produtos.map(p => {
+    lista.innerHTML = grupos.map(g => {
+      if(g.fam) return rmFamCabecalhoHtml(g.fam, g.marcas, `rmEscolherProdutoPdv('${g.marcas[0].id}')`) + g.marcas.map(p => {
+        const preco = rmPdvTabelaPreco==='parceiro' ? p.precoParceiro : p.precoConsumidor;
+        return `<div class="rm-autocomplete-item rm-ac-marca" onclick="rmEscolherProdutoPdv('${p.id}')">
+          <div class="rm-autocomplete-nome"><b>${rmEscapeHtml(rmFamMarcaDe(p))}</b> <span class="rm-ac-marca-nome">${rmEscapeHtml(p.nome)}</span></div>
+          <div class="rm-autocomplete-tel">${rmFormatMoeda(preco)} · estoque: ${rmFmtQtd(p.estoqueAtual||0)}${p.unidade?' '+p.unidade:''} ${rmInvSelo(p.id)}${p.localizacao?' · Local: '+rmEscapeHtml(p.localizacao):''}</div>
+        </div>`; }).join('');
+      const p = g.p;
       const preco = rmPdvTabelaPreco==='parceiro' ? p.precoParceiro : p.precoConsumidor;
       return `
         <div class="rm-autocomplete-item" onclick="rmEscolherProdutoPdv('${p.id}')">
@@ -3999,6 +4051,8 @@ function rmPdvTeclaProduto(ev){
     rmAdicionarItemPdv();
     return;
   }
+  // primeiro resultado é uma família: Enter escolhe a marca mais vendida (a primeira da lista)
+  if(rmPdvPrimeiraDaFamilia && document.getElementById('rm-pdv-produto-lista').classList.contains('show')){ rmEscolherProdutoPdv(rmPdvPrimeiraDaFamilia); return; }
   if(rmParseMoeda(document.getElementById('rm-pdv-item-preco').value) > 0){ rmAdicionarItemPdv(); return; }
   document.getElementById('rm-pdv-item-preco').focus();
 }
@@ -5116,6 +5170,7 @@ async function rmAuthIniciar(){
   setTimeout(() => rmInvSync().catch(() => {}), 1500);
   setTimeout(() => rmLemSync().catch(() => {}), 1000);
   setTimeout(() => rmChatIniciar().catch(() => {}), 1200);
+  setTimeout(() => rmFamSync().catch(() => {}), 1400);
 }
 
 function rmAplicarPermissoes(){
@@ -7287,6 +7342,356 @@ async function rmChatEnviarPend(){
 setInterval(() => { if(typeof rmUsuario !== 'undefined' && rmUsuario) rmChatBuscar(); }, 20000);
 document.addEventListener('visibilitychange', () => { if(!document.hidden && typeof rmUsuario !== 'undefined' && rmUsuario) rmChatBuscar(); });
 
+// ===================== PRODUTOS > FAMÍLIAS (produto pai + marcas) =====================
+// Cada marca continua sendo um produto (estoque, preço, código, histórico). A família só liga as marcas:
+// curva e estoque mínimo ficam na família; PDV/OS mostram a família com a lista de marcas.
+// Guardado em configuracoes('familias') — cada ligação tem o horário em que mudou (dois aparelhos não se atrapalham).
+let rmFam = { fams:{}, map:{}, ignorados:{} };
+try{ rmFam = Object.assign(rmFam, JSON.parse(localStorage.getItem('radicalMotos_familias')) || {}); }catch(e){}
+let rmFamCache = null;
+function rmFamLimparCache(){ rmFamCache = null; rmFamVendCache = null; rmFamSugCache = null; }
+function rmFamGuardarLocal(){ try{ localStorage.setItem('radicalMotos_familias', JSON.stringify(rmFam)); }catch(e){} rmFamLimparCache(); }
+function rmFamJuntar(a, b){
+  const r = { fams:{}, map:{}, ignorados:{} };
+  ['fams','map','ignorados'].forEach(k => [(a && a[k]) || {}, (b && b[k]) || {}].forEach(o => Object.keys(o).forEach(id => {
+    const x = o[id], y = r[k][id];
+    if(!y || String((x && x.t) || '') > String((y && y.t) || '')) r[k][id] = x;
+  })));
+  return r;
+}
+async function rmFamSync(){
+  try{
+    const { data } = await rmSb.from('configuracoes').select('*').eq('id','familias').maybeSingle();
+    if(data && data.dados) rmFam = rmFamJuntar(data.dados, rmFam);
+    rmFamGuardarLocal();
+  }catch(e){}
+}
+let rmFamTimer = null;
+function rmFamSalvar(){
+  rmFamGuardarLocal();
+  clearTimeout(rmFamTimer);
+  rmFamTimer = setTimeout(async () => {
+    try{
+      const { data } = await rmSb.from('configuracoes').select('*').eq('id','familias').maybeSingle();
+      rmFam = rmFamJuntar(data && data.dados, rmFam);
+      const { error } = await rmSb.from('configuracoes').upsert({ id:'familias', dados: rmFam });
+      if(error) throw error;
+      rmFamGuardarLocal();
+    }catch(e){ console.warn('famílias (fica no aparelho, envia depois):', e); clearTimeout(rmFamTimer); rmFamTimer = setTimeout(rmFamSalvar, 30000); }
+  }, 600);
+}
+// índice produto → família
+function rmFamIndice(){
+  if(rmFamCache) return rmFamCache;
+  const porProd = new Map(), membros = new Map();
+  Object.keys(rmFam.map).forEach(pid => {
+    const m = rmFam.map[pid]; if(!m || !m.f) return;
+    const f = rmFam.fams[m.f]; if(!f || f.removida) return;
+    porProd.set(pid, f);
+    if(!membros.has(f.id)) membros.set(f.id, []);
+    membros.get(f.id).push(pid);
+  });
+  return rmFamCache = { porProd, membros };
+}
+function rmFamDoProduto(pid){ return rmFamIndice().porProd.get(pid) || null; }
+function rmFamMembros(fid){
+  const ps = rmIdx(rmMemLista(RM_PRODUTOS_KEY));
+  return (rmFamIndice().membros.get(fid) || []).map(id => ps.get(id)).filter(p => p && p.ativo !== false);
+}
+let rmFamVendCache = null, rmFamVendEm = 0;
+function rmFamVendidos(){ // quantidade vendida por produto (PDV + OS)
+  if(rmFamVendCache && Date.now() - rmFamVendEm < 60000) return rmFamVendCache;
+  const m = new Map(), add = (id, q) => { if(id) m.set(id, (m.get(id) || 0) + (Number(q) || 0)); };
+  rmLoadVendas().forEach(v => { if(v.tipo !== 'orcamento') (v.itens || []).forEach(i => add(i.produtoId, i.quantidade)); });
+  rmLoad().forEach(o => (o.pecasUsadas || []).forEach(i => add(i.produtoId, i.quantidade)));
+  rmFamVendEm = Date.now();
+  return rmFamVendCache = m;
+}
+function rmFamOrdenarMarcas(ps){ const v = rmFamVendidos(); return ps.slice().sort((a,b) => (v.get(b.id) || 0) - (v.get(a.id) || 0) || (Number(b.estoqueAtual) || 0) - (Number(a.estoqueAtual) || 0) || (a.nome || '').localeCompare(b.nome || '')); }
+function rmFamEstoque(fid){ return rmFamMembros(fid).reduce((s,p) => s + (Number(p.estoqueAtual) || 0), 0); }
+function rmFamMarcaDe(p){ return (p.marca || '').trim() || rmFamSeparar(p.nome).marca || (p.nome || ''); }
+
+// ----- separar o nome em "produto" + "marca" (a marca está só no nome) -----
+const RM_FAM_MARCAS = ['VEDAMOTORS','VEDA MOTORS','VEDAMOTOS','MHX','COFAP','RIFFEL','VAZ','COBREQ','FRAS-LE','FRASLE','FRAS LE','DIAFRAG','DIA-FRAG','DIA FRAG','NGK','DENSO','KMC','DID','MAGNETRON','METAL LEVE','METAL-LEVE','METALLEVE','SABO','ORIGINAL','MOBENSANI','PRO TORK','PROTORK','SCUD','COMETA','MAXPAR','KINGS','POLIMET','TECFIL','VEDAMAX','WGK','TAKAO','KYB','GP','IMA','MAGNETI MARELLI','MARELLI','ATHENA','NAKATA','DUNLOP','PIRELLI','LEVORIN','TECHNIC','RINALDI','METZELER','MICHELIN','IRA','BRANDY','ALLEN','RMX','NTN','SKF','FAG','NSK','KOYO','BIRIBA','HIPPER','VINI','SMARTFOX','MAGNUM','DISAN','VIPAL','MOTOBATT','HEINER','MOURA','ACDELCO','CHAMPION','BOSCH','MAHLE','WURTH','MOTUL','MOBIL','CASTROL','LUBRAX','IPIRANGA','YPF','SHELL','ELF','PETRONAS','HAVOLINE','MULTILASER','ROSSO'];
+const RM_FAM_NAO_MARCA = new Set(('DIANTEIRO DIANTEIRA TRASEIRO TRASEIRA DIANT TRAS DIR ESQ DIREITO DIREITA ESQUERDO ESQUERDA LD LE SUP INF SUPERIOR INFERIOR '
+  + 'PRETO PRETA BRANCO BRANCA VERMELHO VERMELHA AZUL AMARELO AMARELA VERDE PRATA CINZA CROMADO CROMADA LARANJA ROSA ROXO FUME TRANSPARENTE CRISTAL '
+  + 'STD KIT JOGO PAR UN UNID PC PCS PECA COMPLETO COMPLETA C/ S/ COM SEM NOVO NOVA MODELO MOD ANO '
+  + 'CG TITAN FAN START CARGO BROS BIZ POP XRE CB TWISTER FAZER YBR FACTOR NXR CBX XR XT XTZ LEAD PCX NEO CRYPTON JET DREAM TODAS TODOS UNIVERSAL '
+  + 'NX FALCON SAHARA STRADA AMERICA SHADOW HORNET CBR NMAX LANDER TENERE CROSSER FLUO ELITE SH ADV BURGMAN INTRUDER YES YES125 GSR EN DT RD RX TDM '
+  + 'KS ES ESD EX EXD MIX FLEX ED CARGO SPORT KS/ES GRANDE PEQUENO PEQUENA MEDIO MEDIA MINI LONGO LONGA CURTO CURTA FINO GROSSO LARGO ESTREITO '
+  + 'TORNADO XLR TODAY CRF XL TENERE HUNTER DAFRA SPEED APACHE NEXT RIVA ZIG HONDA YAMAHA SUZUKI KAWASAKI SHINERAY HAOJUE KASINSKI SUNDOWN TRAXX BMW').split(/\s+/).filter(Boolean));
+const RM_FAM_MONTADORAS = new Set(['HONDA','YAMAHA','SUZUKI','KAWASAKI','DAFRA','SHINERAY','HAOJUE','KASINSKI','SUNDOWN','TRAXX','BMW','ORIGINAL']);
+const rmFamNorm = s => String(s || '').toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim();
+let rmFamMarcasAprendidas = null;
+function rmFamMarcasSet(){
+  if(rmFamMarcasAprendidas) return rmFamMarcasAprendidas;
+  const set = new Set(RM_FAM_MARCAS.map(rmFamNorm));
+  rmLoadProdutos().forEach(p => { const m = rmFamNorm(p.marca); if(m && m.length >= 2 && !RM_FAM_NAO_MARCA.has(m)) set.add(m); });
+  // aprende: palavra final que aparece trocando de valor no MESMO produto base (ex.: "BIELA POP 110 X" e "BIELA POP 110 Y")
+  const porBase = new Map();
+  rmLoadProdutos().forEach(p => {
+    const n = rmFamNorm(p.nome).replace(/\s*\([^)]*\)\s*$/, '');
+    const seg = n.split(' - ');
+    if(seg.length > 1){ const ult = seg.pop().trim(); if(ult.split(' ').length <= 3){ const b = seg.join(' - '); if(!porBase.has(b)) porBase.set(b, new Set()); porBase.get(b).add(ult); } }
+    const w = n.split(' '); if(w.length >= 3){ const ult = w.pop(); const b = w.join(' '); if(!porBase.has(b)) porBase.set(b, new Set()); porBase.get(b).add(ult); }
+  });
+  const pontos = new Map();
+  porBase.forEach(s => { if(s.size >= 2) s.forEach(m => pontos.set(m, (pontos.get(m) || 0) + 1)); });
+  // o que vem depois do último " - " e se repete em vários produtos costuma ser a marca ("... - MHX")
+  const fim = new Map();
+  rmLoadProdutos().forEach(p => { const seg = rmFamNorm(p.nome).replace(/\s*\([^)]*\)\s*$/, '').split(' - '); if(seg.length > 1){ const u = seg.pop().trim(); if(u && u.split(' ').length <= 3) fim.set(u, (fim.get(u) || 0) + 1); } });
+  fim.forEach((n, m) => { if(n >= 2 && !/\d/.test(m) && !/[\/]/.test(m) && !m.split(' ').some(x => RM_FAM_NAO_MARCA.has(x))) set.add(m); });
+  pontos.forEach((n, m) => { if(n >= 2 && !/^[\d.,/X-]+$/.test(m) && !/\d/.test(m) && m.length >= 2 && !RM_FAM_NAO_MARCA.has(m)) set.add(m); });
+  return rmFamMarcasAprendidas = set;
+}
+function rmFamSeparar(nome){
+  const r = rmFamSeparar0(nome);
+  r.marca = String(r.marca || '').replace(/^[\s\-–.,/]+|[\s\-–.,/]+$/g, '');
+  return r;
+}
+function rmFamSeparar0(nome){
+  const set = rmFamMarcasSet();
+  let n = rmFamNorm(nome).replace(/\s*\([^)]*\)\s*$/, '');
+  const seg = n.split(' - ');
+  if(seg.length > 1){
+    const ult = seg[seg.length - 1].trim();
+    if(set.has(ult)) return { base: seg.slice(0, -1).join(' - ').replace(/[\s\-/]+$/, ''), marca: ult };
+  }
+  const w = n.split(' ');
+  for(const k of [3, 2, 1]){
+    if(w.length <= k) continue;
+    const m = w.slice(-k).join(' ');
+    if(set.has(m)) return { base: w.slice(0, -k).join(' ').replace(/[\s\-/]+$/, ''), marca: m };
+  }
+  // marca no começo do nome ("MHX BIELA POP 110")
+  for(const k of [2, 1]){
+    if(w.length <= k + 1) continue;
+    const m = w.slice(0, k).join(' ');
+    if(set.has(m) && !RM_FAM_NAO_MARCA.has(m)) return { base: w.slice(k).join(' '), marca: m };
+  }
+  // marca no meio do nome ("VELA NGK CG 150")
+  for(const k of [2, 1]){
+    for(let i = 1; i + k < w.length; i++){
+      const m = w.slice(i, i + k).join(' ');
+      if(set.has(m) && !RM_FAM_NAO_MARCA.has(m) && !RM_FAM_MONTADORAS.has(m) && !/\d/.test(m)) return { base: w.slice(0, i).concat(w.slice(i + k)).join(' '), marca: m };
+    }
+  }
+  return { base: n, marca: '' };
+}
+let rmFamSugCache = null;
+function rmFamSugestoes(){
+  if(rmFamSugCache) return rmFamSugCache;
+  rmFamMarcasAprendidas = null;
+  const g = new Map();
+  rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && !/^(M[AÃ]O\s*DE\s*OBRA|SERVI[CÇ]O)/i.test(p.nome || '') && !rmFamDoProduto(p.id)).forEach(p => {
+    const s = rmFamSeparar(p.nome);
+    if(!s.base || s.base.length < 4) return;
+    const chave = s.base.replace(/[^A-Z0-9]/g, ''); // "POP110/BIZ110" = "POP 110 / BIZ 110"
+    if(!g.has(chave)) g.set(chave, []);
+    g.get(chave).push({ p, marca: s.marca, base: s.base });
+  });
+  const lista = [];
+  g.forEach((itens) => {
+    const base = itens.map(i => i.base).sort((a,b) => b.length - a.length)[0];
+    if(itens.length < 2 || (rmFam.ignorados[base] && rmFam.ignorados[base].sim)) return;
+    if(new Set(itens.map(i => i.marca)).size < 2) return; // tudo igual: provavelmente cadastro duplicado, não marca diferente
+    // se já existe família com esse nome, sugere juntar nela
+    const ex = Object.values(rmFam.fams).find(f => !f.removida && rmFamNorm(f.nome) === base);
+    lista.push({ base, itens, existente: ex ? ex.id : null });
+  });
+  return rmFamSugCache = lista.sort((a,b) => b.itens.length - a.itens.length || a.base.localeCompare(b.base));
+}
+
+// ----- ações -----
+const RM_CURVA_ORDEM = { A:1, B:2, C:3, D:4 };
+function rmFamMelhorCurva(ps){ return ps.map(p => String(p.curva || '').toUpperCase()).filter(c => RM_CURVA_ORDEM[c]).sort((a,b) => RM_CURVA_ORDEM[a] - RM_CURVA_ORDEM[b])[0] || ''; }
+async function rmDbUpsertProdutosLote(ps){
+  for(let i = 0; i < ps.length; i += 200){
+    try{ const { error } = await rmSb.from('produtos').upsert(ps.slice(i, i + 200).map(rmToDbRowProduto)); if(error) throw error; }
+    catch(e){ console.warn('produtos em lote, enviando um por um:', e); ps.slice(i, i + 200).forEach(p => rmDbUpsertProduto(p)); }
+  }
+}
+// cria (ou junta numa existente) — itens: [{pid, marca}]
+function rmFamCriar(nome, itens, curva, fidExistente, semSalvar){
+  nome = rmFamNorm(nome); if(!nome || !itens.length) return null;
+  const t = new Date().toISOString();
+  let f = fidExistente && rmFam.fams[fidExistente];
+  if(!f){
+    f = Object.values(rmFam.fams).find(x => !x.removida && rmFamNorm(x.nome) === nome);
+    if(!f){ f = { id:'f' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), nome, curva: curva || '', min: 0, t }; rmFam.fams[f.id] = f; }
+  }
+  if(curva && f.curva !== curva){ f.curva = curva; f.t = t; }
+  itens.forEach(i => { rmFam.map[i.pid] = { f: f.id, t }; });
+  rmFamLimparCache();
+  // marca no campo "marca" (se vazio) e a mesma curva para todas as marcas
+  const prods = rmLoadProdutos(), idx = rmIdx(prods), mudou = [];
+  itens.forEach(i => { const p = idx.get(i.pid); if(p && !String(p.marca || '').trim() && i.marca){ p.marca = i.marca; mudou.push(p); } });
+  if(f.curva) rmFamMembrosDe(f.id, prods).forEach(p => { if(p.curva !== f.curva){ p.curva = f.curva; if(!mudou.includes(p)) mudou.push(p); } });
+  if(mudou.length){ rmSaveProdutos(prods); if(!semSalvar) rmDbUpsertProdutosLote(mudou); }
+  if(!semSalvar) rmFamSalvar();
+  return { f, mudou };
+}
+function rmFamMembrosDe(fid, prods){ const idx = rmIdx(prods); return (rmFamIndice().membros.get(fid) || []).map(id => idx.get(id)).filter(Boolean); }
+function rmFamDefinirCurva(fid, c){
+  const f = rmFam.fams[fid]; if(!f) return;
+  f.curva = c; f.t = new Date().toISOString();
+  const prods = rmLoadProdutos(), ms = rmFamMembrosDe(fid, prods).filter(p => (p.curva || '') !== c);
+  ms.forEach(p => p.curva = c);
+  if(ms.length){ rmSaveProdutos(prods); rmDbUpsertProdutosLote(ms); }
+  rmFamSalvar(); rmLog('Mudou curva da família', f.nome, c || '(sem curva)');
+  rmRenderFamilias();
+}
+function rmFamDefinirMin(fid, v){ const f = rmFam.fams[fid]; if(!f) return; f.min = Math.max(0, rmParseMoeda(v) || 0); f.t = new Date().toISOString(); rmFamSalvar(); rmRenderFamilias(); }
+function rmFamRenomear(fid, v){ const f = rmFam.fams[fid]; v = rmFamNorm(v); if(!f || !v) return; f.nome = v; f.t = new Date().toISOString(); rmFamSalvar(); rmRenderFamilias(); }
+function rmFamTirar(pid){
+  const p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(pid);
+  if(!confirm('Tirar "' + ((p && p.nome) || '') + '" da família?\nO produto continua cadastrado normalmente.')) return;
+  rmFam.map[pid] = { f:'', t: new Date().toISOString() }; rmFamSalvar(); rmRenderFamilias();
+}
+function rmFamDesfazer(fid){
+  const f = rmFam.fams[fid]; if(!f) return;
+  if(!confirm('Desfazer a família "' + f.nome + '"?\nAs marcas continuam cadastradas como produtos separados.')) return;
+  const t = new Date().toISOString();
+  f.removida = true; f.t = t;
+  Object.keys(rmFam.map).forEach(pid => { if(rmFam.map[pid] && rmFam.map[pid].f === fid) rmFam.map[pid] = { f:'', t }; });
+  rmFamSalvar(); rmLog('Desfez família', f.nome); rmRenderFamilias();
+}
+function rmFamAdicionar(fid, pid){
+  const p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(pid); if(!p) return;
+  const outra = rmFamDoProduto(pid);
+  if(outra && outra.id !== fid && !confirm('"' + p.nome + '" está na família "' + outra.nome + '". Mudar para esta?')) return;
+  rmFamCriar(rmFam.fams[fid].nome, [{ pid, marca: rmFamSeparar(p.nome).marca }], rmFam.fams[fid].curva, fid);
+  rmRenderFamilias();
+}
+
+// ----- tela -----
+let rmFamAba = 'sug', rmFamLimite = 30;
+function rmRenderFamilias(){
+  const box = document.getElementById('rm-fam'); if(!box) return;
+  const q = rmFamNorm((document.getElementById('rm-fam-busca') || {}).value || '');
+  const ativos = document.activeElement && document.activeElement.id === 'rm-fam-busca';
+  const sug = rmFamSugestoes(), fams = Object.values(rmFam.fams).filter(f => !f.removida);
+  const nAgr = rmFamIndice().porProd.size;
+  const bate = (txt) => !q || rmFamNorm(txt).includes(q);
+  let corpo = '';
+  if(rmFamAba === 'sug'){
+    const lst = sug.filter(s => bate(s.base) || s.itens.some(i => bate(i.p.nome)));
+    corpo = `<div class="rm-fam-dica">O sistema achou produtos com o <b>mesmo nome e marcas diferentes</b>. Confira, desmarque o que não for da mesma peça, ajuste o nome se quiser e clique em <b>Criar família</b>.</div>
+      ${lst.length ? `<div class="rm-fam-acoes-topo"><span>${lst.length} sugestão(ões)</span><button class="rm-pe2-btn" onclick="rmFamCriarTodas()">&#10004; Criar todas as ${Math.min(lst.length, rmFamLimite)} da tela</button></div>` : ''}
+      ${lst.slice(0, rmFamLimite).map(s => { const k = sug.indexOf(s); const curva = rmFamMelhorCurva(s.itens.map(i => i.p)); return `<div class="rm-fam-card" data-k="${k}">
+        <div class="rm-fam-card-topo">
+          <span class="rm-fam-ic">&#128106;</span>
+          <input class="rm-fam-nome" value="${rmEscapeHtml(s.base)}" title="Nome da família (o produto sem a marca)">
+          <select class="rm-fam-curva" title="Curva da família">${['','A','B','C','D'].map(c => `<option value="${c}"${c === curva ? ' selected' : ''}>${c ? 'Curva ' + c : 'Sem curva'}</option>`).join('')}</select>
+        </div>
+        ${s.existente ? '<div class="rm-fam-dica" style="margin:6px 0 0">Já existe uma família com esse nome: estes produtos entram nela.</div>' : ''}
+        <table class="rm-fam-tab"><thead><tr><th></th><th>Produto</th><th>Marca</th><th class="r">Preço</th><th class="r">Estoque</th><th>Curva hoje</th></tr></thead><tbody>
+        ${s.itens.map(i => `<tr><td><input type="checkbox" checked data-pid="${i.p.id}" data-marca="${rmEscapeHtml(i.marca)}"></td><td>${rmEscapeHtml(i.p.nome)}</td><td><b>${rmEscapeHtml(i.marca || '—')}</b></td><td class="r">${rmFormatMoeda(i.p.precoConsumidor)}</td><td class="r">${rmFmtQtd(i.p.estoqueAtual || 0)}</td><td>${rmBadgeCurva(i.p.curva) || '—'}</td></tr>`).join('')}
+        </tbody></table>
+        <div class="rm-fam-card-acoes"><button class="rm-pe2-btn" onclick="rmFamIgnorar(${k})">Não é a mesma peça (ignorar)</button><button class="rm-primary rm-fam-ok" onclick="rmFamCriarDaSugestao(${k})">&#10004; Criar família</button></div>
+      </div>`; }).join('') || '<div class="rm-problema-empty" style="padding:18px">Nenhuma sugestão. ' + (q ? 'Tente outra busca.' : 'Tudo agrupado 👍') + '</div>'}
+      ${lst.length > rmFamLimite ? `<button class="rm-pe2-btn rm-fam-mais" onclick="rmFamLimite+=30; rmRenderFamilias()">Mostrar mais (${lst.length - rmFamLimite})</button>` : ''}`;
+  } else {
+    const lst = fams.filter(f => bate(f.nome) || rmFamMembros(f.id).some(p => bate(p.nome))).sort((a,b) => a.nome.localeCompare(b.nome));
+    const ign = Object.keys(rmFam.ignorados).filter(k => rmFam.ignorados[k] && rmFam.ignorados[k].sim);
+    corpo = `<div class="rm-fam-dica">A <b>curva</b> e o <b>estoque mínimo</b> ficam na família e valem para todas as marcas. O estoque da família é a soma das marcas.</div>
+      <div class="rm-fam-acoes-topo"><span>${lst.length} família(s)</span><button class="rm-pe2-btn" onclick="rmFamNovaManual()">+ Nova família</button></div>
+      ${lst.slice(0, rmFamLimite).map(f => { const ms = rmFamOrdenarMarcas(rmFamMembros(f.id)); const tot = ms.reduce((s,p) => s + (Number(p.estoqueAtual) || 0), 0); const v = rmFamVendidos(); return `<div class="rm-fam-card">
+        <div class="rm-fam-card-topo">
+          <span class="rm-fam-ic">&#128106;</span>
+          <input class="rm-fam-nome" value="${rmEscapeHtml(f.nome)}" onchange="rmFamRenomear('${f.id}', this.value)">
+          <select class="rm-fam-curva" onchange="rmFamDefinirCurva('${f.id}', this.value)">${['','A','B','C','D'].map(c => `<option value="${c}"${c === (f.curva || '') ? ' selected' : ''}>${c ? 'Curva ' + c : 'Sem curva'}</option>`).join('')}</select>
+          <label class="rm-fam-min">Mín.<input inputmode="decimal" value="${f.min ? rmFmtQtd(f.min) : ''}" placeholder="0" onchange="rmFamDefinirMin('${f.id}', this.value)"></label>
+          <span class="rm-fam-tot${f.min && tot <= f.min ? ' baixo' : ''}">Estoque: <b>${rmFmtQtd(tot)}</b></span>
+        </div>
+        <table class="rm-fam-tab"><thead><tr><th>Marca</th><th>Produto</th><th class="r">Preço</th><th class="r">Estoque</th><th class="r">Vendidos</th><th></th></tr></thead><tbody>
+        ${ms.map(p => `<tr><td><b>${rmEscapeHtml(rmFamMarcaDe(p))}</b></td><td>${rmEscapeHtml(p.nome)}${p.localizacao ? ' <small>#' + rmEscapeHtml(p.localizacao) + '</small>' : ''}</td><td class="r">${rmFormatMoeda(p.precoConsumidor)}</td><td class="r">${rmFmtQtd(p.estoqueAtual || 0)}</td><td class="r">${rmFmtQtd(v.get(p.id) || 0)}</td><td class="r"><button class="rm-pe2-btn rm-fam-x" title="Tirar da família" onclick="rmFamTirar('${p.id}')">&times;</button></td></tr>`).join('')}
+        </tbody></table>
+        <div class="rm-fam-card-acoes"><div class="rm-fam-add"><input placeholder="+ adicionar marca (buscar produto)..." oninput="rmFamBuscarAdd(this, '${f.id}')" onblur="setTimeout(()=>{const l=this.nextElementSibling; if(l) l.classList.remove('show')},150)"><div class="rm-autocomplete-list"></div></div><button class="rm-pe2-btn" onclick="rmFamDesfazer('${f.id}')">Desfazer família</button></div>
+      </div>`; }).join('') || '<div class="rm-problema-empty" style="padding:18px">Nenhuma família ainda. Comece pelas sugestões.</div>'}
+      ${lst.length > rmFamLimite ? `<button class="rm-pe2-btn rm-fam-mais" onclick="rmFamLimite+=30; rmRenderFamilias()">Mostrar mais (${lst.length - rmFamLimite})</button>` : ''}
+      ${ign.length ? `<details class="rm-fam-ign"><summary>Sugestões ignoradas (${ign.length})</summary>${ign.map(b => `<div>${rmEscapeHtml(b)} <button class="rm-pe2-btn" onclick="rmFam.ignorados['${rmJs(b)}']={sim:false,t:new Date().toISOString()}; rmFamSalvar(); rmRenderFamilias()">voltar para sugestões</button></div>`).join('')}</details>` : ''}`;
+  }
+  box.innerHTML = `
+    <div class="vg-kpis" style="margin-top:0">
+      ${rmInvKpi('👪', '#2f6fb5', 'Famílias', fams.length, 'produtos com várias marcas')}
+      ${rmInvKpi('🔗', '#2e8b57', 'Produtos agrupados', nAgr, 'marcas dentro de famílias')}
+      ${rmInvKpi('💡', sug.length ? '#c9961a' : '#8a8f98', 'Sugestões', sug.length, 'para revisar')}
+    </div>
+    <div class="rm-fam-barra">
+      <div class="rm-fam-abas"><button class="${rmFamAba === 'sug' ? 'on' : ''}" onclick="rmFamAba='sug'; rmFamLimite=30; rmRenderFamilias()">&#128161; Sugestões (${sug.length})</button><button class="${rmFamAba === 'fam' ? 'on' : ''}" onclick="rmFamAba='fam'; rmFamLimite=30; rmRenderFamilias()">&#128106; Famílias (${fams.length})</button></div>
+      <input class="rm-search" id="rm-fam-busca" placeholder="Buscar..." value="${rmEscapeHtml((document.getElementById('rm-fam-busca') || {}).value || '')}" oninput="clearTimeout(window.__famT); window.__famT=setTimeout(()=>{rmFamLimite=30; rmRenderFamilias()},250)">
+    </div>
+    ${corpo}`;
+  if(ativos){ const b = document.getElementById('rm-fam-busca'); b.focus(); b.setSelectionRange(b.value.length, b.value.length); }
+}
+function rmFamLerCard(card){
+  const nome = card.querySelector('.rm-fam-nome').value, curva = card.querySelector('.rm-fam-curva').value;
+  const itens = [...card.querySelectorAll('input[type=checkbox][data-pid]:checked')].map(c => ({ pid: c.dataset.pid, marca: c.dataset.marca }));
+  return { nome, curva, itens };
+}
+function rmFamCriarDaSugestao(k){
+  const s = rmFamSugestoes()[k]; const card = document.querySelector(`.rm-fam-card[data-k="${k}"]`); if(!s || !card) return;
+  const { nome, curva, itens } = rmFamLerCard(card);
+  if(itens.length < 2 && !s.existente){ alert('Marque pelo menos 2 produtos para formar a família.'); return; }
+  const r = rmFamCriar(nome, itens, curva, s.existente);
+  if(r){ rmLog('Criou família de produtos', r.f.nome, itens.length + ' marca(s)'); rmShowToast('Família criada: ' + r.f.nome); }
+  rmRenderFamilias();
+}
+function rmFamCriarTodas(){
+  const cards = [...document.querySelectorAll('#rm-fam .rm-fam-card[data-k]')];
+  if(!cards.length) return;
+  if(!confirm(`Criar as ${cards.length} famílias desta tela, do jeito que estão (com os produtos marcados)?`)) return;
+  const sug = rmFamSugestoes(), mudou = new Set(); let n = 0;
+  cards.forEach(card => {
+    const s = sug[+card.dataset.k]; const { nome, curva, itens } = rmFamLerCard(card);
+    if(!s || (itens.length < 2 && !s.existente)) return;
+    const r = rmFamCriar(nome, itens, curva, s.existente, true);
+    if(r){ n++; r.mudou.forEach(p => mudou.add(p.id)); }
+  });
+  const idx = rmIdx(rmLoadProdutos());
+  rmDbUpsertProdutosLote([...mudou].map(id => idx.get(id)).filter(Boolean));
+  rmFamSalvar(); rmLog('Criou famílias de produtos (em lote)', '', n + ' família(s)');
+  rmShowToast(n + ' família(s) criada(s)'); rmRenderFamilias();
+}
+function rmFamIgnorar(k){
+  const s = rmFamSugestoes()[k]; if(!s) return;
+  rmFam.ignorados[s.base] = { sim:true, t:new Date().toISOString() }; rmFamSalvar(); rmRenderFamilias();
+}
+function rmFamNovaManual(){
+  const nome = rmFamNorm(prompt('Nome da família (o produto sem a marca), ex.: BIELA POP 110') || '');
+  if(!nome) return;
+  const t = new Date().toISOString(), f = { id:'f' + Date.now().toString(36), nome, curva:'', min:0, t };
+  rmFam.fams[f.id] = f; rmFamSalvar();
+  rmFamAba = 'fam'; rmFamLimparCache(); rmRenderFamilias();
+  const b = document.getElementById('rm-fam-busca'); if(b){ b.value = f.nome; rmRenderFamilias(); }
+  rmShowToast('Família criada. Adicione as marcas no campo "+ adicionar marca".');
+}
+function rmFamBuscarAdd(inp, fid){
+  const l = inp.nextElementSibling, q = inp.value.trim().toLowerCase();
+  if(!q){ l.classList.remove('show'); return; }
+  const ps = rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && rmProdutoBateBusca(p, q) && (rmFamDoProduto(p.id) || {}).id !== fid).slice(0, 20);
+  l.innerHTML = ps.map(p => `<div class="rm-autocomplete-item" onmousedown="event.preventDefault(); rmFamAdicionar('${fid}', '${p.id}')"><div class="rm-autocomplete-nome">${rmEscapeHtml(p.nome)}</div><div class="rm-autocomplete-tel">${rmFormatMoeda(p.precoConsumidor)} · estoque ${rmFmtQtd(p.estoqueAtual || 0)}${rmFamDoProduto(p.id) ? ' · já na família ' + rmEscapeHtml(rmFamDoProduto(p.id).nome) : ''}</div></div>`).join('') || '<div class="rm-autocomplete-empty">Nada encontrado</div>';
+  l.classList.add('show');
+}
+
+// ----- busca agrupada (PDV / OS) -----
+// recebe os produtos que bateram na busca e devolve [{p}] ou [{fam, marcas}] (a família traz TODAS as marcas)
+function rmFamAgrupar(produtos, max){
+  const out = [], vistas = new Set();
+  for(const p of produtos){
+    const f = rmFamDoProduto(p.id);
+    if(!f){ out.push({ p }); }
+    else if(!vistas.has(f.id)){ vistas.add(f.id); const ms = rmFamOrdenarMarcas(rmFamMembros(f.id)); if(ms.length) out.push({ fam: f, marcas: ms }); }
+    if(out.length >= (max || 40)) break;
+  }
+  return out;
+}
+function rmFamCabecalhoHtml(f, ms, onclickPrimeira){
+  const tot = ms.reduce((s,p) => s + (Number(p.estoqueAtual) || 0), 0);
+  return `<div class="rm-ac-fam" onmousedown="event.preventDefault(); ${onclickPrimeira}">${rmBadgeCurva(f.curva)} &#128106; <b>${rmEscapeHtml(f.nome)}</b><span>${ms.length} marca${ms.length > 1 ? 's' : ''} · estoque total ${rmFmtQtd(tot)}</span></div>`;
+}
+
 // ===================== BACKUP COMPLETO =====================
 const RM_BKP_TABELAS = [['recebimentos','id'],['inventarios','id'],['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome']];
 const RM_BKP_ULTIMO_KEY = 'radicalMotos_ultimoBackup';
@@ -9229,7 +9634,17 @@ async function rmPedidoSync(){
 // produtos que estão acabando
 function rmPedidoSugestoes(){
   const noPedido = new Set(rmPedido.itens.filter(i => i.produtoId && !i.comprado).map(i => i.produtoId));
-  return rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && !noPedido.has(p.id)).filter(p => {
+  const famNoPedido = new Set(rmPedido.itens.filter(i => i.familiaId && !i.comprado).map(i => i.familiaId));
+  // famílias: conta o estoque somado das marcas
+  const doFam = [];
+  Object.values(rmFam.fams).filter(f => !f.removida && !famNoPedido.has(f.id)).forEach(f => {
+    const ms = rmFamMembros(f.id).filter(p => !p.ehServico); if(!ms.length) return;
+    if(ms.some(p => noPedido.has(p.id))) return;
+    const atual = ms.reduce((s,p) => s + (Number(p.estoqueAtual) || 0), 0), min = Number(f.min) || 0;
+    const precisa = min > 0 ? atual <= min : (atual <= 0 && ['A','B','C'].includes(String(f.curva || '').toUpperCase()));
+    if(precisa) doFam.push({ fam: f, ms: rmFamOrdenarMarcas(ms), p: { id: 'fam:' + f.id, nome: f.nome, curva: f.curva }, atual, min, sug: Math.max(1, (min > 0 ? min * 2 : 2) - atual) });
+  });
+  return doFam.concat(rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && !noPedido.has(p.id) && !rmFamDoProduto(p.id)).filter(p => {
     const atual = Number(p.estoqueAtual) || 0, min = Number(p.estoqueMinimo) || 0;
     if(min > 0) return atual <= min;
     return atual <= 0 && ['A','B','C'].includes(String(p.curva||'').toUpperCase());
@@ -9237,7 +9652,7 @@ function rmPedidoSugestoes(){
     const atual = Number(p.estoqueAtual) || 0, min = Number(p.estoqueMinimo) || 0, max = Number(p.estoqueMaximo) || 0;
     const sug = max > 0 ? Math.max(1, max - atual) : Math.max(1, (min > 0 ? min * 2 : 2) - atual);
     return { p, atual, min, sug };
-  }).sort((a,b) => (String(a.p.curva||'Z').localeCompare(String(b.p.curva||'Z'))) || (a.atual - b.atual) || (a.p.nome||'').localeCompare(b.p.nome||''));
+  })).sort((a,b) => (String(a.p.curva||'Z').localeCompare(String(b.p.curva||'Z'))) || (a.atual - b.atual) || (a.p.nome||'').localeCompare(b.p.nome||''));
 }
 
 function rmRenderPedido(){
@@ -9246,7 +9661,7 @@ function rmRenderPedido(){
   const fCurva = (document.getElementById('rm-ped-sug-curva')||{}).value || '';
   let sug = rmPedidoSugestoes();
   if(fCurva) sug = sug.filter(x => String(x.p.curva||'').toUpperCase() === fCurva);
-  if(q) sug = sug.filter(x => rmProdutoBateBusca(x.p, q));
+  if(q) sug = sug.filter(x => x.fam ? (x.fam.nome.toLowerCase().includes(q) || x.ms.some(p => rmProdutoBateBusca(p, q))) : rmProdutoBateBusca(x.p, q));
   const itens = rmPedido.itens;
   const pend = itens.filter(i => !i.comprado).length;
   const listaEl = document.getElementById('rm-ped-lista');
@@ -9254,23 +9669,26 @@ function rmRenderPedido(){
   document.getElementById('rm-ped-cont').textContent = itens.length ? `${pend} para comprar${itens.length - pend ? ' · ' + (itens.length - pend) + ' comprado(s)' : ''}` : '';
   listaEl.innerHTML = itens.length ? itens.map((i, k) => {
     const p = i.produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(i.produtoId) : null;
+    const fm = i.familiaId && rmFam.fams[i.familiaId];
+    const fmDet = fm ? rmFamOrdenarMarcas(rmFamMembros(fm.id)).map(x => rmFamMarcaDe(x) + ' ' + rmFmtQtd(x.estoqueAtual || 0)).join(' · ') : '';
     return `<div class="rm-ped-item${i.comprado ? ' rm-ped-ok' : ''}">
       <input type="checkbox" title="Comprado" ${i.comprado ? 'checked' : ''} onchange="rmPedido.itens[${k}].comprado=this.checked; rmPedidoSalvar(); rmRenderPedido()">
       <input class="rm-ped-qtd" inputmode="decimal" value="${rmFmtQtd(i.qtd)}" onfocus="this.select()" onchange="rmPedido.itens[${k}].qtd=rmParseMoeda(this.value)||1; rmPedidoSalvar()">
       <div class="rm-ped-nome">
-        ${p ? rmBadgeCurva(p.curva) + ' ' : '<span class="rm-ped-livre">livre</span> '}<b>${rmEscapeHtml(p ? p.nome : i.texto)}</b>
+        ${p ? rmBadgeCurva(p.curva) + ' ' : fm ? rmBadgeCurva(fm.curva) + ' <span class="rm-ped-livre">&#128106; família</span> ' : '<span class="rm-ped-livre">livre</span> '}<b>${rmEscapeHtml(p ? p.nome : fm ? fm.nome : i.texto)}</b>
+        ${fm ? `<div class="rm-ped-det">Estoque por marca: ${rmEscapeHtml(fmDet)} · escolha a marca na compra</div>` : ''}
         <div class="rm-ped-det">${p ? [p.localizacao && '#' + p.localizacao, p.marca, p.fornecedor && 'Forn.: ' + p.fornecedor, 'estoque ' + rmFmtQtd(p.estoqueAtual||0)].filter(Boolean).map(rmEscapeHtml).join(' · ') : ''}</div>
         <input class="rm-ped-obs" placeholder="observação (marca, cor, fornecedor...)" value="${rmEscapeHtml(i.obs||'')}" onchange="rmPedido.itens[${k}].obs=this.value.trim(); rmPedidoSalvar()">
       </div>
       <button class="rm-pe2-del" title="Remover" onclick="rmPedido.itens.splice(${k},1); rmPedidoSalvar(); rmRenderPedido()">&#128465;</button>
     </div>`;
   }).join('') : '<div class="rm-problema-empty" style="padding:16px;">Lista vazia. Adicione pelas sugestões ao lado, busque um produto ou escreva livre.</div>';
-  sugEl.innerHTML = sug.length ? sug.slice(0, 150).map(({p, atual, min, sug}) => `
+  sugEl.innerHTML = sug.length ? sug.slice(0, 150).map(({p, atual, min, sug, fam, ms}) => `
     <div class="rm-ped-sug-item">
-      <div class="rm-ped-nome">${rmBadgeCurva(p.curva)} <b>${rmEscapeHtml(p.nome||'')}</b>
-        <div class="rm-ped-det">${[p.localizacao && '#' + p.localizacao, p.fornecedor].filter(Boolean).map(rmEscapeHtml).join(' · ')}</div></div>
+      <div class="rm-ped-nome">${rmBadgeCurva(p.curva)} ${fam ? '&#128106; ' : ''}<b>${rmEscapeHtml(p.nome||'')}</b>
+        <div class="rm-ped-det">${fam ? rmEscapeHtml(ms.map(x => rmFamMarcaDe(x) + ' ' + rmFmtQtd(x.estoqueAtual || 0)).join(' · ')) : [p.localizacao && '#' + p.localizacao, p.fornecedor].filter(Boolean).map(rmEscapeHtml).join(' · ')}</div></div>
       <span class="rm-ped-est${atual <= 0 ? ' rm-ped-zero' : ''}">tem ${rmFmtQtd(atual)}${min ? ' / mín ' + rmFmtQtd(min) : ''}</span>
-      <button class="rm-prom-btn rm-prom-btn-ok" onclick="rmPedidoAdd('${p.id}', ${sug})">+ ${rmFmtQtd(sug)}</button>
+      <button class="rm-prom-btn rm-prom-btn-ok" onclick="${fam ? `rmPedidoAddFam('${fam.id}', ${sug})` : `rmPedidoAdd('${p.id}', ${sug})`}">+ ${rmFmtQtd(sug)}</button>
     </div>`).join('') + (sug.length > 150 ? `<div class="rm-ped-det" style="padding:8px;">Mostrando 150 de ${sug.length}. Use a busca ou o filtro de curva.</div>` : '')
     : '<div class="rm-problema-empty" style="padding:16px;">Nenhum produto acabando 👍</div>';
   document.getElementById('rm-ped-sug-cont').textContent = sug.length ? `(${sug.length})` : '';
@@ -9283,6 +9701,13 @@ function rmPedidoAdd(produtoId, qtd){
   rmPedidoSalvar(); rmRenderPedido();
 }
 
+function rmPedidoAddFam(fid, qtd){
+  const f = rmFam.fams[fid]; if(!f) return;
+  const ex = rmPedido.itens.find(i => i.familiaId === fid && !i.comprado);
+  if(ex) ex.qtd = (Number(ex.qtd) || 0) + (qtd || 1);
+  else rmPedido.itens.push({ id: 'pi' + Date.now(), familiaId: fid, texto: f.nome, qtd: qtd || 1, obs: '', comprado: false, criadoEm: new Date().toISOString() });
+  rmPedidoSalvar(); rmRenderPedido();
+}
 function rmPedidoAddLivre(){
   const t = document.getElementById('rm-ped-livre-txt'), qq = document.getElementById('rm-ped-livre-qtd');
   const texto = t.value.trim().toUpperCase();
@@ -9796,12 +10221,13 @@ function rmInvImprimirRelatorio(){
 }
 
 function rmSetViewProdutos(view){
-  ['estoque','cadastro','organizacao','etiquetas','pedido','inventario'].forEach(v=>{
+  ['estoque','cadastro','organizacao','etiquetas','pedido','inventario','familias'].forEach(v=>{
     document.getElementById('rm-view-produtos-'+v).classList.toggle('active', v===view);
     document.getElementById('rm-btn-produtos-'+v).classList.toggle('active', v===view);
   });
   if(view === 'estoque'){ rmRenderProdutos(); }
   if(view === 'pedido'){ rmRenderPedido(); rmPedidoSync().then(rmRenderPedido); }
+  if(view === 'familias'){ rmFamLimparCache(); rmRenderFamilias(); rmFamSync().then(rmRenderFamilias); }
   if(view === 'inventario'){ rmRenderInventario(); rmInvSync().then(() => { if(rmInvTela === 'home') rmRenderInventario(); }); }
 }
 
@@ -12083,15 +12509,21 @@ function rmOsBuscar(inp, osId, idx){
   const q = (inp.value||'').trim().toLowerCase();
   if(!q){ lista.classList.remove('show'); return; }
   const produtos = rmLoadProdutos().filter(p => p.ativo !== false && rmProdutoBateBusca(p, q))
-    .sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR'))
-    .slice(0, 40);
-  lista.innerHTML = produtos.length === 0
+    .sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR'));
+  const grupos = rmFamAgrupar(produtos, 40);
+  lista.innerHTML = grupos.length === 0
     ? '<div class="rm-autocomplete-empty">Nenhum produto encontrado</div>'
-    : produtos.map(p => `
+    : grupos.map(g => g.fam
+      ? rmFamCabecalhoHtml(g.fam, g.marcas, `rmOsEscolher('${osId}', ${idx}, '${g.marcas[0].id}')`) + g.marcas.map(p => `
+      <div class="rm-autocomplete-item rm-ac-marca" onmousedown="event.preventDefault(); rmOsEscolher('${osId}', ${idx}, '${p.id}')">
+        <div class="rm-autocomplete-nome"><b>${rmEscapeHtml(rmFamMarcaDe(p))}</b> <span class="rm-ac-marca-nome">${rmEscapeHtml(p.nome||'')}</span>${p.localizacao?` <span class="rm-autocomplete-apelido">#${rmEscapeHtml(p.localizacao)}</span>`:''}</div>
+        <div class="rm-autocomplete-tel">${rmFormatMoeda(p.precoConsumidor)} · estoque: ${rmFmtQtd(p.estoqueAtual)}${p.unidade?' '+p.unidade:''} ${rmInvSelo(p.id)}</div>
+      </div>`).join('')
+      : (p => `
       <div class="rm-autocomplete-item" onmousedown="event.preventDefault(); rmOsEscolher('${osId}', ${idx}, '${p.id}')">
         <div class="rm-autocomplete-nome">${rmBadgeCurva(p.curva)} ${rmEscapeHtml(p.nome||'')}${p.localizacao?` <span class="rm-autocomplete-apelido">#${rmEscapeHtml(p.localizacao)}</span>`:''}</div>
         <div class="rm-autocomplete-tel">${rmFormatMoeda(p.precoConsumidor)} · estoque: ${rmFmtQtd(p.estoqueAtual)}${p.unidade?' '+p.unidade:''} ${rmInvSelo(p.id)}${p.marca?' · '+rmEscapeHtml(p.marca):''}</div>
-      </div>`).join('');
+      </div>`)(g.p)).join('');
   lista.classList.add('show');
 }
 
