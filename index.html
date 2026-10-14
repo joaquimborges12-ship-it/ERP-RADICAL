@@ -1634,6 +1634,13 @@
   @media (max-width:760px){ .rm-submit-bar:has(.rm-reg-pecas){margin-bottom:170px;} }
   .rm-modal-txt-btn{border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-family:inherit; font-size:12.5px; font-weight:700; padding:7px 10px; cursor:pointer; white-space:nowrap;}
   .rm-modal-txt-btn:hover{border-color:var(--rm-accent); color:var(--rm-accent);}
+  .rm-hist-ov{position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:10070; display:flex; align-items:center; justify-content:center; padding:16px;}
+  .rm-hist-caixa{background:var(--rm-panel); color:var(--rm-text); width:min(900px, 100%); max-height:90vh; overflow:auto; padding:18px 20px; box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+  .rm-bkp-lembrete{position:fixed; left:240px; bottom:18px; z-index:10040; background:var(--rm-panel); color:var(--rm-text); border:1px solid var(--rm-border); border-left:5px solid #c9961a; box-shadow:0 10px 30px rgba(0,0,0,0.25); padding:12px 14px; max-width:420px; display:flex; flex-direction:column; gap:6px; font-size:13.5px;}
+  .rm-bkp-lembrete span{color:var(--rm-text-dim); font-size:12.5px;}
+  .rm-bkp-lembrete div{display:flex; gap:8px; margin-top:4px;}
+  .rm-bkp-lembrete .rm-primary, .rm-bkp-lembrete .rm-pe2-btn{width:auto; margin:0; padding:8px 14px; font-size:13px;}
+  @media (max-width:860px){ .rm-bkp-lembrete{left:10px; right:10px; bottom:76px; max-width:none;} }
   .rm-lem-vazio{color:var(--rm-text-dim); font-size:14px; margin:14px 0;}
   .rm-lem-vistos{margin-top:28px; border-top:1px solid var(--rm-border); padding-top:12px;}
   .rm-lem-vistos summary{cursor:pointer; font-weight:700; color:var(--rm-text-dim); margin-bottom:12px;}
@@ -1909,7 +1916,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.14-00h15</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.14-00h40</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2774,6 +2781,7 @@
         <button class="rm-subnav-btn" id="rm-btn-cfg-backup" onclick="rmSetViewCfg('backup')"><span class="rm-subnav-icon">&#128190;</span><span>Backup</span></button>
         <button class="rm-subnav-btn rm-so-admin" id="rm-btn-cfg-usuarios" onclick="rmSetViewCfg('usuarios')"><span class="rm-subnav-icon">&#128101;</span><span>Usuários</span></button>
         <button class="rm-subnav-btn rm-so-admin" id="rm-btn-cfg-registro" onclick="rmSetViewCfg('registro')"><span class="rm-subnav-icon">&#128220;</span><span>Registro</span></button>
+        <button class="rm-subnav-btn rm-so-admin" id="rm-btn-cfg-recuperar" onclick="rmSetViewCfg('recuperar')"><span class="rm-subnav-icon">&#128338;</span><span>Recuperar</span></button>
       </div>
       <div class="rm-view active">
         <h1 class="rm-title" id="rm-cfg-titulo">Empresa</h1>
@@ -7961,6 +7969,207 @@ function rmFamCabecalhoHtml(f, ms, onclickPrimeira){
   return `<div class="rm-ac-fam" onmousedown="event.preventDefault(); ${onclickPrimeira}">${rmBadgeCurva(f.curva)} &#128106; <b>${rmEscapeHtml(f.nome)}</b><span>${ms.length} marca${ms.length > 1 ? 's' : ''} · estoque total ${rmFmtQtd(tot)}</span></div>`;
 }
 
+// ===================== RECUPERAR (histórico de versões do Supabase) =====================
+// O banco guarda como cada registro estava antes de ser alterado ou apagado (historico-supabase.sql).
+const RM_HIST_TABS = { recepcoes:'OS', vendas:'Venda', clientes:'Cliente', produtos:'Produto', promissorias:'Nota a prazo', inventarios:'Inventário', configuracoes:'Configuração' };
+let rmHistLista = null, rmHistErro = '', rmHistNomes = {}, rmHistFiltroReg = null;
+function rmHistDescricao(tab, d){
+  d = d || {};
+  if(tab === 'recepcoes') return [d.codigo_app, d.nome, d.modelo].filter(Boolean).join(' · ');
+  if(tab === 'vendas') return [d.codigo_venda, d.cliente_nome, d.total != null ? rmFormatMoeda(d.total) : ''].filter(Boolean).join(' · ');
+  if(tab === 'clientes') return [d.nome, d.telefone].filter(Boolean).join(' · ');
+  if(tab === 'produtos') return [d.nome, d.estoque_atual != null ? 'estoque ' + rmFmtQtd(d.estoque_atual) : ''].filter(Boolean).join(' · ');
+  if(tab === 'promissorias') return [d.ref_codigo, d.cliente_nome, d.total != null ? rmFormatMoeda(d.total) : ''].filter(Boolean).join(' · ');
+  if(tab === 'inventarios') return d.titulo || '';
+  if(tab === 'configuracoes') return ({ pedido:'Lista de pedido', comissoes:'Comissões', empresa:'Dados da empresa', visao:'Senha da Visão Geral' })[d.id] || d.id || '';
+  return d.id || '';
+}
+async function rmHistCarregar(){
+  rmHistLista = null; rmHistErro = ''; rmHistRender();
+  const dias = rmHistFiltroReg ? 400 : parseInt((document.getElementById('rm-hist-dias') || {}).value || '30');
+  const tab = (document.getElementById('rm-hist-tab') || {}).value || '';
+  const soApagados = !!(document.getElementById('rm-hist-apagados') || {}).checked;
+  try{
+    let q = rmSb.from('historico').select('*').gte('quando', new Date(Date.now() - dias * 864e5).toISOString());
+    if(rmHistFiltroReg){ q = q.eq('tabela', rmHistFiltroReg.tabela).eq('registro_id', rmHistFiltroReg.id); }
+    else { if(tab) q = q.eq('tabela', tab); if(soApagados) q = q.eq('operacao', 'DELETE'); }
+    const { data, error } = await q.order('quando', { ascending:false }).limit(rmHistFiltroReg ? 200 : 600);
+    if(error) throw error;
+    rmHistLista = data || [];
+    if(!Object.keys(rmHistNomes).length){ try{ const r = await rmSb.from('perfis').select('id,nome'); (r.data || []).forEach(p => rmHistNomes[p.id] = p.nome); }catch(e){} }
+  }catch(e){
+    rmHistLista = [];
+    rmHistErro = /historico/i.test(String(e && e.message)) && /exist|find|schema/i.test(String(e && e.message))
+      ? 'O histórico ainda não foi ativado. Rode o arquivo historico-supabase.sql no Supabase.'
+      : 'Não consegui buscar o histórico (sem internet?).';
+  }
+  rmHistRender();
+}
+function rmHistLinhasHtml(lista){
+  const q = ((document.getElementById('rm-hist-busca') || {}).value || '').trim().toLowerCase();
+  const l = (lista || []).filter(h => !q || (rmHistDescricao(h.tabela, h.dados) + ' ' + JSON.stringify(h.dados)).toLowerCase().includes(q));
+  if(!l.length) return '<tr><td colspan="6" style="color:var(--rm-text-dim); padding:14px">Nada encontrado nesse período.</td></tr>';
+  return l.slice(0, 400).map(h => `<tr style="cursor:default">
+    <td>${new Date(h.quando).toLocaleString('pt-BR').replace(',', '').slice(0, 16)}</td>
+    <td>${RM_HIST_TABS[h.tabela] || h.tabela}</td>
+    <td style="white-space:normal"><b>${rmEscapeHtml(rmHistDescricao(h.tabela, h.dados))}</b></td>
+    <td>${h.operacao === 'DELETE' ? '<span class="rm-inv-neg">&#128465; apagado</span>' : 'alterado'}</td>
+    <td>${rmEscapeHtml(rmHistNomes[h.usuario] || '')}</td>
+    <td style="white-space:nowrap"><button class="rm-pe2-btn" style="width:auto; padding:5px 10px" onclick="rmHistVer(${h.id})">Ver</button> ${rmEhAdmin() ? `<button class="rm-pe2-btn" style="width:auto; padding:5px 10px" onclick="rmHistRestaurar(${h.id})" title="Volta o registro para como estava ${h.operacao === 'DELETE' ? 'antes de ser apagado' : 'antes desta alteração'}">&#8634; Restaurar</button>` : ''}</td>
+  </tr>`).join('');
+}
+function rmHistHtml(){
+  return `<div class="rm-cfg-card">
+    <div style="font-size:13px; color:var(--rm-text-dim); margin-bottom:10px">Toda vez que uma OS, venda, cliente, produto ou nota é <b>alterada ou apagada</b>, o banco guarda como ela estava antes. Aqui você vê e <b>restaura</b>.</div>
+    <div class="rm-osl-filtros">
+      <select class="rm-osl-sel" id="rm-hist-tab" onchange="rmHistCarregar()"><option value="">Tudo</option>${Object.entries(RM_HIST_TABS).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select>
+      <select class="rm-osl-sel" id="rm-hist-dias" onchange="rmHistCarregar()"><option value="1">Hoje / 24h</option><option value="7">Últimos 7 dias</option><option value="30" selected>Últimos 30 dias</option><option value="90">Últimos 3 meses</option><option value="400">Último ano</option></select>
+      <label class="rm-cfg-check" style="border:none; margin:0; padding:0"><input type="checkbox" id="rm-hist-apagados" onchange="rmHistCarregar()"> <span>Só apagados</span></label>
+      <input class="rm-search" id="rm-hist-busca" placeholder="Buscar nome, OS, cliente..." oninput="rmHistRender()" style="flex:1; min-width:180px; margin:0">
+    </div>
+    <div id="rm-hist-corpo"></div>
+  </div>`;
+}
+function rmHistRender(){
+  const box = document.querySelector('#rm-hist-ov #rm-hist-corpo') || document.getElementById('rm-hist-corpo'); if(!box) return;
+  if(rmHistLista === null){ box.innerHTML = '<div style="padding:14px; color:var(--rm-text-dim)">Buscando no banco de dados...</div>'; return; }
+  box.innerHTML = (rmHistErro ? `<div class="rm-pe2-aviso" style="margin:8px 0">${rmHistErro}</div>` : '')
+    + `<div class="rm-osl-wrap"><table class="rm-osl"><thead><tr><th>Quando</th><th>Tipo</th><th>Registro</th><th>O que houve</th><th>Quem</th><th></th></tr></thead><tbody>${rmHistLinhasHtml(rmHistLista)}</tbody></table></div>`;
+}
+function rmHistAchar(id){ return (rmHistLista || []).find(h => h.id === id); }
+function rmHistVer(id){
+  const h = rmHistAchar(id); if(!h) return;
+  const linhas = Object.entries(h.dados || {}).filter(([k, v]) => v !== null && v !== '' && !(Array.isArray(v) && !v.length) && k !== 'foto_url')
+    .map(([k, v]) => `<tr><td style="color:var(--rm-text-dim); white-space:nowrap; vertical-align:top">${rmEscapeHtml(k)}</td><td style="white-space:pre-wrap; word-break:break-word">${rmEscapeHtml(typeof v === 'object' ? JSON.stringify(v, null, 1) : String(v))}</td></tr>`).join('');
+  rmHistOverlay(`<b>${RM_HIST_TABS[h.tabela] || h.tabela}: ${rmEscapeHtml(rmHistDescricao(h.tabela, h.dados))}</b>
+    <div style="font-size:12.5px; color:var(--rm-text-dim); margin:4px 0 10px">Como estava ${h.operacao === 'DELETE' ? 'antes de ser apagado' : 'antes da alteração'} de ${new Date(h.quando).toLocaleString('pt-BR')}</div>
+    <div style="max-height:55vh; overflow:auto"><table class="rm-fam-tab">${linhas}</table></div>
+    <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:12px">${rmEhAdmin() ? `<button class="rm-pe2-btn" style="width:auto" onclick="rmHistRestaurar(${h.id})">&#8634; Restaurar esta versão</button>` : ''}<button class="rm-primary" style="width:auto; margin:0; padding:10px 20px" onclick="rmHistOverlay()">Fechar</button></div>`);
+}
+function rmHistOverlay(html){
+  let o = document.getElementById('rm-hist-ov');
+  if(!html){ if(o) o.remove(); return; }
+  if(!o){ o = document.createElement('div'); o.id = 'rm-hist-ov'; o.className = 'rm-hist-ov'; document.body.appendChild(o); o.onclick = e => { if(e.target === o) o.remove(); }; }
+  o.innerHTML = `<div class="rm-hist-caixa">${html}</div>`;
+}
+async function rmHistRestaurar(id){
+  if(!rmEhAdmin()){ alert('Só o administrador pode restaurar.'); return; }
+  const h = rmHistAchar(id); if(!h) return;
+  const desc = rmHistDescricao(h.tabela, h.dados);
+  const quandoTxt = h.operacao === 'DELETE' ? 'antes de ser apagado' : 'antes da alteração de ' + new Date(h.quando).toLocaleString('pt-BR');
+  const avisoEstoque = ['recepcoes','vendas'].includes(h.tabela) ? '\n\nO estoque das peças NÃO é mexido.' : '';
+  if(!confirm('Restaurar ' + (RM_HIST_TABS[h.tabela] || h.tabela) + ' "' + desc + '" para como estava ' + quandoTxt + '?\n\nA versão de agora também fica guardada no histórico (dá para desfazer).' + avisoEstoque)) return;
+  const row = h.dados, t = h.tabela;
+  try{
+    const troca = (carregar, salvar, obj) => { const l = carregar().filter(x => x.id !== obj.id); l.unshift(obj); salvar(l); };
+    if(t === 'recepcoes'){ troca(rmLoad, rmSave, rmFromDbRow(row)); rmOutboxPor('recepcoes', row.id, 'up', row); }
+    else if(t === 'vendas'){ troca(rmLoadVendas, rmSaveVendas, rmFromDbRowVenda(row)); rmOutboxPor('vendas', row.id, 'up', row); }
+    else if(t === 'clientes'){ troca(rmLoadClientes, rmSaveClientes, rmFromDbRowCliente(row)); rmOutboxPor('clientes', row.id, 'up', row); }
+    else if(t === 'produtos'){ troca(rmLoadProdutos, rmSaveProdutos, rmFromDbRowProduto(row)); rmOutboxPor('produtos', row.id, 'up', row); }
+    else if(t === 'promissorias'){ const n = rmPromFromDb(row); troca(rmLoadProms, rmSaveProms, n); await rmDbUpsertProm(n); }
+    else if(t === 'inventarios'){ rmInvSalvar(rmInvFromDb(row), true); }
+    else if(t === 'configuracoes'){ const { error } = await rmSb.from('configuracoes').upsert(row); if(error) throw error; }
+    await rmOutboxEnviar();
+    rmLog('Restaurou versão anterior', (RM_HIST_TABS[t] || t) + ' ' + desc, (h.operacao === 'DELETE' ? 'apagado em ' : 'alterado em ') + new Date(h.quando).toLocaleString('pt-BR'));
+    rmHistOverlay();
+    rmShowToast('Restaurado: ' + desc + (t === 'configuracoes' ? ' · recarregue a página (Ctrl+Shift+R)' : ''));
+    if(typeof rmRenderActiveBoard === 'function') rmRenderActiveBoard();
+    if(document.getElementById('rm-hist-corpo')) rmHistCarregar();
+  }catch(e){ alert('Não consegui restaurar agora (sem internet?). Tente de novo.'); console.warn(e); }
+}
+// botão "Versões" dentro da OS
+function rmHistDaOS(osId){
+  rmHistFiltroReg = { tabela:'recepcoes', id: osId };
+  const r = rmLoad().find(x => x.id === osId) || {};
+  rmHistOverlay(`<b>&#128338; Versões anteriores · ${rmEscapeHtml([r.codigoApp, r.nome, r.modelo].filter(Boolean).join(' · '))}</b>
+    <div style="font-size:12.5px; color:var(--rm-text-dim); margin:4px 0 10px">Como a OS estava antes de cada alteração (últimos 12 meses).</div>
+    
+    <div id="rm-hist-corpo"></div>
+    <div style="display:flex; justify-content:flex-end; margin-top:12px"><button class="rm-primary" style="width:auto; margin:0; padding:10px 20px" onclick="rmHistFiltroReg=null; rmHistOverlay()">Fechar</button></div>`);
+  rmHistCarregar().then(() => { rmHistFiltroReg = null; });
+}
+
+// ===================== CÓPIA AUTOMÁTICA NO COMPUTADOR (últimos 7 dias) =====================
+// Guarda sozinho, dentro do navegador deste computador, uma cópia completa por dia (atualizada a cada hora).
+// Pode ser baixada no mesmo formato do backup e restaurada em Configurações → Backup → Restaurar.
+const RM_COPIA_DB = 'radicalmotos_copias', RM_COPIA_DIAS = 7;
+function rmCopiaAbrir(){
+  return new Promise((res, rej) => {
+    try{ const r = indexedDB.open(RM_COPIA_DB, 1); r.onupgradeneeded = () => r.result.createObjectStore('dias'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }catch(e){ rej(e); }
+  });
+}
+function rmCopiaMontar(){
+  const cfg = [['pedido', typeof rmPedido !== 'undefined' ? rmPedido : null], ['vale', typeof rmVale !== 'undefined' ? rmVale : null], ['lembretes', typeof rmLem !== 'undefined' ? rmLem : null],
+    ['familias', typeof rmFam !== 'undefined' ? rmFam : null], ['comissoes', typeof rmCom !== 'undefined' ? rmCom : null], ['conciliacao', typeof rmConc !== 'undefined' ? rmConc : null]]
+    .filter(([, d]) => d).map(([id, dados]) => ({ id, dados: JSON.parse(JSON.stringify(dados)) }));
+  return { app:'radical-motos', versao:2, geradoEm: new Date().toISOString(), origem:'copia-automatica', usuario: rmNomeUsuario(),
+    tabelas: { recepcoes: rmLoad().map(rmToDbRow), clientes: rmLoadClientes().map(rmToDbRowCliente), vendas: rmLoadVendas().map(rmToDbRowVenda),
+      produtos: rmLoadProdutos().map(rmToDbRowProduto), promissorias: rmLoadProms().map(rmPromToDb), inventarios: rmInvLoad().map(rmInvToDb), configuracoes: cfg } };
+}
+async function rmCopiaGuardar(){
+  if(typeof rmUsuario === 'undefined' || !rmUsuario || !rmStorePronto) return;
+  try{
+    const dados = rmCopiaMontar();
+    if(!dados.tabelas.produtos.length && !dados.tabelas.recepcoes.length) return; // aparelho vazio: não sobrescreve cópia boa
+    const db = await rmCopiaAbrir(), dia = rmHojeISO();
+    await new Promise((res, rej) => { const tx = db.transaction('dias', 'readwrite'); tx.objectStore('dias').put(dados, dia); tx.oncomplete = res; tx.onerror = () => rej(tx.error); });
+    const dias = await new Promise(res => { const r = db.transaction('dias').objectStore('dias').getAllKeys(); r.onsuccess = () => res(r.result || []); r.onerror = () => res([]); });
+    const velhos = dias.sort().reverse().slice(RM_COPIA_DIAS);
+    if(velhos.length){ const tx = db.transaction('dias', 'readwrite'); velhos.forEach(k => tx.objectStore('dias').delete(k)); }
+    try{ localStorage.setItem('radicalMotos_ultimaCopia', dados.geradoEm); }catch(e){}
+  }catch(e){ console.warn('cópia automática:', e); }
+}
+async function rmCopiaListar(){
+  try{
+    const db = await rmCopiaAbrir();
+    return await new Promise(res => {
+      const out = [], c = db.transaction('dias').objectStore('dias').openCursor();
+      c.onsuccess = () => { const cur = c.result; if(!cur){ res(out.sort((a, b) => b.dia.localeCompare(a.dia))); return; }
+        const v = cur.value || {}; const t = v.tabelas || {};
+        out.push({ dia: cur.key, em: v.geradoEm, os: (t.recepcoes || []).length, vendas: (t.vendas || []).length, notas: (t.promissorias || []).length, produtos: (t.produtos || []).length });
+        cur.continue(); };
+      c.onerror = () => res(out);
+    });
+  }catch(e){ return []; }
+}
+async function rmCopiaBaixar(dia){
+  try{
+    const db = await rmCopiaAbrir();
+    const v = await new Promise((res, rej) => { const r = db.transaction('dias').objectStore('dias').get(dia); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+    if(!v){ alert('Cópia não encontrada.'); return; }
+    const url = URL.createObjectURL(new Blob([JSON.stringify(v)], { type:'application/json' }));
+    const a = document.createElement('a'); a.href = url; a.download = 'copia-automatica-radical-motos-' + dia + '.json';
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
+  }catch(e){ alert('Não consegui ler a cópia: ' + e.message); }
+}
+async function rmCopiaRenderLista(){
+  const box = document.getElementById('rm-copias-lista'); if(!box) return;
+  const l = await rmCopiaListar();
+  box.innerHTML = l.length ? `<table class="rm-fam-tab"><thead><tr><th>Dia</th><th>Atualizada</th><th class="r">OS</th><th class="r">Vendas</th><th class="r">Notas</th><th></th></tr></thead><tbody>
+    ${l.map(c => `<tr><td><b>${rmDataBR(c.dia)}</b></td><td>${c.em ? new Date(c.em).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) : ''}</td><td class="r">${c.os}</td><td class="r">${c.vendas}</td><td class="r">${c.notas}</td><td class="r"><button class="rm-pe2-btn" style="width:auto; padding:5px 12px" onclick="rmCopiaBaixar('${c.dia}')">&#11015; Baixar</button></td></tr>`).join('')}
+    </tbody></table>` : '<div style="font-size:13px; color:var(--rm-text-dim)">Ainda nenhuma cópia (a primeira é feita alguns segundos depois de entrar no sistema).</div>';
+}
+setTimeout(() => rmCopiaGuardar(), 20000);
+setInterval(() => rmCopiaGuardar(), 60 * 60 * 1000);
+
+// ===================== LEMBRETE DE BACKUP =====================
+function rmBackupLembrete(){
+  if(typeof rmUsuario === 'undefined' || !rmUsuario || !rmEhAdmin()) return;
+  const ult = localStorage.getItem(RM_BKP_ULTIMO_KEY);
+  const horas = ult ? (Date.now() - new Date(ult).getTime()) / 36e5 : Infinity;
+  if(horas < 24) return;
+  if(localStorage.getItem('radicalMotos_bkpLembreteAdiado') === rmHojeISO()) return;
+  if(document.getElementById('rm-bkp-lembrete')) return;
+  const d = document.createElement('div'); d.id = 'rm-bkp-lembrete'; d.className = 'rm-bkp-lembrete';
+  d.innerHTML = `<b>&#128190; ${ult ? 'Último backup há ' + Math.floor(horas / 24) + ' dia(s)' : 'Nenhum backup baixado neste computador'}</b>
+    <span>Baixe o backup e guarde fora do sistema (pen drive, Google Drive).</span>
+    <div><button class="rm-primary" onclick="document.getElementById('rm-bkp-lembrete').remove(); rmBackupCompleto()">&#11015; Baixar agora</button>
+    <button class="rm-pe2-btn" onclick="localStorage.setItem('radicalMotos_bkpLembreteAdiado', rmHojeISO()); document.getElementById('rm-bkp-lembrete').remove()">Amanhã</button></div>`;
+  document.body.appendChild(d);
+}
+setTimeout(rmBackupLembrete, 8000);
+setInterval(rmBackupLembrete, 2 * 60 * 60 * 1000);
+
 // ===================== BACKUP COMPLETO =====================
 const RM_BKP_TABELAS = [['recebimentos','id'],['inventarios','id'],['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome']];
 const RM_BKP_ULTIMO_KEY = 'radicalMotos_ultimoBackup';
@@ -8721,12 +8930,14 @@ function rmSetTema(t){
 }
 
 let rmCfgSub = 'empresa';
-const RM_CFG_TITULOS = { empresa:'Empresa', impressao:'Impressão', aparencia:'Aparência', backup:'Backup', usuarios:'Usuários', registro:'Registro de atividades' };
+const RM_CFG_TITULOS = { empresa:'Empresa', impressao:'Impressão', aparencia:'Aparência', backup:'Backup', usuarios:'Usuários', registro:'Registro de atividades', recuperar:'Recuperar versões anteriores' };
 function rmSetViewCfg(v){
-  if((v === 'usuarios' || v === 'registro') && !rmEhAdmin()) v = 'empresa';
+  if((v === 'usuarios' || v === 'registro' || v === 'recuperar') && !rmEhAdmin()) v = 'empresa';
   rmCfgSub = v;
   if(v === 'usuarios') rmCarregarUsuarios();
   if(v === 'registro') setTimeout(rmCarregarRegistro, 0);
+  if(v === 'recuperar'){ rmHistFiltroReg = null; setTimeout(rmHistCarregar, 0); }
+  if(v === 'backup') setTimeout(rmCopiaRenderLista, 0);
   Object.keys(RM_CFG_TITULOS).forEach(k => { const b = document.getElementById('rm-btn-cfg-' + k); if(b) b.classList.toggle('active', k === v); });
   rmRenderConfigEmpresa();
 }
@@ -8791,9 +9002,14 @@ function rmRenderConfigEmpresa(){
         <button class="rm-pe2-btn${document.documentElement.dataset.tema==='dark'?' rm-sel-ativo':''}" onclick="rmSetTema('dark')">&#9790; Escuro</button>
       </div>
     </div>`,
-    backup: () => rmBackupCardHtml().replace('style="margin-top:14px;"', ''),
+    backup: () => rmBackupCardHtml().replace('style="margin-top:14px;"', '') + `<div class="rm-cfg-card" style="margin-top:14px;">
+      <div class="rm-cfg-tit">&#128187; Cópias automáticas neste computador</div>
+      <div style="font-size:13px; color:var(--rm-text-dim); margin-bottom:10px;">O sistema guarda sozinho uma cópia completa por dia dos últimos ${RM_COPIA_DIAS} dias, aqui dentro deste computador (atualizada a cada hora). Se precisar, baixe a do dia e use "Restaurar backup".</div>
+      <div id="rm-copias-lista"><div style="font-size:13px; color:var(--rm-text-dim)">Carregando...</div></div>
+    </div>`,
     usuarios: () => rmUsuariosHtml(),
-    registro: () => rmRegistroHtml()
+    registro: () => rmRegistroHtml(),
+    recuperar: () => rmHistHtml()
   };
   document.querySelectorAll('.rm-so-admin').forEach(b => b.style.display = rmEhAdmin() ? '' : 'none');
   box.innerHTML = (telas[rmCfgSub] || telas.empresa)();
@@ -13122,6 +13338,7 @@ function rmOpenModal(id, large){
         <div class="rm-modal-status-row rm-os-status-topo">${statusPills}</div>
       </div>
       <div class="rm-modal-header-actions">
+        <button class="rm-modal-txt-btn" onclick="rmHistDaOS('${r.id}')" title="Ver e recuperar versões anteriores desta OS">&#128338; Versões</button>
         <button class="rm-modal-txt-btn" onclick="rmImprimirEtiqueta('${r.id}')" title="Etiqueta para colocar na moto (o que deve ser feito)">&#127991; Etiqueta</button>
         <button class="rm-modal-txt-btn" onclick="rmImprimirOSA4('${r.id}')" title="Ordem de serviço completa em A4 (peças, valores, cliente), mesmo sem finalizar">&#128196; OS completa</button>
         <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
