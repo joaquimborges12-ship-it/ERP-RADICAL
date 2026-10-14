@@ -1631,6 +1631,8 @@
   .rm-submit-bar .rm-reg-pecas:hover{background:#285f9b;}
   @media (max-width:560px){ .rm-submit-bar:has(.rm-reg-pecas){flex-direction:column; gap:8px;} }
   @media (max-width:760px){ .rm-submit-bar:has(.rm-reg-pecas){margin-bottom:170px;} }
+  .rm-modal-txt-btn{border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-family:inherit; font-size:12.5px; font-weight:700; padding:7px 10px; cursor:pointer; white-space:nowrap;}
+  .rm-modal-txt-btn:hover{border-color:var(--rm-accent); color:var(--rm-accent);}
   .rm-lem-vazio{color:var(--rm-text-dim); font-size:14px; margin:14px 0;}
   .rm-lem-vistos{margin-top:28px; border-top:1px solid var(--rm-border); padding-top:12px;}
   .rm-lem-vistos summary{cursor:pointer; font-weight:700; color:var(--rm-text-dim); margin-bottom:12px;}
@@ -1897,7 +1899,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.13-23h00</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.13-23h25</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2255,8 +2257,8 @@
           <option value="naopagas">Não pagas</option>
         </select>
         <select class="rm-osl-sel" id="rm-date-mode-lista" onchange="rmOfiFiltroMudou('lista')">
-          <option value="p:oficina" selected>Na oficina agora</option>
-          <option value="todos">Todos os períodos</option>
+          <option value="todos" selected>Todas (inclusive entregues)</option>
+          <option value="p:oficina">Na oficina agora</option>
           <option value="p:ult6">Últimos 6 meses</option>
           <option value="p:ultmes">Último Mês</option>
           <option value="p:ontem">Ontem</option>
@@ -6069,7 +6071,7 @@ function rmRenderVisaoGeral(){
     <div class="vg-bloco" data-b="ofi">
     <div class="vg-sec"><span>🔧</span> Oficina</div>
     <div class="vg-kpis">
-      ${kpi('🏍️', '#2f6fb5', 'Na oficina agora', naOficina.length, paradas.length ? paradas.length + ' há mais de 7 dias' : 'nenhuma parada', '', "rmSetSection('oficina'); rmSetView('lista')")}
+      ${kpi('🏍️', '#2f6fb5', 'Na oficina agora', naOficina.length, paradas.length ? paradas.length + ' há mais de 7 dias' : 'nenhuma parada', '', "rmSetSection('oficina'); rmSetView('lista'); document.getElementById('rm-date-mode-lista').value='p:oficina'; rmOfiFiltroMudou('lista')")}
       ${kpi('📥', '#6a4fc4', 'Entraram', entraram, per, chip(entraram, entraramAnt))}
       ${kpi('📤', '#2e8b57', 'Entregues', entregues.length, per)}
       ${kpi('⏱️', '#c9961a', 'Tempo médio', fmtDias(tempoMedio) + (tempoMedio ? ' dias' : ''), 'da entrada à entrega')}
@@ -8858,7 +8860,7 @@ function rmA4Cabecalho(titulo, numero, data, vendedor, naoFiscal){
 function rmA4Secao(titulo, conteudo){ return `<div class="a4-sec"><div class="a4-sec-tit">${titulo}</div><div class="a4-sec-corpo">${conteudo}</div></div>`; }
 function rmA4Duas(esq, dir){ return `<div class="a4-duas"><div>${esq.join('<br>')}</div><div>${dir.join('<br>')}</div></div>`; }
 function rmA4ClienteTxt(cli){
-  return rmA4Secao('Dados do Cliente:', rmH((cli && cli.nome) || 'Consumidor'));
+  return rmA4Secao('Dados do Cliente:', rmH((cli && cli.nome) || 'Consumidor') + (cli && cli.telefone ? ' · Tel.: ' + rmH(cli.telefone) : ''));
 }
 function rmA4Itens(itens, extras, simples){
   const prods = rmLoadProdutos();
@@ -9067,12 +9069,13 @@ function rmCorpoOSA4(id){
   const st = r.pago ? 'Finalizada' : ((RM_STATUS[r.status]||{}).label || '');
   const corpo = rmA4Cabecalho('Ordem Serviço nº', r.codigoApp, new Date(r.pagoEm || r.entrada).toLocaleDateString('pt-BR'), rmOsCriador(r))
     + rmA4Secao('Dados Gerais', rmA4Duas(
-        ['Data Serviço: ' + rmFormatData(r.entrada), 'Data Entrega: ' + (r.pagoEm ? rmDataHoraBR(r.pagoEm) : (r.entrega || ''))],
+        ['Data Serviço: ' + rmFormatData(r.entrada), 'Data Entrega: ' + (r.pagoEm ? rmDataHoraBR(r.pagoEm) : (r.status === 'entregue' && rmOsDataEntrega(r) ? rmDataHoraBR(rmOsDataEntrega(r)) : '—'))],
         ['Responsável: ' + rmH(r.mecanico || ''), 'Status: ' + rmH(st), r.modelo ? 'Moto: ' + rmH(r.modelo) : ''].filter(Boolean)))
     + rmA4ClienteTxt(cli)
+    + (r.itens ? rmA4Secao('Itens deixados na moto', rmH(r.itens)) : '')
     + rmA4Itens(r.pecasUsadas, [ r.maoDeObra > 0 ? ['Mão de obra', rmFmtNum(r.maoDeObra)] : null ])
     + (r.pago ? rmA4Pagamentos(r.id, r.formaPagamento, t.total, r.pagoEm, t.bruto, t.desc)
-              : rmA4Secao('Totais', `<div class="a4-valor">Total (R$): <b>${rmFmtNum(t.total)}</b></div>`))
+              : rmA4Secao('Totais', `<div class="a4-valor">${t.desc > 0 ? 'Subtotal (R$): ' + rmFmtNum(t.bruto) + ' · Desconto (R$): ' + rmFmtNum(t.desc) + ' · ' : ''}Total (R$): <b>${rmFmtNum(t.total)}</b></div>`))
     + (r.observacao ? rmA4Secao('Observações', rmH(r.observacao)) : '')
     + rmA4AssinaturaFinal(cli && cli.nome);
   return { titulo: r.codigoApp, corpo };
@@ -11092,16 +11095,17 @@ function rmOfiFiltroMudou(origem){
   const P = { modo:'rm-date-mode', ini:'rm-date-start', fim:'rm-date-end', faixa:'rm-date-range', busca:'rm-search' };
   const L = { modo:'rm-date-mode-lista', ini:'rm-date-start-lista', fim:'rm-date-end-lista', faixa:'rm-date-range-lista', busca:'rm-search-lista' };
   const [de, para] = origem === 'painel' ? [P, L] : [L, P];
-  ['modo','ini','fim','busca'].forEach(k => { const a = document.getElementById(de[k]), b = document.getElementById(para[k]); if(a && b && b.value !== a.value) b.value = a.value; });
+  // a busca vale para os dois; o período é de cada um (a Lista mostra todas as OS, inclusive entregues; o Painel, só as da oficina)
+  ['busca'].forEach(k => { const a = document.getElementById(de[k]), b = document.getElementById(para[k]); if(a && b && b.value !== a.value) b.value = a.value; });
   [P, L].forEach(x => { const f = document.getElementById(x.faixa); if(f) f.style.display = document.getElementById(x.modo).value === 'personalizado' ? '' : 'none'; });
-  try{ localStorage.setItem('radicalMotos_ofiPeriodo', document.getElementById(L.modo).value); }catch(e){}
+  try{ localStorage.setItem('radicalMotos_ofiPeriodo', document.getElementById(P.modo).value); localStorage.setItem('radicalMotos_ofiPeriodoLista', document.getElementById(L.modo).value); }catch(e){}
   if(origem === 'lista') rmOslAtalho = rmOslAtalho; // mantém atalhos da lista
   rmRenderLista(); rmRenderBoard();
   if(typeof rmRenderMecanicosBoard === 'function' && document.getElementById('rm-view-mecanicos').classList.contains('active')) rmRenderMecanicosBoard();
 }
 // lembra o período escolhido neste computador
-(function(){ try{ const v = localStorage.getItem('radicalMotos_ofiPeriodo'); if(!v) return;
-  const aplica = () => ['rm-date-mode','rm-date-mode-lista'].forEach(id => { const e = document.getElementById(id); if(e && [...e.options].some(o => o.value === v)) e.value = v; });
+(function(){ try{ const v = localStorage.getItem('radicalMotos_ofiPeriodo'), vl = localStorage.getItem('radicalMotos_ofiPeriodoLista');
+  const aplica = () => [['rm-date-mode', v], ['rm-date-mode-lista', vl]].forEach(([id, val]) => { const e = document.getElementById(id); if(e && val && [...e.options].some(o => o.value === val)) e.value = val; });
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', aplica); else aplica();
 }catch(e){} })();
 
@@ -13091,7 +13095,8 @@ function rmOpenModal(id, large){
         <div class="rm-modal-status-row rm-os-status-topo">${statusPills}</div>
       </div>
       <div class="rm-modal-header-actions">
-        <button class="rm-modal-icon-btn" onclick="rmImprimirEtiqueta('${r.id}')" title="Imprimir etiqueta">&#128424;</button>
+        <button class="rm-modal-txt-btn" onclick="rmImprimirEtiqueta('${r.id}')" title="Etiqueta para colocar na moto (o que deve ser feito)">&#127991; Etiqueta</button>
+        <button class="rm-modal-txt-btn" onclick="rmImprimirOSA4('${r.id}')" title="Ordem de serviço completa em A4 (peças, valores, cliente), mesmo sem finalizar">&#128196; OS completa</button>
         <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
       </div>
     </div>
