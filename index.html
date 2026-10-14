@@ -1658,6 +1658,7 @@
   .rm-hist-igual{padding:14px; color:var(--rm-text-dim);}
   .rm-hist-aviso-del{background:rgba(229,57,53,0.10); border-left:4px solid #e53935; padding:8px 12px; margin:8px 0 6px; font-size:13.5px;}
   @media (max-width:600px){ .rm-hist-linha{grid-template-columns:1fr; gap:2px;} }
+  .rm-osl-ref{color:#2f6fb5; font-weight:800;}
   .rm-lem-vazio{color:var(--rm-text-dim); font-size:14px; margin:14px 0;}
   .rm-lem-vistos{margin-top:28px; border-top:1px solid var(--rm-border); padding-top:12px;}
   .rm-lem-vistos summary{cursor:pointer; font-weight:700; color:var(--rm-text-dim); margin-bottom:12px;}
@@ -1933,7 +1934,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.14-01h00</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.14-07h50</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -11344,7 +11345,7 @@ function rmFilteredList(searchInputId, dateModeId, dateValueId, dateStartId, dat
       }
       if(range){
         filtered = filtered.filter(r=>{
-          const t = new Date(r.entrada).getTime();
+          const t = new Date(rmOsDataRef(r)).getTime(); // data de referência (se ajustada) manda em qual dia a OS aparece
           return t >= range.start.getTime() && t < range.end.getTime();
         });
       }
@@ -11502,7 +11503,7 @@ function rmListaSortValue(r, key){
     case 'problemas': return (r.problemas||[]).length;
     case 'pago': return r.pago ? 1 : 0;
     case 'valor': return rmTotalPecasUsadas(r);
-    default: return new Date(r.entrada).getTime();
+    default: return new Date(rmOsDataRef(r)).getTime();
   }
 }
 
@@ -12595,7 +12596,7 @@ function rmOslVal(r, k){
     case 'foto': return r.fotoUrl ? 1 : 0;
     case 'num': return rmNumeroDoc(r.codigoApp) || 0;
     case 'valor': return rmOslValor(r);
-    case 'solic': return new Date(r.entrada || 0).getTime();
+    case 'solic': return new Date(rmOsDataRef(r) || 0).getTime();
     case 'moto': return (r.modelo || '').toLowerCase();
     case 'resp': return (r.mecanico || '').toLowerCase();
     case 'cli': return (r.nome || '').toLowerCase();
@@ -12688,7 +12689,7 @@ function rmRenderLista(){
       <td class="c">${r.fotoUrl ? `<span class="rm-osl-foto" onmouseenter="rmShowFotoPreview(event, '${r.fotoUrl}')" onmouseleave="rmHideFotoPreview()">&#128247;</span>` : ''}</td>
       <td class="r">${rmNumeroDoc(r.codigoApp) || rmEscapeHtml(r.codigoApp||'')}</td>
       <td class="r">${rmFmtNum(rmOslValor(r))}</td>
-      <td>${dia(r.entrada)}</td>
+      <td${r.dataManual ? ` title="Aberta em ${rmEscapeHtml(rmFormatData(r.entrada))} · data de referência ajustada"` : ''}>${dia(rmOsDataRef(r))}${r.dataManual ? ' <span class="rm-osl-ref">&#8635;</span>' : ''}</td>
       <td class="rm-osl-mod">${rmEscapeHtml(r.modelo || '')}</td>
       <td>${rmEscapeHtml(r.mecanico || '')}</td>
       <td class="rm-osl-cli">${rmEscapeHtml(r.nome || '')}</td>
@@ -13705,6 +13706,8 @@ function rmToDateInputValue(iso){
   return `${y}-${m}-${day}`;
 }
 
+// data que vale para listas e filtros: a de referência (ajustada) ou, se não tiver, a de entrada
+function rmOsDataRef(r){ return (r && (r.dataManual || r.entrada)) || null; }
 function rmSetDataManual(id, dateValue){
   const iso = dateValue ? new Date(dateValue + 'T12:00:00').toISOString() : null;
   const list = rmLoad();
@@ -13713,8 +13716,11 @@ function rmSetDataManual(id, dateValue){
     item.dataManual = iso;
     rmSave(list);
     rmDbUpsertRecepcao(item);
+    rmLog('Mudou data de referência da OS', item.codigoApp, iso ? rmDataBR(iso.slice(0, 10)) : 'voltou para a data de entrada');
   }
   rmOpenModal(id, rmActiveModalLarge);
+  if(typeof rmRenderLista === 'function') rmRenderLista();
+  if(typeof rmRenderBoard === 'function') rmRenderBoard();
 }
 
 function rmSetDataManualHoje(id){
