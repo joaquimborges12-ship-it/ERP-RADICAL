@@ -1168,6 +1168,9 @@
   .rm-osl-seta{display:inline-block; margin-left:6px; font-size:7px; line-height:0.9; color:#c8c8c8; vertical-align:middle;}
   .rm-osl-seta.ativa{color:#5b5bd6; font-size:10px;}
   .rm-osl-cli{max-width:420px; overflow:hidden; text-overflow:ellipsis; text-transform:uppercase;}
+  @media (max-width:1500px){ .rm-osl th, .rm-osl td{padding-left:9px; padding-right:9px;} }
+  .rm-osl-anot{min-width:180px; max-width:240px; text-transform:uppercase; font-size:12px; line-height:1.3;}
+  .rm-osl-anot div{display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; white-space:normal;}
   .rm-osl-mod{text-transform:uppercase; max-width:220px; overflow:hidden; text-overflow:ellipsis;}
   .rm-osl-moto{color:#888; font-size:13px; margin-left:6px;}
   .rm-os-status-topo{margin:10px 0 0; flex-wrap:wrap;}
@@ -1934,7 +1937,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.14-10h50</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.14-12h25</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -12593,7 +12596,7 @@ let rmOslSort = { key:'num', dir:'desc' };
 let rmOslAtalho = null; // 'naopago' = entregues e não pagas · 'pronta' = prontas e não entregues (qualquer data)
 const RM_OSL_COLS = [
   ['sit','Sit.','c',''], ['fat','Pago','c',''], ['foto','Foto','c',''], ['num','Núm.','r',''], ['valor','Valor','r',''],
-  ['solic','Data Solic.','',''], ['moto','Moto','',''], ['resp','Responsável','',''], ['cli','Cliente','',''], ['entr','Entrega','',''], ['wpp','','c','nosort']
+  ['solic','Data Solic.','',''], ['moto','Moto','',''], ['resp','Responsável','',''], ['cli','Cliente','',''], ['anot','Anotações','',''], ['entr','Entrega','',''], ['wpp','','c','nosort']
 ];
 function rmOslSit(r){ return ({ antigas:0, aberto:1, peca:2, andamento:3, prontas:4, entregue:5 })[r.status] ?? 1; }
 function rmOslValor(r){ return r.pago && r.valorPago ? r.valorPago : rmOsTotais(r).total; }
@@ -12608,6 +12611,7 @@ function rmOslVal(r, k){
     case 'moto': return (r.modelo || '').toLowerCase();
     case 'resp': return (r.mecanico || '').toLowerCase();
     case 'cli': return (r.nome || '').toLowerCase();
+    case 'anot': return (r.anotacoes || '').toLowerCase();
     case 'entr': return (r.entrega ? 2 : 0) + (r.buscar ? 1 : 0);
   }
   return '';
@@ -12654,7 +12658,7 @@ function rmRenderLista(){
   document.getElementById('rm-osl-pronta-n').textContent = prontas.length ? '(' + prontas.length + ')' : '';
   const busca = (document.getElementById('rm-search-lista').value || '').toLowerCase();
   const list = rmOslAtalho
-    ? (rmOslAtalho === 'naopago' ? devendo : prontas).filter(r => !busca || [r.nome, r.modelo, r.codigoApp, r.mecanico].some(x => (x||'').toLowerCase().includes(busca)))
+    ? (rmOslAtalho === 'naopago' ? devendo : prontas).filter(r => !busca || [r.nome, r.modelo, r.codigoApp, r.mecanico, r.anotacoes].some(x => (x||'').toLowerCase().includes(busca)))
     : base.filter(r =>
     (!resp || (r.mecanico||'').trim() === resp) &&
     (!cli || (r.nome||'').trim() === cli) &&
@@ -12701,6 +12705,7 @@ function rmRenderLista(){
       <td class="rm-osl-mod">${rmEscapeHtml(r.modelo || '')}</td>
       <td>${rmEscapeHtml(r.mecanico || '')}</td>
       <td class="rm-osl-cli">${rmEscapeHtml(r.nome || '')}</td>
+      <td class="rm-osl-anot"${r.anotacoes ? ` title="${rmEscapeHtml(r.anotacoes)}"` : ''}><div>${rmEscapeHtml(r.anotacoes || '')}</div></td>
       <td>${r.entrega ? '<span class="rm-osl-tag rm-osl-tag-ent">Entregar</span>' : ''}${r.buscar ? '<span class="rm-osl-tag rm-osl-tag-bus">Buscar</span>' : ''}</td>
       <td class="c">${rmOslTel(r) ? `<span class="rm-osl-tip" data-tip="WhatsApp ${rmEscapeHtml(rmOslTel(r))}"><button class="rm-osl-wpp" onclick="event.stopPropagation(); rmAbrirWhatsapp('${rmJs(rmOslTel(r))}')"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.3-.1z"/></svg></button></span>` : ''}</td>
     </tr>`;
