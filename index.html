@@ -1934,7 +1934,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.14-07h50</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.14-10h50</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -4987,7 +4987,7 @@ function rmOutboxPor(tabela, id, op, row){
   rmOutboxGravar();
   clearTimeout(rmOutboxTimer); rmOutboxTimer = setTimeout(rmOutboxEnviar, 50);
 }
-let rmOutboxTimer = null, rmOutboxEnviando = null;
+let rmOutboxTimer = null, rmOutboxEnviando = null, rmOutboxUltimoOk = true;
 function rmOutboxQtd(){ return Object.keys(rmOutbox).length; }
 function rmOutboxStatus(){
   const n = rmOutboxQtd();
@@ -5029,25 +5029,32 @@ function rmOutboxEnviar(){
           let erro = null;
           try{ erro = tab === 'recepcoes' ? await rmOutboxEnviarRecepcoes(rows) : (await rmSb.from(tab).upsert(rows)).error; }catch(e){ erro = e; }
           if(erro){ console.warn('fila de envio (' + tab + '):', erro); tudoOk = false; break; }
-          lote.forEach(i => { const atual = rmOutbox[tab + ':' + i.id]; if(atual && atual.t === i.t) delete rmOutbox[tab + ':' + i.id]; });
+          lote.forEach(i => { rmOutboxRecentes[tab + ':' + i.id] = { tabela: tab, id: i.id, op:'up', row: i.row, enviadoEm: Date.now() }; const atual = rmOutbox[tab + ':' + i.id]; if(atual && atual.t === i.t) delete rmOutbox[tab + ':' + i.id]; });
           rmOutboxGravar();
         }
         if(dels.length){
           let erro = null;
           try{ erro = (await rmSb.from(tab).delete().in('id', dels.map(i => i.id))).error; }catch(e){ erro = e; }
           if(erro){ console.warn('fila de envio (apagar ' + tab + '):', erro); tudoOk = false; }
-          else { dels.forEach(i => { const atual = rmOutbox[tab + ':' + i.id]; if(atual && atual.t === i.t) delete rmOutbox[tab + ':' + i.id]; }); rmOutboxGravar(); }
+          else { dels.forEach(i => { rmOutboxRecentes[tab + ':' + i.id] = { tabela: tab, id: i.id, op:'del', row: null, enviadoEm: Date.now() }; const atual = rmOutbox[tab + ':' + i.id]; if(atual && atual.t === i.t) delete rmOutbox[tab + ':' + i.id]; }); rmOutboxGravar(); }
         }
       }
       if(tudoOk) rmSetOnlineStatus(true); else rmSetOnlineStatus(false);
+      rmOutboxUltimoOk = tudoOk;
       return tudoOk;
-    } finally { setTimeout(() => { rmOutboxEnviando = null; }, 0); }
+    } finally { setTimeout(() => { rmOutboxEnviando = null; if(rmOutboxUltimoOk && rmOutboxQtd()) { clearTimeout(rmOutboxTimer); rmOutboxTimer = setTimeout(rmOutboxEnviar, 50); } }, 0); }
   })();
   return rmOutboxEnviando;
 }
-// aplica por cima da lista do servidor o que ainda está na fila (o aparelho tem a versão mais nova)
-function rmOutboxSobrepor(tabela, lista, deRow){
-  const pend = Object.values(rmOutbox).filter(i => i.tabela === tabela);
+// o que acabou de ser confirmado pelo servidor: uma sincronização que começou a baixar ANTES dessa
+// confirmação traz a versão velha — então essas alterações recentes também valem por cima dela
+// (era isso que fazia a forma de pagamento "desmarcar sozinha" e o Finalizar não ir de primeira)
+let rmOutboxRecentes = {};
+function rmOutboxSobrepor(tabela, lista, deRow, desde){
+  const agora = Date.now();
+  Object.keys(rmOutboxRecentes).forEach(k => { if(agora - rmOutboxRecentes[k].enviadoEm > 120000) delete rmOutboxRecentes[k]; });
+  const recentes = desde ? Object.values(rmOutboxRecentes).filter(i => i.tabela === tabela && i.enviadoEm >= desde && !rmOutbox[tabela + ':' + i.id]) : [];
+  const pend = Object.values(rmOutbox).filter(i => i.tabela === tabela).concat(recentes);
   if(!pend.length) return lista;
   const apagar = new Set(pend.filter(i => i.op === 'del').map(i => String(i.id)));
   const novos = new Map(pend.filter(i => i.op === 'up').map(i => [String(i.id), deRow(i.row)]));
@@ -5092,6 +5099,7 @@ async function rmSelectTudo(tabela, colunas, ordem){
 
 async function rmSyncFromSupabase(){
   await rmOutboxEnviar(); // primeiro manda o que ficou guardado no aparelho
+  const desde = Date.now(); // o que for confirmado depois daqui pode não ter vindo no que vamos baixar
   const [recepcoesRes, mecanicosRes, clientesRes, vendasRes, produtosRes, avisosRes] = await Promise.all([
     rmSelectTudo('recepcoes', '*'),
     rmSelectTudo('mecanicos', 'nome', 'nome'),
@@ -5107,11 +5115,11 @@ async function rmSyncFromSupabase(){
   }
   rmSetOnlineStatus(true);
   // o que ainda não foi confirmado pelo servidor continua valendo a versão do aparelho
-  const recepcoes = rmOutboxSobrepor('recepcoes', recepcoesRes.data.map(rmFromDbRow), rmFromDbRow);
+  const recepcoes = rmOutboxSobrepor('recepcoes', recepcoesRes.data.map(rmFromDbRow), rmFromDbRow, desde);
   const mecanicos = mecanicosRes.data.map(m => m.nome);
-  const clientes = rmOutboxSobrepor('clientes', clientesRes.data.map(rmFromDbRowCliente), rmFromDbRowCliente);
-  const vendas = rmOutboxSobrepor('vendas', vendasRes.data.map(rmFromDbRowVenda), rmFromDbRowVenda);
-  const produtos = rmOutboxSobrepor('produtos', produtosRes.data.map(rmFromDbRowProduto), rmFromDbRowProduto);
+  const clientes = rmOutboxSobrepor('clientes', clientesRes.data.map(rmFromDbRowCliente), rmFromDbRowCliente, desde);
+  const vendas = rmOutboxSobrepor('vendas', vendasRes.data.map(rmFromDbRowVenda), rmFromDbRowVenda, desde);
+  const produtos = rmOutboxSobrepor('produtos', produtosRes.data.map(rmFromDbRowProduto), rmFromDbRowProduto, desde);
   const avisos = avisosRes.data.map(rmFromDbRowAviso);
   rmSave(recepcoes);
   rmSaveMecanicos(mecanicos);
