@@ -1641,6 +1641,23 @@
   .rm-bkp-lembrete div{display:flex; gap:8px; margin-top:4px;}
   .rm-bkp-lembrete .rm-primary, .rm-bkp-lembrete .rm-pe2-btn{width:auto; margin:0; padding:8px 14px; font-size:13px;}
   @media (max-width:860px){ .rm-bkp-lembrete{left:10px; right:10px; bottom:76px; max-width:none;} }
+  .rm-hist-tit{font-size:17px; font-weight:800; margin-bottom:4px;}
+  .rm-hist-sub{font-size:13px; color:var(--rm-text-dim); margin-bottom:6px;}
+  .rm-hist-legenda{font-size:12px; margin-bottom:10px;}
+  .rm-hist-linha{display:grid; grid-template-columns:170px 1fr; gap:12px; padding:10px 0; border-bottom:1px solid var(--rm-border); align-items:start;}
+  .rm-hist-rot{font-weight:700; font-size:13.5px; color:var(--rm-text-dim);}
+  .rm-hist-val{font-size:14.5px; line-height:1.5; word-break:break-word;}
+  .rm-hist-antes{background:rgba(229,57,53,0.12); color:#c62828; padding:1px 6px; text-decoration:line-through;}
+  .rm-hist-depois{background:rgba(46,139,87,0.14); color:#1e7a45; padding:1px 6px; font-weight:700;}
+  html[data-tema="dark"] .rm-hist-antes{color:#ff8a80;} html[data-tema="dark"] .rm-hist-depois{color:#7ee2a8;}
+  .rm-hist-seta{color:var(--rm-text-dim); margin:0 4px;}
+  .rm-hist-saiu{color:#c62828; background:rgba(229,57,53,0.10); padding:2px 8px; margin:2px 0; text-decoration:line-through;}
+  .rm-hist-entrou{color:#1e7a45; background:rgba(46,139,87,0.12); padding:2px 8px; margin:2px 0; font-weight:700;}
+  html[data-tema="dark"] .rm-hist-saiu{color:#ff8a80;} html[data-tema="dark"] .rm-hist-entrou{color:#7ee2a8;}
+  .rm-hist-chip{display:inline-block; background:var(--rm-panel-2); border:1px solid var(--rm-border); font-size:12px; font-weight:700; padding:1px 8px; margin:1px 0;}
+  .rm-hist-igual{padding:14px; color:var(--rm-text-dim);}
+  .rm-hist-aviso-del{background:rgba(229,57,53,0.10); border-left:4px solid #e53935; padding:8px 12px; margin:8px 0 6px; font-size:13.5px;}
+  @media (max-width:600px){ .rm-hist-linha{grid-template-columns:1fr; gap:2px;} }
   .rm-lem-vazio{color:var(--rm-text-dim); font-size:14px; margin:14px 0;}
   .rm-lem-vistos{margin-top:28px; border-top:1px solid var(--rm-border); padding-top:12px;}
   .rm-lem-vistos summary{cursor:pointer; font-weight:700; color:var(--rm-text-dim); margin-bottom:12px;}
@@ -1916,7 +1933,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.14-00h40</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.14-01h00</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -7972,7 +7989,7 @@ function rmFamCabecalhoHtml(f, ms, onclickPrimeira){
 // ===================== RECUPERAR (histórico de versões do Supabase) =====================
 // O banco guarda como cada registro estava antes de ser alterado ou apagado (historico-supabase.sql).
 const RM_HIST_TABS = { recepcoes:'OS', vendas:'Venda', clientes:'Cliente', produtos:'Produto', promissorias:'Nota a prazo', inventarios:'Inventário', configuracoes:'Configuração' };
-let rmHistLista = null, rmHistErro = '', rmHistNomes = {}, rmHistFiltroReg = null;
+let rmHistLista = null, rmHistErro = '', rmHistNomes = {}, rmHistFiltroReg = null, rmHistFiltroRegAtivo = false;
 function rmHistDescricao(tab, d){
   d = d || {};
   if(tab === 'recepcoes') return [d.codigo_app, d.nome, d.modelo].filter(Boolean).join(' · ');
@@ -8013,9 +8030,9 @@ function rmHistLinhasHtml(lista){
     <td>${new Date(h.quando).toLocaleString('pt-BR').replace(',', '').slice(0, 16)}</td>
     <td>${RM_HIST_TABS[h.tabela] || h.tabela}</td>
     <td style="white-space:normal"><b>${rmEscapeHtml(rmHistDescricao(h.tabela, h.dados))}</b></td>
-    <td>${h.operacao === 'DELETE' ? '<span class="rm-inv-neg">&#128465; apagado</span>' : 'alterado'}</td>
+    <td style="white-space:normal">${rmHistResumoMudanca(h)}</td>
     <td>${rmEscapeHtml(rmHistNomes[h.usuario] || '')}</td>
-    <td style="white-space:nowrap"><button class="rm-pe2-btn" style="width:auto; padding:5px 10px" onclick="rmHistVer(${h.id})">Ver</button> ${rmEhAdmin() ? `<button class="rm-pe2-btn" style="width:auto; padding:5px 10px" onclick="rmHistRestaurar(${h.id})" title="Volta o registro para como estava ${h.operacao === 'DELETE' ? 'antes de ser apagado' : 'antes desta alteração'}">&#8634; Restaurar</button>` : ''}</td>
+    <td style="white-space:nowrap"><button class="rm-pe2-btn" style="width:auto; padding:5px 10px" onclick="rmHistVer(${h.id})">&#128065; Ver o que mudou</button> ${rmEhAdmin() ? `<button class="rm-pe2-btn" style="width:auto; padding:5px 10px" onclick="rmHistRestaurar(${h.id})" title="Volta o registro para como estava ${h.operacao === 'DELETE' ? 'antes de ser apagado' : 'antes desta alteração'}">&#8634; ${h.operacao === 'DELETE' ? 'Recuperar' : 'Desfazer'}</button>` : ''}</td>
   </tr>`).join('');
 }
 function rmHistHtml(){
@@ -8034,18 +8051,119 @@ function rmHistRender(){
   const box = document.querySelector('#rm-hist-ov #rm-hist-corpo') || document.getElementById('rm-hist-corpo'); if(!box) return;
   if(rmHistLista === null){ box.innerHTML = '<div style="padding:14px; color:var(--rm-text-dim)">Buscando no banco de dados...</div>'; return; }
   box.innerHTML = (rmHistErro ? `<div class="rm-pe2-aviso" style="margin:8px 0">${rmHistErro}</div>` : '')
-    + `<div class="rm-osl-wrap"><table class="rm-osl"><thead><tr><th>Quando</th><th>Tipo</th><th>Registro</th><th>O que houve</th><th>Quem</th><th></th></tr></thead><tbody>${rmHistLinhasHtml(rmHistLista)}</tbody></table></div>`;
+    + `<div class="rm-osl-wrap"><table class="rm-osl"><thead><tr><th>Quando</th><th>Tipo</th><th>Registro</th><th>O que mudou</th><th>Quem</th><th></th></tr></thead><tbody>${rmHistLinhasHtml(rmHistLista)}</tbody></table></div>`;
 }
 function rmHistAchar(id){ return (rmHistLista || []).find(h => h.id === id); }
+// ----- comparação amigável (o que mudou) -----
+const RM_HIST_CAMPOS = {
+  recepcoes: { nome:'Cliente', telefone:'WhatsApp', modelo:'Moto', status:'Situação', mecanico:'Mecânico', problemas:'Problemas', pecas_usadas:'Peças e serviços', mao_de_obra:'Mão de obra', anotacoes:'Anotações', observacao:'Observação', itens:'Itens deixados', entrega:'Entregar ao cliente', buscar:'Moto para buscar', pago:'Finalizada / paga', forma_pagamento:'Forma de pagamento', valor_pago:'Valor pago', pecas_desconto_valor:'Desconto', foto_url:'Foto' },
+  vendas: { cliente_nome:'Cliente', itens:'Itens', total:'Total', desconto:'Desconto', forma_pagamento:'Forma de pagamento', observacao:'Observação', vendedor:'Vendedor', tipo:'Tipo' },
+  clientes: { nome:'Nome', apelido:'Apelido', telefone:'Telefone', cpf:'CPF', situacao:'Situação', limite_credito:'Limite de crédito', endereco:'Endereço', numero:'Número', bairro:'Bairro', cidade:'Cidade', observacao:'Observação' },
+  produtos: { nome:'Nome', marca:'Marca', codigo:'Código', codigo_barras:'Código de barras', localizacao:'Localização', curva:'Curva', preco_custo:'Custo', preco_consumidor:'Preço consumidor', preco_parceiro:'Preço parceiro', estoque_atual:'Estoque', estoque_minimo:'Estoque mínimo', categoria:'Grupo', ativo:'Ativo' },
+  promissorias: { cliente_nome:'Cliente', total:'Total', parcelas:'Parcelas e pagamentos', observacao:'Observação' },
+  inventarios: { titulo:'Título', status:'Situação', itens:'Itens contados' },
+  configuracoes: { dados:'Conteúdo' }
+};
+const RM_HIST_DINHEIRO = new Set(['mao_de_obra','valor_pago','pecas_desconto_valor','total','desconto','limite_credito','preco_custo','preco_consumidor','preco_parceiro']);
+function rmHistValorTxt(tab, k, v){
+  if(v === null || v === undefined || v === '') return '—';
+  if(typeof v === 'boolean') return v ? 'Sim' : 'Não';
+  if(RM_HIST_DINHEIRO.has(k)) return rmFormatMoeda(Number(v) || 0);
+  if(k === 'status' && tab === 'recepcoes') return (RM_STATUS[v] || {}).label || v;
+  if(k === 'foto_url') return v ? 'com foto' : 'sem foto';
+  if(k === 'situacao' && typeof RM_SITUACAO !== 'undefined' && RM_SITUACAO[v]) return RM_SITUACAO[v].label;
+  if(k === 'estoque_atual' || k === 'estoque_minimo') return rmFmtQtd(Number(v) || 0);
+  if(typeof v === 'object') return JSON.stringify(v);
+  return String(v);
+}
+// listas viram itens legíveis (para mostrar o que entrou e o que saiu)
+function rmHistItens(tab, k, v){
+  if(!Array.isArray(v)) return null;
+  if(k === 'problemas') return v.map(p => typeof p === 'string' ? p : ((p.feito ? '☑ ' : '☐ ') + (p.texto || '')));
+  if(k === 'pecas_usadas' || (tab === 'vendas' && k === 'itens')) return v.map(i => rmFmtQtd(Number(i.quantidade) || 1) + 'x ' + (i.nome || '') + ' · ' + rmFormatMoeda(Number(i.subtotal) || 0));
+  if(k === 'parcelas') return v.map(p => 'Parcela ' + (p.rotulo || p.n) + ' · ' + rmFormatMoeda(Number(p.valor) || 0) + ' · vence ' + rmDataBR(p.vencimento) + ((p.pagamentos || []).length ? ' · pago ' + rmFormatMoeda((p.pagamentos || []).reduce((s, x) => s + (Number(x.valor) || 0), 0)) : ''));
+  if(tab === 'inventarios' && k === 'itens') return v.filter(i => i.contado != null).map(i => (i.nome || '') + ': ' + rmFmtQtd(i.contado));
+  return null;
+}
+function rmHistAtual(tab, id){
+  try{
+    if(tab === 'recepcoes'){ const x = rmLoad().find(r => r.id === id); return x ? rmToDbRow(x) : null; }
+    if(tab === 'vendas'){ const x = rmLoadVendas().find(r => r.id === id); return x ? rmToDbRowVenda(x) : null; }
+    if(tab === 'clientes'){ const x = rmLoadClientes().find(r => r.id === id); return x ? rmToDbRowCliente(x) : null; }
+    if(tab === 'produtos'){ const x = rmLoadProdutos().find(r => r.id === id); return x ? rmToDbRowProduto(x) : null; }
+    if(tab === 'promissorias'){ const x = rmLoadProms().find(r => r.id === id); return x ? rmPromToDb(x) : null; }
+    if(tab === 'inventarios'){ const x = rmInvGet(id); return x ? rmInvToDb(x) : null; }
+  }catch(e){}
+  return null;
+}
+// diferenças entre duas versões: [{campo, rotulo, antes, depois, saiu:[], entrou:[]}]
+function rmHistDiff(tab, antes, depois){
+  const campos = RM_HIST_CAMPOS[tab] || {};
+  const out = [];
+  Object.keys(campos).forEach(k => {
+    const a = antes ? antes[k] : undefined, d = depois ? depois[k] : undefined;
+    if(JSON.stringify(a ?? null) === JSON.stringify(d ?? null)) return;
+    const la = rmHistItens(tab, k, a || []), ld = rmHistItens(tab, k, d || []);
+    if(la && ld){
+      const saiu = la.filter(x => !ld.includes(x)), entrou = ld.filter(x => !la.includes(x));
+      if(!saiu.length && !entrou.length) return;
+      out.push({ campo:k, rotulo: campos[k], saiu, entrou, lista:true });
+    } else {
+      const ta = rmHistValorTxt(tab, k, a), td = rmHistValorTxt(tab, k, d);
+      if(ta === td) return;
+      out.push({ campo:k, rotulo: campos[k], antes: ta, depois: td });
+    }
+  });
+  return out;
+}
+// para cada versão da lista: o que foi mudado naquela alteração (compara com a versão seguinte, ou com a de agora)
+function rmHistMudancaDe(h){
+  if(h.operacao === 'DELETE') return null;
+  const mesmas = (rmHistLista || []).filter(x => x.tabela === h.tabela && x.registro_id === h.registro_id).sort((a, b) => String(b.quando).localeCompare(String(a.quando)));
+  const i = mesmas.findIndex(x => x.id === h.id);
+  const depois = i > 0 ? mesmas[i - 1].dados : rmHistAtual(h.tabela, h.registro_id);
+  return depois ? rmHistDiff(h.tabela, h.dados, depois) : null;
+}
+function rmHistResumoMudanca(h){
+  if(h.operacao === 'DELETE') return '<span class="rm-inv-neg">&#128465; apagado</span>';
+  const d = rmHistMudancaDe(h);
+  if(!d) return 'alterado';
+  if(!d.length) return '<span style="color:var(--rm-text-dim)">detalhes internos</span>';
+  return d.slice(0, 3).map(x => `<span class="rm-hist-chip">${rmEscapeHtml(x.rotulo)}</span>`).join(' ') + (d.length > 3 ? ' <small>+' + (d.length - 3) + '</small>' : '');
+}
+function rmHistDiffHtml(diff){
+  if(!diff.length) return '<div class="rm-hist-igual">Nenhuma diferença visível.</div>';
+  return diff.map(x => x.lista
+    ? `<div class="rm-hist-linha"><div class="rm-hist-rot">${rmEscapeHtml(x.rotulo)}</div><div class="rm-hist-val">
+        ${x.saiu.map(t => `<div class="rm-hist-saiu">&minus; ${rmEscapeHtml(t)}</div>`).join('')}
+        ${x.entrou.map(t => `<div class="rm-hist-entrou">+ ${rmEscapeHtml(t)}</div>`).join('')}</div></div>`
+    : `<div class="rm-hist-linha"><div class="rm-hist-rot">${rmEscapeHtml(x.rotulo)}</div><div class="rm-hist-val"><span class="rm-hist-antes">${rmEscapeHtml(x.antes)}</span> <span class="rm-hist-seta">&rarr;</span> <span class="rm-hist-depois">${rmEscapeHtml(x.depois)}</span></div></div>`).join('');
+}
 function rmHistVer(id){
   const h = rmHistAchar(id); if(!h) return;
-  const linhas = Object.entries(h.dados || {}).filter(([k, v]) => v !== null && v !== '' && !(Array.isArray(v) && !v.length) && k !== 'foto_url')
-    .map(([k, v]) => `<tr><td style="color:var(--rm-text-dim); white-space:nowrap; vertical-align:top">${rmEscapeHtml(k)}</td><td style="white-space:pre-wrap; word-break:break-word">${rmEscapeHtml(typeof v === 'object' ? JSON.stringify(v, null, 1) : String(v))}</td></tr>`).join('');
-  rmHistOverlay(`<b>${RM_HIST_TABS[h.tabela] || h.tabela}: ${rmEscapeHtml(rmHistDescricao(h.tabela, h.dados))}</b>
-    <div style="font-size:12.5px; color:var(--rm-text-dim); margin:4px 0 10px">Como estava ${h.operacao === 'DELETE' ? 'antes de ser apagado' : 'antes da alteração'} de ${new Date(h.quando).toLocaleString('pt-BR')}</div>
-    <div style="max-height:55vh; overflow:auto"><table class="rm-fam-tab">${linhas}</table></div>
-    <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:12px">${rmEhAdmin() ? `<button class="rm-pe2-btn" style="width:auto" onclick="rmHistRestaurar(${h.id})">&#8634; Restaurar esta versão</button>` : ''}<button class="rm-primary" style="width:auto; margin:0; padding:10px 20px" onclick="rmHistOverlay()">Fechar</button></div>`);
+  const titulo = (RM_HIST_TABS[h.tabela] || h.tabela) + ': ' + rmHistDescricao(h.tabela, h.dados);
+  const quem = rmHistNomes[h.usuario] ? ' por <b>' + rmEscapeHtml(rmHistNomes[h.usuario]) + '</b>' : '';
+  const quando = new Date(h.quando).toLocaleString('pt-BR').replace(',', ' às').slice(0, 19);
+  let corpo;
+  if(h.operacao === 'DELETE'){
+    const campos = RM_HIST_CAMPOS[h.tabela] || {};
+    const linhas = Object.keys(campos).filter(k => { const v = h.dados[k]; return v !== null && v !== undefined && v !== '' && !(Array.isArray(v) && !v.length); })
+      .map(k => { const l = rmHistItens(h.tabela, k, h.dados[k]); return `<div class="rm-hist-linha"><div class="rm-hist-rot">${rmEscapeHtml(campos[k])}</div><div class="rm-hist-val">${l ? l.map(t => `<div>${rmEscapeHtml(t)}</div>`).join('') : rmEscapeHtml(rmHistValorTxt(h.tabela, k, h.dados[k]))}</div></div>`; }).join('');
+    corpo = `<div class="rm-hist-aviso-del">&#128465; Foi <b>apagado</b> em ${quando}${quem}. Era assim:</div>${linhas}`;
+  } else {
+    const diff = rmHistMudancaDe(h) || [];
+    corpo = `<div class="rm-hist-sub">Alteração feita em ${quando}${quem}:</div>
+      <div class="rm-hist-legenda"><span class="rm-hist-antes">antes</span> <span class="rm-hist-seta">&rarr;</span> <span class="rm-hist-depois">depois</span></div>
+      ${rmHistDiffHtml(diff)}`;
+  }
+  rmHistOverlay(`<div class="rm-hist-tit">${rmEscapeHtml(titulo)}</div>
+    ${corpo}
+    <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px; flex-wrap:wrap">
+      ${rmHistFiltroRegAtivo ? `<button class="rm-pe2-btn" style="width:auto" onclick="rmHistDaOS('${rmJs(h.registro_id)}')">&#8592; Voltar</button>` : ''}
+      ${rmEhAdmin() ? `<button class="rm-pe2-btn" style="width:auto" onclick="rmHistRestaurar(${h.id})" title="Volta para como estava ANTES desta alteração">&#8634; Desfazer esta alteração</button>` : ''}
+      <button class="rm-primary" style="width:auto; margin:0; padding:10px 20px" onclick="rmHistOverlay()">Fechar</button></div>`);
 }
+
 function rmHistOverlay(html){
   let o = document.getElementById('rm-hist-ov');
   if(!html){ if(o) o.remove(); return; }
@@ -8058,7 +8176,7 @@ async function rmHistRestaurar(id){
   const desc = rmHistDescricao(h.tabela, h.dados);
   const quandoTxt = h.operacao === 'DELETE' ? 'antes de ser apagado' : 'antes da alteração de ' + new Date(h.quando).toLocaleString('pt-BR');
   const avisoEstoque = ['recepcoes','vendas'].includes(h.tabela) ? '\n\nO estoque das peças NÃO é mexido.' : '';
-  if(!confirm('Restaurar ' + (RM_HIST_TABS[h.tabela] || h.tabela) + ' "' + desc + '" para como estava ' + quandoTxt + '?\n\nA versão de agora também fica guardada no histórico (dá para desfazer).' + avisoEstoque)) return;
+  if(!confirm((h.operacao === 'DELETE' ? 'Recuperar ' : 'Desfazer a alteração e voltar ') + (RM_HIST_TABS[h.tabela] || h.tabela) + ' "' + desc + '" para como estava ' + quandoTxt + '?\n\nA versão de agora também fica guardada no histórico (dá para desfazer de novo).' + avisoEstoque)) return;
   const row = h.dados, t = h.tabela;
   try{
     const troca = (carregar, salvar, obj) => { const l = carregar().filter(x => x.id !== obj.id); l.unshift(obj); salvar(l); };
@@ -8079,13 +8197,13 @@ async function rmHistRestaurar(id){
 }
 // botão "Versões" dentro da OS
 function rmHistDaOS(osId){
-  rmHistFiltroReg = { tabela:'recepcoes', id: osId };
+  rmHistFiltroReg = { tabela:'recepcoes', id: osId }; rmHistFiltroRegAtivo = true;
   const r = rmLoad().find(x => x.id === osId) || {};
   rmHistOverlay(`<b>&#128338; Versões anteriores · ${rmEscapeHtml([r.codigoApp, r.nome, r.modelo].filter(Boolean).join(' · '))}</b>
-    <div style="font-size:12.5px; color:var(--rm-text-dim); margin:4px 0 10px">Como a OS estava antes de cada alteração (últimos 12 meses).</div>
+    <div style="font-size:12.5px; color:var(--rm-text-dim); margin:4px 0 10px">Cada linha é uma alteração feita nesta OS. Clique em <b>"Ver o que mudou"</b> para ver antes e depois.</div>
     
     <div id="rm-hist-corpo"></div>
-    <div style="display:flex; justify-content:flex-end; margin-top:12px"><button class="rm-primary" style="width:auto; margin:0; padding:10px 20px" onclick="rmHistFiltroReg=null; rmHistOverlay()">Fechar</button></div>`);
+    <div style="display:flex; justify-content:flex-end; margin-top:12px"><button class="rm-primary" style="width:auto; margin:0; padding:10px 20px" onclick="rmHistFiltroReg=null; rmHistFiltroRegAtivo=false; rmHistOverlay()">Fechar</button></div>`);
   rmHistCarregar().then(() => { rmHistFiltroReg = null; });
 }
 
