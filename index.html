@@ -1743,6 +1743,15 @@
   .rm-os-item .rm-autocomplete-wrap{margin-bottom:0;}
   .rm-os-lapis{flex:none; width:44px; display:flex; align-items:center; justify-content:center; padding:0; background:#e6e6e6; color:#333; border:1px solid #ccc; border-left:none; border-radius:0; font-size:16px; cursor:pointer;}
   .rm-os-lapis:hover{background:#d4d4d4;}
+  .rm-os-salvar-bar{display:flex; justify-content:flex-end; align-items:center; gap:10px; margin:4px 0 14px; flex-wrap:wrap;}
+  .rm-os-auto{font-size:12.5px; color:var(--rm-text-dim); margin-right:4px;}
+  .rm-os-bt{border:none; padding:12px 22px; font-size:15.5px; font-weight:700; cursor:pointer; font-family:inherit; display:inline-flex; align-items:center; gap:8px; color:#fff;}
+  .rm-os-salvar{background:#5cb85c;} .rm-os-salvar:hover{background:#4cae4c;}
+  .rm-os-bt-finalizar{background:#2f6fb5;} .rm-os-bt-finalizar:hover{background:#285f9b;}
+  .rm-os-bt-imprimir{background:var(--rm-panel); color:var(--rm-text); border:1px solid var(--rm-border);}
+  .rm-os-bt-excluir{background:transparent; color:#d9433a; border:1px solid #d9433a; margin-right:auto; font-size:14px; padding:11px 16px;}
+  .rm-os-bt-excluir:hover{background:#d9433a; color:#fff;}
+  @media (max-width:640px){ .rm-os-salvar-bar .rm-os-auto{width:100%; text-align:right;} .rm-os-bt{flex:1; justify-content:center;} .rm-os-bt-excluir{order:9; flex-basis:100%;} }
   .rm-os-finalizar{width:100%; background:#5cb85c; color:#fff; border:none; border-radius:0; padding:16px; font-size:18px; font-weight:700; cursor:pointer; margin-bottom:18px;}
   .rm-os-finalizar:hover{background:#4cae4c;}
   .rm-os-finalizada{background:#dff0d8; color:#3c763d; border:1px solid #c3e6cb; padding:14px 16px; font-size:16px; font-weight:600; margin-bottom:18px;}
@@ -1900,7 +1909,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.13-23h55</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.14-00h15</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -13285,18 +13294,33 @@ function rmOpenModal(id, large){
       <textarea class="rm-input" id="rm-modal-anotacoes" onchange="rmUpdateField('${r.id}','anotacoes',this.value.trim().toUpperCase())">${r.anotacoes||''}</textarea>
       </div>
 
-      ${r.pago
-        ? `<button class="rm-pe2-btn" style="float:right; margin:8px 10px 0 0;" onclick="rmImprimirOSA4('${r.id}')">&#128424; Imprimir</button><div class="rm-os-finalizada">&#10004; Moto finalizada e paga${r.pagoEm?' em '+rmDataHoraBR(r.pagoEm):''}${r.formaPagamento?' · '+r.formaPagamento:''}</div>`
-        : `<button class="rm-os-finalizar" onclick="rmOsFinalizar('${r.id}')">Finalizar moto</button>`}
+      ${r.pago ? `<div class="rm-os-finalizada">&#10004; Moto finalizada e paga${r.pagoEm?' em '+rmDataHoraBR(r.pagoEm):''}${r.formaPagamento?' · '+r.formaPagamento:''}</div>` : ''}
+      <div class="rm-os-salvar-bar">
+        <button class="rm-os-bt rm-os-bt-excluir" onclick="rmExcluirRecepcao('${r.id}')">&#128465; Excluir moto</button>
+        <span class="rm-os-auto">&#10004; Tudo o que você lança já é salvo automaticamente</span>
+        ${r.pago ? `<button class="rm-os-bt rm-os-bt-imprimir" onclick="rmImprimirOSA4('${r.id}')">&#128424; Imprimir</button>` : ''}
+        ${r.pago ? '' : `<button class="rm-os-bt rm-os-bt-finalizar" onclick="rmOsFinalizar('${r.id}')">&#10004; Finalizar moto</button>`}
+        <button class="rm-os-bt rm-os-salvar" onclick="rmOsSalvarManual('${r.id}')">&#128190; Salvar</button>
+      </div>
     </div>
-
-    <button class="rm-btn-excluir" onclick="rmExcluirRecepcao('${r.id}')">Excluir esta moto</button>
   `;
 
   rmOsAtualizarTotais(r);
   document.getElementById('rm-modal-backdrop').classList.add('show');
 }
 
+// botão Salvar da OS: confirma o que estiver sendo digitado, grava e fecha
+function rmOsSalvarManual(id){
+  const a = document.activeElement;
+  if(a && a.blur && a.closest && a.closest('#rm-modal')) a.blur(); // dispara o "onchange" do campo que estava sendo editado
+  setTimeout(async () => {
+    const r = rmLoad().find(x => x.id === id); if(!r) return;
+    rmDbUpsertRecepcao(r);
+    const ok = await rmOutboxEnviar();
+    rmShowToast(ok ? (r.codigoApp || 'OS') + ' salva' : (r.codigoApp || 'OS') + ' salva no aparelho · envia quando a internet voltar');
+    rmCloseModal();
+  }, 60);
+}
 function rmCloseModal(){
   if(typeof rmHideFotoPreview === 'function') rmHideFotoPreview();
   if(rmOsItensPendentes && !rmOsAbrirDepois) rmOsItensPendentes = null;
