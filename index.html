@@ -1900,7 +1900,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.13-23h45</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.13-23h55</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -10688,7 +10688,7 @@ function rmAbrirRecepcaoRapida(){
     <div class="rm-modal-section">
       <span class="rm-modal-section-label">Problemas relatados</span>
       <div class="rm-mec-add-row" style="margin-bottom:10px;">
-        <input class="rm-input" id="rm-qf-problema-novo" autocapitalize="characters" onkeydown="if(event.key==='Enter'){event.preventDefault(); rmAdicionarProblemaQuick();}">
+        <input class="rm-input" id="rm-qf-problema-novo" autocapitalize="characters" onkeydown="if(event.key==='Enter'){event.preventDefault(); if(this.value.trim()) rmAdicionarProblemaQuick(); else document.getElementById('rm-qf-modelo').focus();}">
         <button class="rm-btn-add" onclick="rmAdicionarProblemaQuick()">OK</button>
       </div>
       <div class="rm-problema-list" id="rm-qf-problema-lista"></div>
@@ -10698,6 +10698,40 @@ function rmAbrirRecepcaoRapida(){
       <span class="rm-modal-section-label">Moto</span>
       <label class="rm-label">Modelo</label>
       <input class="rm-input" id="rm-qf-modelo" autocapitalize="characters">
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Oficina</span>
+      <label class="rm-label">Mecânico responsável (opcional)</label>
+      <select class="rm-input" id="rm-qf-mecanico">${rmMecanicoOptionsHtml('')}</select>
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Foto da moto (opcional)</span>
+      <input type="file" accept="image/*" id="rm-qf-foto" style="display:none;" onchange="rmPreviewFoto(this, 'quick')">
+      <button type="button" class="rm-btn-add" style="width:100%;" onclick="document.getElementById('rm-qf-foto').click()">Escolher foto</button>
+      <div id="rm-qf-foto-preview" class="rm-foto-preview"></div>
+    </div>
+    </div>
+
+    <div class="rm-modal-col">
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Cliente (opcional)</span>
+      <label class="rm-label">Nome</label>
+      <div class="rm-autocomplete-wrap" id="rm-qf-cliente-wrap">
+        <input class="rm-input" id="rm-qf-nome" autocapitalize="characters" autocomplete="off" oninput="rmBuscarClienteQuick(this.value)" onfocus="rmBuscarClienteQuick(this.value)">
+        <div class="rm-autocomplete-list" id="rm-qf-cliente-lista"></div>
+      </div>
+      <label class="rm-label">WhatsApp</label>
+      <input class="rm-input" id="rm-qf-telefone" inputmode="tel" autocomplete="tel">
+      <label class="rm-label">Observação (opcional)</label>
+      <input class="rm-input" id="rm-qf-observacao" autocapitalize="characters">
+      <label class="rm-label">Itens deixados (opcional)</label>
+      <input class="rm-input" id="rm-qf-itens" autocapitalize="characters">
+    </div>
+
+    <div class="rm-modal-section">
+      <span class="rm-modal-section-label">Entrega</span>
       <div class="rm-toggle-row">
         <span class="rm-toggle-row-label">Entregar ao cliente</span>
         <label class="rm-switch">
@@ -10714,36 +10748,6 @@ function rmAbrirRecepcaoRapida(){
       </div>
     </div>
     </div>
-
-    <div class="rm-modal-col">
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Cliente (opcional)</span>
-      <label class="rm-label">Nome</label>
-      <div class="rm-autocomplete-wrap" id="rm-qf-cliente-wrap">
-        <input class="rm-input" id="rm-qf-nome" autocapitalize="characters" autocomplete="off" oninput="rmBuscarClienteQuick(this.value)" onfocus="rmBuscarClienteQuick(this.value)">
-        <div class="rm-autocomplete-list" id="rm-qf-cliente-lista"></div>
-      </div>
-      <label class="rm-label">Observação (opcional)</label>
-      <input class="rm-input" id="rm-qf-observacao" autocapitalize="characters">
-      <label class="rm-label">WhatsApp</label>
-      <input class="rm-input" id="rm-qf-telefone" inputmode="tel" autocomplete="tel">
-    </div>
-
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Oficina</span>
-      <label class="rm-label">Mecânico responsável (opcional)</label>
-      <select class="rm-input" id="rm-qf-mecanico">${rmMecanicoOptionsHtml('')}</select>
-      <label class="rm-label">Itens deixados (opcional)</label>
-      <input class="rm-input" id="rm-qf-itens" autocapitalize="characters">
-    </div>
-
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Foto da moto (opcional)</span>
-      <input type="file" accept="image/*" id="rm-qf-foto" style="display:none;" onchange="rmPreviewFoto(this, 'quick')">
-      <button type="button" class="rm-btn-add" style="width:100%;" onclick="document.getElementById('rm-qf-foto').click()">Escolher foto</button>
-      <div id="rm-qf-foto-preview" class="rm-foto-preview"></div>
-    </div>
-    </div>
     </div>
 
     <div class="rm-submit-bar rm-qf-botoes">
@@ -10753,7 +10757,7 @@ function rmAbrirRecepcaoRapida(){
   `;
   document.getElementById('rm-modal-backdrop').classList.add('show');
   rmRenderQuickFormProblemas();
-  setTimeout(()=>{ const f = document.getElementById('rm-qf-modelo'); if(f) f.focus(); }, 150);
+  setTimeout(()=>{ const f = document.getElementById('rm-qf-problema-novo'); if(f) f.focus(); }, 150); // o cursor começa nos problemas
 }
 
 function rmAdicionarProblemaQuick(){
