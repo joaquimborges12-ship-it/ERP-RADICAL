@@ -1627,6 +1627,7 @@
   html[data-tema="dark"] .rm-fila-status{background:#4a3a10; color:#ffd77a;}
   .rm-submit-bar:has(.rm-reg-pecas){display:flex; gap:10px;}
   .rm-submit-bar .rm-reg-btn{flex:1; margin:0;}
+  .rm-qf-botoes{position:static !important; padding:0 !important; border:none !important; background:none !important; box-shadow:none !important; margin-top:6px;}
   .rm-submit-bar .rm-reg-pecas{background:#2f6fb5;}
   .rm-submit-bar .rm-reg-pecas:hover{background:#285f9b;}
   @media (max-width:560px){ .rm-submit-bar:has(.rm-reg-pecas){flex-direction:column; gap:8px;} }
@@ -1899,7 +1900,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.13-23h35</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.13-23h45</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -10745,7 +10746,10 @@ function rmAbrirRecepcaoRapida(){
     </div>
     </div>
 
-    <button class="rm-primary" onclick="rmSalvarRecepcaoRapida()">Registrar entrada</button>
+    <div class="rm-submit-bar rm-qf-botoes">
+      <button class="rm-primary rm-reg-btn" onclick="rmSalvarRecepcaoRapida()">Registrar entrada</button>
+      <button class="rm-primary rm-reg-btn rm-reg-pecas" onclick="rmSalvarRecepcaoRapida(true)" title="Registra e já abre a OS com a busca de produtos">&#128295; Registrar e lançar peças</button>
+    </div>
   `;
   document.getElementById('rm-modal-backdrop').classList.add('show');
   rmRenderQuickFormProblemas();
@@ -10820,7 +10824,7 @@ function rmEscolherClienteQuick(clienteId){
   document.getElementById('rm-qf-cliente-lista').classList.remove('show');
 }
 
-function rmSalvarRecepcaoRapida(){
+function rmSalvarRecepcaoRapida(lancarPecas){
   const nome = document.getElementById('rm-qf-nome').value.trim().toUpperCase();
   const modelo = document.getElementById('rm-qf-modelo').value.trim().toUpperCase();
   if(!modelo){
@@ -10863,6 +10867,7 @@ function rmSalvarRecepcaoRapida(){
   rmShowToast(registro.codigoApp + ' registrado com sucesso');
   rmLog('Criou OS', registro.codigoApp, [registro.nome, registro.modelo].filter(Boolean).join(' · '));
   rmCloseModal();
+  if(lancarPecas){ rmOsAbrirDepois = null; rmOpenModal(registro.id, true); setTimeout(() => { if(typeof rmOsAbrirBusca === 'function') rmOsAbrirBusca(); }, 60); return; }
   rmAbrirOsPendente();
 }
 
