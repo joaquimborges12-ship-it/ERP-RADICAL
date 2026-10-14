@@ -1623,6 +1623,14 @@
   .rm-inv-acoes button:hover{color:var(--rm-accent); border-color:var(--rm-accent);}
   .rm-inv-item.rm-inv-inativo{opacity:0.55;} .rm-inv-item.rm-inv-inativo .rm-inv-qtd{pointer-events:none;}
   .rm-inv-inat-tag{display:inline-block; background:#777; color:#fff; font-size:11px; font-weight:800; padding:1px 7px; margin-right:6px;}
+  .rm-fila-status{font-size:11.5px; font-weight:700; color:#b26a00; background:#fff3cd; padding:5px 8px; margin:4px 10px 0; line-height:1.3;}
+  html[data-tema="dark"] .rm-fila-status{background:#4a3a10; color:#ffd77a;}
+  .rm-submit-bar:has(.rm-reg-pecas){display:flex; gap:10px;}
+  .rm-submit-bar .rm-reg-btn{flex:1; margin:0;}
+  .rm-submit-bar .rm-reg-pecas{background:#2f6fb5;}
+  .rm-submit-bar .rm-reg-pecas:hover{background:#285f9b;}
+  @media (max-width:560px){ .rm-submit-bar:has(.rm-reg-pecas){flex-direction:column; gap:8px;} }
+  @media (max-width:760px){ .rm-submit-bar:has(.rm-reg-pecas){margin-bottom:170px;} }
   .rm-lem-vazio{color:var(--rm-text-dim); font-size:14px; margin:14px 0;}
   .rm-lem-vistos{margin-top:28px; border-top:1px solid var(--rm-border); padding-top:12px;}
   .rm-lem-vistos summary{cursor:pointer; font-weight:700; color:var(--rm-text-dim); margin-bottom:12px;}
@@ -1889,7 +1897,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.12-00h20</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.13-23h00</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2156,7 +2164,8 @@
         </div>
 
         <div class="rm-submit-bar">
-          <button class="rm-primary" onclick="rmSalvarRecepcao()">Registrar entrada</button>
+          <button class="rm-primary rm-reg-btn" onclick="rmSalvarRecepcao()">Registrar entrada</button>
+          <button class="rm-primary rm-reg-btn rm-reg-pecas" onclick="rmSalvarRecepcao(true)" title="Registra e já abre a OS com a busca de produtos">&#128295; Registrar e lançar peças</button>
         </div>
       </div>
     </section>
@@ -2666,7 +2675,7 @@
         </div>
       </div>
       <div id="rm-view-fin-prom" class="rm-view">
-        <h1 class="rm-title" style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">Vendas a prazo <span style="display:flex; gap:6px; flex-wrap:wrap;"><button class="rm-pe2-btn rm-so-admin-fin" onclick="rmConferirRecebimentos()" title="Compara o livro-caixa com as notas e restaura algum recebimento que tenha sumido">&#128737; Conferir recebimentos</button><button class="rm-pe2-btn rm-so-admin-fin" onclick="rmImpAbrir()" title="Trazer as notas a receber do sistema antigo">&#128229; Importar do sistema antigo</button></span></h1>
+        <h1 class="rm-title" style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">Vendas a prazo <span style="display:flex; gap:6px; flex-wrap:wrap;"><button class="rm-pe2-btn rm-so-admin-fin" onclick="rmConferirRecebimentos()" title="Compara o livro-caixa com as notas e restaura algum recebimento que tenha sumido">&#128737; Conferir recebimentos</button><button class="rm-pe2-btn rm-so-admin-fin" onclick="rmImpAbrir()" title="Trazer as notas a receber do sistema antigo">&#128229; Importar do sistema antigo</button><button class="rm-pe2-btn rm-so-admin-fin" onclick="rmValBaixoAbrir()" title="Notas com valor menor que R$ 5 (o sistema antigo mostrava 1.400 como 1,4)">&#128290; Corrigir valores baixos</button></span></h1>
         <div class="rm-toolbar">
           <input class="rm-search" id="rm-fin-prom-busca" placeholder="Buscar por cliente ou código da venda..." oninput="rmRenderFinProm()">
           <select class="rm-date-select" id="rm-fin-prom-status" onchange="rmRenderFinProm()">
@@ -4698,10 +4707,7 @@ function rmConverterOrcamentoEmVenda(id){
   rmShowToast('Orçamento carregado — escolha a forma de pagamento e finalize a venda');
 }
 
-async function rmDbDeleteVenda(id){
-  const { error } = await rmSb.from('vendas').delete().eq('id', id);
-  if(error) console.error('Supabase delete venda:', error);
-}
+async function rmDbDeleteVenda(id){ rmOutboxPor('vendas', id, 'del'); }
 
 function rmExcluirVenda(id){
   { const vv = rmLoadVendas().find(x => x.id === id); if(vv) setTimeout(() => { if(!rmLoadVendas().some(x => x.id === id)) rmLog('Excluiu venda', vv.codigoVenda, rmFormatMoeda(vv.total)); }, 500); }
@@ -4929,23 +4935,94 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
 
 // grava a OS; se o banco ainda não tiver alguma coluna nova, tira ela e tenta de novo (não perde a OS)
 let rmColunasFaltando = new Set();
-async function rmDbUpsertRecepcao(record){
-  let row = rmToDbRow(record);
-  rmColunasFaltando.forEach(c => delete row[c]);
+// ===================== CAIXA DE SAÍDA (nada se perde sem internet) =====================
+// Toda gravação de OS, venda, cliente e produto entra primeiro numa fila guardada no aparelho.
+// Só sai da fila quando o Supabase confirma. Enquanto estiver na fila, a sincronização NUNCA
+// troca a versão do aparelho pela do servidor (era isso que fazia as alterações feitas sem internet sumirem).
+const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
+let rmOutbox = {};
+try{ rmOutbox = JSON.parse(localStorage.getItem(RM_OUTBOX_KEY)) || {}; }catch(e){ rmOutbox = {}; }
+function rmOutboxGravar(){ try{ localStorage.setItem(RM_OUTBOX_KEY, JSON.stringify(rmOutbox)); }catch(e){ console.warn('fila de envio cheia?', e); } rmOutboxStatus(); }
+function rmOutboxPor(tabela, id, op, row){
+  if(id == null) return;
+  rmOutbox[tabela + ':' + id] = { tabela, id, op, row: row || null, t: Date.now() + Math.random() };
+  rmOutboxGravar();
+  clearTimeout(rmOutboxTimer); rmOutboxTimer = setTimeout(rmOutboxEnviar, 50);
+}
+let rmOutboxTimer = null, rmOutboxEnviando = null;
+function rmOutboxQtd(){ return Object.keys(rmOutbox).length; }
+function rmOutboxStatus(){
+  const n = rmOutboxQtd();
+  let el = document.getElementById('rm-fila-status');
+  const lab = document.getElementById('rm-sync-label');
+  if(!el && lab){ el = document.createElement('div'); el.id = 'rm-fila-status'; el.className = 'rm-fila-status'; lab.parentElement.parentElement.insertBefore(el, lab.parentElement.nextSibling); }
+  if(el){ el.style.display = n ? '' : 'none'; el.textContent = n ? '⏳ ' + n + ' alteração(ões) guardada(s) no aparelho · envia quando a internet voltar' : ''; }
+}
+async function rmOutboxEnviarRecepcoes(rows){
   for(let t = 0; t < 6; t++){
-    const { error } = await rmSb.from('recepcoes').upsert(row);
-    if(!error){ rmSetOnlineStatus(true); return; }
+    rows.forEach(r => rmColunasFaltando.forEach(c => delete r[c]));
+    const { error } = await rmSb.from('recepcoes').upsert(rows);
+    if(!error) return null;
     const m = /column ["']?([a-z_]+)["']? of|Could not find the '([a-z_]+)' column/i.exec(error.message || '');
     const col = m && (m[1] || m[2]);
-    if(col && col in row){
-      rmColunasFaltando.add(col); delete row[col];
+    if(col && rows.some(r => col in r)){
+      rmColunasFaltando.add(col);
       console.warn('Coluna "' + col + '" não existe na tabela recepcoes. Rode o SQL pendente no Supabase.');
       if(!rmAvisoColuna){ rmAvisoColuna = true; rmShowToast('Falta rodar um SQL no Supabase (coluna ' + col + '). A OS foi salva sem esse dado.'); }
       continue;
     }
-    console.error('Supabase upsert recepcao:', error); rmSetOnlineStatus(false); return;
+    return error;
   }
+  return new Error('colunas');
 }
+function rmOutboxEnviar(){
+  if(rmOutboxEnviando) return rmOutboxEnviando;
+  rmOutboxEnviando = (async () => {
+    try{
+      const itens = Object.values(rmOutbox).sort((a, b) => a.t - b.t);
+      if(!itens.length) return true;
+      const tabelas = [...new Set(itens.map(i => i.tabela))];
+      let tudoOk = true;
+      for(const tab of tabelas){
+        const ups = itens.filter(i => i.tabela === tab && i.op === 'up'), dels = itens.filter(i => i.tabela === tab && i.op === 'del');
+        for(let k = 0; k < ups.length; k += 200){
+          const lote = ups.slice(k, k + 200);
+          const rows = lote.map(i => Object.assign({}, i.row));
+          let erro = null;
+          try{ erro = tab === 'recepcoes' ? await rmOutboxEnviarRecepcoes(rows) : (await rmSb.from(tab).upsert(rows)).error; }catch(e){ erro = e; }
+          if(erro){ console.warn('fila de envio (' + tab + '):', erro); tudoOk = false; break; }
+          lote.forEach(i => { const atual = rmOutbox[tab + ':' + i.id]; if(atual && atual.t === i.t) delete rmOutbox[tab + ':' + i.id]; });
+          rmOutboxGravar();
+        }
+        if(dels.length){
+          let erro = null;
+          try{ erro = (await rmSb.from(tab).delete().in('id', dels.map(i => i.id))).error; }catch(e){ erro = e; }
+          if(erro){ console.warn('fila de envio (apagar ' + tab + '):', erro); tudoOk = false; }
+          else { dels.forEach(i => { const atual = rmOutbox[tab + ':' + i.id]; if(atual && atual.t === i.t) delete rmOutbox[tab + ':' + i.id]; }); rmOutboxGravar(); }
+        }
+      }
+      if(tudoOk) rmSetOnlineStatus(true); else rmSetOnlineStatus(false);
+      return tudoOk;
+    } finally { setTimeout(() => { rmOutboxEnviando = null; }, 0); }
+  })();
+  return rmOutboxEnviando;
+}
+// aplica por cima da lista do servidor o que ainda está na fila (o aparelho tem a versão mais nova)
+function rmOutboxSobrepor(tabela, lista, deRow){
+  const pend = Object.values(rmOutbox).filter(i => i.tabela === tabela);
+  if(!pend.length) return lista;
+  const apagar = new Set(pend.filter(i => i.op === 'del').map(i => String(i.id)));
+  const novos = new Map(pend.filter(i => i.op === 'up').map(i => [String(i.id), deRow(i.row)]));
+  const out = lista.filter(x => !apagar.has(String(x.id))).map(x => novos.has(String(x.id)) ? novos.get(String(x.id)) : x);
+  const tem = new Set(out.map(x => String(x.id)));
+  novos.forEach((v, id) => { if(!tem.has(id)) out.unshift(v); });
+  return out;
+}
+window.addEventListener('online', () => { rmOutboxEnviar().then(ok => { if(ok && typeof rmSyncFromSupabase === 'function') rmSyncFromSupabase(); }); });
+setInterval(() => { if(rmOutboxQtd()) rmOutboxEnviar(); }, 15000);
+setTimeout(rmOutboxStatus, 1500);
+
+async function rmDbUpsertRecepcao(record){ rmOutboxPor('recepcoes', record.id, 'up', rmToDbRow(record)); }
 let rmAvisoColuna = false;
 
 async function rmDbInsertMecanico(nome){
@@ -4976,6 +5053,7 @@ async function rmSelectTudo(tabela, colunas, ordem){
 }
 
 async function rmSyncFromSupabase(){
+  await rmOutboxEnviar(); // primeiro manda o que ficou guardado no aparelho
   const [recepcoesRes, mecanicosRes, clientesRes, vendasRes, produtosRes, avisosRes] = await Promise.all([
     rmSelectTudo('recepcoes', '*'),
     rmSelectTudo('mecanicos', 'nome', 'nome'),
@@ -4990,11 +5068,12 @@ async function rmSyncFromSupabase(){
     return;
   }
   rmSetOnlineStatus(true);
-  const recepcoes = recepcoesRes.data.map(rmFromDbRow);
+  // o que ainda não foi confirmado pelo servidor continua valendo a versão do aparelho
+  const recepcoes = rmOutboxSobrepor('recepcoes', recepcoesRes.data.map(rmFromDbRow), rmFromDbRow);
   const mecanicos = mecanicosRes.data.map(m => m.nome);
-  const clientes = clientesRes.data.map(rmFromDbRowCliente);
-  const vendas = vendasRes.data.map(rmFromDbRowVenda);
-  const produtos = produtosRes.data.map(rmFromDbRowProduto);
+  const clientes = rmOutboxSobrepor('clientes', clientesRes.data.map(rmFromDbRowCliente), rmFromDbRowCliente);
+  const vendas = rmOutboxSobrepor('vendas', vendasRes.data.map(rmFromDbRowVenda), rmFromDbRowVenda);
+  const produtos = rmOutboxSobrepor('produtos', produtosRes.data.map(rmFromDbRowProduto), rmFromDbRowProduto);
   const avisos = avisosRes.data.map(rmFromDbRowAviso);
   rmSave(recepcoes);
   rmSaveMecanicos(mecanicos);
@@ -5368,13 +5447,27 @@ function rmComCfg(){ // campos de configuração do modo atual
 }
 async function rmComSync(){
   try{
+    if(localStorage.getItem('radicalMotos_comPend')){ await rmComSalvar(); if(localStorage.getItem('radicalMotos_comPend')) return; }
     const { data, error } = await rmSb.from('configuracoes').select('*').eq('id','comissoes').maybeSingle();
     if(!error && data && data.dados){ rmCom = Object.assign({ padraoServ:30, padraoPecas:0, abaterDesconto:true, mecanicos:{}, pagamentos:[] }, data.dados); localStorage.setItem('radicalMotos_comissoes', JSON.stringify(rmCom)); }
   }catch(e){}
 }
 async function rmComSalvar(){
   localStorage.setItem('radicalMotos_comissoes', JSON.stringify(rmCom));
-  try{ const { error } = await rmSb.from('configuracoes').upsert({ id:'comissoes', dados: rmCom }); if(error) console.error(error); }catch(e){}
+  localStorage.setItem('radicalMotos_comPend', '1');
+  try{
+    // junta os pagamentos de comissão feitos em outro aparelho (nenhum some)
+    const { data, error: e1 } = await rmSb.from('configuracoes').select('*').eq('id','comissoes').maybeSingle();
+    if(e1) throw e1;
+    const rem = (data && data.dados && data.dados.pagamentos) || [];
+    const ids = new Set((rmCom.pagamentos || []).map(p => p.id || JSON.stringify(p)));
+    const apagados = new Set(rmCom.pagamentosApagados || []);
+    rem.forEach(p => { const k = p.id || JSON.stringify(p); if(!ids.has(k) && !apagados.has(k)) rmCom.pagamentos.push(p); });
+    const { error } = await rmSb.from('configuracoes').upsert({ id:'comissoes', dados: rmCom });
+    if(error) throw error;
+    localStorage.setItem('radicalMotos_comissoes', JSON.stringify(rmCom));
+    localStorage.removeItem('radicalMotos_comPend');
+  }catch(e){ console.warn('comissões (fica no aparelho, envia depois):', e); setTimeout(() => { if(localStorage.getItem('radicalMotos_comPend')) rmComSalvar(); }, 30000); }
 }
 function rmComPerc(mec){
   const c = rmComCfg(); const m = c.mapa[mec] || {};
@@ -5649,8 +5742,10 @@ function rmComMarcarPago(mec, valor){
   const r = rmComRange(); if(!r){ alert('Escolha o período.'); return; }
   const de = rmComIso(r.start), ate = rmComIso(new Date(r.end.getTime() - 1));
   if(!confirm(`Marcar a comissão de ${mec} como PAGA?\nPeríodo: ${rmDataBR(de)} a ${rmDataBR(ate)}\nValor: ${rmFormatMoeda(valor)}`)) return;
-  rmCom.pagamentos = (rmCom.pagamentos || []).filter(p => !(p.mecanico === mec && p.de === de && p.ate === ate && (p.modo || 'mec') === rmComModo));
-  rmCom.pagamentos.push({ mecanico: mec, modo: rmComModo, de, ate, valor, em: new Date().toISOString(), por: rmNomeUsuario() });
+  const igual = p => p.mecanico === mec && p.de === de && p.ate === ate && (p.modo || 'mec') === rmComModo;
+  rmCom.pagamentosApagados = (rmCom.pagamentosApagados || []).concat((rmCom.pagamentos || []).filter(igual).map(p => p.id || JSON.stringify(p)));
+  rmCom.pagamentos = (rmCom.pagamentos || []).filter(p => !igual(p));
+  rmCom.pagamentos.push({ id: 'cp' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), mecanico: mec, modo: rmComModo, de, ate, valor, em: new Date().toISOString(), por: rmNomeUsuario() });
   rmComSalvar(); rmRenderComissao();
   rmLog('Pagou comissão', mec, rmFormatMoeda(valor) + ' · ' + rmDataBR(de) + ' a ' + rmDataBR(ate));
 }
@@ -5658,6 +5753,7 @@ function rmComDesfazerPago(mec){
   const p = rmComPagoNoPeriodo(mec); if(!p) return;
   if(!confirm('Desfazer o pagamento da comissão de ' + mec + '?')) return;
   rmCom.pagamentos = rmCom.pagamentos.filter(x => x !== p);
+  rmCom.pagamentosApagados = (rmCom.pagamentosApagados || []).concat([p.id || JSON.stringify(p)]);
   rmComSalvar(); rmRenderComissao();
   rmLog('Desfez pagamento de comissão', mec, rmFormatMoeda(p.valor));
 }
@@ -6343,6 +6439,71 @@ async function rmImpLer(files){
     <div class="rm-imp-acoes"><span id="rm-imp-prog"></span><button class="rm-primary" style="width:auto; margin:0; padding:12px 26px;" onclick="rmImpConfirmar()">Importar ${notas.length} nota(s)</button></div>`
     : '<div class="rm-problema-empty" style="padding:16px;">Nenhuma nota nova para importar.</div>'}`;
 }
+// ===== Corrigir valores baixos (o sistema antigo gravava 1.400 como 1,4) =====
+// Lista as parcelas abaixo de R$ 5, sugere ×1000 e só muda o que você confirmar. Cada mudança fica no Registro.
+const RM_VALBAIXO_LIM = 5;
+function rmValBaixoItens(){
+  const out = [];
+  rmLoadProms().forEach(n => (n.parcelas || []).forEach(p => {
+    const v = Number(p.valor) || 0;
+    if(v > 0 && v < RM_VALBAIXO_LIM) out.push({ n, p, v, pago: rmParcPago(p) });
+  }));
+  return out.sort((a, b) => String(a.n.clienteNome || '').localeCompare(String(b.n.clienteNome || '')) || String(a.p.vencimento).localeCompare(String(b.p.vencimento)));
+}
+function rmValBaixoAbrir(){
+  const itens = rmValBaixoItens();
+  const modal = document.getElementById('rm-modal');
+  modal.classList.remove('rm-modal-os'); modal.classList.add('rm-modal-large');
+  modal.innerHTML = `
+    <div class="rm-modal-header"><div><div class="rm-modal-title">&#128290; Corrigir valores baixos</div>
+      <div class="rm-modal-sub">Parcelas com valor menor que ${rmFormatMoeda(RM_VALBAIXO_LIM)} · ${itens.length} encontrada(s)</div></div>
+      <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
+    <div style="grid-column:1/-1;">
+      ${itens.length ? `
+      <div class="rm-fam-dica">O sistema antigo mostrava <b>1.400</b> como <b>1,4</b>. O valor sugerido é <b>× 1.000</b>. <b>Confira no sistema antigo ou na nota de papel</b> e corrija o que precisar antes de salvar. Desmarque o que estiver certo.</div>
+      <div style="overflow-x:auto"><table class="rm-imp-tab"><thead><tr><th></th><th>Cliente</th><th>Nº</th><th>Parcela</th><th>Vencimento</th><th class="r">Valor hoje</th><th class="r">Valor correto</th><th>Obs.</th></tr></thead><tbody>
+        ${itens.map((x, k) => `<tr>
+          <td><input type="checkbox" class="rm-vb-chk" data-k="${k}" checked style="width:18px;height:18px"></td>
+          <td>${rmEscapeHtml(x.n.clienteNome || '')}</td><td>${rmEscapeHtml(x.n.refCodigo || '')}</td>
+          <td>${rmEscapeHtml(x.p.rotulo || String(x.p.n))}</td><td>${rmDataBR(x.p.vencimento)}</td>
+          <td class="r" style="color:#c62828; font-weight:700">${rmFormatMoeda(x.v)}</td>
+          <td class="r"><input class="rm-input rm-vb-val" data-k="${k}" inputmode="decimal" value="${rmFmtNum(Math.round(x.v * 1000 * 100) / 100)}" style="width:120px; margin:0; text-align:right; font-weight:800"></td>
+          <td style="font-size:12px">${x.pago > 0.004 ? `<span class="rm-inv-neg">já recebido ${rmFormatMoeda(x.pago)} nessa parcela</span>` : ''}${x.n.origem === 'Antigo' ? '<span style="color:var(--rm-text-dim)">importada</span>' : ''}</td>
+        </tr>`).join('')}
+      </tbody></table></div>
+      <div class="rm-imp-acoes"><span style="font-size:13px; color:var(--rm-text-dim)">O total de cada nota é recalculado. Os recebimentos já lançados não são alterados.</span>
+        <button class="rm-primary" style="width:auto; margin:0; padding:12px 26px;" onclick="rmValBaixoSalvar()">&#10004; Corrigir os marcados</button></div>`
+      : '<div class="rm-problema-empty" style="padding:18px">Nenhuma parcela com valor abaixo de ' + rmFormatMoeda(RM_VALBAIXO_LIM) + '. Tudo certo 👍</div>'}
+    </div>`;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+function rmValBaixoSalvar(){
+  const itens = rmValBaixoItens();
+  const escolhas = [...document.querySelectorAll('.rm-vb-chk:checked')].map(c => {
+    const k = +c.dataset.k, inp = document.querySelector(`.rm-vb-val[data-k="${k}"]`);
+    return { x: itens[k], novo: rmParseMoeda(inp ? inp.value : '') };
+  }).filter(e => e.x && e.novo > 0 && Math.abs(e.novo - e.x.v) > 0.004);
+  if(!escolhas.length){ alert('Nada para corrigir.'); return; }
+  const soma = escolhas.reduce((s, e) => s + e.novo, 0);
+  if(!confirm(`Corrigir ${escolhas.length} parcela(s)?\nNovo total dessas parcelas: ${rmFormatMoeda(soma)}`)) return;
+  const lista = rmLoadProms(), mudadas = new Map();
+  escolhas.forEach(e => {
+    const nota = lista.find(n => n.id === e.x.n.id); if(!nota) return;
+    const p = nota.parcelas.find(q => q.n === e.x.p.n && q.vencimento === e.x.p.vencimento) || nota.parcelas.find(q => q.n === e.x.p.n);
+    if(!p) return;
+    rmLog('Corrigiu valor de parcela', (nota.refCodigo || '') + ' · ' + (p.rotulo || p.n), rmFormatMoeda(p.valor) + ' → ' + rmFormatMoeda(e.novo) + ' · ' + (nota.clienteNome || ''));
+    p.valor = Math.round(e.novo * 100) / 100;
+    rmParcAtualizar(p);
+    nota.total = Math.round(nota.parcelas.reduce((s, q) => s + (Number(q.valor) || 0), 0) * 100) / 100;
+    mudadas.set(nota.id, nota);
+  });
+  rmSaveProms(lista);
+  mudadas.forEach(n => rmDbUpsertProm(n));
+  rmCloseModal();
+  rmShowToast(escolhas.length + ' parcela(s) corrigida(s)');
+  if(typeof rmRenderFinProm === 'function') rmRenderFinProm();
+}
+
 async function rmImpConfirmar(){
   const D = rmImpDados; if(!D || !D.notas.length) return;
   const tot = D.notas.reduce((s, n) => s + n.total, 0);
@@ -7543,10 +7704,9 @@ function rmFamSugestoes(){
 const RM_CURVA_ORDEM = { A:1, B:2, C:3, D:4 };
 function rmFamMelhorCurva(ps){ return ps.map(p => String(p.curva || '').toUpperCase()).filter(c => RM_CURVA_ORDEM[c]).sort((a,b) => RM_CURVA_ORDEM[a] - RM_CURVA_ORDEM[b])[0] || ''; }
 async function rmDbUpsertProdutosLote(ps){
-  for(let i = 0; i < ps.length; i += 200){
-    try{ const { error } = await rmSb.from('produtos').upsert(ps.slice(i, i + 200).map(rmToDbRowProduto)); if(error) throw error; }
-    catch(e){ console.warn('produtos em lote, enviando um por um:', e); ps.slice(i, i + 200).forEach(p => rmDbUpsertProduto(p)); }
-  }
+  const t = Date.now();
+  ps.forEach((p, i) => { rmOutbox['produtos:' + p.id] = { tabela:'produtos', id:p.id, op:'up', row: rmToDbRowProduto(p), t: t + i / 1000 }; });
+  rmOutboxGravar(); return rmOutboxEnviar();
 }
 // cria (ou junta numa existente) — itens: [{pid, marca}]
 function rmFamCriar(nome, itens, curva, fidExistente, semSalvar){
@@ -8054,15 +8214,8 @@ function rmToDbRowProduto(p){
   };
 }
 
-async function rmDbUpsertProduto(produto){
-  const { error } = await rmSb.from('produtos').upsert(rmToDbRowProduto(produto));
-  if(error) console.error('Supabase upsert produto:', error);
-}
-
-async function rmDbDeleteProduto(id){
-  const { error } = await rmSb.from('produtos').delete().eq('id', id);
-  if(error) console.error('Supabase delete produto:', error);
-}
+async function rmDbUpsertProduto(produto){ rmOutboxPor('produtos', produto.id, 'up', rmToDbRowProduto(produto)); }
+async function rmDbDeleteProduto(id){ rmOutboxPor('produtos', id, 'del'); }
 
 function rmLoadVendas(){ return rmStoreLer(RM_VENDAS_KEY); }
 function rmSaveVendas(list){ rmStoreSalvar(RM_VENDAS_KEY, list); }
@@ -8103,10 +8256,7 @@ function rmToDbRowVenda(v){
   };
 }
 
-async function rmDbUpsertVenda(venda){
-  const { error } = await rmSb.from('vendas').upsert(rmToDbRowVenda(venda));
-  if(error) console.error('Supabase upsert venda:', error);
-}
+async function rmDbUpsertVenda(venda){ rmOutboxPor('vendas', venda.id, 'up', rmToDbRowVenda(venda)); }
 
 function rmLoadClientes(){ return rmStoreLer(RM_CLIENTES_KEY); }
 function rmSaveClientes(list){ rmStoreSalvar(RM_CLIENTES_KEY, list); }
@@ -8143,15 +8293,8 @@ function rmToDbRowCliente(c){
   };
 }
 
-async function rmDbUpsertCliente(cliente){
-  const { error } = await rmSb.from('clientes').upsert(rmToDbRowCliente(cliente));
-  if(error) console.error('Supabase upsert cliente:', error);
-}
-
-async function rmDbDeleteCliente(id){
-  const { error } = await rmSb.from('clientes').delete().eq('id', id);
-  if(error) console.error('Supabase delete cliente:', error);
-}
+async function rmDbUpsertCliente(cliente){ rmOutboxPor('clientes', cliente.id, 'up', rmToDbRowCliente(cliente)); }
+async function rmDbDeleteCliente(id){ rmOutboxPor('clientes', id, 'del'); }
 
 function rmAdicionarMecanico(){
   const input = document.getElementById('rm-novo-mecanico');
@@ -9713,18 +9856,57 @@ let rmPedido = { itens: [] };
 const RM_PEDIDO_KEY = 'radicalMotos_pedido';
 try{ rmPedido = JSON.parse(localStorage.getItem(RM_PEDIDO_KEY)) || { itens: [] }; }catch(e){}
 let rmPedidoTimer = null;
+// lista de pedido: cada item guarda quando mudou; itens apagados ficam numa lista de "removidos".
+// Assim o que foi anotado sem internet (ou em outro aparelho ao mesmo tempo) é JUNTADO, nunca substituído.
+function rmPedidoFoto(){ return new Map(((typeof rmPedido !== 'undefined' && rmPedido && rmPedido.itens) || []).map(i => [i.id, JSON.stringify(Object.assign({}, i, { t: undefined }))])); }
+let rmPedidoVisto = rmPedidoFoto(); // como cada item estava na última gravação (para saber o que mudou e o que foi apagado)
+function rmPedidoCarimbar(){
+  const agora = new Date().toISOString();
+  if(!rmPedido.removidos) rmPedido.removidos = {};
+  const antes = rmPedidoVisto || rmPedidoFoto();
+  const ids = new Set();
+  (rmPedido.itens || []).forEach(i => {
+    if(!i.id) i.id = 'pi' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+    ids.add(i.id);
+    const j = JSON.stringify(Object.assign({}, i, { t: undefined }));
+    if(antes.get(i.id) !== j || !i.t) i.t = agora;
+  });
+  antes.forEach((_, id) => { if(!ids.has(id)) rmPedido.removidos[id] = agora; });
+  rmPedidoVisto = rmPedidoFoto();
+}
+function rmPedidoJuntar(a, b){
+  const rem = Object.assign({}, (a && a.removidos) || {});
+  Object.entries((b && b.removidos) || {}).forEach(([k, v]) => { if(!rem[k] || v > rem[k]) rem[k] = v; });
+  const m = new Map();
+  [...((a && a.itens) || []), ...((b && b.itens) || [])].forEach(i => { const y = m.get(i.id); if(!y || String(i.t || '') > String(y.t || '')) m.set(i.id, i); });
+  const itens = [...m.values()].filter(i => !rem[i.id] || String(i.t || '') > rem[i.id]).sort((x, y) => String(x.criadoEm || '').localeCompare(String(y.criadoEm || '')));
+  return Object.assign({}, b || {}, a || {}, { itens, removidos: rem });
+}
 function rmPedidoSalvar(){
+  rmPedidoCarimbar();
   localStorage.setItem(RM_PEDIDO_KEY, JSON.stringify(rmPedido));
+  localStorage.setItem('radicalMotos_pedidoPend', '1');
   if(typeof rmFabBadge === 'function') rmFabBadge();
   clearTimeout(rmPedidoTimer);
-  rmPedidoTimer = setTimeout(async () => {
-    try{ const { error } = await rmSb.from('configuracoes').upsert({ id:'pedido', dados: rmPedido }); if(error) console.error(error); }catch(e){}
-  }, 600);
+  rmPedidoTimer = setTimeout(rmPedidoEnviar, 600);
+}
+async function rmPedidoEnviar(){
+  try{
+    const { data, error: e1 } = await rmSb.from('configuracoes').select('*').eq('id','pedido').maybeSingle();
+    if(e1) throw e1;
+    rmPedido = rmPedidoJuntar(rmPedido, data && data.dados);
+    const { error } = await rmSb.from('configuracoes').upsert({ id:'pedido', dados: rmPedido });
+    if(error) throw error;
+    localStorage.setItem(RM_PEDIDO_KEY, JSON.stringify(rmPedido));
+    localStorage.removeItem('radicalMotos_pedidoPend');
+    rmPedidoVisto = rmPedidoFoto();
+  }catch(e){ console.warn('pedido (fica no aparelho, envia depois):', e); clearTimeout(rmPedidoTimer); rmPedidoTimer = setTimeout(rmPedidoEnviar, 30000); }
 }
 async function rmPedidoSync(){
   try{
+    if(localStorage.getItem('radicalMotos_pedidoPend')){ await rmPedidoEnviar(); return; }
     const { data, error } = await rmSb.from('configuracoes').select('*').eq('id','pedido').maybeSingle();
-    if(!error && data && data.dados){ rmPedido = data.dados; localStorage.setItem(RM_PEDIDO_KEY, JSON.stringify(rmPedido)); }
+    if(!error && data && data.dados){ rmPedido = rmPedidoJuntar(rmPedido, data.dados); rmPedidoVisto = rmPedidoFoto(); localStorage.setItem(RM_PEDIDO_KEY, JSON.stringify(rmPedido)); }
   }catch(e){}
 }
 
@@ -10681,7 +10863,7 @@ function rmSalvarRecepcaoRapida(){
   rmAbrirOsPendente();
 }
 
-function rmSalvarRecepcao(){
+function rmSalvarRecepcao(lancarPecas){
   const nome = document.getElementById('rm-f-nome').value.trim().toUpperCase();
   const modelo = document.getElementById('rm-f-modelo').value.trim().toUpperCase();
   if(!modelo){
@@ -10735,6 +10917,8 @@ function rmSalvarRecepcao(){
   rmLog('Criou OS', registro.codigoApp, [registro.nome, registro.modelo].filter(Boolean).join(' · '));
   rmPendingCode = null;
   rmPrepareNewOS();
+  // já abre a OS com a busca de produtos (sem precisar fechar e abrir de novo)
+  if(lancarPecas){ rmOpenModal(registro.id, true); setTimeout(() => { if(typeof rmOsAbrirBusca === 'function') rmOsAbrirBusca(); }, 60); }
 }
 
 function rmShowFotoPreview(ev, url){
@@ -12431,10 +12615,7 @@ function rmExcluirRecepcao(id){
   rmShowToast('Moto excluída');
 }
 
-async function rmDbDeleteRecepcao(id){
-  const { error } = await rmSb.from('recepcoes').delete().eq('id', id);
-  if(error) console.error('Supabase delete recepcao:', error);
-}
+async function rmDbDeleteRecepcao(id){ rmOutboxPor('recepcoes', id, 'del'); }
 
 let rmActiveModalLarge = false;
 
