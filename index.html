@@ -1304,6 +1304,16 @@
   .vg-hero-stats small{color:#a9adb5; font-size:12px;}
   .vg-chip{display:inline-block; font-size:11.5px; font-weight:700; padding:2px 7px; width:max-content;}
   .vg-chip-up{background:rgba(46,139,87,0.18); color:#3fbf78;} .vg-chip-down{background:rgba(217,67,58,0.18); color:#f07068;}
+  .vg-entrou{display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:12px; padding:14px 18px; background:var(--rm-panel, #fff); border:1px solid var(--rm-border, #e3e3e3); border-left:5px solid #1e8e3e;}
+  .vg-entrou-ic{font-size:28px;}
+  .vg-entrou-txt{display:flex; flex-direction:column; min-width:200px;}
+  .vg-entrou-txt span{font-size:13px; color:var(--rm-text-dim, #666); font-weight:600;}
+  .vg-entrou-txt b{font-size:26px; color:#1e8e3e;}
+  .vg-entrou-det{display:flex; gap:22px; flex-wrap:wrap; margin-left:auto;}
+  .vg-entrou-det div{display:flex; flex-direction:column;}
+  .vg-entrou-det span{font-size:12px; color:var(--rm-text-dim, #666);}
+  .vg-entrou-det b{font-size:15px;}
+  html[data-tema="dark"] .vg-entrou-txt b{color:#5fd07f;}
   .vg-kpis{display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:10px; margin-top:12px;}
   .vg-kpi{display:flex; align-items:center; gap:12px; background:var(--rm-panel); border:1px solid var(--rm-border); border-bottom:3px solid var(--c); padding:12px 14px; transition:box-shadow .15s;}
   .vg-kpi:hover{box-shadow:var(--rm-shadow);}
@@ -1937,7 +1947,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.14-12h25</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.15-00h20</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -1956,13 +1966,16 @@
         <div class="vg-togs" id="rm-vg-blocos"></div>
         <button class="vg-tog" id="rm-vg-olho" onclick="rmVgOlho()" title="Mostrar ou ocultar os valores em dinheiro">&#128065; Valores</button>
         <button class="vg-tog" onclick="rmVgTelaCheia()" title="Tela cheia (bom para TV)">&#128250; Tela cheia</button>
-        <select class="rm-osl-sel" id="rm-vg-periodo" onchange="rmRenderVisaoGeral()">
+        <select class="rm-osl-sel" id="rm-vg-periodo" style="min-width:150px" onchange="rmRenderVisaoGeral()">
           <option value="hoje">Hoje</option>
+          <option value="ontem">Ontem</option>
+          <option value="dia">Escolher o dia…</option>
           <option value="semana">Esta semana</option>
           <option value="mes" selected>Este mês</option>
           <option value="ultmes">Mês passado</option>
           <option value="ano">Este ano</option>
         </select>
+        <input type="date" class="rm-osl-sel vg-dia" id="rm-vg-dia" style="display:none; min-width:0; width:150px" onchange="rmRenderVisaoGeral()">
         </div>
       </div>
       <div id="rm-vg"></div>
@@ -5813,6 +5826,12 @@ function rmVgRange(modo){
   let r;
   switch(modo){
     case 'hoje':   r = { start:D(y,m,d), end:D(y,m,d+1) }; break;
+    case 'ontem':  r = { start:D(y,m,d-1), end:D(y,m,d) }; break;
+    case 'dia': {
+      const el = document.getElementById('rm-vg-dia'), v = el && el.value;
+      const [a, b, c] = v ? v.split('-').map(Number) : [y, m + 1, d];
+      r = { start:D(a,b-1,c), end:D(a,b-1,c+1) }; break;
+    }
     case 'semana': { const i = d - h.getDay(); r = { start:D(y,m,i), end:D(y,m,i+7) }; break; }
     case 'ultmes': r = { start:D(y,m-1,1), end:D(y,m,1) }; break;
     case 'ano':    r = { start:D(y,0,1), end:D(y+1,0,1) }; break;
@@ -5952,6 +5971,8 @@ function rmRenderVisaoGeral(){
   const ocultar = !rmVgValoresVisiveis();
   const M = v => ocultar ? 'R$ •••••' : rmFormatMoeda(v);
   const modo = document.getElementById('rm-vg-periodo').value;
+  const diaEl = document.getElementById('rm-vg-dia');
+  if(diaEl){ diaEl.style.display = modo === 'dia' ? '' : 'none'; if(modo === 'dia' && !diaEl.value) diaEl.value = rmHojeISO(); diaEl.max = rmHojeISO(); }
   const { r, ant } = rmVgRange(modo);
   const prods = rmLoadProdutos();
   const docs = rmVgReceitas(r), docsAnt = rmVgReceitas(ant);
@@ -5962,7 +5983,7 @@ function rmRenderVisaoGeral(){
   const margem = fat - custo;
   // a prazo
   const proms = rmLoadProms(), hoje = rmHojeISO();
-  let aReceber = 0, vencido = 0, recebidoPer = 0, clientesVencidos = new Set();
+  let aReceber = 0, vencido = 0, recebidoPer = 0, entradasPer = 0, clientesVencidos = new Set();
   let aReceberPer = 0, vencidoPer = 0, cliVencPer = new Set();
   proms.forEach(n => n.parcelas.forEach(p => {
     const resta = rmParcRestante(p);
@@ -5972,8 +5993,11 @@ function rmRenderVisaoGeral(){
       if(p.vencimento < hoje){ vencidoPer += resta; cliVencPer.add(n.clienteId || n.clienteNome); }
     }
     if(resta > 0.004 && p.vencimento < hoje){ vencido += resta; clientesVencidos.add(n.clienteId || n.clienteNome); }
-    rmParcPagamentos(p).forEach(pg => { if(!pg.entrada && rmVgDentro(pg.data, r)) recebidoPer += Number(pg.valor)||0; });
+    rmParcPagamentos(p).forEach(pg => { if(rmVgDentro(pg.data, r)){ if(!pg.entrada) recebidoPer += Number(pg.valor)||0; else entradasPer += Number(pg.valor)||0; } });
   }));
+  // dinheiro que entrou de verdade: vendas à vista + entradas das vendas a prazo + parcelas recebidas
+  const aVistaPer = soma(docs.filter(x => !rmAPrazo(x.forma)), x => x.total);
+  const entrouPer = aVistaPer + entradasPer + recebidoPer;
   const vendidoPrazo = soma(docs.filter(x => rmAPrazo(x.forma)), x => x.total);
   // formas de pagamento
   const porForma = {};
@@ -6044,7 +6068,7 @@ function rmRenderVisaoGeral(){
   const rankMec = Object.values(rankMao).sort((a,b) => b.valor - a.valor);
   const nomeStatus = k => (RM_STATUS[k] || {}).label || k;
   const corStatus = k => (RM_STATUS[k] || {}).color || '#888';
-  const per = { hoje:'hoje', semana:'nesta semana', mes:'neste mês', ultmes:'no mês passado', ano:'neste ano' }[modo];
+  const per = modo === 'dia' ? 'em ' + rmDataBR(rmComIso(r.start)) : { hoje:'hoje', ontem:'ontem', semana:'nesta semana', mes:'neste mês', ultmes:'no mês passado', ano:'neste ano' }[modo];
   const chip = (atual, antv) => { if(!antv && !atual) return ''; if(!antv) return '<span class="vg-chip vg-chip-up">novo</span>'; const p = (atual - antv) / antv * 100; return `<span class="vg-chip ${p >= 0 ? 'vg-chip-up' : 'vg-chip-down'}">${p >= 0 ? '▲' : '▼'} ${Math.abs(p).toFixed(0)}%</span>`; };
   const kpi = (ic, cor, rot, val, sub, extra, onclick) => `<div class="vg-kpi"${onclick ? ` onclick="${onclick}"` : ''} style="--c:${cor}${onclick ? ';cursor:pointer' : ''}">
       <div class="vg-kpi-ic">${ic}</div>
@@ -6083,6 +6107,16 @@ function rmRenderVisaoGeral(){
         <div><span>Ticket médio total</span><b>${M(ticket)}</b>${chip(ticket, ticketAnt)}</div>
         <div><span>Vendas no PDV</span><b>${M(fPDV)}</b><small>${nPDV} venda(s) ${chip(fPDV, soma(docsAnt.filter(x=>x.tipo==='PDV'), x=>x.total))}</small><small class="vg-tk">ticket médio <b>${M(nPDV ? fPDV / nPDV : 0)}</b></small></div>
         <div><span>Ordens de serviço</span><b>${M(fOS)}</b><small>${nOS} OS ${chip(fOS, soma(docsAnt.filter(x=>x.tipo==='OS'), x=>x.total))}</small><small class="vg-tk">ticket médio <b>${M(nOS ? fOS / nOS : 0)}</b></small></div>
+      </div>
+    </div>
+
+    <div class="vg-entrou">
+      <div class="vg-entrou-ic">&#128176;</div>
+      <div class="vg-entrou-txt"><span>Dinheiro que entrou ${per}</span><b>${M(entrouPer)}</b></div>
+      <div class="vg-entrou-det">
+        <div><span>Vendas à vista</span><b>${M(aVistaPer)}</b></div>
+        <div><span>Entradas a prazo</span><b>${M(entradasPer)}</b></div>
+        <div><span>Parcelas recebidas</span><b>${M(recebidoPer)}</b></div>
       </div>
     </div>
 
@@ -6187,7 +6221,7 @@ function rmRenderVisaoGeral(){
       </div>
     </div>
     </div>
-    <div class="vg-nota">As setas comparam com o período anterior equivalente. Faturamento = vendas do PDV + ordens de serviço finalizadas (pagas). A receber e Vencido consideram as parcelas com vencimento no período escolhido; os alertas do topo mostram o total vencido de todos os períodos. Atualizado às ${new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}.</div>`;
+    <div class="vg-nota">As setas comparam com o período anterior equivalente. Faturamento = vendas do PDV + ordens de serviço finalizadas (pagas). Dinheiro que entrou = vendas à vista + entradas das vendas a prazo + parcelas recebidas (o que entrou no caixa de verdade). A receber e Vencido consideram as parcelas com vencimento no período escolhido; os alertas do topo mostram o total vencido de todos os períodos. Atualizado às ${new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}.</div>`;
   rmVgAplicarOcultos();
 }
 
