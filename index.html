@@ -1793,6 +1793,16 @@
   .rm-inv-inat-tag{display:inline-block; background:#777; color:#fff; font-size:11px; font-weight:800; padding:1px 7px; margin-right:6px;}
   .rm-fila-status{font-size:11.5px; font-weight:700; color:#b26a00; background:#fff3cd; padding:5px 8px; margin:4px 10px 0; line-height:1.3;}
   html[data-tema="dark"] .rm-fila-status{background:#4a3a10; color:#ffd77a;}
+  .rm-fila-status.rm-fila-erro{background:#d9433a; color:#fff;}
+  .rm-app-velho{position:fixed; inset:0; z-index:2147483000; background:rgba(20,20,24,0.88); display:flex; align-items:center; justify-content:center; padding:16px;}
+  .rm-app-velho-cx{background:var(--rm-panel, #fff); color:var(--rm-text, #222); max-width:440px; width:100%; padding:26px 24px; border-top:6px solid #d9433a; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+  .rm-app-velho-ic{font-size:42px; line-height:1;}
+  .rm-app-velho-cx h2{margin:10px 0 8px; font-size:20px;}
+  .rm-app-velho-cx p{font-size:14px; line-height:1.45; margin:0 0 10px; color:var(--rm-text-dim, #555);}
+  .rm-app-velho-cx .rm-primary{width:100%; margin:8px 0 10px; padding:12px; font-size:15px;}
+  .rm-app-velho-cx small{display:block; font-size:12px; color:var(--rm-text-dim, #777);}
+  .rm-relogio-aviso{position:fixed; top:0; left:0; right:0; z-index:10060; background:#d9433a; color:#fff; font-size:13.5px; padding:9px 44px 9px 14px; line-height:1.35; text-align:center;}
+  .rm-relogio-aviso button{position:absolute; right:8px; top:50%; transform:translateY(-50%); background:transparent; border:0; color:#fff; font-size:22px; cursor:pointer; width:auto; padding:0 6px;}
   .rm-submit-bar:has(.rm-reg-pecas){display:flex; gap:10px;}
   .rm-submit-bar .rm-reg-btn{flex:1; margin:0;}
   .rm-qf-botoes{position:static !important; padding:0 !important; border:none !important; background:none !important; box-shadow:none !important; margin-top:6px;}
@@ -2102,7 +2112,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.17-22h00</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.17-23h30</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -5936,7 +5946,7 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
     await rmSb.from('mecanicos').delete().neq('nome', '__never__');
     if(recepcoes.length){
       const rows = recepcoes.map(rmToDbRow);
-      await rmSb.from('recepcoes').insert(rows);
+      await rmUpsertDireto('recepcoes', rows, true);
     }
     if(mecanicos.length){
       await rmSb.from('mecanicos').insert(mecanicos.map(nome => ({nome})));
@@ -5958,9 +5968,15 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
 // (rm_conflito) e aqui as duas alterações são JUNTADAS (peças de um + pagamento do outro, estoque
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
+// número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
+const RM_APP_VERSAO = 202610172330;
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
 try{ rmOutbox = JSON.parse(localStorage.getItem(RM_OUTBOX_KEY)) || {}; }catch(e){ rmOutbox = {}; }
+// a fila também é guardada no IndexedDB: se o localStorage encher, nada se perde
+let rmOutboxSeq = 0;
+try{ rmOutboxSeq = parseInt(localStorage.getItem(RM_OUTBOX_KEY + '_seq'), 10) || 0; }catch(e){}
+let rmOutboxSemEspaco = false;
 let rmAvisoColuna = false;
 const rmColFaltando = {}; // tabela → colunas que ainda não existem no banco (SQL não rodado)
 function rmTabCfg(t){
@@ -5979,7 +5995,7 @@ function rmCanon(v){
   return JSON.stringify(v);
 }
 function rmEq(a, b){ return rmCanon(a) === rmCanon(b); }
-const RM_IGNORAR_JUNCAO = new Set(['versao', 'versao_base', 'atualizado_em', 'updated_at']);
+const RM_IGNORAR_JUNCAO = new Set(['versao', 'versao_base', 'atualizado_em', 'updated_at', 'app_versao']);
 function rmSemControle(o){ const c = Object.assign({}, o); RM_IGNORAR_JUNCAO.forEach(k => delete c[k]); return c; }
 function rmNormRow(t, row){
   const cfg = rmTabCfg(t);
@@ -6035,26 +6051,111 @@ function rmJuntar3(t, baseStr, local, server){
   });
   return out;
 }
+// ----- versão do sistema -----
+let rmAppBloqueado = false, rmAppMinima = null;
+function rmComVersaoApp(t, rows){
+  if(!RM_SYNC_TABS.includes(t) || (rmColFaltando[t] && rmColFaltando[t].has('app_versao'))) return rows;
+  return rows.map(r => Object.assign({}, r, { app_versao: RM_APP_VERSAO }));
+}
+// gravação direta (backup, importação): carimba a versão e tira colunas que o banco ainda não tem
+async function rmUpsertDireto(t, rows, inserir){
+  for(let tent = 0; tent < 4; tent++){
+    const falta = rmColFaltando[t];
+    let envio = rmComVersaoApp(t, rows);
+    if(falta) envio = envio.map(r => { const c = Object.assign({}, r); falta.forEach(k => delete c[k]); return c; });
+    let res;
+    try{ res = inserir ? await rmSb.from(t).insert(envio) : await rmSb.from(t).upsert(envio); }catch(e){ return { error: e }; }
+    if(!res || !res.error) return res || { error: null };
+    const msg = String(res.error.message || res.error);
+    if(/rm_app_antigo/.test(msg)){ const m = /rm_app_antigo\s+(\d+)/.exec(msg); rmAppDesatualizado(m ? +m[1] : null); return res; }
+    const m = /column ["']?([a-z_]+)["']? of|Could not find the '([a-z_]+)' column/i.exec(msg), col = m && (m[1] || m[2]);
+    if(col && envio.some(r => col in r)){ (rmColFaltando[t] = rmColFaltando[t] || new Set()).add(col); continue; }
+    return res;
+  }
+  return { error: new Error('não consegui gravar em ' + t) };
+}
+// ao entrar: avisa ao servidor a versão deste aparelho e confere se já existe uma mais nova em uso
+async function rmVersaoConferir(){
+  if(!rmSb || navigator.onLine === false) return;
+  try{
+    const r = await rmSb.rpc('rm_versao_app', { p_versao: RM_APP_VERSAO });
+    if(r && !r.error && r.data != null && Number(r.data) > RM_APP_VERSAO) rmAppDesatualizado(Number(r.data));
+  }catch(e){}
+}
+function rmVersaoTexto(n){ const s = String(n || ''); return s.length === 12 ? s.slice(6,8) + '/' + s.slice(4,6) + '/' + s.slice(0,4) + ' ' + s.slice(8,10) + 'h' + s.slice(10,12) : s; }
+function rmAppDesatualizado(minima){
+  rmAppBloqueado = true; if(minima) rmAppMinima = minima;
+  try{ rmStoreGravarPendentes(); }catch(e){}
+  let d = document.getElementById('rm-app-velho');
+  if(!d){ d = document.createElement('div'); d.id = 'rm-app-velho'; d.className = 'rm-app-velho'; document.body.appendChild(d); }
+  const n = rmOutboxQtd();
+  d.innerHTML = `<div class="rm-app-velho-cx">
+    <div class="rm-app-velho-ic">&#128260;</div>
+    <h2>Atualize o sistema neste aparelho</h2>
+    <p>Os outros aparelhos já estão usando uma versão mais nova${rmAppMinima ? ' (' + rmVersaoTexto(rmAppMinima) + ')' : ''}. Este aparelho está com a versão de ${rmVersaoTexto(RM_APP_VERSAO)}.</p>
+    <p>Para não misturar nem perder dados, ele só volta a gravar depois de atualizar.${n ? ' <b>' + n + ' alteração(ões) feita(s) aqui estão guardadas</b> e serão enviadas depois da atualização.' : ''}</p>
+    <button class="rm-primary" onclick="rmAppAtualizar()">&#8635; Atualizar agora</button>
+    <small>Se continuar aparecendo, espere 2 minutos e clique de novo (o site pode demorar um pouco para trocar de versão).</small>
+  </div>`;
+}
+async function rmAppAtualizar(){
+  try{ rmStoreGravarPendentes(); }catch(e){}
+  try{ if(navigator.serviceWorker){ const rs = await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(r => r.update().catch(() => {}))); } }catch(e){}
+  try{ if(window.caches){ const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); } }catch(e){}
+  location.reload();
+}
+// ----- relógio do aparelho -----
+let rmRelogioDif = 0, rmRelogioAvisoFechado = false;
+function rmRelogioConferir(dados, t0, t1){
+  if(t1 - t0 > 20000) return; // resposta demorada demais para comparar
+  let srv = 0;
+  dados.forEach(d => { const x = d && d.atualizado_em ? Date.parse(d.atualizado_em) : NaN; if(!isNaN(x) && x > srv) srv = x; });
+  if(!srv) return;
+  rmRelogioDif = Math.round(((t0 + t1) / 2 - srv) / 60000); // positivo = aparelho adiantado
+  const el = document.getElementById('rm-relogio-aviso');
+  if(Math.abs(rmRelogioDif) < 5){ if(el) el.remove(); return; }
+  if(rmRelogioAvisoFechado) return;
+  const dif = Math.abs(rmRelogioDif), txt = dif >= 120 ? Math.round(dif / 60) + ' hora(s)' : dif + ' minuto(s)';
+  const d = el || document.createElement('div');
+  d.id = 'rm-relogio-aviso'; d.className = 'rm-relogio-aviso';
+  d.innerHTML = `<span>&#9888; O relógio deste aparelho está <b>${txt} ${rmRelogioDif > 0 ? 'adiantado' : 'atrasado'}</b>. Vendas e OS feitas aqui ficam com data/hora errada. Ative "data e hora automáticas" nas configurações do aparelho.</span><button onclick="rmRelogioAvisoFechado = true; this.parentElement.remove()">&times;</button>`;
+  if(!el) document.body.appendChild(d);
+}
 function rmUid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
 // grava linhas no Supabase: tira colunas que ainda não existem e junta quando outro aparelho mudou antes
 async function rmGravarLinhas(t, rows, bases){
-  const juntou = new Map();
-  for(let tent = 0; tent < 6; tent++){
+  const juntou = new Map(), apagados = new Set();
+  for(let tent = 0; tent < 6 + apagados.size; tent++){
     const falta = rmColFaltando[t];
     if(falta) rows.forEach(r => falta.forEach(c => delete r[c]));
     const comVersao = !(falta && (falta.has('versao') || falta.has('versao_base')));
-    let res;
-    try{ res = comVersao ? await rmSb.from(t).upsert(rows).select('id,versao') : await rmSb.from(t).upsert(rows); }catch(e){ return { erro: e }; }
+    const envio = rmComVersaoApp(t, rows);
+    let res, t0 = Date.now();
+    try{ res = comVersao ? await rmSb.from(t).upsert(envio).select('id,versao,atualizado_em') : await rmSb.from(t).upsert(envio); }catch(e){ return { erro: e }; }
     const error = res && res.error;
-    if(!error) return { ok: true, data: (comVersao && Array.isArray(res.data)) ? res.data : [], juntou };
+    if(!error){
+      if(comVersao && Array.isArray(res.data)) rmRelogioConferir(res.data, t0, Date.now());
+      return { ok: true, data: (comVersao && Array.isArray(res.data)) ? res.data : [], juntou, apagados };
+    }
     const msg = String(error.message || error.details || error);
+    if(/rm_app_antigo/.test(msg)){ const m = /rm_app_antigo\s+(\d+)/.exec(msg); rmAppDesatualizado(m ? +m[1] : null); return { erro: error }; }
+    if(/rm_apagado/.test(msg)){
+      // o registro foi excluído em outro aparelho: não deixa ele "voltar"
+      const m = /rm_apagado\s+(\S+)/.exec(msg), id = m && m[1];
+      const antes = rows.length;
+      rows = rows.filter(r => String(r.id) !== id);
+      if(!id || rows.length === antes) return { erro: error };
+      apagados.add(id);
+      if(!rows.length) return { ok: true, data: [], juntou, apagados };
+      continue;
+    }
     if(/column [a-z_]+\.versao does not exist/i.test(msg)){ (rmColFaltando[t] = rmColFaltando[t] || new Set()).add('versao').add('versao_base'); continue; }
     const m = /column ["']?([a-z_]+)["']? of|Could not find the '([a-z_]+)' column/i.exec(msg);
     const col = m && (m[1] || m[2]);
-    if(col && rows.some(r => col in r)){
+    if(col && envio.some(r => col in r)){
       (rmColFaltando[t] = rmColFaltando[t] || new Set()).add(col);
       console.warn('Coluna "' + col + '" não existe na tabela ' + t + '. Rode o SQL pendente no Supabase.');
-      if(col !== 'versao' && col !== 'versao_base' && !rmAvisoColuna){ rmAvisoColuna = true; rmShowToast('Falta rodar um SQL no Supabase (coluna ' + col + '). Foi salvo sem esse dado.'); }
+      if(col !== 'versao' && col !== 'versao_base' && col !== 'app_versao' && !rmAvisoColuna){ rmAvisoColuna = true; rmShowToast('Falta rodar um SQL no Supabase (coluna ' + col + '). Foi salvo sem esse dado.'); }
       continue;
     }
     if(/rm_conflito/.test(msg)){
@@ -6078,7 +6179,36 @@ async function rmGravarLinhas(t, rows, bases){
   }
   return { erro: new Error('não consegui gravar em ' + t) };
 }
-function rmOutboxGravar(){ try{ localStorage.setItem(RM_OUTBOX_KEY, JSON.stringify(rmOutbox)); }catch(e){ console.warn('fila de envio cheia?', e); } rmOutboxStatus(); }
+function rmOutboxGravar(){
+  rmOutboxSeq++;
+  let okLocal = true;
+  try{ localStorage.setItem(RM_OUTBOX_KEY, JSON.stringify(rmOutbox)); localStorage.setItem(RM_OUTBOX_KEY + '_seq', String(rmOutboxSeq)); }
+  catch(e){ okLocal = false; console.warn('fila de envio: localStorage cheio, guardando só no IndexedDB', e); }
+  let idb = null; try{ idb = rmIdb; }catch(e){}
+  if(idb){
+    rmIdbPut('filaEnvio', { seq: rmOutboxSeq, fila: rmOutbox }).then(ok => { rmOutboxSemEspacoMarcar(!ok && !okLocal); });
+    if(okLocal) rmOutboxSemEspacoMarcar(false);
+  } else rmOutboxSemEspacoMarcar(!okLocal);
+  rmOutboxStatus();
+}
+function rmOutboxSemEspacoMarcar(sem){
+  if(sem === rmOutboxSemEspaco) return;
+  rmOutboxSemEspaco = sem;
+  if(sem) rmShowToast('⚠ Este aparelho está sem espaço para guardar alterações. NÃO feche o sistema até aparecer "Sincronizado".');
+  rmOutboxStatus();
+}
+// ao abrir: se a cópia do IndexedDB é mais nova que a do localStorage (localStorage encheu), usa ela
+async function rmOutboxRecuperarIdb(){
+  try{
+    if(!rmIdb) return;
+    const f = await rmIdbGet('filaEnvio');
+    if(f && f.fila && typeof f.fila === 'object' && (f.seq || 0) > rmOutboxSeq){
+      rmOutbox = f.fila; rmOutboxSeq = f.seq;
+      console.warn('fila de envio recuperada do IndexedDB (' + Object.keys(rmOutbox).length + ' alteração(ões))');
+      rmOutboxGravar();
+    }
+  }catch(e){}
+}
 function rmOutboxPor(tabela, id, op, row){
   if(id == null) return;
   const k = tabela + ':' + id, ant = rmOutbox[k];
@@ -6094,7 +6224,12 @@ function rmOutboxStatus(){
   let el = document.getElementById('rm-fila-status');
   const lab = document.getElementById('rm-sync-label');
   if(!el && lab){ el = document.createElement('div'); el.id = 'rm-fila-status'; el.className = 'rm-fila-status'; lab.parentElement.parentElement.insertBefore(el, lab.parentElement.nextSibling); }
-  if(el){ el.style.display = n ? '' : 'none'; el.textContent = n ? '⏳ ' + n + ' alteração(ões) guardada(s) no aparelho · envia quando a internet voltar' : ''; }
+  if(el){
+    el.style.display = (n || rmOutboxSemEspaco) ? '' : 'none';
+    el.classList.toggle('rm-fila-erro', !!rmOutboxSemEspaco);
+    el.textContent = rmOutboxSemEspaco ? '⚠ Sem espaço no aparelho para guardar ' + n + ' alteração(ões) · não feche o sistema até enviar'
+      : (n ? '⏳ ' + n + ' alteração(ões) guardada(s) no aparelho · envia quando a internet voltar' : '');
+  }
 }
 // depois de gravar: guarda a versão nova, aplica no aparelho o que foi juntado e avisa se o valor de uma OS paga mudou
 function rmAposGravar(tab, lote, rows, r){
@@ -6102,8 +6237,11 @@ function rmAposGravar(tab, lote, rows, r){
   const cfg = rmTabCfg(tab);
   let lista = null, mudouLista = false;
   const juntadas = [];
+  const apagados = r.apagados && r.apagados.size ? lote.filter(i => r.apagados.has(String(i.id))) : [];
+  apagados.forEach(i => rmApagadoEmOutroAparelho(tab, i));
   lote.forEach(i => {
     const k = tab + ':' + i.id;
+    if(r.apagados && r.apagados.has(String(i.id))) return;
     const enviada = rows.find(x => x.id === i.id) || i.row;
     const v = vers.has(i.id) ? vers.get(i.id) : null;
     const junta = r.juntou.get(i.id);
@@ -6124,7 +6262,12 @@ function rmAposGravar(tab, lote, rows, r){
     if(novoLocal){ Object.assign(obj, cfg.de(novoLocal)); mudouLista = true; juntadas.push(obj); }
     if(v != null && obj._v !== v){ obj._v = v; mudouLista = true; }
   });
+  if(apagados.length && cfg){
+    const ids = new Set(apagados.map(i => String(i.id)));
+    lista = (lista || cfg.ler()).filter(x => !ids.has(String(x.id))); mudouLista = true;
+  }
   if(mudouLista && cfg) cfg.gravar(lista);
+  if(apagados.length) rmSyncRender({ [tab]: new Set(apagados.map(i => i.id)) });
   if(juntadas.length){
     if(tab === 'recepcoes') juntadas.forEach(o => {
       rmLog('Juntou alterações de dois aparelhos', o.codigoApp, [o.nome, o.modelo].filter(Boolean).join(' · '));
@@ -6134,7 +6277,26 @@ function rmAposGravar(tab, lote, rows, r){
     rmSyncRender({ [tab]: new Set(juntadas.map(o => o.id)) });
   }
 }
+// a alteração era de um registro que outro aparelho já excluiu: descarta (guarda uma cópia) e avisa
+const RM_DESCARTADOS_KEY = 'radicalMotos_descartados';
+function rmApagadoEmOutroAparelho(tab, i){
+  const k = tab + ':' + i.id;
+  const atual = rmOutbox[k];
+  if(atual && atual.t === i.t) delete rmOutbox[k];
+  rmBase.delete(k);
+  rmOutboxRecentes[k] = { tabela: tab, id: i.id, op:'del', row: null, enviadoEm: Date.now() };
+  try{
+    const l = JSON.parse(localStorage.getItem(RM_DESCARTADOS_KEY) || '[]');
+    l.unshift({ tabela: tab, id: i.id, em: new Date().toISOString(), row: i.row });
+    localStorage.setItem(RM_DESCARTADOS_KEY, JSON.stringify(l.slice(0, 30)));
+  }catch(e){}
+  const row = i.row || {};
+  const nome = tab === 'recepcoes' ? 'A OS ' + (row.codigo_app || '') : tab === 'vendas' ? 'A venda ' + (row.codigo_venda || '') : tab === 'clientes' ? 'O cliente ' + (row.nome || '') : 'O produto ' + (row.nome || row.descricao || '');
+  rmShowToast('⚠ ' + nome.trim() + ' foi excluído(a) em outro aparelho · a alteração feita aqui não foi salva');
+  try{ rmLog('Alteração descartada: registro excluído em outro aparelho', row.codigo_app || row.codigo_venda || row.nome || i.id, tab); }catch(e){}
+}
 function rmOutboxEnviar(){
+  if(rmAppBloqueado) return Promise.resolve(false);
   if(rmOutboxEnviando) return rmOutboxEnviando;
   rmOutboxEnviando = (async () => {
     try{
@@ -6357,6 +6519,7 @@ function rmCursorGuardar(t, rows){
 }
 function rmPendente(t, id){ return !!rmOutbox[t + ':' + id]; }
 async function rmSyncCompleta(){
+  rmVersaoConferir();
   const desde = Date.now(); // o que for confirmado depois daqui pode não ter vindo no que vamos baixar
   const [recepcoesRes, mecanicosRes, clientesRes, vendasRes, produtosRes, avisosRes] = await Promise.all([
     rmSelectTudo('recepcoes', '*'),
@@ -7472,6 +7635,8 @@ function rmRenderVisaoGeral(){
   // alertas
   const alertas = [];
   if(vencido > 0.004) alertas.push(['vg-al-r', '⏰', `${M(vencido)} vencido`, `${clientesVencidos.size} cliente(s) com parcela atrasada`, "rmSetSection('financeiro'); rmSetViewFin('prom'); document.getElementById('rm-fin-prom-status').value='vencida'; rmRenderFinProm()"]);
+  if(rmEhAdmin()){ const ub = rmBkpUltimo(), dias = ub ? Math.floor((Date.now() - Date.parse(ub)) / 864e5) : null;
+    if(dias == null || dias >= 7) alertas.push(['vg-al-a', '💾', dias == null ? 'Nenhum backup baixado' : `Backup há ${dias} dias`, 'clique para baixar e guarde fora do sistema', "rmBackupCompleto()"]); }
   { const dup = rmDuplicados(); if(dup.length) alertas.push(['vg-al-r', '🔢', `${dup.length} número(s) de OS/venda repetido(s)`, 'clique para corrigir', "rmDupAbrir()"]); }
   if(entreguesNaoPagas.length) alertas.push(['vg-al-r', '🏍️', `${entreguesNaoPagas.length} moto(s) entregue(s) sem pagar`, M(valorNaoPagas), "rmSetSection('oficina'); rmSetView('lista'); rmOslAtalho='naopago'; rmRenderLista()"]);
   if(paradas.length) alertas.push(['vg-al-a', '🐢', `${paradas.length} moto(s) há mais de 7 dias`, 'parada(s) na oficina', "rmSetSection('oficina'); rmSetView('lista')"]);
@@ -7989,7 +8154,7 @@ async function rmImpConfirmar(){
     for(let i = 0; i < linhas.length; i += 200){
       prog(rot + ' ' + Math.min(i + 200, linhas.length) + ' de ' + linhas.length + '...');
       let ok = false;
-      for(let t = 0; t < 4 && !ok; t++){ const { error } = await rmSb.from(tabela).upsert(linhas.slice(i, i + 200)); ok = !error; if(error){ console.error(error); await rmEspera(1500); } }
+      for(let t = 0; t < 4 && !ok; t++){ const { error } = await rmUpsertDireto(tabela, linhas.slice(i, i + 200)); ok = !error; if(error){ console.error(error); await rmEspera(1500); } }
       if(!ok) throw new Error('falha ao gravar ' + tabela + ' (verifique a internet e tente de novo: o que já foi gravado não duplica)');
     }
   };
@@ -9709,15 +9874,29 @@ setTimeout(() => rmCopiaGuardar(), 20000);
 setInterval(() => rmCopiaGuardar(), 60 * 60 * 1000);
 
 // ===================== LEMBRETE DE BACKUP =====================
-function rmBackupLembrete(){
+// a data do último backup fica também no servidor: vale para todos os computadores
+let rmBkpServidor = null;
+async function rmBkpLerServidor(){
+  try{ const { data } = await rmSb.from('configuracoes').select('*').eq('id','backup').maybeSingle(); if(data && data.dados && data.dados.ultimo) rmBkpServidor = data.dados; }catch(e){}
+  return rmBkpServidor;
+}
+function rmBkpUltimo(){
+  const loc = localStorage.getItem(RM_BKP_ULTIMO_KEY);
+  const srv = rmBkpServidor && rmBkpServidor.ultimo;
+  if(loc && srv) return Date.parse(srv) > Date.parse(loc) ? srv : loc;
+  return loc || srv || null;
+}
+async function rmBackupLembrete(){
   if(typeof rmUsuario === 'undefined' || !rmUsuario || !rmEhAdmin()) return;
-  const ult = localStorage.getItem(RM_BKP_ULTIMO_KEY);
+  await rmBkpLerServidor();
+  const ult = rmBkpUltimo();
   const horas = ult ? (Date.now() - new Date(ult).getTime()) / 36e5 : Infinity;
   if(horas < 24) return;
   if(localStorage.getItem('radicalMotos_bkpLembreteAdiado') === rmHojeISO()) return;
   if(document.getElementById('rm-bkp-lembrete')) return;
   const d = document.createElement('div'); d.id = 'rm-bkp-lembrete'; d.className = 'rm-bkp-lembrete';
-  d.innerHTML = `<b>&#128190; ${ult ? 'Último backup há ' + Math.floor(horas / 24) + ' dia(s)' : 'Nenhum backup baixado neste computador'}</b>
+  const por = rmBkpServidor && rmBkpServidor.ultimo === ult && rmBkpServidor.por ? ' (por ' + rmEscapeHtml(rmBkpServidor.por) + ')' : '';
+  d.innerHTML = `<b>&#128190; ${ult ? 'Último backup há ' + Math.floor(horas / 24) + ' dia(s)' + por : 'Nenhum backup baixado ainda'}</b>
     <span>Baixe o backup e guarde fora do sistema (pen drive, Google Drive).</span>
     <div><button class="rm-primary" onclick="document.getElementById('rm-bkp-lembrete').remove(); rmBackupCompleto()">&#11015; Baixar agora</button>
     <button class="rm-pe2-btn" onclick="localStorage.setItem('radicalMotos_bkpLembreteAdiado', rmHojeISO()); document.getElementById('rm-bkp-lembrete').remove()">Amanhã</button></div>`;
@@ -9751,6 +9930,8 @@ async function rmBackupCompleto(){
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 2000);
   localStorage.setItem(RM_BKP_ULTIMO_KEY, dados.geradoEm);
+  rmBkpServidor = { ultimo: dados.geradoEm, por: rmNomeUsuario() };
+  try{ rmSb.from('configuracoes').upsert({ id:'backup', dados: rmBkpServidor }).then(() => {}, () => {}); }catch(e){}
   rmLog('Baixou backup completo');
   const resumo = Object.entries(dados.tabelas).map(([t, l]) => l.length + ' ' + t).join(', ');
   rmShowToast('Backup baixado · ' + resumo);
@@ -9795,7 +9976,7 @@ async function rmBackupRestaurar(input){
     for(let i = 0; i < linhas.length; i += 200){
       const lote = linhas.slice(i, i + 200);
       let r;
-      try{ r = await rmSb.from(t).upsert(lote); }catch(e){ r = { error:e }; }
+      try{ r = await rmUpsertDireto(t, lote.map(x => { const c = Object.assign({}, x); delete c.versao_base; delete c.app_versao; return c; })); }catch(e){ r = { error:e }; }
       if(r.error){ console.error('Restaurar', t, r.error); falhas.push(t); break; }
     }
   }
@@ -15494,6 +15675,7 @@ function rmIdbPut(k, v){
 }
 async function rmStorePreparar(){
   rmIdb = await rmIdbAbrir();
+  await rmOutboxRecuperarIdb();
   for(const k of rmStoreChaves()){
     let v = rmIdb ? await rmIdbGet(k) : undefined;
     if(v === undefined){
