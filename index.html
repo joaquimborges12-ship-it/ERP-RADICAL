@@ -614,6 +614,12 @@
   .rm-os-item.rm-semcad-bloco{border:2px solid #e8a33d;}
   .rm-semcad-cli{margin:6px 0 4px;} .rm-semcad-cli small{color:var(--rm-text-dim); font-size:12.5px;}
   html[data-tema="dark"] .rm-semcad-opc b{color:#ffd27a;} html[data-tema="dark"] .rm-semcad-aviso{color:#ffd27a;}
+  .rm-dup-aviso{background:rgba(217,67,58,.12); border:1px solid #d9433a; color:var(--rm-text); padding:10px 14px; margin-bottom:10px; cursor:pointer; font-size:14px;}
+  .rm-dup-grupo{border:1px solid var(--rm-border); margin-top:12px;} .rm-dup-num{background:rgba(217,67,58,.12); padding:8px 12px; font-weight:800;}
+  .rm-dup-it{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 12px; border-top:1px solid var(--rm-border); font-size:13.5px;}
+  .rm-dup-it i{color:var(--rm-text-dim); font-size:12.5px; white-space:nowrap;} .rm-dup-it button{border:1px solid #d9433a; background:#d9433a; color:#fff; padding:7px 12px; font-weight:700; cursor:pointer; font-family:inherit; white-space:nowrap;}
+  .rm-os-atu-faixa{position:sticky; top:0; z-index:5; background:#e8a33d; color:#1b1b1b; font-weight:700; padding:9px 14px; margin:-4px -4px 10px; cursor:pointer; font-size:14px;}
+  .rm-sync-atrasado{background:#e8a33d !important;}
   .nf-top{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px;}
   .nf-imp{background:#d9433a; color:#fff; border:none; padding:12px 22px; font-weight:700; font-size:15px; cursor:pointer; font-family:inherit;}
   .nf-imp:hover{background:#c23a32;}
@@ -2096,7 +2102,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.17-19h40</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.17-22h00</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -4179,10 +4185,11 @@ function rmImpMontarFinal(){
 }
 
 async function rmUpsertComRetry(rows){
-  // tenta até 4 vezes, esperando um pouco mais a cada falha (internet instável)
+  // tenta até 4 vezes, esperando um pouco mais a cada falha (internet instável); junta se outro aparelho mexeu no produto
   let r;
   for(let t=0; t<4; t++){
-    try{ r = await rmSb.from('produtos').upsert(rows); }
+    const bases = {}; rows.forEach(x => { bases[x.id] = rmBase.get('produtos:' + x.id) || null; });
+    try{ const g = await rmGravarLinhas('produtos', rows.map(x => Object.assign({}, x)), bases); r = g.erro ? { error: g.erro } : { error: null, data: g.data }; }
     catch(e){ r = { error: e }; }
     if(!r.error) return r;
     const msg = String(r.error.message || r.error);
@@ -5410,7 +5417,9 @@ function rmCancelarEdicaoVenda(){
   rmPdvAtualizarBannerEdicao();
 }
 
-function rmFinalizarVenda(){
+let rmFinalizandoVenda = false;
+async function rmFinalizarVenda(){
+  if(rmFinalizandoVenda) return;
   if(rmPdvCarrinho.length === 0){
     alert('Adicione ao menos um item ao carrinho.');
     return;
@@ -5443,9 +5452,17 @@ function rmFinalizarVenda(){
   }
   if(!isOrcamento && rmAPrazo(rmPdvFormaPagamento) && !rmLimiteOk(rmPdvClienteId, (subtotal - desconto) - (Number(rmPdvPromEnt) || 0), ed && ed.id)) return;
   const mantemCodigo = ed && (ed.tipo === 'orcamento') === isOrcamento;
+  let codigoNovo = null;
+  if(!mantemCodigo){
+    rmFinalizandoVenda = true;
+    const bt = [...document.querySelectorAll('#rm-section-pdv button')].find(b => /Finalizar venda|Salvar orçamento/.test(b.textContent));
+    if(bt){ bt.disabled = true; bt.style.opacity = '.6'; }
+    try{ codigoNovo = await rmObterNumero(isOrcamento ? 'orc' : 'doc'); }
+    finally{ rmFinalizandoVenda = false; if(bt){ bt.disabled = false; bt.style.opacity = ''; } }
+  }
   const venda = {
     id: ed ? ed.id : 'v' + Date.now(),
-    codigoVenda: mantemCodigo ? ed.codigoVenda : (isOrcamento ? rmNextOrcamentoCode() : rmNextVendaCode()),
+    codigoVenda: mantemCodigo ? ed.codigoVenda : codigoNovo,
     tipo: isOrcamento ? 'orcamento' : 'venda',
     clienteId: rmPdvClienteId,
     clienteNome: rmPdvClienteNome || null,
@@ -5654,7 +5671,7 @@ function rmAnexarItensPendentes(registro){
   registro.pecasUsadas = P.itens.map(i => {
     const p = i.produtoId ? rmIdx(produtos).get(i.produtoId) : null;
     const q = Number(i.quantidade) || 1, un = Number(i.precoUnit) || 0, d = Number(i.desconto) || 0;
-    return { produtoId: i.produtoId || null, nome: i.nome, codigo: (p && p.codigo) || '', localizacao: (p && p.localizacao) || '',
+    return { uid: rmUid(), produtoId: i.produtoId || null, avulso: !i.produtoId || undefined, nome: i.nome, codigo: (p && p.codigo) || '', localizacao: (p && p.localizacao) || '',
       categoria: (p && p.categoria) || '', servico: !!(p && p.ehServico) || (!i.produtoId && /M[AÃ]O\s*DE\s*OBRA|SERVI[CÇ]O/i.test(i.nome || '')),
       quantidade: q, precoUnit: un, desconto: d, subtotal: Number(i.subtotal) || (q * un - d), por: i.por || rmNomeUsuario() };
   });
@@ -5869,7 +5886,8 @@ function rmFromDbRow(row){
     promEntrada: Number(row.prom_entrada) || 0,
     promEntradaForma: row.prom_entrada_forma || '',
     valorPago: row.valor_pago || 0,
-    criadoPor: row.criado_por || ((row.historico || [])[0] || {}).por || ''
+    criadoPor: row.criado_por || ((row.historico || [])[0] || {}).por || '',
+    _v: row.versao != null ? row.versao : (row.versao_base != null ? row.versao_base : null)
   };
 }
 
@@ -5907,6 +5925,7 @@ function rmToDbRow(r){
     prom_entrada_forma: r.promEntradaForma || null,
     valor_pago: r.valorPago || 0,
     criado_por: r.criadoPor || null,
+    versao_base: r._v != null ? r._v : null,
     updated_at: new Date().toISOString()
   };
 }
@@ -5929,19 +5948,142 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
   }
 }
 
-// grava a OS; se o banco ainda não tiver alguma coluna nova, tira ela e tenta de novo (não perde a OS)
-let rmColunasFaltando = new Set();
 // ===================== CAIXA DE SAÍDA (nada se perde sem internet) =====================
 // Toda gravação de OS, venda, cliente e produto entra primeiro numa fila guardada no aparelho.
 // Só sai da fila quando o Supabase confirma. Enquanto estiver na fila, a sincronização NUNCA
 // troca a versão do aparelho pela do servidor (era isso que fazia as alterações feitas sem internet sumirem).
+//
+// VERSÕES (sincronizacao-supabase.sql): cada OS/venda/cliente/produto tem uma "versao" no servidor.
+// O aparelho grava dizendo qual versão conhecia; se outro aparelho mudou antes, o servidor recusa
+// (rm_conflito) e aqui as duas alterações são JUNTADAS (peças de um + pagamento do outro, estoque
+// somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
+const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
 try{ rmOutbox = JSON.parse(localStorage.getItem(RM_OUTBOX_KEY)) || {}; }catch(e){ rmOutbox = {}; }
+let rmAvisoColuna = false;
+const rmColFaltando = {}; // tabela → colunas que ainda não existem no banco (SQL não rodado)
+function rmTabCfg(t){
+  if(t === 'recepcoes') return { de: rmFromDbRow, para: rmToDbRow, ler: rmLoad, gravar: rmSave };
+  if(t === 'vendas') return { de: rmFromDbRowVenda, para: rmToDbRowVenda, ler: rmLoadVendas, gravar: rmSaveVendas };
+  if(t === 'clientes') return { de: rmFromDbRowCliente, para: rmToDbRowCliente, ler: rmLoadClientes, gravar: rmSaveClientes };
+  if(t === 'produtos') return { de: rmFromDbRowProduto, para: rmToDbRowProduto, ler: rmLoadProdutos, gravar: rmSaveProdutos };
+  return null;
+}
+// comparação que não liga para ordem das chaves nem para o formato da data
+function rmCanon(v){
+  if(v === undefined || v === null) return 'null';
+  if(Array.isArray(v)) return '[' + v.map(rmCanon).join(',') + ']';
+  if(typeof v === 'object') return '{' + Object.keys(v).filter(k => v[k] !== undefined).sort().map(k => JSON.stringify(k) + ':' + rmCanon(v[k])).join(',') + '}';
+  if(typeof v === 'string' && /^\d{4}-\d\d-\d\dT\d\d:\d\d/.test(v)){ const d = Date.parse(v); if(!isNaN(d)) return JSON.stringify(new Date(d).toISOString()); }
+  return JSON.stringify(v);
+}
+function rmEq(a, b){ return rmCanon(a) === rmCanon(b); }
+const RM_IGNORAR_JUNCAO = new Set(['versao', 'versao_base', 'atualizado_em', 'updated_at']);
+function rmSemControle(o){ const c = Object.assign({}, o); RM_IGNORAR_JUNCAO.forEach(k => delete c[k]); return c; }
+function rmNormRow(t, row){
+  const cfg = rmTabCfg(t);
+  const o = cfg ? cfg.para(cfg.de(row)) : Object.assign({}, row);
+  o.versao_base = row.versao != null ? row.versao : null; // a versão que o servidor tinha
+  delete o.updated_at;
+  return o;
+}
+// "base" = como o registro estava no servidor da última vez que este aparelho viu (para saber o que mudou de cada lado)
+const rmBase = new Map();
+function rmBaseGuardar(t, row){ try{ rmBase.set(t + ':' + row.id, JSON.stringify(rmNormRow(t, row))); }catch(e){} }
+// ----- junção de duas alterações -----
+function rmChavesLista(lista, fk){
+  const m = new Map(), cont = {};
+  (Array.isArray(lista) ? lista : []).forEach(it => { let k = fk(it); cont[k] = (cont[k] || 0) + 1; if(cont[k] > 1) k += '#' + cont[k]; m.set(k, it); });
+  return m;
+}
+function rmJuntarLista(B, L, S, fk){
+  const mB = B ? rmChavesLista(B, fk) : null, mL = rmChavesLista(L, fk), mS = rmChavesLista(S, fk), out = [];
+  mS.forEach((s, k) => {
+    if(mL.has(k)){ const l = mL.get(k), b = mB && mB.get(k); out.push(b && rmEq(l, b) ? s : l); }
+    else if(!(mB && mB.has(k))) out.push(s);          // entrou no outro aparelho
+    // estava antes e este aparelho tirou → fica fora
+  });
+  mL.forEach((l, k) => { if(!mS.has(k) && !(mB && mB.has(k))) out.push(l); }); // entrou neste aparelho
+  return out;
+}
+const rmChaveItem = it => it && it.uid ? 'u|' + it.uid : 'L|' + ((it && it.produtoId) || '') + '|' + ((it && it.nome) || '');
+const rmChaveProblema = p => typeof p === 'string' ? p : ((p && p.texto) || '');
+const rmChaveHist = h => ((h && h.status) || '') + '|' + rmCanon(h && h.em);
+function rmJuntarCampo(t, k, B, L, S, temBase){
+  if(t === 'recepcoes' && k === 'pecas_usadas') return rmJuntarLista(temBase ? B : null, L, S, rmChaveItem);
+  if(t === 'recepcoes' && k === 'problemas') return rmJuntarLista(temBase ? B : null, L, S, rmChaveProblema);
+  if(t === 'recepcoes' && k === 'historico'){
+    const m = new Map(); (S || []).concat(L || []).forEach(h => { const kk = rmChaveHist(h); if(!m.has(kk)) m.set(kk, h); });
+    return [...m.values()].sort((a, b) => String(a.em || '').localeCompare(String(b.em || '')));
+  }
+  if(t === 'produtos' && k === 'estoque_atual' && temBase) return Math.round(((Number(S) || 0) + (Number(L) || 0) - (Number(B) || 0)) * 1000) / 1000;
+  return L; // o mesmo campo mudou nos dois: vale a alteração mais recente (a deste aparelho)
+}
+function rmJuntar3(t, baseStr, local, server){
+  const base = baseStr ? JSON.parse(baseStr) : null;
+  const out = Object.assign({}, server);
+  Object.keys(local).forEach(k => {
+    if(RM_IGNORAR_JUNCAO.has(k)) return;
+    const L = local[k], S = server[k], B = base ? base[k] : undefined;
+    // estoque: sempre soma o que cada aparelho tirou/colocou (mesmo que por acaso os números coincidam)
+    if(t === 'produtos' && k === 'estoque_atual' && base){ out[k] = Math.round(((Number(S) || 0) + (Number(L) || 0) - (Number(B) || 0)) * 1000) / 1000; return; }
+    if(rmEq(L, S)) return;
+    if(base && rmEq(L, B)) return;                 // só o outro aparelho mudou
+    if(base && rmEq(S, B)){ out[k] = L; return; }  // só este aparelho mudou
+    out[k] = rmJuntarCampo(t, k, B, L, S, !!base);
+  });
+  return out;
+}
+function rmUid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+// grava linhas no Supabase: tira colunas que ainda não existem e junta quando outro aparelho mudou antes
+async function rmGravarLinhas(t, rows, bases){
+  const juntou = new Map();
+  for(let tent = 0; tent < 6; tent++){
+    const falta = rmColFaltando[t];
+    if(falta) rows.forEach(r => falta.forEach(c => delete r[c]));
+    const comVersao = !(falta && (falta.has('versao') || falta.has('versao_base')));
+    let res;
+    try{ res = comVersao ? await rmSb.from(t).upsert(rows).select('id,versao') : await rmSb.from(t).upsert(rows); }catch(e){ return { erro: e }; }
+    const error = res && res.error;
+    if(!error) return { ok: true, data: (comVersao && Array.isArray(res.data)) ? res.data : [], juntou };
+    const msg = String(error.message || error.details || error);
+    if(/column [a-z_]+\.versao does not exist/i.test(msg)){ (rmColFaltando[t] = rmColFaltando[t] || new Set()).add('versao').add('versao_base'); continue; }
+    const m = /column ["']?([a-z_]+)["']? of|Could not find the '([a-z_]+)' column/i.exec(msg);
+    const col = m && (m[1] || m[2]);
+    if(col && rows.some(r => col in r)){
+      (rmColFaltando[t] = rmColFaltando[t] || new Set()).add(col);
+      console.warn('Coluna "' + col + '" não existe na tabela ' + t + '. Rode o SQL pendente no Supabase.');
+      if(col !== 'versao' && col !== 'versao_base' && !rmAvisoColuna){ rmAvisoColuna = true; rmShowToast('Falta rodar um SQL no Supabase (coluna ' + col + '). Foi salvo sem esse dado.'); }
+      continue;
+    }
+    if(/rm_conflito/.test(msg)){
+      // outro aparelho gravou antes: busca a versão do servidor e junta as duas
+      let srv;
+      try{ srv = await rmSb.from(t).select('*').in('id', rows.map(r => r.id)); }catch(e){ return { erro: e }; }
+      if(srv.error) return { erro: srv.error };
+      const porId = new Map((srv.data || []).map(s => [s.id, s]));
+      rows = rows.map(r => {
+        const s = porId.get(r.id);
+        if(!s || r.versao_base == null || s.versao === r.versao_base) return r;
+        const j = rmJuntar3(t, bases[r.id], r, rmNormRow(t, s));
+        j.versao_base = s.versao;
+        if(r.updated_at) j.updated_at = r.updated_at;
+        juntou.set(r.id, j);
+        return j;
+      });
+      continue;
+    }
+    return { erro: error };
+  }
+  return { erro: new Error('não consegui gravar em ' + t) };
+}
 function rmOutboxGravar(){ try{ localStorage.setItem(RM_OUTBOX_KEY, JSON.stringify(rmOutbox)); }catch(e){ console.warn('fila de envio cheia?', e); } rmOutboxStatus(); }
 function rmOutboxPor(tabela, id, op, row){
   if(id == null) return;
-  rmOutbox[tabela + ':' + id] = { tabela, id, op, row: row || null, t: Date.now() + Math.random() };
+  const k = tabela + ':' + id, ant = rmOutbox[k];
+  const base = ant ? (ant.base || null) : (rmBase.get(k) || null); // como estava antes da PRIMEIRA alteração ainda não enviada
+  rmOutbox[k] = { tabela, id, op, row: row || null, t: Date.now() + Math.random(), base };
   rmOutboxGravar();
   clearTimeout(rmOutboxTimer); rmOutboxTimer = setTimeout(rmOutboxEnviar, 50);
 }
@@ -5954,27 +6096,49 @@ function rmOutboxStatus(){
   if(!el && lab){ el = document.createElement('div'); el.id = 'rm-fila-status'; el.className = 'rm-fila-status'; lab.parentElement.parentElement.insertBefore(el, lab.parentElement.nextSibling); }
   if(el){ el.style.display = n ? '' : 'none'; el.textContent = n ? '⏳ ' + n + ' alteração(ões) guardada(s) no aparelho · envia quando a internet voltar' : ''; }
 }
-async function rmOutboxEnviarRecepcoes(rows){
-  for(let t = 0; t < 6; t++){
-    rows.forEach(r => rmColunasFaltando.forEach(c => delete r[c]));
-    const { error } = await rmSb.from('recepcoes').upsert(rows);
-    if(!error) return null;
-    const m = /column ["']?([a-z_]+)["']? of|Could not find the '([a-z_]+)' column/i.exec(error.message || '');
-    const col = m && (m[1] || m[2]);
-    if(col && rows.some(r => col in r)){
-      rmColunasFaltando.add(col);
-      console.warn('Coluna "' + col + '" não existe na tabela recepcoes. Rode o SQL pendente no Supabase.');
-      if(!rmAvisoColuna){ rmAvisoColuna = true; rmShowToast('Falta rodar um SQL no Supabase (coluna ' + col + '). A OS foi salva sem esse dado.'); }
-      continue;
+// depois de gravar: guarda a versão nova, aplica no aparelho o que foi juntado e avisa se o valor de uma OS paga mudou
+function rmAposGravar(tab, lote, rows, r){
+  const vers = new Map((r.data || []).map(d => [d.id, d.versao]));
+  const cfg = rmTabCfg(tab);
+  let lista = null, mudouLista = false;
+  const juntadas = [];
+  lote.forEach(i => {
+    const k = tab + ':' + i.id;
+    const enviada = rows.find(x => x.id === i.id) || i.row;
+    const v = vers.has(i.id) ? vers.get(i.id) : null;
+    const junta = r.juntou.get(i.id);
+    if(v != null){ const b = Object.assign({}, junta || enviada, { versao_base: v }); delete b.updated_at; rmBase.set(k, JSON.stringify(b)); }
+    rmOutboxRecentes[k] = { tabela: tab, id: i.id, op:'up', row: Object.assign({}, junta || enviada, v != null ? { versao_base: v } : {}), enviadoEm: Date.now() };
+    const atual = rmOutbox[k];
+    let novoLocal = null;
+    if(atual && atual.t === i.t){ delete rmOutbox[k]; if(junta) novoLocal = junta; }
+    else if(atual && atual.row){
+      // mexeram de novo enquanto enviava: a próxima gravação parte do que ficou no servidor
+      if(junta){ atual.row = rmJuntar3(tab, JSON.stringify(rmSemControle(enviada)), atual.row, junta); novoLocal = atual.row; }
+      if(v != null){ atual.row.versao_base = v; atual.base = rmBase.get(k); }
     }
-    return error;
+    if(!cfg) return;
+    lista = lista || cfg.ler();
+    const obj = lista.find(x => x.id === i.id);
+    if(!obj) return;
+    if(novoLocal){ Object.assign(obj, cfg.de(novoLocal)); mudouLista = true; juntadas.push(obj); }
+    if(v != null && obj._v !== v){ obj._v = v; mudouLista = true; }
+  });
+  if(mudouLista && cfg) cfg.gravar(lista);
+  if(juntadas.length){
+    if(tab === 'recepcoes') juntadas.forEach(o => {
+      rmLog('Juntou alterações de dois aparelhos', o.codigoApp, [o.nome, o.modelo].filter(Boolean).join(' · '));
+      if(o.pago && Math.abs(rmOsTotais(o).total - (Number(o.valorPago) || 0)) > 0.004)
+        rmShowToast('⚠ ' + o.codigoApp + ': itens mudaram em outro aparelho depois do pagamento · total ' + rmFormatMoeda(rmOsTotais(o).total) + ' (pago ' + rmFormatMoeda(o.valorPago) + ') — confira');
+    });
+    rmSyncRender({ [tab]: new Set(juntadas.map(o => o.id)) });
   }
-  return new Error('colunas');
 }
 function rmOutboxEnviar(){
   if(rmOutboxEnviando) return rmOutboxEnviando;
   rmOutboxEnviando = (async () => {
     try{
+      await rmNumerosProvisorios(); // OS/venda feita sem internet: pega o número de verdade antes de enviar
       const itens = Object.values(rmOutbox).sort((a, b) => a.t - b.t);
       if(!itens.length) return true;
       const tabelas = [...new Set(itens.map(i => i.tabela))];
@@ -5984,17 +6148,21 @@ function rmOutboxEnviar(){
         for(let k = 0; k < ups.length; k += 200){
           const lote = ups.slice(k, k + 200);
           const rows = lote.map(i => Object.assign({}, i.row));
-          let erro = null;
-          try{ erro = tab === 'recepcoes' ? await rmOutboxEnviarRecepcoes(rows) : (await rmSb.from(tab).upsert(rows)).error; }catch(e){ erro = e; }
-          if(erro){ console.warn('fila de envio (' + tab + '):', erro); tudoOk = false; break; }
-          lote.forEach(i => { rmOutboxRecentes[tab + ':' + i.id] = { tabela: tab, id: i.id, op:'up', row: i.row, enviadoEm: Date.now() }; const atual = rmOutbox[tab + ':' + i.id]; if(atual && atual.t === i.t) delete rmOutbox[tab + ':' + i.id]; });
+          const bases = {}; lote.forEach(i => { bases[i.id] = i.base || null; });
+          let r;
+          try{
+            if(RM_SYNC_TABS.includes(tab)) r = await rmGravarLinhas(tab, rows, bases);
+            else { const { error } = await rmSb.from(tab).upsert(rows); r = error ? { erro: error } : { ok: true, data: [], juntou: new Map() }; }
+          }catch(e){ r = { erro: e }; }
+          if(r.erro){ console.warn('fila de envio (' + tab + '):', r.erro); tudoOk = false; break; }
+          rmAposGravar(tab, lote, rows, r);
           rmOutboxGravar();
         }
         if(dels.length){
           let erro = null;
           try{ erro = (await rmSb.from(tab).delete().in('id', dels.map(i => i.id))).error; }catch(e){ erro = e; }
           if(erro){ console.warn('fila de envio (apagar ' + tab + '):', erro); tudoOk = false; }
-          else { dels.forEach(i => { rmOutboxRecentes[tab + ':' + i.id] = { tabela: tab, id: i.id, op:'del', row: null, enviadoEm: Date.now() }; const atual = rmOutbox[tab + ':' + i.id]; if(atual && atual.t === i.t) delete rmOutbox[tab + ':' + i.id]; }); rmOutboxGravar(); }
+          else { dels.forEach(i => { rmBase.delete(tab + ':' + i.id); rmOutboxRecentes[tab + ':' + i.id] = { tabela: tab, id: i.id, op:'del', row: null, enviadoEm: Date.now() }; const atual = rmOutbox[tab + ':' + i.id]; if(atual && atual.t === i.t) delete rmOutbox[tab + ':' + i.id]; }); rmOutboxGravar(); }
         }
       }
       if(tudoOk) rmSetOnlineStatus(true); else rmSetOnlineStatus(false);
@@ -6006,7 +6174,6 @@ function rmOutboxEnviar(){
 }
 // o que acabou de ser confirmado pelo servidor: uma sincronização que começou a baixar ANTES dessa
 // confirmação traz a versão velha — então essas alterações recentes também valem por cima dela
-// (era isso que fazia a forma de pagamento "desmarcar sozinha" e o Finalizar não ir de primeira)
 let rmOutboxRecentes = {};
 function rmOutboxSobrepor(tabela, lista, deRow, desde){
   const agora = Date.now();
@@ -6021,12 +6188,111 @@ function rmOutboxSobrepor(tabela, lista, deRow, desde){
   novos.forEach((v, id) => { if(!tem.has(id)) out.unshift(v); });
   return out;
 }
-window.addEventListener('online', () => { rmOutboxEnviar().then(ok => { if(ok && typeof rmSyncFromSupabase === 'function') rmSyncFromSupabase(); }); });
+window.addEventListener('online', () => { rmOutboxEnviar().then(ok => { if(ok && typeof rmSyncFromSupabase === 'function') rmSyncFromSupabase({ completo: true }); }); });
 setInterval(() => { if(rmOutboxQtd()) rmOutboxEnviar(); }, 15000);
 setTimeout(rmOutboxStatus, 1500);
 
 async function rmDbUpsertRecepcao(record){ rmOutboxPor('recepcoes', record.id, 'up', rmToDbRow(record)); }
-let rmAvisoColuna = false;
+
+// ===================== NUMERAÇÃO PELO SERVIDOR =====================
+// O número da OS/venda é dado pelo Supabase (rm_proximo_numero): dois aparelhos ao mesmo tempo nunca
+// recebem o mesmo número. Sem internet a OS fica com um número PROVISÓRIO (P-...) que é trocado
+// sozinho pelo definitivo quando a internet volta.
+let rmNumServidorOk = null; // null = ainda não sei; false = SQL não rodado (usa o jeito antigo)
+function rmFormatarNumero(tipo, n){ return tipo === 'orc' ? 'OR-' + String(n).padStart(4, '0') : 'V-' + String(n).padStart(6, '0'); }
+async function rmPedirNumero(tipo){
+  const minimo = tipo === 'orc' ? 0 : Math.max(0, (parseInt(rmEmpresa().numeroInicial) || 0) - 1);
+  const r = await Promise.race([
+    rmSb.rpc('rm_proximo_numero', { p_tipo: tipo, p_minimo: minimo }),
+    new Promise(ok => setTimeout(() => ok({ error: { message: 'tempo esgotado' } }), 6000))
+  ]);
+  if(r && !r.error && r.data != null && Number(r.data) > 0){ rmNumServidorOk = true; return Number(r.data); }
+  if(r && !r.error && r.data == null){ rmNumServidorOk = false; return null; } // servidor sem a função (SQL não rodado)
+  if(r && r.error && /rm_proximo_numero|Could not find the function|schema cache|does not exist/i.test(r.error.message || '')) rmNumServidorOk = false;
+  return null;
+}
+async function rmObterNumero(tipo){
+  tipo = tipo || 'doc';
+  if(rmNumServidorOk !== false && navigator.onLine !== false){
+    try{ const n = await rmPedirNumero(tipo); if(n) return rmFormatarNumero(tipo, n); }catch(e){}
+  }
+  if(rmNumServidorOk === false) return tipo === 'orc' ? rmNextOrcamentoCode() : rmNextNumeroDoc(); // SQL ainda não rodado: como era antes
+  return 'P-' + Date.now().toString(36).slice(-5).toUpperCase();
+}
+function rmEhProvisorio(c){ return /^P-/.test(String(c || '')); }
+let rmTrocandoProvisorios = false;
+async function rmNumerosProvisorios(){
+  if(rmTrocandoProvisorios) return;
+  const pend = Object.values(rmOutbox).filter(i => i.op === 'up' && i.row &&
+    ((i.tabela === 'recepcoes' && rmEhProvisorio(i.row.codigo_app)) || (i.tabela === 'vendas' && rmEhProvisorio(i.row.codigo_venda))));
+  if(!pend.length) return;
+  rmTrocandoProvisorios = true;
+  try{
+    for(const i of pend){
+      const tipo = i.tabela === 'vendas' && i.row.tipo === 'orcamento' ? 'orc' : 'doc';
+      let n = null; try{ n = await rmPedirNumero(tipo); }catch(e){}
+      let novo;
+      if(n) novo = rmFormatarNumero(tipo, n);
+      else if(rmNumServidorOk === false) novo = tipo === 'orc' ? rmNextOrcamentoCode() : rmNextNumeroDoc();
+      else return; // ainda sem internet
+      const campo = i.tabela === 'recepcoes' ? 'codigo_app' : 'codigo_venda';
+      const velho = i.row[campo];
+      i.row[campo] = novo;
+      const cfg = rmTabCfg(i.tabela), lista = cfg.ler(), obj = lista.find(x => x.id === i.id);
+      if(obj){ if(i.tabela === 'recepcoes') obj.codigoApp = novo; else obj.codigoVenda = novo; cfg.gravar(lista); }
+      try{ rmLoadProms().filter(p => p.refCodigo === velho).forEach(p => { p.refCodigo = novo; rmDbUpsertProm(p); }); }catch(e){}
+      rmOutboxGravar();
+      rmLog('Número provisório trocado pelo definitivo', novo, velho + ' → ' + novo);
+      rmShowToast((i.tabela === 'recepcoes' ? 'OS ' : 'Venda ') + velho + ' agora é ' + novo + (i.tabela === 'recepcoes' ? ' · reimprima a etiqueta' : ''));
+      rmSyncRender({ [i.tabela]: new Set([i.id]) });
+    }
+  } finally { rmTrocandoProvisorios = false; }
+}
+// ----- números repetidos que já existem (antes da numeração pelo servidor) -----
+function rmDuplicados(){
+  const g = new Map();
+  const add = (n, x) => { if(!n) return; if(!g.has(n)) g.set(n, []); g.get(n).push(x); };
+  rmLoad().forEach(r => add(rmNumeroDoc(r.codigoApp), { tipo:'OS', id:r.id, codigo:r.codigoApp, quem:[r.nome, r.modelo].filter(Boolean).join(' · ') || '—', quando:r.entrada }));
+  rmLoadVendas().forEach(v => { if(v.tipo !== 'orcamento') add(rmNumeroDoc(v.codigoVenda), { tipo:'Venda', id:v.id, codigo:v.codigoVenda, quem:v.clienteNome || 'Venda no PDV', quando:v.criadoEm }); });
+  return [...g.entries()].filter(([, l]) => l.length > 1).map(([n, l]) => ({ n, itens: l.sort((a, b) => String(a.quando || '').localeCompare(String(b.quando || ''))) }));
+}
+function rmDupAvisoHtml(){
+  const d = rmDuplicados(); if(!d.length) return '';
+  return `<div class="rm-dup-aviso" onclick="rmDupAbrir()">&#9888; <b>${d.length} número(s) de OS/venda repetido(s)</b> (${d.slice(0, 4).map(x => rmEscapeHtml(x.itens[0].codigo)).join(', ')}${d.length > 4 ? '…' : ''}) · <u>clique para corrigir</u></div>`;
+}
+function rmDupAbrir(){
+  const d = rmDuplicados();
+  let ov = document.getElementById('rm-dup-ov'); if(ov) ov.remove();
+  ov = document.createElement('div'); ov.id = 'rm-dup-ov'; ov.className = 'cp-ov';
+  ov.onclick = e => { if(e.target === ov) ov.remove(); };
+  ov.innerHTML = `<div class="cp" onclick="event.stopPropagation()"><h3>&#9888; Números repetidos</h3>
+    <div class="sub">Cada número deve ser de uma OS ou venda só. O mais antigo fica com o número; os outros recebem um número novo do servidor.</div>
+    ${d.length ? d.map(x => `<div class="rm-dup-grupo"><div class="rm-dup-num">${rmEscapeHtml(x.itens[0].codigo)}</div>
+      ${x.itens.map((it, k) => `<div class="rm-dup-it"><span><b>${it.tipo}</b> · ${rmEscapeHtml(it.quem)} · ${it.quando ? new Date(it.quando).toLocaleString('pt-BR').slice(0, 17) : ''}</span>
+        ${k === 0 ? '<i>fica com este número</i>' : `<button onclick="rmDupRenumerar('${it.tipo}','${rmJs(it.id)}')">Dar número novo</button>`}</div>`).join('')}</div>`).join('')
+      : '<div class="cp-vazio">Nenhum número repetido. &#128077;</div>'}
+    <div class="pe"><button onclick="document.getElementById('rm-dup-ov').remove()">Fechar</button></div></div>`;
+  document.body.appendChild(ov);
+}
+async function rmDupRenumerar(tipo, id){
+  const novo = await rmObterNumero('doc');
+  if(rmEhProvisorio(novo)){ alert('Precisa de internet para pegar um número novo do servidor. Tente de novo quando estiver conectado.'); return; }
+  if(tipo === 'OS'){
+    const l = rmLoad(), r = l.find(x => x.id === id); if(!r) return;
+    const velho = r.codigoApp; r.codigoApp = novo; rmSave(l); rmDbUpsertRecepcao(r);
+    try{ rmLoadProms().filter(p => p.refId === id).forEach(p => { p.refCodigo = novo; rmDbUpsertProm(p); }); }catch(e){}
+    rmLog('Corrigiu número repetido', novo, 'OS ' + velho + ' → ' + novo + ' · ' + (r.nome || ''));
+    rmShowToast('OS ' + velho + ' agora é ' + novo + ' · reimprima a etiqueta');
+  } else {
+    const l = rmLoadVendas(), v = l.find(x => x.id === id); if(!v) return;
+    const velho = v.codigoVenda; v.codigoVenda = novo; rmSaveVendas(l); rmDbUpsertVenda(v);
+    try{ rmLoadProms().filter(p => p.refId === id).forEach(p => { p.refCodigo = novo; rmDbUpsertProm(p); }); }catch(e){}
+    rmLog('Corrigiu número repetido', novo, 'Venda ' + velho + ' → ' + novo);
+    rmShowToast('Venda ' + velho + ' agora é ' + novo);
+  }
+  rmDupAbrir();
+  rmRenderActiveBoard();
+}
 
 async function rmDbInsertMecanico(nome){
   const { error } = await rmSb.from('mecanicos').insert({ nome });
@@ -6055,8 +6321,42 @@ async function rmSelectTudo(tabela, colunas, ordem){
   return { data: todos, error: null };
 }
 
-async function rmSyncFromSupabase(){
+// ===================== SINCRONIZAÇÃO =====================
+// - completa: baixa tudo (ao abrir, a cada 5 min, quando a internet volta)
+// - rápida: baixa só o que mudou desde a última vez (a cada 30 s, quando chega aviso do tempo real,
+//   quando a janela volta a ficar ativa). Assim, mesmo se o "tempo real" cair, nada fica desatualizado.
+const RM_CURSOR_KEY = 'radicalMotos_syncCursor';
+let rmSyncCursor = {};
+try{ rmSyncCursor = JSON.parse(localStorage.getItem(RM_CURSOR_KEY)) || {}; }catch(e){ rmSyncCursor = {}; }
+let rmSyncRodando = null, rmSyncDeNovo = null, rmSyncUltimoOk = 0, rmSyncUltimoCompleto = 0, rmTemAtualizadoEm = null, rmSyncAgTimer = null;
+function rmSyncFromSupabase(opcoes){
+  const completo = !!(opcoes && opcoes.completo);
+  if(rmSyncRodando){ rmSyncDeNovo = (completo || rmSyncDeNovo === 'completo') ? 'completo' : 'rapida'; return rmSyncRodando; }
+  rmSyncRodando = (async () => {
+    try{ await rmSyncExecutar(completo); }
+    catch(e){ console.warn('sincronização:', e); }
+    finally{
+      rmSyncRodando = null;
+      if(rmSyncDeNovo){ const c = rmSyncDeNovo === 'completo'; rmSyncDeNovo = null; setTimeout(() => rmSyncFromSupabase({ completo: c }), 30); }
+    }
+  })();
+  return rmSyncRodando;
+}
+function rmSyncAgendar(){ clearTimeout(rmSyncAgTimer); rmSyncAgTimer = setTimeout(() => rmSyncFromSupabase(), 400); }
+async function rmSyncExecutar(completo){
   await rmOutboxEnviar(); // primeiro manda o que ficou guardado no aparelho
+  const rapida = !completo && rmTemAtualizadoEm === true && RM_SYNC_TABS.every(t => rmSyncCursor[t]) && (Date.now() - rmSyncUltimoCompleto < 5 * 60000);
+  return rapida ? rmSyncRapida() : rmSyncCompleta();
+}
+function rmSyncOk(){ rmSyncUltimoOk = Date.now(); rmSyncIndicador(); }
+function rmCursorGuardar(t, rows){
+  let max = rmSyncCursor[t] || '';
+  rows.forEach(r => { if(r.atualizado_em && String(r.atualizado_em) > max) max = String(r.atualizado_em); });
+  if(max) rmSyncCursor[t] = max;
+  try{ localStorage.setItem(RM_CURSOR_KEY, JSON.stringify(rmSyncCursor)); }catch(e){}
+}
+function rmPendente(t, id){ return !!rmOutbox[t + ':' + id]; }
+async function rmSyncCompleta(){
   const desde = Date.now(); // o que for confirmado depois daqui pode não ter vindo no que vamos baixar
   const [recepcoesRes, mecanicosRes, clientesRes, vendasRes, produtosRes, avisosRes] = await Promise.all([
     rmSelectTudo('recepcoes', '*'),
@@ -6072,42 +6372,35 @@ async function rmSyncFromSupabase(){
     return;
   }
   rmSetOnlineStatus(true);
-  // o que ainda não foi confirmado pelo servidor continua valendo a versão do aparelho
-  const recepcoes = rmOutboxSobrepor('recepcoes', recepcoesRes.data.map(rmFromDbRow), rmFromDbRow, desde);
-  const mecanicos = mecanicosRes.data.map(m => m.nome);
-  const clientes = rmOutboxSobrepor('clientes', clientesRes.data.map(rmFromDbRowCliente), rmFromDbRowCliente, desde);
-  const vendas = rmOutboxSobrepor('vendas', vendasRes.data.map(rmFromDbRowVenda), rmFromDbRowVenda, desde);
-  const produtos = rmOutboxSobrepor('produtos', produtosRes.data.map(rmFromDbRowProduto), rmFromDbRowProduto, desde);
-  const avisos = avisosRes.data.map(rmFromDbRowAviso);
-  rmSave(recepcoes);
-  rmSaveMecanicos(mecanicos);
-  rmSaveClientes(clientes);
-  rmSaveVendas(vendas);
-  rmSaveProdutos(produtos);
-  rmSaveAvisos(avisos);
-  if(recepcoes.length === 0){
-    localStorage.setItem(RM_COUNTER_KEY, '0');
-  }
-  rmRenderActiveBoard();
-  rmRenderMecanicosChips();
-  rmRefreshMecanicoSelects();
-  if(document.getElementById('rm-section-clientes').classList.contains('active')){
-    rmRenderClientes();
-  }
-  if(document.getElementById('rm-section-pdv').classList.contains('active')){
-    rmRenderVendasHoje();
-  }
-  if(document.getElementById('rm-view-produtos-estoque') && document.getElementById('rm-view-produtos-estoque').classList.contains('active')){
-    rmRenderProdutos();
-  }
-  rmAtualizarBadgeAvisos();
-  if(document.getElementById('rm-view-avisos') && document.getElementById('rm-view-avisos').classList.contains('active')){
-    rmRenderAvisosLista();
-  }
-  if(rmBancadaMecanico){
-    rmRenderBancada();
-    rmRenderBancadaAvisos();
-  }
+  const res = { recepcoes: recepcoesRes.data, clientes: clientesRes.data, vendas: vendasRes.data, produtos: produtosRes.data };
+  const mudados = {};
+  RM_SYNC_TABS.forEach(t => {
+    const rows = res[t], cfg = rmTabCfg(t);
+    if(rows.length) rmTemAtualizadoEm = rows.some(r => r && r.atualizado_em) ? true : (rmTemAtualizadoEm === true ? true : false);
+    const antes = rmIdx(cfg.ler());
+    const ids = new Set();
+    // o aparelho tem uma versão mais nova (acabou de gravar)? mantém a dele
+    let lista = rows.map(row => {
+      if(!rmPendente(t, row.id)) rmBaseGuardar(t, row);
+      const loc = antes.get(row.id);
+      if(loc && loc._v != null && row.versao != null && loc._v > row.versao) return loc;
+      const novo = cfg.de(row);
+      if(!loc || !rmEq(rmSemControle(cfg.para(loc)), rmSemControle(cfg.para(novo)))) ids.add(row.id);
+      return novo;
+    });
+    // o que ainda não foi confirmado pelo servidor continua valendo a versão do aparelho
+    lista = rmOutboxSobrepor(t, lista, cfg.de, desde);
+    if(antes.size !== lista.length) antes.forEach((v, id) => { if(!lista.some(x => x.id === id)) ids.add(id); });
+    cfg.gravar(lista);
+    rmCursorGuardar(t, rows);
+    if(ids.size) mudados[t] = ids;
+  });
+  rmSaveMecanicos(mecanicosRes.data.map(m => m.nome));
+  rmSaveAvisos(avisosRes.data.map(rmFromDbRowAviso));
+  if(!res.recepcoes.length) localStorage.setItem(RM_COUNTER_KEY, '0');
+  rmSyncUltimoCompleto = Date.now();
+  rmSyncOk();
+  rmSyncRender(mudados, true);
   if(!rmFirstSyncDone){
     rmFirstSyncDone = true;
     const nomeField = document.getElementById('rm-f-nome');
@@ -6118,27 +6411,181 @@ async function rmSyncFromSupabase(){
     }
   }
 }
+async function rmSyncRapida(){
+  const consultas = RM_SYNC_TABS.map(t => {
+    const de = new Date(Date.parse(rmSyncCursor[t]) - 15000).toISOString(); // margem para gravações que demoraram a confirmar
+    return rmSb.from(t).select('*').gt('atualizado_em', de).order('atualizado_em').limit(1000);
+  });
+  const menor = RM_SYNC_TABS.map(t => rmSyncCursor[t]).sort()[0];
+  const desdeApagados = new Date(Date.parse(menor) - 15000).toISOString();
+  const [r1, r2, r3, r4, mecRes, avRes, apagRes] = await Promise.all(consultas.concat([
+    rmSb.from('mecanicos').select('nome').order('nome'),
+    rmSb.from('avisos').select('*').order('id'),
+    rmSb.from('historico').select('tabela,registro_id,quando').eq('operacao', 'DELETE').in('tabela', RM_SYNC_TABS).gt('quando', desdeApagados).limit(1000)
+  ]));
+  const resp = { recepcoes: r1, vendas: r2, clientes: r3, produtos: r4 };
+  if(RM_SYNC_TABS.some(t => resp[t].error) || mecRes.error || avRes.error){
+    const e = RM_SYNC_TABS.map(t => resp[t].error).find(Boolean) || mecRes.error || avRes.error;
+    if(/atualizado_em/.test(String(e && e.message))){ rmTemAtualizadoEm = false; return rmSyncCompleta(); }
+    console.warn('sincronização rápida:', e);
+    rmSetOnlineStatus(false);
+    return;
+  }
+  rmSetOnlineStatus(true);
+  const apagados = (!apagRes.error && Array.isArray(apagRes.data)) ? apagRes.data : [];
+  const mudados = {};
+  RM_SYNC_TABS.forEach(t => {
+    const rows = resp[t].data || [];
+    if(rows.length >= 1000) rmSyncUltimoCompleto = 0; // mudou muita coisa: a próxima é completa
+    const del = apagados.filter(a => a.tabela === t && !rmPendente(t, a.registro_id)).map(a => a.registro_id);
+    if(!rows.length && !del.length){ return; }
+    const cfg = rmTabCfg(t), lista = cfg.ler(), idx = new Map(lista.map(x => [x.id, x]));
+    const ids = new Set();
+    rows.forEach(row => {
+      if(rmPendente(t, row.id)) return; // alteração deste aparelho ainda não enviada: vale a dele
+      rmBaseGuardar(t, row);
+      const loc = idx.get(row.id);
+      if(loc && loc._v != null && row.versao != null && loc._v > row.versao) return;
+      const novo = cfg.de(row);
+      if(loc){
+        if(!rmEq(rmSemControle(cfg.para(loc)), rmSemControle(cfg.para(novo)))){ Object.assign(loc, novo); ids.add(row.id); }
+        else loc._v = novo._v;
+      } else { lista.unshift(novo); idx.set(novo.id, novo); ids.add(row.id); }
+    });
+    let final = lista;
+    if(del.length){
+      const s = new Set(del.filter(id => {
+        const loc = idx.get(id); if(!loc) return false;
+        const vivo = rows.find(r => r.id === id); return !vivo; // apagado e não recriado
+      }));
+      if(s.size){ final = lista.filter(x => !s.has(x.id)); s.forEach(id => { ids.add(id); rmBase.delete(t + ':' + id); }); }
+    }
+    if(ids.size){ cfg.gravar(final); mudados[t] = ids; }
+    rmCursorGuardar(t, rows);
+  });
+  const mec = (mecRes.data || []).map(m => m.nome);
+  if(!rmEq(mec, rmLoadMecanicos())){ rmSaveMecanicos(mec); mudados.mecanicos = true; }
+  const av = (avRes.data || []).map(rmFromDbRowAviso);
+  if(!rmEq(av, rmLoadAvisos())){ rmSaveAvisos(av); mudados.avisos = true; }
+  rmSyncOk();
+  if(Object.keys(mudados).length) rmSyncRender(mudados);
+}
+// redesenha só o que mudou
+function rmSyncRender(mudados, tudo){
+  mudados = mudados || {};
+  const algum = tudo || Object.keys(mudados).length;
+  if(!algum) return;
+  try{
+    if(tudo || mudados.recepcoes || mudados.vendas) rmRenderActiveBoard();
+    if(tudo || mudados.mecanicos){ rmRenderMecanicosChips(); rmRefreshMecanicoSelects(); }
+    if((tudo || mudados.clientes) && document.getElementById('rm-section-clientes').classList.contains('active')) rmRenderClientes();
+    if((tudo || mudados.vendas) && document.getElementById('rm-section-pdv').classList.contains('active')) rmRenderVendasHoje();
+    if((tudo || mudados.produtos) && document.getElementById('rm-view-produtos-estoque') && document.getElementById('rm-view-produtos-estoque').classList.contains('active')) rmRenderProdutos();
+    if(tudo || mudados.avisos){
+      rmAtualizarBadgeAvisos();
+      if(document.getElementById('rm-view-avisos') && document.getElementById('rm-view-avisos').classList.contains('active')) rmRenderAvisosLista();
+    }
+    if(rmBancadaMecanico){ rmRenderBancada(); rmRenderBancadaAvisos(); }
+    // a OS aberta na tela mudou em outro aparelho: atualiza (ou avisa, se estiver digitando nela)
+    if(rmActiveModalId && mudados.recepcoes && mudados.recepcoes.has && mudados.recepcoes.has(rmActiveModalId)) rmModalRecarregarSeSeguro(rmActiveModalId, true);
+  }catch(e){ console.warn('redesenhar após sincronizar:', e); }
+}
+function rmModalRecarregarSeSeguro(id, aviso){
+  const modal = document.getElementById('rm-modal'), bd = document.getElementById('rm-modal-backdrop');
+  if(!modal || !bd || !bd.classList.contains('show') || rmActiveModalId !== id || !modal.classList.contains('rm-modal-os')) return;
+  if(!rmIdx(rmMemLista(RM_KEY)).get(id)){ rmCloseModal(); rmShowToast('Esta OS foi apagada em outro aparelho'); return; }
+  const ae = document.activeElement;
+  const digitando = ae && modal.contains(ae) && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName) && ae.type !== 'button';
+  if(digitando){
+    if(!document.getElementById('rm-os-atualizar-faixa')){
+      modal.insertAdjacentHTML('afterbegin', `<div class="rm-os-atu-faixa" id="rm-os-atualizar-faixa" onclick="rmModalRecarregarAgora('${rmJs(id)}')">&#8635; Esta OS foi alterada em outro aparelho · <u>clique para atualizar a tela</u></div>`);
+    }
+    return;
+  }
+  rmModalRecarregarAgora(id);
+  if(aviso) rmShowToast('OS atualizada · alterada em outro aparelho');
+}
+function rmModalRecarregarAgora(id){
+  const modal = document.getElementById('rm-modal');
+  const sc = modal ? modal.scrollTop : 0;
+  rmOpenModal(id, rmActiveModalLarge);
+  if(modal) modal.scrollTop = sc;
+}
+// traz a OS mais nova do servidor (antes de finalizar, ao abrir); devolve true se mudou algo
+async function rmOsAtualizarDoServidor(id){
+  if(navigator.onLine === false || !rmSb) return false;
+  try{
+    await Promise.race([rmOutboxEnviar(), new Promise(ok => setTimeout(ok, 5000))]);
+    if(rmPendente('recepcoes', id)) return false; // ainda não conseguiu enviar (sem internet): segue com o que tem
+    const r = await Promise.race([
+      rmSb.from('recepcoes').select('*').eq('id', id).maybeSingle(),
+      new Promise(ok => setTimeout(() => ok({ error: { message: 'tempo esgotado' } }), 6000))
+    ]);
+    if(!r || r.error || !r.data) return false;
+    const row = r.data;
+    const lista = rmLoad(), local = lista.find(x => x.id === id);
+    if(!local) return false;
+    rmBaseGuardar('recepcoes', row);
+    if(local._v != null && row.versao != null && local._v > row.versao) return false;
+    const novo = rmFromDbRow(row);
+    const mudou = !rmEq(rmSemControle(rmToDbRow(local)), rmSemControle(rmToDbRow(novo)));
+    if(mudou){ Object.assign(local, novo); rmSave(lista); } else if(local._v !== novo._v){ local._v = novo._v; }
+    return mudou;
+  }catch(e){ return false; }
+}
+// indicador: "Sincronizado · 15:42" e alerta se ficar muito tempo sem atualizar
+function rmSyncIndicador(){
+  const label = document.getElementById('rm-sync-label'), dot = document.getElementById('rm-sync-dot');
+  if(!label || !rmOnline) return;
+  const parado = rmSyncUltimoOk ? Date.now() - rmSyncUltimoOk : 0;
+  const hora = rmSyncUltimoOk ? new Date(rmSyncUltimoOk).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) : '';
+  const atrasado = rmSyncUltimoOk && parado > 120000;
+  label.textContent = atrasado ? '⚠ Sem atualizar há ' + Math.round(parado / 60000) + ' min · clique' : 'Sincronizado' + (hora ? ' · ' + hora : '');
+  label.title = 'Última atualização com o servidor: ' + (hora || '—') + (rmRtOk ? '' : ' · tempo real reconectando') + '. Clique para atualizar agora.';
+  if(dot) dot.classList.toggle('rm-sync-atrasado', !!atrasado);
+}
+setInterval(rmSyncIndicador, 15000);
+// conferência periódica (funciona mesmo com o "tempo real" caído)
+setInterval(() => {
+  if(typeof rmUsuario === 'undefined' || !rmUsuario || !rmFirstSyncDone) return;
+  const parado = Date.now() - rmSyncUltimoOk;
+  if(document.hidden && parado < 120000) return;
+  rmSyncFromSupabase({ completo: Date.now() - rmSyncUltimoCompleto > 5 * 60000 });
+}, 30000);
+function rmSyncAoVoltar(){
+  if(typeof rmUsuario === 'undefined' || !rmUsuario || !rmFirstSyncDone || document.hidden) return;
+  if(Date.now() - rmSyncUltimoOk > 8000) rmSyncFromSupabase();
+}
+document.addEventListener('visibilitychange', rmSyncAoVoltar);
+window.addEventListener('focus', rmSyncAoVoltar);
 
+// ----- tempo real: avisa na hora; se cair, reconecta sozinho -----
+let rmRtCanais = [], rmRtTimer = null, rmRtOk = false, rmRtTrocando = false;
 function rmSetupRealtime(){
-  rmSb.channel('recepcoes-changes')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'recepcoes' }, () => rmSyncFromSupabase())
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'recepcoes' }, (payload) => rmHandleNovaRecepcaoRemota(payload.new))
-    .subscribe();
-  rmSb.channel('mecanicos-changes')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'mecanicos' }, () => rmSyncFromSupabase())
-    .subscribe();
-  rmSb.channel('clientes-changes')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'clientes' }, () => rmSyncFromSupabase())
-    .subscribe();
-  rmSb.channel('vendas-changes')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'vendas' }, () => rmSyncFromSupabase())
-    .subscribe();
-  rmSb.channel('produtos-changes')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'produtos' }, () => rmSyncFromSupabase())
-    .subscribe();
-  rmSb.channel('avisos-changes')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'avisos' }, () => rmSyncFromSupabase())
-    .subscribe();
+  rmRtTrocando = true;
+  rmRtCanais.forEach(c => { try{ rmSb.removeChannel(c); }catch(e){} });
+  rmRtCanais = [];
+  rmRtTrocando = false;
+  const estado = s => {
+    if(rmRtTrocando) return;
+    if(s === 'SUBSCRIBED'){ const voltou = !rmRtOk; rmRtOk = true; if(voltou && rmFirstSyncDone) rmSyncAgendar(); rmSyncIndicador(); }
+    else if(s === 'CHANNEL_ERROR' || s === 'TIMED_OUT' || s === 'CLOSED'){
+      rmRtOk = false; rmSyncIndicador();
+      clearTimeout(rmRtTimer); rmRtTimer = setTimeout(() => { rmSetupRealtime(); rmSyncFromSupabase(); }, 8000);
+    }
+  };
+  const canal = (nome, tabela, extra) => {
+    let c = rmSb.channel(nome).on('postgres_changes', { event: '*', schema: 'public', table: tabela }, () => rmSyncAgendar());
+    if(extra) c = extra(c);
+    c = c.subscribe(estado);
+    rmRtCanais.push(c);
+  };
+  canal('recepcoes-changes', 'recepcoes', c => c.on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'recepcoes' }, (payload) => rmHandleNovaRecepcaoRemota(payload.new)));
+  canal('mecanicos-changes', 'mecanicos');
+  canal('clientes-changes', 'clientes');
+  canal('vendas-changes', 'vendas');
+  canal('produtos-changes', 'produtos');
+  canal('avisos-changes', 'avisos');
 }
 
 const RM_AUTOPRINT_KEY = 'radicalMotos_autoprint_v1';
@@ -6165,7 +6612,9 @@ function rmSetOnlineStatus(online){
   if(dot && label){
     dot.classList.toggle('rm-sync-offline', !online);
     label.textContent = online ? 'Sincronizado' : 'Sem conexão — usando dados locais';
+    if(!label.dataset.rmClique){ label.dataset.rmClique = '1'; label.style.cursor = 'pointer'; label.addEventListener('click', () => { rmShowToast('Atualizando com o servidor...'); rmSyncFromSupabase({ completo: true }); }); }
   }
+  if(online && typeof rmSyncIndicador === 'function') rmSyncIndicador();
   const bDot = document.getElementById('rm-bancada-sync-dot');
   const bLabel = document.getElementById('rm-bancada-sync-label');
   if(bDot && bLabel){
@@ -7023,6 +7472,7 @@ function rmRenderVisaoGeral(){
   // alertas
   const alertas = [];
   if(vencido > 0.004) alertas.push(['vg-al-r', '⏰', `${M(vencido)} vencido`, `${clientesVencidos.size} cliente(s) com parcela atrasada`, "rmSetSection('financeiro'); rmSetViewFin('prom'); document.getElementById('rm-fin-prom-status').value='vencida'; rmRenderFinProm()"]);
+  { const dup = rmDuplicados(); if(dup.length) alertas.push(['vg-al-r', '🔢', `${dup.length} número(s) de OS/venda repetido(s)`, 'clique para corrigir', "rmDupAbrir()"]); }
   if(entreguesNaoPagas.length) alertas.push(['vg-al-r', '🏍️', `${entreguesNaoPagas.length} moto(s) entregue(s) sem pagar`, M(valorNaoPagas), "rmSetSection('oficina'); rmSetView('lista'); rmOslAtalho='naopago'; rmRenderLista()"]);
   if(paradas.length) alertas.push(['vg-al-a', '🐢', `${paradas.length} moto(s) há mais de 7 dias`, 'parada(s) na oficina', "rmSetSection('oficina'); rmSetView('lista')"]);
   if(prontasEsperando.length) alertas.push(['vg-al-a', '✅', `${prontasEsperando.length} moto(s) pronta(s)`, 'esperando o cliente buscar', "rmSetSection('oficina'); rmSetView('lista'); rmOslAtalho='pronta'; rmRenderLista()"]);
@@ -8730,7 +9180,7 @@ const RM_CURVA_ORDEM = { A:1, B:2, C:3, D:4 };
 function rmFamMelhorCurva(ps){ return ps.map(p => String(p.curva || '').toUpperCase()).filter(c => RM_CURVA_ORDEM[c]).sort((a,b) => RM_CURVA_ORDEM[a] - RM_CURVA_ORDEM[b])[0] || ''; }
 async function rmDbUpsertProdutosLote(ps){
   const t = Date.now();
-  ps.forEach((p, i) => { rmOutbox['produtos:' + p.id] = { tabela:'produtos', id:p.id, op:'up', row: rmToDbRowProduto(p), t: t + i / 1000 }; });
+  ps.forEach((p, i) => { const k = 'produtos:' + p.id, ant = rmOutbox[k]; rmOutbox[k] = { tabela:'produtos', id:p.id, op:'up', row: rmToDbRowProduto(p), t: t + i / 1000, base: ant ? (ant.base || null) : (rmBase.get(k) || null) }; });
   rmOutboxGravar(); return rmOutboxEnviar();
 }
 // cria (ou junta numa existente) — itens: [{pid, marca}]
@@ -9501,7 +9951,8 @@ function rmFromDbRowProduto(row){
     observacao: row.observacao,
     fotoUrl: row.foto_url,
     ativo: row.ativo !== false,
-    criadoEm: row.criado_em
+    criadoEm: row.criado_em,
+    _v: row.versao != null ? row.versao : (row.versao_base != null ? row.versao_base : null)
   };
 }
 
@@ -9537,7 +9988,8 @@ function rmToDbRowProduto(p){
     observacao: p.observacao || null,
     foto_url: p.fotoUrl || null,
     ativo: p.ativo !== false,
-    criado_em: p.criadoEm
+    criado_em: p.criadoEm,
+    versao_base: p._v != null ? p._v : null
   };
 }
 
@@ -9561,7 +10013,8 @@ function rmFromDbRowVenda(row){
     total: row.total || 0,
     formaPagamento: row.forma_pagamento,
     observacao: row.observacao,
-    criadoEm: row.criado_em
+    criadoEm: row.criado_em,
+    _v: row.versao != null ? row.versao : (row.versao_base != null ? row.versao_base : null)
   };
 }
 
@@ -9579,7 +10032,8 @@ function rmToDbRowVenda(v){
     total: v.total || 0,
     forma_pagamento: v.formaPagamento || null,
     observacao: v.observacao || null,
-    criado_em: v.criadoEm
+    criado_em: v.criadoEm,
+    versao_base: v._v != null ? v._v : null
   };
 }
 
@@ -9600,7 +10054,8 @@ function rmFromDbRowCliente(row){
     limiteCredito: row.limite_credito || 0,
     cep: row.cep, endereco: row.endereco, numero: row.numero, complemento: row.complemento,
     bairro: row.bairro, cidade: row.cidade, uf: row.uf, referencia: row.referencia,
-    criadoEm: row.criado_em
+    criadoEm: row.criado_em,
+    _v: row.versao != null ? row.versao : (row.versao_base != null ? row.versao_base : null)
   };
 }
 
@@ -9616,7 +10071,8 @@ function rmToDbRowCliente(c){
     limite_credito: c.limiteCredito || 0,
     cep: c.cep || null, endereco: c.endereco || null, numero: c.numero || null, complemento: c.complemento || null,
     bairro: c.bairro || null, cidade: c.cidade || null, uf: c.uf || null, referencia: c.referencia || null,
-    criado_em: c.criadoEm
+    criado_em: c.criadoEm,
+    versao_base: c._v != null ? c._v : null
   };
 }
 
@@ -12094,10 +12550,8 @@ function rmRenderActiveBoard(){
 }
 
 function rmPrepareNewOS(){
-  if(!rmPendingCode){
-    rmPendingCode = rmNextCode();
-  }
-  document.getElementById('rm-os-number').textContent = rmPendingCode;
+  rmPendingCode = null;
+  const el = document.getElementById('rm-os-number'); if(el){ el.textContent = 'Nº ao registrar'; el.title = 'O número é dado pelo servidor na hora de registrar (nunca repete entre aparelhos)'; }
 }
 
 let rmQuickPendingCode = null;
@@ -12126,7 +12580,7 @@ function rmAbrirRecepcaoRapida(){
     <div class="rm-modal-header">
       <div>
         <div class="rm-modal-title">Nova recepção</div>
-        <div class="rm-modal-sub">${rmQuickPendingCode}</div>
+        <div class="rm-modal-sub" title="O número é dado pelo servidor na hora de registrar (nunca repete entre aparelhos)">Nº da OS gerado ao registrar</div>
       </div>
       <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
     </div>
@@ -12276,17 +12730,26 @@ function rmEscolherClienteQuick(clienteId){
   document.getElementById('rm-qf-cliente-lista').classList.remove('show');
 }
 
-function rmSalvarRecepcaoRapida(lancarPecas){
+let rmSalvandoRecepcao = false;
+function rmBotoesRegistrar(ocupado){
+  document.querySelectorAll('.rm-reg-btn').forEach(b => { b.disabled = ocupado; b.style.opacity = ocupado ? '.6' : ''; });
+}
+async function rmSalvarRecepcaoRapida(lancarPecas){
   const nome = document.getElementById('rm-qf-nome').value.trim().toUpperCase();
   const modelo = document.getElementById('rm-qf-modelo').value.trim().toUpperCase();
   if(!modelo){
     alert('Preencha ao menos o modelo da moto.');
     return;
   }
+  if(rmSalvandoRecepcao) return;
+  rmSalvandoRecepcao = true; rmBotoesRegistrar(true);
+  let codigo;
+  try{ codigo = await rmObterNumero('doc'); } finally { rmSalvandoRecepcao = false; rmBotoesRegistrar(false); }
+  if(!document.getElementById('rm-qf-modelo')) return;
   const agora = new Date().toISOString();
   const registro = {
     id: 'r' + Date.now(),
-    codigoApp: rmCodigoLivre(rmQuickPendingCode),
+    codigoApp: codigo,
     nome,
     observacao: document.getElementById('rm-qf-observacao').value.trim().toUpperCase(),
     telefone: document.getElementById('rm-qf-telefone').value.trim(),
@@ -12316,24 +12779,28 @@ function rmSalvarRecepcaoRapida(lancarPecas){
     });
   }
 
-  rmShowToast(registro.codigoApp + ' registrado com sucesso');
+  rmShowToast(registro.codigoApp + ' registrado com sucesso' + (rmEhProvisorio(registro.codigoApp) ? ' · número provisório (sem internet)' : ''));
   rmLog('Criou OS', registro.codigoApp, [registro.nome, registro.modelo].filter(Boolean).join(' · '));
   rmCloseModal();
   if(lancarPecas){ rmOsAbrirDepois = null; rmOpenModal(registro.id, true); setTimeout(() => { if(typeof rmOsAbrirBusca === 'function') rmOsAbrirBusca(); }, 60); return; }
   rmAbrirOsPendente();
 }
 
-function rmSalvarRecepcao(lancarPecas){
+async function rmSalvarRecepcao(lancarPecas){
   const nome = document.getElementById('rm-f-nome').value.trim().toUpperCase();
   const modelo = document.getElementById('rm-f-modelo').value.trim().toUpperCase();
   if(!modelo){
     alert('Preencha ao menos o modelo da moto.');
     return;
   }
+  if(rmSalvandoRecepcao) return;
+  rmSalvandoRecepcao = true; rmBotoesRegistrar(true);
+  let codigo;
+  try{ codigo = await rmObterNumero('doc'); } finally { rmSalvandoRecepcao = false; rmBotoesRegistrar(false); }
   const agora = new Date().toISOString();
   const registro = {
     id: 'r' + Date.now(),
-    codigoApp: rmCodigoLivre(rmPendingCode),
+    codigoApp: codigo,
     nome,
     observacao: document.getElementById('rm-f-observacao').value.trim().toUpperCase(),
     telefone: document.getElementById('rm-f-telefone').value.trim(),
@@ -12373,7 +12840,7 @@ function rmSalvarRecepcao(lancarPecas){
   rmFormProblemas = [];
   rmRenderFormProblemas();
 
-  rmShowToast(registro.codigoApp + ' registrado com sucesso');
+  rmShowToast(registro.codigoApp + ' registrado com sucesso' + (rmEhProvisorio(registro.codigoApp) ? ' · número provisório (sem internet)' : ''));
   rmLog('Criou OS', registro.codigoApp, [registro.nome, registro.modelo].filter(Boolean).join(' · '));
   rmPendingCode = null;
   rmPrepareNewOS();
@@ -13803,6 +14270,7 @@ function rmRenderLista(){
       <td class="c">${rmOslTel(r) ? `<span class="rm-osl-tip" data-tip="WhatsApp ${rmEscapeHtml(rmOslTel(r))}"><button class="rm-osl-wpp" onclick="event.stopPropagation(); rmAbrirWhatsapp('${rmJs(rmOslTel(r))}')"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.3-.1z"/></svg></button></span>` : ''}</td>
     </tr>`;
   body.innerHTML = rmLimitar('osl', sorted).map(linha).join('') + rmMaisLinha('osl', sorted.length, 'rmRenderLista');
+  { const topo = document.querySelector('#rm-view-lista .rm-osl-topo'); if(topo){ let d = document.getElementById('rm-osl-dup'); if(!d){ d = document.createElement('div'); d.id = 'rm-osl-dup'; topo.parentElement.insertBefore(d, topo); } d.innerHTML = rmDupAvisoHtml(); } }
 }
 
 function rmRenderMecanicosBoard(){
@@ -14298,7 +14766,37 @@ function rmOsEditarProduto(osId, produtoId){
   rmAbrirCadastroProdutoRapido(produtoId);
 }
 
-function rmOsFinalizar(id){
+// antes de cobrar: busca a OS mais nova do servidor (outro aparelho pode ter lançado peça ou já finalizado)
+let rmOsFinalizandoId = null;
+async function rmOsFinalizar(id){
+  if(rmOsFinalizandoId) return;
+  rmOsFinalizandoId = id;
+  const btn = document.querySelector('.rm-os-bt-finalizar');
+  if(btn){ btn.disabled = true; btn.textContent = 'Conferindo...'; }
+  let seguir = false;
+  try{
+    const r0 = rmLoad().find(x => x.id === id); if(!r0) return;
+    const total0 = rmOsTotais(r0).total, itens0 = rmCanon(r0.pecasUsadas || []);
+    const mudou = await rmOsAtualizarDoServidor(id);
+    const r1 = rmLoad().find(x => x.id === id); if(!r1) return;
+    if(mudou){
+      rmModalRecarregarAgora(id);
+      if(r1.pago){ alert('Esta OS já foi finalizada em outro aparelho' + (r1.finalizadoPor ? ' (por ' + r1.finalizadoPor + ')' : '') + '. A tela foi atualizada.'); return; }
+      const total1 = rmOsTotais(r1).total;
+      if(Math.abs(total1 - total0) > 0.004 || rmCanon(r1.pecasUsadas || []) !== itens0){
+        alert('Esta OS foi alterada em outro aparelho e a tela foi atualizada.\n\nTotal antes: ' + rmFormatMoeda(total0) + '\nTotal agora: ' + rmFormatMoeda(total1) + '\n\nConfira os itens e clique em Finalizar de novo.');
+        return;
+      }
+    }
+    seguir = true;
+  } finally {
+    rmOsFinalizandoId = null;
+    const b = document.querySelector('.rm-os-bt-finalizar');
+    if(b){ b.disabled = false; b.innerHTML = '&#10004; Finalizar moto'; }
+  }
+  if(seguir) rmOsFinalizarAgora(id);
+}
+function rmOsFinalizarAgora(id){
   const list = rmLoad();
   const r = list.find(x=>x.id===id);
   if(!r) return;
@@ -14390,7 +14888,7 @@ function rmOsAvulso(osId){
   if(!item.pecasUsadas) item.pecasUsadas = [];
   const qEl = document.getElementById('rm-os-nova-qtd');
   const qtd = (qEl && rmParseMoeda(qEl.value)) || 1;
-  item.pecasUsadas.push({ produtoId: null, avulso: true, nome, codigo: '', localizacao: '', categoria: '', servico: false, quantidade: qtd, precoUnit: 0, desconto: 0, subtotal: 0, por: rmNomeUsuario() });
+  item.pecasUsadas.push({ uid: rmUid(), produtoId: null, avulso: true, nome, codigo: '', localizacao: '', categoria: '', servico: false, quantidade: qtd, precoUnit: 0, desconto: 0, subtotal: 0, por: rmNomeUsuario() });
   rmSave(list); rmDbUpsertRecepcao(item);
   inp.value = '';
   document.getElementById('rm-modal-peca-lista').classList.remove('show');
@@ -14491,7 +14989,7 @@ function rmEscolherProdutoMoto(produtoId){
   const qEl = document.getElementById('rm-os-nova-qtd');
   const qtd = (qEl && rmParseMoeda(qEl.value)) || 1;
   item.pecasUsadas.push({
-    produtoId: p.id, nome: p.nome, codigo: p.codigo || '', localizacao: p.localizacao || '',
+    uid: rmUid(), produtoId: p.id, nome: p.nome, codigo: p.codigo || '', localizacao: p.localizacao || '',
     categoria: p.categoria || '', servico: !!p.ehServico,
     quantidade: qtd, precoUnit: p.precoConsumidor || 0, desconto: 0, subtotal: (p.precoConsumidor || 0) * qtd, por: rmNomeUsuario()
   });
@@ -14559,6 +15057,7 @@ function rmRemoverPecaMoto(id, index){
 }
 
 function rmOpenModal(id, large){
+  if(id !== rmActiveModalId) setTimeout(() => rmOsAtualizarDoServidor(id).then(m => { if(m && rmActiveModalId === id) rmModalRecarregarSeSeguro(id, true); }), 0);
   rmActiveModalId = id;
   rmActiveModalLarge = !!large;
   const r = rmIdx(rmMemLista(RM_KEY)).get(id);
