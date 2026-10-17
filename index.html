@@ -116,15 +116,17 @@
   }
   .rm-foto-thumb-modal{width:100%; max-width:280px; border-radius:9px; display:block; border:1px solid var(--rm-border); margin-bottom:8px;}
 
+  /* botões Venda/Orçamento e Consumidor/Parceiro: abas com linha vermelha embaixo da escolhida */
   .rm-pdv-modo-toggle{
-    display:inline-flex; gap:2px; background:var(--rm-panel-2); border:1px solid var(--rm-border);
-    border-radius:10px; padding:3px; margin-bottom:22px;
+    display:inline-flex; gap:0; background:transparent; border:0; border-bottom:1px solid var(--rm-border);
+    border-radius:0; padding:0; margin-bottom:22px;
   }
   .rm-pdv-modo-btn{
-    background:transparent; border:none; color:var(--rm-text-dim); font-family:var(--rm-font-body);
-    font-size:13.5px; font-weight:700; padding:9px 20px; border-radius:7px; cursor:pointer;
+    background:transparent; border:none; border-bottom:3px solid transparent; margin-bottom:-1px; color:var(--rm-text-dim); font-family:var(--rm-font-body);
+    font-size:15px; font-weight:700; padding:10px 22px; border-radius:0; cursor:pointer; transition:color .15s, border-color .15s;
   }
-  .rm-pdv-modo-btn.active{background:var(--rm-panel); color:var(--rm-accent); box-shadow:0 1px 4px rgba(0,0,0,0.1);}
+  .rm-pdv-modo-btn:hover:not(.active){color:var(--rm-text);}
+  .rm-pdv-modo-btn.active{background:transparent; color:var(--rm-text); border-bottom-color:var(--rm-accent); box-shadow:none;}
   .rm-pdv-tag-orcamento{
     display:inline-block; background:var(--rm-panel-2); color:var(--rm-text-dim); font-size:11px;
     font-weight:700; padding:3px 9px; border-radius:20px; text-transform:uppercase; letter-spacing:0.03em;
@@ -133,7 +135,7 @@
   .rm-pdv-col-checkout{position:sticky; top:20px;}
 
   /* Barra de adicionar item */
-  .rm-pdv-toggles-row{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px;}
+  .rm-pdv-toggles-row{display:flex; gap:28px; flex-wrap:wrap; margin-bottom:22px;}
   .rm-pdv-toggles-row .rm-pdv-modo-toggle{margin-bottom:0;}
   .rm-pdv-add-row{display:flex; gap:10px; align-items:flex-end; margin-bottom:16px;}
   .rm-pdv-add-field{display:flex; flex-direction:column;}
@@ -2147,7 +2149,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.18-01h00</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.18-01h15</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -6007,7 +6009,7 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610180100;
+const RM_APP_VERSAO = 202610180115;
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
 try{ rmOutbox = JSON.parse(localStorage.getItem(RM_OUTBOX_KEY)) || {}; }catch(e){ rmOutbox = {}; }
