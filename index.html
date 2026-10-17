@@ -579,6 +579,31 @@
   .rm-qm-copia span{font-size:13px; color:#1e6b30;}
   html[data-tema="dark"] .cp-fam, html[data-tema="dark"] .rm-qm-copia span{color:#9fe0b3;} html[data-tema="dark"] .cp-sel a{color:#7fb2f0;}
   @media (max-width:640px){ .cp-cop{grid-template-columns:1fr 1fr;} }
+  .rs-ov{position:fixed; inset:0; background:rgba(0,0,0,.88); z-index:10090; display:flex; gap:24px; align-items:flex-start; justify-content:center; padding:24px 16px; overflow:auto; box-sizing:border-box;}
+  .rs-lado{width:260px; color:var(--rm-text); padding:18px; background:var(--rm-panel, #fff); border:1px solid var(--rm-border); box-sizing:border-box;}
+  .rs-lado h3{margin:0 0 4px; font-size:19px;} .rs-lado p{font-size:13px; color:var(--rm-text-dim); margin:0 0 16px;}
+  .rs-lado button{display:block; width:100%; margin-bottom:10px; padding:13px 14px; font-weight:700; font-size:14.5px; font-family:inherit; cursor:pointer; border:1px solid var(--rm-border); background:var(--rm-panel, #fff); color:var(--rm-text); text-align:left;}
+  .rs-lado .rs-wpp{background:#25d366; border-color:#25d366; color:#fff;} .rs-lado .rs-red{background:#ED3237; border-color:#ED3237; color:#fff;}
+  .rs-lado .rs-dica{font-size:12px; margin:12px 0 0;} .rs-msg{font-size:13px; font-weight:700; color:#e8a33d; min-height:18px;}
+  .rs-card{width:430px; max-width:100%; background:#fff; color:#1b1b1b; font-family:Inter, Arial, sans-serif; box-shadow:0 18px 50px rgba(0,0,0,.5); box-sizing:border-box;}
+  .rs-top{background:#0b0b0b; color:#fff; padding:18px 22px 16px; display:flex; align-items:center; gap:14px; border-bottom:4px solid #ED3237;}
+  .rs-top img{width:64px; height:64px; object-fit:cover; flex:none;}
+  .rs-top .t1{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:#bbb;} .rs-top .t2{font-size:21px; font-weight:800; margin-top:2px;} .rs-top .t3{font-size:12.5px; color:#bbb; margin-top:2px;}
+  .rs-moto{padding:16px 22px 12px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; border-bottom:1px solid #eee;}
+  .rs-moto .m1{font-size:12px; color:#888; text-transform:uppercase; letter-spacing:.05em;} .rs-moto .m2{font-size:20px; font-weight:800; margin-top:2px;} .rs-moto .m3{font-size:13.5px; color:#555; margin-top:3px;}
+  .rs-st{font-size:12px; font-weight:800; padding:6px 10px; white-space:nowrap; letter-spacing:.03em;} .rs-st.ok{background:#e6f6ec; color:#1b7a3a;} .rs-st.and{background:#fff3dc; color:#9a6200;}
+  .rs-sec{padding:12px 22px 4px;} .rs-sec h4{margin:0 0 6px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#ED3237;}
+  .rs-it{display:flex; align-items:baseline; gap:8px; padding:8px 0; border-bottom:1px dashed #e4e4e4; font-size:15px;}
+  .rs-it .q{min-width:30px; color:#888; font-weight:700; font-size:13.5px;} .rs-it .n{flex:1;} .rs-it .v{font-weight:700; white-space:nowrap;}
+  .rs-tot{margin:12px 22px 0; padding:8px 0 0; border-top:2px solid #1b1b1b;}
+  .rs-l{display:flex; justify-content:space-between; font-size:14.5px; padding:3px 0; color:#444;} .rs-l.desc{color:#1b7a3a;}
+  .rs-total{display:flex; justify-content:space-between; align-items:center; background:#ED3237; color:#fff; margin:8px 22px 0; padding:14px 18px;}
+  .rs-total span{font-size:14px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;} .rs-total b{font-size:30px; font-weight:900;}
+  .rs-pag{margin:10px 22px 0; font-size:13.5px; color:#333; background:#f6f6f6; padding:10px 12px;} .rs-pag b{color:#1b1b1b;}
+  .rs-foot{margin-top:16px; background:#0b0b0b; color:#ddd; padding:12px 22px; font-size:12.5px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;} .rs-foot b{color:#fff;}
+  .rs-ov.rs-cheia{background:#000; align-items:center; padding:0;} .rs-ov.rs-cheia .rs-lado{display:none;}
+  .rs-ov.rs-cheia .rs-area{transform:scale(var(--rs-esc, 1.6)); transform-origin:center; cursor:zoom-out;}
+  @media (max-width:760px){ .rs-ov{flex-direction:column; align-items:center;} .rs-lado{width:100%; max-width:430px; order:-1;} }
   .nf-top{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px;}
   .nf-imp{background:#d9433a; color:#fff; border:none; padding:12px 22px; font-weight:700; font-size:15px; cursor:pointer; font-family:inherit;}
   .nf-imp:hover{background:#c23a32;}
@@ -2061,7 +2086,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.17-18h10</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.17-19h00</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -10319,6 +10344,122 @@ function rmCorpoVendaA4(id){
 }
 
 // ---- Ordem de serviço ----
+// ===================== RESUMO DA OS (para mostrar ao cliente / mandar no WhatsApp) =====================
+const rmScriptsCarregados = {};
+function rmCarregarScript(url){
+  if(!rmScriptsCarregados[url]) rmScriptsCarregados[url] = new Promise((ok, erro) => {
+    const s = document.createElement('script'); s.src = url; s.onload = ok;
+    s.onerror = () => { delete rmScriptsCarregados[url]; erro(new Error('não carregou ' + url)); };
+    document.head.appendChild(s);
+  });
+  return rmScriptsCarregados[url];
+}
+const RM_HTML2CANVAS = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+const RM_JSPDF = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+let rmResumoId = null;
+function rmResumoCardHtml(r){
+  const e = rmEmpresa(), t = rmOsTotais(r);
+  const itens = (r.pecasUsadas || []).map(it => ({ q: Number(it.quantidade) || 1, n: it.nome || '', v: Number(it.subtotal) || 0 }));
+  if(Number(r.maoDeObra) > 0) itens.push({ q: 1, n: 'MÃO DE OBRA', v: Number(r.maoDeObra) });
+  const st = r.pago ? { t:'&#10004; FINALIZADA', c:'ok' } : r.status === 'prontas' ? { t:'&#10004; PRONTA', c:'ok' } : r.status === 'entregue' ? { t:'ENTREGUE', c:'ok' }
+    : r.status === 'peca' ? { t:'AGUARDANDO PEÇA', c:'and' } : r.status === 'andamento' ? { t:'EM ANDAMENTO', c:'and' } : { t:'EM ABERTO', c:'and' };
+  const pag = r.pago ? `&#128179; Pago${r.formaPagamento ? ' · <b>' + rmEscapeHtml(r.formaPagamento) + '</b>' : ''}${r.pagoEm ? ' em ' + new Date(r.pagoEm).toLocaleDateString('pt-BR') : ''}`
+    : `&#128179; Pagamento${r.formaPagamento ? ': <b>' + rmEscapeHtml(r.formaPagamento) + '</b>' : ''}${e.pix ? ' · PIX <b>' + rmEscapeHtml(String(e.pix).replace(/^.*?:\s*/, '')) + '</b>' : ''}`;
+  const logo = e.logo || (typeof RM_LOGO_PADRAO !== 'undefined' ? RM_LOGO_PADRAO : '');
+  const local = String(e.endereco || '').split(' - ').pop() || e.cidade || '';
+  return `<div class="rs-card" id="rm-resumo-card">
+    <div class="rs-top">${logo ? `<img src="${logo}" alt="">` : ''}<div><div class="t1">Resumo do serviço</div><div class="t2">OS nº ${rmEscapeHtml(String(rmNumeroDoc(r.codigoApp) ? String(rmNumeroDoc(r.codigoApp)).padStart(6, '0') : (r.codigoApp || '')))}</div>
+      <div class="t3">Entrada ${new Date(rmOsDataRef(r) || r.entrada).toLocaleDateString('pt-BR')}</div></div></div>
+    <div class="rs-moto"><div><div class="m1">Cliente</div><div class="m2">${rmEscapeHtml(r.nome || '—')}</div>${r.modelo ? `<div class="m3">&#127949; ${rmEscapeHtml(r.modelo)}</div>` : ''}</div><span class="rs-st ${st.c}">${st.t}</span></div>
+    <div class="rs-sec"><h4>&#129534; Produtos e serviços</h4>
+      ${itens.length ? itens.map(x => `<div class="rs-it"><span class="q">${rmFmtQtd(x.q)}x</span><span class="n">${rmEscapeHtml(x.n)}</span><span class="v">${rmFormatMoeda(x.v)}</span></div>`).join('') : '<div class="rs-it"><span class="n" style="color:#888">Nenhum item lançado ainda</span></div>'}</div>
+    <div class="rs-tot">${t.desc > 0.004 ? `<div class="rs-l"><span>Subtotal</span><span>${rmFormatMoeda(t.bruto)}</span></div><div class="rs-l desc"><span>Desconto</span><span>&minus; ${rmFormatMoeda(t.desc)}</span></div>` : ''}</div>
+    <div class="rs-total"><span>Total</span><b>${rmFormatMoeda(t.total)}</b></div>
+    <div class="rs-pag">${pag}</div>
+    <div class="rs-foot"><span><b>${rmEscapeHtml(e.nome || '')}</b>${local ? ' · ' + rmEscapeHtml(local) : ''}</span>${e.whatsapp ? `<span>WhatsApp <b>${rmEscapeHtml(e.whatsapp)}</b></span>` : ''}</div>
+  </div>`;
+}
+function rmOsResumo(id){
+  const r = rmIdx(rmMemLista(RM_KEY)).get(id); if(!r) return;
+  rmResumoId = id;
+  let ov = document.getElementById('rm-resumo-ov'); if(ov) ov.remove();
+  ov = document.createElement('div'); ov.id = 'rm-resumo-ov'; ov.className = 'rs-ov';
+  ov.onclick = e => { if(e.target === ov) rmResumoFechar(); };
+  ov.innerHTML = `<div class="rs-area">${rmResumoCardHtml(r)}</div>
+    <div class="rs-lado"><h3>&#128203; Resumo da OS</h3><p>Mostre na tela para o cliente ou envie pelo WhatsApp.</p>
+      <button class="rs-wpp" onclick="rmResumoWhatsapp()">&#128242; Enviar no WhatsApp</button>
+      <button class="rs-red" onclick="rmResumoBaixar('png')">&#128444; Baixar imagem (PNG)</button>
+      <button onclick="rmResumoBaixar('pdf')">&#128196; Baixar PDF</button>
+      <button onclick="rmResumoTelaCheia()">&#9974; Mostrar em tela cheia</button>
+      <button onclick="rmResumoFechar()">Fechar</button>
+      <div class="rs-msg" id="rm-resumo-msg"></div>
+      <p class="rs-dica">No celular, "Enviar no WhatsApp" já anexa a imagem. No computador, a imagem é baixada e a conversa do cliente abre — é só arrastar a imagem para lá.</p></div>`;
+  document.body.appendChild(ov);
+}
+function rmResumoFechar(){ if(document.fullscreenElement) document.exitFullscreen().catch(() => {}); const o = document.getElementById('rm-resumo-ov'); if(o) o.remove(); rmResumoId = null; }
+function rmResumoMsg(t){ const m = document.getElementById('rm-resumo-msg'); if(m) m.textContent = t || ''; }
+function rmResumoTelaCheia(){
+  const ov = document.getElementById('rm-resumo-ov'); if(!ov) return;
+  ov.classList.add('rs-cheia');
+  const card = document.getElementById('rm-resumo-card');
+  const ajusta = () => { const h = card.offsetHeight || 800, w = card.offsetWidth || 430; ov.style.setProperty('--rs-esc', Math.max(1, Math.min(window.innerHeight / h, window.innerWidth / w) * 0.94).toFixed(2)); };
+  ajusta(); setTimeout(ajusta, 300);
+  const sair = () => { if(!document.fullscreenElement){ ov.classList.remove('rs-cheia'); document.removeEventListener('fullscreenchange', sair); } };
+  if(ov.requestFullscreen) ov.requestFullscreen().then(() => document.addEventListener('fullscreenchange', sair)).catch(() => {});
+  ov.querySelector('.rs-area').onclick = () => { if(document.fullscreenElement) document.exitFullscreen(); ov.classList.remove('rs-cheia'); ov.querySelector('.rs-area').onclick = null; };
+}
+async function rmResumoCanvas(){
+  await rmCarregarScript(RM_HTML2CANVAS);
+  const card = document.getElementById('rm-resumo-card');
+  // desenha uma cópia fora da tela, sem a escala da tela cheia
+  const tmp = document.createElement('div'); tmp.style.cssText = 'position:fixed; left:-10000px; top:0; width:430px;';
+  tmp.innerHTML = card.outerHTML; tmp.firstElementChild.id = ''; document.body.appendChild(tmp);
+  try{ return await html2canvas(tmp.firstElementChild, { scale: 2.5, backgroundColor: '#ffffff', useCORS: true, logging: false }); }
+  finally{ tmp.remove(); }
+}
+function rmResumoNomeArq(ext){
+  const r = rmIdx(rmMemLista(RM_KEY)).get(rmResumoId) || {};
+  return ('Resumo-OS-' + (r.codigoApp || '') + '-' + (r.nome || '')).replace(/[^\w\-]+/g, '_').replace(/_+/g, '_') + '.' + ext;
+}
+function rmResumoDownload(blob, nome){
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nome;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+}
+async function rmResumoBlobPng(){ const c = await rmResumoCanvas(); return await new Promise(ok => c.toBlob(ok, 'image/png')); }
+async function rmResumoBaixar(tipo){
+  try{
+    rmResumoMsg('Gerando ' + (tipo === 'pdf' ? 'PDF' : 'imagem') + '...');
+    if(tipo === 'png'){ rmResumoDownload(await rmResumoBlobPng(), rmResumoNomeArq('png')); }
+    else {
+      const [c] = await Promise.all([rmResumoCanvas(), rmCarregarScript(RM_JSPDF)]);
+      const larg = 100, alt = larg * c.height / c.width; // página do tamanho do resumo (fica bom no celular)
+      const pdf = new window.jspdf.jsPDF({ unit:'mm', format:[larg, alt], orientation: alt > larg ? 'portrait' : 'landscape' });
+      pdf.addImage(c.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, larg, alt);
+      rmResumoDownload(pdf.output('blob'), rmResumoNomeArq('pdf'));
+    }
+    rmResumoMsg('');
+    const r = rmIdx(rmMemLista(RM_KEY)).get(rmResumoId); if(r) rmLog('Baixou resumo da OS (' + tipo.toUpperCase() + ')', r.codigoApp, r.nome || '');
+  }catch(e){ console.warn(e); rmResumoMsg(''); alert('Não consegui gerar o arquivo agora. Confira a internet (na primeira vez o sistema baixa a ferramenta de imagem) e tente de novo.'); }
+}
+async function rmResumoWhatsapp(){
+  const r = rmIdx(rmMemLista(RM_KEY)).get(rmResumoId); if(!r) return;
+  const tel = rmOslTel(r);
+  const texto = `Olá ${String(r.nome || '').split(' ')[0]}! Segue o resumo da sua ordem de serviço${r.modelo ? ' (' + r.modelo + ')' : ''}. Total: ${rmFormatMoeda(rmOsTotais(r).total)}.`;
+  try{
+    rmResumoMsg('Gerando imagem...');
+    const blob = await rmResumoBlobPng();
+    const arq = new File([blob], rmResumoNomeArq('png'), { type:'image/png' });
+    rmResumoMsg('');
+    rmLog('Enviou resumo da OS no WhatsApp', r.codigoApp, r.nome || '');
+    if(navigator.canShare && navigator.canShare({ files:[arq] })){ // celular: abre o compartilhar com a imagem anexada
+      try{ await navigator.share({ files:[arq], text: texto }); return; }catch(e){ if(e && e.name === 'AbortError') return; }
+    }
+    rmResumoDownload(blob, arq.name);
+    if(tel) rmAbrirWhatsapp(tel, texto);
+    else alert('A imagem foi baixada. Esta OS não tem WhatsApp do cliente cadastrado — envie a imagem pelo WhatsApp manualmente.');
+  }catch(e){ console.warn(e); rmResumoMsg(''); alert('Não consegui gerar a imagem agora. Confira a internet e tente de novo.'); }
+}
+
 function rmImprimirOSA4(id){ const c = rmCorpoOSA4(id); if(c) rmImprimirA4(c.titulo, c.corpo); }
 function rmCorpoOSA4(id){
   const r = rmIdx(rmMemLista(RM_KEY)).get(id); if(!r) return null;
@@ -14377,6 +14518,7 @@ function rmOpenModal(id, large){
         <button class="rm-modal-txt-btn" onclick="rmHistDaOS('${r.id}')" title="Ver e recuperar versões anteriores desta OS">&#128338; Versões</button>
         <button class="rm-modal-txt-btn" onclick="rmImprimirEtiqueta('${r.id}')" title="Etiqueta para colocar na moto (o que deve ser feito)">&#127991; Etiqueta</button>
         <button class="rm-modal-txt-btn" onclick="rmImprimirOSA4('${r.id}')" title="Ordem de serviço completa em A4 (peças, valores, cliente), mesmo sem finalizar">&#128196; OS completa</button>
+        <button class="rm-modal-txt-btn" onclick="rmOsResumo('${r.id}')" title="Resumo visual para mostrar ao cliente ou mandar no WhatsApp (imagem ou PDF)">&#128203; Resumo</button>
         <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
       </div>
     </div>
