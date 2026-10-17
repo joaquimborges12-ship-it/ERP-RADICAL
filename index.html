@@ -1845,6 +1845,25 @@
     html:not([data-abas="classico"]) .rm-subnav-btn{flex-direction:column; gap:4px; padding:9px 8px !important; font-size:12px; flex:1 0 auto;}
     html:not([data-abas="classico"]) .rm-sub-svg{width:20px; height:20px;}
   }
+  .rm-sub-negada{display:none !important;}
+  .pm{width:1000px; max-width:96vw;} .pm .sub{margin-bottom:12px}
+  .pm-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+  .pm-sec{border:1px solid var(--rm-border); padding:12px 14px; background:var(--rm-panel-2)}
+  .pm-sec.off .pm-subs{opacity:.45}
+  .pm-cab{display:flex; align-items:center; gap:10px; font-weight:800; font-size:15px; cursor:pointer; text-transform:none; letter-spacing:0}
+  .pm-cab input, .pm-ch input{accent-color:#d9433a; width:17px; height:17px; margin:0}
+  .pm-cab small{margin-left:auto; font-weight:600; color:var(--rm-text-dim); font-size:12px; text-align:right}
+  .pm-subs{display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0 27px}
+  .pm-ch{display:flex; align-items:center; gap:6px; border:1px solid var(--rm-border); padding:6px 10px; font-size:13px; background:var(--rm-panel); cursor:pointer; text-transform:none; letter-spacing:0; font-weight:600}
+  .pm-ch.nao span{color:var(--rm-text-dim); text-decoration:line-through}
+  .pm-ch.lock{color:var(--rm-text-dim); border-style:dashed; cursor:default}
+  @media (max-width:760px){ .pm-grid{grid-template-columns:1fr} }
+  .cp.pm label.pm-cab{display:flex !important; text-transform:none !important; font-size:15px !important; font-weight:800 !important; letter-spacing:0 !important; color:var(--rm-text) !important; margin:0 !important;}
+  .cp.pm .pm-cab small{margin-left:auto !important; text-transform:none !important; font-size:12px !important; font-weight:600 !important; color:var(--rm-text-dim) !important;}
+  .cp.pm .pm-ch, .cp.pm label.pm-ch{display:flex !important; text-transform:none !important; font-size:13px !important; font-weight:600 !important; letter-spacing:0 !important; color:var(--rm-text) !important; margin:0 !important;}
+  .cp.pm .pm-ch.lock{color:var(--rm-text-dim) !important;}
+  .cp.pm .pm-ch.nao span{color:var(--rm-text-dim) !important;}
+  .pm-grid{align-items:start;}
   .rm-fila-status.rm-fila-erro{background:#d9433a; color:#fff;}
   .rm-app-velho{position:fixed; inset:0; z-index:2147483000; background:rgba(20,20,24,0.88); display:flex; align-items:center; justify-content:center; padding:16px;}
   .rm-app-velho-cx{background:var(--rm-panel, #fff); color:var(--rm-text, #222); max-width:440px; width:100%; padding:26px 24px; border-top:6px solid #d9433a; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.4);}
@@ -2164,7 +2183,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.18-01h30</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.18-01h45</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -6024,7 +6043,7 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610180130;
+const RM_APP_VERSAO = 202610180145;
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
 try{ rmOutbox = JSON.parse(localStorage.getItem(RM_OUTBOX_KEY)) || {}; }catch(e){ rmOutbox = {}; }
@@ -7013,6 +7032,7 @@ function rmUsuariosHtml(){
           <div class="rm-us-info"><b>${rmEscapeHtml(u.nome)}</b> <span>${rmEscapeHtml(u.usuario)}</span>${u.ativo ? '' : ' <span class="rm-prom-sit rm-prom-sit-vencida">desativado</span>'}${u.id === rmUsuario.id ? ' <span class="rm-prom-sit rm-prom-sit-aberta">você</span>' : ''}</div>
           <select class="rm-input" onchange="rmAlterarUsuario('${u.id}', { papel: this.value })"${u.id === rmUsuario.id ? ' disabled' : ''}>
             ${Object.entries(RM_PAPEIS).map(([k, p]) => `<option value="${k}"${k===u.papel?' selected':''}>${p.nome}</option>`).join('')}</select>
+          ${u.id === rmUsuario.id || u.papel === 'admin' ? '' : `<button class="rm-pe2-btn" onclick="rmPermAbrir('${u.id}')">&#9881; Abas e subabas${rmSubBloqueadas(u).length ? ' (' + rmSubBloqueadas(u).length + ' bloqueada' + (rmSubBloqueadas(u).length > 1 ? 's' : '') + ')' : ''}</button>`}
           ${u.id === rmUsuario.id ? '' : `<button class="rm-pe2-btn" onclick="rmAlterarUsuario('${u.id}', { ativo: ${!u.ativo} })">${u.ativo ? 'Desativar' : 'Reativar'}</button>`}
           ${u.papel === 'personalizado' ? `<div class="rm-us-perms-ed">${RM_PERMS.map(([k, l]) => `<label class="rm-us-chk"><input type="checkbox"${sel.includes(k)?' checked':''} onchange="rmTogglePermUsuario('${u.id}','${k}', this.checked)"> ${l}</label>`).join('')}</div>` : ''}
         </div>`;
@@ -7055,6 +7075,105 @@ function rmTogglePermUsuario(id, perm, marcado){
   const u = rmUsuariosCache.find(x => x.id === id); if(!u) return;
   const lista = new Set(u.permissoes || []); marcado ? lista.add(perm) : lista.delete(perm);
   rmAlterarUsuario(id, { permissoes: [...lista] });
+}
+
+// ===================== SUBABAS POR USUÁRIO =====================
+// Em perfis.permissoes ficam, além das abas (tipo Personalizado), as subabas BLOQUEADAS: "!sub:<id do botão>".
+// Quem não tem nada bloqueado continua vendo tudo como antes.
+const RM_SUB_SO_ADMIN = ['rm-btn-fin-caixa', 'rm-btn-cfg-usuarios', 'rm-btn-cfg-registro', 'rm-btn-cfg-recuperar'];
+const RM_SUB_PREFIXO = { 'rm-btn-produtos-':'produtos', 'rm-btn-fin-':'financeiro', 'rm-btn-pla-':'planilha', 'rm-btn-rel-':'relatorio', 'rm-btn-cfg-':'configuracoes' };
+function rmSubBloqueadas(u){ return ((u && u.permissoes) || []).filter(x => typeof x === 'string' && x.startsWith('!sub:')).map(x => x.slice(5)); }
+function rmSubPode(id){
+  if(!rmUsuario || rmEhAdmin()) return true;
+  if(RM_SUB_SO_ADMIN.includes(id)) return false;
+  return !rmSubBloqueadas(rmUsuario).includes(id);
+}
+function rmSubBotoes(sec){ const el = document.getElementById('rm-section-' + sec); return el ? [...el.querySelectorAll('.rm-subnav .rm-subnav-btn')] : []; }
+function rmSubNome(b){ const l = b.querySelector(':scope > span:last-child'); return (l ? l.textContent : b.textContent).trim(); }
+// esconde as subabas bloqueadas e, se a aberta estiver bloqueada, vai para a primeira liberada
+function rmSubAplicar(){
+  document.querySelectorAll('.rm-subnav-btn').forEach(b => b.classList.toggle('rm-sub-negada', !!b.id && !rmSubPode(b.id)));
+  const sec = document.querySelector('.rm-section.active'); if(!sec) return;
+  const ativo = sec.querySelector('.rm-subnav-btn.active');
+  if(ativo && !rmSubPode(ativo.id)){ const alt = [...sec.querySelectorAll('.rm-subnav-btn')].find(b => rmSubPode(b.id)); if(alt) alt.click(); }
+}
+// trava também quem tenta abrir a subaba por outro caminho (atalho, alerta, link)
+function rmSubTravar(nome, idDe){
+  const orig = window[nome]; if(typeof orig !== 'function') return;
+  window[nome] = function(v){
+    const id = idDe(v);
+    if(id && !rmSubPode(id)){
+      const sec = document.getElementById(id) && document.getElementById(id).closest('.rm-section');
+      const alt = sec && [...sec.querySelectorAll('.rm-subnav-btn')].find(b => rmSubPode(b.id) && b.id !== id);
+      rmShowToast('Você não tem acesso a essa parte do sistema');
+      if(alt && alt.classList.contains('active')) return;
+      if(alt){ alt.click(); return; }
+      return;
+    }
+    return orig.apply(this, arguments);
+  };
+}
+rmSubTravar('rmSetView', v => 'rm-btn-' + v);
+rmSubTravar('rmSetViewProdutos', v => 'rm-btn-produtos-' + v);
+rmSubTravar('rmSetViewFin', v => 'rm-btn-fin-' + v);
+rmSubTravar('rmSetViewPlanilha', v => 'rm-btn-pla-' + v);
+rmSubTravar('rmComSetModo', v => 'rm-btn-rel-' + v);
+rmSubTravar('rmSetViewCfg', v => 'rm-btn-cfg-' + v);
+rmSubTravar('rmCliqueNovaRecepcao', () => 'rm-btn-reception');
+rmSubTravar('rmAbrirRecepcaoRapida', () => 'rm-btn-reception');
+rmSubTravar('rmCliqueCadastroProduto', () => 'rm-btn-produtos-cadastro');
+{ const orig = window.rmSetSection; window.rmSetSection = function(){ const r = orig.apply(this, arguments); try{ rmSubAplicar(); }catch(e){} return r; }; }
+
+// ----- tela "Abas e subabas" de um usuário -----
+function rmPermAbrir(uid){
+  const u = rmUsuariosCache.find(x => x.id === uid); if(!u) return;
+  const secs = u.papel === 'personalizado' ? (u.permissoes || []) : ((RM_PAPEIS[u.papel] || {}).perms || []);
+  const bloq = rmSubBloqueadas(u);
+  const caixa = RM_PERMS.map(([k, l]) => {
+    const on = secs.includes(k);
+    const subs = rmSubBotoes(k).filter(b => b.id);
+    return `<div class="pm-sec${on ? '' : ' off'}" data-sec="${k}">
+      <label class="pm-cab"><input type="checkbox" class="pm-sec-chk"${on ? ' checked' : ''} onchange="this.closest('.pm-sec').classList.toggle('off', !this.checked); rmPermContar()"> ${l}<small></small></label>
+      ${subs.length ? `<div class="pm-subs">${subs.map(b => RM_SUB_SO_ADMIN.includes(b.id)
+        ? `<span class="pm-ch lock" title="Sempre só o administrador">&#128274; ${rmEscapeHtml(rmSubNome(b))}</span>`
+        : `<label class="pm-ch${bloq.includes(b.id) ? ' nao' : ''}"><input type="checkbox" class="pm-sub-chk" value="${b.id}"${bloq.includes(b.id) ? '' : ' checked'} onchange="this.parentElement.classList.toggle('nao', !this.checked); rmPermContar()"> <span>${rmEscapeHtml(rmSubNome(b))}</span></label>`).join('')}</div>` : ''}
+    </div>`;
+  }).join('');
+  let ov = document.getElementById('rm-perm-ov'); if(ov) ov.remove();
+  ov = document.createElement('div'); ov.id = 'rm-perm-ov'; ov.className = 'cp-ov';
+  ov.onclick = e => { if(e.target === ov) ov.remove(); };
+  ov.innerHTML = `<div class="cp pm" onclick="event.stopPropagation()"><h3>Acesso de ${rmEscapeHtml(u.nome)}</h3>
+    <div class="sub">Marque as abas e, dentro de cada uma, as subabas que ${rmEscapeHtml(u.nome)} pode ver. O que estiver desmarcado some do menu. Vale a partir da próxima vez que ele abrir o sistema.</div>
+    <div class="pm-grid">${caixa}</div>
+    <div class="pe"><button onclick="document.getElementById('rm-perm-ov').remove()">Cancelar</button><button class="pri" onclick="rmPermSalvar('${rmJs(uid)}')">Salvar acesso</button></div></div>`;
+  document.body.appendChild(ov);
+  rmPermContar();
+}
+function rmPermContar(){
+  document.querySelectorAll('#rm-perm-ov .pm-sec').forEach(sec => {
+    const on = sec.querySelector('.pm-sec-chk').checked, subs = [...sec.querySelectorAll('.pm-sub-chk')], marc = subs.filter(x => x.checked).length;
+    const tem = sec.querySelector('.pm-ch.lock');
+    sec.querySelector('small').textContent = !on ? 'sem acesso' : subs.length ? marc + ' de ' + subs.length + ' subabas' + (tem ? ' · 🔒 só administrador' : '') : '';
+    subs.forEach(x => x.disabled = !on);
+  });
+}
+async function rmPermSalvar(uid){
+  const u = rmUsuariosCache.find(x => x.id === uid); if(!u) return;
+  const secs = [], bloq = [];
+  document.querySelectorAll('#rm-perm-ov .pm-sec').forEach(sec => {
+    const k = sec.dataset.sec, on = sec.querySelector('.pm-sec-chk').checked;
+    const subs = [...sec.querySelectorAll('.pm-sub-chk')];
+    if(on && subs.length && !subs.some(x => x.checked)){ return; } // nenhuma subaba: a aba toda fica fechada
+    if(on) secs.push(k);
+    subs.forEach(x => { if(!x.checked) bloq.push('!sub:' + x.value); });
+  });
+  if(!secs.length){ alert('Marque pelo menos uma aba.'); return; }
+  const doPapel = ((RM_PAPEIS[u.papel] || {}).perms || []);
+  const mesmo = u.papel !== 'personalizado' && doPapel.length === secs.length && secs.every(k => doPapel.includes(k));
+  const campos = mesmo ? { permissoes: bloq } : { papel: 'personalizado', permissoes: secs.concat(bloq) };
+  const ov = document.getElementById('rm-perm-ov'); if(ov) ov.remove();
+  await rmAlterarUsuario(uid, campos);
+  rmShowToast('Acesso de ' + u.nome + ' salvo');
 }
 
 // ----- Configurações > Registro (só administrador) -----
