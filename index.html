@@ -7,7 +7,7 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<script>document.documentElement.classList.add("rm-sem-login"); try{ if(localStorage.getItem("radicalMotos_tema")==="dark") document.documentElement.dataset.tema="dark"; }catch(e){}</script>
+<script>document.documentElement.classList.add("rm-sem-login"); try{ if(localStorage.getItem("radicalMotos_tema")==="dark") document.documentElement.dataset.tema="dark"; if(localStorage.getItem("radicalMotos_abas")==="classico") document.documentElement.dataset.abas="classico"; }catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <title>Recepção de Motos — Radical Motos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1830,6 +1830,21 @@
   .cx-ok{color:#1e8e3e; font-weight:800} .cx-ruim{color:#d9433a; font-weight:800} .cx-mais{color:#b8860b; font-weight:800}
   html[data-tema="dark"] .cx-ok{color:#5fd38d} html[data-tema="dark"] .cx-ruim{color:#ff8a80} html[data-tema="dark"] .cx-mais{color:#ffd27a}
   @media (max-width:860px){ .cx-cards{grid-template-columns:1fr 1fr} .cx-grid{grid-template-columns:1fr} .cx-card b{font-size:20px} .cx-card.cx-dest b{font-size:22px} }
+  /* ===== ABAS NOVAS: ícones desenhados + linha vermelha embaixo (Configurações → Aparência volta ao clássico) ===== */
+  .rm-sub-svg{display:none; width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex:none;}
+  html:not([data-abas="classico"]) .rm-sub-emo{display:none;}
+  html:not([data-abas="classico"]) .rm-sub-svg{display:block;}
+  html:not([data-abas="classico"]) .rm-subnav{background:transparent; border:0; border-bottom:1px solid var(--rm-border); border-radius:0; padding:0; gap:0; width:auto; scrollbar-width:thin;}
+  html:not([data-abas="classico"]) .rm-subnav-btn{flex-direction:row; gap:8px; min-width:0; padding:12px 18px; border-radius:0; font-size:14.5px; color:var(--rm-text-dim); border-bottom:3px solid transparent; margin-bottom:-1px; background:transparent;}
+  html:not([data-abas="classico"]) .rm-subnav-icon{font-size:17px; display:flex; align-items:center;}
+  html:not([data-abas="classico"]) .rm-subnav-btn:hover:not(.active){background:transparent; color:var(--rm-text);}
+  html:not([data-abas="classico"]) .rm-subnav-btn.active{background:transparent; color:var(--rm-text); border-bottom-color:var(--rm-accent);}
+  html:not([data-abas="classico"]) .rm-subnav-btn.active .rm-sub-svg{stroke:var(--rm-accent);}
+  html:not([data-abas="classico"]) .rm-subnav .rm-badge{box-shadow:0 0 0 2px var(--rm-bg);}
+  @media (max-width:760px){
+    html:not([data-abas="classico"]) .rm-subnav-btn{flex-direction:column; gap:4px; padding:9px 8px !important; font-size:12px; flex:1 0 auto;}
+    html:not([data-abas="classico"]) .rm-sub-svg{width:20px; height:20px;}
+  }
   .rm-fila-status.rm-fila-erro{background:#d9433a; color:#fff;}
   .rm-app-velho{position:fixed; inset:0; z-index:2147483000; background:rgba(20,20,24,0.88); display:flex; align-items:center; justify-content:center; padding:16px;}
   .rm-app-velho-cx{background:var(--rm-panel, #fff); color:var(--rm-text, #222); max-width:440px; width:100%; padding:26px 24px; border-top:6px solid #d9433a; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.4);}
@@ -2149,7 +2164,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.18-01h15</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.18-01h30</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -6009,7 +6024,7 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610180115;
+const RM_APP_VERSAO = 202610180130;
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
 try{ rmOutbox = JSON.parse(localStorage.getItem(RM_OUTBOX_KEY)) || {}; }catch(e){ rmOutbox = {}; }
@@ -10931,6 +10946,56 @@ setTimeout(rmSyncEmpresa, 2500);
 
 const RM_CFG_CAMPOS = [['nome','Nome fantasia'],['razao','Razão social'],['doc','CNPJ'],['ie','Inscrição estadual'],
   ['endereco','Endereço'],['cidade','Bairro, cidade - UF'],['cep','CEP'],['telefone','Telefone'],['whatsapp','WhatsApp'],['pix','Chave PIX (sai no comprovante)'],['rodape','Mensagem no rodapé (opcional)']];
+
+// ===================== ÍCONES DAS ABAS =====================
+const RM_ABA_ICONES = {
+  'rm-btn-reception':'<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+  'rm-btn-lista':'<path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01"/>',
+  'rm-btn-dashboard':'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+  'rm-btn-mecanicos':'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.5-.5-2.4z"/>',
+  'rm-btn-avisos':'<path d="M3 11v3a1 1 0 0 0 1 1h3l6 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M17 9a4 4 0 0 1 0 6"/>',
+  'rm-btn-produtos-cadastro':'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/>',
+  'rm-btn-produtos-estoque':'<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
+  'rm-btn-produtos-etiquetas':'<path d="M20.6 13.4L13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><path d="M7.5 7.5h.01"/>',
+  'rm-btn-produtos-pedido':'<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h9.6a1 1 0 0 0 1-.8L21 7H6"/>',
+  'rm-btn-produtos-inventario':'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 2h6v4H9zM9 13l2 2 4-4"/>',
+  'rm-btn-produtos-familias':'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>',
+  'rm-btn-fin-vendas':'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 10v4M18 10v4"/>',
+  'rm-btn-fin-prom':'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>',
+  'rm-btn-fin-cli':'<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2.4.7 4 2.8 4 6"/>',
+  'rm-btn-fin-org':'<path d="M3 6a1 1 0 0 1 1-1h5l2 2h9a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>',
+  'rm-btn-fin-conc':'<path d="M20 11a8 8 0 0 0-14.5-4.5M4 13a8 8 0 0 0 14.5 4.5"/><path d="M5 3v4h4M19 21v-4h-4"/>',
+  'rm-btn-fin-notas':'<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 13h8M8 17h5"/>',
+  'rm-btn-fin-caixa':'<rect x="3" y="9" width="18" height="11" rx="1"/><path d="M3 13h18M6 9V5h9v4M15 6h3v3"/><path d="M11 16.5h2"/>',
+  'rm-btn-pla-lembretes':'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10 20a2 2 0 0 0 4 0"/>',
+  'rm-btn-pla-vale':'<path d="M20 7H5a2 2 0 0 1 0-4h13v4"/><path d="M3 5v14a2 2 0 0 0 2 2h15V7"/><path d="M16 14h.01"/>',
+  'rm-btn-rel-mec':'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.5-.5-2.4z"/>',
+  'rm-btn-rel-vend':'<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h9.6a1 1 0 0 0 1-.8L21 7H6"/>',
+  'rm-btn-rel-hist':'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M9 15l2 2 4-4"/>',
+  'rm-btn-cfg-empresa':'<path d="M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16M15 9h4a1 1 0 0 1 1 1v11M2 21h20"/><path d="M8 8h3M8 12h3M8 16h3"/>',
+  'rm-btn-cfg-impressao':'<path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="1"/><path d="M6 14h12v7H6z"/>',
+  'rm-btn-cfg-aparencia':'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/>',
+  'rm-btn-cfg-backup':'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+  'rm-btn-cfg-usuarios':'<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2.4.7 4 2.8 4 6"/>',
+  'rm-btn-cfg-registro':'<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 12h8M8 16h8"/>',
+  'rm-btn-cfg-recuperar':'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/>'
+};
+function rmAbasPrepararIcones(){
+  document.querySelectorAll('.rm-subnav-btn').forEach(b => {
+    const ic = b.querySelector('.rm-subnav-icon'); if(!ic || ic.querySelector('.rm-sub-svg')) return;
+    const t = [...ic.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
+    if(t){ const e = document.createElement('i'); e.className = 'rm-sub-emo'; e.style.fontStyle = 'normal'; e.textContent = t.textContent; ic.replaceChild(e, t); }
+    const d = RM_ABA_ICONES[b.id] || '<circle cx="12" cy="12" r="3"/>';
+    ic.insertAdjacentHTML('afterbegin', '<svg class="rm-sub-svg" viewBox="0 0 24 24" aria-hidden="true">' + d + '</svg>');
+  });
+}
+function rmSetAbas(modo){
+  if(modo === 'classico') document.documentElement.dataset.abas = 'classico'; else delete document.documentElement.dataset.abas;
+  try{ localStorage.setItem('radicalMotos_abas', modo); }catch(e){}
+  rmRenderConfigEmpresa();
+}
+if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', rmAbasPrepararIcones); else rmAbasPrepararIcones();
+
 function rmSetTema(t){
   if(t === 'dark') document.documentElement.dataset.tema = 'dark';
   else delete document.documentElement.dataset.tema;
@@ -11009,6 +11074,11 @@ function rmRenderConfigEmpresa(){
       <div style="display:flex; gap:8px;">
         <button class="rm-pe2-btn${document.documentElement.dataset.tema!=='dark'?' rm-sel-ativo':''}" onclick="rmSetTema('claro')">&#9728; Claro</button>
         <button class="rm-pe2-btn${document.documentElement.dataset.tema==='dark'?' rm-sel-ativo':''}" onclick="rmSetTema('dark')">&#9790; Escuro</button>
+      </div>
+      <div class="rm-cfg-tit" style="margin-top:18px">Estilo das abas</div>
+      <div style="display:flex; gap:8px;">
+        <button class="rm-pe2-btn${document.documentElement.dataset.abas!=='classico'?' rm-sel-ativo':''}" onclick="rmSetAbas('novo')">Novo (ícones e linha)</button>
+        <button class="rm-pe2-btn${document.documentElement.dataset.abas==='classico'?' rm-sel-ativo':''}" onclick="rmSetAbas('classico')">Clássico (como era antes)</button>
       </div>
     </div>`,
     backup: () => rmBackupCardHtml().replace('style="margin-top:14px;"', '') + `<div class="rm-cfg-card" style="margin-top:14px;">
