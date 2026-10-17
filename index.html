@@ -1793,6 +1793,41 @@
   .rm-inv-inat-tag{display:inline-block; background:#777; color:#fff; font-size:11px; font-weight:800; padding:1px 7px; margin-right:6px;}
   .rm-fila-status{font-size:11.5px; font-weight:700; color:#b26a00; background:#fff3cd; padding:5px 8px; margin:4px 10px 0; line-height:1.3;}
   html[data-tema="dark"] .rm-fila-status{background:#4a3a10; color:#ffd77a;}
+  .cx-top{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px}
+  .cx-top input{padding:9px 12px; background:var(--rm-panel); color:var(--rm-text); border:1px solid var(--rm-border); font-family:inherit; font-size:14px; width:auto}
+  .cx-st{color:#fff; font-weight:800; font-size:12px; padding:6px 10px; letter-spacing:.04em; background:#2e8b57}
+  .cx-st.cx-st-f{background:#5a6270} .cx-st.cx-st-n{background:#c9961a}
+  .cx-sub{color:var(--rm-text-dim); font-size:13px}
+  .cx-cards{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:14px}
+  .cx-card{background:var(--rm-panel); border:1px solid var(--rm-border); padding:14px 16px}
+  .cx-card span{display:block; font-size:12px; color:var(--rm-text-dim); text-transform:uppercase; letter-spacing:.05em; font-weight:700}
+  .cx-card b{display:block; font-size:24px; margin-top:6px} .cx-card small{color:var(--rm-text-dim); font-size:12px}
+  .cx-card.cx-dest{border:2px solid #2e8b57; background:rgba(46,139,87,.12)} .cx-card.cx-dest b{color:#1e8e3e; font-size:28px}
+  html[data-tema="dark"] .cx-card.cx-dest b{color:#5fd38d}
+  .cx-neg b{color:#d9433a} html[data-tema="dark"] .cx-neg b{color:#ff8a80}
+  .cx-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:14px}
+  .cx-box{background:var(--rm-panel); border:1px solid var(--rm-border); padding:14px 16px; margin-bottom:14px}
+  .cx-box h3{margin:0 0 10px; font-size:15px; display:flex; justify-content:space-between; align-items:center; gap:8px}
+  .cx-box h3 button, .cx-btn2{width:auto; padding:7px 12px; font-size:13px; font-weight:700; background:transparent; color:var(--rm-text); border:1px solid var(--rm-border); cursor:pointer; font-family:inherit; margin:0}
+  .cx-l{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:8px 0; border-bottom:1px solid var(--rm-border); font-size:14px}
+  .cx-l:last-child{border-bottom:0} .cx-l i{color:var(--rm-text-dim); font-style:normal; font-size:12.5px; margin-left:6px}
+  .cx-l.cx-tot{font-weight:800; font-size:15px; border-top:2px solid var(--rm-border); border-bottom:0; margin-top:4px}
+  .cx-l .cx-x{background:transparent; border:0; color:var(--rm-text-dim); cursor:pointer; font-size:17px; width:auto; padding:0 4px; margin:0}
+  .cx-saida{color:#d9433a; font-weight:700} html[data-tema="dark"] .cx-saida{color:#ff8a80}
+  .cx-dot{display:inline-block; width:9px; height:9px; margin-right:8px}
+  .cx-vazio{color:var(--rm-text-dim); font-size:13px; padding:6px 0}
+  .cx-fech label{display:block; font-weight:700; font-size:14px; margin:0 0 6px}
+  .cx-fech input{width:100%; box-sizing:border-box; padding:12px; font-size:22px; font-weight:800; text-align:right; background:var(--rm-bg); color:var(--rm-text); border:2px solid var(--rm-border); font-family:inherit}
+  .cx-dif{margin:10px 0; padding:10px 12px; font-weight:800; font-size:15px; border:1px solid}
+  .cx-dif.cx-falta{background:rgba(217,67,58,.12); color:#c0392b; border-color:#d9433a} html[data-tema="dark"] .cx-dif.cx-falta{color:#ff8a80}
+  .cx-dif.cx-sobra{background:rgba(201,150,26,.14); color:#9a7210; border-color:#c9961a} html[data-tema="dark"] .cx-dif.cx-sobra{color:#ffd27a}
+  .cx-dif.cx-certo{background:rgba(46,139,87,.12); color:#1e7a45; border-color:#2e8b57} html[data-tema="dark"] .cx-dif.cx-certo{color:#7ee2a8}
+  .cx-fech .rm-primary{width:100%; padding:13px; font-size:15px; margin-top:6px}
+  .cx-tab{width:100%; border-collapse:collapse; font-size:13.5px} .cx-tab th{text-align:left; font-size:11.5px; color:var(--rm-text-dim); text-transform:uppercase; padding:8px; border-bottom:1px solid var(--rm-border)} .cx-tab td{padding:8px; border-bottom:1px solid var(--rm-border)} .cx-tab .r{text-align:right}
+  .cx-tab tr{cursor:pointer}
+  .cx-ok{color:#1e8e3e; font-weight:800} .cx-ruim{color:#d9433a; font-weight:800} .cx-mais{color:#b8860b; font-weight:800}
+  html[data-tema="dark"] .cx-ok{color:#5fd38d} html[data-tema="dark"] .cx-ruim{color:#ff8a80} html[data-tema="dark"] .cx-mais{color:#ffd27a}
+  @media (max-width:860px){ .cx-cards{grid-template-columns:1fr 1fr} .cx-grid{grid-template-columns:1fr} .cx-card b{font-size:20px} .cx-card.cx-dest b{font-size:22px} }
   .rm-fila-status.rm-fila-erro{background:#d9433a; color:#fff;}
   .rm-app-velho{position:fixed; inset:0; z-index:2147483000; background:rgba(20,20,24,0.88); display:flex; align-items:center; justify-content:center; padding:16px;}
   .rm-app-velho-cx{background:var(--rm-panel, #fff); color:var(--rm-text, #222); max-width:440px; width:100%; padding:26px 24px; border-top:6px solid #d9433a; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.4);}
@@ -2112,7 +2147,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.17-23h30</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.18-00h30</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2838,7 +2873,9 @@
         <button class="rm-subnav-btn" id="rm-btn-fin-cli" onclick="rmSetViewFin('cli')"><span class="rm-subnav-icon">&#128101;</span><span>Clientes</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-org" onclick="rmSetViewFin('org')"><span class="rm-subnav-icon">&#128194;</span><span>Organizar</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-conc" onclick="rmSetViewFin('conc')"><span class="rm-subnav-icon">&#128260;</span><span>Conciliação</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-fin-caixa" onclick="rmSetViewFin('caixa')"><span class="rm-subnav-icon">&#129534;</span><span>Caixa do dia</span></button>
       </div>
+      <div id="rm-view-fin-caixa" class="rm-view"><h1 class="rm-title">Caixa do dia</h1><div id="rm-cx"></div></div>
       <div id="rm-view-fin-vendas" class="rm-view active">
         <h1 class="rm-title">Vendas</h1>
         <div class="rm-toolbar">
@@ -5969,7 +6006,7 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610172330;
+const RM_APP_VERSAO = 202610180030;
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
 try{ rmOutbox = JSON.parse(localStorage.getItem(RM_OUTBOX_KEY)) || {}; }catch(e){ rmOutbox = {}; }
@@ -9873,6 +9910,230 @@ async function rmCopiaRenderLista(){
 setTimeout(() => rmCopiaGuardar(), 20000);
 setInterval(() => rmCopiaGuardar(), 60 * 60 * 1000);
 
+
+// ===================== CAIXA DO DIA =====================
+// Cada dia fica em configuracoes: "caixa-AAAA-MM-DD" (abertura e fechamento) e uma linha para cada
+// retirada ("caixa-AAAA-MM-DD-r-xxxx"), assim dois aparelhos lançando ao mesmo tempo não se apagam.
+// As entradas são calculadas das vendas, OS pagas e parcelas recebidas do dia (mesma conta do "dinheiro que entrou").
+let rmCxDia = null, rmCxDados = {}, rmCxLista = [], rmCxCarregando = false;
+const rmCxId = d => 'caixa-' + d;
+function rmCxSoma(l){ return Math.round(l.reduce((s, x) => s + (Number(x) || 0), 0) * 100) / 100; }
+function rmCxRetiradas(c){ return ((c && c.retiradas) || []).filter(r => !r.removida); }
+function rmCxEntradas(dia){
+  const [a, b, c] = dia.split('-').map(Number);
+  const r = { start: new Date(a, b - 1, c), end: new Date(a, b - 1, c + 1) };
+  const porForma = {}, qtd = {};
+  const add = (f, v, tipo) => { f = f || 'Não informado'; porForma[f] = (porForma[f] || 0) + (Number(v) || 0); (qtd[f] = qtd[f] || { doc:0, parc:0 })[tipo]++; };
+  rmVgReceitas(r).forEach(x => { if(!rmAPrazo(x.forma)) add(x.forma === '—' ? '' : x.forma, x.total, 'doc'); });
+  rmLoadProms().forEach(n => (n.parcelas || []).forEach(p => rmParcPagamentos(p).forEach(pg => { if(rmVgDentro(pg.data, r)) add(pg.forma, pg.valor, 'parc'); })));
+  Object.keys(porForma).forEach(f => porForma[f] = Math.round(porForma[f] * 100) / 100);
+  return { porForma, qtd, total: rmCxSoma(Object.values(porForma)), dinheiro: porForma['Dinheiro'] || 0 };
+}
+function rmCxEsperado(c, e){ return Math.round(((Number(c.abertura && c.abertura.valor) || 0) + e.dinheiro - rmCxSoma(rmCxRetiradas(c).map(r => r.valor))) * 100) / 100; }
+// junta as linhas do servidor: { 'AAAA-MM-DD': dados com .retiradas }
+function rmCxMontar(rows){
+  const dias = {}, rets = {};
+  (rows || []).forEach(x => {
+    let m = /^caixa-(\d{4}-\d\d-\d\d)$/.exec(x.id);
+    if(m){ dias[m[1]] = Object.assign({}, x.dados || {}); return; }
+    m = /^caixa-(\d{4}-\d\d-\d\d)-r-(.+)$/.exec(x.id);
+    if(m && x.dados) (rets[m[1]] = rets[m[1]] || []).push(Object.assign({ id: m[2] }, x.dados));
+  });
+  Object.keys(rets).forEach(d => { dias[d] = dias[d] || {}; dias[d].retiradas = (dias[d].retiradas || []).concat(rets[d]).sort((a, b) => String(a.em).localeCompare(String(b.em))); });
+  return dias;
+}
+async function rmCxCarregar(){
+  if(!rmSb) return;
+  rmCxCarregando = true;
+  try{
+    const { data, error } = await rmSb.from('configuracoes').select('*').like('id', 'caixa-%');
+    if(!error && Array.isArray(data)){
+      rmCxDados = rmCxMontar(data.filter(x => String(x.id).startsWith('caixa-')));
+      rmCxLista = Object.keys(rmCxDados).map(d => ({ id: rmCxId(d), dados: rmCxDados[d] }));
+    }
+  }catch(e){}
+  rmCxCarregando = false;
+  rmCxRender();
+}
+async function rmCxBuscarDia(dia){
+  const { data, error } = await rmSb.from('configuracoes').select('*').like('id', rmCxId(dia) + '%');
+  if(error) throw error;
+  return rmCxMontar((data || []).filter(x => x.id === rmCxId(dia) || String(x.id).startsWith(rmCxId(dia) + '-r-')))[dia] || {};
+}
+function rmCxGuardarLocal(dia, dados){
+  rmCxDados[dia] = dados;
+  const i = rmCxLista.findIndex(x => x.id === rmCxId(dia));
+  if(i >= 0) rmCxLista[i] = { id: rmCxId(dia), dados }; else rmCxLista.push({ id: rmCxId(dia), dados });
+}
+// grava mexendo na versão mais nova do servidor (dois aparelhos ao mesmo tempo não se apagam)
+async function rmCxMudar(dia, fn){
+  if(navigator.onLine === false){ alert('O caixa precisa de internet para gravar. Tente de novo quando a internet voltar.'); return false; }
+  let atual = {};
+  try{ atual = await rmCxBuscarDia(dia); }
+  catch(e){ alert('Não consegui falar com o servidor. Verifique a internet e tente de novo.'); return false; }
+  const novo = JSON.parse(JSON.stringify(atual));
+  const msg = fn(novo);
+  if(msg){ alert(msg); rmCxGuardarLocal(dia, atual); rmCxRender(); return false; }
+  // retiradas novas/alteradas vão cada uma na sua linha; abertura e fechamento na linha do dia
+  const rets = novo.retiradas || [], linhaDia = Object.assign({}, novo); delete linhaDia.retiradas;
+  const antes = JSON.stringify(Object.assign({}, atual, { retiradas: undefined }));
+  const linhas = [];
+  if(JSON.stringify(Object.assign({}, linhaDia, { retiradas: undefined })) !== antes) linhas.push({ id: rmCxId(dia), dados: linhaDia });
+  rets.forEach(r => { const a = (atual.retiradas || []).find(x => x.id === r.id); if(!a || JSON.stringify(a) !== JSON.stringify(r)){ const d = Object.assign({}, r); delete d.id; linhas.push({ id: rmCxId(dia) + '-r-' + r.id, dados: d }); } });
+  if(linhas.length){
+    const { error } = await rmSb.from('configuracoes').upsert(linhas);
+    if(error){ alert('Não consegui gravar o caixa: ' + (error.message || error)); return false; }
+  }
+  rmCxGuardarLocal(dia, novo);
+  rmCxRender();
+  return true;
+}
+function rmCxUltimoTroco(dia){
+  const ant = rmCxLista.filter(x => x.id < rmCxId(dia) && x.dados && x.dados.fechamento).sort((a, b) => a.id < b.id ? 1 : -1)[0];
+  return ant ? Number(ant.dados.fechamento.troco) || 0 : null;
+}
+async function rmCxAbrir(){
+  const dia = rmCxDia, v = rmParseMoeda((document.getElementById('rm-cx-abre') || {}).value);
+  const ok = await rmCxMudar(dia, c => {
+    if(c.abertura) return 'O caixa deste dia já foi aberto por ' + c.abertura.por + '.';
+    c.abertura = { valor: v, por: rmNomeUsuario(), em: new Date().toISOString() };
+    c.retiradas = c.retiradas || [];
+  });
+  if(ok){ rmLog('Abriu o caixa', rmDataBR(dia), 'troco ' + rmFormatMoeda(v)); rmShowToast('Caixa aberto com ' + rmFormatMoeda(v) + ' de troco'); }
+}
+async function rmCxRetirar(){
+  const dia = rmCxDia;
+  const desc = (prompt('Para que foi a retirada? (ex.: motoboy, almoço, compra de material)') || '').trim();
+  if(!desc) return;
+  const v = rmParseMoeda(prompt('Valor retirado da gaveta (R$):') || '');
+  if(!(v > 0)){ alert('Valor inválido.'); return; }
+  const ok = await rmCxMudar(dia, c => {
+    if(!c.abertura) return 'Abra o caixa antes de lançar retiradas.';
+    if(c.fechamento) return 'O caixa deste dia já foi fechado.';
+    (c.retiradas = c.retiradas || []).push({ id: rmUid(), desc: desc.toUpperCase(), valor: v, por: rmNomeUsuario(), em: new Date().toISOString() });
+  });
+  if(ok){ rmLog('Retirada do caixa', rmFormatMoeda(v), desc); rmShowToast('Retirada de ' + rmFormatMoeda(v) + ' lançada'); }
+}
+async function rmCxTirarRetirada(id){
+  const r = rmCxRetiradas(rmCxDados[rmCxDia]).find(x => x.id === id); if(!r) return;
+  if(!confirm('Apagar a retirada "' + r.desc + '" de ' + rmFormatMoeda(r.valor) + '?')) return;
+  const ok = await rmCxMudar(rmCxDia, c => {
+    if(c.fechamento) return 'O caixa deste dia já foi fechado.';
+    const x = (c.retiradas || []).find(y => y.id === id); if(x){ x.removida = true; x.removidaPor = rmNomeUsuario(); }
+  });
+  if(ok) rmLog('Apagou retirada do caixa', rmFormatMoeda(r.valor), r.desc);
+}
+function rmCxDifHtml(dif, esp){
+  if(Math.abs(dif) < 0.005) return `<div class="cx-dif cx-certo">&#10004; Caixa certo (${rmFormatMoeda(esp)})</div>`;
+  return dif < 0 ? `<div class="cx-dif cx-falta">&#9888; Faltando ${rmFormatMoeda(-dif)} (esperado ${rmFormatMoeda(esp)})</div>`
+    : `<div class="cx-dif cx-sobra">&#9888; Sobrando ${rmFormatMoeda(dif)} (esperado ${rmFormatMoeda(esp)})</div>`;
+}
+function rmCxAtualizarDif(){
+  const c = rmCxDados[rmCxDia] || {}, e = rmCxEntradas(rmCxDia), esp = rmCxEsperado(c, e);
+  const inp = document.getElementById('rm-cx-contado'), box = document.getElementById('rm-cx-dif'), tr = document.getElementById('rm-cx-troco'), ret = document.getElementById('rm-cx-retirar');
+  if(!inp || !box) return;
+  const cont = inp.value.trim() ? rmParseMoeda(inp.value) : null;
+  box.innerHTML = cont == null ? '' : rmCxDifHtml(Math.round((cont - esp) * 100) / 100, esp);
+  if(ret && tr){ const t = rmParseMoeda(tr.value); ret.textContent = cont == null ? '—' : rmFormatMoeda(Math.max(0, cont - t)); }
+}
+async function rmCxFechar(){
+  const inp = document.getElementById('rm-cx-contado');
+  if(!inp || !inp.value.trim()){ alert('Conte o dinheiro da gaveta e digite o valor.'); if(inp) inp.focus(); return; }
+  const cont = rmParseMoeda(inp.value), troco = rmParseMoeda((document.getElementById('rm-cx-troco') || {}).value);
+  if(troco > cont + 0.004){ alert('O troco para amanhã não pode ser maior que o dinheiro da gaveta.'); return; }
+  const c0 = rmCxDados[rmCxDia] || {}, e = rmCxEntradas(rmCxDia), esp = rmCxEsperado(c0, e), dif = Math.round((cont - esp) * 100) / 100;
+  if(!confirm(`Fechar o caixa de ${rmDataBR(rmCxDia)}?\n\nEsperado: ${rmFormatMoeda(esp)}\nContado: ${rmFormatMoeda(cont)}\n${Math.abs(dif) < 0.005 ? 'Caixa certo' : (dif < 0 ? 'Faltando ' : 'Sobrando ') + rmFormatMoeda(Math.abs(dif))}\nTroco para amanhã: ${rmFormatMoeda(troco)}`)) return;
+  const ok = await rmCxMudar(rmCxDia, c => {
+    if(!c.abertura) return 'O caixa deste dia não foi aberto.';
+    if(c.fechamento) return 'O caixa deste dia já foi fechado por ' + c.fechamento.por + '.';
+    const e2 = rmCxEntradas(rmCxDia), esp2 = rmCxEsperado(c, e2);
+    c.fechamento = { contado: cont, troco, esperado: esp2, diferenca: Math.round((cont - esp2) * 100) / 100, dinheiro: e2.dinheiro, entradas: e2.porForma,
+      retiradas: rmCxSoma(rmCxRetiradas(c).map(r => r.valor)), por: rmNomeUsuario(), em: new Date().toISOString() };
+  });
+  if(ok){ rmLog('Fechou o caixa', rmDataBR(rmCxDia), 'contado ' + rmFormatMoeda(cont) + ' · diferença ' + rmFormatMoeda(dif)); rmShowToast('Caixa fechado'); }
+}
+async function rmCxReabrir(){
+  if(!rmEhAdmin()){ alert('Só o administrador pode reabrir um caixa fechado.'); return; }
+  if(!confirm('Reabrir o caixa de ' + rmDataBR(rmCxDia) + '? O fechamento atual fica guardado no histórico do dia.')) return;
+  const ok = await rmCxMudar(rmCxDia, c => {
+    if(!c.fechamento) return null;
+    (c.fechamentosAnteriores = c.fechamentosAnteriores || []).push(Object.assign({}, c.fechamento, { reabertoPor: rmNomeUsuario(), reabertoEm: new Date().toISOString() }));
+    delete c.fechamento;
+  });
+  if(ok) rmLog('Reabriu o caixa', rmDataBR(rmCxDia));
+}
+function rmCxIrDia(v){ if(v){ rmCxDia = v; rmCxRender(); } }
+function rmCxRender(){
+  const box = document.getElementById('rm-cx'); if(!box) return;
+  if(!rmCxDia) rmCxDia = rmHojeISO();
+  const dia = rmCxDia, hoje = rmHojeISO(), ehHoje = dia === hoje;
+  const c = rmCxDados[dia] || {}, e = rmCxEntradas(dia), ret = rmCxRetiradas(c), totRet = rmCxSoma(ret.map(r => r.valor)), esp = rmCxEsperado(c, e);
+  const hora = iso => iso ? new Date(iso).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) : '';
+  const M = rmFormatMoeda, esc = rmEscapeHtml;
+  const ab = c.abertura, fe = c.fechamento;
+  let st;
+  if(fe) st = `<span class="cx-st cx-st-f">&#128274; CAIXA FECHADO</span><span class="cx-sub">fechado às ${hora(fe.em)} por ${esc(fe.por)} · aberto às ${hora(ab && ab.em)} por ${esc(ab ? ab.por : '')}</span>`;
+  else if(ab) st = `<span class="cx-st">&#9679; CAIXA ABERTO</span><span class="cx-sub">aberto às ${hora(ab.em)} por ${esc(ab.por)} com ${M(ab.valor)} de troco</span>`;
+  else st = `<span class="cx-st cx-st-n">CAIXA NÃO ABERTO</span><span class="cx-sub">${rmCxCarregando ? 'carregando...' : (ehHoje ? 'abra o caixa contando o troco da gaveta' : 'o caixa não foi aberto neste dia')}</span>`;
+  const CORES = { 'Dinheiro':'#2e8b57', 'PIX':'#00a39a', 'Débito':'#2f6fb5', 'Crédito':'#6a4fc4', 'Boleto':'#c9961a' };
+  const ordem = ['Dinheiro', 'PIX', 'Débito', 'Crédito', 'Boleto'];
+  const formas = Object.keys(e.porForma).sort((a, b) => (ordem.indexOf(a) + 1 || 99) - (ordem.indexOf(b) + 1 || 99));
+  const qtdTxt = f => { const q = e.qtd[f]; return [q.doc ? q.doc + ' venda(s)/OS' : '', q.parc ? q.parc + ' parcela(s)' : ''].filter(Boolean).join(' · '); };
+  const entradasHtml = formas.length ? formas.map(f => `<div class="cx-l"><span><span class="cx-dot" style="background:${CORES[f] || '#888'}"></span>${esc(f)} <i>${qtdTxt(f)}</i></span><b>${M(e.porForma[f])}</b></div>`).join('')
+    + `<div class="cx-l cx-tot"><span>Total que entrou</span><span>${M(e.total)}</span></div>` : '<div class="cx-vazio">Nada entrou neste dia ainda.</div>';
+  const podeMexer = ab && !fe;
+  const retHtml = ret.length ? ret.map(r => `<div class="cx-l"><span>${hora(r.em)} · ${esc(r.desc)} <i>${esc(r.por || '')}</i></span><span><b class="cx-saida">− ${M(r.valor)}</b>${podeMexer ? ` <button class="cx-x" title="Apagar" onclick="rmCxTirarRetirada('${rmJs(r.id)}')">&times;</button>` : ''}</span></div>`).join('')
+    : '<div class="cx-vazio">Nenhuma retirada.</div>';
+  let lado;
+  if(!ab){
+    const sug = rmCxUltimoTroco(dia);
+    lado = ehHoje ? `<div class="cx-box cx-fech"><h3>Abrir o caixa</h3>
+      <label>Quanto tem de troco na gaveta agora?</label>
+      <input id="rm-cx-abre" inputmode="decimal" placeholder="0,00" value="${sug != null ? sug.toFixed(2).replace('.', ',') : ''}">
+      <div class="cx-sub" style="margin:8px 0">${sug != null ? 'Sugestão: troco deixado no último fechamento (' + M(sug) + '). Confira contando.' : 'Conte o dinheiro da gaveta antes de começar o dia.'}</div>
+      <button class="rm-primary" onclick="rmCxAbrir()">&#9654; Abrir caixa de hoje</button></div>`
+      : `<div class="cx-box"><h3>Caixa não aberto</h3><div class="cx-vazio">Neste dia o caixa não foi aberto, então não dá para conferir a gaveta. As entradas do dia aparecem ao lado.</div></div>`;
+  } else if(!fe){
+    lado = `<div class="cx-box cx-fech"><h3>Fechar o caixa</h3>
+      <label>Quanto tem de dinheiro na gaveta agora?</label>
+      <input id="rm-cx-contado" inputmode="decimal" placeholder="conte e digite" oninput="rmCxAtualizarDif()">
+      <div id="rm-cx-dif"></div>
+      <label style="margin-top:10px">Deixar de troco para amanhã</label>
+      <input id="rm-cx-troco" inputmode="decimal" style="font-size:18px" value="${(Number(ab.valor) || 0).toFixed(2).replace('.', ',')}" oninput="rmCxAtualizarDif()">
+      <div class="cx-sub" style="margin:8px 0">Retirar da gaveta: <b id="rm-cx-retirar" style="color:var(--rm-text)">—</b></div>
+      <button class="rm-primary" onclick="rmCxFechar()">&#10004; Fechar caixa${ehHoje ? ' de hoje' : ' de ' + rmDataBR(dia)}</button></div>`;
+  } else {
+    lado = `<div class="cx-box cx-fech"><h3>Fechamento${rmEhAdmin() ? ' <button onclick="rmCxReabrir()">Reabrir</button>' : ''}</h3>
+      <div class="cx-l"><span>Esperado na gaveta</span><b>${M(fe.esperado)}</b></div>
+      <div class="cx-l"><span>Contado</span><b>${M(fe.contado)}</b></div>
+      ${rmCxDifHtml(Number(fe.diferenca) || 0, fe.esperado)}
+      <div class="cx-l"><span>Troco deixado para o dia seguinte</span><b>${M(fe.troco)}</b></div>
+      <div class="cx-l"><span>Retirado da gaveta no fechamento</span><b>${M(Math.max(0, fe.contado - fe.troco))}</b></div>
+      ${Math.abs(fe.esperado - esp) > 0.005 ? `<div class="cx-sub" style="margin-top:8px">&#9888; Depois do fechamento as vendas deste dia mudaram: hoje o esperado seria ${M(esp)}.</div>` : ''}</div>`;
+  }
+  const fechs = rmCxLista.filter(x => x.dados && x.dados.fechamento).sort((a, b) => a.id < b.id ? 1 : -1).slice(0, 10);
+  const histHtml = fechs.length ? `<table class="cx-tab"><thead><tr><th>Dia</th><th class="r">Esperado</th><th class="r">Contado</th><th class="r">Diferença</th></tr></thead><tbody>
+    ${fechs.map(x => { const f = x.dados.fechamento, d = Number(f.diferenca) || 0;
+      return `<tr onclick="rmCxIrDia('${x.id.slice(6)}')"><td>${rmDataBR(x.id.slice(6)).slice(0, 5)} · ${esc(f.por || '')}</td><td class="r">${M(f.esperado)}</td><td class="r">${M(f.contado)}</td><td class="r ${Math.abs(d) < 0.005 ? 'cx-ok' : d < 0 ? 'cx-ruim' : 'cx-mais'}">${Math.abs(d) < 0.005 ? 'ok' : (d < 0 ? '− ' : '+ ') + M(Math.abs(d))}</td></tr>`; }).join('')}</tbody></table>`
+    : '<div class="cx-vazio">Nenhum caixa fechado ainda.</div>';
+  const nRet = ret.length, qD = e.qtd['Dinheiro'] || { doc:0, parc:0 };
+  box.innerHTML = `<div class="cx-top"><input type="date" id="rm-cx-dia" value="${dia}" max="${hoje}" onchange="rmCxIrDia(this.value)">${!ehHoje ? '<button class="cx-btn2" onclick="rmCxIrDia(rmHojeISO())">Hoje</button>' : ''}${st}</div>
+    <div class="cx-cards">
+      <div class="cx-card"><span>Troco inicial</span><b>${ab ? M(ab.valor) : '—'}</b><small>contado na abertura</small></div>
+      <div class="cx-card"><span>Entrou em dinheiro</span><b>${M(e.dinheiro)}</b><small>${[qD.doc ? qD.doc + ' venda(s)/OS' : '', qD.parc ? qD.parc + ' parcela(s)' : ''].filter(Boolean).join(' + ') || 'nenhuma'}</small></div>
+      <div class="cx-card cx-neg"><span>Retiradas</span><b>${totRet ? '− ' + M(totRet) : M(0)}</b><small>${nRet} saída(s) da gaveta</small></div>
+      <div class="cx-card cx-dest"><span>Deve ter na gaveta</span><b>${ab ? M(esp) : '—'}</b><small>troco + dinheiro − retiradas</small></div>
+    </div>
+    <div class="cx-grid"><div>
+      <div class="cx-box"><h3>Tudo que entrou ${ehHoje ? 'hoje' : 'no dia'}</h3>${entradasHtml}
+        <div class="cx-sub" style="margin-top:8px">Venda "a prazo" ainda não recebida não entra aqui. Só o que realmente entrou: dinheiro, PIX, cartão e parcelas recebidas.</div></div>
+      <div class="cx-box"><h3>Retiradas da gaveta ${podeMexer ? '<button onclick="rmCxRetirar()">&#10133; Nova retirada</button>' : ''}</h3>${retHtml}</div>
+    </div><div>${lado}
+      <div class="cx-box"><h3>Últimos fechamentos</h3>${histHtml}</div>
+    </div></div>`;
+  rmCxAtualizarDif();
+}
+
 // ===================== LEMBRETE DE BACKUP =====================
 // a data do último backup fica também no servidor: vale para todos os computadores
 let rmBkpServidor = null;
@@ -11521,7 +11782,7 @@ function rmOsPromMudou(id){
 
 // ---- Financeiro > Promissórias ----
 function rmSetViewFin(view){
-  ['vendas','prom','cli','org','conc'].forEach(v=>{
+  ['vendas','prom','cli','org','conc','caixa'].forEach(v=>{
     document.getElementById('rm-view-fin-'+v).classList.toggle('active', v===view);
     document.getElementById('rm-btn-fin-'+v).classList.toggle('active', v===view);
   });
@@ -11529,6 +11790,7 @@ function rmSetViewFin(view){
   if(view === 'prom'){ rmRenderFinProm(); rmSyncProms().then(rmRenderFinProm); }
   if(view === 'org'){ rmRenderFinOrg(); rmSyncProms().then(rmRenderFinOrg); }
   if(view === 'cli'){ rmRenderFinClientes(); rmSyncProms().then(rmRenderFinClientes); }
+  if(view === 'caixa'){ rmCxRender(); rmSyncProms().then(() => rmCxCarregar()); }
   if(view === 'conc'){ rmRenderConciliacao(); Promise.all([rmSyncProms(), rmConcSync()]).then(rmRenderConciliacao); }
 }
 
