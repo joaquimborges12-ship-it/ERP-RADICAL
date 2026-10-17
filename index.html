@@ -604,6 +604,16 @@
   .rs-ov.rs-cheia{background:#000; align-items:center; padding:0;} .rs-ov.rs-cheia .rs-lado{display:none;}
   .rs-ov.rs-cheia .rs-area{transform:scale(var(--rs-esc, 1.6)); transform-origin:center; cursor:zoom-out;}
   @media (max-width:760px){ .rs-ov{flex-direction:column; align-items:center;} .rs-lado{width:100%; max-width:430px; order:-1;} }
+  .rm-semcad-opc{padding:11px 14px; border-top:2px dashed #e8a33d; background:rgba(232,163,61,.12); cursor:pointer;}
+  .rm-semcad-opc:hover{background:rgba(232,163,61,.22);}
+  .rm-semcad-opc b{display:block; font-size:14px; color:#9a6200;} .rm-semcad-opc small{color:var(--rm-text-dim); font-size:12.5px;}
+  .rm-semcad-tag{display:inline-block; background:#e8a33d; color:#1b1b1b; font-size:10.5px; font-weight:900; padding:2px 6px; letter-spacing:.04em; margin-left:6px; vertical-align:middle; white-space:nowrap; line-height:1.4;}
+  .rm-semcad-aviso{background:rgba(232,163,61,.15); border:1px solid #e8a33d; color:#8a5a00; padding:8px 12px; font-weight:700; font-size:13.5px; margin:6px 0;}
+  .rm-semcad-campo{outline:2px solid #e8a33d; outline-offset:-1px;}
+  .rm-px-tabela tr.rm-semcad-linha td{background:rgba(232,163,61,.12);}
+  .rm-os-item.rm-semcad-bloco{border:2px solid #e8a33d;}
+  .rm-semcad-cli{margin:6px 0 4px;} .rm-semcad-cli small{color:var(--rm-text-dim); font-size:12.5px;}
+  html[data-tema="dark"] .rm-semcad-opc b{color:#ffd27a;} html[data-tema="dark"] .rm-semcad-aviso{color:#ffd27a;}
   .nf-top{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px;}
   .nf-imp{background:#d9433a; color:#fff; border:none; padding:12px 22px; font-weight:700; font-size:15px; cursor:pointer; font-family:inherit;}
   .nf-imp:hover{background:#c23a32;}
@@ -2086,7 +2096,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.17-19h00</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.17-19h40</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -4739,8 +4749,9 @@ function rmBuscarProdutoPdv(query){
   const grupos = rmFamAgrupar(produtos, 40);
   rmPdvPrimeiraDaFamilia = grupos.length && grupos[0].fam ? grupos[0].marcas[0].id : null;
 
+  const opcAvulso = `<div class="rm-semcad-opc" onmousedown="event.preventDefault(); rmPdvAvulso()"><b>&#10133; Lançar sem cadastrar: “${rmEscapeHtml(query.trim().toUpperCase())}”</b><small>Produto avulso — você digita o preço. Não mexe no estoque.${grupos.length ? '' : ' (Enter)'}</small></div>`;
   if(grupos.length === 0){
-    lista.innerHTML = '<div class="rm-autocomplete-empty">Nenhum produto encontrado</div>';
+    lista.innerHTML = '<div class="rm-autocomplete-empty">Nenhum produto cadastrado com esse nome</div>' + opcAvulso;
   } else {
     lista.innerHTML = grupos.map(g => {
       if(g.fam) return rmFamCabecalhoHtml(g.fam, g.marcas, `rmEscolherProdutoPdv('${g.marcas[0].id}')`) + g.marcas.map(p => {
@@ -4758,8 +4769,9 @@ function rmBuscarProdutoPdv(query){
           ${(p.marca||p.localizacao)?`<div class="rm-autocomplete-tel">${[p.marca,p.localizacao?('Local: '+p.localizacao):''].filter(Boolean).join(' · ')}</div>`:''}
         </div>
       `;
-    }).join('');
+    }).join('') + opcAvulso;
   }
+  if(!rmPdvEditandoIndex && rmPdvEditandoIndex !== 0) rmPdvInfoProduto(null);
   lista.classList.add('show');
 }
 
@@ -4781,10 +4793,23 @@ function rmImprimirSeparacao(titulo, ref, itens){
     + `<div class="a4-txt">Separado por: ______________________</div>`;
   rmImprimirA4('Buscar no estoque', corpo);
 }
-function rmPdvInfoProduto(p){
+function rmPdvInfoProduto(p, avulso){
   const el = document.getElementById('rm-pdv-item-info'); if(!el) return;
+  const pr = document.getElementById('rm-pdv-item-preco'); if(pr) pr.classList.toggle('rm-semcad-campo', !!avulso);
+  if(avulso){ el.innerHTML = '<div class="rm-semcad-aviso">&#9888; PRODUTO NÃO CADASTRADO — digite o preço de venda. Não baixa estoque.</div>'; return; }
   if(!p){ el.innerHTML = ''; return; }
   el.innerHTML = (p.marca ? `<span>${rmEscapeHtml(p.marca)}</span>` : '') + rmInvSelo(p.id);
+}
+// produto digitado à mão, sem cadastro: aviso bem visível e o cursor vai para o preço
+function rmPdvAvulso(){
+  const nome = document.getElementById('rm-pdv-item-nome');
+  if(!nome.value.trim()) return;
+  nome.value = nome.value.trim().toUpperCase();
+  rmPdvProdutoSelecionadoId = null;
+  document.getElementById('rm-pdv-produto-lista').classList.remove('show');
+  rmPdvInfoProduto(null, true);
+  const pr = document.getElementById('rm-pdv-item-preco');
+  pr.focus(); pr.select();
 }
 function rmEscolherProdutoPdv(produtoId, semFoco){
   const p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(produtoId);
@@ -4990,7 +5015,7 @@ function rmEditarItemPdv(i){
   if(!item) return;
   rmPdvEditandoIndex = i;
   rmPdvProdutoSelecionadoId = item.produtoId || null;
-  rmPdvInfoProduto(item.produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(item.produtoId) : null);
+  rmPdvInfoProduto(item.produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(item.produtoId) : null, !item.produtoId);
   document.getElementById('rm-pdv-item-nome').value = item.nome;
   document.getElementById('rm-pdv-item-preco').value = String(item.precoUnit).replace('.', ',');
   document.getElementById('rm-pdv-item-qtd').value = rmFmtQtd(item.quantidade);
@@ -5036,7 +5061,7 @@ function rmPdvTeclaProduto(ev){
   // primeiro resultado é uma família: Enter escolhe a marca mais vendida (a primeira da lista)
   if(rmPdvPrimeiraDaFamilia && document.getElementById('rm-pdv-produto-lista').classList.contains('show')){ rmEscolherProdutoPdv(rmPdvPrimeiraDaFamilia); return; }
   if(rmParseMoeda(document.getElementById('rm-pdv-item-preco').value) > 0){ rmAdicionarItemPdv(); return; }
-  document.getElementById('rm-pdv-item-preco').focus();
+  rmPdvAvulso();
 }
 
 function rmRemoverItemPdv(index){
@@ -5074,10 +5099,10 @@ function rmRenderCarrinhoPdv(){
   } else {
     const linhas = rmPdvCarrinho.map((item, i) => {
       const bruto = item.quantidade * item.precoUnit;
-      const cls = 'rm-px-l' + (i === rmPdvEditandoIndex ? ' rm-px-l-edit' : (i === rmPdvUltimoIndex ? ' rm-px-l-novo' : ''));
+      const cls = 'rm-px-l' + (i === rmPdvEditandoIndex ? ' rm-px-l-edit' : (i === rmPdvUltimoIndex ? ' rm-px-l-novo' : '')) + (item.produtoId ? '' : ' rm-semcad-linha');
       return `
         <tr class="${cls}" onclick="rmEditarItemPdv(${i})">
-          <td class="rm-px-t-nome" title="${rmEscapeHtml(item.nome)}">${rmEscapeHtml(item.nome)}${(() => { const pp = item.produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(item.produtoId) : null; return pp && pp.localizacao ? ` <span class="rm-pdv-loc-tab">${rmEscapeHtml(pp.localizacao)}</span>` : ''; })()}</td>
+          <td class="rm-px-t-nome" title="${rmEscapeHtml(item.nome)}">${rmEscapeHtml(item.nome)}${(() => { const pp = item.produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(item.produtoId) : null; return pp && pp.localizacao ? ` <span class="rm-pdv-loc-tab">${rmEscapeHtml(pp.localizacao)}</span>` : ''; })()}${item.produtoId ? '' : '<span class="rm-semcad-tag">NÃO CADASTRADO</span>'}</td>
           <td>${rmFmtQtd(item.quantidade)}</td>
           <td>${rmFmtNum(item.precoUnit)}</td>
           <td>${rmFmtNum(bruto)}</td>
@@ -5150,6 +5175,29 @@ function rmCalcularTroco(){
   }
 }
 
+// cliente só digitado (sem cadastro): etiqueta bem visível embaixo do nome
+function rmOsClienteCadastrado(r){
+  if(!r || !String(r.nome || '').trim()) return true;
+  const clis = rmLoadClientes();
+  if(r.clienteId && clis.some(c => c.id === r.clienteId)) return true;
+  const n = String(r.nome).trim().toUpperCase();
+  return clis.some(c => String(c.nome || '').trim().toUpperCase() === n);
+}
+function rmOsCliStatusHtml(r){
+  return rmOsClienteCadastrado(r) ? '' : '<div class="rm-semcad-cli"><span class="rm-semcad-tag" style="margin-left:0">CLIENTE NÃO CADASTRADO</span> <small>só o nome foi digitado</small></div>';
+}
+function rmOsMudarNomeCliente(id, valor){
+  const list = rmLoad(); const r = list.find(x => x.id === id); if(!r) return;
+  const n = String(valor || '').trim().toUpperCase();
+  r.nome = n;
+  const clis = rmLoadClientes();
+  const atual = r.clienteId ? clis.find(c => c.id === r.clienteId) : null;
+  const bate = c => c && [c.nome, c.apelido].some(x => String(x || '').trim().toUpperCase() === n);
+  if(atual && !bate(atual)) r.clienteId = null; // trocou o nome: não é mais aquele cliente do cadastro
+  if(!r.clienteId){ const c = clis.find(c => String(c.nome || '').trim().toUpperCase() === n); if(c){ r.clienteId = c.id; if(!r.telefone && c.telefone) r.telefone = c.telefone; } }
+  rmSave(list); rmDbUpsertRecepcao(r);
+  const st = document.getElementById('rm-modal-cli-status'); if(st) st.innerHTML = rmOsCliStatusHtml(r);
+}
 function rmBuscarClienteModal(query){
   const lista = document.getElementById('rm-modal-cliente-lista');
   const q = (query||'').trim().toLowerCase();
@@ -14167,10 +14215,11 @@ function rmPecasUsadasHtml(r){
   return pecas.map((it, i) => {
     const bruto = (it.quantidade||0) * (it.precoUnit||0);
     const fechado = rmOsFechados.has(r.id+'_'+i);
+    const avulso = it.avulso || !it.produtoId;
     return `
-    <div class="rm-os-item" id="rm-os-item-${i}">
+    <div class="rm-os-item${avulso ? ' rm-semcad-bloco' : ''}" id="rm-os-item-${i}">
       <div class="rm-os-item-head">
-        <span id="rm-os-titulo-${i}">${rmOsTituloItem(it)}</span>
+        <span id="rm-os-titulo-${i}">${rmOsTituloItem(it)}${avulso ? '<span class="rm-semcad-tag">NÃO CADASTRADO</span>' : ''}</span>
         <span class="rm-os-item-acoes">
           <button onclick="rmOsToggleItem('${r.id}',${i})" title="Recolher/expandir">${fechado?'&#9660;':'&#8964;'}</button>
           <button onclick="rmRemoverPecaMoto('${r.id}', ${i})" title="Remover">&times;</button>
@@ -14180,10 +14229,10 @@ function rmPecasUsadasHtml(r){
         <div class="rm-os-grid">
           <div class="rm-os-c3"><label>Produto/Serviço</label>
             <div class="rm-os-prod-linha">
-              <div class="rm-autocomplete-wrap" style="flex:1; min-width:0;">
+              ${avulso ? `<input class="rm-os-in rm-os-left" id="rm-os-prod-${i}" value="${rmEscapeHtml(it.nome||'')}" autocapitalize="characters" title="Produto sem cadastro: digite o nome" onfocus="this.select()" onchange="rmOsEditarNomeAvulso('${r.id}',${i},this.value)">` : `<div class="rm-autocomplete-wrap" style="flex:1; min-width:0;">
                 <input class="rm-os-in rm-os-left" id="rm-os-prod-${i}" value="${rmEscapeHtml(it.nome||'')}${it.localizacao?' #'+rmEscapeHtml(it.localizacao):''}" data-original="${rmEscapeHtml(it.nome||'')}${it.localizacao?' #'+rmEscapeHtml(it.localizacao):''}" autocomplete="off" autocapitalize="characters" title="Digite para trocar o produto" onfocus="this.select()" oninput="rmOsBuscar(this,'${r.id}',${i})" onblur="rmOsBlur(this,${i})">
                 <div class="rm-autocomplete-list" id="rm-os-lista-${i}"></div>
-              </div>
+              </div>`}
               ${it.produtoId?`<button class="rm-os-lapis" title="Abrir cadastro do produto" onclick="rmOsEditarProduto('${r.id}','${it.produtoId}')">&#9998;</button>`:''}
             </div>
           </div>
@@ -14232,7 +14281,7 @@ function rmOsEditarItem(id, i, campo, valor){
   // atualiza só o bloco, sem perder o foco
   const s = (elId, val) => { const el = document.getElementById(elId); if(el) el.value = val; };
   s('rm-os-bruto-'+i, rmFmtNum(bruto)); s('rm-os-total-'+i, rmFmtNum(it.subtotal));
-  const t = document.getElementById('rm-os-titulo-'+i); if(t) t.innerHTML = rmOsTituloItem(it);
+  const t = document.getElementById('rm-os-titulo-'+i); if(t) t.innerHTML = rmOsTituloItem(it) + ((it.avulso || !it.produtoId) ? '<span class="rm-semcad-tag">NÃO CADASTRADO</span>' : '');
   rmOsAtualizarTotais(r);
   rmOsPagaReajustar(id);
 }
@@ -14304,11 +14353,12 @@ function rmOsBuscar(inp, osId, idx){
   const lista = document.getElementById(idx < 0 ? 'rm-modal-peca-lista' : 'rm-os-lista-' + idx);
   const q = (inp.value||'').trim().toLowerCase();
   if(!q){ lista.classList.remove('show'); return; }
+  const opcAvulso = idx < 0 ? `<div class="rm-semcad-opc" onmousedown="event.preventDefault(); rmOsAvulso('${osId}')"><b>&#10133; Lançar sem cadastrar: “${rmEscapeHtml(inp.value.trim().toUpperCase())}”</b><small>Produto avulso — depois digite o valor. Não mexe no estoque.</small></div>` : '';
   const produtos = rmLoadProdutos().filter(p => p.ativo !== false && rmProdutoBateBusca(p, q))
     .sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR'));
   const grupos = rmFamAgrupar(produtos, 40);
   lista.innerHTML = grupos.length === 0
-    ? '<div class="rm-autocomplete-empty">Nenhum produto encontrado</div>'
+    ? '<div class="rm-autocomplete-empty">Nenhum produto cadastrado com esse nome</div>' + opcAvulso
     : grupos.map(g => g.fam
       ? rmFamCabecalhoHtml(g.fam, g.marcas, `rmOsEscolher('${osId}', ${idx}, '${g.marcas[0].id}')`) + g.marcas.map(p => `
       <div class="rm-autocomplete-item rm-ac-marca" onmousedown="event.preventDefault(); rmOsEscolher('${osId}', ${idx}, '${p.id}')">
@@ -14319,7 +14369,7 @@ function rmOsBuscar(inp, osId, idx){
       <div class="rm-autocomplete-item" onmousedown="event.preventDefault(); rmOsEscolher('${osId}', ${idx}, '${p.id}')">
         <div class="rm-autocomplete-nome">${rmBadgeCurva(p.curva)} ${rmEscapeHtml(p.nome||'')}${p.localizacao?` <span class="rm-autocomplete-apelido">#${rmEscapeHtml(p.localizacao)}</span>`:''}</div>
         <div class="rm-autocomplete-tel">${rmFormatMoeda(p.precoConsumidor)} · estoque: ${rmFmtQtd(p.estoqueAtual)}${p.unidade?' '+p.unidade:''} ${rmInvSelo(p.id)}${p.marca?' · '+rmEscapeHtml(p.marca):''}</div>
-      </div>`)(g.p)).join('');
+      </div>`)(g.p)).join('') + opcAvulso;
   lista.classList.add('show');
 }
 
@@ -14331,6 +14381,32 @@ function rmOsBlur(inp, idx){
   }, 150);
 }
 
+// item digitado à mão (sem cadastro): entra com valor zero e o cursor vai para o Valor Unitário
+function rmOsAvulso(osId){
+  const inp = document.getElementById('rm-modal-peca-nome');
+  const nome = (inp.value || '').trim().toUpperCase(); if(!nome) return;
+  const list = rmLoad(); const item = list.find(r => r.id === osId); if(!item) return;
+  if(!rmOsPagaConfirmar(item)){ rmOsFecharBusca(); return; }
+  if(!item.pecasUsadas) item.pecasUsadas = [];
+  const qEl = document.getElementById('rm-os-nova-qtd');
+  const qtd = (qEl && rmParseMoeda(qEl.value)) || 1;
+  item.pecasUsadas.push({ produtoId: null, avulso: true, nome, codigo: '', localizacao: '', categoria: '', servico: false, quantidade: qtd, precoUnit: 0, desconto: 0, subtotal: 0, por: rmNomeUsuario() });
+  rmSave(list); rmDbUpsertRecepcao(item);
+  inp.value = '';
+  document.getElementById('rm-modal-peca-lista').classList.remove('show');
+  document.getElementById('rm-os-busca-box').style.display = 'none';
+  rmAtualizarTotalPecasModal(item);
+  rmLog('Adicionou item sem cadastro na OS', item.codigoApp, nome + ' x' + qtd);
+  const i = item.pecasUsadas.length - 1;
+  setTimeout(() => { const b = document.getElementById('rm-os-item-' + i); if(!b) return; b.scrollIntoView({ block:'center' }); const v = b.querySelectorAll('input.rm-os-in')[2]; if(v){ v.focus(); v.select(); } }, 60);
+}
+function rmOsEditarNomeAvulso(id, i, v){
+  const list = rmLoad(); const r = list.find(x => x.id === id); if(!r || !r.pecasUsadas || !r.pecasUsadas[i]) return;
+  const n = String(v || '').trim().toUpperCase(); if(!n) return;
+  r.pecasUsadas[i].nome = n; rmSave(list); rmDbUpsertRecepcao(r);
+  const inp = document.getElementById('rm-os-prod-' + i); if(inp) inp.value = n;
+  const t = document.getElementById('rm-os-titulo-' + i); if(t) t.innerHTML = rmOsTituloItem(r.pecasUsadas[i]) + '<span class="rm-semcad-tag">NÃO CADASTRADO</span>';
+}
 // troca o produto de um bloco já lançado (devolve o antigo ao estoque e tira o novo)
 function rmOsEscolher(osId, idx, produtoId){
   if(idx < 0){ rmEscolherProdutoMoto(produtoId); return; }
@@ -14541,9 +14617,10 @@ function rmOpenModal(id, large){
       <span class="rm-modal-section-label">Cliente</span>
       <label class="rm-label">Nome</label>
       <div class="rm-autocomplete-wrap" id="rm-modal-cliente-wrap">
-        <input class="rm-input" value="${r.nome||''}" oninput="rmBuscarClienteModal(this.value)" onfocus="rmBuscarClienteModal(this.value)" onchange="rmUpdateField('${r.id}','nome',this.value.trim().toUpperCase())">
+        <input class="rm-input" value="${r.nome||''}" oninput="rmBuscarClienteModal(this.value)" onfocus="rmBuscarClienteModal(this.value)" onchange="rmOsMudarNomeCliente('${r.id}', this.value)">
         <div class="rm-autocomplete-list" id="rm-modal-cliente-lista"></div>
       </div>
+      <div id="rm-modal-cli-status">${rmOsCliStatusHtml(r)}</div>
       <label class="rm-label">WhatsApp</label>
       <input class="rm-input" value="${r.telefone||''}" onchange="rmUpdateField('${r.id}','telefone',this.value.trim())">
       ${r.telefone?`<button class="rm-btn-whatsapp" onclick="rmAbrirWhatsapp('${r.telefone}')">Conversar no WhatsApp</button>`:''}
