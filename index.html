@@ -2147,7 +2147,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.18-00h45</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.18-01h00</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2599,7 +2599,6 @@
       <div class="rm-subnav">
         <button class="rm-subnav-btn" id="rm-btn-produtos-cadastro" onclick="rmCliqueCadastroProduto()"><span class="rm-subnav-icon">&#10133;</span><span>Cadastro</span></button>
         <button class="rm-subnav-btn" id="rm-btn-produtos-estoque" onclick="rmSetViewProdutos('estoque')"><span class="rm-subnav-icon">&#128230;</span><span>Estoque</span></button>
-        <button class="rm-subnav-btn" id="rm-btn-produtos-organizacao" onclick="rmSetViewProdutos('organizacao')"><span class="rm-subnav-icon">&#128194;</span><span>Organização</span></button>
         <button class="rm-subnav-btn" id="rm-btn-produtos-etiquetas" onclick="rmSetViewProdutos('etiquetas')"><span class="rm-subnav-icon">&#127991;</span><span>Etiquetas</span></button>
         <button class="rm-subnav-btn" id="rm-btn-produtos-pedido" onclick="rmSetViewProdutos('pedido')"><span class="rm-subnav-icon">&#128722;</span><span>Pedido</span></button>
         <button class="rm-subnav-btn" id="rm-btn-produtos-inventario" onclick="rmSetViewProdutos('inventario')"><span class="rm-subnav-icon">&#128203;</span><span>Inventário</span></button>
@@ -2844,21 +2843,7 @@
         </div>
       </div>
 
-      <div id="rm-view-produtos-organizacao" class="rm-view">
-        <div class="nf-top"><h1 class="rm-title" style="margin:0">Organização · Notas de compra</h1>
-          <button class="nf-imp" onclick="rmNotasImportar()">&#11014; Importar XML das notas</button>
-          <input type="file" id="rm-prod-xml-input" accept=".xml,text/xml,application/xml" multiple style="display:none;" onchange="rmProcessarXml(this)"></div>
-        <div class="nf-cards" id="rm-notas-cards"></div>
-        <div class="nf-fil">
-          <input id="rm-notas-busca" placeholder="Procurar por fornecedor, nº da nota ou produto..." oninput="rmRenderNotas()">
-          <span class="nf-chip" data-f="todas" onclick="rmNotasFiltro='todas'; rmRenderNotas()">Todas</span>
-          <span class="nf-chip" data-f="aberto" onclick="rmNotasFiltro='aberto'; rmRenderNotas()">Em aberto</span>
-          <span class="nf-chip" data-f="lancadas" onclick="rmNotasFiltro='lancadas'; rmRenderNotas()">Lançadas</span>
-          <select id="rm-notas-per" onchange="rmRenderNotas()"><option value="mes">Este mês</option><option value="mesant">Mês passado</option><option value="90">Últimos 90 dias</option><option value="ano">Este ano</option><option value="tudo">Tudo</option></select>
-          <select id="rm-notas-forn" onchange="rmRenderNotas()"><option value="">Todos os fornecedores</option></select>
-        </div>
-        <div id="rm-notas-corpo"></div>
-      </div>
+
 
       <div id="rm-view-produtos-etiquetas" class="rm-view">
         <h1 class="rm-title">Etiquetas</h1>
@@ -2873,7 +2858,23 @@
         <button class="rm-subnav-btn" id="rm-btn-fin-cli" onclick="rmSetViewFin('cli')"><span class="rm-subnav-icon">&#128101;</span><span>Clientes</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-org" onclick="rmSetViewFin('org')"><span class="rm-subnav-icon">&#128194;</span><span>Organizar</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-conc" onclick="rmSetViewFin('conc')"><span class="rm-subnav-icon">&#128260;</span><span>Conciliação</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-fin-notas" onclick="rmSetViewFin('notas')"><span class="rm-subnav-icon">&#128194;</span><span>Notas XML</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-caixa" style="display:none" onclick="rmSetViewFin('caixa')"><span class="rm-subnav-icon">&#129534;</span><span>Caixa do dia</span></button>
+      </div>
+      <div id="rm-view-fin-notas" class="rm-view">
+        <div class="nf-top"><h1 class="rm-title" style="margin:0">Notas XML · Notas de compra</h1>
+          <button class="nf-imp" onclick="rmNotasImportar()">&#11014; Importar XML das notas</button>
+          <input type="file" id="rm-prod-xml-input" accept=".xml,text/xml,application/xml" multiple style="display:none;" onchange="rmProcessarXml(this)"></div>
+        <div class="nf-cards" id="rm-notas-cards"></div>
+        <div class="nf-fil">
+          <input id="rm-notas-busca" placeholder="Procurar por fornecedor, nº da nota ou produto..." oninput="rmRenderNotas()">
+          <span class="nf-chip" data-f="todas" onclick="rmNotasFiltro='todas'; rmRenderNotas()">Todas</span>
+          <span class="nf-chip" data-f="aberto" onclick="rmNotasFiltro='aberto'; rmRenderNotas()">Em aberto</span>
+          <span class="nf-chip" data-f="lancadas" onclick="rmNotasFiltro='lancadas'; rmRenderNotas()">Lançadas</span>
+          <select id="rm-notas-per" onchange="rmRenderNotas()"><option value="mes">Este mês</option><option value="mesant">Mês passado</option><option value="90">Últimos 90 dias</option><option value="ano">Este ano</option><option value="tudo">Tudo</option></select>
+          <select id="rm-notas-forn" onchange="rmRenderNotas()"><option value="">Todos os fornecedores</option></select>
+        </div>
+        <div id="rm-notas-corpo"></div>
       </div>
       <div id="rm-view-fin-caixa" class="rm-view"><h1 class="rm-title">Caixa do dia</h1><div id="rm-cx"></div></div>
       <div id="rm-view-fin-vendas" class="rm-view active">
@@ -2964,16 +2965,16 @@
 
     <div id="rm-section-planilha" class="rm-section">
       <div class="rm-subnav">
-        <button class="rm-subnav-btn active" id="rm-btn-pla-vale" onclick="rmSetViewPlanilha('vale')"><span class="rm-subnav-icon">&#128181;</span><span>Vale</span></button>
-        <button class="rm-subnav-btn" id="rm-btn-pla-lembretes" onclick="rmSetViewPlanilha('lembretes')"><span class="rm-subnav-icon">&#128221;</span><span>Lembretes</span></button>
+        <button class="rm-subnav-btn active" id="rm-btn-pla-lembretes" onclick="rmSetViewPlanilha('lembretes')"><span class="rm-subnav-icon">&#128221;</span><span>Lembretes</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-pla-vale" onclick="rmSetViewPlanilha('vale')"><span class="rm-subnav-icon">&#128181;</span><span>Vale</span></button>
       </div>
-      <div class="rm-view active" id="rm-view-pla-vale">
+      <div class="rm-view" id="rm-view-pla-vale">
         <h1 class="rm-title">Vale</h1>
         <div class="rm-vale-barra"><button class="rm-pe2-btn" onclick="rmValeAddCol()">+ Pessoa</button><button class="rm-pe2-btn" onclick="rmValeAddLinhas(5)">+ Linhas</button><button class="rm-pe2-btn" onclick="rmValeHistAbrir()">&#128338; Histórico</button><span id="rm-vale-status"></span></div>
         <div id="rm-vale-hist" style="display:none"></div>
         <div id="rm-vale"></div>
       </div>
-      <div class="rm-view" id="rm-view-pla-lembretes">
+      <div class="rm-view active" id="rm-view-pla-lembretes">
         <h1 class="rm-title">Lembretes</h1>
         <div id="rm-lem"></div>
       </div>
@@ -3855,7 +3856,7 @@ function rmNfeMontar(lidas, reg){
   rmImpAbrirModal();
 }
 
-// ===================== NOTAS DE COMPRA (Produtos → Organização) =====================
+// ===================== NOTAS DE COMPRA (Financeiro → Notas XML) =====================
 // o XML entra primeiro numa lista de notas (EM ABERTO); os produtos são lançados no estoque depois, nota por nota
 let rmNotas = null, rmNotasFiltro = 'todas', rmNotasErro = '';
 const RM_NOTAS_CACHE = 'radicalMotos_notasCache', RM_NOTAS_PEND = 'radicalMotos_notasPend';
@@ -6006,7 +6007,7 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610180045;
+const RM_APP_VERSAO = 202610180100;
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
 try{ rmOutbox = JSON.parse(localStorage.getItem(RM_OUTBOX_KEY)) || {}; }catch(e){ rmOutbox = {}; }
@@ -11786,7 +11787,7 @@ function rmOsPromMudou(id){
 function rmSetViewFin(view){
   rmCxBotao();
   if(view === 'caixa' && !rmEhAdmin()) view = 'vendas'; // caixa do dia: só administrador
-  ['vendas','prom','cli','org','conc','caixa'].forEach(v=>{
+  ['vendas','prom','cli','org','conc','notas','caixa'].forEach(v=>{
     document.getElementById('rm-view-fin-'+v).classList.toggle('active', v===view);
     document.getElementById('rm-btn-fin-'+v).classList.toggle('active', v===view);
   });
@@ -11794,6 +11795,7 @@ function rmSetViewFin(view){
   if(view === 'prom'){ rmRenderFinProm(); rmSyncProms().then(rmRenderFinProm); }
   if(view === 'org'){ rmRenderFinOrg(); rmSyncProms().then(rmRenderFinOrg); }
   if(view === 'cli'){ rmRenderFinClientes(); rmSyncProms().then(rmRenderFinClientes); }
+  if(view === 'notas'){ rmNotasAbrirTela(); }
   if(view === 'caixa'){ rmCxRender(); rmSyncProms().then(() => rmCxCarregar()); }
   if(view === 'conc'){ rmRenderConciliacao(); Promise.all([rmSyncProms(), rmConcSync()]).then(rmRenderConciliacao); }
 }
@@ -12949,12 +12951,12 @@ function rmInvImprimirRelatorio(){
 }
 
 function rmSetViewProdutos(view){
-  ['estoque','cadastro','organizacao','etiquetas','pedido','inventario','familias'].forEach(v=>{
+  if(view === 'organizacao'){ rmSetSection('financeiro'); rmSetViewFin('notas'); return; } // as notas XML agora ficam no Financeiro
+  ['estoque','cadastro','etiquetas','pedido','inventario','familias'].forEach(v=>{
     document.getElementById('rm-view-produtos-'+v).classList.toggle('active', v===view);
     document.getElementById('rm-btn-produtos-'+v).classList.toggle('active', v===view);
   });
   if(view === 'estoque'){ rmRenderProdutos(); }
-  if(view === 'organizacao'){ rmNotasAbrirTela(); }
   if(view === 'pedido'){ rmRenderPedido(); rmPedidoSync().then(rmRenderPedido); }
   if(view === 'familias'){ rmFamLimparCache(); rmRenderFamilias(); rmFamSync().then(rmRenderFamilias); }
   if(view === 'inventario'){ rmRenderInventario(); rmInvSync().then(() => { if(rmInvTela === 'home') rmRenderInventario(); }); }
