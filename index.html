@@ -548,6 +548,34 @@
   html[data-tema="dark"] .imp-vnome, html[data-tema="dark"] .imp-ok{color:#ffd27a !important;} html[data-tema="dark"] .imp-sug{color:#e8c27a;} html[data-tema="dark"] .imp-old{color:#e8a33d;}
   html[data-tema="dark"] .imp-marg{color:#6fcf8a;} html[data-tema="dark"] .imp-marg.imp-baixa{color:#e8a33d;}
   html[data-tema="dark"] .imp-vsub a, html[data-tema="dark"] .imp-sug a{color:#7fb2f0;} html[data-tema="dark"] .imp-res .imp-res-lig b{color:#ffd27a;}
+  .imp-sel{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:0 0 8px; padding:8px 12px; border:1px dashed var(--rm-border); font-size:13px;}
+  .imp-sel span{font-weight:700; margin-right:4px;}
+  .imp-sel button{border:1px solid var(--rm-border); background:transparent; color:var(--rm-text); padding:6px 12px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit;}
+  .imp-sel button:hover{border-color:#d9433a;}
+  .cp-ov{position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:10080; display:flex; align-items:center; justify-content:center;}
+  .cp{background:var(--rm-panel, #fff); border:1px solid var(--rm-border); width:660px; max-width:94vw; max-height:92vh; overflow:auto; padding:22px 24px; box-shadow:0 20px 50px rgba(0,0,0,.45); color:var(--rm-text); box-sizing:border-box;}
+  .cp h3{margin:0 0 4px; font-size:19px;} .cp .sub{color:var(--rm-text-dim); font-size:13px; margin-bottom:6px;}
+  .cp label{font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--rm-text-dim); display:block; margin:14px 0 5px;}
+  .cp input{width:100%; box-sizing:border-box; padding:10px 12px; background:transparent; border:1px solid var(--rm-border); color:var(--rm-text); font:inherit; font-size:15px; text-transform:uppercase; border-radius:0;}
+  .cp input:focus{border-color:#d9433a; outline:none;}
+  .cp-lista{border:1px solid var(--rm-border); border-top:none; max-height:320px; overflow:auto;}
+  .cp-it{padding:9px 12px; border-bottom:1px solid var(--rm-border); cursor:pointer;} .cp-it b{display:block; font-size:14px;} .cp-it small{color:var(--rm-text-dim); font-size:12px;}
+  .cp-it.sel, .cp-it:hover{background:rgba(217,67,58,.10);}
+  .cp-vazio{padding:12px; color:var(--rm-text-dim); font-size:13px;}
+  .cp-sel{border:1px solid #d9433a; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; gap:10px;} .cp-sel b{display:block;} .cp-sel small{color:var(--rm-text-dim);} .cp-sel a{color:#2f6fb5; font-size:13px; text-decoration:underline; cursor:pointer;}
+  .cp-res{margin-top:14px; border:1px solid #2e8b57; background:rgba(46,139,87,.10); padding:12px 14px; font-size:13.5px;}
+  .cp-res.cp-erro{border-color:#d9433a; background:rgba(217,67,58,.10);}
+  .cp-tit{font-size:12px; color:var(--rm-text-dim); text-transform:uppercase; letter-spacing:.04em;} .cp-nome{font-size:17px; font-weight:800; margin:2px 0 6px;} .cp-fam{font-size:13px; color:#1e6b30;}
+  .cp-cop{display:grid; grid-template-columns:repeat(3,1fr); gap:8px 14px; margin-top:12px; font-size:13px;} .cp-cop span{color:var(--rm-text-dim);} .cp-cop b{display:block;}
+  .cp .pe{display:flex; justify-content:flex-end; gap:10px; margin-top:18px;}
+  .cp .pe button{padding:12px 22px; font-weight:700; font-family:inherit; font-size:14px; cursor:pointer; border:1px solid var(--rm-border); background:transparent; color:var(--rm-text);}
+  .cp .pe .pri{background:#d9433a; border-color:#d9433a; color:#fff;}
+  .rm-qm-copia{display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:0 22px 10px;}
+  .rm-qm-copia button{border:1px solid #d9433a; background:transparent; color:var(--rm-text); padding:8px 14px; font-weight:700; font-size:13.5px; cursor:pointer; font-family:inherit;}
+  .rm-qm-copia button:hover{background:rgba(217,67,58,.08);} .rm-qm-copia small{font-weight:500; color:var(--rm-text-dim);}
+  .rm-qm-copia span{font-size:13px; color:#1e6b30;}
+  html[data-tema="dark"] .cp-fam, html[data-tema="dark"] .rm-qm-copia span{color:#9fe0b3;} html[data-tema="dark"] .cp-sel a{color:#7fb2f0;}
+  @media (max-width:640px){ .cp-cop{grid-template-columns:1fr 1fr;} }
   .nf-top{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px;}
   .nf-imp{background:#d9433a; color:#fff; border:none; padding:12px 22px; font-weight:700; font-size:15px; cursor:pointer; font-family:inherit;}
   .nf-imp:hover{background:#c23a32;}
@@ -2030,7 +2058,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.17-16h30</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.17-18h00</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3027,6 +3055,7 @@ function rmRemoverAplicacaoNovo(i){
 }
 
 function rmAbrirCadastroProdutoRapido(produtoId, novoNaFamilia){
+  rmCpOrigemCadastro = null;
   const existente = produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(produtoId) : null;
   const editando = !!existente;
   rmProdutoEmEdicao = existente ? { id: existente.id, estoqueInicial: existente.estoqueAtual || 0 } : null;
@@ -3055,6 +3084,7 @@ function rmAbrirCadastroProdutoRapido(produtoId, novoNaFamilia){
       </div>
       <button class="rm-qm-close" onclick="rmCloseModal()" title="Fechar">&times;</button>
     </div>
+    ${editando ? '' : `<div class="rm-qm-copia"><button type="button" onclick="rmCadastroCopiar()">&#128203; Copiar de outro produto <small>(mesmo produto, outra marca)</small></button><span id="rm-pqf-copia-aviso" style="display:none"></span></div>`}
 
     <div class="rm-qm-body">
       <div class="rm-qm-tabs">
@@ -3430,22 +3460,58 @@ function rmImpAbrirModal(){
       <input id="rm-imp-busca" placeholder="Procurar na lista..." oninput="rmImpMostrar=300; rmImpRender()">
       <label><input type="checkbox" id="rm-imp-prob" onchange="rmImpMostrar=300; rmImpRender()"> Mostrar só os com problema</label>
     </div>
+    <div class="imp-sel">
+      <span>&#9745; Marque os produtos que quer ${xml ? 'lançar agora — os desmarcados ficam na nota para lançar depois' : 'importar agora'}:</span>
+      <button onclick="rmImpMarcarProntos()">Marcar só os prontos (com preço)</button>
+      <button onclick="rmImpTodos(true)">Marcar todos</button>
+      <button onclick="rmImpTodos(false)">Desmarcar todos</button>
+    </div>
     <div class="imp-wrap" id="rm-imp-wrap"><table class="imp"><thead><tr>
-      <th class="c"><input type="checkbox" id="rm-imp-todos" checked onchange="rmImpTodos(this.checked)" title="Marcar / desmarcar todos"></th><th></th>
+      <th class="c"><input type="checkbox" id="rm-imp-todos" checked onchange="rmImpTodos(this.checked)" title="Marcar / desmarcar todos"><div style="font-size:9.5px; margin-top:2px">${xml ? 'LANÇAR' : 'IMPORTAR'}</div></th><th></th>
       <th>Descrição</th><th></th><th>Marca</th><th>Local</th><th>Curva</th><th class="r">Estoque</th><th class="r">Custo (R$)</th><th class="r">Margem</th>
       <th class="r">Preço consumidor (R$)</th><th class="r">Preço parceiro (R$)</th><th></th></tr></thead>
       <tbody id="rm-imp-body"></tbody></table></div>
     <div id="rm-import-progresso" style="display:none; padding:12px 2px 0; font-size:14px; font-weight:600;"></div>
     <div class="imp-pe"><small>Clique em qualquer campo para alterar. A margem é calculada sozinha.<br>&#128279; = usar um produto que já está cadastrado: não cria outro, só soma a quantidade no estoque.${xml ? '<br>Custo = valor do item na nota + IPI, ST, frete e outras despesas − desconto, dividido pela quantidade.' : ''}${!xml && rmImpSemColLocal ? '<br>O código interno ficou em branco — o valor que estava nessa coluna foi pra Localização.' : ''}</small>
-      <button class="rm-primary" id="rm-import-confirmar-btn" style="width:auto; margin:0; padding:13px 34px" onclick="rmConfirmarImportacaoCsv()">Importar</button></div>`;
+      <div style="display:flex; gap:10px; flex-wrap:wrap">
+        ${xml && rmImpNotaId ? `<button class="nf-bt" style="padding:13px 20px" onclick="rmImpSalvarRascunho(true)" title="Guarda o que você preencheu nesta tela. O estoque não muda.">&#128190; Salvar e continuar depois</button>` : ''}
+        <button class="rm-primary" id="rm-import-confirmar-btn" style="width:auto; margin:0; padding:13px 34px" onclick="rmConfirmarImportacaoCsv()">Importar</button></div></div>`;
   document.getElementById('rm-modal-backdrop').classList.add('show');
   rmImpRender();
 }
 function rmImpFechar(){
+  if(rmImpModo === 'xml' && rmImpNotaId && rmImpLinhas.length){ rmImpSalvarRascunho(true); return; }
   if(rmImpLinhas.length && !confirm('Fechar sem importar? O que você alterou nesta tela será perdido.')) return;
   rmImpLinhas = []; rmImportacaoPendente = null; rmImpNotaId = null; rmImpAcFechar();
   document.getElementById('rm-modal').classList.remove('rm-modal-imp');
   rmCloseModal();
+}
+function rmImpMarcarProntos(){
+  rmImpLinhas.forEach(l => { l.incluir = Number(l.p.precoConsumidor) > 0; });
+  rmImpRender();
+  const n = rmImpLinhas.filter(l => l.incluir).length;
+  rmShowToast(n ? n + ' produto(s) com preço marcado(s)' : 'Nenhum produto com preço de venda ainda');
+}
+// guarda na nota o que foi preenchido (preços, ligações, marcados) — o estoque não muda
+function rmImpSalvarRascunho(fechar){
+  const n = (rmNotas || []).find(x => x.id === rmImpNotaId);
+  if(n){
+    const campos = ['nome','marca','localizacao','curva','estoqueAtual','precoCusto','precoConsumidor','precoParceiro'];
+    rmImpLinhas.forEach(l => {
+      const it = n.itens.find(i => i.k === l.itemK); if(!it || it.lancado) return;
+      const pp = {}; campos.forEach(c => pp[c] = l.p[c]);
+      ['categoria','subcategoria','aplicacao','ncm','cest','unidade'].forEach(c => pp[c] = l.p[c]);
+      it.rascunho = { p: pp, vinculo: l.vinculo || null, porque: l.porque || '', incluir: l.incluir, sugIgnorada: !!l.sugIgnorada, copiaDe: l.copiaDe || null };
+    });
+    rmNotaGuardar(n);
+  }
+  if(fechar){
+    rmImpLinhas = []; rmImportacaoPendente = null; rmImpNotaId = null; rmImpAcFechar();
+    document.getElementById('rm-modal').classList.remove('rm-modal-imp');
+    rmCloseModal();
+    if(n) rmShowToast('Guardado · NF ' + n.numero + ' continua em aberto para lançar depois');
+    if(document.getElementById('rm-notas-corpo')) rmRenderNotas();
+  }
 }
 function rmImpMargem(l){ const c = Number(l.p.precoCusto) || 0, v = Number(l.p.precoConsumidor) || 0; return c > 0 && v > 0 ? Math.round((v / c - 1) * 100) : null; }
 function rmImpProblema(l){ return l.incluir && (!(Number(l.p.precoConsumidor) > 0) || (l.sug && !l.vinculo && !l.sugIgnorada)); }
@@ -3463,17 +3529,20 @@ function rmImpResumo(){
     (rmImpExtra.repetidosNaPlanilha ? caixa(rmImpExtra.repetidosNaPlanilha, 'repetidos na planilha (ficou o último)') : '') +
     (rmImpExtra.semNome ? caixa(rmImpExtra.semNome, 'linhas sem nome (ignoradas)') : '');
   const btn = document.getElementById('rm-import-confirmar-btn');
-  if(btn && !btn.disabled) btn.textContent = inc.length ? (rmImpModo === 'xml' ? 'Dar entrada em ' : 'Importar ') + inc.length + ' produto' + (inc.length > 1 ? 's' : '') : 'Nada marcado para importar';
+  if(btn && !btn.disabled) btn.textContent = !inc.length ? (rmImpModo === 'xml' ? 'Nada marcado para lançar' : 'Nada marcado para importar')
+    : rmImpModo === 'xml' ? 'Lançar ' + (inc.length < rmImpLinhas.length ? inc.length + ' de ' + rmImpLinhas.length : inc.length) + ' no estoque'
+    : 'Importar ' + inc.length + ' produto' + (inc.length > 1 ? 's' : '');
   const todos = document.getElementById('rm-imp-todos'); if(todos) todos.checked = inc.length === rmImpLinhas.length;
 }
 function rmImpLinhaHtml(l){
   const p = l.p, i = l.i, ex = l.vinculo ? rmImpProd(l.vinculo) : null, f = v => rmFmtNum(v || 0);
-  const tag = l.vinculo ? '<span class="imp-tag imp-vinc">SOMA NO ESTOQUE</span>' : l.existe ? '<span class="imp-tag imp-atu">ATUALIZA</span>' : '<span class="imp-tag imp-novo">NOVO</span>';
+  const tag = l.vinculo ? '<span class="imp-tag imp-vinc">SOMA NO ESTOQUE</span>' : l.existe ? '<span class="imp-tag imp-atu">ATUALIZA</span>' : l.copiaDe ? '<span class="imp-tag imp-novo">NOVO · CÓPIA</span>' : '<span class="imp-tag imp-novo">NOVO</span>';
   const inp = (campo, val, cls, w, extra) => `<input class="imp-in ${cls || ''}" ${w ? `style="width:${w}px"` : ''} value="${rmEscapeHtml(val)}" onfocus="this.select()" onchange="rmImpEditar(${i},'${campo}',this.value)" ${extra || ''}>`;
   const sug = !l.vinculo && l.sug && !l.sugIgnorada ? rmImpProd(l.sug) : null;
   let desc;
   if(l.vinculo) desc = `<div class="imp-vbox"><div class="imp-vnome">&#128279; ${rmEscapeHtml(ex ? ex.nome : '?')}</div><div class="imp-vsub">${rmImpModo === 'xml' ? 'na nota' : 'na planilha'}: ${rmEscapeHtml(l.orig.nome)}${l.porque ? ' · <i>' + l.porque + '</i>' : ''} · <a onclick="rmImpDesligar(${i})">desfazer</a></div></div>`;
   else desc = inp('nome', p.nome, 'imp-nome', 0, 'autocapitalize="characters"') +
+    (l.copiaDe ? `<div class="imp-sug" style="color:var(--rm-text-dim)">&#128203; copiado de <b>${rmEscapeHtml(l.copiaDe.nome)}</b> · &#128106; família ${rmEscapeHtml(l.copiaDe.familia || '—')} · <a onclick="rmImpDesfazerCopia(${i})">desfazer</a></div>` : '') +
     (sug ? `<div class="imp-sug">${rmImpNorm(sug.nome).trim() === rmImpNorm(p.nome).trim() ? 'Já existe com esse nome' : 'Parecido com <b>' + rmEscapeHtml(sug.nome) + '</b>'} (já cadastrado${sug.localizacao ? ' · #' + rmEscapeHtml(sug.localizacao) : ''}) · <a onclick="rmImpLigar(${i},'${sug.id}')">usar este</a> · <a onclick="rmImpIgnorarSug(${i})">não é</a></div>` : '');
   const m = rmImpMargem(l);
   const qtdEx = ex ? (Number(ex.estoqueAtual) || 0) : 0;
@@ -3481,7 +3550,7 @@ function rmImpLinhaHtml(l){
     <td class="c"><input type="checkbox" ${l.incluir ? 'checked' : ''} onchange="rmImpIncluir(${i}, this.checked)"></td>
     <td>${tag}</td>
     <td>${desc}</td>
-    <td class="c">${l.vinculo ? '' : `<button class="imp-link" title="Usar um produto que já está cadastrado (só soma no estoque)" onclick="rmImpBuscar(${i}, this)">&#128279;</button>`}</td>
+    <td class="c" style="white-space:nowrap">${l.vinculo ? '' : `<button class="imp-link" title="Usar um produto que já está cadastrado (mesma marca: só soma no estoque)" onclick="rmImpBuscar(${i}, this)">&#128279;</button> <button class="imp-link" title="Copiar o cadastro de outro produto (mesmo produto, outra marca)" onclick="rmImpCopiar(${i})">&#128203;</button>`}</td>
     <td>${inp('marca', p.marca || '', '', 110, 'autocapitalize="characters"')}</td>
     <td>${inp('localizacao', p.localizacao || '', '', 74, 'autocapitalize="characters"')}</td>
     <td><select class="imp-in" style="width:56px" onchange="rmImpEditar(${i},'curva',this.value)">${['','A','B','C','D'].map(c => `<option${c === (p.curva || '') ? ' selected' : ''}>${c}</option>`).join('')}</select></td>
@@ -3584,7 +3653,7 @@ function rmImpAcFechar(){ rmImpAcLinha = null; const b = document.getElementById
 
 // ===================== IMPORTAÇÃO DE NOTA FISCAL (XML da NF-e) =====================
 // por enquanto só os produtos: cadastra os novos e soma no estoque os que já existem (mesma tela da planilha)
-let rmImpNfeGravar = null, rmImpNotaId = null;
+let rmImpNfeGravar = null, rmImpNotaId = null, rmImpCopiasGravar = null;
 const RM_NFE_LOCAL = 'radicalMotos_nfe';
 function rmNfeLocal(){ try{ return JSON.parse(localStorage.getItem(RM_NFE_LOCAL)) || { chaves:{}, codigos:{} }; }catch(e){ return { chaves:{}, codigos:{} }; } }
 async function rmNfeCarregar(){
@@ -3680,6 +3749,13 @@ function rmNfeMontar(lidas, reg){
       l.vinculo = ex.id; l.porque = achar[1];
       Object.assign(l.p, { marca: ex.marca || '', localizacao: ex.localizacao || '', curva: ex.curva || '', precoConsumidor: Number(ex.precoConsumidor) || 0, precoParceiro: Number(ex.precoParceiro) || 0 });
     } else l.sug = rmImpSugerir(it.nome);
+    if(it.rascunho){
+      const r = it.rascunho;
+      Object.assign(l.p, r.p || {});
+      l.vinculo = r.vinculo && ativo(porId.get(r.vinculo)) ? r.vinculo : null; l.porque = l.vinculo ? (r.porque || '') : '';
+      l.sugIgnorada = !!r.sugIgnorada; if(l.vinculo) l.sug = null; // ao voltar, todos os que faltam vêm marcados
+      if(r.copiaDe && !l.vinculo && porId.get(r.copiaDe.id)){ l.copiaDe = r.copiaDe; l.sug = null; }
+    }
     return l;
   });
   rmImpExtra = {}; rmImpMostrar = 300; rmImpModo = 'xml';
@@ -3735,8 +3811,8 @@ function rmNotasAbrirTela(){ rmRenderNotas(); rmNotasCarregar().then(rmRenderNot
 function rmNotaSitTxt(n){
   const tot = n.itens.length, lanc = n.itens.filter(i => i.lancado).length;
   if(n.situacao === 'lancada') return `<span class="nf-st nf-ok">&#10004; LANÇADA</span><div class="nf-sub">${n.lancadaEm ? new Date(n.lancadaEm).toLocaleDateString('pt-BR').slice(0, 5) : ''}${n.lancadaPor ? ' por ' + rmEscapeHtml(n.lancadaPor) : ''}</div>`;
-  if(lanc) return `<span class="nf-st nf-pa">&#9680; PARCIAL · ${lanc} de ${tot}</span>`;
-  return '<span class="nf-st nf-ab">&#9679; EM ABERTO</span>';
+  if(lanc) return `<span class="nf-st nf-pa">&#9680; PARCIAL · ${lanc} de ${tot}</span><div class="nf-sub">faltam ${tot - lanc}</div>`;
+  return '<span class="nf-st nf-ab">&#9679; EM ABERTO</span>' + (n.itens.some(i => i.rascunho) ? '<div class="nf-sub">&#9998; começou a preencher</div>' : '');
 }
 function rmNotaEmAberto(n){ return n.situacao !== 'lancada'; }
 function rmNotasPeriodo(v){
@@ -3785,7 +3861,7 @@ function rmRenderNotas(){
       <td class="c">${n.itens.length}</td><td class="r"><b>${rmFormatMoeda(n.total)}</b></td>
       <td class="nf-dim">${n.importadaEm ? new Date(n.importadaEm).toLocaleString('pt-BR').slice(0, 17).replace(',', '') : ''}${n.importadaPor ? '<div class="nf-sub">' + rmEscapeHtml(n.importadaPor) + '</div>' : ''}</td>
       <td>${rmNotaSitTxt(n)}</td>
-      <td>${rmNotaEmAberto(n) ? `<button class="nf-bt nf-bt-pri" onclick="rmNotaLancar('${rmJs(n.id)}')">Lançar produtos</button>` : `<button class="nf-bt" onclick="rmNotaVerItens('${rmJs(n.id)}')">Ver itens</button>`}</td>
+      <td>${rmNotaEmAberto(n) ? `<button class="nf-bt nf-bt-pri" onclick="rmNotaLancar('${rmJs(n.id)}')">${n.itens.some(i => i.lancado) || n.itens.some(i => i.rascunho) ? 'Continuar lançando' : 'Lançar produtos'}</button>` : `<button class="nf-bt" onclick="rmNotaVerItens('${rmJs(n.id)}')">Ver itens</button>`}</td>
       <td class="nf-menu-td"><button class="nf-mais" title="Mais opções" onclick="rmNotaMenu(event, '${rmJs(n.id)}')">&#8942;</button></td></tr>`).join('')}
     <tr class="nf-tot"><td colspan="4">${lista.length} nota(s)</td><td class="r">${rmFormatMoeda(lista.reduce((s, n) => s + n.total, 0))}</td><td colspan="4"></td></tr>
     </tbody></table></div>`
@@ -3823,14 +3899,14 @@ async function rmNotaLancar(id){
   const faltam = n.itens.filter(i => !i.lancado);
   if(!faltam.length){ alert('Todos os produtos desta nota já foram lançados.'); return; }
   const reg = await rmNfeCarregar();
-  rmNfeMontar([{ nota: { chave:n.id, numero:n.numero, data:n.emissao, fornecedor:n.fornecedor, cnpj:n.cnpj, total:n.total }, itens: faltam }], reg);
   rmImpNotaId = n.id;
+  rmNfeMontar([{ nota: { chave:n.id, numero:n.numero, data:n.emissao, fornecedor:n.fornecedor, cnpj:n.cnpj, total:n.total }, itens: faltam }], reg);
 }
 // depois de importar: marca os itens lançados e a situação da nota
 function rmNotaMarcarLancados(notaId, lancados){
   const n = (rmNotas || []).find(x => x.id === notaId); if(!n) return;
   const agora = new Date().toISOString();
-  lancados.forEach(([k, pid]) => { const it = n.itens.find(i => i.k === k); if(it){ it.lancado = true; it.produtoId = pid; it.lancadoEm = agora; it.lancadoPor = rmNomeUsuario(); } });
+  lancados.forEach(([k, pid]) => { const it = n.itens.find(i => i.k === k); if(it){ delete it.rascunho; it.lancado = true; it.produtoId = pid; it.lancadoEm = agora; it.lancadoPor = rmNomeUsuario(); } });
   if(n.itens.every(i => i.lancado)){ n.situacao = 'lancada'; n.lancadaEm = agora; n.lancadaPor = rmNomeUsuario(); }
   else n.situacao = 'parcial';
   rmNotaGuardar(n);
@@ -3900,6 +3976,144 @@ function rmNotaVerItens(id){
   document.getElementById('rm-modal-backdrop').classList.add('show');
 }
 
+// ===================== COPIAR CADASTRO DE OUTRO PRODUTO (mesmo produto, outra marca) =====================
+// copia o nome inteiro (a pessoa troca a marca à mão), o resto do cadastro e coloca na mesma família
+let rmCpCb = null, rmCpSrc = null, rmCpOrigemCadastro = null;
+function rmCpPalavras(s){ return rmFamNorm(s || '').split(/\s+/).filter(Boolean); }
+// nome da família: a família do produto copiado; se não tiver, a parte do nome que é igual nos dois
+function rmCpNomeFamilia(src, novoNome){
+  const f = rmFamDoProduto(src.id); if(f) return f.nome;
+  const a = rmCpPalavras(src.nome), b = rmCpPalavras(novoNome); let k = 0;
+  while(k < a.length && k < b.length && a[k] === b[k]) k++;
+  const comum = a.slice(0, k).join(' ').replace(/[\s\-–/]+$/, '');
+  if(k >= 2 && k < a.length) return comum;
+  return rmFamSeparar(src.nome).base || '';
+}
+function rmCpMarcaDoNome(novoNome, nomeFam){
+  const n = rmFamNorm(novoNome), b = rmFamNorm(nomeFam || '');
+  if(b && n.startsWith(b) && n.length > b.length) return n.slice(b.length).replace(/^[\s\-–.,/]+|[\s\-–.,/]+$/g, '');
+  return rmFamSeparar(novoNome).marca || '';
+}
+function rmCpAbrir(nomeInicial, cb){
+  rmCpCb = cb; rmCpSrc = null;
+  let ov = document.getElementById('rm-copia-ov'); if(ov) ov.remove();
+  ov = document.createElement('div'); ov.id = 'rm-copia-ov'; ov.className = 'cp-ov';
+  ov.onclick = e => { if(e.target === ov) rmCpFechar(); };
+  ov.innerHTML = `<div class="cp" onclick="event.stopPropagation()"><h3>&#128203; Copiar cadastro de outro produto</h3>
+    <div class="sub">Mesmo produto, marca diferente: copia o cadastro e coloca na mesma família.</div>
+    <div id="rm-copia-corpo"></div></div>`;
+  document.body.appendChild(ov);
+  rmCpPasso1(nomeInicial || '');
+}
+function rmCpFechar(){ const o = document.getElementById('rm-copia-ov'); if(o) o.remove(); rmCpCb = null; rmCpSrc = null; }
+function rmCpPasso1(q){
+  document.getElementById('rm-copia-corpo').innerHTML = `<label>Copiar de qual produto?</label>
+    <input id="rm-copia-busca" placeholder="Digite o nome, código ou local do produto que já existe..." autocomplete="off" oninput="rmCpListar()" onkeydown="rmCpTecla(event)">
+    <div class="cp-lista" id="rm-copia-lista"></div>
+    <div class="pe"><button onclick="rmCpFechar()">Cancelar</button></div>`;
+  const i = document.getElementById('rm-copia-busca'); i.value = rmCpPalavras(q).slice(0, 2).join(' '); i.focus(); rmCpListar();
+}
+function rmCpListar(){
+  const q = (document.getElementById('rm-copia-busca').value || '').trim().toLowerCase();
+  const l = q ? rmLoadProdutos().filter(p => p.ativo !== false && rmProdutoBateBusca(p, q)).sort((a, b) => (a.nome || '').localeCompare(b.nome || '', 'pt-BR')).slice(0, 30) : [];
+  document.getElementById('rm-copia-lista').innerHTML = l.length ? l.map((p, k) => { const f = rmFamDoProduto(p.id); return `<div class="cp-it${k === 0 ? ' sel' : ''}" data-id="${p.id}" onclick="rmCpEscolher('${p.id}')">
+      <b>${rmEscapeHtml(p.nome)}</b><small>${p.localizacao ? '#' + rmEscapeHtml(p.localizacao) + ' · ' : ''}${p.curva ? 'curva ' + p.curva + ' · ' : ''}estoque ${rmFmtQtd(p.estoqueAtual || 0)} · ${rmFormatMoeda(p.precoConsumidor || 0)}${f ? ' · &#128106; ' + rmEscapeHtml(f.nome) : ''}</small></div>`; }).join('')
+    : `<div class="cp-vazio">${q ? 'Nenhum produto encontrado' : 'Digite para procurar'}</div>`;
+}
+function rmCpTecla(e){
+  const its = [...document.querySelectorAll('#rm-copia-lista .cp-it')]; let k = its.findIndex(x => x.classList.contains('sel'));
+  if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){ e.preventDefault(); if(!its.length) return; if(k >= 0) its[k].classList.remove('sel'); k = (k + (e.key === 'ArrowDown' ? 1 : -1) + its.length) % its.length; its[k].classList.add('sel'); its[k].scrollIntoView({ block:'nearest' }); }
+  else if(e.key === 'Enter'){ e.preventDefault(); if(k >= 0) rmCpEscolher(its[k].dataset.id); }
+  else if(e.key === 'Escape') rmCpFechar();
+}
+function rmCpEscolher(id){
+  const p = rmIdx(rmLoadProdutos()).get(id); if(!p) return;
+  rmCpSrc = p;
+  const v = (x, f) => x ? (f ? f(x) : rmEscapeHtml(x)) : '—';
+  document.getElementById('rm-copia-corpo').innerHTML = `<label>Copiar de</label>
+    <div class="cp-sel"><div><b>${rmEscapeHtml(p.nome)}</b><small>${p.localizacao ? '#' + rmEscapeHtml(p.localizacao) + ' · ' : ''}estoque ${rmFmtQtd(p.estoqueAtual || 0)} · ${rmFormatMoeda(p.precoConsumidor || 0)}</small></div><a onclick="rmCpPasso1('${rmJs(p.nome)}')">trocar</a></div>
+    <label>Nome do produto novo <small style="text-transform:none; letter-spacing:0">(copiado igual — apague a marca e digite a nova)</small></label>
+    <input id="rm-copia-nome" value="${rmEscapeHtml(p.nome)}" autocapitalize="characters" oninput="rmCpPrevia()" onkeydown="if(event.key==='Enter') rmCpConfirmar(); if(event.key==='Escape') rmCpFechar()">
+    <div class="cp-res" id="rm-copia-previa"></div>
+    <div class="cp-cop"><div><span>Local</span><b>${v(p.localizacao)}</b></div><div><span>Curva</span><b>${v(p.curva)}</b></div><div><span>Grupo</span><b>${v(p.categoria)}</b></div>
+      <div><span>Aplicação</span><b>${v(p.aplicacao)}</b></div><div><span>Preço consumidor</span><b>${rmFormatMoeda(p.precoConsumidor || 0)} <small style="color:#c77700">(ajuste se precisar)</small></b></div><div><span>Preço parceiro</span><b>${rmFormatMoeda(p.precoParceiro || 0)}</b></div></div>
+    <div class="pe"><button onclick="rmCpFechar()">Cancelar</button><button class="pri" onclick="rmCpConfirmar()">Copiar para este produto</button></div>`;
+  const i = document.getElementById('rm-copia-nome'); i.focus(); i.setSelectionRange(i.value.length, i.value.length);
+  rmCpPrevia();
+}
+function rmCpPrevia(){
+  const p = rmCpSrc, box = document.getElementById('rm-copia-previa'); if(!p || !box) return;
+  const nome = rmFamNorm(document.getElementById('rm-copia-nome').value || '');
+  const igual = rmLoadProdutos().find(x => x.ativo !== false && rmFamNorm(x.nome) === nome);
+  const fam = rmCpNomeFamilia(p, nome), f = rmFamDoProduto(p.id);
+  const marcas = f ? rmFamMembros(f.id).map(rmFamMarcaDe) : [rmFamMarcaDe(p)];
+  const nova = rmCpMarcaDoNome(nome, fam);
+  box.className = 'cp-res' + (igual ? ' cp-erro' : '');
+  box.innerHTML = igual ? `&#9888; Já existe um produto com esse nome exato. <b>Apague a marca e digite a nova.</b>`
+    : `<div class="cp-tit">Vai ficar assim</div><div class="cp-nome">${rmEscapeHtml(nome)}</div>
+      <div class="cp-fam">&#128106; ${f ? 'Entra na família' : 'Cria a família'} <b>${rmEscapeHtml(fam || '?')}</b>${nova ? ' · marcas: ' + rmEscapeHtml([...new Set(marcas.concat(nova))].join(', ')) : ''}</div>`;
+}
+function rmCpConfirmar(){
+  const p = rmCpSrc; if(!p) return;
+  const nome = rmFamNorm(document.getElementById('rm-copia-nome').value || '');
+  if(!nome){ alert('Digite o nome do produto novo.'); return; }
+  if(rmLoadProdutos().some(x => x.ativo !== false && rmFamNorm(x.nome) === nome)){ alert('Já existe um produto com esse nome. Troque a marca no nome antes de copiar.'); return; }
+  const fam = rmCpNomeFamilia(p, nome);
+  const cb = rmCpCb; rmCpFechar();
+  if(cb) cb(p, nome, fam, rmCpMarcaDoNome(nome, fam));
+}
+// coloca o produto novo na mesma família do copiado (e o copiado também, se ainda não tinha família)
+function rmCpAplicarFamilia(novoId, srcId, nomeFam, marcaNova){
+  const prods = rmIdx(rmLoadProdutos()), src = prods.get(srcId), novo = prods.get(novoId);
+  if(!src || !novo || !nomeFam) return;
+  const f = rmFamDoProduto(srcId);
+  if(f){ if(!rmFamDoProduto(novoId)) rmFamCriar(f.nome, [{ pid: novoId, marca: marcaNova }], f.curva, f.id); }
+  else {
+    const atual = rmFamDoProduto(novoId);
+    rmFamCriar(atual ? atual.nome : nomeFam, [{ pid: srcId, marca: rmFamMarcaDe(src) === 'SEM MARCA' ? '' : rmFamMarcaDe(src) }].concat(atual ? [] : [{ pid: novoId, marca: marcaNova }]), src.curva || '', atual && atual.id);
+  }
+}
+// ----- na tela de importação -----
+function rmImpCopiar(i){
+  const l = rmImpLinhas[i]; if(!l) return;
+  rmCpAbrir(l.p.nome, (src, nome, fam, marca) => {
+    l.antesCopia = Object.assign({}, l.p);
+    Object.assign(l.p, { nome, marca: marca || l.p.marca || '', localizacao: src.localizacao || '', curva: src.curva || '', categoria: src.categoria || '',
+      subcategoria: src.subcategoria || '', aplicacao: src.aplicacao || '', ehServico: !!src.ehServico,
+      precoConsumidor: Number(src.precoConsumidor) || 0, precoParceiro: Number(src.precoParceiro) || 0,
+      ncm: l.p.ncm || src.ncm || '', cest: l.p.cest || src.cest || '', unidade: l.p.unidade || src.unidade || 'UN' });
+    l.copiaDe = { id: src.id, nome: src.nome, familia: fam, marca };
+    l.vinculo = null; l.sug = null; l.sugIgnorada = true;
+    rmImpAtualizarLinha(i);
+  });
+}
+function rmImpDesfazerCopia(i){
+  const l = rmImpLinhas[i]; if(!l || !l.antesCopia) return;
+  l.p = l.antesCopia; l.antesCopia = null; l.copiaDe = null; l.sugIgnorada = false;
+  l.sug = rmImpSugerir(l.p.nome);
+  rmImpAtualizarLinha(i);
+}
+// ----- no cadastro de produto -----
+function rmCadastroCopiar(){
+  rmCpAbrir((document.getElementById('rm-pqf-nome') || {}).value || '', (src, nome, fam, marca) => {
+    const set = (id, v) => { const el = document.getElementById('rm-pqf-' + id); if(el) el.value = (v === null || v === undefined) ? '' : v; };
+    const num = v => (v === null || v === undefined || v === '' || Number(v) === 0) ? '' : String(v).replace('.', ',');
+    set('nome', nome); set('marca', marca || ''); set('localizacao', src.localizacao); set('familia', fam);
+    set('preco-custo', num(src.precoCusto)); set('preco-consumidor', num(src.precoConsumidor)); set('preco-parceiro', num(src.precoParceiro));
+    set('categoria', src.categoria); set('curva', src.curva || ''); set('unidade', src.unidade || 'UN');
+    set('estoque-minimo', num(src.estoqueMinimo)); set('estoque-maximo', num(src.estoqueMaximo));
+    set('ncm', src.ncm); set('cest', src.cest); set('fornecedor', src.fornecedor);
+    set('peso', num(src.pesoKg)); set('peso-liquido', num(src.pesoLiquidoKg)); set('comprimento', num(src.comprimentoCm)); set('largura', num(src.larguraCm)); set('altura', num(src.alturaCm));
+    const sv = document.getElementById('rm-pqf-eh-servico'); if(sv) sv.checked = !!src.ehServico;
+    rmNovoProdutoAplicacao = rmAplicacaoParse(src.aplicacao); rmRenderAplicacaoNovo();
+    rmAtualizarMargens('rm-pqf');
+    rmCpOrigemCadastro = { id: src.id, familia: fam, marca };
+    const av = document.getElementById('rm-pqf-copia-aviso');
+    if(av){ av.style.display = ''; av.innerHTML = '&#128203; Copiado de <b>' + rmEscapeHtml(src.nome) + '</b> · confira o preço e clique em Cadastrar produto.'; }
+    const n = document.getElementById('rm-pqf-nome'); if(n){ n.focus(); n.setSelectionRange(n.value.length, n.value.length); }
+  });
+}
+
 // monta a lista final que vai para o banco
 function rmImpMontarFinal(){
   const todos = rmIdx(rmLoadProdutos());
@@ -3942,6 +4156,8 @@ async function rmConfirmarImportacaoCsv(){
     const semPreco = lista.filter(p => !(Number(p.precoConsumidor) > 0)).length;
     if(semPreco && !confirm(semPreco + ' produto(s) estão sem preço de venda. Importar assim mesmo?')) return;
     rmImportacaoPendente = lista;
+    if(rmImpModo === 'xml' && rmImpNotaId) rmImpSalvarRascunho(false);
+    rmImpCopiasGravar = rmImpLinhas.filter(l => l.incluir && !l.vinculo && l.copiaDe).map(l => [l.p.id, l.copiaDe.id, l.copiaDe.familia, l.copiaDe.marca]);
     rmImpNfeGravar = rmImpModo === 'xml' && rmImpNota ? { notas: [], notaId: rmImpNotaId, codigos: rmImpLinhas.filter(l => l.incluir && l.chaveForn).map(l => [l.chaveForn, l.vinculo || l.p.id]), lancados: rmImpLinhas.filter(l => l.incluir && l.itemK).map(l => [l.itemK, l.vinculo || l.p.id]) } : null;
     if(log.length) rmLog('Importação: somou no estoque de produto já cadastrado', '', log.join(' | ').slice(0, 1500));
     rmImpAcFechar();
@@ -3986,6 +4202,9 @@ async function rmConfirmarImportacaoCsv(){
   rmImportacaoPendente = null; rmImpLinhas = []; rmImpIndice = null;
   if(rmImpNfeGravar && !falhas.length){ rmNfeRegistrar(rmImpNfeGravar); if(rmImpNfeGravar.notaId) rmNotaMarcarLancados(rmImpNfeGravar.notaId, rmImpNfeGravar.lancados); }
   rmImpNfeGravar = null; rmImpNotaId = null;
+  (rmImpCopiasGravar || []).forEach(([novo, src, fam, marca]) => { if(!falhas.length || rmIdx(rmLoadProdutos()).get(novo)) rmCpAplicarFamilia(novo, src, fam, marca); });
+  if((rmImpCopiasGravar || []).length) rmRenderFamilias();
+  rmImpCopiasGravar = null;
   if(document.getElementById('rm-notas-corpo')) rmRenderNotas();
   document.getElementById('rm-modal').classList.remove('rm-modal-imp');
   if(falhas.length){
@@ -4066,6 +4285,8 @@ function rmSalvarProdutoRapido(){
   rmSaveProdutos(list);
   rmDbUpsertProduto(produto);
   rmFamAplicarDoCadastro(produto, (document.getElementById('rm-pqf-familia') || {}).value);
+  if(rmCpOrigemCadastro && !rmProdutoEmEdicao){ rmCpAplicarFamilia(produto.id, rmCpOrigemCadastro.id, (document.getElementById('rm-pqf-familia') || {}).value || rmCpOrigemCadastro.familia, produto.marca || rmCpOrigemCadastro.marca); rmRenderFamilias(); }
+  rmCpOrigemCadastro = null;
 
   const foiEdicao = !!rmProdutoEmEdicao;
   rmProdutoEmEdicao = null;
