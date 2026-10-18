@@ -7,7 +7,7 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<script>document.documentElement.classList.add("rm-sem-login"); try{ if(localStorage.getItem("radicalMotos_tema")==="dark") document.documentElement.dataset.tema="dark"; if(localStorage.getItem("radicalMotos_abas")==="classico") document.documentElement.dataset.abas="classico"; }catch(e){}</script>
+<script>document.documentElement.classList.add("rm-sem-login"); try{ var _t=localStorage.getItem("radicalMotos_tema"); if(_t==="dark"||_t==="grafite") document.documentElement.dataset.tema="dark"; if(_t==="grafite") document.documentElement.dataset.grafite="1"; if(localStorage.getItem("radicalMotos_abas")==="classico") document.documentElement.dataset.abas="classico"; }catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <title>Recepção de Motos — Radical Motos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1977,6 +1977,13 @@
   html[data-tema="dark"] body.rm-pdv-parc{--rm-bg:#26282c; --rm-panel:#2f3237; --rm-panel-2:#3a3d43; --rm-border:#4a4e56;}
   html[data-tema="dark"] body.rm-pdv-orc{--rm-bg:#1f2531; --rm-panel:#28303d; --rm-panel-2:#333b49; --rm-border:#46505f;}
   body.rm-pdv-parc, body.rm-pdv-orc, body.rm-pdv-parc main, body.rm-pdv-orc main{background:var(--rm-bg) !important; transition:background-color .2s;}
+  /* ===== TEMA CINZA ESCURO (grafite): o modo escuro com tons mais claros ===== */
+  html[data-tema="dark"][data-grafite]{--rm-bg:#2b2d31; --rm-panel:#35383d; --rm-panel-2:#404349; --rm-border:#53575e; --rm-text:#eceef1; --rm-text-dim:#aab0b9; --rm-input:#3c3f45; --rm-input-ro:#33363b;}
+  html[data-tema="dark"][data-grafite] .rm-header{background:#232529 !important;}
+  html[data-tema="dark"][data-grafite] .rm-nav-btn:hover:not(.active){background:#33363b;}
+  html[data-tema="dark"][data-grafite] .vg-hero, html[data-tema="dark"][data-grafite] .rm-conc-fato{background:#3a3d42;}
+  html[data-tema="dark"][data-grafite] body.rm-pdv-parc{--rm-bg:#3b3d42; --rm-panel:#46494f; --rm-panel-2:#51545b; --rm-border:#62666e; --rm-input:#4b4e55;}
+  html[data-tema="dark"][data-grafite] body.rm-pdv-orc{--rm-bg:#2a3240; --rm-panel:#334050; --rm-panel-2:#3d4a5c; --rm-border:#52607a; --rm-input:#3a4658;}
   .rm-fila-status.rm-fila-erro{background:#d9433a; color:#fff;}
   .rm-app-velho{position:fixed; inset:0; z-index:2147483000; background:rgba(20,20,24,0.88); display:flex; align-items:center; justify-content:center; padding:16px;}
   .rm-app-velho-cx{background:var(--rm-panel, #fff); color:var(--rm-text, #222); max-width:440px; width:100%; padding:26px 24px; border-top:6px solid #d9433a; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.4);}
@@ -2172,9 +2179,9 @@
     color-scheme:dark;
   }
   html[data-tema="dark"] input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),
-  html[data-tema="dark"] select, html[data-tema="dark"] textarea{background-color:#22262d; color:var(--rm-text); border-color:var(--rm-border);}
+  html[data-tema="dark"] select, html[data-tema="dark"] textarea{background-color:var(--rm-input, #22262d); color:var(--rm-text); border-color:var(--rm-border);}
   html[data-tema="dark"] input::placeholder, html[data-tema="dark"] textarea::placeholder{color:#7d8490;}
-  html[data-tema="dark"] .rm-os-ro, html[data-tema="dark"] .rm-px-card input.rm-px-ro{background-color:#1a1d22 !important;}
+  html[data-tema="dark"] .rm-os-ro, html[data-tema="dark"] .rm-px-card input.rm-px-ro{background-color:var(--rm-input-ro, #1a1d22) !important;}
   html[data-tema="dark"] .rm-nav-btn:hover:not(.active){background:#262a31;}
   html[data-tema="dark"] .rm-px-card{background:var(--rm-panel);}
   html[data-tema="dark"] .rm-px-tabela tr.rm-px-l:hover{background:#2a2e36;}
@@ -2214,15 +2221,15 @@
   html[data-tema="dark"] .rm-problema-check{background:var(--rm-panel-2);}
   html[data-tema="dark"] img{opacity:0.95;}
   html[data-tema="dark"] .rm-qm-panel .rm-input, html[data-tema="dark"] .rm-px-card .rm-input,
-  html[data-tema="dark"] .rm-modal .rm-input, html[data-tema="dark"] textarea.rm-input, html[data-tema="dark"] input.rm-input, html[data-tema="dark"] select.rm-input{background-color:#22262d; color:var(--rm-text); border-color:var(--rm-border);}
-  html[data-tema="dark"] .rm-px-card input.rm-px-ro{background-color:#1a1d22 !important;}
-  html[data-tema="dark"] .rm-qm-tab{background:#22262d;}
+  html[data-tema="dark"] .rm-modal .rm-input, html[data-tema="dark"] textarea.rm-input, html[data-tema="dark"] input.rm-input, html[data-tema="dark"] select.rm-input{background-color:var(--rm-input, #22262d); color:var(--rm-text); border-color:var(--rm-border);}
+  html[data-tema="dark"] .rm-px-card input.rm-px-ro{background-color:var(--rm-input-ro, #1a1d22) !important;}
+  html[data-tema="dark"] .rm-qm-tab{background:var(--rm-input, #22262d);}
   html[data-tema="dark"] .rm-qm-tab.active{background:var(--rm-panel);}
   html[data-tema="dark"] .rm-qm-req input.rm-input{background:#3a3618 !important; border-color:#8a6a1e;}
   html[data-tema="dark"] .rm-qm-footer{background:var(--rm-panel-2);}
   html[data-tema="dark"] .rm-px-edit-aviso{background:#3a321a; border-left-color:#c99a2e;}
   html[data-tema="dark"] .rm-px-info{background:#1b2c40; color:#a9c9ec; border-left-color:#4a90d9;}
-  html[data-tema="dark"] div.rm-px-total-hero, html[data-tema="dark"] div.rm-px-big{background:#22262d; border-color:var(--rm-border);}
+  html[data-tema="dark"] div.rm-px-total-hero, html[data-tema="dark"] div.rm-px-big{background:var(--rm-input, #22262d); border-color:var(--rm-border);}
   html[data-tema="dark"] .rm-px-card input.rm-input, html[data-tema="dark"] .rm-px-card select.rm-input, html[data-tema="dark"] .rm-px-card textarea.rm-input,
   html[data-tema="dark"] .rm-qm-panel input.rm-input, html[data-tema="dark"] .rm-qm-panel select.rm-input, html[data-tema="dark"] .rm-qm-panel textarea.rm-input{border-color:var(--rm-border);}
   html[data-tema="dark"] .rm-px-card input.rm-px-selecionado{background:#2a2e35 !important;}
@@ -2301,7 +2308,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 18:15</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 18:30</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -6174,7 +6181,7 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610181815; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610181830; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
@@ -11505,8 +11512,9 @@ function rmSetAbas(modo){
 if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', rmAbasPrepararIcones); else rmAbasPrepararIcones();
 
 function rmSetTema(t){
-  if(t === 'dark') document.documentElement.dataset.tema = 'dark';
+  if(t === 'dark' || t === 'grafite') document.documentElement.dataset.tema = 'dark';
   else delete document.documentElement.dataset.tema;
+  if(t === 'grafite') document.documentElement.dataset.grafite = '1'; else delete document.documentElement.dataset.grafite;
   localStorage.setItem('radicalMotos_tema', t);
   rmRenderConfigEmpresa();
 }
@@ -11581,7 +11589,8 @@ function rmRenderConfigEmpresa(){
       <div class="rm-cfg-tit">Aparência neste computador</div>
       <div style="display:flex; gap:8px;">
         <button class="rm-pe2-btn${document.documentElement.dataset.tema!=='dark'?' rm-sel-ativo':''}" onclick="rmSetTema('claro')">&#9728; Claro</button>
-        <button class="rm-pe2-btn${document.documentElement.dataset.tema==='dark'?' rm-sel-ativo':''}" onclick="rmSetTema('dark')">&#9790; Escuro</button>
+        <button class="rm-pe2-btn${document.documentElement.dataset.tema==='dark' && !document.documentElement.dataset.grafite?' rm-sel-ativo':''}" onclick="rmSetTema('dark')">&#9790; Escuro</button>
+        <button class="rm-pe2-btn${document.documentElement.dataset.grafite?' rm-sel-ativo':''}" onclick="rmSetTema('grafite')">&#9681; Cinza escuro</button>
       </div>
       <div class="rm-cfg-tit" style="margin-top:18px">Estilo das abas</div>
       <div style="display:flex; gap:8px;">
