@@ -2326,7 +2326,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 18:44</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 18:57</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3672,7 +3672,8 @@ function rmMapearLinhasImportacao(linhasBrutas){
 // ===================== CONFERIR IMPORTAÇÃO (tabela editável) =====================
 // cada linha da planilha vira uma linha editável; dá para ligar a um produto já cadastrado (só soma no estoque)
 let rmImpLinhas = [], rmImpExtra = {}, rmImpMostrar = 300, rmImpModo = 'planilha', rmImpNota = null;
-function rmImpNorm(s){ return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase(); }
+// mesma regra que já estava valendo na prática (sem acento, sem símbolos, espaços simples)
+function rmImpNorm(s){ return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase().replace(/[^A-Z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); }
 function rmImpTokens(s){ return new Set(rmImpNorm(s).split(/[^A-Z0-9]+/).filter(t => t.length >= 2 || /\d/.test(t))); }
 let rmImpIndice = null;
 // índice por palavra: só compara com produtos que têm alguma palavra em comum (rápido mesmo com milhares)
@@ -6178,23 +6179,6 @@ function rmToDbRow(r){
   };
 }
 
-async function rmDbBulkReplace(recepcoes, mecanicos){
-  try{
-    await rmSb.from('recepcoes').delete().neq('id', '__never__');
-    await rmSb.from('mecanicos').delete().neq('nome', '__never__');
-    if(recepcoes.length){
-      const rows = recepcoes.map(rmToDbRow);
-      await rmUpsertDireto('recepcoes', rows, true);
-    }
-    if(mecanicos.length){
-      await rmSb.from('mecanicos').insert(mecanicos.map(nome => ({nome})));
-    }
-    rmShowToast('Backup restaurado em todos os dispositivos');
-  } catch(err){
-    console.error('Erro ao restaurar backup no Supabase:', err);
-    alert('O backup foi restaurado neste dispositivo, mas houve um erro ao sincronizar com os outros. Verifique a conexão.');
-  }
-}
 
 // ===================== CAIXA DE SAÍDA (nada se perde sem internet) =====================
 // Toda gravação de OS, venda, cliente e produto entra primeiro numa fila guardada no aparelho.
@@ -6207,7 +6191,7 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610181844; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610181857; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
@@ -8288,7 +8272,8 @@ window.addEventListener('resize', () => { if(rmUsuario && rmEhCelular()) rmMobIn
 // Lê o relatório "Contas a Receber" exportado do sistema antigo (.xls que na verdade é uma tabela HTML; também aceita .xlsx/.csv).
 // Cada linha é uma parcela EM ABERTO. Agrupa pelo número do Fato (venda) → uma nota a prazo por venda.
 let rmImpDados = null;
-function rmImpNorm(t){ return String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase().replace(/[^A-Z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); }
+// (nome próprio: antes tinha o mesmo nome da função da importação de produtos e uma passava por cima da outra)
+function rmPrazoNorm(t){ return String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase().replace(/[^A-Z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); }
 function rmImpData(t){ const m = /(\d{1,2})\/(\d{1,2})\/(\d{2,4})/.exec(String(t || '')); if(!m) return null; const y = m[3].length === 2 ? '20' + m[3] : m[3]; return y + '-' + m[2].padStart(2,'0') + '-' + m[1].padStart(2,'0'); }
 function rmImpNum(t){ return rmParseMoeda(String(t || '').replace(/[^\d,.-]/g, '')) || 0; }
 function rmImpAbrir(){
@@ -8343,12 +8328,12 @@ async function rmImpParse(files){
         cli: col('CLIENTE'), tel: col('TELEFONE', 'FONE', 'CELULAR'), valor: col('VALOR'), obs: col('OBSERVACAO', 'OBS'), comp: col('DATA COMP', 'EMISSAO'), vend: col('VENDEDOR'), cid: col('CIDADE') };
       rows.slice(hi + 1).forEach(r => {
         const g = i => i >= 0 ? (r[i] || '').trim() : '';
-        if(rmImpNorm(r[0]) === 'TOTAL'){ info.totalArq = rmImpNum(g(c.valor)); return; }
+        if(rmPrazoNorm(r[0]) === 'TOTAL'){ info.totalArq = rmImpNum(g(c.valor)); return; }
         const cliente = g(c.cli), valor = rmImpNum(g(c.valor)), venc = rmImpData(g(c.venc));
         if(!cliente || !(valor > 0) || !venc) return;
         const L = { venc, categoria: g(c.cat), parcela: g(c.parc), nota: g(c.nota), fato: g(c.fato), cliente: cliente.toUpperCase(), telefone: g(c.tel),
           valor, obs: g(c.obs), compra: rmImpData(g(c.comp)) || venc, vendedor: rmComNome(g(c.vend)), cidade: g(c.cid) };
-        const chave = [L.fato || L.nota || '', L.parcela, L.venc, L.valor.toFixed(2), rmImpNorm(L.cliente)].join('|');
+        const chave = [L.fato || L.nota || '', L.parcela, L.venc, L.valor.toFixed(2), rmPrazoNorm(L.cliente)].join('|');
         if(vistos.has(chave)){ info.dup++; return; }
         L.__arq = f.name; vistos.add(chave); linhas.push(L); info.lidas++; info.soma += valor;
       });
@@ -8365,13 +8350,13 @@ async function rmImpLer(files){
   // agrupa por venda (Fato); sem número → cliente + data da compra
   const grupos = new Map();
   linhas.forEach(L => {
-    const k = L.fato || L.nota || ('SEMNUM-' + rmImpNorm(L.cliente) + '-' + L.compra);
+    const k = L.fato || L.nota || ('SEMNUM-' + rmPrazoNorm(L.cliente) + '-' + L.compra);
     if(!grupos.has(k)) grupos.set(k, []); grupos.get(k).push(L);
   });
   // clientes: procura por telefone e depois por nome
   const clis = rmLoadClientes();
   const porTel = new Map(), porNome = new Map();
-  clis.forEach(c => { const t = (c.telefone || '').replace(/\D/g, '').slice(-8); if(t.length === 8) porTel.set(t, c); porNome.set(rmImpNorm(c.nome), c); });
+  clis.forEach(c => { const t = (c.telefone || '').replace(/\D/g, '').slice(-8); if(t.length === 8) porTel.set(t, c); porNome.set(rmPrazoNorm(c.nome), c); });
   const novosCli = new Map();
   const existentes = new Set(rmLoadProms().map(n => n.refId));
   const notas = []; let jaImportadas = 0;
@@ -8381,10 +8366,10 @@ async function rmImpLer(files){
     const L0 = ls[0];
     const tel = (ls.find(x => x.telefone) || {}).telefone || '';
     const t8 = tel.replace(/\D/g, '').slice(-8);
-    let cli = (t8.length === 8 && porTel.get(t8)) || porNome.get(rmImpNorm(L0.cliente)) || novosCli.get(rmImpNorm(L0.cliente));
+    let cli = (t8.length === 8 && porTel.get(t8)) || porNome.get(rmPrazoNorm(L0.cliente)) || novosCli.get(rmPrazoNorm(L0.cliente));
     if(!cli){
       cli = { id: 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7), nome: L0.cliente, telefone: tel, cidade: (ls.find(x => x.cidade) || {}).cidade || '', situacao: 'positivo', criadoEm: new Date().toISOString(), observacao: 'Importado do sistema antigo', __novo: true };
-      novosCli.set(rmImpNorm(L0.cliente), cli);
+      novosCli.set(rmPrazoNorm(L0.cliente), cli);
       if(t8.length === 8) porTel.set(t8, cli);
     }
     ls.sort((a, b) => a.venc.localeCompare(b.venc));
@@ -8867,7 +8852,7 @@ async function rmCmpLer(files){
   // antigo: Fato → parcelas em aberto
   const antigo = new Map();
   linhas.forEach(l => {
-    const k = l.fato || l.nota || ('SEMNUM-' + rmImpNorm(l.cliente) + '-' + l.compra);
+    const k = l.fato || l.nota || ('SEMNUM-' + rmPrazoNorm(l.cliente) + '-' + l.compra);
     if(!antigo.has(k)) antigo.set(k, { cliente: l.cliente, parcelas: [] });
     antigo.get(k).parcelas.push(l);
   });
@@ -10772,6 +10757,29 @@ function rmRetAbrir(){
 setTimeout(() => rmRetPendCarregar(), 6000);
 setInterval(() => { const s = document.getElementById('rm-section-pdv'); if(s && s.classList.contains('active')) rmRetPendCarregar(); }, 60000);
 
+// ===================== REGISTRO DE ERROS =====================
+// Erros que antes passavam calados ficam guardados no Registro (Configurações → Registro, ação "Erro no sistema"),
+// com a versão e o aparelho. Cada erro igual é registrado no máximo 1 vez a cada 30 min, e até 20 por sessão.
+const rmErroVisto = {}; let rmErroQtd = 0;
+function rmErroRegistrar(msg, onde){
+  try{
+    msg = String(msg || '').slice(0, 300); if(!msg) return;
+    if(/ResizeObserver loop|Script error\.?$|Failed to fetch|NetworkError|Load failed|AbortError/i.test(msg)) return; // ruído de navegador / sem internet
+    const k = msg.slice(0, 120), agora = Date.now();
+    if(rmErroVisto[k] && agora - rmErroVisto[k] < 30 * 60000) return;
+    if(++rmErroQtd > 20) return;
+    rmErroVisto[k] = agora;
+    const det = (onde ? onde + ' · ' : '') + msg + ' · versão ' + RM_APP_VERSAO + ' · ' + (window.matchMedia && matchMedia('(max-width:760px)').matches ? 'celular' : 'computador');
+    try{ const l = JSON.parse(localStorage.getItem('radicalMotos_erros') || '[]'); l.unshift({ em: new Date().toISOString(), det }); localStorage.setItem('radicalMotos_erros', JSON.stringify(l.slice(0, 30))); }catch(e){}
+    if(typeof rmUsuario !== 'undefined' && rmUsuario && rmSb && navigator.onLine !== false)
+      rmSb.from('auditoria').insert({ usuario_id: rmUsuario.id, usuario: rmNomeUsuario(), acao: 'Erro no sistema', ref: null, detalhe: det.slice(0, 500) }).then(() => {}, () => {});
+  }catch(e){}
+}
+window.addEventListener('error', ev => rmErroRegistrar(ev.message + (ev.filename ? ' (linha ' + ev.lineno + ')' : ''), 'tela'));
+window.addEventListener('unhandledrejection', ev => { const r = ev.reason; rmErroRegistrar(r && (r.message || r.error_description) ? (r.message || r.error_description) : String(r), 'segundo plano'); });
+{ const ce = console.error.bind(console);
+  console.error = function(...a){ ce(...a); try{ rmErroRegistrar(a.map(x => x && x.message ? x.message : typeof x === 'object' ? JSON.stringify(x) : String(x)).join(' ').slice(0, 300), 'aviso interno'); }catch(e){} }; }
+
 // ===================== LEMBRETE DE BACKUP =====================
 // a data do último backup fica também no servidor: vale para todos os computadores
 let rmBkpServidor = null;
@@ -10922,38 +10930,37 @@ function rmExportarBackup(){
   rmShowToast('Backup baixado com sucesso');
 }
 
+// backup no formato antigo (só motos e mecânicos): JUNTA com o que existe — nunca apaga nada.
+// As motos do backup substituem as que têm o mesmo código; o que foi criado depois continua.
 function rmImportarBackup(fileInput){
   const file = fileInput.files[0];
   if(!file) return;
+  if(!rmEhAdmin()){ alert('Só o administrador pode restaurar backup.'); fileInput.value = ''; return; }
   const reader = new FileReader();
   reader.onload = function(e){
     let dados;
-    try{
-      dados = JSON.parse(e.target.result);
-    } catch(err){
-      alert('Não foi possível ler esse arquivo. Confirme que é um backup exportado por este app.');
-      fileInput.value = '';
-      return;
-    }
-    if(!dados || !Array.isArray(dados.recepcoes)){
-      alert('Esse arquivo não parece ser um backup válido deste app.');
-      fileInput.value = '';
-      return;
-    }
-    const ok = confirm('Isso vai substituir TODOS os dados atuais (motos e mecânicos) em todos os dispositivos conectados, pelos do backup. Essa ação não pode ser desfeita. Deseja continuar?');
-    if(!ok){
-      fileInput.value = '';
-      return;
-    }
-    rmSave(dados.recepcoes);
-    rmSaveMecanicos(Array.isArray(dados.mecanicos) ? dados.mecanicos : []);
-    if(dados.contador) localStorage.setItem(RM_COUNTER_KEY, dados.contador);
+    try{ dados = JSON.parse(e.target.result); }
+    catch(err){ alert('Não foi possível ler esse arquivo. Confirme que é um backup exportado por este app.'); fileInput.value = ''; return; }
+    if(!dados || !Array.isArray(dados.recepcoes)){ alert('Esse arquivo não parece ser um backup válido deste app.'); fileInput.value = ''; return; }
+    const mecsBkp = Array.isArray(dados.mecanicos) ? dados.mecanicos.filter(Boolean) : [];
+    if(!confirm(`Restaurar backup antigo com ${dados.recepcoes.length} moto(s) e ${mecsBkp.length} mecânico(s)?\n\nAs motos do backup SUBSTITUEM as que têm o mesmo código. O que foi criado depois do backup continua. Nada é apagado.\n\nContinuar?`)){ fileInput.value = ''; return; }
+    const lista = rmLoad(), porId = new Map(lista.map(r => [r.id, r]));
+    const mudadas = [];
+    dados.recepcoes.forEach(b => {
+      if(!b || !b.id) return;
+      const atual = porId.get(b.id);
+      const novo = Object.assign({}, b, { _v: atual ? atual._v : null });
+      if(atual) Object.assign(atual, novo); else { lista.push(novo); porId.set(b.id, novo); }
+      mudadas.push(porId.get(b.id));
+    });
+    rmSave(lista);
+    mudadas.forEach(r => rmDbUpsertRecepcao(r));
+    const mecs = rmLoadMecanicos(), novosMec = mecsBkp.filter(n => !mecs.includes(n));
+    if(novosMec.length){ rmSaveMecanicos(mecs.concat(novosMec)); rmSb.from('mecanicos').upsert(novosMec.map(nome => ({ nome }))).then(() => {}, () => {}); }
     fileInput.value = '';
-    rmShowToast('Restaurando backup em todos os dispositivos...');
-    rmRenderActiveBoard();
-    rmRenderMecanicosChips();
-    rmRefreshMecanicoSelects();
-    rmDbBulkReplace(dados.recepcoes, Array.isArray(dados.mecanicos) ? dados.mecanicos : []);
+    rmLog('Restaurou backup antigo', file.name, mudadas.length + ' moto(s) · ' + novosMec.length + ' mecânico(s) novo(s)');
+    rmShowToast('Backup restaurado: ' + mudadas.length + ' moto(s) · nada foi apagado');
+    rmRenderActiveBoard(); rmRenderMecanicosChips(); rmRefreshMecanicoSelects();
   };
   reader.readAsText(file);
 }
