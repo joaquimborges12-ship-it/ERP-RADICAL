@@ -1864,6 +1864,57 @@
   .cp.pm .pm-ch.lock{color:var(--rm-text-dim) !important;}
   .cp.pm .pm-ch.nao span{color:var(--rm-text-dim) !important;}
   .pm-grid{align-items:start;}
+  /* ===== contagem no celular (tela simples) ===== */
+  body.rm-invc-on #rm-view-produtos-inventario > h1{display:none;}
+  .invc-top{position:sticky; top:0; z-index:20; background:var(--rm-panel); border-bottom:1px solid var(--rm-border); margin:-8px -14px 0; padding:10px 14px 10px;}
+  .invc-l1{display:flex; align-items:center; gap:8px;}
+  .invc-ic{width:40px; height:40px; flex:none; display:flex; align-items:center; justify-content:center; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-size:19px; padding:0; margin:0; cursor:pointer;}
+  .invc-ic.on{border-color:var(--rm-accent); color:var(--rm-accent);}
+  .invc-tit{flex:1; min-width:0;}
+  .invc-tit b{display:block; font-size:17px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .invc-top .rm-inv-prog.invc-prog{display:block; margin:0;}
+  .invc-top .rm-inv-prog.invc-prog > div.invc-l1{flex:none; height:auto; background:none;}
+  .invc-top .rm-inv-prog.invc-prog > div.invc-bar{flex:none; height:6px; background:var(--rm-panel-2); margin-top:10px;}
+  .invc-top .rm-inv-prog.invc-prog span{font-size:12.5px; white-space:nowrap;}
+  body.rm-invc-on #rm-section-produtos .rm-subnav{display:none;}
+  body.rm-invc-on .rm-inv-rodape.rm-inv-rodape-contar{position:fixed; left:0; right:0; bottom:calc(58px + env(safe-area-inset-bottom,0px)); z-index:25; margin:0; padding:10px 12px; display:flex; gap:8px; flex-wrap:nowrap; background:var(--rm-panel); border-top:1px solid var(--rm-border); box-shadow:0 -4px 14px rgba(0,0,0,.08);}
+  body.rm-invc-on .rm-inv-rodape-contar .rm-pe2-btn{flex:1; padding:14px 6px; font-size:15px; font-weight:700; margin:0;}
+  body.rm-invc-on .rm-inv-rodape-contar .rm-inv-terminar{flex:1.4; padding:14px 6px !important; font-size:16px; margin:0;}
+  .invc-tit > span{display:block; font-size:12.5px; color:var(--rm-text-dim);}
+  .invc-tit > span b{display:inline; font-size:12.5px;}
+  .invc-bar{height:6px; background:var(--rm-panel-2); margin-top:10px;}
+  .invc-bar i{display:block; height:100%; background:#2e8b57; transition:width .2s;}
+  .invc-busca{display:flex; gap:6px; margin-top:10px;}
+  .invc-busca input{flex:1; min-width:0; padding:11px 12px; font-size:16px; border:2px solid var(--rm-accent); background:var(--rm-bg); color:var(--rm-text); font-family:inherit; margin:0;}
+  .invc-chips{display:flex; gap:6px; margin-top:10px;}
+  .invc-chips button{flex:1; padding:9px 0; font-size:14px; font-weight:700; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text-dim); margin:0; font-family:inherit; cursor:pointer;}
+  .invc-chips button.on{background:var(--rm-text); color:var(--rm-bg); border-color:var(--rm-text);}
+  .invc-menu{position:absolute; right:14px; top:56px; z-index:30; background:var(--rm-panel); border:1px solid var(--rm-border); box-shadow:0 10px 30px rgba(0,0,0,.2); min-width:240px;}
+  .invc-menu button{display:block; width:100%; text-align:left; padding:14px; font-size:14.5px; background:none; border:0; border-bottom:1px solid var(--rm-border); color:var(--rm-text); margin:0; font-family:inherit; cursor:pointer;}
+  .invc-menu button:last-child{border-bottom:0; color:var(--rm-accent);}
+  .invc-lista{padding:8px 0 170px;}
+  .invc-fam{display:flex; justify-content:space-between; gap:8px; font-size:12px; font-weight:700; color:var(--rm-text-dim); text-transform:uppercase; letter-spacing:.03em; margin:14px 2px 6px;}
+  .invc-fam span:first-child{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .invc-it{display:flex; align-items:center; gap:8px; background:var(--rm-panel); border:1px solid var(--rm-border); padding:10px 4px 10px 12px; margin-bottom:8px; position:relative;}
+  .invc-it.ok{border-left:4px solid #2e8b57; background:rgba(46,139,87,.07);}
+  .invc-it.inat{opacity:.55;}
+  .invc-info{flex:1; min-width:0;}
+  .invc-loc{display:inline-block; font-size:11.5px; font-weight:800; color:var(--rm-text); background:var(--rm-panel-2); padding:2px 6px; margin-right:4px;}
+  .invc-marca{display:inline-block; font-size:11px; font-weight:800; color:#fff; background:#2f6fb5; padding:2px 6px; margin-right:4px;}
+  .invc-inat{display:inline-block; font-size:11px; font-weight:800; color:#fff; background:#888; padding:2px 6px;}
+  .invc-nome{font-size:14px; font-weight:700; line-height:1.25; margin-top:5px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+  .invc-qtd{display:flex; align-items:center; flex:none;}
+  .invc-qtd button{width:40px; height:46px; border:1px solid var(--rm-border); background:var(--rm-panel-2); font-size:22px; color:var(--rm-text); margin:0; padding:0; cursor:pointer;}
+  .invc-qtd input{width:54px; height:46px; border:1px solid var(--rm-border); border-left:0; border-right:0; text-align:center; font-size:20px; font-weight:800; font-family:inherit; color:var(--rm-text); background:var(--rm-panel); margin:0; padding:0; border-radius:0;}
+  .invc-qtd input::placeholder{color:var(--rm-text-dim); opacity:.5;}
+  .invc-it.ok .invc-qtd input{color:#1e8e3e;}
+  html[data-tema="dark"] .invc-it.ok .invc-qtd input{color:#5fd38d;}
+  .invc-mais{width:30px; height:46px; border:0; background:none; color:var(--rm-text-dim); font-size:22px; flex:none; margin:0; padding:0; cursor:pointer;}
+  .invc-acoes{position:absolute; right:6px; top:100%; margin-top:-6px; z-index:15; background:var(--rm-panel); border:1px solid var(--rm-border); box-shadow:0 8px 24px rgba(0,0,0,.18);}
+  .invc-acoes button{display:block; width:100%; text-align:left; padding:13px 16px; font-size:14px; background:none; border:0; border-bottom:1px solid var(--rm-border); color:var(--rm-text); margin:0; font-family:inherit; white-space:nowrap;}
+  .invc-acoes button:last-child{border-bottom:0;}
+  .invc-add{display:block; width:100%; text-align:center; padding:13px; border:1px dashed var(--rm-border); background:none; color:var(--rm-text-dim); font-size:14px; font-weight:600; margin:10px 0 0; font-family:inherit;}
+  .invc-vazio{text-align:center; color:var(--rm-text-dim); padding:30px 10px; font-size:15px;}
   .rm-fila-status.rm-fila-erro{background:#d9433a; color:#fff;}
   .rm-app-velho{position:fixed; inset:0; z-index:2147483000; background:rgba(20,20,24,0.88); display:flex; align-items:center; justify-content:center; padding:16px;}
   .rm-app-velho-cx{background:var(--rm-panel, #fff); color:var(--rm-text, #222); max-width:440px; width:100%; padding:26px 24px; border-top:6px solid #d9433a; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.4);}
@@ -2183,7 +2234,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.18-01h45</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.18-02h00</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -6043,7 +6094,7 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610180145;
+const RM_APP_VERSAO = 202610180200;
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
 try{ rmOutbox = JSON.parse(localStorage.getItem(RM_OUTBOX_KEY)) || {}; }catch(e){ rmOutbox = {}; }
@@ -12697,6 +12748,7 @@ function rmInvSeloLista(pid){
 function rmRenderInventario(){
   const box = document.getElementById('rm-inv'); if(!box) return;
   if(rmInvTela === 'contar' && rmInvGet(rmInvAtual)) return rmInvRenderContagem();
+  document.body.classList.remove('rm-invc-on');
   if(rmInvTela === 'revisar' && rmInvGet(rmInvAtual)) return rmInvRenderRevisao();
   rmInvTela = 'home';
   const todas = rmInvLoad();
@@ -12816,6 +12868,8 @@ function rmInvAbrir(id){
 
 // ---------- tela de contagem (cega) ----------
 function rmInvRenderContagem(){
+  if(window.matchMedia && window.matchMedia('(max-width:760px)').matches) return rmInvRenderContagemCel();
+  document.body.classList.remove('rm-invc-on');
   const inv = rmInvGet(rmInvAtual), box = document.getElementById('rm-inv');
   setTimeout(rmInvStatus);
   const feitos = inv.itens.filter(x => x.contado != null).length, tot = inv.itens.length;
@@ -12868,6 +12922,94 @@ function rmInvRenderContagem(){
   const toque = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
   if(!toque) setTimeout(() => { const b = document.getElementById('rm-inv-bip'); if(b && !document.activeElement.closest('.rm-inv-lista')) b.focus(); }, 30);
 }
+
+// ---------- tela de contagem no CELULAR (simples) ----------
+let rmInvcFiltro = 'faltam', rmInvcBusca = '', rmInvcBuscaAberta = false, rmInvcMenu = false, rmInvcAcoes = null;
+function rmInvcFiltrar(f){ rmInvcFiltro = f; rmInvcAcoes = null; rmInvRenderContagem(); }
+function rmInvcBuscar(v){ rmInvcBusca = v; rmInvcListaRender(); }
+function rmInvcAlternarBusca(){ rmInvcBuscaAberta = !rmInvcBuscaAberta; if(!rmInvcBuscaAberta) rmInvcBusca = ''; rmInvcMenu = false; rmInvRenderContagem(); if(rmInvcBuscaAberta) setTimeout(() => { const b = document.getElementById('rm-inv-bip'); if(b) b.focus(); }, 30); }
+function rmInvcAlternarMenu(){ rmInvcMenu = !rmInvcMenu; const m = document.getElementById('invc-menu'); if(m) m.style.display = rmInvcMenu ? '' : 'none'; }
+function rmInvcAcoesAbrir(k){ rmInvcAcoes = rmInvcAcoes === k ? null : k; rmInvcListaRender(); }
+function rmInvcIncluir(){
+  rmInvcMenu = false; rmInvcBuscaAberta = false; rmInvcBusca = '';
+  const nome = prompt('Nome, código ou código de barras do produto para incluir na contagem:'); if(!nome) { rmInvRenderContagem(); return; }
+  const q = nome.trim().toLowerCase();
+  const inv = rmInvGet(rmInvAtual), ja = new Set(inv.itens.map(it => it.pid));
+  const ps = rmInvProdutosContaveis().filter(p => !ja.has(p.id) && ((p.codigoBarras || '').toLowerCase() === q || (p.codigo || '').toLowerCase() === q || rmBuscaInteligente(p.nome, q))).slice(0, 30);
+  if(!ps.length){ alert('Nenhum produto encontrado (ou já está na contagem).'); rmInvRenderContagem(); return; }
+  let p = ps[0];
+  if(ps.length > 1){
+    const n = parseInt(prompt(ps.slice(0, 15).map((x, i) => (i + 1) + ') ' + x.nome).join('\n') + '\n\nDigite o número do produto:'), 10);
+    if(!(n >= 1 && n <= Math.min(15, ps.length))){ rmInvRenderContagem(); return; }
+    p = ps[n - 1];
+  }
+  inv.itens.push(rmInvItemDe(p)); rmInvSalvar(inv);
+  rmInvcFiltro = 'faltam'; rmInvRenderContagem(); rmShowToast(p.nome + ' incluído');
+}
+function rmInvcListaRender(){
+  const inv = rmInvGet(rmInvAtual), box = document.getElementById('invc-lista'); if(!inv || !box) return;
+  const q = rmInvcBusca.trim();
+  let lista = inv.itens.map((it, k) => ({ it, k }));
+  if(rmInvcFiltro === 'faltam') lista = lista.filter(x => x.it.contado == null);
+  else if(rmInvcFiltro === 'contados') lista = lista.filter(x => x.it.contado != null);
+  if(q) lista = lista.filter(x => rmBuscaInteligente(x.it.nome, q) || [x.it.codigo, x.it.barras, x.it.loc].some(c => c && String(c).toLowerCase().includes(q.toLowerCase())));
+  const esc = rmEscapeHtml;
+  let html = '', famAnt = undefined;
+  lista.forEach(({ it, k }) => {
+    const f = rmFamDoProduto(it.pid), fid = f ? f.id : null;
+    if(fid !== famAnt){
+      if(f){ const n = inv.itens.filter(x => (rmFamDoProduto(x.pid) || {}).id === f.id).length; html += `<div class="invc-fam"><span>${esc(f.nome)}</span><span>${n} marca${n > 1 ? 's' : ''}</span></div>`; }
+      else if(famAnt) html += `<div class="invc-fam"><span>Outros</span><span></span></div>`;
+      famAnt = fid;
+    }
+    const p = f ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(it.pid) : null;
+    html += `<div class="invc-it${it.contado != null ? ' ok' : ''}${it.inativado ? ' inat' : ''}" id="rm-inv-it-${k}">
+      <div class="invc-info">${it.loc ? `<span class="invc-loc">${esc(it.loc)}</span>` : ''}${f ? `<span class="invc-marca">${esc(p ? rmFamMarcaDe(p) : '') || 'SEM MARCA'}</span>` : ''}${it.inativado ? '<span class="invc-inat">INATIVADO</span>' : ''}
+        <div class="invc-nome">${esc(it.nome)}</div></div>
+      <div class="invc-qtd"><button onclick="rmInvSomar(${k}, -1)" aria-label="menos">&minus;</button><input inputmode="decimal" enterkeyhint="next" value="${it.contado != null ? rmFmtQtd(it.contado) : ''}" placeholder="?" onfocus="this.select()" onchange="rmInvDefinir(${k}, this.value)" onkeydown="if(event.key==='Enter'){ this.blur(); const n=[...document.querySelectorAll('.invc-qtd input')]; const i=n.indexOf(this); if(n[i+1]) n[i+1].focus(); }"><button onclick="rmInvSomar(${k}, 1)" aria-label="mais">+</button></div>
+      <button class="invc-mais" onclick="rmInvcAcoesAbrir(${k})" aria-label="opções">&#8942;</button>
+      ${rmInvcAcoes === k ? `<div class="invc-acoes">${it.inativado ? `<button onclick="rmInvcAcoes=null; rmInvReativar(${k})">&#8634; Reativar</button>` : `<button onclick="rmInvcAcoes=null; rmInvNovaMarca(${k})">+ Outra marca</button><button onclick="rmInvcAcoes=null; rmInvInativar(${k})">Inativar (não existe mais)</button>`}</div>` : ''}
+    </div>`;
+  });
+  if(!lista.length) html = `<div class="invc-vazio">${q ? 'Nada encontrado com "' + esc(q) + '".' : rmInvcFiltro === 'faltam' ? 'Todos contados 👍<br><small>Toque em Terminar para revisar.</small>' : rmInvcFiltro === 'contados' ? 'Nenhum produto contado ainda.' : 'Nenhum produto na contagem.'}</div>`;
+  html += `<button class="invc-add" onclick="rmInvcIncluir()">+ Incluir outro produto na contagem</button>`;
+  box.innerHTML = html;
+}
+function rmInvRenderContagemCel(){
+  const inv = rmInvGet(rmInvAtual), box = document.getElementById('rm-inv');
+  document.body.classList.add('rm-invc-on');
+  setTimeout(rmInvStatus);
+  const feitos = inv.itens.filter(x => x.contado != null).length, tot = inv.itens.length;
+  const titulo = String(inv.titulo || 'Contagem').replace(/\s*·\s*\d+\s*produtos?$/i, '');
+  const chip = (f, rot, n, id) => `<button class="${rmInvcFiltro === f ? 'on' : ''}" onclick="rmInvcFiltrar('${f}')">${rot}${id ? ` <span id="${id}">${n}</span>` : ''}</button>`;
+  box.innerHTML = `
+    <div id="rm-inv-pend" class="rm-inv-aviso" style="display:none; margin-bottom:8px;"></div>
+    <div class="invc-top">
+      <div class="rm-inv-prog invc-prog">
+      <div class="invc-l1">
+        <button class="invc-ic" onclick="rmInvcBusca=''; rmInvcBuscaAberta=false; rmInvTela='home'; rmRenderInventario()" aria-label="voltar">&#8249;</button>
+        <div class="invc-tit"><b>${rmEscapeHtml(titulo)}</b><span><b>${feitos}</b> de ${tot} contados</span></div>
+        <button class="invc-ic${rmInvcBuscaAberta ? ' on' : ''}" onclick="rmInvcAlternarBusca()" aria-label="buscar">&#128269;</button>
+        <button class="invc-ic" onclick="rmInvcAlternarMenu()" aria-label="mais opções">&#8943;</button>
+      </div>
+      <div class="invc-bar"><i style="width:${tot ? feitos / tot * 100 : 0}%"></i></div>
+      </div>
+      ${rmInvcBuscaAberta ? `<div class="invc-busca"><input id="rm-inv-bip" enterkeyhint="search" placeholder="Nome, código ou código de barras" autocomplete="off" value="${rmEscapeHtml(rmInvcBusca)}" oninput="rmInvcBuscar(this.value)" onkeydown="if(event.key==='Enter'){ event.preventDefault(); const v=this.value; this.value=''; rmInvcBusca=''; rmInvBipar(v); }">${'BarcodeDetector' in window ? '<button class="invc-ic" onclick="rmInvCamera()" aria-label="câmera">&#128247;</button>' : ''}</div>` : ''}
+      <div class="invc-chips">${chip('faltam', 'Faltam', tot - feitos, 'invc-n-falta')}${chip('contados', 'Contados', feitos, 'invc-n-cont')}${chip('todos', 'Todos')}</div>
+      <div class="invc-menu" id="invc-menu" style="${rmInvcMenu ? '' : 'display:none'}">
+        <button onclick="rmInvcMenu=false; rmInvImprimirFolha()">&#128196; Folha para contar no papel</button>
+        <button onclick="rmInvcIncluir()">&#10133; Incluir outro produto</button>
+        <button onclick="rmInvcMenu=false; rmInvCancelar()">&#10005; Cancelar contagem</button>
+      </div>
+    </div>
+    <div class="invc-lista" id="invc-lista"></div>
+    <div class="rm-inv-rodape rm-inv-rodape-contar">
+      <button class="rm-pe2-btn" onclick="rmInvcBusca=''; rmInvcBuscaAberta=false; rmInvTela='home'; rmRenderInventario(); rmShowToast('Contagem salva. Continue quando quiser.')">Salvar e sair</button>
+      <button class="rm-primary rm-inv-terminar" onclick="rmInvTerminar()">Terminar &rarr;</button>
+    </div>`;
+  rmInvcListaRender();
+}
+
 // ----- na contagem: cadastrar marca nova (sem sair da contagem) e inativar marca que não existe mais -----
 function rmInvNovaMarca(k){
   const inv = rmInvGet(rmInvAtual), it = inv.itens[k]; if(!it) return;
@@ -12959,6 +13101,8 @@ function rmInvAtualizarLinha(inv, k){
   if(el){ el.classList.toggle('ok', inv.itens[k].contado != null); const i = el.querySelector('input'); if(i && document.activeElement !== i) i.value = inv.itens[k].contado != null ? rmFmtQtd(inv.itens[k].contado) : ''; }
   const feitos = inv.itens.filter(x => x.contado != null).length;
   const p = document.querySelector('.rm-inv-prog'); if(p){ p.querySelector('i').style.width = (feitos / inv.itens.length * 100) + '%'; p.querySelector('span b').textContent = feitos; }
+  const cf = document.getElementById('invc-n-falta'), cc = document.getElementById('invc-n-cont');
+  if(cf) cf.textContent = inv.itens.length - feitos; if(cc) cc.textContent = feitos;
 }
 function rmInvBipar(txt){
   const q = String(txt || '').trim().toLowerCase(); if(!q) return;
