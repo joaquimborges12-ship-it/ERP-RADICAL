@@ -1864,6 +1864,7 @@
   .cp.pm .pm-ch.lock{color:var(--rm-text-dim) !important;}
   .cp.pm .pm-ch.nao span{color:var(--rm-text-dim) !important;}
   .pm-grid{align-items:start;}
+  .pm-esp{margin-top:8px; border:1px solid #d9433a; padding:12px 14px; background:var(--rm-panel-2);}
   /* ===== contagem no celular (tela simples) ===== */
   body.rm-invc-on #rm-view-produtos-inventario > h1{display:none;}
   .invc-top{position:sticky; top:0; z-index:20; background:var(--rm-panel); border-bottom:1px solid var(--rm-border); margin:-8px -14px 0; padding:10px 14px 10px;}
@@ -1984,6 +1985,23 @@
   html[data-tema="dark"][data-grafite] .vg-hero, html[data-tema="dark"][data-grafite] .rm-conc-fato{background:#3a3d42;}
   html[data-tema="dark"][data-grafite] body.rm-pdv-parc{--rm-bg:#3b3d42; --rm-panel:#46494f; --rm-panel-2:#51545b; --rm-border:#62666e; --rm-input:#4b4e55;}
   html[data-tema="dark"][data-grafite] body.rm-pdv-orc{--rm-bg:#2a3240; --rm-panel:#334050; --rm-panel-2:#3d4a5c; --rm-border:#52607a; --rm-input:#3a4658;}
+  /* cancelamento */
+  .rm-cn-tag{display:inline-block; background:#d9433a; color:#fff; font-size:10.5px; font-weight:900; padding:2px 7px; letter-spacing:.05em; margin-left:6px; vertical-align:middle; text-decoration:none !important;}
+  tr.rm-cn-linha td{opacity:.6;} tr.rm-cn-linha td b, tr.rm-cn-linha td.rm-cn-r{text-decoration:line-through; text-decoration-color:#d9433a; text-decoration-thickness:2px;}
+  tr.rm-cn-linha td:first-child{box-shadow:inset 4px 0 0 #d9433a;}
+  .rm-cn-mot{display:block; font-size:11.5px; color:#d9433a; font-weight:600;} html[data-tema="dark"] .rm-cn-mot{color:#ff8a80;}
+  .rm-cn-ban{background:#d9433a; color:#fff; padding:12px 16px; margin:0 0 12px; font-size:13.5px; line-height:1.45;}
+  .rm-cn-ban b{font-size:15.5px; display:block; letter-spacing:.03em;}
+  .rm-cn-riscado .rm-pdv-cart-item-nome, .rm-cn-riscado .rm-pdv-cart-item-subtotal{text-decoration:line-through; opacity:.6;}
+  .rm-cn-so-admin{font-size:13px; color:var(--rm-text-dim); text-align:center; padding:8px;}
+  .cp.rm-cn{width:540px;}
+  .rm-cn-lab{font-weight:700; margin-top:14px;} .rm-cn-lab span{color:#d9433a;} html[data-tema="dark"] .rm-cn-lab span{color:#ff8a80;}
+  .rm-cn-op{display:flex; flex-direction:column; gap:8px; margin:12px 0 10px;}
+  .cp .rm-cn-op label{display:flex !important; gap:10px; align-items:center; padding:11px 12px; border:1px solid var(--rm-border); cursor:pointer; font-size:14px !important; text-transform:none !important; letter-spacing:0 !important; color:var(--rm-text) !important; margin:0 !important;}
+  .cp .rm-cn-op label.on{border-color:#d9433a; background:rgba(217,67,58,.12);}
+  .rm-cn-op input{accent-color:#d9433a; width:17px; height:17px; margin:0;}
+  .cp input.rm-cn-txt{text-transform:none;}
+  .rm-cn-info{margin-top:14px; background:var(--rm-panel-2); border:1px solid var(--rm-border); padding:10px 12px; font-size:13px; line-height:1.55; color:var(--rm-text-dim);} .rm-cn-info b{color:var(--rm-text);}
   .rm-fila-status.rm-fila-erro{background:#d9433a; color:#fff;}
   .rm-app-velho{position:fixed; inset:0; z-index:2147483000; background:rgba(20,20,24,0.88); display:flex; align-items:center; justify-content:center; padding:16px;}
   .rm-app-velho-cx{background:var(--rm-panel, #fff); color:var(--rm-text, #222); max-width:440px; width:100%; padding:26px 24px; border-top:6px solid #d9433a; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.4);}
@@ -2308,7 +2326,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 18:30</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 18:44</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3221,7 +3239,8 @@ const RM_STATUS = {
   peca:       {label:'Aguardando peça',        color:'#a865c9'},
   prontas:    {label:'Prontas',                color:'#4caf7d'},
   antigas:    {label:'Antigas',                color:'#7a7f87'},
-  entregue:   {label:'Entregue',               color:'#3fb8af'}
+  entregue:   {label:'Entregue',               color:'#3fb8af'},
+  cancelada:  {label:'Cancelada',              color:'#888888'}
 };
 const RM_STATUS_ORDER = ['aberto','andamento','prontas','peca','antigas','entregue'];
 
@@ -5773,12 +5792,12 @@ function rmRenderVendasHoje(){
   empty.style.display = 'none';
 
   body.innerHTML = vendasHoje.map(v => `
-    <tr onclick="rmAbrirDetalheVenda('${v.id}')">
+    <tr onclick="rmAbrirDetalheVenda('${v.id}')"${v.cancelamento ? ' class="rm-cn-linha"' : ''}>
       <td data-label="Código"><b>${v.codigoVenda||''}</b></td>
       <td data-label="Hora">${new Date(v.criadoEm).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}</td>
-      <td data-label="Cliente">${v.clienteNome || '—'}</td>
-      <td data-label="Pagamento">${v.tipo==='orcamento' ? '<span class="rm-pdv-tag-orcamento">Orçamento</span>' : (v.formaPagamento || '—')}</td>
-      <td data-label="Total"><b>${rmFormatMoeda(v.total)}</b></td>
+      <td data-label="Cliente">${v.clienteNome || '—'}${v.cancelamento ? `<span class="rm-cn-mot">${rmEscapeHtml(v.cancelamento.motivo || '')} · por ${rmEscapeHtml(v.cancelamento.por || '')} ${new Date(v.cancelamento.em).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}</span>` : ''}</td>
+      <td data-label="Pagamento">${v.cancelamento ? '<span class="rm-cn-tag">CANCELADA</span>' : v.tipo==='orcamento' ? '<span class="rm-pdv-tag-orcamento">Orçamento</span>' : (v.formaPagamento || '—')}</td>
+      <td data-label="Total" class="rm-cn-r"><b>${rmFormatMoeda(v.total)}</b></td>
     </tr>
   `).join('');
 }
@@ -5804,15 +5823,16 @@ function rmAbrirDetalheVenda(id){
   modal.innerHTML = `
     <div class="rm-modal-header">
       <div>
-        <div class="rm-modal-title">${v.codigoVenda||''}</div>
+        <div class="rm-modal-title">${v.codigoVenda||''}${v.cancelamento ? '<span class="rm-cn-tag">CANCELADA</span>' : ''}</div>
         <div class="rm-modal-sub">${new Date(v.criadoEm).toLocaleString('pt-BR')}${isOrcamento?' · Orçamento':''}</div>
       </div>
       <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
     </div>
+    ${rmCancelBannerHtml(v.cancelamento, 'VENDA', v.total)}
 
     <div class="rm-modal-section">
       <span class="rm-modal-section-label">Itens</span>
-      <div class="rm-pdv-cart-list">${itensHtml || '<div class="rm-problema-empty">Nenhum item</div>'}</div>
+      <div class="rm-pdv-cart-list${v.cancelamento ? ' rm-cn-riscado' : ''}">${itensHtml || '<div class="rm-problema-empty">Nenhum item</div>'}</div>
     </div>
 
     <div class="rm-modal-section">
@@ -5851,8 +5871,10 @@ function rmAbrirDetalheVenda(id){
     ${isOrcamento?`<button class="rm-primary" style="margin-bottom:10px;" onclick="rmConverterOrcamentoEmVenda('${v.id}')">Transformar em venda</button>`:''}
     ${rmPromResumoHtml(v.id)}
     <button class="rm-pe2-btn" style="width:100%; margin-bottom:10px; padding:11px;" onclick="rmImprimirVendaA4('${v.id}')">&#128424; Imprimir</button>
-    <button class="rm-primary" style="margin-bottom:10px;" onclick="rmEditarVenda('${v.id}')">Editar ${isOrcamento?'orçamento':'venda'}</button>
-    <button class="rm-btn-excluir" onclick="rmExcluirVenda('${v.id}')">Excluir ${isOrcamento?'este orçamento':'esta venda'}</button>
+    ${v.cancelamento ? '' : `<button class="rm-primary" style="margin-bottom:10px;" onclick="rmEditarVenda('${v.id}')">Editar ${isOrcamento?'orçamento':'venda'}</button>`}
+    ${v.cancelamento ? '' : isOrcamento ? `<button class="rm-btn-excluir" onclick="rmExcluirVenda('${v.id}')">Excluir este orçamento</button>`
+      : rmPodeCancelar() ? `<button class="rm-btn-excluir" onclick="rmCancelarAbrir('venda','${v.id}')">Cancelar esta venda</button>`
+      : '<div class="rm-cn-so-admin">&#128274; Você não tem permissão para cancelar venda.</div>'}
   `;
   document.getElementById('rm-modal-backdrop').classList.add('show');
 }
@@ -5945,6 +5967,8 @@ function rmConverterOrcamentoEmVenda(id){
 async function rmDbDeleteVenda(id){ rmOutboxPor('vendas', id, 'del'); }
 
 function rmExcluirVenda(id){
+  { const v0 = rmLoadVendas().find(x => x.id === id);
+    if(v0 && v0.tipo !== 'orcamento'){ if(rmPodeCancelar()) rmCancelarAbrir('venda', id); else alert('Você não tem permissão para cancelar venda. Peça ao administrador.'); return; } }
   { const vv = rmLoadVendas().find(x => x.id === id); if(vv) setTimeout(() => { if(!rmLoadVendas().some(x => x.id === id)) rmLog('Excluiu venda', vv.codigoVenda, rmFormatMoeda(vv.total)); }, 500); }
   const v = rmLoadVendas().find(x=>x.id===id);
   if(!v) return;
@@ -6079,6 +6103,7 @@ function rmFromDbRow(row){
   return {
     id: row.id,
     codigoApp: row.codigo_app,
+    cancelamento: row.cancelamento || null,
     nome: row.nome,
     telefone: row.telefone,
     modelo: row.modelo,
@@ -6116,6 +6141,7 @@ function rmFromDbRow(row){
 function rmToDbRow(r){
   return {
     id: r.id,
+    ...(r.cancelamento ? { cancelamento: r.cancelamento } : {}),
     codigo_app: r.codigoApp,
     nome: r.nome,
     telefone: r.telefone,
@@ -6181,7 +6207,7 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610181830; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610181844; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
@@ -7171,7 +7197,7 @@ function rmUsuariosHtml(){
           <div class="rm-us-info"><b>${rmEscapeHtml(u.nome)}</b> <span>${rmEscapeHtml(u.usuario)}</span>${u.ativo ? '' : ' <span class="rm-prom-sit rm-prom-sit-vencida">desativado</span>'}${u.id === rmUsuario.id ? ' <span class="rm-prom-sit rm-prom-sit-aberta">você</span>' : ''}</div>
           <select class="rm-input" onchange="rmAlterarUsuario('${u.id}', { papel: this.value })"${u.id === rmUsuario.id ? ' disabled' : ''}>
             ${Object.entries(RM_PAPEIS).map(([k, p]) => `<option value="${k}"${k===u.papel?' selected':''}>${p.nome}</option>`).join('')}</select>
-          ${u.id === rmUsuario.id || u.papel === 'admin' ? '' : `<button class="rm-pe2-btn" onclick="rmPermAbrir('${u.id}')">&#9881; Abas e subabas${rmSubBloqueadas(u).length ? ' (' + rmSubBloqueadas(u).length + ' bloqueada' + (rmSubBloqueadas(u).length > 1 ? 's' : '') + ')' : ''}</button>`}
+          ${u.id === rmUsuario.id || u.papel === 'admin' ? '' : `<button class="rm-pe2-btn" onclick="rmPermAbrir('${u.id}')">&#9881; Abas e subabas${rmSubBloqueadas(u).length ? ' (' + rmSubBloqueadas(u).length + ' bloqueada' + (rmSubBloqueadas(u).length > 1 ? 's' : '') + ')' : ''}${(u.permissoes || []).includes('+cancelar') ? ' · pode cancelar' : ''}</button>`}
           ${u.id === rmUsuario.id ? '' : `<button class="rm-pe2-btn" onclick="rmAlterarUsuario('${u.id}', { ativo: ${!u.ativo} })">${u.ativo ? 'Desativar' : 'Reativar'}</button>`}
           ${u.papel === 'personalizado' ? `<div class="rm-us-perms-ed">${RM_PERMS.map(([k, l]) => `<label class="rm-us-chk"><input type="checkbox"${sel.includes(k)?' checked':''} onchange="rmTogglePermUsuario('${u.id}','${k}', this.checked)"> ${l}</label>`).join('')}</div>` : ''}
         </div>`;
@@ -7284,6 +7310,8 @@ function rmPermAbrir(uid){
   ov.innerHTML = `<div class="cp pm" onclick="event.stopPropagation()"><h3>Acesso de ${rmEscapeHtml(u.nome)}</h3>
     <div class="sub">Marque as abas e, dentro de cada uma, as subabas que ${rmEscapeHtml(u.nome)} pode ver. O que estiver desmarcado some do menu. Vale a partir da próxima vez que ele abrir o sistema.</div>
     <div class="pm-grid">${caixa}</div>
+    <div class="pm-esp"><div class="pm-cab" style="cursor:default">Permissões especiais</div>
+      <div class="pm-subs"><label class="pm-ch"><input type="checkbox" id="pm-cancelar"${(u.permissoes || []).includes('+cancelar') ? ' checked' : ''}> <span>Pode cancelar venda e OS paga</span></label></div></div>
     <div class="pe"><button onclick="document.getElementById('rm-perm-ov').remove()">Cancelar</button><button class="pri" onclick="rmPermSalvar('${rmJs(uid)}')">Salvar acesso</button></div></div>`;
   document.body.appendChild(ov);
   rmPermContar();
@@ -7309,7 +7337,8 @@ async function rmPermSalvar(uid){
   if(!secs.length){ alert('Marque pelo menos uma aba.'); return; }
   const doPapel = ((RM_PAPEIS[u.papel] || {}).perms || []);
   const mesmo = u.papel !== 'personalizado' && doPapel.length === secs.length && secs.every(k => doPapel.includes(k));
-  const campos = mesmo ? { permissoes: bloq } : { papel: 'personalizado', permissoes: secs.concat(bloq) };
+  const extra = (document.getElementById('pm-cancelar') || {}).checked ? ['+cancelar'] : [];
+  const campos = mesmo ? { permissoes: bloq.concat(extra) } : { papel: 'personalizado', permissoes: secs.concat(bloq, extra) };
   const ov = document.getElementById('rm-perm-ov'); if(ov) ov.remove();
   await rmAlterarUsuario(uid, campos);
   rmShowToast('Acesso de ' + u.nome + ' salvo');
@@ -7479,10 +7508,10 @@ function rmComCalcular(){
     const bruto = itens.reduce((s,i) => s + (Number(i.subtotal)||0), 0) + (Number(o.maoDeObra)||0);
     docs.push({ tipo:'OS', doc:o, itens, f: fator(bruto, rmCalcularDescontoPecasValor(o, bruto)),
       dataMec: o.status === 'entregue' ? rmOsDataEntrega(o) : null,
-      dataVend: o.pago ? rmComDataPago(o.id, o.formaPagamento, o.pagoEm) : null,
+      dataVend: rmOsValida(o) ? rmComDataPago(o.id, o.formaPagamento, o.pagoEm) : null,
       mecPadrao: rmComNome(o.mecanico), vendPadrao: rmComNome(o.criadoPor || ((o.historico||[])[0]||{}).por), maoAntiga: Number(o.maoDeObra) || 0 });
   });
-  rmLoadVendas().filter(v => v.tipo !== 'orcamento').forEach(v => {
+  rmLoadVendas().filter(rmVendaValida).forEach(v => {
     const itens = v.itens || [];
     const bruto = itens.reduce((s,i) => s + (Number(i.subtotal)||0), 0);
     docs.push({ tipo:'PDV', doc:v, itens, f: fator(bruto, Number(v.desconto)||0),
@@ -7718,10 +7747,10 @@ function rmVgReceitas(r){
   const prods = rmLoadProdutos();
   const custoDe = it => { const p = it.produtoId ? rmIdx(prods).get(it.produtoId) : null; return p && !p.ehServico ? (Number(p.precoCusto) || 0) * (Number(it.quantidade) || 0) : 0; };
   const docs = [];
-  rmLoadVendas().filter(v => v.tipo !== 'orcamento' && rmVgDentro(v.criadoEm, r)).forEach(v => {
+  rmLoadVendas().filter(v => rmVendaValida(v) && rmVgDentro(v.criadoEm, r)).forEach(v => {
     docs.push({ tipo:'PDV', id:v.id, data:v.criadoEm, total:Number(v.total)||0, forma:v.formaPagamento||'—', itens:v.itens||[], cliente:v.clienteNome||'', clienteId:v.clienteId, custo:(v.itens||[]).reduce((s,i)=>s+custoDe(i),0) });
   });
-  rmLoad().filter(o => o.pago && rmVgDentro(o.pagoEm, r)).forEach(o => {
+  rmLoad().filter(o => rmOsValida(o) && rmVgDentro(o.pagoEm, r)).forEach(o => {
     const total = o.valorPago || rmOsTotais(o).total;
     docs.push({ tipo:'OS', id:o.id, data:o.pagoEm, total, forma:o.formaPagamento||'—', itens:o.pecasUsadas||[], cliente:o.nome||'', clienteId:o.clienteId, custo:(o.pecasUsadas||[]).reduce((s,i)=>s+custoDe(i),0), mecanico:o.mecanico });
   });
@@ -7880,7 +7909,7 @@ function rmRenderVisaoGeral(){
   const maxDia = Math.max(1, ...dias.map(d => d.v.PDV + d.v.OS));
   // oficina
   const motos = rmLoad();
-  const naOficina = motos.filter(o => o.status !== 'entregue' && o.status !== 'antigas');
+  const naOficina = motos.filter(o => o.status !== 'entregue' && o.status !== 'antigas' && o.status !== 'cancelada');
   const porStatus = {}; naOficina.forEach(o => porStatus[o.status] = (porStatus[o.status]||0) + 1);
   const entraram = motos.filter(o => rmVgDentro(o.entrada, r)).length, entraramAnt = motos.filter(o => rmVgDentro(o.entrada, ant)).length;
   const entregues = motos.filter(o => o.status === 'entregue' && rmVgDentro(rmOsDataEntrega(o), r));
@@ -7927,7 +7956,7 @@ function rmRenderVisaoGeral(){
     if(Number(o.maoDeObra) > 0 && rmComNome(o.mecanico)){ addMao(rmComNome(o.mecanico), Number(o.maoDeObra)); usados.add(rmComNome(o.mecanico)); }
     usados.forEach(n => { if(rankMao[n]) rankMao[n].os++; });
   });
-  rmLoadVendas().filter(v => v.tipo !== 'orcamento' && rmVgDentro(v.criadoEm, r)).forEach(v => {
+  rmLoadVendas().filter(v => rmVendaValida(v) && rmVgDentro(v.criadoEm, r)).forEach(v => {
     const usados = new Set();
     (v.itens || []).forEach(it => { if(!rmComEhServico(it, prods)) return; const n = rmComMecDoItem(it); if(n){ addMao(n, Number(it.subtotal)||0); usados.add(n); } });
     usados.forEach(n => { if(rankMao[n]) rankMao[n].pdv++; });
@@ -8158,9 +8187,9 @@ function rmMobRender(){
 function rmMobOficinaHtml(){
   const todas = rmLoad();
   const filtros = [['abertas','Na oficina'],['aberto','Em aberto'],['andamento','Andamento'],['peca','Peça'],['prontas','Prontas'],['entregue','Entregues']];
-  const conta = f => todas.filter(o => f === 'abertas' ? (o.status !== 'entregue' && o.status !== 'antigas') : o.status === f).length;
+  const conta = f => todas.filter(o => f === 'abertas' ? (o.status !== 'entregue' && o.status !== 'antigas' && o.status !== 'cancelada') : o.status === f).length;
   const q = rmMobBusca.toLowerCase();
-  let lista = todas.filter(o => rmMobFiltro === 'abertas' ? (o.status !== 'entregue' && o.status !== 'antigas') : o.status === rmMobFiltro)
+  let lista = todas.filter(o => rmMobFiltro === 'abertas' ? (o.status !== 'entregue' && o.status !== 'antigas' && o.status !== 'cancelada') : o.status === rmMobFiltro)
     .filter(o => !q || [o.nome, o.modelo, o.codigoApp, o.mecanico].some(x => (x || '').toLowerCase().includes(q)));
   lista.sort((a,b) => rmMobFiltro === 'entregue' ? new Date(rmOsDataEntrega(b) || 0) - new Date(rmOsDataEntrega(a) || 0) : new Date(a.entrada) - new Date(b.entrada));
   if(rmMobFiltro === 'entregue') lista = lista.slice(0, 40);
@@ -9547,7 +9576,7 @@ let rmFamVendCache = null, rmFamVendEm = 0;
 function rmFamVendidos(){ // quantidade vendida por produto (PDV + OS)
   if(rmFamVendCache && Date.now() - rmFamVendEm < 60000) return rmFamVendCache;
   const m = new Map(), add = (id, q) => { if(id) m.set(id, (m.get(id) || 0) + (Number(q) || 0)); };
-  rmLoadVendas().forEach(v => { if(v.tipo !== 'orcamento') (v.itens || []).forEach(i => add(i.produtoId, i.quantidade)); });
+  rmLoadVendas().forEach(v => { if(rmVendaValida(v)) (v.itens || []).forEach(i => add(i.produtoId, i.quantidade)); });
   rmLoad().forEach(o => (o.pecasUsadas || []).forEach(i => add(i.produtoId, i.quantidade)));
   rmFamVendEm = Date.now();
   return rmFamVendCache = m;
@@ -10186,6 +10215,80 @@ async function rmCopiaRenderLista(){
 setTimeout(() => rmCopiaGuardar(), 20000);
 setInterval(() => rmCopiaGuardar(), 60 * 60 * 1000);
 
+
+// ===================== CANCELAR VENDA / OS PAGA (só administrador) =====================
+// A venda/OS não some: fica na lista riscada, com quem cancelou, quando e o motivo. As peças voltam
+// ao estoque e o valor sai do faturamento, do caixa e das comissões. Precisa da coluna "cancelamento".
+// pode cancelar: administrador, ou funcionário com a permissão "+cancelar" (Configurações → Usuários → Abas e subabas)
+function rmPodeCancelar(){ return !!(rmUsuario && (rmEhAdmin() || (rmUsuario.permissoes || []).includes('+cancelar'))); }
+function rmVendaValida(v){ return !!(v && v.tipo !== 'orcamento' && !v.cancelamento); }
+function rmOsValida(o){ return !!(o && o.pago && !o.cancelamento); }
+const RM_CANCEL_MOTIVOS = ['Cliente desistiu / devolveu a peça', 'Lançada errada (vou lançar de novo)', 'Venda duplicada', 'Outro motivo'];
+function rmCancelBannerHtml(c, tipo, valor){
+  if(!c) return '';
+  const quando = new Date(c.em).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }).replace(',', ' às');
+  return `<div class="rm-cn-ban"><b>${tipo === 'OS' ? 'OS CANCELADA' : 'VENDA CANCELADA'}</b>Cancelada por ${rmEscapeHtml(c.por || '')} em ${quando}<br>Motivo: ${rmEscapeHtml(c.motivo || '')}${c.detalhe ? ' — ' + rmEscapeHtml(c.detalhe) : ''}<br>Peças devolvidas ao estoque · ${rmFormatMoeda(valor || 0)} fora do faturamento</div>`;
+}
+async function rmCancelColunaOk(tab){
+  try{ const r = await rmSb.from(tab).select('id,cancelamento').limit(1); return !(r && r.error && /cancelamento/i.test(String(r.error.message || r.error))); }catch(e){ return !/cancelamento/i.test(String(e && e.message || e)); }
+}
+function rmCancelarAbrir(tipo, id){
+  if(!rmPodeCancelar()){ alert('Você não tem permissão para cancelar. Peça ao administrador.'); return; }
+  const v = tipo === 'venda' ? rmLoadVendas().find(x => x.id === id) : rmIdx(rmMemLista(RM_KEY)).get(id);
+  if(!v || v.cancelamento) return;
+  const nota = rmPromDaRef(v.id);
+  if(nota && rmPromRecebidoReal(nota) > 0.004){ alert('Esta ' + (tipo === 'venda' ? 'venda' : 'OS') + ' a prazo já tem ' + rmFormatMoeda(rmPromRecebidoReal(nota)) + ' recebido em parcelas. Para cancelar, primeiro apague os pagamentos no editor de parcelas (Financeiro → A prazo).'); return; }
+  const cod = tipo === 'venda' ? v.codigoVenda : v.codigoApp, total = tipo === 'venda' ? v.total : (v.valorPago || rmOsTotais(v).total);
+  const quem = tipo === 'venda' ? (v.clienteNome || 'sem cliente') : [v.nome, v.modelo].filter(Boolean).join(' · ');
+  const quando = new Date(tipo === 'venda' ? v.criadoEm : (v.pagoEm || v.entrada)).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }).replace(',', '');
+  let ov = document.getElementById('rm-cn-ov'); if(ov) ov.remove();
+  ov = document.createElement('div'); ov.id = 'rm-cn-ov'; ov.className = 'cp-ov';
+  ov.onclick = e => { if(e.target === ov) ov.remove(); };
+  ov.innerHTML = `<div class="cp rm-cn" onclick="event.stopPropagation()"><h3>&#9888; Cancelar ${tipo === 'venda' ? 'venda' : 'OS'} ${rmEscapeHtml(cod || '')}</h3>
+    <div class="sub">${rmEscapeHtml(quem)} · ${rmEscapeHtml(v.formaPagamento || '—')} · <b>${rmFormatMoeda(total)}</b> · ${quando}</div>
+    <div class="rm-cn-lab">Por que está cancelando? <span>(obrigatório)</span></div>
+    <div class="rm-cn-op">${RM_CANCEL_MOTIVOS.map((m, k) => `<label><input type="radio" name="rm-cn-m" value="${k}" onchange="document.querySelectorAll('.rm-cn-op label').forEach(l=>l.classList.toggle('on', l.contains(this)))"> ${m}</label>`).join('')}</div>
+    <input class="rm-cn-txt" id="rm-cn-det" placeholder="Detalhe (opcional — obrigatório em 'Outro motivo')">
+    <div class="rm-cn-info">&#128230; As peças <b>voltam para o estoque</b>.<br>&#128176; O valor <b>sai do faturamento</b>, do caixa do dia e das comissões.${nota ? '<br>&#128221; A nota a prazo dessa ' + (tipo === 'venda' ? 'venda' : 'OS') + ' é apagada.' : ''}<br>&#128221; ${tipo === 'venda' ? 'A venda' : 'A OS'} <b>continua na lista, riscada</b>, com quem cancelou, quando e o motivo.</div>
+    <div class="pe"><button onclick="document.getElementById('rm-cn-ov').remove()">Voltar</button><button class="pri" onclick="rmCancelarConfirmar('${tipo}','${rmJs(id)}')">Cancelar ${tipo === 'venda' ? 'venda' : 'OS'}</button></div></div>`;
+  document.body.appendChild(ov);
+}
+async function rmCancelarConfirmar(tipo, id){
+  const sel = document.querySelector('input[name=rm-cn-m]:checked');
+  if(!sel){ alert('Escolha o motivo do cancelamento.'); return; }
+  const motivo = RM_CANCEL_MOTIVOS[+sel.value];
+  const det = (document.getElementById('rm-cn-det').value || '').trim().toUpperCase();
+  if(motivo === 'Outro motivo' && !det){ alert('Escreva o motivo.'); document.getElementById('rm-cn-det').focus(); return; }
+  const tab = tipo === 'venda' ? 'vendas' : 'recepcoes';
+  if(navigator.onLine === false){ alert('Para cancelar precisa de internet.'); return; }
+  if(!await rmCancelColunaOk(tab)){ alert('Falta rodar no Supabase o arquivo cancelamento-supabase.sql (ele só acrescenta a coluna "cancelamento"). Depois disso o cancelamento funciona.'); return; }
+  const c = { por: rmNomeUsuario(), em: new Date().toISOString(), motivo, detalhe: det };
+  const ov = document.getElementById('rm-cn-ov');
+  if(tipo === 'venda'){
+    const list = rmLoadVendas(), v = list.find(x => x.id === id); if(!v || v.cancelamento) return;
+    v.cancelamento = c;
+    rmSaveVendas(list); rmDbUpsertVenda(v);
+    rmDescontarEstoqueVenda((v.itens || []).map(it => Object.assign({}, it, { quantidade: -(Number(it.quantidade) || 0) })));
+    rmPromApagarDaRef(v.id);
+    rmLog('Cancelou venda', v.codigoVenda, rmFormatMoeda(v.total) + ' · ' + motivo + (det ? ' · ' + det : ''));
+    if(ov) ov.remove();
+    rmShowToast('Venda ' + (v.codigoVenda || '') + ' cancelada');
+    rmRenderVendasHoje(); rmAbrirDetalheVenda(id);
+  } else {
+    const list = rmLoad(), r = list.find(x => x.id === id); if(!r || r.cancelamento) return;
+    const prods = rmLoadProdutos(); let mexeu = false;
+    (r.pecasUsadas || []).forEach(it => { const p = it.produtoId ? rmIdx(prods).get(it.produtoId) : null; if(p && !p.ehServico){ p.estoqueAtual = (Number(p.estoqueAtual) || 0) + (Number(it.quantidade) || 0); rmDbUpsertProduto(p); mexeu = true; } });
+    if(mexeu) rmSaveProdutos(prods);
+    rmPromApagarDaRef(r.id);
+    r.cancelamento = c; r.status = 'cancelada';
+    rmSave(list); rmDbUpsertRecepcao(r);
+    rmLog('Cancelou OS', r.codigoApp, rmFormatMoeda(r.valorPago || rmOsTotais(r).total) + ' · ' + motivo + (det ? ' · ' + det : ''));
+    if(ov) ov.remove();
+    rmShowToast('OS ' + (r.codigoApp || '') + ' cancelada');
+    try{ rmRenderLista(); }catch(e){}
+    try{ rmOpenModal(id, true); }catch(e){}
+  }
+}
 
 // ===================== CAIXA DO DIA =====================
 // Cada dia fica em configuracoes: "caixa-AAAA-MM-DD" (abertura e fechamento) e uma linha para cada
@@ -10990,6 +11093,7 @@ function rmFromDbRowVenda(row){
     total: row.total || 0,
     formaPagamento: row.forma_pagamento,
     observacao: row.observacao,
+    cancelamento: row.cancelamento || null,
     criadoEm: row.criado_em,
     _v: row.versao != null ? row.versao : (row.versao_base != null ? row.versao_base : null)
   };
@@ -11010,6 +11114,7 @@ function rmToDbRowVenda(v){
     forma_pagamento: v.formaPagamento || null,
     observacao: v.observacao || null,
     criado_em: v.criadoEm,
+    ...(v.cancelamento ? { cancelamento: v.cancelamento } : {}),
     versao_base: v._v != null ? v._v : null
   };
 }
@@ -12466,7 +12571,7 @@ function rmRenderFinClientes(){
   if(!body) return;
   const q = (document.getElementById('rm-fin-cli-busca').value||'').trim().toLowerCase();
   const filtro = document.getElementById('rm-fin-cli-filtro').value;
-  const vendas = rmLoadVendas().filter(v => v.tipo !== 'orcamento');
+  const vendas = rmLoadVendas().filter(rmVendaValida);
   const motos = rmLoad();
   const proms = rmLoadProms();
   const hoje = rmHojeISO();
@@ -12483,7 +12588,7 @@ function rmRenderFinClientes(){
     }));
     // total pago = vendas/OS pagas fora da promissória + o que já entrou das promissórias
     const pagoDireto = pdv.filter(v => !rmAPrazo(v.formaPagamento)).reduce((s,v) => s + (Number(v.total)||0), 0)
-      + os.filter(m => m.pago && !rmAPrazo(m.formaPagamento)).reduce((s,m) => s + (m.valorPago || rmOsTotais(m).total), 0);
+      + os.filter(m => rmOsValida(m) && !rmAPrazo(m.formaPagamento)).reduce((s,m) => s + (m.valorPago || rmOsTotais(m).total), 0);
     return { c, compras: os.length + pdv.length, pago: pagoDireto + pagoProm, receber, vencido };
   }).filter(l =>
     (filtro === 'todos' || (filtro === 'receber' ? l.receber > 0.004 : l.vencido > 0.004)) &&
@@ -12677,11 +12782,11 @@ function rmPromImprimir(notaId){
 
 // ===== Financeiro > Vendas: PDV + ordens de serviço finalizadas =====
 function rmFinTodasVendas(){
-  const pdv = rmLoadVendas().filter(v => v.tipo !== 'orcamento').map(v => ({
+  const pdv = rmLoadVendas().filter(rmVendaValida).map(v => ({
     origem:'PDV', id:v.id, data:v.criadoEm, codigo:v.codigoVenda||'',
     cliente:v.clienteNome||'', forma:v.formaPagamento||'', total:Number(v.total)||0, por:v.vendedor||''
   }));
-  const os = rmLoad().filter(r => r.pago).map(r => ({
+  const os = rmLoad().filter(rmOsValida).map(r => ({
     origem:'OS', id:r.id, data:r.pagoEm || r.entrada, codigo:r.codigoApp||'',
     cliente:[r.nome, r.modelo].filter(Boolean).join(' · '), forma:r.formaPagamento||'',
     total: r.valorPago || rmOsTotais(r).total, por: r.finalizadoPor || rmOsCriador(r)
@@ -14037,7 +14142,7 @@ function rmFilteredList(searchInputId, dateModeId, dateValueId, dateStartId, dat
   if(dateModeId){
     const mode = document.getElementById(dateModeId).value;
     if(mode === 'p:oficina'){
-      filtered = filtered.filter(r => r.status !== 'entregue' && r.status !== 'antigas');
+      filtered = filtered.filter(r => r.status !== 'entregue' && r.status !== 'antigas' && r.status !== 'cancelada');
     } else if(mode !== 'todos'){
       let range = null;
       if(mode.startsWith('p:')){
@@ -14497,8 +14602,8 @@ function rmRenderModalCliente(c, novo){
 
 function rmClienteHistoricoHtml(c){
   const os = rmMotosDoCliente(c).map(m => ({ tipo:'OS', id:m.id, data:m.pagoEm || m.entrada, codigo:m.codigoApp||'', titulo:m.modelo||'Moto',
-    total: m.valorPago || rmOsTotais(m).total, forma:m.formaPagamento||'', status:(RM_STATUS[m.status]||{}).label||'', pago:!!m.pago }));
-  const pdv = rmLoadVendas().filter(v => v.clienteId === c.id && v.tipo !== 'orcamento').map(v => ({ tipo:'PDV', id:v.id, data:v.criadoEm,
+    total: m.valorPago || rmOsTotais(m).total, forma:m.formaPagamento||'', status:(RM_STATUS[m.status]||{}).label||'', pago:rmOsValida(m) }));
+  const pdv = rmLoadVendas().filter(v => v.clienteId === c.id && rmVendaValida(v)).map(v => ({ tipo:'PDV', id:v.id, data:v.criadoEm,
     codigo:v.codigoVenda||'', titulo:'Venda balcão', total:Number(v.total)||0, forma:v.formaPagamento||'', status:'', pago:true }));
   const lista = os.concat(pdv).filter(x => rmCliNoPeriodo(x.data)).sort((a,b) => new Date(b.data) - new Date(a.data));
   if(!lista.length) return `<div class="rm-problema-empty" style="padding:16px;">${rmCliRange() ? 'Nada neste período' : 'Nenhuma ordem de serviço ou venda para este cliente ainda'}</div>`;
@@ -14565,9 +14670,9 @@ function rmCliEventos(c){
     n.parcelas.forEach(p => rmParcPagamentos(p).forEach(pg => ev.push({ t: quando(pg.data), tipo:'pagamento', valor: Number(pg.valor)||0,
       desc: `${n.refCodigo || ''}-${rmParcRotulo(p, n)} · Pagamento${pg.forma ? ' (' + pg.forma + ')' : ''}` })));
   });
-  rmLoadVendas().filter(v => v.clienteId === c.id && v.tipo !== 'orcamento' && !rmAPrazo(v.formaPagamento) && !refsProm.has(v.id))
+  rmLoadVendas().filter(v => v.clienteId === c.id && rmVendaValida(v) && !rmAPrazo(v.formaPagamento) && !refsProm.has(v.id))
     .forEach(v => ev.push({ t: quando(v.criadoEm), tipo:'avista', valor: Number(v.total)||0, desc: `${v.codigoVenda || ''} · Compra paga na hora${v.formaPagamento ? ' (' + v.formaPagamento + ')' : ''}` }));
-  rmMotosDoCliente(c).filter(m => m.pago && !rmAPrazo(m.formaPagamento) && !refsProm.has(m.id))
+  rmMotosDoCliente(c).filter(m => rmOsValida(m) && !rmAPrazo(m.formaPagamento) && !refsProm.has(m.id))
     .forEach(m => ev.push({ t: quando(m.pagoEm || m.entrada), tipo:'avista', valor: m.valorPago || rmOsTotais(m).total,
       desc: `${m.codigoApp || ''} · Ordem de serviço${m.modelo ? ' ' + m.modelo : ''}${m.formaPagamento ? ' (' + m.formaPagamento + ')' : ''}` }));
   const ordem = { divida:0, avista:1, pagamento:2 };
@@ -14583,7 +14688,7 @@ function rmCliEventos(c){
 
 function rmCliNotasLista(c){
   const os = rmMotosDoCliente(c).map(m => ({ tipo:'OS', id:m.id, data:m.pagoEm || m.entrada, codigo:m.codigoApp||'', desc:'Ordem de serviço' + (m.modelo ? ' · ' + m.modelo : ''), total: m.valorPago || rmOsTotais(m).total, forma:m.formaPagamento||'' }));
-  const pdv = rmLoadVendas().filter(v => v.clienteId === c.id && v.tipo !== 'orcamento').map(v => ({ tipo:'PDV', id:v.id, data:v.criadoEm, codigo:v.codigoVenda||'', desc:'Venda balcão · ' + (v.itens||[]).length + ' item(ns)', total:Number(v.total)||0, forma:v.formaPagamento||'' }));
+  const pdv = rmLoadVendas().filter(v => v.clienteId === c.id && rmVendaValida(v)).map(v => ({ tipo:'PDV', id:v.id, data:v.criadoEm, codigo:v.codigoVenda||'', desc:'Venda balcão · ' + (v.itens||[]).length + ' item(ns)', total:Number(v.total)||0, forma:v.formaPagamento||'' }));
   const proms = rmLoadProms();
   return os.concat(pdv).filter(x => rmCliNoPeriodo(x.data)).map(x => {
     const n = proms.find(p => p.refId === x.id);
@@ -14709,10 +14814,10 @@ function rmClienteTimelineHtml(c){
     })));
   });
   // compras pagas na hora (não mexem no saldo)
-  rmLoadVendas().filter(v => v.clienteId === c.id && v.tipo !== 'orcamento' && !rmAPrazo(v.formaPagamento) && !refsProm.has(v.id))
+  rmLoadVendas().filter(v => v.clienteId === c.id && rmVendaValida(v) && !rmAPrazo(v.formaPagamento) && !refsProm.has(v.id))
     .forEach(v => ev.push({ t: quando(v.criadoEm), tipo:'avista', valor: Number(v.total)||0, cod: v.codigoVenda, origem:'PDV', refId: v.id,
       txt: `Compra paga na hora${v.formaPagamento ? ' · ' + v.formaPagamento : ''}`, data: v.criadoEm }));
-  rmMotosDoCliente(c).filter(m => m.pago && !rmAPrazo(m.formaPagamento) && !refsProm.has(m.id))
+  rmMotosDoCliente(c).filter(m => rmOsValida(m) && !rmAPrazo(m.formaPagamento) && !refsProm.has(m.id))
     .forEach(m => ev.push({ t: quando(m.pagoEm || m.entrada), tipo:'avista', valor: m.valorPago || rmOsTotais(m).total, cod: m.codigoApp, origem:'OS', refId: m.id,
       txt: `Ordem de serviço paga${m.formaPagamento ? ' · ' + m.formaPagamento : ''}${m.modelo ? ' · ' + m.modelo : ''}`, data: m.pagoEm || m.entrada }));
 
@@ -15389,12 +15494,12 @@ function rmRenderLista(){
   };
   const iconeFat = r => r.pago ? icOk('Pago' + (r.formaPagamento ? ' · ' + rmEscapeHtml(r.formaPagamento) : '')) : icVazio('#222', 'Não pago');
   const linha = r => `
-    <tr onclick="rmOpenModal('${r.id}', true)">
+    <tr onclick="rmOpenModal('${r.id}', true)"${r.cancelamento ? ' class="rm-cn-linha"' : ''}>
       <td class="c"><span class="rm-osl-tip" data-tip="${rmEscapeHtml((RM_STATUS[r.status]||{}).label || 'Motos em aberto')}">${iconeSit(r)}</span></td>
       <td class="c"><span class="rm-osl-tip" data-tip="${r.pago ? 'Pago' + (r.formaPagamento ? ' · ' + rmEscapeHtml(r.formaPagamento) : '') : 'Não pago'}">${iconeFat(r)}</span></td>
       <td class="c">${r.fotoUrl ? `<span class="rm-osl-foto" onmouseenter="rmShowFotoPreview(event, '${r.fotoUrl}')" onmouseleave="rmHideFotoPreview()">&#128247;</span>` : ''}</td>
-      <td class="r">${rmNumeroDoc(r.codigoApp) || rmEscapeHtml(r.codigoApp||'')}</td>
-      <td class="r">${rmFmtNum(rmOslValor(r))}</td>
+      <td class="r">${r.cancelamento ? '<span class="rm-cn-tag">CANCELADA</span> ' : ''}${rmNumeroDoc(r.codigoApp) || rmEscapeHtml(r.codigoApp||'')}</td>
+      <td class="r rm-cn-r">${rmFmtNum(rmOslValor(r))}</td>
       <td${r.dataManual ? ` title="Aberta em ${rmEscapeHtml(rmFormatData(r.entrada))} · data de referência ajustada"` : ''}>${dia(rmOsDataRef(r))}${r.dataManual ? ' <span class="rm-osl-ref">&#8635;</span>' : ''}</td>
       <td class="rm-osl-mod">${rmEscapeHtml(r.modelo || '')}</td>
       <td>${rmEscapeHtml(r.mecanico || '')}</td>
@@ -15667,6 +15772,9 @@ function rmImprimirEtiquetaRecord(r){
 }
 
 function rmExcluirRecepcao(id){
+  { const r0 = rmIdx(rmMemLista(RM_KEY)).get(id);
+    if(r0 && r0.cancelamento){ alert('Esta OS foi cancelada e fica guardada no histórico. Não dá para excluir.'); return; }
+    if(r0 && r0.pago){ if(rmPodeCancelar()) rmCancelarAbrir('os', id); else alert('Esta moto já foi paga. Você não tem permissão para cancelar; peça ao administrador.'); return; } }
   { const rr = rmIdx(rmMemLista(RM_KEY)).get(id); if(rr) setTimeout(() => { if(!rmLoad().some(x => x.id === id)) rmLog('Excluiu OS', rr.codigoApp, [rr.nome, rr.modelo].filter(Boolean).join(' · ')); }, 500); }
   const r = rmIdx(rmMemLista(RM_KEY)).get(id);
   if(!r) return;
@@ -16399,12 +16507,13 @@ function rmOpenModal(id, large){
       <textarea class="rm-input" id="rm-modal-anotacoes" onchange="rmUpdateField('${r.id}','anotacoes',this.value.trim().toUpperCase())">${r.anotacoes||''}</textarea>
       </div>
 
-      ${r.pago ? `<div class="rm-os-finalizada">&#10004; Moto finalizada e paga${r.pagoEm?' em '+rmDataHoraBR(r.pagoEm):''}${r.formaPagamento?' · '+r.formaPagamento:''}</div>` : ''}
+      ${r.cancelamento ? rmCancelBannerHtml(r.cancelamento, 'OS', r.valorPago || rmOsTotais(r).total) : r.pago ? `<div class="rm-os-finalizada">&#10004; Moto finalizada e paga${r.pagoEm?' em '+rmDataHoraBR(r.pagoEm):''}${r.formaPagamento?' · '+r.formaPagamento:''}</div>` : ''}
       <div class="rm-os-salvar-bar">
-        <button class="rm-os-bt rm-os-bt-excluir" onclick="rmExcluirRecepcao('${r.id}')">&#128465; Excluir moto</button>
+        ${r.cancelamento ? '' : !r.pago ? `<button class="rm-os-bt rm-os-bt-excluir" onclick="rmExcluirRecepcao('${r.id}')">&#128465; Excluir moto</button>`
+          : rmPodeCancelar() ? `<button class="rm-os-bt rm-os-bt-excluir" onclick="rmCancelarAbrir('os','${r.id}')">&#10005; Cancelar OS</button>` : ''}
         <span class="rm-os-auto">&#10004; Tudo o que você lança já é salvo automaticamente</span>
         ${r.pago ? `<button class="rm-os-bt rm-os-bt-imprimir" onclick="rmImprimirOSA4('${r.id}')">&#128424; Imprimir</button>` : ''}
-        ${r.pago ? '' : `<button class="rm-os-bt rm-os-bt-finalizar" onclick="rmOsFinalizar('${r.id}')">&#10004; Finalizar moto</button>`}
+        ${r.pago || r.cancelamento ? '' : `<button class="rm-os-bt rm-os-bt-finalizar" onclick="rmOsFinalizar('${r.id}')">&#10004; Finalizar moto</button>`}
         <button class="rm-os-bt rm-os-salvar" onclick="rmOsSalvarManual('${r.id}')">&#128190; Salvar</button>
       </div>
     </div>
