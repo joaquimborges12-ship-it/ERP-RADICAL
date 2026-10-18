@@ -1915,6 +1915,41 @@
   .invc-acoes button:last-child{border-bottom:0;}
   .invc-add{display:block; width:100%; text-align:center; padding:13px; border:1px dashed var(--rm-border); background:none; color:var(--rm-text-dim); font-size:14px; font-weight:600; margin:10px 0 0; font-family:inherit;}
   .invc-vazio{text-align:center; color:var(--rm-text-dim); padding:30px 10px; font-size:15px;}
+  .cx-cards{grid-template-columns:repeat(5,1fr) !important;}
+  .cx-card.cx-pos b{color:#1e8e3e;} html[data-tema="dark"] .cx-card.cx-pos b{color:#5fd38d;}
+  .cx-esp{flex:1;}
+  .cx-tg{display:inline-block; font-size:10.5px; font-weight:800; padding:2px 6px; margin:0 6px 0 0; letter-spacing:.03em; vertical-align:1px;}
+  .cx-tg-e{background:#2f6fb5; color:#fff;} .cx-tg-d{background:#c9961a; color:#1b1b1b;} .cx-tg-s{background:#6a4fc4; color:#fff;} .cx-tg-p{background:#d9433a; color:#fff; margin-left:6px;}
+  .cx-l.cx-pend{background:rgba(217,67,58,.07);}
+  .cx-l .cx-btn2{padding:4px 8px; font-size:12px; margin-left:6px;}
+  .cx-acts{display:flex; gap:6px; flex-wrap:wrap;} .cx-acts button{width:auto; padding:7px 10px; font-size:12.5px; font-weight:700; background:transparent; color:var(--rm-text); border:1px solid var(--rm-border); cursor:pointer; font-family:inherit; margin:0;}
+  .cx-ceds{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:6px;}
+  .cx-ced{border:1px solid var(--rm-border); padding:7px; text-align:center;}
+  .cx-ced b{display:block; font-size:12.5px; margin-bottom:4px;}
+  .cx-fech .cx-ced input{width:100%; font-size:18px; padding:6px; text-align:center; border-width:1px;}
+  .cx-conf .cx-conf-in{width:110px; padding:6px 8px; text-align:right; font-size:14px; background:var(--rm-bg); color:var(--rm-text); border:1px solid var(--rm-border); font-family:inherit; margin:0;}
+  .cx-conf tr{cursor:default;}
+  /* janelinha de movimento e subaba Retirada */
+  .cp.rt{width:460px;}
+  .rt-lab, .cp .rt-lab{display:block; font-size:13.5px !important; text-transform:none !important; letter-spacing:0 !important; color:var(--rm-text) !important; font-weight:700 !important; margin:14px 0 6px !important;}
+  .rt-val{width:100%; box-sizing:border-box; font-size:34px; font-weight:900; text-align:center; padding:12px; background:var(--rm-bg); color:var(--rm-text); border:2px solid #c9961a; font-family:inherit; margin:0;}
+  .rt-chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .rt-chips button{width:auto; padding:10px 13px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-size:14px; font-weight:600; cursor:pointer; font-family:inherit; margin:0;}
+  .rt-chips button.on{border-color:#c9961a; background:rgba(201,150,26,.16); color:#9a7210;} html[data-tema="dark"] .rt-chips button.on{color:#ffd27a;}
+  .rt-txt{width:100%; box-sizing:border-box; padding:11px 12px; font-size:14px; background:var(--rm-bg); color:var(--rm-text); border:1px solid var(--rm-border); font-family:inherit; margin:8px 0 0;}
+  .rt-troco, .cp label.rt-troco{display:flex !important; gap:10px; align-items:flex-start; margin:12px 0 0 !important; padding:11px 12px; border:1px dashed #c9961a; cursor:pointer; text-transform:none !important; letter-spacing:0 !important; font-size:14px !important; color:var(--rm-text) !important;}
+  .rt-troco input{accent-color:#c9961a; width:18px; height:18px; margin:2px 0 0; flex:none;}
+  .rt-troco small{display:block; color:var(--rm-text-dim); font-size:12.5px; font-weight:400; margin-top:2px;}
+  .rt-info{font-size:12.5px; color:var(--rm-text-dim); margin-top:12px; line-height:1.45;}
+  .cp.rt .pe .pri{background:#c9961a; border-color:#c9961a; color:#1b1b1b;}
+  .rm-ret-card{max-width:520px; background:var(--rm-panel); border:1px solid var(--rm-border); padding:6px 18px 18px;}
+  .rm-ret-bts{margin-top:16px;} .rm-ret-ok{background:#c9961a !important; color:#1b1b1b !important;}
+  #rm-ret-alerta{display:flex; flex-direction:column; gap:6px; margin-bottom:10px;}
+  #rm-ret-alerta:empty{display:none;}
+  .rm-ret-al{display:flex; align-items:center; gap:10px; flex-wrap:wrap; background:rgba(217,67,58,.12); border:1px solid #d9433a; border-left:5px solid #d9433a; padding:9px 12px; font-size:14px; color:var(--rm-text);}
+  .rm-ret-al span{flex:1; min-width:200px;}
+  .rm-ret-al button{width:auto; padding:8px 14px; background:#d9433a; color:#fff; border:0; font-weight:800; font-size:13.5px; cursor:pointer; font-family:inherit; margin:0;}
+  @media (max-width:860px){ .cx-cards{grid-template-columns:1fr 1fr !important;} .cx-ceds{grid-template-columns:repeat(4,1fr);} .cx-top{flex-wrap:wrap;} .cx-esp{display:none;} }
   .rm-fila-status.rm-fila-erro{background:#d9433a; color:#fff;}
   .rm-app-velho{position:fixed; inset:0; z-index:2147483000; background:rgba(20,20,24,0.88); display:flex; align-items:center; justify-content:center; padding:16px;}
   .rm-app-velho-cx{background:var(--rm-panel, #fff); color:var(--rm-text, #222); max-width:440px; width:100%; padding:26px 24px; border-top:6px solid #d9433a; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.4);}
@@ -2239,7 +2274,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.18-02h15</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">versão 2026.10.18-17h30</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2274,6 +2309,12 @@
     </div>
 
     <div id="rm-section-pdv" class="rm-section">
+      <div id="rm-ret-alerta"></div>
+      <div class="rm-subnav">
+        <button class="rm-subnav-btn active" id="rm-btn-pdv-venda" onclick="rmSetViewPdv('venda')"><span class="rm-subnav-icon">&#128722;</span><span>Venda</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-pdv-retirada" onclick="rmSetViewPdv('retirada')"><span class="rm-subnav-icon">&#128184;</span><span>Retirada</span></button>
+      </div>
+      <div id="rm-view-pdv-venda" class="rm-view active">
       <div class="rm-pdv-toggles-row">
         <div class="rm-pdv-modo-toggle">
           <button class="rm-pdv-modo-btn active" id="rm-pdv-modo-venda" onclick="rmSetModoPdv('venda')">Venda</button>
@@ -2429,6 +2470,12 @@
           </table>
           <div class="rm-lista-empty" id="rm-pdv-vendas-hoje-empty" style="display:none;">Nenhuma venda encontrada</div>
         </div>
+      </div>
+      </div>
+      <div id="rm-view-pdv-retirada" class="rm-view">
+        <h1 class="rm-title">Retirar dinheiro do caixa</h1>
+        <div class="cx-sub" style="margin:-8px 0 14px">Para controle: fica registrado no Caixa do dia, com quem tirou e a hora.</div>
+        <div id="rm-ret"></div>
       </div>
     </div>
 
@@ -4994,6 +5041,7 @@ function rmInicializarPdv(){
 document.addEventListener('keydown', function(e){
   const secao = document.getElementById('rm-section-pdv');
   if(!secao || !secao.classList.contains('active')) return;
+  { const vv = document.getElementById('rm-view-pdv-venda'); if(vv && !vv.classList.contains('active')) return; }
   if(document.getElementById('rm-modal-backdrop').classList.contains('show')) return;
   const campos = { F1:'rm-pdv-item-nome', F2:'rm-pdv-desconto-valor', F3:'rm-pdv-valor-recebido', F5:'rm-pdv-cliente-busca' };
   if(campos[e.key]){
@@ -6099,7 +6147,7 @@ async function rmDbBulkReplace(recepcoes, mecanicos){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610180215;
+const RM_APP_VERSAO = 202610181730;
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
 try{ rmOutbox = JSON.parse(localStorage.getItem(RM_OUTBOX_KEY)) || {}; }catch(e){ rmOutbox = {}; }
@@ -7175,6 +7223,7 @@ rmSubTravar('rmSetViewFin', v => 'rm-btn-fin-' + v);
 rmSubTravar('rmSetViewPlanilha', v => 'rm-btn-pla-' + v);
 rmSubTravar('rmComSetModo', v => 'rm-btn-rel-' + v);
 rmSubTravar('rmSetViewCfg', v => 'rm-btn-cfg-' + v);
+rmSubTravar('rmSetViewPdv', v => 'rm-btn-pdv-' + v);
 rmSubTravar('rmCliqueNovaRecepcao', () => 'rm-btn-reception');
 rmSubTravar('rmAbrirRecepcaoRapida', () => 'rm-btn-reception');
 rmSubTravar('rmCliqueCadastroProduto', () => 'rm-btn-produtos-cadastro');
@@ -10106,12 +10155,20 @@ setInterval(() => rmCopiaGuardar(), 60 * 60 * 1000);
 
 // ===================== CAIXA DO DIA =====================
 // Cada dia fica em configuracoes: "caixa-AAAA-MM-DD" (abertura e fechamento) e uma linha para cada
-// retirada ("caixa-AAAA-MM-DD-r-xxxx"), assim dois aparelhos lançando ao mesmo tempo não se apagam.
-// As entradas são calculadas das vendas, OS pagas e parcelas recebidas do dia (mesma conta do "dinheiro que entrou").
+// movimento da gaveta ("caixa-AAAA-MM-DD-r-xxxx": despesa, sangria ou entrada avulsa), assim dois
+// aparelhos lançando ao mesmo tempo não se apagam. As entradas de vendas/OS/parcelas são calculadas.
 let rmCxDia = null, rmCxDados = {}, rmCxLista = [], rmCxCarregando = false;
 const rmCxId = d => 'caixa-' + d;
+const RM_CX_CEDULAS = [100, 50, 20, 10, 5, 2];
+const RM_RET_MOTIVOS = ['Lanche', 'Material de limpeza', 'Material de escritório', 'Combustível', 'Comprar peça fora', 'Outro'];
 function rmCxSoma(l){ return Math.round(l.reduce((s, x) => s + (Number(x) || 0), 0) * 100) / 100; }
-function rmCxRetiradas(c){ return ((c && c.retiradas) || []).filter(r => !r.removida); }
+function rmCxR2(v){ return Math.round((Number(v) || 0) * 100) / 100; }
+// movimentos válidos (antigos sem tipo = despesa)
+function rmCxMovs(c){ return ((c && c.retiradas) || []).filter(r => !r.removida).map(r => Object.assign({ tipo: 'despesa' }, r)); }
+function rmCxRetiradas(c){ return rmCxMovs(c).filter(r => r.tipo !== 'entrada'); }
+// quanto saiu de verdade: o que foi levado menos o troco devolvido
+function rmCxMovValor(m){ return rmCxR2((Number(m.valor) || 0) - (Number(m.devolvido) || 0)); }
+function rmCxTrocoPendente(m){ return !!(m.trocoPendente && m.devolvido == null && !m.removida); }
 function rmCxEntradas(dia){
   const [a, b, c] = dia.split('-').map(Number);
   const r = { start: new Date(a, b - 1, c), end: new Date(a, b - 1, c + 1) };
@@ -10122,15 +10179,23 @@ function rmCxEntradas(dia){
   Object.keys(porForma).forEach(f => porForma[f] = Math.round(porForma[f] * 100) / 100);
   return { porForma, qtd, total: rmCxSoma(Object.values(porForma)), dinheiro: porForma['Dinheiro'] || 0 };
 }
-function rmCxEsperado(c, e){ return Math.round(((Number(c.abertura && c.abertura.valor) || 0) + e.dinheiro - rmCxSoma(rmCxRetiradas(c).map(r => r.valor))) * 100) / 100; }
-// junta as linhas do servidor: { 'AAAA-MM-DD': dados com .retiradas }
+function rmCxTotais(c, e){
+  const movs = rmCxMovs(c);
+  const entradas = rmCxSoma(movs.filter(m => m.tipo === 'entrada').map(m => m.valor));
+  const sangrias = rmCxSoma(movs.filter(m => m.tipo === 'sangria').map(rmCxMovValor));
+  const despesas = rmCxSoma(movs.filter(m => m.tipo === 'despesa').map(rmCxMovValor));
+  const troco = Number(c.abertura && c.abertura.valor) || 0;
+  return { troco, entradas, sangrias, despesas, saidas: rmCxR2(sangrias + despesas), esperado: rmCxR2(troco + e.dinheiro + entradas - sangrias - despesas) };
+}
+function rmCxEsperado(c, e){ return rmCxTotais(c, e).esperado; }
+// junta as linhas do servidor: { 'AAAA-MM-DD': dados com .retiradas (movimentos) }
 function rmCxMontar(rows){
   const dias = {}, rets = {};
   (rows || []).forEach(x => {
     let m = /^caixa-(\d{4}-\d\d-\d\d)$/.exec(x.id);
     if(m){ dias[m[1]] = Object.assign({}, x.dados || {}); return; }
     m = /^caixa-(\d{4}-\d\d-\d\d)-r-(.+)$/.exec(x.id);
-    if(m && x.dados) (rets[m[1]] = rets[m[1]] || []).push(Object.assign({ id: m[2] }, x.dados));
+    if(m && x.dados) (rets[m[1]] = rets[m[1]] || []).push(Object.assign({ id: m[2], dia: m[1] }, x.dados));
   });
   Object.keys(rets).forEach(d => { dias[d] = dias[d] || {}; dias[d].retiradas = (dias[d].retiradas || []).concat(rets[d]).sort((a, b) => String(a.em).localeCompare(String(b.em))); });
   return dias;
@@ -10159,8 +10224,8 @@ function rmCxGuardarLocal(dia, dados){
   if(i >= 0) rmCxLista[i] = { id: rmCxId(dia), dados }; else rmCxLista.push({ id: rmCxId(dia), dados });
 }
 // grava mexendo na versão mais nova do servidor (dois aparelhos ao mesmo tempo não se apagam)
-async function rmCxMudar(dia, fn){
-  if(!rmEhAdmin()){ alert('Só o administrador pode mexer no caixa.'); return false; }
+async function rmCxMudar(dia, fn, semAdmin){
+  if(!semAdmin && !rmEhAdmin()){ alert('Só o administrador pode mexer no caixa.'); return false; }
   if(navigator.onLine === false){ alert('O caixa precisa de internet para gravar. Tente de novo quando a internet voltar.'); return false; }
   let atual = {};
   try{ atual = await rmCxBuscarDia(dia); }
@@ -10168,12 +10233,12 @@ async function rmCxMudar(dia, fn){
   const novo = JSON.parse(JSON.stringify(atual));
   const msg = fn(novo);
   if(msg){ alert(msg); rmCxGuardarLocal(dia, atual); rmCxRender(); return false; }
-  // retiradas novas/alteradas vão cada uma na sua linha; abertura e fechamento na linha do dia
+  // movimentos novos/alterados vão cada um na sua linha; abertura e fechamento na linha do dia
   const rets = novo.retiradas || [], linhaDia = Object.assign({}, novo); delete linhaDia.retiradas;
   const antes = JSON.stringify(Object.assign({}, atual, { retiradas: undefined }));
   const linhas = [];
   if(JSON.stringify(Object.assign({}, linhaDia, { retiradas: undefined })) !== antes) linhas.push({ id: rmCxId(dia), dados: linhaDia });
-  rets.forEach(r => { const a = (atual.retiradas || []).find(x => x.id === r.id); if(!a || JSON.stringify(a) !== JSON.stringify(r)){ const d = Object.assign({}, r); delete d.id; linhas.push({ id: rmCxId(dia) + '-r-' + r.id, dados: d }); } });
+  rets.forEach(r => { const a = (atual.retiradas || []).find(x => x.id === r.id); if(!a || JSON.stringify(a) !== JSON.stringify(r)){ const d = Object.assign({}, r); delete d.id; delete d.dia; linhas.push({ id: rmCxId(dia) + '-r-' + r.id, dados: d }); } });
   if(linhas.length){
     const { error } = await rmSb.from('configuracoes').upsert(linhas);
     if(error){ alert('Não consegui gravar o caixa: ' + (error.message || error)); return false; }
@@ -10195,56 +10260,173 @@ async function rmCxAbrir(){
   });
   if(ok){ rmLog('Abriu o caixa', rmDataBR(dia), 'troco ' + rmFormatMoeda(v)); rmShowToast('Caixa aberto com ' + rmFormatMoeda(v) + ' de troco'); }
 }
-async function rmCxRetirar(){
-  const dia = rmCxDia;
-  const desc = (prompt('Para que foi a retirada? (ex.: motoboy, almoço, compra de material)') || '').trim();
-  if(!desc) return;
-  const v = rmParseMoeda(prompt('Valor retirado da gaveta (R$):') || '');
-  if(!(v > 0)){ alert('Valor inválido.'); return; }
-  const ok = await rmCxMudar(dia, c => {
-    if(!c.abertura) return 'Abra o caixa antes de lançar retiradas.';
-    if(c.fechamento) return 'O caixa deste dia já foi fechado.';
-    (c.retiradas = c.retiradas || []).push({ id: rmUid(), desc: desc.toUpperCase(), valor: v, por: rmNomeUsuario(), em: new Date().toISOString() });
-  });
-  if(ok){ rmLog('Retirada do caixa', rmFormatMoeda(v), desc); rmShowToast('Retirada de ' + rmFormatMoeda(v) + ' lançada'); }
+
+// ----- movimento da gaveta (janelinha usada no Caixa do dia e na subaba Retirada do PDV) -----
+const RM_MOV_TIT = { despesa: '&#128184; Retirar dinheiro (despesa)', sangria: '&#128274; Sangria (guardar no cofre)', entrada: '&#10133; Entrada avulsa na gaveta' };
+function rmMovFormHtml(tipo, pref){
+  const desp = tipo === 'despesa';
+  return `<div class="rt-form" data-tipo="${tipo}" id="${pref}-form">
+    <label class="rt-lab">${desp ? 'Quanto você tirou da gaveta?' : tipo === 'sangria' ? 'Quanto vai guardar?' : 'Quanto entrou na gaveta?'}</label>
+    <input class="rt-val" id="${pref}-val" inputmode="decimal" placeholder="R$ 0,00" autocomplete="off" oninput="rmMovAtualizar('${pref}')">
+    ${desp ? `<label class="rt-lab">Para quê?</label>
+      <div class="rt-chips" id="${pref}-mot">${RM_RET_MOTIVOS.map(m => `<button type="button" onclick="rmMovMotivo('${pref}', this)">${m}</button>`).join('')}</div>` : ''}
+    <input class="rt-txt" id="${pref}-det" autocapitalize="characters" placeholder="${desp ? 'Detalhe (opcional) — ex.: lanche da equipe' : tipo === 'sangria' ? 'Detalhe (opcional) — ex.: guardado no cofre' : 'De onde veio — ex.: reforço de troco'}">
+    ${desp ? `<label class="rt-troco"><input type="checkbox" id="${pref}-troco" onchange="rmMovAtualizar('${pref}')"> <span><b>Vai voltar troco</b><small>Levou uma nota maior (ex.: R$ 50 para gastar R$ 20). Fica um aviso no PDV até devolver o troco.</small></span></label>` : ''}
+    <div class="rt-info" id="${pref}-info"></div>
+  </div>`;
+}
+function rmMovMotivo(pref, b){
+  document.querySelectorAll('#' + pref + '-mot button').forEach(x => x.classList.toggle('on', x === b));
+  const det = document.getElementById(pref + '-det');
+  if(b.textContent === 'Outro'){ det.placeholder = 'Escreva o que foi (obrigatório)'; det.focus(); }
+  else det.placeholder = 'Detalhe (opcional)';
+}
+function rmMovAtualizar(pref){
+  const info = document.getElementById(pref + '-info'); if(!info) return;
+  const v = rmParseMoeda((document.getElementById(pref + '-val') || {}).value), tr = document.getElementById(pref + '-troco');
+  info.innerHTML = `Registrado por <b>${rmEscapeHtml(rmNomeUsuario())}</b> hoje às ${new Date().toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' })}.` + (tr && tr.checked && v > 0 ? ` Levou <b>${rmFormatMoeda(v)}</b>: quando voltar, informe quanto de troco devolveu.` : '');
+}
+function rmMovLer(pref){
+  const f = document.getElementById(pref + '-form'); if(!f) return null;
+  const tipo = f.dataset.tipo, v = rmParseMoeda(document.getElementById(pref + '-val').value);
+  const det = document.getElementById(pref + '-det').value.trim().toUpperCase();
+  if(!(v > 0)){ alert('Digite o valor.'); document.getElementById(pref + '-val').focus(); return null; }
+  let motivo = '';
+  if(tipo === 'despesa'){
+    const b = document.querySelector('#' + pref + '-mot button.on');
+    if(!b){ alert('Escolha para que foi o dinheiro.'); return null; }
+    motivo = b.textContent;
+    if(motivo === 'Outro'){ if(!det){ alert('Escreva o que foi.'); document.getElementById(pref + '-det').focus(); return null; } motivo = det; }
+  } else motivo = tipo === 'sangria' ? 'Sangria' : 'Entrada avulsa';
+  const tr = document.getElementById(pref + '-troco');
+  const m = { tipo, valor: v, motivo, desc: (det && det !== motivo) ? det : '', por: rmNomeUsuario(), em: new Date().toISOString() };
+  if(tr && tr.checked) m.trocoPendente = true;
+  return m;
+}
+function rmMovTexto(m){ return m.motivo || m.desc || (m.tipo === 'sangria' ? 'Sangria' : m.tipo === 'entrada' ? 'Entrada avulsa' : 'Retirada'); }
+// grava um movimento novo (funcionário pode, sem precisar do caixa aberto)
+async function rmMovGravar(m, dia){
+  dia = dia || rmHojeISO();
+  if(navigator.onLine === false){ alert('Sem internet: não consegui registrar. Tente de novo quando a internet voltar.'); return false; }
+  const id = rmUid();
+  const { error } = await rmSb.from('configuracoes').upsert({ id: rmCxId(dia) + '-r-' + id, dados: m });
+  if(error){ alert('Não consegui registrar: ' + (error.message || error)); return false; }
+  const c = rmCxDados[dia] || (rmCxDados[dia] = {});
+  (c.retiradas = c.retiradas || []).push(Object.assign({ id, dia }, m));
+  rmRetPend = rmRetPend.concat(m.trocoPendente ? [Object.assign({ id, dia }, m)] : []);
+  rmLog(m.tipo === 'entrada' ? 'Entrada avulsa no caixa' : m.tipo === 'sangria' ? 'Sangria do caixa' : 'Retirada do caixa', rmFormatMoeda(m.valor), rmMovTexto(m) + (m.desc ? ' · ' + m.desc : '') + (m.trocoPendente ? ' · troco pendente' : ''));
+  return true;
+}
+// janelinha (Caixa do dia → botões Entrada avulsa / Sangria / Despesa)
+function rmCxMovAbrir(tipo){
+  let ov = document.getElementById('rm-mov-ov'); if(ov) ov.remove();
+  ov = document.createElement('div'); ov.id = 'rm-mov-ov'; ov.className = 'cp-ov';
+  ov.onclick = e => { if(e.target === ov) ov.remove(); };
+  ov.innerHTML = `<div class="cp rt" onclick="event.stopPropagation()"><h3>${RM_MOV_TIT[tipo]}</h3><div class="sub">Fica registrado no Caixa do dia${rmCxDia && rmCxDia !== rmHojeISO() ? ' de ' + rmDataBR(rmCxDia) : ''}.</div>
+    ${rmMovFormHtml(tipo, 'rm-mov')}
+    <div class="pe"><button onclick="document.getElementById('rm-mov-ov').remove()">Cancelar</button><button class="pri" onclick="rmCxMovSalvar()">&#10004; Registrar</button></div></div>`;
+  document.body.appendChild(ov);
+  rmMovAtualizar('rm-mov');
+  setTimeout(() => { const i = document.getElementById('rm-mov-val'); if(i) i.focus(); }, 50);
+}
+async function rmCxMovSalvar(){
+  const m = rmMovLer('rm-mov'); if(!m) return;
+  const dia = rmCxDia || rmHojeISO(), c = rmCxDados[dia] || {};
+  if(c.fechamento){ alert('O caixa deste dia já foi fechado.'); return; }
+  if(await rmMovGravar(m, dia)){ const ov = document.getElementById('rm-mov-ov'); if(ov) ov.remove(); rmShowToast('Registrado: ' + rmFormatMoeda(m.valor)); rmCxRender(); rmRetAlertaRender(); }
 }
 async function rmCxTirarRetirada(id){
-  const r = rmCxRetiradas(rmCxDados[rmCxDia]).find(x => x.id === id); if(!r) return;
-  if(!confirm('Apagar a retirada "' + r.desc + '" de ' + rmFormatMoeda(r.valor) + '?')) return;
+  const r = rmCxMovs(rmCxDados[rmCxDia]).find(x => x.id === id); if(!r) return;
+  if(!confirm('Apagar "' + rmMovTexto(r) + '" de ' + rmFormatMoeda(r.valor) + '?')) return;
   const ok = await rmCxMudar(rmCxDia, c => {
     if(c.fechamento) return 'O caixa deste dia já foi fechado.';
     const x = (c.retiradas || []).find(y => y.id === id); if(x){ x.removida = true; x.removidaPor = rmNomeUsuario(); }
   });
-  if(ok) rmLog('Apagou retirada do caixa', rmFormatMoeda(r.valor), r.desc);
+  if(ok){ rmLog('Apagou movimento do caixa', rmFormatMoeda(r.valor), rmMovTexto(r)); rmRetPend = rmRetPend.filter(x => x.id !== id); rmRetAlertaRender(); }
 }
+// troco devolvido: quanto voltou para a gaveta
+async function rmMovDevolver(dia, id){
+  let m = ((rmCxDados[dia] || {}).retiradas || []).find(x => x.id === id) || rmRetPend.find(x => x.id === id);
+  if(!m) return;
+  const s = prompt(`${m.por} levou ${rmFormatMoeda(m.valor)} (${rmMovTexto(m)}).\n\nQuanto de troco ele devolveu para a gaveta?`, '');
+  if(s == null) return;
+  const dev = rmParseMoeda(s);
+  if(dev < 0 || dev > m.valor + 0.004){ alert('O troco não pode ser maior que o valor levado.'); return; }
+  if(navigator.onLine === false){ alert('Sem internet: tente de novo quando a internet voltar.'); return; }
+  let atual;
+  try{ const { data } = await rmSb.from('configuracoes').select('*').eq('id', rmCxId(dia) + '-r-' + id).maybeSingle(); atual = data && data.dados; }catch(e){}
+  if(!atual){ alert('Não consegui falar com o servidor. Tente de novo.'); return; }
+  if(atual.devolvido != null){ alert('Esse troco já foi informado por ' + (atual.devolvidoPor || 'outro usuário') + '.'); rmRetPendCarregar(); return; }
+  const novo = Object.assign({}, atual, { devolvido: dev, devolvidoPor: rmNomeUsuario(), devolvidoEm: new Date().toISOString() });
+  const { error } = await rmSb.from('configuracoes').upsert({ id: rmCxId(dia) + '-r-' + id, dados: novo });
+  if(error){ alert('Não consegui gravar: ' + (error.message || error)); return; }
+  const loc = ((rmCxDados[dia] || {}).retiradas || []).find(x => x.id === id); if(loc) Object.assign(loc, novo);
+  rmRetPend = rmRetPend.filter(x => x.id !== id);
+  rmLog('Troco devolvido ao caixa', rmFormatMoeda(dev), m.por + ' · ' + rmMovTexto(m) + ' · gastou ' + rmFormatMoeda(m.valor - dev));
+  rmShowToast('Troco de ' + rmFormatMoeda(dev) + ' registrado · gasto ' + rmFormatMoeda(m.valor - dev));
+  rmRetAlertaRender(); rmCxRender(); if(typeof rmRetRender === 'function') rmRetRender();
+}
+
+// ----- contagem da gaveta e conferência -----
 function rmCxDifHtml(dif, esp){
   if(Math.abs(dif) < 0.005) return `<div class="cx-dif cx-certo">&#10004; Caixa certo (${rmFormatMoeda(esp)})</div>`;
   return dif < 0 ? `<div class="cx-dif cx-falta">&#9888; Faltando ${rmFormatMoeda(-dif)} (esperado ${rmFormatMoeda(esp)})</div>`
     : `<div class="cx-dif cx-sobra">&#9888; Sobrando ${rmFormatMoeda(dif)} (esperado ${rmFormatMoeda(esp)})</div>`;
 }
+function rmCxContado(){
+  const el = id => document.getElementById(id); if(!el('rm-cx-ced-100')) return null;
+  let tot = 0, algum = false;
+  const ced = {};
+  RM_CX_CEDULAS.forEach(n => { const v = el('rm-cx-ced-' + n).value.trim(); if(v !== ''){ algum = true; ced[n] = parseInt(v, 10) || 0; tot += n * ced[n]; } });
+  const m1 = el('rm-cx-ced-m1').value.trim(); if(m1 !== ''){ algum = true; ced.m1 = parseInt(m1, 10) || 0; tot += ced.m1; }
+  const mc = el('rm-cx-ced-mc').value.trim(); if(mc !== ''){ algum = true; ced.mc = rmParseMoeda(mc); tot += ced.mc; }
+  return algum ? { total: rmCxR2(tot), cedulas: ced } : null;
+}
+function rmCxConfLer(){
+  const out = {};
+  document.querySelectorAll('.cx-conf-in').forEach(i => { if(i.value.trim() !== '') out[i.dataset.forma] = rmParseMoeda(i.value); });
+  return out;
+}
 function rmCxAtualizarDif(){
   const c = rmCxDados[rmCxDia] || {}, e = rmCxEntradas(rmCxDia), esp = rmCxEsperado(c, e);
-  const inp = document.getElementById('rm-cx-contado'), box = document.getElementById('rm-cx-dif'), tr = document.getElementById('rm-cx-troco'), ret = document.getElementById('rm-cx-retirar');
-  if(!inp || !box) return;
-  const cont = inp.value.trim() ? rmParseMoeda(inp.value) : null;
-  box.innerHTML = cont == null ? '' : rmCxDifHtml(Math.round((cont - esp) * 100) / 100, esp);
-  if(ret && tr){ const t = rmParseMoeda(tr.value); ret.textContent = cont == null ? '—' : rmFormatMoeda(Math.max(0, cont - t)); }
+  // conferência por forma
+  document.querySelectorAll('.cx-conf-in').forEach(i => {
+    const st = document.getElementById('cx-conf-st-' + i.dataset.k); if(!st) return;
+    if(i.value.trim() === ''){ st.innerHTML = ''; return; }
+    const d = rmCxR2(rmParseMoeda(i.value) - (e.porForma[i.dataset.forma] || 0));
+    st.innerHTML = Math.abs(d) < 0.005 ? '<span class="cx-ok">&#10004; ok</span>' : `<span class="${d < 0 ? 'cx-ruim' : 'cx-mais'}">${d < 0 ? '− ' : '+ '}${rmFormatMoeda(Math.abs(d))}</span>`;
+  });
+  const box = document.getElementById('rm-cx-dif'); if(!box) return;
+  const cont = rmCxContado();
+  const totEl = document.getElementById('rm-cx-contado-tot'); if(totEl) totEl.textContent = cont ? rmFormatMoeda(cont.total) : '—';
+  box.innerHTML = cont ? rmCxDifHtml(rmCxR2(cont.total - esp), esp) : '';
+  const tr = document.getElementById('rm-cx-troco'), ret = document.getElementById('rm-cx-retirar');
+  if(ret && tr) ret.textContent = cont ? rmFormatMoeda(Math.max(0, cont.total - rmParseMoeda(tr.value))) : '—';
 }
 async function rmCxFechar(){
-  const inp = document.getElementById('rm-cx-contado');
-  if(!inp || !inp.value.trim()){ alert('Conte o dinheiro da gaveta e digite o valor.'); if(inp) inp.focus(); return; }
-  const cont = rmParseMoeda(inp.value), troco = rmParseMoeda((document.getElementById('rm-cx-troco') || {}).value);
-  if(troco > cont + 0.004){ alert('O troco para amanhã não pode ser maior que o dinheiro da gaveta.'); return; }
-  const c0 = rmCxDados[rmCxDia] || {}, e = rmCxEntradas(rmCxDia), esp = rmCxEsperado(c0, e), dif = Math.round((cont - esp) * 100) / 100;
-  if(!confirm(`Fechar o caixa de ${rmDataBR(rmCxDia)}?\n\nEsperado: ${rmFormatMoeda(esp)}\nContado: ${rmFormatMoeda(cont)}\n${Math.abs(dif) < 0.005 ? 'Caixa certo' : (dif < 0 ? 'Faltando ' : 'Sobrando ') + rmFormatMoeda(Math.abs(dif))}\nTroco para amanhã: ${rmFormatMoeda(troco)}`)) return;
+  const cont = rmCxContado();
+  if(!cont){ alert('Conte o dinheiro da gaveta e digite quantas notas e moedas tem.'); const i = document.getElementById('rm-cx-ced-100'); if(i) i.focus(); return; }
+  const troco = rmParseMoeda((document.getElementById('rm-cx-troco') || {}).value);
+  if(troco > cont.total + 0.004){ alert('O troco para amanhã não pode ser maior que o dinheiro da gaveta.'); return; }
+  const c0 = rmCxDados[rmCxDia] || {}, e = rmCxEntradas(rmCxDia), esp = rmCxEsperado(c0, e), dif = rmCxR2(cont.total - esp);
+  const pend = rmCxMovs(c0).filter(rmCxTrocoPendente);
+  const conf = rmCxConfLer();
+  const formas = Object.keys(e.porForma).filter(f => f !== 'Dinheiro');
+  const semConf = formas.filter(f => conf[f] == null);
+  if(!confirm(`Fechar o caixa de ${rmDataBR(rmCxDia)}?\n\nEsperado na gaveta: ${rmFormatMoeda(esp)}\nContado: ${rmFormatMoeda(cont.total)}\n${Math.abs(dif) < 0.005 ? 'Caixa certo' : (dif < 0 ? 'Faltando ' : 'Sobrando ') + rmFormatMoeda(Math.abs(dif))}\nTroco para amanhã: ${rmFormatMoeda(troco)}`
+    + (pend.length ? `\n\n⚠ ${pend.length} troco(s) ainda não devolvido(s): ${pend.map(p => p.por + ' ' + rmFormatMoeda(p.valor)).join(', ')}` : '')
+    + (semConf.length ? `\n\n(Não conferido: ${semConf.join(', ')})` : ''))) return;
   const ok = await rmCxMudar(rmCxDia, c => {
     if(!c.abertura) return 'O caixa deste dia não foi aberto.';
     if(c.fechamento) return 'O caixa deste dia já foi fechado por ' + c.fechamento.por + '.';
-    const e2 = rmCxEntradas(rmCxDia), esp2 = rmCxEsperado(c, e2);
-    c.fechamento = { contado: cont, troco, esperado: esp2, diferenca: Math.round((cont - esp2) * 100) / 100, dinheiro: e2.dinheiro, entradas: e2.porForma,
-      retiradas: rmCxSoma(rmCxRetiradas(c).map(r => r.valor)), por: rmNomeUsuario(), em: new Date().toISOString() };
+    const e2 = rmCxEntradas(rmCxDia), t = rmCxTotais(c, e2);
+    const conferencia = {}; let difCartao = 0, temConf = false;
+    Object.keys(e2.porForma).filter(f => f !== 'Dinheiro').forEach(f => { const s = e2.porForma[f]; const cf = conf[f]; conferencia[f] = { sistema: s, conferido: cf == null ? null : cf }; if(cf != null){ temConf = true; difCartao += cf - s; } });
+    c.fechamento = { contado: cont.total, cedulas: cont.cedulas, troco, esperado: t.esperado, diferenca: rmCxR2(cont.total - t.esperado), dinheiro: e2.dinheiro, entradas: e2.porForma,
+      entradasAvulsas: t.entradas, sangrias: t.sangrias, despesas: t.despesas, retiradas: t.saidas, conferencia, difCartao: temConf ? rmCxR2(difCartao) : null,
+      trocosPendentes: rmCxMovs(c).filter(rmCxTrocoPendente).length, por: rmNomeUsuario(), em: new Date().toISOString() };
   });
-  if(ok){ rmLog('Fechou o caixa', rmDataBR(rmCxDia), 'contado ' + rmFormatMoeda(cont) + ' · diferença ' + rmFormatMoeda(dif)); rmShowToast('Caixa fechado'); }
+  if(ok){ rmLog('Fechou o caixa', rmDataBR(rmCxDia), 'contado ' + rmFormatMoeda(cont.total) + ' · diferença ' + rmFormatMoeda(dif)); rmShowToast('Caixa fechado'); rmCxImprimir(rmCxDia); }
 }
 async function rmCxReabrir(){
   if(!rmEhAdmin()){ alert('Só o administrador pode reabrir um caixa fechado.'); return; }
@@ -10256,29 +10438,60 @@ async function rmCxReabrir(){
   });
   if(ok) rmLog('Reabriu o caixa', rmDataBR(rmCxDia));
 }
+// resumo do dia no cupom de 80mm
+function rmCxImprimir(dia){
+  dia = dia || rmCxDia;
+  const c = rmCxDados[dia] || {}, e = rmCxEntradas(dia), t = rmCxTotais(c, e), fe = c.fechamento, ab = c.abertura;
+  const M = rmFormatMoeda, H = rmH, hora = iso => iso ? new Date(iso).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) : '';
+  const lin = (a, b, forte) => `<tr${forte ? ' class="a4-forte"' : ''}><td>${a}</td><td class="r">${b}</td></tr>`;
+  const movs = rmCxMovs(c);
+  const corpo = `<div style="text-align:center; font-size:13px; font-weight:800; border-bottom:1px dashed #000; padding-bottom:4px; margin-bottom:6px;">CAIXA DO DIA · ${rmDataBR(dia)}</div>
+    <div class="a4-txt">${ab ? 'Aberto ' + hora(ab.em) + ' por ' + H(ab.por) : 'Caixa não aberto'}${fe ? '<br>Fechado ' + hora(fe.em) + ' por ' + H(fe.por) : ''}</div>
+    ${rmA4Secao('ENTRADAS DO DIA', `<table class="a4-tab">${Object.keys(e.porForma).map(f => lin(H(f), M(e.porForma[f]))).join('')}${lin('<b>Total</b>', '<b>' + M(e.total) + '</b>', true)}</table>`)}
+    ${rmA4Secao('GAVETA (DINHEIRO)', `<table class="a4-tab">${lin('Troco inicial', M(t.troco))}${lin('+ Dinheiro de vendas', M(e.dinheiro))}${t.entradas ? lin('+ Entradas avulsas', M(t.entradas)) : ''}${t.despesas ? lin('− Despesas', M(t.despesas)) : ''}${t.sangrias ? lin('− Sangrias', M(t.sangrias)) : ''}${lin('<b>Deve ter</b>', '<b>' + M(fe ? fe.esperado : t.esperado) + '</b>', true)}${fe ? lin('Contado', M(fe.contado)) + lin('<b>Diferença</b>', '<b>' + (Math.abs(fe.diferenca) < 0.005 ? 'ok' : (fe.diferenca < 0 ? '− ' : '+ ') + M(Math.abs(fe.diferenca))) + '</b>') + lin('Troco p/ amanhã', M(fe.troco)) + lin('Levar p/ cofre', M(Math.max(0, fe.contado - fe.troco))) : ''}</table>`)}
+    ${movs.length ? rmA4Secao('MOVIMENTOS', `<table class="a4-tab">${movs.map(m => lin(hora(m.em) + ' ' + H(rmMovTexto(m)) + ' (' + H(m.por || '') + ')' + (m.devolvido != null ? ' · troco ' + M(m.devolvido) : rmCxTrocoPendente(m) ? ' · TROCO PENDENTE' : ''), (m.tipo === 'entrada' ? '+ ' : '− ') + M(m.tipo === 'entrada' ? m.valor : rmCxMovValor(m)))).join('')}</table>`) : ''}
+    ${fe && fe.conferencia && Object.keys(fe.conferencia).length ? rmA4Secao('CONFERÊNCIA PIX/CARTÃO', `<table class="a4-tab">${Object.entries(fe.conferencia).map(([f, x]) => lin(H(f), x.conferido == null ? 'não conferido' : (Math.abs(x.conferido - x.sistema) < 0.005 ? 'ok' : (x.conferido - x.sistema < 0 ? '− ' : '+ ') + M(Math.abs(x.conferido - x.sistema))))).join('')}</table>`) : ''}
+    <div class="a4-txt" style="margin-top:14px">Conferido por: ____________________</div>`;
+  rmImprimirDoc('Caixa ' + rmDataBR(dia), corpo, false, 'cupom');
+}
+// gaveta automática (liga quando a gaveta for instalada)
+function rmGavetaAbrir(){ rmShowToast('A gaveta ainda não foi instalada neste computador. Quando ela chegar, vamos ligar este botão.'); }
+
 function rmCxIrDia(v){ if(v){ rmCxDia = v; rmCxRender(); } }
 function rmCxRender(){
   const box = document.getElementById('rm-cx'); if(!box) return;
   if(!rmEhAdmin()){ box.innerHTML = ''; return; }
   if(!rmCxDia) rmCxDia = rmHojeISO();
+  // guarda o que estava digitado na contagem e na conferência (a tela é redesenhada)
+  const guard = {}; box.querySelectorAll('input[id^="rm-cx-ced-"], .cx-conf-in, #rm-cx-troco').forEach(i => guard[i.id] = i.value);
   const dia = rmCxDia, hoje = rmHojeISO(), ehHoje = dia === hoje;
-  const c = rmCxDados[dia] || {}, e = rmCxEntradas(dia), ret = rmCxRetiradas(c), totRet = rmCxSoma(ret.map(r => r.valor)), esp = rmCxEsperado(c, e);
+  const c = rmCxDados[dia] || {}, e = rmCxEntradas(dia), t = rmCxTotais(c, e), movs = rmCxMovs(c);
   const hora = iso => iso ? new Date(iso).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) : '';
   const M = rmFormatMoeda, esc = rmEscapeHtml;
   const ab = c.abertura, fe = c.fechamento;
   let st;
   if(fe) st = `<span class="cx-st cx-st-f">&#128274; CAIXA FECHADO</span><span class="cx-sub">fechado às ${hora(fe.em)} por ${esc(fe.por)} · aberto às ${hora(ab && ab.em)} por ${esc(ab ? ab.por : '')}</span>`;
-  else if(ab) st = `<span class="cx-st">&#9679; CAIXA ABERTO</span><span class="cx-sub">aberto às ${hora(ab.em)} por ${esc(ab.por)} com ${M(ab.valor)} de troco</span>`;
+  else if(ab) st = `<span class="cx-st">&#9679; CAIXA ABERTO</span><span class="cx-sub">aberto às ${hora(ab.em)} por ${esc(ab.por)} · troco ${M(ab.valor)}</span>`;
   else st = `<span class="cx-st cx-st-n">CAIXA NÃO ABERTO</span><span class="cx-sub">${rmCxCarregando ? 'carregando...' : (ehHoje ? 'abra o caixa contando o troco da gaveta' : 'o caixa não foi aberto neste dia')}</span>`;
   const CORES = { 'Dinheiro':'#2e8b57', 'PIX':'#00a39a', 'Débito':'#2f6fb5', 'Crédito':'#6a4fc4', 'Boleto':'#c9961a' };
   const ordem = ['Dinheiro', 'PIX', 'Débito', 'Crédito', 'Boleto'];
   const formas = Object.keys(e.porForma).sort((a, b) => (ordem.indexOf(a) + 1 || 99) - (ordem.indexOf(b) + 1 || 99));
-  const qtdTxt = f => { const q = e.qtd[f]; return [q.doc ? q.doc + ' venda(s)/OS' : '', q.parc ? q.parc + ' parcela(s)' : ''].filter(Boolean).join(' · '); };
-  const entradasHtml = formas.length ? formas.map(f => `<div class="cx-l"><span><span class="cx-dot" style="background:${CORES[f] || '#888'}"></span>${esc(f)} <i>${qtdTxt(f)}</i></span><b>${M(e.porForma[f])}</b></div>`).join('')
-    + `<div class="cx-l cx-tot"><span>Total que entrou</span><span>${M(e.total)}</span></div>` : '<div class="cx-vazio">Nada entrou neste dia ainda.</div>';
+  const ONDE = { 'PIX':'extrato do banco', 'Débito':'maquininha', 'Crédito':'maquininha', 'Boleto':'banco' };
+  const confAnt = fe && fe.conferencia ? fe.conferencia : {};
+  const confHtml = formas.length ? `<table class="cx-tab cx-conf"><thead><tr><th>Forma</th><th class="r">No sistema</th><th class="r">Conferido</th><th class="r">Situação</th></tr></thead><tbody>
+    ${formas.map((f, k) => `<tr><td><span class="cx-dot" style="background:${CORES[f] || '#888'}"></span>${esc(f)}${ONDE[f] ? ` <small class="cx-sub">(${ONDE[f]})</small>` : ''}</td><td class="r">${M(e.porForma[f])}</td>
+      <td class="r">${f === 'Dinheiro' ? '<small class="cx-sub">na contagem da gaveta &rarr;</small>' : fe ? (confAnt[f] && confAnt[f].conferido != null ? M(confAnt[f].conferido) : '<small class="cx-sub">não conferido</small>') : `<input class="cx-conf-in" id="cx-conf-${k}" data-k="${k}" data-forma="${esc(f)}" inputmode="decimal" placeholder="0,00" oninput="rmCxAtualizarDif()">`}</td>
+      <td class="r" id="cx-conf-st-${k}">${fe && confAnt[f] && confAnt[f].conferido != null ? (Math.abs(confAnt[f].conferido - confAnt[f].sistema) < 0.005 ? '<span class="cx-ok">&#10004; ok</span>' : `<span class="cx-ruim">${confAnt[f].conferido - confAnt[f].sistema < 0 ? '− ' : '+ '}${M(Math.abs(confAnt[f].conferido - confAnt[f].sistema))}</span>`) : ''}</td></tr>`).join('')}
+    <tr class="cx-tot-l"><td><b>Total que entrou</b></td><td class="r"><b>${M(e.total)}</b></td><td></td><td></td></tr></tbody></table>
+    <div class="cx-sub" style="margin-top:8px">Venda "a prazo" ainda não recebida não entra aqui. Digite o total do extrato do banco e da maquininha para conferir.</div>`
+    : '<div class="cx-vazio">Nada entrou neste dia ainda.</div>';
   const podeMexer = ab && !fe;
-  const retHtml = ret.length ? ret.map(r => `<div class="cx-l"><span>${hora(r.em)} · ${esc(r.desc)} <i>${esc(r.por || '')}</i></span><span><b class="cx-saida">− ${M(r.valor)}</b>${podeMexer ? ` <button class="cx-x" title="Apagar" onclick="rmCxTirarRetirada('${rmJs(r.id)}')">&times;</button>` : ''}</span></div>`).join('')
-    : '<div class="cx-vazio">Nenhuma retirada.</div>';
+  const TAG = { entrada: ['ENTRADA', 'cx-tg-e'], despesa: ['DESPESA', 'cx-tg-d'], sangria: ['SANGRIA', 'cx-tg-s'] };
+  const movHtml = (ab ? `<div class="cx-l"><span>${hora(ab.em)} · <span class="cx-tg cx-tg-e">ABERTURA</span>Troco inicial <i>${esc(ab.por)}</i></span><b class="cx-ok">+ ${M(ab.valor)}</b></div>` : '')
+    + movs.map(m => { const tg = TAG[m.tipo] || TAG.despesa, pend = rmCxTrocoPendente(m);
+      return `<div class="cx-l${pend ? ' cx-pend' : ''}"><span>${hora(m.em)} · <span class="cx-tg ${tg[1]}">${tg[0]}</span>${esc(rmMovTexto(m))}${m.desc ? ' <i>' + esc(m.desc) + '</i>' : ''} <i>${esc(m.por || '')}</i>
+        ${pend ? `<span class="cx-tg cx-tg-p">TROCO PENDENTE</span><button class="cx-btn2" onclick="rmMovDevolver('${dia}','${rmJs(m.id)}')">Devolveu troco</button>` : m.devolvido != null ? ` <i>levou ${M(m.valor)}, voltou ${M(m.devolvido)}</i>` : ''}</span>
+        <span><b class="${m.tipo === 'entrada' ? 'cx-ok' : 'cx-saida'}">${m.tipo === 'entrada' ? '+ ' + M(m.valor) : '− ' + M(rmCxMovValor(m))}</b>${podeMexer ? ` <button class="cx-x" title="Apagar" onclick="rmCxTirarRetirada('${rmJs(m.id)}')">&times;</button>` : ''}</span></div>`; }).join('');
   let lado;
   if(!ab){
     const sug = rmCxUltimoTroco(dia);
@@ -10289,45 +10502,95 @@ function rmCxRender(){
       <button class="rm-primary" onclick="rmCxAbrir()">&#9654; Abrir caixa de hoje</button></div>`
       : `<div class="cx-box"><h3>Caixa não aberto</h3><div class="cx-vazio">Neste dia o caixa não foi aberto, então não dá para conferir a gaveta. As entradas do dia aparecem ao lado.</div></div>`;
   } else if(!fe){
-    lado = `<div class="cx-box cx-fech"><h3>Fechar o caixa</h3>
-      <label>Quanto tem de dinheiro na gaveta agora?</label>
-      <input id="rm-cx-contado" inputmode="decimal" placeholder="conte e digite" oninput="rmCxAtualizarDif()">
+    const ced = n => `<div class="cx-ced"><b>${n === 'm1' ? 'Moedas R$ 1' : n === 'mc' ? 'Moedas centavos' : 'R$ ' + n}</b><input id="rm-cx-ced-${n}" inputmode="${n === 'mc' ? 'decimal' : 'numeric'}" placeholder="${n === 'mc' ? 'R$ 0,00' : '0'}" oninput="rmCxAtualizarDif()" onfocus="this.select()"></div>`;
+    lado = `<div class="cx-box cx-fech"><h3>Fechar o caixa — contar a gaveta</h3>
+      <div class="cx-sub" style="margin:-4px 0 8px">Digite quantas de cada tem na gaveta. O sistema soma.</div>
+      <div class="cx-ceds">${RM_CX_CEDULAS.map(ced).join('')}${ced('m1')}${ced('mc')}</div>
+      <div class="cx-l cx-tot"><span>Contado na gaveta</span><span id="rm-cx-contado-tot">—</span></div>
       <div id="rm-cx-dif"></div>
       <label style="margin-top:10px">Deixar de troco para amanhã</label>
       <input id="rm-cx-troco" inputmode="decimal" style="font-size:18px" value="${(Number(ab.valor) || 0).toFixed(2).replace('.', ',')}" oninput="rmCxAtualizarDif()">
-      <div class="cx-sub" style="margin:8px 0">Retirar da gaveta: <b id="rm-cx-retirar" style="color:var(--rm-text)">—</b></div>
-      <button class="rm-primary" onclick="rmCxFechar()">&#10004; Fechar caixa${ehHoje ? ' de hoje' : ' de ' + rmDataBR(dia)}</button></div>`;
+      <div class="cx-sub" style="margin:8px 0">Levar para o cofre: <b id="rm-cx-retirar" style="color:var(--rm-text)">—</b></div>
+      <button class="rm-primary" onclick="rmCxFechar()">&#10004; Fechar caixa e imprimir resumo</button></div>`;
   } else {
+    const cd = fe.cedulas || {};
     lado = `<div class="cx-box cx-fech"><h3>Fechamento${rmEhAdmin() ? ' <button onclick="rmCxReabrir()">Reabrir</button>' : ''}</h3>
       <div class="cx-l"><span>Esperado na gaveta</span><b>${M(fe.esperado)}</b></div>
       <div class="cx-l"><span>Contado</span><b>${M(fe.contado)}</b></div>
+      ${Object.keys(cd).length ? `<div class="cx-sub" style="padding:6px 0">${RM_CX_CEDULAS.filter(n => cd[n]).map(n => cd[n] + '× R$ ' + n).concat(cd.m1 ? [cd.m1 + '× R$ 1'] : []).concat(cd.mc ? ['centavos ' + M(cd.mc)] : []).join(' · ')}</div>` : ''}
       ${rmCxDifHtml(Number(fe.diferenca) || 0, fe.esperado)}
       <div class="cx-l"><span>Troco deixado para o dia seguinte</span><b>${M(fe.troco)}</b></div>
-      <div class="cx-l"><span>Retirado da gaveta no fechamento</span><b>${M(Math.max(0, fe.contado - fe.troco))}</b></div>
-      ${Math.abs(fe.esperado - esp) > 0.005 ? `<div class="cx-sub" style="margin-top:8px">&#9888; Depois do fechamento as vendas deste dia mudaram: hoje o esperado seria ${M(esp)}.</div>` : ''}</div>`;
+      <div class="cx-l"><span>Levado para o cofre</span><b>${M(Math.max(0, fe.contado - fe.troco))}</b></div>
+      ${Math.abs(fe.esperado - t.esperado) > 0.005 ? `<div class="cx-sub" style="margin-top:8px">&#9888; Depois do fechamento os valores deste dia mudaram: hoje o esperado seria ${M(t.esperado)}.</div>` : ''}</div>`;
   }
   const fechs = rmCxLista.filter(x => x.dados && x.dados.fechamento).sort((a, b) => a.id < b.id ? 1 : -1).slice(0, 10);
-  const histHtml = fechs.length ? `<table class="cx-tab"><thead><tr><th>Dia</th><th class="r">Esperado</th><th class="r">Contado</th><th class="r">Diferença</th></tr></thead><tbody>
-    ${fechs.map(x => { const f = x.dados.fechamento, d = Number(f.diferenca) || 0;
-      return `<tr onclick="rmCxIrDia('${x.id.slice(6)}')"><td>${rmDataBR(x.id.slice(6)).slice(0, 5)} · ${esc(f.por || '')}</td><td class="r">${M(f.esperado)}</td><td class="r">${M(f.contado)}</td><td class="r ${Math.abs(d) < 0.005 ? 'cx-ok' : d < 0 ? 'cx-ruim' : 'cx-mais'}">${Math.abs(d) < 0.005 ? 'ok' : (d < 0 ? '− ' : '+ ') + M(Math.abs(d))}</td></tr>`; }).join('')}</tbody></table>`
+  const difTxt = d => d == null ? '<span class="cx-sub">—</span>' : Math.abs(d) < 0.005 ? '<span class="cx-ok">ok</span>' : `<span class="${d < 0 ? 'cx-ruim' : 'cx-mais'}">${d < 0 ? '− ' : '+ '}${M(Math.abs(d))}</span>`;
+  const histHtml = fechs.length ? `<table class="cx-tab"><thead><tr><th>Dia</th><th class="r">Dinheiro</th><th class="r">PIX/Cartão</th></tr></thead><tbody>
+    ${fechs.map(x => { const f = x.dados.fechamento;
+      return `<tr onclick="rmCxIrDia('${x.id.slice(6)}')"><td>${rmDataBR(x.id.slice(6)).slice(0, 5)} · ${esc(f.por || '')}</td><td class="r">${difTxt(Number(f.diferenca) || 0)}</td><td class="r">${difTxt(f.difCartao)}</td></tr>`; }).join('')}</tbody></table>`
     : '<div class="cx-vazio">Nenhum caixa fechado ainda.</div>';
-  const nRet = ret.length, qD = e.qtd['Dinheiro'] || { doc:0, parc:0 };
-  box.innerHTML = `<div class="cx-top"><input type="date" id="rm-cx-dia" value="${dia}" max="${hoje}" onchange="rmCxIrDia(this.value)">${!ehHoje ? '<button class="cx-btn2" onclick="rmCxIrDia(rmHojeISO())">Hoje</button>' : ''}${st}</div>
+  const nPend = movs.filter(rmCxTrocoPendente).length;
+  box.innerHTML = `<div class="cx-top"><input type="date" id="rm-cx-dia" value="${dia}" max="${hoje}" onchange="rmCxIrDia(this.value)">${!ehHoje ? '<button class="cx-btn2" onclick="rmCxIrDia(rmHojeISO())">Hoje</button>' : ''}${st}
+      <span class="cx-esp"></span><button class="cx-btn2" onclick="rmGavetaAbrir()">&#128452; Abrir gaveta</button><button class="cx-btn2" onclick="rmCxImprimir()">&#128424; Imprimir resumo</button></div>
     <div class="cx-cards">
       <div class="cx-card"><span>Troco inicial</span><b>${ab ? M(ab.valor) : '—'}</b><small>contado na abertura</small></div>
-      <div class="cx-card"><span>Entrou em dinheiro</span><b>${M(e.dinheiro)}</b><small>${[qD.doc ? qD.doc + ' venda(s)/OS' : '', qD.parc ? qD.parc + ' parcela(s)' : ''].filter(Boolean).join(' + ') || 'nenhuma'}</small></div>
-      <div class="cx-card cx-neg"><span>Retiradas</span><b>${totRet ? '− ' + M(totRet) : M(0)}</b><small>${nRet} saída(s) da gaveta</small></div>
-      <div class="cx-card cx-dest"><span>Deve ter na gaveta</span><b>${ab ? M(esp) : '—'}</b><small>troco + dinheiro − retiradas</small></div>
+      <div class="cx-card cx-pos"><span>Entrou em dinheiro</span><b>+ ${M(e.dinheiro)}</b><small>vendas, OS e parcelas</small></div>
+      <div class="cx-card cx-pos"><span>Entradas avulsas</span><b>+ ${M(t.entradas)}</b><small>${movs.filter(m => m.tipo === 'entrada').length} entrada(s)</small></div>
+      <div class="cx-card cx-neg"><span>Saídas</span><b>− ${M(t.saidas)}</b><small>${M(t.sangrias)} sangria · ${M(t.despesas)} despesas</small></div>
+      <div class="cx-card cx-dest"><span>Deve ter na gaveta</span><b>${ab ? M(t.esperado) : '—'}</b><small>troco + entradas − saídas</small></div>
     </div>
     <div class="cx-grid"><div>
-      <div class="cx-box"><h3>Tudo que entrou ${ehHoje ? 'hoje' : 'no dia'}</h3>${entradasHtml}
-        <div class="cx-sub" style="margin-top:8px">Venda "a prazo" ainda não recebida não entra aqui. Só o que realmente entrou: dinheiro, PIX, cartão e parcelas recebidas.</div></div>
-      <div class="cx-box"><h3>Retiradas da gaveta ${podeMexer ? '<button onclick="rmCxRetirar()">&#10133; Nova retirada</button>' : ''}</h3>${retHtml}</div>
+      <div class="cx-box"><h3>Conferência por forma de pagamento</h3>${confHtml}</div>
+      <div class="cx-box"><h3><span>Movimentos da gaveta${nPend ? ` <span class="cx-tg cx-tg-p">${nPend} troco(s) pendente(s)</span>` : ''}</span>${podeMexer ? '<span class="cx-acts"><button onclick="rmCxMovAbrir(\'entrada\')">&#65291; Entrada avulsa</button><button onclick="rmCxMovAbrir(\'sangria\')">&minus; Sangria</button><button onclick="rmCxMovAbrir(\'despesa\')">&minus; Despesa</button></span>' : ''}</h3>${movHtml || '<div class="cx-vazio">Nenhum movimento.</div>'}</div>
     </div><div>${lado}
       <div class="cx-box"><h3>Últimos fechamentos</h3>${histHtml}</div>
     </div></div>`;
+  Object.keys(guard).forEach(id => { const i = document.getElementById(id); if(i && guard[id] !== '') i.value = guard[id]; });
   rmCxAtualizarDif();
 }
+
+// ===================== PDV → RETIRADA (funcionário) =====================
+let rmRetPend = []; // trocos que ainda não voltaram (de qualquer dia)
+async function rmRetPendCarregar(){
+  if(!rmSb || navigator.onLine === false) return;
+  try{
+    const { data, error } = await rmSb.from('configuracoes').select('*').like('id', 'caixa-%-r-%');
+    if(error || !Array.isArray(data)) return;
+    rmRetPend = data.map(x => { const m = /^caixa-(\d{4}-\d\d-\d\d)-r-(.+)$/.exec(x.id); return m && x.dados ? Object.assign({ id: m[2], dia: m[1] }, x.dados) : null; })
+      .filter(m => m && rmCxTrocoPendente(m)).sort((a, b) => String(a.em).localeCompare(String(b.em)));
+  }catch(e){}
+  rmRetAlertaRender();
+}
+function rmRetAlertaRender(){
+  const el = document.getElementById('rm-ret-alerta'); if(!el) return;
+  const M = rmFormatMoeda, esc = rmEscapeHtml;
+  el.innerHTML = rmRetPend.map(m => `<div class="rm-ret-al"><span>&#9888; <b>${esc(m.por || '')}</b> levou <b>${M(m.valor)}</b> (${esc(rmMovTexto(m))}) ${m.dia === rmHojeISO() ? 'às ' + new Date(m.em).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) : 'em ' + rmDataBR(m.dia)} e ainda não devolveu o troco</span><button onclick="rmMovDevolver('${m.dia}','${rmJs(m.id)}')">Devolveu troco</button></div>`).join('');
+}
+function rmSetViewPdv(v){
+  ['venda', 'retirada'].forEach(x => {
+    const view = document.getElementById('rm-view-pdv-' + x), btn = document.getElementById('rm-btn-pdv-' + x);
+    if(view) view.classList.toggle('active', x === v); if(btn) btn.classList.toggle('active', x === v);
+  });
+  if(v === 'retirada'){ rmRetRender(); rmRetPendCarregar(); }
+}
+function rmRetRender(){
+  const box = document.getElementById('rm-ret'); if(!box) return;
+  box.innerHTML = `<div class="rm-ret-card">${rmMovFormHtml('despesa', 'rm-ret')}
+    <div class="rm-ret-bts"><button class="rm-primary rm-ret-ok" onclick="rmRetSalvar()">&#10004; Registrar retirada</button></div></div>`;
+  rmMovAtualizar('rm-ret');
+}
+async function rmRetSalvar(){
+  const m = rmMovLer('rm-ret'); if(!m) return;
+  const btn = document.querySelector('.rm-ret-ok'); if(btn){ btn.disabled = true; btn.textContent = 'Registrando...'; }
+  const ok = await rmMovGravar(m);
+  if(btn){ btn.disabled = false; btn.innerHTML = '&#10004; Registrar retirada'; }
+  if(!ok) return;
+  rmShowToast('Retirada de ' + rmFormatMoeda(m.valor) + ' registrada' + (m.trocoPendente ? ' · lembre de devolver o troco' : ''));
+  rmRetAlertaRender();
+  rmSetViewPdv('venda');
+}
+setTimeout(() => rmRetPendCarregar(), 6000);
+setInterval(() => { const s = document.getElementById('rm-section-pdv'); if(s && s.classList.contains('active')) rmRetPendCarregar(); }, 60000);
 
 // ===================== LEMBRETE DE BACKUP =====================
 // a data do último backup fica também no servidor: vale para todos os computadores
@@ -11124,6 +11387,8 @@ const RM_CFG_CAMPOS = [['nome','Nome fantasia'],['razao','Razão social'],['doc'
 
 // ===================== ÍCONES DAS ABAS =====================
 const RM_ABA_ICONES = {
+  'rm-btn-pdv-venda':'<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h9.6a1 1 0 0 0 1-.8L21 7H6"/>',
+  'rm-btn-pdv-retirada':'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M9 3.5l3-3 3 3"/>',
   'rm-btn-reception':'<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
   'rm-btn-lista':'<path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01"/>',
   'rm-btn-dashboard':'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
@@ -12441,7 +12706,7 @@ function rmSetSection(section){
   if(section === 'relatorio'){ rmRenderComissao(); rmComSync().then(rmRenderComissao); }
   if(section === 'configuracoes'){ rmRenderConfigEmpresa(); rmSyncEmpresa().then(rmRenderConfigEmpresa); }
   if(section === 'financeiro'){ rmRenderFinVendas(); rmSyncProms(); }
-  if(section === 'pdv'){ rmInicializarPdv(); }
+  if(section === 'pdv'){ rmInicializarPdv(); try{ rmSetViewPdv(rmSubPode('rm-btn-pdv-venda') ? 'venda' : 'retirada'); rmRetAlertaRender(); rmRetPendCarregar(); }catch(e){} }
   if(section === 'produtos'){
     const jaTemViewAtiva = document.querySelector('#rm-section-produtos .rm-view.active');
     if(!jaTemViewAtiva){
