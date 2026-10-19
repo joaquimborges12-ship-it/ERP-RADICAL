@@ -507,10 +507,19 @@
 .rm-modal.rm-modal-imp{max-width:min(1380px, 97vw) !important; width:97vw;}
   /* entrada de nota (XML / conferir importação): ocupa a tela toda, a lista rola por dentro */
   #rm-modal-backdrop:has(#rm-imp-wrap){padding:10px !important;}
-  .rm-modal.rm-modal-imp:has(#rm-imp-wrap){width:100% !important; max-width:none !important; height:calc(100vh - 20px); height:calc(100dvh - 20px); max-height:none !important; display:flex !important; flex-direction:column; overflow:hidden; border-radius:12px;}
-  .rm-modal.rm-modal-imp:has(#rm-imp-wrap) > *{flex-shrink:0;}
+  .rm-modal.rm-modal-imp:has(#rm-imp-wrap){--imp-p:22px; width:100% !important; max-width:none !important; height:calc(100vh - 20px); height:calc(100dvh - 20px); max-height:none !important; display:block !important; overflow-y:auto !important; padding:var(--imp-p) var(--imp-p) 0 !important; border-radius:12px;}
+  /* rolando: a parte de cima sobe; o nome das colunas e os botões de baixo ficam sempre à vista */
+  .rm-modal.rm-modal-imp:has(#rm-imp-wrap) .imp th{top:calc(-1 * var(--imp-p));}
+  .rm-modal.rm-modal-imp:has(#rm-imp-wrap) .imp-pe{position:sticky; bottom:0; z-index:3; background:var(--rm-panel, #fff); margin:14px calc(-1 * var(--imp-p)) 0; padding:12px var(--imp-p); border-top:1px solid var(--rm-border); box-shadow:0 -8px 18px rgba(0,0,0,.12);}
+  html[data-tema="dark"] .rm-modal.rm-modal-imp:has(#rm-imp-wrap) .imp-pe{box-shadow:0 -8px 18px rgba(0,0,0,.35);}
+  @media (max-width:760px){ .rm-modal.rm-modal-imp:has(#rm-imp-wrap){--imp-p:14px;} }
   body:has(#rm-imp-wrap) .rm-fab, body:has(#rm-imp-wrap) .rm-fab-painel{display:none !important;}
-  .rm-modal.rm-modal-imp:has(#rm-imp-wrap) #rm-imp-wrap{flex:1 1 auto; min-height:120px; max-height:none !important;}
+  .rm-modal.rm-modal-imp:has(#rm-imp-wrap) #rm-imp-wrap{max-height:none !important; overflow:visible !important;}
+  tr.imp-ok td{background:rgba(46,139,87,.09) !important; color:var(--rm-text-dim); vertical-align:top; padding-top:10px; padding-bottom:10px;}
+  tr.imp-ok .imp-ok-tag{display:inline-block; background:#2e8b57; color:#fff; font-size:10.5px; font-weight:800; padding:4px 7px; letter-spacing:.03em; white-space:nowrap;}
+  tr.imp-ok .imp-ok-nm{color:var(--rm-text); font-weight:600;} tr.imp-ok small{display:block; font-size:11.5px; color:var(--rm-text-dim);} tr.imp-ok b{color:var(--rm-text);}
+  tr.imp-ok .imp-ok-ck{color:#2e8b57; font-size:18px; font-weight:900; text-align:center;}
+  .imp-res .imp-res-ok{border-color:#2e8b57;} .imp-res .imp-res-ok b{color:#2e8b57;} html[data-tema="dark"] .imp-res .imp-res-ok b{color:#5fcf8f;}
   .imp-res{display:flex; gap:10px; flex-wrap:wrap; margin:4px 0 12px;}
   .imp-res div{border:1px solid var(--rm-border); padding:8px 14px; font-size:13px; color:var(--rm-text-dim);}
   .imp-res b{display:block; font-size:20px; color:var(--rm-text);}
@@ -2391,7 +2400,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 22:45</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 23:00</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3876,6 +3885,7 @@ function rmImpAbrirModal(){
     <div class="imp-bar">
       <input id="rm-imp-busca" placeholder="Procurar na lista..." oninput="rmImpMostrar=300; rmImpRender()">
       <label><input type="checkbox" id="rm-imp-prob" onchange="rmImpMostrar=300; rmImpRender()"> Mostrar só os com problema</label>
+      ${xml && rmImpLancados().length ? '<label><input type="checkbox" id="rm-imp-esc" onchange="rmImpMostrar=300; rmImpRender()"> Esconder os que já estão no estoque</label>' : ''}
     </div>
     <div class="imp-sel">
       <span>&#9745; Marque os produtos que quer ${xml ? 'lançar agora — os desmarcados ficam na nota para lançar depois' : 'importar agora'}:</span>
@@ -3958,8 +3968,9 @@ function rmImpResumo(){
   const novos = n(l => !l.vinculo && !l.existe), atu = n(l => !l.vinculo && l.existe), lig = n(l => l.vinculo),
     par = n(l => l.sug && !l.vinculo && !l.sugIgnorada), semPreco = n(l => !(Number(l.p.precoConsumidor) > 0));
   const caixa = (v, t, cls) => `<div class="${cls || ''}"><b>${v}</b>${t}</div>`;
-  document.getElementById('rm-imp-res').innerHTML =
-    caixa(rmImpLinhas.length, rmImpModo === 'xml' ? 'itens na nota' : 'produtos na planilha') + caixa(novos, 'novos (serão cadastrados)') + (atu ? caixa(atu, 'já existem (serão atualizados)') : '') +
+  const nLanc = rmImpLancados().length;
+  document.getElementById('rm-imp-res').innerHTML = (nLanc ? caixa(nLanc, 'já no estoque', 'imp-res-ok') : '') +
+    caixa(rmImpLinhas.length + nLanc, rmImpModo === 'xml' ? 'itens na nota' : 'produtos na planilha') + caixa(novos, 'novos (serão cadastrados)') + (atu ? caixa(atu, 'já existem (serão atualizados)') : '') +
     (lig ? caixa(lig, rmImpModo === 'xml' ? 'já cadastrados (soma no estoque)' : 'ligados a produto cadastrado', 'imp-res-lig') : '') +
     (par ? caixa(par, 'parecidos com cadastrados', 'imp-res-par') : '') +
     (semPreco ? caixa(semPreco, 'sem preço de venda', 'imp-res-err') : '') +
@@ -4006,10 +4017,35 @@ function rmImpFiltradas(){
   return rmImpLinhas.filter(l => (!prob || rmImpProblema(l)) &&
     (!q || [l.p.nome, l.orig.nome, l.p.marca, l.p.localizacao, l.vinculo ? (rmImpProd(l.vinculo) || {}).nome : ''].some(x => rmImpNorm(x).includes(q))));
 }
+// itens da nota que já foram para o estoque: continuam na lista (verdes, só para ver), no lugar deles na nota
+function rmImpLancados(){
+  if(rmImpModo !== 'xml' || !rmImpNotaId) return [];
+  const n = (rmNotas || []).find(x => x.id === rmImpNotaId); if(!n) return [];
+  return n.itens.map((it, idx) => ({ it, idx })).filter(x => x.it.lancado);
+}
+function rmImpLancHtml(it){
+  const p = (it.produtoId && rmIdx(rmLoadProdutos()).get(it.produtoId)) || {};
+  const q = Number(it.qtd) || 0, un = q ? (Number(it.custoTotal) || 0) / q : 0, v = Number(p.precoConsumidor) || 0;
+  const quando = it.lancadoEm ? new Date(it.lancadoEm).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }).replace(',', ' às') : '';
+  const fmt = x => (Number(x) || 0).toLocaleString('pt-BR', { minimumFractionDigits:2, maximumFractionDigits:2 });
+  return `<tr class="imp-ok" title="Este produto já entrou no estoque"><td class="imp-ok-ck">&#10004;</td><td><span class="imp-ok-tag">NO ESTOQUE</span></td>
+    <td><span class="imp-ok-nm">${rmEscapeHtml(p.nome || it.nome || '')}</span><small>Lançado${quando ? ' ' + quando : ''}${it.lancadoPor ? ' por ' + rmEscapeHtml(it.lancadoPor) : ''}${p.id ? '' : ' · produto não encontrado no cadastro'}</small></td><td></td>
+    <td>${rmEscapeHtml(p.marca || '')}</td><td>${rmEscapeHtml(p.localizacao || '')}</td><td>${rmEscapeHtml(p.curva || '')}</td>
+    <td class="r">+${(Math.round(q * 1000) / 1000).toLocaleString('pt-BR')}${p.id ? '<small>agora ' + (Number(p.estoqueAtual) || 0).toLocaleString('pt-BR') + '</small>' : ''}</td>
+    <td class="r">${fmt(un)}</td><td class="r">${un > 0 && v > 0 ? Math.round((v / un - 1) * 100) + '%' : '—'}</td>
+    <td class="r"><b>${p.id ? fmt(v) : '—'}</b></td><td class="r">${p.id ? fmt(p.precoParceiro) : '—'}</td><td></td></tr>`;
+}
 function rmImpRender(){
   const body = document.getElementById('rm-imp-body'); if(!body) return;
-  const l = rmImpFiltradas();
-  body.innerHTML = l.slice(0, rmImpMostrar).map(rmImpLinhaHtml).join('') +
+  let l = rmImpFiltradas();
+  const lanc = rmImpLancados();
+  if(lanc.length && !(document.getElementById('rm-imp-esc') || {}).checked && !(document.getElementById('rm-imp-prob') || {}).checked){
+    const n = (rmNotas || []).find(x => x.id === rmImpNotaId), ordem = new Map(n.itens.map((it, idx) => [it.k, idx]));
+    const q = rmImpNorm((document.getElementById('rm-imp-busca') || {}).value || '').trim();
+    const ok = lanc.filter(x => !q || rmImpNorm(x.it.nome).includes(q) || rmImpNorm(((x.it.produtoId && rmIdx(rmLoadProdutos()).get(x.it.produtoId)) || {}).nome).includes(q)).map(x => ({ lanc: x.it, idx: x.idx }));
+    l = l.map(x => ({ linha: x, idx: ordem.has(x.itemK) ? ordem.get(x.itemK) : 1e6 })).concat(ok).sort((a, b) => a.idx - b.idx).map(x => x.linha || x);
+  }
+  body.innerHTML = l.slice(0, rmImpMostrar).map(x => x.lanc ? rmImpLancHtml(x.lanc) : rmImpLinhaHtml(x)).join('') +
     (l.length > rmImpMostrar ? `<tr><td colspan="13" style="text-align:center; padding:12px"><button class="rm-pe2-btn" style="width:auto" onclick="rmImpMostrar+=300; rmImpRender()">Mostrar mais (${l.length - rmImpMostrar} restantes)</button></td></tr>` : '') +
     (!l.length ? '<tr><td colspan="13" style="text-align:center; padding:18px; color:var(--rm-text-dim)">Nada encontrado</td></tr>' : '');
   rmImpResumo();
@@ -6358,7 +6394,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610182245; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610182300; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
