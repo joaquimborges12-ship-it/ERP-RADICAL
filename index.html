@@ -697,6 +697,7 @@
     padding:11px 18px; font-family:var(--rm-font-body); font-size:14px; color:var(--rm-text-dim); cursor:pointer;
   }
   .rm-qm-tab:hover{color:var(--rm-text);}
+  .rm-qm-tabs:has(#rm-qm-tab-hist){flex-wrap:nowrap; overflow-x:auto; scrollbar-width:thin;} .rm-qm-tabs:has(#rm-qm-tab-hist) .rm-qm-tab{padding:10px 12px; font-size:13.5px; white-space:nowrap; flex-shrink:0;}
   .rm-qm-tab.active{background:var(--rm-panel); color:var(--rm-text); font-weight:600; border-bottom-color:var(--rm-panel);}
   .rm-qm-grid{display:grid; grid-template-columns:repeat(12, 1fr); gap:16px 20px; align-items:start;}
   .rm-qm-grid .c2{grid-column:span 2;}
@@ -2280,6 +2281,22 @@
   html[data-tema="dark"] .rm-nav-icon{color:#8d939d;}
   html[data-tema="dark"] .rm-nav-btn.active .rm-nav-icon{color:var(--rm-accent-ink);}
 
+  /* ===== Histórico do produto ===== */
+  .hp-top{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px;}
+  .hp-sw{display:flex; border:1px solid var(--rm-border);} .hp-sw button{padding:10px 18px; border:0; background:transparent; color:var(--rm-text); font-weight:700; font-size:14px; font-family:inherit; cursor:pointer; margin:0; width:auto;}
+  .hp-sw button.on{background:#d9433a; color:#fff;} .hp-sw button small{font-weight:600; opacity:.8; margin-left:4px;}
+  .hp-per{margin-left:auto; padding:9px 12px; border:1px solid var(--rm-border); background:var(--rm-panel, #fff); color:var(--rm-text); font-family:inherit; font-size:13.5px; width:auto;}
+  .hp-res{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;} .hp-res div{border:1px solid var(--rm-border); padding:8px 14px; font-size:12.5px; color:var(--rm-text-dim);} .hp-res b{display:block; font-size:18px; color:var(--rm-text);}
+  .hp-wrap{max-height:46vh; overflow:auto;}
+  .hp-tb{width:100%; border-collapse:collapse; font-size:13.5px;} .hp-tb th{text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--rm-text-dim); padding:8px 10px; border-bottom:1px solid var(--rm-border); position:sticky; top:0; background:var(--rm-panel, #fff);}
+  .hp-tb td{padding:9px 10px; border-bottom:1px solid var(--rm-border);} .hp-tb .r{text-align:right; white-space:nowrap;} .hp-tb tr.cl{cursor:pointer;} .hp-tb tr.cl:hover td{background:rgba(127,127,127,.08);}
+  .hp-tb td small{color:var(--rm-text-dim); font-size:11.5px;} .hp-tb td > small:only-child, .hp-tb td b + small{margin-left:2px;}
+  .hp-pg{font-size:11.5px; font-weight:800; padding:3px 8px; text-transform:uppercase; white-space:nowrap; background:rgba(127,127,127,.14);}
+  .hp-pg.prazo{background:#fff1d6; color:#9a6a00;} .hp-pg.pix{background:#e3f4ea; color:#2e8b57;} .hp-pg.din{background:#e7eefb; color:#2e6fd0;} .hp-pg.os{background:#f1e8fb; color:#7a3fc0;}
+  html[data-tema="dark"] .hp-pg.prazo{background:rgba(232,163,61,.2); color:#ffd27a;} html[data-tema="dark"] .hp-pg.pix{background:rgba(46,139,87,.22); color:#7fd3a2;} html[data-tema="dark"] .hp-pg.din{background:rgba(46,111,208,.22); color:#8fb6f2;} html[data-tema="dark"] .hp-pg.os{background:rgba(122,63,192,.25); color:#c9a6f2;}
+  .hp-tb tr.canc td{text-decoration:line-through; opacity:.5;}
+  .hp-up{color:#d9433a; font-weight:700; font-size:12px;} .hp-dn{color:#2e8b57; font-weight:700; font-size:12px;}
+  .hp-nota{font-size:12px; color:var(--rm-text-dim); margin-top:8px;}
   /* ===== Contas a pagar ===== */
   .pg-top{display:flex; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap;}
   .pg-nova{margin-left:auto; padding:11px 18px; background:#d9433a; color:#fff; border:0; font-weight:800; font-size:14px; font-family:inherit; cursor:pointer;}
@@ -2374,7 +2391,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 22:30</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 22:45</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3418,6 +3435,7 @@ function rmAbrirCadastroProdutoRapido(produtoId, novoNaFamilia){
         <button class="rm-qm-tab" id="rm-qm-tab-extra" onclick="rmSetTabNovoProduto('extra')">Fornecedor e medidas</button>
         <button class="rm-qm-tab" id="rm-qm-tab-nfe" onclick="rmSetTabNovoProduto('nfe')">Informações para NF-e</button>
         <button class="rm-qm-tab" id="rm-qm-tab-fotos" onclick="rmSetTabNovoProduto('fotos')">Fotos</button>
+        ${editando ? `<button class="rm-qm-tab" id="rm-qm-tab-hist" onclick="rmSetTabNovoProduto('hist')">&#128339; Histórico</button>` : ''}
       </div>
 
       <div class="rm-qm-panel" id="rm-qm-panel-basico">
@@ -3550,8 +3568,82 @@ function rmAbrirCadastroProdutoRapido(produtoId, novoNaFamilia){
   if(!editando) setTimeout(()=>{ const f = document.getElementById('rm-pqf-nome'); if(f){ f.focus(); f.setSelectionRange(f.value.length, f.value.length); } }, 150);
 }
 
+// ===================== HISTÓRICO DO PRODUTO (Produto → Histórico) =====================
+// Vendas: PDV + peças usadas em OS. Compras: notas XML lançadas (só administrador ou quem tem "+compras").
+let rmHpModo = 'vendas', rmHpPer = '90';
+function rmPodeVerCompras(){ return !!(rmUsuario && (rmEhAdmin() || (rmUsuario.permissoes || []).includes('+compras'))); }
+function rmHpDesde(){ return rmHpPer === 'tudo' ? '' : rmAddDiasISO(rmHojeISO(), -Number(rmHpPer)); }
+function rmHpVendas(pid){
+  const out = [];
+  rmLoadVendas().forEach(v => {
+    if(!v || v.tipo === 'orcamento') return;
+    (v.itens || []).forEach(it => { if(it.produtoId !== pid) return;
+      out.push({ tipo: 'venda', id: v.id, quando: v.criadoEm, cod: v.codigoVenda || '', cliente: v.clienteNome || 'sem cliente', qtd: Number(it.quantidade) || 0, un: Number(it.precoUnit) || 0,
+        total: Number(it.subtotal) || ((Number(it.quantidade) || 0) * (Number(it.precoUnit) || 0) - (Number(it.desconto) || 0)), forma: v.formaPagamento || '', canc: !!v.cancelamento }); });
+  });
+  rmMemLista(RM_KEY).forEach(r => {
+    if(!r) return;
+    (r.pecasUsadas || []).forEach(it => { if(it.produtoId !== pid) return;
+      out.push({ tipo: 'os', id: r.id, quando: r.pagoEm || r.entrada || r.criadoEm, cod: r.codigoApp || 'OS', cliente: [r.nome, r.modelo].filter(Boolean).join(' · ') || 'sem cliente', qtd: Number(it.quantidade) || 0, un: Number(it.precoUnit) || 0,
+        total: Number(it.subtotal) || ((Number(it.quantidade) || 0) * (Number(it.precoUnit) || 0) - (Number(it.desconto) || 0)), forma: r.pago ? (r.formaPagamento || 'paga') : 'em aberto', canc: !!r.cancelamento }); });
+  });
+  return out.sort((a, b) => String(b.quando || '').localeCompare(String(a.quando || '')));
+}
+function rmHpCompras(pid){
+  const out = [];
+  (rmNotas || []).forEach(n => (n.itens || []).forEach(it => { if(!it.lancado || it.produtoId !== pid) return;
+    const q = Number(it.qtd) || 0;
+    out.push({ notaId: n.id, quando: n.emissao || it.lancadoEm || '', fornecedor: n.fornecedor || '', nf: n.numero || '', qtd: q, total: Number(it.custoTotal) || 0, un: q ? Math.round((Number(it.custoTotal) || 0) / q * 100) / 100 : 0 }); }));
+  return out.sort((a, b) => String(b.quando).localeCompare(String(a.quando)));
+}
+function rmHpQuando(iso, hora){ if(!iso) return '—'; const d = new Date(String(iso).length <= 10 ? iso + 'T12:00:00' : iso); if(isNaN(d)) return '—';
+  const dd = d.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year: hora ? undefined : 'numeric' });
+  return hora && String(iso).length > 10 ? '<b>' + dd + '</b> <small>' + d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) + '</small>' : '<b>' + dd + '</b>'; }
+function rmHpFormaCls(f){ return rmAPrazo(f) ? 'prazo' : /pix/i.test(f) ? 'pix' : /dinheiro/i.test(f) ? 'din' : f === 'em aberto' ? 'ab' : ''; }
+function rmHpRender(){
+  const el = document.getElementById('rm-qm-panel-hist'); if(!el) return;
+  const pid = rmProdutoEmEdicao && rmProdutoEmEdicao.id; if(!pid){ el.innerHTML = ''; return; }
+  const comp = rmPodeVerCompras(); if(!comp) rmHpModo = 'vendas';
+  const desde = rmHpDesde(), noPer = x => !desde || String(x.quando || '').slice(0, 10) >= desde;
+  const vend = rmHpVendas(pid).filter(noPer), cps = comp ? rmHpCompras(pid).filter(noPer) : [];
+  const per = [['30', 'Últimos 30 dias'], ['90', 'Últimos 90 dias'], ['180', 'Últimos 6 meses'], ['365', 'Último ano'], ['tudo', 'Tudo']];
+  let h = `<div class="hp-top"><div class="hp-sw"><button class="${rmHpModo === 'vendas' ? 'on' : ''}" onclick="rmHpModo='vendas'; rmHpRender()">&#128176; Vendas<small>(${vend.length})</small></button>${comp ? `<button class="${rmHpModo === 'compras' ? 'on' : ''}" onclick="rmHpModo='compras'; rmHpRender()">&#128230; Compras<small>(${cps.length})</small></button>` : ''}</div>
+    <select class="hp-per" onchange="rmHpPer=this.value; rmHpRender()">${per.map(([k, l]) => `<option value="${k}"${k === rmHpPer ? ' selected' : ''}>${l}</option>`).join('')}</select></div>`;
+  const qtd = n => (Math.round(n * 1000) / 1000).toLocaleString('pt-BR');
+  if(rmHpModo === 'vendas'){
+    const ok = vend.filter(v => !v.canc), soma = k => ok.reduce((s, v) => s + v[k], 0), prazo = ok.filter(v => rmAPrazo(v.forma));
+    h += `<div class="hp-res"><div><b>${qtd(soma('qtd'))} un</b>vendidas</div><div><b>${rmFormatMoeda(soma('total'))}</b>em vendas</div><div><b>${qtd(prazo.reduce((s, v) => s + v.qtd, 0))} un</b>a prazo</div><div><b>${ok.length ? rmHpQuando(ok[0].quando, true).replace(/<\/?(b|small)>/g, '') : '—'}</b>última venda</div></div>`;
+    h += vend.length ? `<div class="hp-wrap"><table class="hp-tb"><thead><tr><th>Data e hora</th><th>Venda / OS</th><th>Cliente</th><th class="r">Qtd</th><th class="r">Preço un.</th><th class="r">Total</th><th>Pagamento</th></tr></thead><tbody>
+      ${vend.map(v => `<tr class="cl${v.canc ? ' canc' : ''}" onclick="rmHpAbrir('${v.tipo}','${rmJs(v.id)}')"><td>${rmHpQuando(v.quando, true)}</td><td>${rmEscapeHtml(v.cod)}</td><td>${rmEscapeHtml(v.cliente)}${v.canc ? '<small>cancelada</small>' : ''}</td>
+        <td class="r">${qtd(v.qtd)}</td><td class="r">${rmFormatMoeda(v.un)}</td><td class="r"><b>${rmFormatMoeda(v.total)}</b></td>
+        <td><span class="hp-pg ${v.tipo === 'os' ? 'os' : rmHpFormaCls(v.forma)}">${v.tipo === 'os' ? 'OS · ' : ''}${rmEscapeHtml(rmAPrazo(v.forma) ? 'A prazo' : (v.forma || '—'))}</span></td></tr>`).join('')}</tbody></table></div>
+      <div class="hp-nota">Clique numa linha para abrir a venda ou a OS. Canceladas aparecem riscadas e não entram nos totais.</div>`
+      : `<div class="nf-vazio">Nenhuma venda deste produto ${desde ? 'neste período' : 'ainda'}.</div>`;
+  } else {
+    const tq = cps.reduce((s, c) => s + c.qtd, 0), menor = cps.slice().sort((a, b) => a.un - b.un)[0];
+    h += `<div class="hp-res"><div><b>${qtd(tq)} un</b>compradas</div><div><b>${cps.length ? rmFormatMoeda(cps[0].un) : '—'}</b>último preço pago</div><div><b>${menor ? rmFormatMoeda(menor.un) : '—'}</b>menor preço${menor ? ' (' + rmEscapeHtml(menor.fornecedor) + ')' : ''}</div></div>`;
+    h += cps.length ? `<div class="hp-wrap"><table class="hp-tb"><thead><tr><th>Data da compra</th><th>Fornecedor</th><th>Nota</th><th class="r">Qtd</th><th class="r">Preço pago (un.)</th><th class="r">Total</th></tr></thead><tbody>
+      ${cps.map((c, i) => { const ant = cps[i + 1], dif = ant && ant.un > 0 ? Math.round((c.un / ant.un - 1) * 100) : 0;
+        return `<tr><td>${rmHpQuando(c.quando)}</td><td>${rmEscapeHtml(c.fornecedor)}</td><td>NF ${rmEscapeHtml(c.nf)}</td><td class="r">${qtd(c.qtd)}</td>
+          <td class="r"><b>${rmFormatMoeda(c.un)}</b>${dif > 0 ? ` <span class="hp-up">&#9650; ${dif}%</span>` : dif < 0 ? ` <span class="hp-dn">&#9660; ${-dif}%</span>` : ''}</td><td class="r">${rmFormatMoeda(c.total)}</td></tr>`; }).join('')}</tbody></table></div>
+      <div class="hp-nota">Vem das notas XML lançadas. O preço pago já inclui frete, IPI e ST da nota, igual ao custo do cadastro.</div>`
+      : `<div class="nf-vazio">Nenhuma compra ${desde ? 'neste período' : ''} nas notas XML lançadas.<br><small>Só aparecem compras lançadas pelo Financeiro → Notas XML.</small></div>`;
+  }
+  el.innerHTML = h;
+}
+function rmHpAbrir(tipo, id){
+  if(tipo === 'venda') rmAbrirDetalheVenda(id);
+  else { try{ rmOpenModal(id, true); }catch(e){} }
+}
+async function rmHpAbrirAba(){
+  let el = document.getElementById('rm-qm-panel-hist');
+  if(!el){ const base = document.getElementById('rm-qm-panel-basico'); if(!base) return; el = document.createElement('div'); el.id = 'rm-qm-panel-hist'; base.parentElement.appendChild(el); }
+  rmHpRender();
+  if(rmPodeVerCompras() && typeof rmNotasCarregar === 'function'){ try{ await rmNotasCarregar(); }catch(e){} if(document.getElementById('rm-qm-panel-hist')) rmHpRender(); }
+}
 function rmSetTabNovoProduto(tab){
-  ['basico','aplicacao','estoque','extra','nfe','fotos'].forEach(t=>{
+  if(tab === 'hist') rmHpAbrirAba();
+  ['basico','aplicacao','estoque','extra','nfe','fotos','hist'].forEach(t=>{
     const painel = document.getElementById('rm-qm-panel-'+t);
     const btn = document.getElementById('rm-qm-tab-'+t);
     if(painel) painel.style.display = (t===tab) ? '' : 'none';
@@ -6266,7 +6358,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610182230; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610182245; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
@@ -7373,7 +7465,8 @@ function rmPermAbrir(uid){
     <div class="sub">Marque as abas e, dentro de cada uma, as subabas que ${rmEscapeHtml(u.nome)} pode ver. O que estiver desmarcado some do menu. Vale a partir da próxima vez que ele abrir o sistema.</div>
     <div class="pm-grid">${caixa}</div>
     <div class="pm-esp"><div class="pm-cab" style="cursor:default">Permissões especiais</div>
-      <div class="pm-subs"><label class="pm-ch"><input type="checkbox" id="pm-cancelar"${(u.permissoes || []).includes('+cancelar') ? ' checked' : ''}> <span>Pode cancelar venda e OS paga</span></label></div></div>
+      <div class="pm-subs"><label class="pm-ch"><input type="checkbox" id="pm-cancelar"${(u.permissoes || []).includes('+cancelar') ? ' checked' : ''}> <span>Pode cancelar venda e OS paga</span></label>
+        <label class="pm-ch"><input type="checkbox" id="pm-compras"${(u.permissoes || []).includes('+compras') ? ' checked' : ''}> <span>Pode ver o histórico de compras dos produtos (preço pago)</span></label></div></div>
     <div class="pe"><button onclick="document.getElementById('rm-perm-ov').remove()">Cancelar</button><button class="pri" onclick="rmPermSalvar('${rmJs(uid)}')">Salvar acesso</button></div></div>`;
   document.body.appendChild(ov);
   rmPermContar();
@@ -7399,7 +7492,7 @@ async function rmPermSalvar(uid){
   if(!secs.length){ alert('Marque pelo menos uma aba.'); return; }
   const doPapel = ((RM_PAPEIS[u.papel] || {}).perms || []);
   const mesmo = u.papel !== 'personalizado' && doPapel.length === secs.length && secs.every(k => doPapel.includes(k));
-  const extra = (document.getElementById('pm-cancelar') || {}).checked ? ['+cancelar'] : [];
+  const extra = ((document.getElementById('pm-cancelar') || {}).checked ? ['+cancelar'] : []).concat((document.getElementById('pm-compras') || {}).checked ? ['+compras'] : []);
   const campos = mesmo ? { permissoes: bloq.concat(extra) } : { papel: 'personalizado', permissoes: secs.concat(bloq, extra) };
   const ov = document.getElementById('rm-perm-ov'); if(ov) ov.remove();
   await rmAlterarUsuario(uid, campos);
