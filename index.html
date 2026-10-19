@@ -1800,6 +1800,17 @@
   .rm-ac-fam span{margin-left:auto; font-size:12px; color:var(--rm-text-dim);}
   .rm-ac-fam:hover{filter:brightness(0.97);}
   .rm-autocomplete-item.rm-ac-marca{padding-left:28px; border-left:4px solid #2f6fb5;}
+  /* PDV: busca de produto com preço grande à direita e família discreta */
+  #rm-pdv-produto-lista .rm-ac-pv{display:flex; align-items:center; gap:14px;}
+  #rm-pdv-produto-lista .rm-ac-pv-txt{flex:1; min-width:0;}
+  #rm-pdv-produto-lista .rm-ac-preco{flex-shrink:0; min-width:120px; text-align:right; font-size:19px; font-weight:800; color:var(--rm-text); letter-spacing:-.01em; white-space:nowrap;}
+  #rm-pdv-produto-lista .rm-ac-fam{background:transparent; padding:9px 14px 3px; border-bottom:0; border-top:1px solid var(--rm-border); font-size:11.5px; color:var(--rm-text-dim); text-transform:uppercase; letter-spacing:.04em; gap:6px;}
+  #rm-pdv-produto-lista .rm-ac-fam:first-child{border-top:0;}
+  #rm-pdv-produto-lista .rm-ac-fam b{font-weight:700;} #rm-pdv-produto-lista .rm-ac-fam span{font-size:11px; text-transform:none; letter-spacing:0;}
+  #rm-pdv-produto-lista .rm-ac-fam .rm-curva-badge, #rm-pdv-produto-lista .rm-ac-fam [class*="curva"]{transform:scale(.85);}
+  #rm-pdv-produto-lista .rm-autocomplete-item.rm-ac-marca{padding-left:14px; border-left:3px solid rgba(127,127,127,.35); border-bottom:1px solid var(--rm-border);}
+  @media (max-width:760px){ #rm-pdv-produto-lista .rm-ac-preco{font-size:16px; min-width:0;} }
+
   .rm-ac-marca-nome{font-size:12px; color:var(--rm-text-dim); font-weight:400;}
   .rm-inv-fam{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:10px; padding:8px 12px; background:var(--rm-panel-2); border-left:4px solid #2f6fb5; font-size:14.5px;}
   .rm-inv-fam span{font-size:12px; color:var(--rm-text-dim);}
@@ -2400,7 +2411,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 23:00</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 19/10 às 20:35</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -5207,23 +5218,35 @@ function rmBuscarProdutoPdv(query){
     lista.innerHTML = grupos.map(g => {
       if(g.fam) return rmFamCabecalhoHtml(g.fam, g.marcas, `rmEscolherProdutoPdv('${g.marcas[0].id}')`) + g.marcas.map(p => {
         const preco = rmPdvTabelaPreco==='parceiro' ? p.precoParceiro : p.precoConsumidor;
-        return `<div class="rm-autocomplete-item rm-ac-marca" onclick="rmEscolherProdutoPdv('${p.id}')">
+        return `<div class="rm-autocomplete-item rm-ac-marca rm-ac-pv" onclick="rmEscolherProdutoPdv('${p.id}')"><div class="rm-ac-pv-txt">
           <div class="rm-autocomplete-nome"><b>${rmEscapeHtml(rmFamMarcaDe(p))}</b> <span class="rm-ac-marca-nome">${rmEscapeHtml(p.nome)}</span></div>
-          <div class="rm-autocomplete-tel">${rmFormatMoeda(preco)} · estoque: ${rmFmtQtd(p.estoqueAtual||0)}${p.unidade?' '+p.unidade:''} ${rmInvSelo(p.id)}${p.localizacao?' · Local: '+rmEscapeHtml(p.localizacao):''}</div>
+          <div class="rm-autocomplete-tel">estoque: ${rmFmtQtd(p.estoqueAtual||0)}${p.unidade?' '+p.unidade:''} ${rmInvSelo(p.id)}${p.localizacao?' · Local: '+rmEscapeHtml(p.localizacao):''}</div></div>
+          <div class="rm-ac-preco">${rmFormatMoeda(preco)}</div>
         </div>`; }).join('');
       const p = g.p;
       const preco = rmPdvTabelaPreco==='parceiro' ? p.precoParceiro : p.precoConsumidor;
       return `
-        <div class="rm-autocomplete-item" onclick="rmEscolherProdutoPdv('${p.id}')">
+        <div class="rm-autocomplete-item rm-ac-pv" onclick="rmEscolherProdutoPdv('${p.id}')"><div class="rm-ac-pv-txt">
           <div class="rm-autocomplete-nome">${p.nome}${p.codigo?` <span class="rm-autocomplete-apelido">(${p.codigo})</span>`:''}</div>
-          <div class="rm-autocomplete-tel">${rmFormatMoeda(preco)} · estoque: ${p.estoqueAtual}${p.unidade?' '+p.unidade:''} ${rmInvSelo(p.id)}${p.aplicacao?' · '+p.aplicacao:''}</div>
-          ${(p.marca||p.localizacao)?`<div class="rm-autocomplete-tel">${[p.marca,p.localizacao?('Local: '+p.localizacao):''].filter(Boolean).join(' · ')}</div>`:''}
+          <div class="rm-autocomplete-tel">estoque: ${p.estoqueAtual}${p.unidade?' '+p.unidade:''} ${rmInvSelo(p.id)}${p.aplicacao?' · '+p.aplicacao:''}</div>
+          ${(p.marca||p.localizacao)?`<div class="rm-autocomplete-tel">${[p.marca,p.localizacao?('Local: '+p.localizacao):''].filter(Boolean).join(' · ')}</div>`:''}</div>
+          <div class="rm-ac-preco">${rmFormatMoeda(preco)}</div>
         </div>
       `;
     }).join('') + opcAvulso;
   }
   if(!rmPdvEditandoIndex && rmPdvEditandoIndex !== 0) rmPdvInfoProduto(null);
   lista.classList.add('show');
+  rmPdvListaAltura();
+}
+// a lista de produtos do PDV desce até perto do "Histórico de vendas" (ou até o fim da tela)
+function rmPdvListaAltura(){
+  const lista = document.getElementById('rm-pdv-produto-lista'); if(!lista) return;
+  const topo = lista.getBoundingClientRect().top;
+  const hist = [...document.querySelectorAll('#rm-section-pdv .rm-fieldgroup-label')].find(e => e.textContent.trim() === 'Histórico de vendas');
+  let fim = window.innerHeight - 12;
+  if(hist){ const h = hist.getBoundingClientRect().top - 10; if(h > topo + 260 && h < fim) fim = h; }
+  lista.style.maxHeight = Math.max(260, Math.round(fim - topo)) + 'px';
 }
 
 // lista para buscar as peças no estoque, na ordem das prateleiras
@@ -6394,7 +6417,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610182300; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610192035; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
