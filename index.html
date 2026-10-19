@@ -550,6 +550,7 @@
   .imp-ac-it{padding:8px 10px; border-bottom:1px solid var(--rm-border); display:flex; flex-direction:column; cursor:pointer; font-size:13px;}
   .imp-ac-it.sel, .imp-ac-it:hover{background:rgba(217,67,58,.10);} .imp-ac-it span{font-size:11.5px; color:var(--rm-text-dim);}
   .imp-ac-vazio{padding:12px 10px; color:var(--rm-text-dim); font-size:13px;}
+  .imp-salvar-pr{display:block; font-size:11.5px; font-weight:600; color:#2e8b57; margin-top:2px;}
   .imp-pe{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:14px; flex-wrap:wrap;}
   .imp-pe small{color:var(--rm-text-dim); font-size:12.5px;}
   html[data-tema="dark"] .imp-novo{background:#1e5b33; color:#9fe0b3;} html[data-tema="dark"] .imp-atu{background:#1d3f66; color:#a9cdf5;} html[data-tema="dark"] .imp-vinc{background:#5a3d0c; color:#ffd27a;}
@@ -2373,7 +2374,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 22:20</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 22:30</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3799,7 +3800,7 @@ function rmImpAbrirModal(){
     <div id="rm-import-progresso" style="display:none; padding:12px 2px 0; font-size:14px; font-weight:600;"></div>
     <div class="imp-pe"><small>Clique em qualquer campo para alterar. A margem é calculada sozinha.<br>&#128279; = usar um produto que já está cadastrado: não cria outro, só soma a quantidade no estoque.${xml ? '<br>Custo = valor do item na nota + IPI, ST, frete e outras despesas − desconto, dividido pela quantidade.' : ''}${!xml && rmImpSemColLocal ? '<br>O código interno ficou em branco — o valor que estava nessa coluna foi pra Localização.' : ''}</small>
       <div style="display:flex; gap:10px; flex-wrap:wrap">
-        ${xml && rmImpNotaId ? `<button class="nf-bt" style="padding:13px 20px" onclick="rmImpSalvarRascunho(true)" title="Guarda o que você preencheu nesta tela. O estoque não muda.">&#128190; Salvar e continuar depois</button>` : ''}
+        ${xml && rmImpNotaId ? `<button class="nf-bt" id="rm-imp-salvar-btn" style="padding:13px 20px" onclick="rmImpSalvarLancarProntos()" title="Os produtos marcados com preço de venda e preço de parceiro já entram no estoque. Os outros ficam guardados na nota para lançar depois.">&#128190; Salvar e continuar depois</button>` : ''}
         <button class="rm-primary" id="rm-import-confirmar-btn" style="width:auto; margin:0; padding:13px 34px" onclick="rmConfirmarImportacaoCsv()">Importar</button></div></div>`;
   document.getElementById('rm-modal-backdrop').classList.add('show');
   rmImpRender();
@@ -3819,6 +3820,24 @@ function rmImpMarcarProntos(){
   rmShowToast(n ? n + ' produto(s) com preço marcado(s)' : 'Nenhum produto com preço de venda ainda');
 }
 // guarda na nota o que foi preenchido (preços, ligações, marcados) — o estoque não muda
+// "Salvar e continuar depois": o que está marcado e com preço de venda E de parceiro já entra no estoque;
+// o resto fica guardado na nota (como antes) para lançar depois.
+let rmImpRascunhoFeito = false;
+function rmImpPronto(l){ return !!(l.incluir && Number(l.p.precoConsumidor) > 0 && Number(l.p.precoParceiro) > 0); }
+async function rmImpSalvarLancarProntos(){
+  const n = (rmNotas || []).find(x => x.id === rmImpNotaId);
+  const prontos = rmImpLinhas.filter(rmImpPronto);
+  if(!n || !prontos.length){ rmImpSalvarRascunho(true); return; }
+  const resto = rmImpLinhas.length - prontos.length;
+  if(!confirm(prontos.length + ' produto' + (prontos.length > 1 ? 's' : '') + ' com preço de venda e de parceiro ' + (prontos.length > 1 ? 'vão' : 'vai') + ' entrar no estoque agora.\n'
+    + (resto ? resto + ' fica' + (resto > 1 ? 'm' : '') + ' guardado' + (resto > 1 ? 's' : '') + ' na nota para lançar depois.' : 'Com isso a nota fica completa.') + '\n\nContinuar?')) return;
+  rmImpSalvarRascunho(false);              // guarda tudo do jeito que está (inclusive o que está desmarcado)
+  rmImpRascunhoFeito = true;
+  rmImpLinhas.forEach(l => { l.incluir = rmImpPronto(l); });
+  const sb = document.getElementById('rm-imp-salvar-btn'); if(sb) sb.disabled = true;
+  try{ await rmConfirmarImportacaoCsv(); } finally { rmImpRascunhoFeito = false; }
+  if(!document.getElementById('rm-modal-backdrop').classList.contains('show')){ const msg = prontos.length + ' no estoque · ' + (resto ? resto + ' ficam na NF ' + n.numero + ' para lançar depois' : 'NF ' + n.numero + ' completa'); rmShowToast(msg); setTimeout(() => rmShowToast(msg), 2500); }
+}
 function rmImpSalvarRascunho(fechar){
   const n = (rmNotas || []).find(x => x.id === rmImpNotaId);
   if(n){
@@ -3859,6 +3878,8 @@ function rmImpResumo(){
     : rmImpModo === 'xml' ? 'Lançar ' + (inc.length < rmImpLinhas.length ? inc.length + ' de ' + rmImpLinhas.length : inc.length) + ' no estoque'
     : 'Importar ' + inc.length + ' produto' + (inc.length > 1 ? 's' : '');
   const todos = document.getElementById('rm-imp-todos'); if(todos) todos.checked = inc.length === rmImpLinhas.length;
+  const sb = document.getElementById('rm-imp-salvar-btn');
+  if(sb && !sb.disabled){ const pr = rmImpLinhas.filter(rmImpPronto).length; sb.innerHTML = '&#128190; Salvar e continuar depois' + (pr ? '<small class="imp-salvar-pr">' + pr + ' com preço já entra' + (pr > 1 ? 'm' : '') + ' no estoque</small>' : ''); }
 }
 function rmImpLinhaHtml(l){
   const p = l.p, i = l.i, ex = l.vinculo ? rmImpProd(l.vinculo) : null, f = v => rmFmtNum(v || 0);
@@ -4489,7 +4510,7 @@ async function rmConfirmarImportacaoCsv(){
     const semPreco = lista.filter(p => !(Number(p.precoConsumidor) > 0)).length;
     if(semPreco && !confirm(semPreco + ' produto(s) estão sem preço de venda. Importar assim mesmo?')) return;
     rmImportacaoPendente = lista;
-    if(rmImpModo === 'xml' && rmImpNotaId) rmImpSalvarRascunho(false);
+    if(rmImpModo === 'xml' && rmImpNotaId && !rmImpRascunhoFeito) rmImpSalvarRascunho(false);
     rmImpCopiasGravar = rmImpLinhas.filter(l => l.incluir && !l.vinculo && l.copiaDe).map(l => [l.p.id, l.copiaDe.id, l.copiaDe.familia, l.copiaDe.marca]);
     rmImpNfeGravar = rmImpModo === 'xml' && rmImpNota ? { notas: [], notaId: rmImpNotaId, codigos: rmImpLinhas.filter(l => l.incluir && l.chaveForn).map(l => [l.chaveForn, l.vinculo || l.p.id]), lancados: rmImpLinhas.filter(l => l.incluir && l.itemK).map(l => [l.itemK, l.vinculo || l.p.id]) } : null;
     rmPagNfGravar = rmImpModo === 'xml' && rmImpNotaId && rmPagNfDups && rmPagNfDups.notaId === rmImpNotaId && (document.getElementById('rm-pag-nf-chk') || {}).checked ? rmPagNfDups : null;
@@ -6245,7 +6266,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610182220; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610182230; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
@@ -12856,7 +12877,7 @@ async function rmPagNfBloco(notaId){
   el().innerHTML = `<div class="pg-nf"><div class="pg-nf-t">&#129534; <b>Boletos desta nota: ${dups.length} parcela${dups.length > 1 ? 's' : ''} · ${rmFormatMoeda(tot)}</b><span>vieram no XML${n.fornecedor ? ' (' + rmEscapeHtml(n.fornecedor) + ')' : ''}</span>
       <label><input type="checkbox" id="rm-pag-nf-chk" checked> Lançar em Contas a pagar</label></div>
     <div class="pg-nf-l">${dups.map((d, k) => `<span><i>${k + 1}/${dups.length}</i> vence <b>${rmDataBR(d.venc).slice(0, 5)}</b> · ${rmFormatMoeda(d.valor)}</span>`).join('')}</div>
-    <small>Os boletos vão para Financeiro &rarr; Contas a pagar quando você clicar em "Lançar no estoque". Se a nota já estiver paga, é só desmarcar.</small></div>`;
+    <small>Os boletos vão para Financeiro &rarr; Contas a pagar junto com os primeiros produtos que entrarem no estoque (em "Lançar" ou em "Salvar"). Se a nota já estiver paga, é só desmarcar.</small></div>`;
 }
 async function rmPagLancarNota(info){
   if(!info) return 0;
