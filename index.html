@@ -2412,7 +2412,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 19/10 às 20:41</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 19/10 às 20:53</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -4027,7 +4027,7 @@ function rmImpFiltradas(){
   const q = rmImpNorm((document.getElementById('rm-imp-busca') || {}).value || '').trim();
   const prob = (document.getElementById('rm-imp-prob') || {}).checked;
   return rmImpLinhas.filter(l => (!prob || rmImpProblema(l)) &&
-    (!q || [l.p.nome, l.orig.nome, l.p.marca, l.p.localizacao, l.vinculo ? (rmImpProd(l.vinculo) || {}).nome : ''].some(x => rmImpNorm(x).includes(q))));
+    (!q || rmBuscaBate([l.p.nome, l.orig.nome, l.p.marca, l.p.localizacao, l.vinculo ? (rmImpProd(l.vinculo) || {}).nome : ''], q)));
 }
 // itens da nota que já foram para o estoque: continuam na lista (verdes, só para ver), no lugar deles na nota
 function rmImpLancados(){
@@ -4054,7 +4054,7 @@ function rmImpRender(){
   if(lanc.length && !(document.getElementById('rm-imp-esc') || {}).checked && !(document.getElementById('rm-imp-prob') || {}).checked){
     const n = (rmNotas || []).find(x => x.id === rmImpNotaId), ordem = new Map(n.itens.map((it, idx) => [it.k, idx]));
     const q = rmImpNorm((document.getElementById('rm-imp-busca') || {}).value || '').trim();
-    const ok = lanc.filter(x => !q || rmImpNorm(x.it.nome).includes(q) || rmImpNorm(((x.it.produtoId && rmIdx(rmLoadProdutos()).get(x.it.produtoId)) || {}).nome).includes(q)).map(x => ({ lanc: x.it, idx: x.idx }));
+    const ok = lanc.filter(x => !q || rmBuscaBate([x.it.nome, ((x.it.produtoId && rmIdx(rmLoadProdutos()).get(x.it.produtoId)) || {}).nome], q)).map(x => ({ lanc: x.it, idx: x.idx }));
     l = l.map(x => ({ linha: x, idx: ordem.has(x.itemK) ? ordem.get(x.itemK) : 1e6 })).concat(ok).sort((a, b) => a.idx - b.idx).map(x => x.linha || x);
   }
   body.innerHTML = l.slice(0, rmImpMostrar).map(x => x.lanc ? rmImpLancHtml(x.lanc) : rmImpLinhaHtml(x)).join('') +
@@ -4336,7 +4336,7 @@ function rmRenderNotas(){
   // em aberto aparece sempre (de qualquer período); as outras seguem o período
   const lista = todas.filter(n => (rmNotasFiltro === 'aberto' ? rmNotaEmAberto(n) : rmNotasFiltro === 'lancadas' ? !rmNotaEmAberto(n) && n.emissao >= de && n.emissao < ate : (rmNotaEmAberto(n) || (n.emissao >= de && n.emissao < ate))) &&
     (!forn || n.fornecedor === forn) &&
-    (!q || [n.numero, n.fornecedor, n.cnpj].some(x => rmImpNorm(x).includes(q)) || n.itens.some(i => rmImpNorm(i.nome).includes(q) || rmImpNorm(i.cProd) === q)))
+    (!q || rmBuscaBate([n.numero, n.fornecedor, n.cnpj], q) || n.itens.some(i => rmBuscaBate([i.nome], q) || rmImpNorm(i.cProd) === q)))
     .sort((a, b) => (rmNotaEmAberto(b) - rmNotaEmAberto(a)) || String(b.emissao).localeCompare(String(a.emissao)) || String(b.importadaEm).localeCompare(String(a.importadaEm)));
   const aviso = rmNotasErro === 'sql' ? '<div class="nf-aviso">&#9888; Falta rodar o arquivo <b>notas-compra-supabase.sql</b> no Supabase. As notas estão guardadas neste aparelho e vão para o servidor assim que o SQL for rodado.</div>'
     : Object.keys(rmNotasPend()).length ? '<div class="nf-aviso">&#9203; Algumas notas estão guardadas só neste aparelho · vão para o servidor quando a internet voltar.</div>' : '';
@@ -4971,30 +4971,54 @@ function rmSalvarProduto(){
   document.getElementById('rm-prod-nome').focus();
 }
 
+// ===================== BUSCA DO SISTEMA =====================
+// Separa o que está colado ("POP100/POP110" → "pop 100 pop 110"), ignora acento, maiúscula e símbolos (/ * - . ,),
+// aceita pedaços de palavras em qualquer ordem ("kit pop", "pop kit", "mot pop 100") e tudo junto ("pop100", CPF/telefone sem pontos).
+function rmBuscaNorm(s){
+  return String(s == null ? '' : s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+    .replace(/([a-z])(\d)/g, '$1 $2').replace(/(\d)([a-z])/g, '$1 $2').replace(/[^a-z0-9]+/g, ' ').trim();
+}
+const rmBuscaCache = new Map();
+function rmBuscaPrep(txt){
+  let c = rmBuscaCache.get(txt); if(c) return c;
+  const n = rmBuscaNorm(txt); c = { n, w: n ? n.split(' ') : [], z: n.replace(/ /g, '') };
+  if(rmBuscaCache.size > 30000) rmBuscaCache.clear();
+  rmBuscaCache.set(txt, c); return c;
+}
+function rmBuscaTermos(q){ const n = rmBuscaNorm(q); return n ? n.split(' ') : []; }
+// true se TODOS os pedaços digitados aparecem em algum dos textos (em qualquer ordem)
+function rmBuscaBate(textos, q){
+  const ts = rmBuscaTermos(q); if(!ts.length) return true;
+  const ps = (Array.isArray(textos) ? textos : [textos]).filter(x => x != null && x !== '').map(x => rmBuscaPrep(String(x)));
+  if(!ps.length) return false;
+  const qz = ts.join('');
+  if(qz.length >= 3 && ps.some(p => p.z.includes(qz))) return true;
+  return ts.every(t => ps.some(p => t.length === 1 ? p.w.some(w => w.startsWith(t)) : p.w.some(w => w.includes(t))));
+}
+// pontos para colocar os melhores primeiro (bate no começo das palavras do nome)
+function rmBuscaPontos(texto, q){
+  const ts = rmBuscaTermos(q), p = rmBuscaPrep(String(texto || '')); let s = 0;
+  ts.forEach(t => { if(p.w.includes(t)) s += 4; else if(p.w.some(w => w.startsWith(t))) s += 2; else if(p.w.some(w => w.includes(t))) s += 1; });
+  if(ts.length && p.w[0] && p.w[0].startsWith(ts[0])) s += 1;
+  if(ts.length > 1 && p.n.includes(ts.join(' '))) s += 3;
+  return s;
+}
+function rmBuscaOrdenar(lista, q, nomeDe){
+  const nm = nomeDe || (x => x.nome);
+  return lista.map(x => [x, rmBuscaPontos(nm(x), q)]).sort((a, b) => b[1] - a[1] || String(nm(a[0]) || '').localeCompare(String(nm(b[0]) || ''), 'pt-BR')).map(x => x[0]);
+}
+function rmBuscaIniciais(texto, q){
+  const ts = rmBuscaTermos(q); if(ts.length !== 1 || ts[0].length < 2) return false;
+  return rmBuscaPrep(String(texto || '')).w.map(w => w[0]).join('').includes(ts[0]);
+}
 function rmBuscaInteligente(texto, termoBusca){
   if(!texto) return false;
-  const textoBaixo = texto.toLowerCase();
-  const termo = (termoBusca||'').trim().toLowerCase();
-  if(!termo) return true;
-  if(textoBaixo.includes(termo)) return true;
-
-  const palavras = textoBaixo.split(/\s+/).filter(Boolean);
-  const termos = termo.split(/\s+/).filter(Boolean);
-  if(termos.every(t => palavras.some(p => p.startsWith(t)))) return true;
-
-  const iniciais = palavras.map(p => p[0]).join('');
-  return iniciais.includes(termo);
+  if(!String(termoBusca || '').trim()) return true;
+  return rmBuscaBate([texto], termoBusca) || rmBuscaIniciais(texto, termoBusca);
 }
 
 function rmProdutoBateBusca(p, search){
-  return rmBuscaInteligente(p.nome, search) ||
-    rmBuscaInteligente(p.aplicacao, search) ||
-    (p.codigo||'').toLowerCase().includes(search) ||
-    (p.codigoBarras||'').toLowerCase().includes(search) ||
-    (p.marca||'').toLowerCase().includes(search) ||
-    (p.categoria||'').toLowerCase().includes(search) ||
-    (p.fornecedor||'').toLowerCase().includes(search) ||
-    (p.localizacao||'').toLowerCase().includes(search);
+  return rmBuscaBate([p.nome, p.aplicacao, p.codigo, p.codigoBarras, p.marca, p.categoria, p.fornecedor, p.localizacao], search) || rmBuscaIniciais(p.nome, search);
 }
 
 function rmRenderProdutos(){
@@ -5207,8 +5231,7 @@ function rmBuscarProdutoPdv(query){
   const q = (query||'').trim().toLowerCase();
   if(!q){ lista.classList.remove('show'); return; }
   let produtos = rmLoadProdutos().filter(p => p.ativo !== false);
-  produtos = produtos.filter(p => rmProdutoBateBusca(p, q))
-    .sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR'));
+  produtos = rmBuscaOrdenar(produtos.filter(p => rmProdutoBateBusca(p, q)), q);
   // no PDV as famílias não aparecem: cada produto numa linha (por enquanto)
   const grupos = produtos.slice(0, 40).map(p => ({ p }));
   rmPdvPrimeiraDaFamilia = null;
@@ -5681,10 +5704,7 @@ function rmBuscarClienteModal(query){
   let clientes = rmLoadClientes();
   if(q){
     clientes = clientes.filter(c =>
-      (c.nome||'').toLowerCase().includes(q) ||
-      (c.apelido||'').toLowerCase().includes(q) ||
-      (c.telefone||'').toLowerCase().includes(q) ||
-      (c.cpf||'').toLowerCase().includes(q)
+      rmBuscaBate([c.nome, c.apelido, c.telefone, c.cpf], q)
     );
   }
   clientes = clientes.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR')).slice(0, 8);
@@ -5726,10 +5746,7 @@ function rmBuscarClientePdv(query){
   let clientes = rmLoadClientes();
   if(q){
     clientes = clientes.filter(c =>
-      (c.nome||'').toLowerCase().includes(q) ||
-      (c.apelido||'').toLowerCase().includes(q) ||
-      (c.telefone||'').toLowerCase().includes(q) ||
-      (c.cpf||'').toLowerCase().includes(q)
+      rmBuscaBate([c.nome, c.apelido, c.telefone, c.cpf], q)
     );
   }
   clientes = clientes.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR')).slice(0, 8);
@@ -6419,7 +6436,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610192041; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610192053; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
@@ -7585,7 +7602,7 @@ function rmRenderRegistro(){
   const atual = sel.value;
   const nomes = [...new Set(rmRegistroCache.map(r => r.usuario).filter(Boolean))].sort();
   sel.innerHTML = '<option value="">Todos os usuários</option>' + nomes.map(n => `<option${n===atual?' selected':''}>${rmEscapeHtml(n)}</option>`).join('');
-  const lista = rmRegistroCache.filter(r => (!atual || r.usuario === atual) && (!q || [r.acao, r.ref, r.detalhe].some(x => (x||'').toLowerCase().includes(q))));
+  const lista = rmRegistroCache.filter(r => (!atual || r.usuario === atual) && (!q || rmBuscaBate([r.acao, r.ref, r.detalhe], q)));
   body.innerHTML = lista.length ? lista.map(r => `<tr style="cursor:default"><td>${new Date(r.quando).toLocaleString('pt-BR').replace(',', '')}</td><td>${rmEscapeHtml(r.usuario||'')}</td><td><b>${rmEscapeHtml(r.acao||'')}</b></td><td>${r.acao === 'Vale' ? '' : rmEscapeHtml(r.ref||'')}</td><td style="white-space:normal; color:var(--rm-text-dim);">${rmEscapeHtml(r.detalhe||'')}</td></tr>`).join('')
     : '<tr><td colspan="5" style="color:var(--rm-text-dim)">Nada registrado nesse período</td></tr>';
 }
@@ -8406,7 +8423,7 @@ function rmMobOficinaHtml(){
   const conta = f => todas.filter(o => f === 'abertas' ? (o.status !== 'entregue' && o.status !== 'antigas' && o.status !== 'cancelada') : o.status === f).length;
   const q = rmMobBusca.toLowerCase();
   let lista = todas.filter(o => rmMobFiltro === 'abertas' ? (o.status !== 'entregue' && o.status !== 'antigas' && o.status !== 'cancelada') : o.status === rmMobFiltro)
-    .filter(o => !q || [o.nome, o.modelo, o.codigoApp, o.mecanico].some(x => (x || '').toLowerCase().includes(q)));
+    .filter(o => !q || rmBuscaBate([o.nome, o.modelo, o.codigoApp, o.mecanico], q));
   lista.sort((a,b) => rmMobFiltro === 'entregue' ? new Date(rmOsDataEntrega(b) || 0) - new Date(rmOsDataEntrega(a) || 0) : new Date(a.entrada) - new Date(b.entrada));
   if(rmMobFiltro === 'entregue') lista = lista.slice(0, 40);
   const dias = o => Math.floor((Date.now() - new Date(o.entrada)) / 864e5);
@@ -8460,7 +8477,7 @@ function rmMobClientesHtml(){
     proms.filter(n => n.clienteId === c.id || (!n.clienteId && c.nome && n.clienteNome === c.nome)).forEach(n => n.parcelas.forEach(p => { const r = rmParcRestante(p); deve += r; if(r > 0.004 && p.vencimento < hoje) venc += r; }));
     return { c, deve, venc };
   });
-  let lista = q ? dados.filter(x => [x.c.nome, x.c.apelido, x.c.telefone, x.c.cpf].some(v => (v || '').toLowerCase().includes(q)))
+  let lista = q ? dados.filter(x => rmBuscaBate([x.c.nome, x.c.apelido, x.c.telefone, x.c.cpf], q))
                 : dados.filter(x => x.deve > 0.004).sort((a,b) => (b.venc - a.venc) || (b.deve - a.deve));
   lista = lista.slice(0, 60);
   const totDeve = dados.reduce((s,x) => s + x.deve, 0), totVenc = dados.reduce((s,x) => s + x.venc, 0);
@@ -10028,7 +10045,7 @@ function rmRenderFamilias(){
   const ativos = document.activeElement && document.activeElement.id === 'rm-fam-busca';
   const sug = rmFamSugestoes(), fams = Object.values(rmFam.fams).filter(f => !f.removida);
   const nAgr = rmFamIndice().porProd.size;
-  const bate = (txt) => !q || rmFamNorm(txt).includes(q);
+  const bate = (txt) => !q || rmBuscaBate([txt], q);
   let corpo = '';
   if(rmFamAba === 'sug'){
     const lst = sug.filter(s => bate(s.base) || s.itens.some(i => bate(i.p.nome)));
@@ -10186,7 +10203,7 @@ async function rmHistCarregar(){
 }
 function rmHistLinhasHtml(lista){
   const q = ((document.getElementById('rm-hist-busca') || {}).value || '').trim().toLowerCase();
-  const l = (lista || []).filter(h => !q || (rmHistDescricao(h.tabela, h.dados) + ' ' + JSON.stringify(h.dados)).toLowerCase().includes(q));
+  const l = (lista || []).filter(h => !q || rmBuscaBate([rmHistDescricao(h.tabela, h.dados), JSON.stringify(h.dados)], q));
   if(!l.length) return '<tr><td colspan="6" style="color:var(--rm-text-dim); padding:14px">Nada encontrado nesse período.</td></tr>';
   return l.slice(0, 400).map(h => `<tr style="cursor:default">
     <td>${new Date(h.quando).toLocaleString('pt-BR').replace(',', '').slice(0, 16)}</td>
@@ -11638,10 +11655,7 @@ function rmBuscarClienteRecepcao(query){
   let clientes = rmLoadClientes();
   if(q){
     clientes = clientes.filter(c =>
-      (c.nome||'').toLowerCase().includes(q) ||
-      (c.apelido||'').toLowerCase().includes(q) ||
-      (c.telefone||'').toLowerCase().includes(q) ||
-      (c.cpf||'').toLowerCase().includes(q)
+      rmBuscaBate([c.nome, c.apelido, c.telefone, c.cpf], q)
     );
   }
   clientes = clientes.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR')).slice(0, 8);
@@ -12784,7 +12798,7 @@ function rmPagRender(){
   cards.innerHTML = card('pg-ven', 'Vencidas', abertas.filter(c => rmPagDias(c.venc) < 0)) + card('pg-sem', 'Vencem em 7 dias', abertas.filter(c => entre(c, 0, 7)))
     + card('', 'Próximos 30 dias', abertas.filter(c => entre(c, 0, 30))) + card('', 'Total em aberto', abertas);
   const q = rmImpNorm(rmPagBusca || '');
-  const casa = c => !q || rmImpNorm([c.nome, c.desc, c.nf ? 'NF ' + c.nf : '', c.parc].join(' ')).includes(q);
+  const casa = c => !q || rmBuscaBate([c.nome, c.desc, c.nf ? 'NF ' + c.nf : '', c.parc], q);
   const grupos = [];
   if(rmPagFiltro !== 'pagas'){
     const ab = abertas.filter(casa).sort((a, b) => String(a.venc).localeCompare(String(b.venc)));
@@ -13109,7 +13123,7 @@ function rmRenderFinOrg(){
   const filtro = document.getElementById('rm-fin-org-status').value;
   const notas = rmLoadProms().filter(rmNotaQuitada).filter(n =>
     (filtro === 'todas' || (filtro === 'entregar' ? !n.entregueEm : !!n.entregueEm)) &&
-    (!q || ((n.refCodigo||'') + ' ' + (n.clienteNome||'')).toLowerCase().includes(q) || (n.refCodigo||'').replace(/\D/g,'').replace(/^0+/,'') === q.replace(/\D/g,'').replace(/^0+/,'') && q.replace(/\D/g,'') !== '')
+    (!q || rmBuscaBate([n.refCodigo, n.clienteNome], q) || (n.refCodigo||'').replace(/\D/g,'').replace(/^0+/,'') === q.replace(/\D/g,'').replace(/^0+/,'') && q.replace(/\D/g,'') !== '')
   );
   // agrupa por cliente
   const grupos = {};
@@ -13176,7 +13190,7 @@ function rmRenderFinClientes(){
     return { c, compras: os.length + pdv.length, pago: pagoDireto + pagoProm, receber, vencido };
   }).filter(l =>
     (filtro === 'todos' || (filtro === 'receber' ? l.receber > 0.004 : l.vencido > 0.004)) &&
-    (!q || [l.c.nome, l.c.apelido, l.c.cpf, l.c.telefone].some(x => (x||'').toLowerCase().includes(q)))
+    (!q || rmBuscaBate([l.c.nome, l.c.apelido, l.c.cpf, l.c.telefone], q))
   ).sort((a,b) => (b.vencido - a.vencido) || (b.receber - a.receber) || (a.c.nome||'').localeCompare(b.c.nome||'', 'pt-BR'));
   document.getElementById('rm-fin-cli-empty').style.display = linhas.length ? 'none' : '';
   const linhasOrd = rmOrdAplicar('fcli', linhas);
@@ -13205,7 +13219,7 @@ function rmRenderFinProm(){
   rmLoadProms().forEach(nota => nota.parcelas.forEach(p => linhas.push({ nota, p, sit: rmPromSituacao(p) })));
   const lista = linhas.filter(l =>
     (filtro === 'todas' || (filtro === 'pendentes' ? l.sit !== 'paga' : l.sit === filtro)) &&
-    (!q || ((l.nota.clienteNome||'')+' '+(l.nota.refCodigo||'')).toLowerCase().includes(q))
+    (!q || rmBuscaBate([l.nota.clienteNome, l.nota.refCodigo], q))
   ).sort((a,b) => filtro === 'paga' ? String(b.p.pagoEm).localeCompare(String(a.p.pagoEm)) : a.p.vencimento.localeCompare(b.p.vencimento));
   document.getElementById('rm-fin-prom-empty').style.display = lista.length ? 'none' : '';
   const rot = { aberta:'Em aberto', vencida:'Vencida', paga:'Paga' };
@@ -13399,7 +13413,7 @@ function rmRenderFinVendas(){
   const lista = rmFinTodasVendas().filter(v =>
     rmFinNoPeriodo(v.data, periodo) &&
     (!origem || v.origem === origem) &&
-    (!q || (v.codigo+' '+v.cliente+' '+v.forma+' '+(v.por||'')).toLowerCase().includes(q))
+    (!q || rmBuscaBate([v.codigo, v.cliente, v.forma, v.por], q))
   );
   document.getElementById('rm-fin-vendas-empty').style.display = lista.length ? 'none' : '';
   const listaOrdV = rmOrdAplicar('vend', lista);
@@ -13577,7 +13591,7 @@ function rmRenderPedido(){
   const fCurva = (document.getElementById('rm-ped-sug-curva')||{}).value || '';
   let sug = rmPedidoSugestoes();
   if(fCurva) sug = sug.filter(x => String(x.p.curva||'').toUpperCase() === fCurva);
-  if(q) sug = sug.filter(x => x.fam ? (x.fam.nome.toLowerCase().includes(q) || x.ms.some(p => rmProdutoBateBusca(p, q))) : rmProdutoBateBusca(x.p, q));
+  if(q) sug = sug.filter(x => x.fam ? (rmBuscaBate([x.fam.nome], q) || x.ms.some(p => rmProdutoBateBusca(p, q))) : rmProdutoBateBusca(x.p, q));
   const itens = rmPedido.itens;
   const pend = itens.filter(i => !i.comprado).length;
   const listaEl = document.getElementById('rm-ped-lista');
@@ -13988,7 +14002,7 @@ function rmInvcListaRender(){
   let lista = inv.itens.map((it, k) => ({ it, k }));
   if(rmInvcFiltro === 'faltam') lista = lista.filter(x => x.it.contado == null);
   else if(rmInvcFiltro === 'contados') lista = lista.filter(x => x.it.contado != null);
-  if(q) lista = lista.filter(x => rmBuscaInteligente(x.it.nome, q) || [x.it.codigo, x.it.barras, x.it.loc].some(c => c && String(c).toLowerCase().includes(q.toLowerCase())));
+  if(q) lista = lista.filter(x => rmBuscaBate([x.it.nome, x.it.codigo, x.it.barras, x.it.loc], q) || rmBuscaIniciais(x.it.nome, q));
   const esc = rmEscapeHtml;
   let html = '', famAnt = undefined;
   lista.forEach(({ it, k }) => {
@@ -14522,10 +14536,7 @@ function rmBuscarClienteQuick(query){
   let clientes = rmLoadClientes();
   if(q){
     clientes = clientes.filter(c =>
-      (c.nome||'').toLowerCase().includes(q) ||
-      (c.apelido||'').toLowerCase().includes(q) ||
-      (c.telefone||'').toLowerCase().includes(q) ||
-      (c.cpf||'').toLowerCase().includes(q)
+      rmBuscaBate([c.nome, c.apelido, c.telefone, c.cpf], q)
     );
   }
   clientes = clientes.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR')).slice(0, 8);
@@ -14716,11 +14727,7 @@ function rmFilteredList(searchInputId, dateModeId, dateValueId, dateStartId, dat
   const list = rmLoad();
   const search = document.getElementById(searchInputId).value.toLowerCase();
   let filtered = !search ? list : list.filter(r =>
-    r.nome.toLowerCase().includes(search) ||
-    r.modelo.toLowerCase().includes(search) ||
-    (r.codigoApp||'').toLowerCase().includes(search) ||
-    (r.mecanico||'').toLowerCase().includes(search) ||
-    (r.anotacoes||'').toLowerCase().includes(search)
+    rmBuscaBate([r.nome, r.modelo, r.codigoApp, r.mecanico, r.anotacoes, r.placa, r.telefone], search)
   );
 
   if(dateModeId){
@@ -14947,10 +14954,7 @@ function rmRenderClientes(){
   let list = rmLoadClientes();
   if(search){
     list = list.filter(c =>
-      (c.nome||'').toLowerCase().includes(search) ||
-      (c.apelido||'').toLowerCase().includes(search) ||
-      (c.cpf||'').toLowerCase().includes(search) ||
-      (c.telefone||'').toLowerCase().includes(search)
+      rmBuscaBate([c.nome, c.apelido, c.telefone, c.cpf], search)
     );
   }
   list = rmOrdAplicar('cli', list.slice().sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR')));
@@ -16041,7 +16045,7 @@ function rmRenderLista(){
   document.getElementById('rm-osl-pronta-n').textContent = prontas.length ? '(' + prontas.length + ')' : '';
   const busca = (document.getElementById('rm-search-lista').value || '').toLowerCase();
   const list = rmOslAtalho
-    ? (rmOslAtalho === 'naopago' ? devendo : prontas).filter(r => !busca || [r.nome, r.modelo, r.codigoApp, r.mecanico, r.anotacoes].some(x => (x||'').toLowerCase().includes(busca)))
+    ? (rmOslAtalho === 'naopago' ? devendo : prontas).filter(r => !busca || rmBuscaBate([r.nome, r.modelo, r.codigoApp, r.mecanico, r.anotacoes, r.placa, r.telefone], busca))
     : base.filter(r =>
     (!resp || (r.mecanico||'').trim() === resp) &&
     (!cli || (r.nome||'').trim() === cli) &&
@@ -16678,8 +16682,7 @@ function rmOsBuscar(inp, osId, idx){
   const q = (inp.value||'').trim().toLowerCase();
   if(!q){ lista.classList.remove('show'); return; }
   const opcAvulso = idx < 0 ? `<div class="rm-semcad-opc" onmousedown="event.preventDefault(); rmOsAvulso('${osId}')"><b>&#10133; Lançar sem cadastrar: “${rmEscapeHtml(inp.value.trim().toUpperCase())}”</b><small>Produto avulso — depois digite o valor. Não mexe no estoque.</small></div>` : '';
-  const produtos = rmLoadProdutos().filter(p => p.ativo !== false && rmProdutoBateBusca(p, q))
-    .sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR'));
+  const produtos = rmBuscaOrdenar(rmLoadProdutos().filter(p => p.ativo !== false && rmProdutoBateBusca(p, q)), q);
   const grupos = rmFamAgrupar(produtos, 40);
   lista.innerHTML = grupos.length === 0
     ? '<div class="rm-autocomplete-empty">Nenhum produto cadastrado com esse nome</div>' + opcAvulso
@@ -16781,12 +16784,7 @@ function rmBuscarProdutoMoto(query){
   const q = (query||'').trim().toLowerCase();
   if(!q){ lista.classList.remove('show'); return; }
   let produtos = rmLoadProdutos().filter(p => p.ativo !== false);
-  produtos = produtos.filter(p =>
-    rmBuscaInteligente(p.nome, q) ||
-    rmBuscaInteligente(p.aplicacao, q) ||
-    (p.codigo||'').toLowerCase().includes(q) ||
-    (p.codigoBarras||'').toLowerCase().includes(q)
-  ).slice(0, 8);
+  produtos = rmBuscaOrdenar(produtos.filter(p => rmProdutoBateBusca(p, q)), q).slice(0, 8);
 
   if(produtos.length === 0){
     lista.innerHTML = '<div class="rm-autocomplete-empty">Nenhum produto encontrado</div>';
