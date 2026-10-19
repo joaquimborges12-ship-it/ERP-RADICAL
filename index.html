@@ -2279,6 +2279,47 @@
   html[data-tema="dark"] .rm-nav-icon{color:#8d939d;}
   html[data-tema="dark"] .rm-nav-btn.active .rm-nav-icon{color:var(--rm-accent-ink);}
 
+  /* ===== Contas a pagar ===== */
+  .pg-top{display:flex; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap;}
+  .pg-nova{margin-left:auto; padding:11px 18px; background:#d9433a; color:#fff; border:0; font-weight:800; font-size:14px; font-family:inherit; cursor:pointer;}
+  .nf-card.pg-ven{border-left:5px solid #d9433a;} .nf-card.pg-ven b{color:#d9433a;} .nf-card.pg-sem{border-left:5px solid #e8a33d;} .nf-card.pg-sem b{color:#b07800;}
+  html[data-tema="dark"] .nf-card.pg-sem b{color:#ffd27a;} html[data-tema="dark"] .nf-card.pg-ven b{color:#ff8a80;}
+  .pg-ch{display:flex; gap:6px;} .pg-ch button{padding:10px 14px; border:1px solid var(--rm-border); background:transparent; color:var(--rm-text); font-size:13.5px; font-weight:600; cursor:pointer; font-family:inherit;}
+  .pg-ch button.on{background:var(--rm-text); color:var(--rm-panel, #fff); border-color:var(--rm-text);}
+  .pg-tab{background:var(--rm-panel, #fff); border:1px solid var(--rm-border);}
+  .pg-cab, .pg-lin{display:grid; grid-template-columns:150px minmax(0,1fr) 110px 130px 120px 110px; gap:10px; align-items:center; padding:10px 12px; border-bottom:1px solid var(--rm-border);}
+  .pg-cab{font-size:11.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--rm-text-dim); font-weight:700;} .pg-cab .r, .pg-vl{text-align:right;}
+  .pg-lin{font-size:14px;} .pg-lin small{display:block; color:var(--rm-text-dim); font-size:12px; margin-top:1px;} .pg-dt b span{font-weight:400; color:var(--rm-text-dim); font-size:12px;}
+  .pg-lin.pg-v{box-shadow:inset 4px 0 #d9433a;} .pg-lin.pg-h{box-shadow:inset 4px 0 #e8a33d;} .pg-lin.pg-p{opacity:.6;}
+  .pg-nm{cursor:pointer; min-width:0;} .pg-nm b{display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;} .pg-nm:hover b{text-decoration:underline;}
+  .pg-vl{font-weight:800;} .pg-ac{text-align:right;}
+  .pg-tag{font-size:11px; font-weight:800; padding:3px 8px; text-transform:uppercase; white-space:nowrap;}
+  .pg-tag.v{background:#fde4e2; color:#c0392b;} .pg-tag.h{background:#fff1d6; color:#9a6a00;} .pg-tag.a{background:#e7eefb; color:#2e6fd0;} .pg-tag.p{background:#e3f4ea; color:#2e8b57;}
+  html[data-tema="dark"] .pg-tag.v{background:rgba(217,67,58,.22); color:#ff8a80;} html[data-tema="dark"] .pg-tag.h{background:rgba(232,163,61,.2); color:#ffd27a;} html[data-tema="dark"] .pg-tag.a{background:rgba(46,111,208,.22); color:#8fb6f2;} html[data-tema="dark"] .pg-tag.p{background:rgba(46,139,87,.22); color:#7fd3a2;}
+  .pg-bt{padding:8px 14px; border:1px solid #2e8b57; background:#2e8b57; color:#fff; font-weight:700; font-family:inherit; font-size:13.5px; cursor:pointer;}
+  .pg-des{border:0; background:transparent; color:var(--rm-text-dim); text-decoration:underline; cursor:pointer; font-family:inherit; font-size:12.5px;}
+  .pg-grp{background:var(--rm-bg); font-weight:800; font-size:12.5px; color:var(--rm-text-dim); padding:7px 12px; border-bottom:1px solid var(--rm-border); display:flex; gap:10px; align-items:baseline;} .pg-grp small{font-weight:600;}
+  .pg-rec{margin-top:16px; border:1px solid var(--rm-border); background:var(--rm-panel, #fff);} .pg-rec-t{padding:10px 12px; font-weight:800; border-bottom:1px solid var(--rm-border);}
+  .pg-rec-l{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:9px 12px; border-bottom:1px solid var(--rm-border); font-size:14px; flex-wrap:wrap;} .pg-rec-l:last-child{border-bottom:0;}
+  .pg-rec-l button{margin-left:6px; padding:7px 12px; border:1px solid var(--rm-border); background:transparent; color:var(--rm-text); font-family:inherit; font-size:13px; cursor:pointer;}
+  .cp.pgm{width:480px;} .pgm .pg-val{font-size:20px; font-weight:800;} .pgm .rt-lab small{font-weight:400; color:var(--rm-text-dim);}
+  .pg-2{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .pg-chips button.on{border-color:#2e8b57 !important; background:rgba(46,139,87,.12) !important; color:#2e8b57 !important;}
+  .pgm .pe .pri.pg-ok{background:#2e8b57; border-color:#2e8b57;}
+  .pg-pe{align-items:center;} .pg-exc{border-color:#d9433a !important; color:#d9433a !important;}
+  .pg-nf{border:1px solid #2e6fd0; background:rgba(46,111,208,.06); padding:12px 16px; margin-top:12px;}
+  .pg-nf-t{display:flex; align-items:center; gap:12px; flex-wrap:wrap; font-size:14px;} .pg-nf-t b{font-size:15px;} .pg-nf-t span{color:var(--rm-text-dim);}
+  .pg-nf-t label{margin-left:auto; display:flex; align-items:center; gap:8px; font-weight:700; color:#2e6fd0; cursor:pointer;}
+  .pg-nf-l{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;} .pg-nf-l span{border:1px solid var(--rm-border); background:var(--rm-panel, #fff); padding:6px 12px; font-size:13px;} .pg-nf-l i{font-style:normal; color:var(--rm-text-dim); margin-right:6px;}
+  .pg-nf small{display:block; color:var(--rm-text-dim); margin-top:8px; font-size:12.5px;} .pg-nf-ok{font-size:14px;}
+  html[data-tema="dark"] .pg-nf-t label{color:#8fb6f2;}
+  @media (max-width:760px){
+    .pg-cab{display:none;}
+    .pg-lin{grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"nm vl" "dt st" "pc ac"; gap:4px 10px;}
+    .pg-dt{grid-area:dt;} .pg-nm{grid-area:nm;} .pg-pc{grid-area:pc; font-size:12.5px; color:var(--rm-text-dim);} .pg-vl{grid-area:vl;} .pg-st{grid-area:st; text-align:right;} .pg-ac{grid-area:ac;}
+    #rm-pag-cards{grid-template-columns:1fr 1fr; gap:8px;} #rm-pag-cards .nf-card{padding:10px 12px;} #rm-pag-cards .nf-card b{font-size:19px;}
+    .pg-nova{margin-left:0; width:100%;} .pg-2{grid-template-columns:1fr;} .pg-nf-t label{margin-left:0;}
+  }
   /* ===== ajustes finais de celular (vêm por último para valer sobre as regras de computador) ===== */
   @media (max-width:760px){
     .rm-modal.rm-modal-large .rm-modal-body, .rm-modal.rm-modal-os .rm-modal-body{grid-template-columns:1fr !important; gap:0 !important;}
@@ -2332,7 +2373,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 21:47</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 18/10 às 22:20</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3046,8 +3087,10 @@
         <button class="rm-subnav-btn" id="rm-btn-fin-org" onclick="rmSetViewFin('org')"><span class="rm-subnav-icon">&#128194;</span><span>Organizar</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-conc" onclick="rmSetViewFin('conc')"><span class="rm-subnav-icon">&#128260;</span><span>Conciliação</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-notas" onclick="rmSetViewFin('notas')"><span class="rm-subnav-icon">&#128194;</span><span>Notas XML</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-fin-pagar" onclick="rmSetViewFin('pagar')"><span class="rm-subnav-icon rm-subnav-icon-badge-wrap">&#129534;<span class="rm-badge" id="rm-badge-pagar" style="display:none;">0</span></span><span>Contas a pagar</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-caixa" style="display:none" onclick="rmSetViewFin('caixa')"><span class="rm-subnav-icon">&#129534;</span><span>Caixa do dia</span></button>
       </div>
+      <div id="rm-view-fin-pagar" class="rm-view"><div id="rm-pag-corpo" style="padding-bottom:80px"></div></div>
       <div id="rm-view-fin-notas" class="rm-view">
         <div class="nf-top"><h1 class="rm-title" style="margin:0">Notas XML · Notas de compra</h1>
           <button class="nf-imp" onclick="rmNotasImportar()">&#11014; Importar XML das notas</button>
@@ -3752,6 +3795,7 @@ function rmImpAbrirModal(){
       <th>Descrição</th><th></th><th>Marca</th><th>Local</th><th>Curva</th><th class="r">Estoque</th><th class="r">Custo (R$)</th><th class="r">Margem</th>
       <th class="r">Preço consumidor (R$)</th><th class="r">Preço parceiro (R$)</th><th></th></tr></thead>
       <tbody id="rm-imp-body"></tbody></table></div>
+    ${xml && rmImpNotaId ? '<div id="rm-pag-nf"></div>' : ''}
     <div id="rm-import-progresso" style="display:none; padding:12px 2px 0; font-size:14px; font-weight:600;"></div>
     <div class="imp-pe"><small>Clique em qualquer campo para alterar. A margem é calculada sozinha.<br>&#128279; = usar um produto que já está cadastrado: não cria outro, só soma a quantidade no estoque.${xml ? '<br>Custo = valor do item na nota + IPI, ST, frete e outras despesas − desconto, dividido pela quantidade.' : ''}${!xml && rmImpSemColLocal ? '<br>O código interno ficou em branco — o valor que estava nessa coluna foi pra Localização.' : ''}</small>
       <div style="display:flex; gap:10px; flex-wrap:wrap">
@@ -3759,6 +3803,7 @@ function rmImpAbrirModal(){
         <button class="rm-primary" id="rm-import-confirmar-btn" style="width:auto; margin:0; padding:13px 34px" onclick="rmConfirmarImportacaoCsv()">Importar</button></div></div>`;
   document.getElementById('rm-modal-backdrop').classList.add('show');
   rmImpRender();
+  if(xml && rmImpNotaId) rmPagNfBloco(rmImpNotaId);
 }
 function rmImpFechar(){
   if(rmImpModo === 'xml' && rmImpNotaId && rmImpLinhas.length){ rmImpSalvarRascunho(true); return; }
@@ -4200,6 +4245,7 @@ function rmNotaMenu(ev, id){
   m = document.createElement('div'); m.id = 'rm-nf-menu'; m.className = 'nf-menu';
   m.innerHTML = `<button onclick="rmNotaVerItens('${rmJs(id)}')">&#128203; Ver itens</button>
     <button onclick="rmNotaBaixarXml('${rmJs(id)}')">&#11015; Baixar o XML</button>
+    ${rmPagPode() ? `<button onclick="rmPagNotaMenu('${rmJs(id)}')">&#129534; Lançar boletos em Contas a pagar</button>` : ''}
     ${rmNotaEmAberto(n) ? `<button onclick="rmNotaConcluir('${rmJs(id)}')">&#10004; Marcar como lançada (sem lançar o resto)</button>` : `<button onclick="rmNotaReabrir('${rmJs(id)}')">&#8634; Voltar para em aberto</button>`}
     <button class="nf-menu-del" onclick="rmNotaExcluir('${rmJs(id)}')">&#128465; Excluir nota</button>`;
   document.body.appendChild(m);
@@ -4446,6 +4492,7 @@ async function rmConfirmarImportacaoCsv(){
     if(rmImpModo === 'xml' && rmImpNotaId) rmImpSalvarRascunho(false);
     rmImpCopiasGravar = rmImpLinhas.filter(l => l.incluir && !l.vinculo && l.copiaDe).map(l => [l.p.id, l.copiaDe.id, l.copiaDe.familia, l.copiaDe.marca]);
     rmImpNfeGravar = rmImpModo === 'xml' && rmImpNota ? { notas: [], notaId: rmImpNotaId, codigos: rmImpLinhas.filter(l => l.incluir && l.chaveForn).map(l => [l.chaveForn, l.vinculo || l.p.id]), lancados: rmImpLinhas.filter(l => l.incluir && l.itemK).map(l => [l.itemK, l.vinculo || l.p.id]) } : null;
+    rmPagNfGravar = rmImpModo === 'xml' && rmImpNotaId && rmPagNfDups && rmPagNfDups.notaId === rmImpNotaId && (document.getElementById('rm-pag-nf-chk') || {}).checked ? rmPagNfDups : null;
     if(log.length) rmLog('Importação: somou no estoque de produto já cadastrado', '', log.join(' | ').slice(0, 1500));
     rmImpAcFechar();
   }
@@ -4487,6 +4534,7 @@ async function rmConfirmarImportacaoCsv(){
   rmSaveProdutos(Object.values(porId));
 
   rmImportacaoPendente = null; rmImpLinhas = []; rmImpIndice = null;
+  if(rmPagNfGravar){ const g = rmPagNfGravar; rmPagNfGravar = null; rmPagLancarNota(g); }
   if(rmImpNfeGravar && !falhas.length){ rmNfeRegistrar(rmImpNfeGravar); if(rmImpNfeGravar.notaId) rmNotaMarcarLancados(rmImpNfeGravar.notaId, rmImpNfeGravar.lancados); }
   rmImpNfeGravar = null; rmImpNotaId = null;
   (rmImpCopiasGravar || []).forEach(([novo, src, fam, marca]) => { if(!falhas.length || rmIdx(rmLoadProdutos()).get(novo)) rmCpAplicarFamilia(novo, src, fam, marca); });
@@ -6197,7 +6245,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610182147; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610182220; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
@@ -7236,12 +7284,15 @@ function rmTogglePermUsuario(id, perm, marcado){
 // Em perfis.permissoes ficam, além das abas (tipo Personalizado), as subabas BLOQUEADAS: "!sub:<id do botão>".
 // Quem não tem nada bloqueado continua vendo tudo como antes.
 const RM_SUB_SO_ADMIN = ['rm-btn-fin-caixa', 'rm-btn-cfg-usuarios', 'rm-btn-cfg-registro', 'rm-btn-cfg-recuperar'];
+// subabas que começam FECHADAS para funcionário: só vê quem o administrador liberar ("+sub:<id>")
+const RM_SUB_OPTIN = ['rm-btn-fin-pagar'];
+function rmSubNega(u, id){ return RM_SUB_OPTIN.includes(id) ? !((u && u.permissoes) || []).includes('+sub:' + id) : rmSubBloqueadas(u).includes(id); }
 const RM_SUB_PREFIXO = { 'rm-btn-produtos-':'produtos', 'rm-btn-fin-':'financeiro', 'rm-btn-pla-':'planilha', 'rm-btn-rel-':'relatorio', 'rm-btn-cfg-':'configuracoes' };
 function rmSubBloqueadas(u){ return ((u && u.permissoes) || []).filter(x => typeof x === 'string' && x.startsWith('!sub:')).map(x => x.slice(5)); }
 function rmSubPode(id){
   if(!rmUsuario || rmEhAdmin()) return true;
   if(RM_SUB_SO_ADMIN.includes(id)) return false;
-  return !rmSubBloqueadas(rmUsuario).includes(id);
+  return !rmSubNega(rmUsuario, id);
 }
 function rmSubBotoes(sec){ const el = document.getElementById('rm-section-' + sec); return el ? [...el.querySelectorAll('.rm-subnav .rm-subnav-btn, #rm-btn-pdv-retirada')] : []; }
 function rmSubNome(b){ const l = b.querySelector(':scope > span:last-child'); return (l ? l.textContent : b.textContent).trim(); }
@@ -7277,7 +7328,7 @@ rmSubTravar('rmSetViewCfg', v => 'rm-btn-cfg-' + v);
 rmSubTravar('rmCliqueNovaRecepcao', () => 'rm-btn-reception');
 rmSubTravar('rmAbrirRecepcaoRapida', () => 'rm-btn-reception');
 rmSubTravar('rmCliqueCadastroProduto', () => 'rm-btn-produtos-cadastro');
-{ const orig = window.rmSetSection; window.rmSetSection = function(){ const r = orig.apply(this, arguments); try{ rmSubAplicar(); }catch(e){} try{ rmPdvCor(); }catch(e){} return r; }; }
+{ const orig = window.rmSetSection; window.rmSetSection = function(){ const r = orig.apply(this, arguments); try{ rmSubAplicar(); }catch(e){} try{ rmPdvCor(); }catch(e){} try{ if(!rmPag && rmPagPode()) rmPagCarregar(); else rmPagBadge(); }catch(e){} return r; }; }
 
 // ----- tela "Abas e subabas" de um usuário -----
 function rmPermAbrir(uid){
@@ -7291,7 +7342,7 @@ function rmPermAbrir(uid){
       <label class="pm-cab"><input type="checkbox" class="pm-sec-chk"${on ? ' checked' : ''} onchange="this.closest('.pm-sec').classList.toggle('off', !this.checked); rmPermContar()"> ${l}<small></small></label>
       ${subs.length ? `<div class="pm-subs">${subs.map(b => RM_SUB_SO_ADMIN.includes(b.id)
         ? `<span class="pm-ch lock" title="Sempre só o administrador">&#128274; ${rmEscapeHtml(rmSubNome(b))}</span>`
-        : `<label class="pm-ch${bloq.includes(b.id) ? ' nao' : ''}"><input type="checkbox" class="pm-sub-chk" value="${b.id}"${bloq.includes(b.id) ? '' : ' checked'} onchange="this.parentElement.classList.toggle('nao', !this.checked); rmPermContar()"> <span>${rmEscapeHtml(rmSubNome(b))}</span></label>`).join('')}</div>` : ''}
+        : `<label class="pm-ch${rmSubNega(u, b.id) ? ' nao' : ''}"><input type="checkbox" class="pm-sub-chk" value="${b.id}"${rmSubNega(u, b.id) ? '' : ' checked'} onchange="this.parentElement.classList.toggle('nao', !this.checked); rmPermContar()"> <span>${rmEscapeHtml(rmSubNome(b))}</span></label>`).join('')}</div>` : ''}
     </div>`;
   }).join('');
   let ov = document.getElementById('rm-perm-ov'); if(ov) ov.remove();
@@ -7322,7 +7373,7 @@ async function rmPermSalvar(uid){
     const subs = [...sec.querySelectorAll('.pm-sub-chk')];
     if(on && subs.length && !subs.some(x => x.checked)){ return; } // nenhuma subaba: a aba toda fica fechada
     if(on) secs.push(k);
-    subs.forEach(x => { if(!x.checked) bloq.push('!sub:' + x.value); });
+    subs.forEach(x => { if(RM_SUB_OPTIN.includes(x.value)){ if(x.checked) bloq.push('+sub:' + x.value); } else if(!x.checked) bloq.push('!sub:' + x.value); });
   });
   if(!secs.length){ alert('Marque pelo menos uma aba.'); return; }
   const doPapel = ((RM_PAPEIS[u.papel] || {}).perms || []);
@@ -12491,10 +12542,354 @@ function rmOsPromMudou(id){
 }
 
 // ---- Financeiro > Promissórias ----
+// ===================== CONTAS A PAGAR =====================
+// Cada conta é uma linha própria em configuracoes ("pagar-<id>"): dois aparelhos não apagam o que o outro fez.
+// Conta que se repete: um modelo "pagar-rec-<id>"; cada mês aparece sozinho e só vira linha
+// ("pagar-r-<modelo>-<AAAA-MM>") quando é paga, alterada ou pulada. Boletos de nota: "pagar-nf-<chave>-<n>".
+let rmPag = null, rmPagFiltro = 'aberto', rmPagBusca = '', rmPagNfDups = null, rmPagNfGravar = null;
+const RM_PAG_FORMAS = ['Pix / transferência', 'Boleto no banco', 'Dinheiro do caixa', 'Cartão'];
+function rmPagPode(){ return !!rmUsuario && rmSubPode('rm-btn-fin-pagar'); }
+async function rmPagCarregar(){
+  if(!rmSb || !rmPagPode()) return;
+  try{
+    const { data, error } = await rmSb.from('configuracoes').select('*').like('id', 'pagar-%');
+    if(!error && Array.isArray(data)) rmPag = data.filter(x => String(x.id).startsWith('pagar-') && x.dados).map(x => Object.assign({}, x.dados, { id: x.id }));
+  }catch(e){}
+  rmPagBadge();
+  const v = document.getElementById('rm-view-fin-pagar');
+  if(v && v.classList.contains('active')) rmPagRender();
+}
+async function rmPagGravar(c){
+  const rows = (Array.isArray(c) ? c : [c]).map(x => { const d = Object.assign({}, x); delete d.id; delete d.virtual; return { id: x.id, dados: d }; });
+  if(navigator.onLine === false){ alert('Sem internet: não consegui salvar. Tente de novo quando a internet voltar.'); return false; }
+  const { error } = await rmSb.from('configuracoes').upsert(rows);
+  if(error){ alert('Não consegui salvar: ' + (error.message || error)); return false; }
+  if(rmPag){ const ids = new Set(rows.map(r => r.id)); rmPag = rmPag.filter(x => !ids.has(x.id)).concat(rows.map(r => Object.assign({}, r.dados, { id: r.id }))); }
+  return true;
+}
+function rmPagDias(iso){ return Math.round((new Date(String(iso).slice(0, 10) + 'T12:00:00') - new Date(rmHojeISO() + 'T12:00:00')) / 864e5); }
+function rmPagMesMais(mes, n){ const [a, m] = mes.split('-').map(Number); const d = new Date(a, m - 1 + n, 1); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0'); }
+function rmPagVencMes(r, mes){ const [a, m] = mes.split('-').map(Number); return mes + '-' + String(Math.min(Number(r.dia) || 1, new Date(a, m, 0).getDate())).padStart(2, '0'); }
+// todas as contas (as que se repetem aparecem uma por mês, até uns 40 dias para frente)
+function rmPagContas(){
+  const lista = rmPag || [], contas = lista.filter(c => c.tipo !== 'rec'), ids = new Set(contas.map(c => c.id));
+  const limite = rmAddDiasISO(rmHojeISO(), 40).slice(0, 7);
+  lista.filter(r => r.tipo === 'rec' && !r.removida && r.desde).forEach(r => {
+    for(let mes = r.desde, k = 0; mes <= limite && k < 240; mes = rmPagMesMais(mes, 1), k++){
+      if(r.ate && mes > r.ate) break;
+      const id = 'pagar-r-' + r.id.slice(10) + '-' + mes;
+      if(ids.has(id)) continue;
+      contas.push({ id, virtual: true, tipo: 'conta', recId: r.id, mes, nome: r.nome, desc: r.desc || '', valor: r.valor, venc: rmPagVencMes(r, mes), parc: 'Todo mês', origem: 'repete', pago: null });
+    }
+  });
+  return contas.filter(c => !c.removida);
+}
+function rmPagSit(c){ if(c.pago) return 'p'; const d = rmPagDias(c.venc); return d < 0 ? 'v' : d <= 7 ? 'h' : 'a'; }
+function rmPagBadge(){
+  const b = document.getElementById('rm-badge-pagar'); if(!b) return;
+  const n = rmPag && rmPagPode() ? rmPagContas().filter(c => !c.pago && rmPagDias(c.venc) <= 7).length : 0;
+  b.textContent = n; b.style.display = n ? '' : 'none';
+}
+function rmPagRender(){
+  const el = document.getElementById('rm-pag-corpo'); if(!el) return;
+  if(!document.getElementById('rm-pag-lista')){
+    el.innerHTML = `<div class="pg-top"><h1 class="rm-title" style="margin:0">Contas a pagar</h1><button class="pg-nova" onclick="rmPagNovaAbrir()">&#65291; Lançar conta (luz, aluguel...)</button></div>
+      <div class="nf-cards" id="rm-pag-cards"></div>
+      <div class="nf-fil"><input id="rm-pag-busca" placeholder="Procurar fornecedor, nota..." oninput="rmPagBusca=this.value; rmPagRender()">
+        <div class="pg-ch">${[['aberto', 'Em aberto'], ['pagas', 'Pagas'], ['todas', 'Todas']].map(([k, l]) => `<button data-f="${k}" onclick="rmPagFiltro='${k}'; rmPagRender()">${l}</button>`).join('')}</div></div>
+      <div id="rm-pag-lista"></div>`;
+  }
+  el.querySelectorAll('.pg-ch button').forEach(b => b.classList.toggle('on', b.dataset.f === rmPagFiltro));
+  const lista = document.getElementById('rm-pag-lista'), cards = document.getElementById('rm-pag-cards');
+  if(!rmPag){ cards.innerHTML = ''; lista.innerHTML = '<div class="nf-vazio">Carregando contas...</div>'; return; }
+  const todas = rmPagContas(), abertas = todas.filter(c => !c.pago);
+  const soma = l => l.reduce((s, c) => s + (Number(c.valor) || 0), 0);
+  const entre = (c, a, b) => { const d = rmPagDias(c.venc); return d >= a && d <= b; };
+  const card = (cls, t, l) => `<div class="nf-card ${cls}"><span>${t}</span><b>${rmFormatMoeda(soma(l))}</b><small>${l.length} conta${l.length === 1 ? '' : 's'}</small></div>`;
+  cards.innerHTML = card('pg-ven', 'Vencidas', abertas.filter(c => rmPagDias(c.venc) < 0)) + card('pg-sem', 'Vencem em 7 dias', abertas.filter(c => entre(c, 0, 7)))
+    + card('', 'Próximos 30 dias', abertas.filter(c => entre(c, 0, 30))) + card('', 'Total em aberto', abertas);
+  const q = rmImpNorm(rmPagBusca || '');
+  const casa = c => !q || rmImpNorm([c.nome, c.desc, c.nf ? 'NF ' + c.nf : '', c.parc].join(' ')).includes(q);
+  const grupos = [];
+  if(rmPagFiltro !== 'pagas'){
+    const ab = abertas.filter(casa).sort((a, b) => String(a.venc).localeCompare(String(b.venc)));
+    grupos.push(['Vencidas', ab.filter(c => rmPagDias(c.venc) < 0)], ['Vencem nos próximos 7 dias', ab.filter(c => entre(c, 0, 7))], ['Próximas', ab.filter(c => rmPagDias(c.venc) > 7)]);
+  }
+  const pagas = todas.filter(c => c.pago && casa(c)).sort((a, b) => String(b.pago.data || '').localeCompare(String(a.pago.data || '')) || String(b.pago.em || '').localeCompare(String(a.pago.em || '')));
+  grupos.push(rmPagFiltro === 'aberto' ? ['Pagas nos últimos 7 dias', pagas.filter(c => rmPagDias(c.pago.data) >= -7)] : ['Pagas', pagas]);
+  const sitTxt = { v: 'Vencida', h: 'Vence logo', a: 'Em aberto', p: 'Paga' };
+  const linha = c => {
+    const s = rmPagSit(c), d = rmPagDias(c.venc), p = c.pago;
+    const quando = p ? 'Paga ' + rmDataBR(p.data).slice(0, 5) + ' · ' + rmEscapeHtml(p.por || '') + ' · ' + rmEscapeHtml(p.forma || '') + (Math.abs((Number(p.valor) || 0) - (Number(c.valor) || 0)) > 0.004 ? ' · pagou ' + rmFormatMoeda(p.valor) : '')
+      : d < 0 ? 'Venceu há ' + (-d) + ' dia' + (d === -1 ? '' : 's') : d === 0 ? 'Vence hoje' : d === 1 ? 'Vence amanhã' : 'Em ' + d + ' dias';
+    const sub = [c.nf ? 'NF ' + rmEscapeHtml(c.nf) : '', rmEscapeHtml(c.desc || '')].filter(Boolean).join(' · ');
+    return `<div class="pg-lin pg-${s}"><div class="pg-dt"><b>${rmDataBR(c.venc).slice(0, 5)}<span>/${String(c.venc).slice(2, 4)}</span></b><small>${quando}</small></div>
+      <div class="pg-nm" onclick="rmPagEditar('${rmJs(c.id)}')" title="Clique para alterar ou excluir"><b>${rmEscapeHtml(c.nome)}</b><small>${sub || (c.recId ? 'Repete todo mês' : '&nbsp;')}</small></div>
+      <div class="pg-pc">${rmEscapeHtml(c.parc || '—')}</div>
+      <div class="pg-vl">${rmFormatMoeda(c.valor)}</div>
+      <div class="pg-st"><span class="pg-tag ${s}">${sitTxt[s]}</span></div>
+      <div class="pg-ac">${p ? `<button class="pg-des" onclick="rmPagDesfazer('${rmJs(c.id)}')">desfazer</button>` : `<button class="pg-bt" onclick="rmPagPagarAbrir('${rmJs(c.id)}')">&#10004; Pagar</button>`}</div></div>`;
+  };
+  const corpo = grupos.filter(g => g[1].length).map(([t, l]) => `<div class="pg-grp">${t}<small>${l.length} · ${rmFormatMoeda(soma(l))}</small></div>${l.map(linha).join('')}`).join('');
+  const recs = (rmPag || []).filter(r => r.tipo === 'rec' && !r.removida && !(r.ate && r.ate < rmHojeISO().slice(0, 7)));
+  const recHtml = recs.length ? `<div class="pg-rec"><div class="pg-rec-t">&#128257; Contas que se repetem todo mês</div>${recs.sort((a, b) => a.dia - b.dia).map(r => `<div class="pg-rec-l"><span><b>${rmEscapeHtml(r.nome)}</b> · todo dia ${r.dia} · ${rmFormatMoeda(r.valor)}${r.desc ? ' · ' + rmEscapeHtml(r.desc) : ''}</span>
+      <span><button onclick="rmPagRecEditar('${rmJs(r.id)}')">Alterar</button><button onclick="rmPagRecParar('${rmJs(r.id)}')">Parar de repetir</button></span></div>`).join('')}</div>` : '';
+  lista.innerHTML = `<div class="pg-tab"><div class="pg-cab"><div>Vencimento</div><div>Fornecedor / conta</div><div>Parcela</div><div class="r">Valor</div><div>Situação</div><div></div></div>
+    ${corpo || `<div class="nf-vazio">${rmPagFiltro === 'pagas' ? 'Nenhuma conta paga ainda.' : q ? 'Nada encontrado.' : 'Nenhuma conta em aberto. Use o botão "Lançar conta" ou lance uma nota XML que tenha boletos.'}</div>`}</div>${recHtml}`;
+  rmPagBadge();
+}
+function rmPagOv(id, html){
+  let ov = document.getElementById(id); if(ov) ov.remove();
+  ov = document.createElement('div'); ov.id = id; ov.className = 'cp-ov';
+  ov.onclick = e => { if(e.target === ov) ov.remove(); };
+  ov.innerHTML = html; document.body.appendChild(ov); return ov;
+}
+function rmPagFechar(id){ const ov = document.getElementById(id); if(ov) ov.remove(); }
+function rmPagChip(btn){ btn.parentElement.querySelectorAll('button').forEach(b => b.classList.toggle('on', b === btn)); }
+// ----- pagar -----
+function rmPagPagarAbrir(id){
+  const c = rmPagContas().find(x => x.id === id); if(!c) return;
+  rmPagOv('rm-pag-ov', `<div class="cp pgm" onclick="event.stopPropagation()"><h3>&#10004; Pagar conta</h3>
+    <div class="sub">${rmEscapeHtml(c.nome)}${c.nf ? ' · NF ' + rmEscapeHtml(c.nf) : ''}${c.parc && c.parc !== 'Todo mês' ? ' · parcela ' + rmEscapeHtml(c.parc) : ''} · vence ${rmDataBR(c.venc)}</div>
+    <label class="rt-lab">Valor pago</label><input class="rt-txt pg-val" id="rm-pag-val" inputmode="decimal" autocomplete="off" value="${rmFormatMoeda(c.valor)}">
+    <label class="rt-lab">Como pagou?</label><div class="rt-chips pg-chips" id="rm-pag-forma">${RM_PAG_FORMAS.map(f => `<button type="button" onclick="rmPagChip(this); rmPagInfo()">${f}</button>`).join('')}</div>
+    <label class="rt-lab">Data do pagamento</label><input class="rt-txt" type="date" id="rm-pag-data" value="${rmHojeISO()}" max="${rmHojeISO()}" onchange="rmPagInfo()">
+    <div class="rt-info" id="rm-pag-info"></div>
+    <div class="pe"><button onclick="rmPagFechar('rm-pag-ov')">Voltar</button><button class="pri pg-ok" id="rm-pag-ok" onclick="rmPagPagar('${rmJs(id)}')">&#10004; Confirmar pagamento</button></div></div>`);
+  rmPagInfo();
+}
+function rmPagInfo(){
+  const el = document.getElementById('rm-pag-info'); if(!el) return;
+  const f = document.querySelector('#rm-pag-forma button.on'), dia = (document.getElementById('rm-pag-data') || {}).value || rmHojeISO();
+  el.innerHTML = f && f.textContent === 'Dinheiro do caixa' ? '&#128176; A saída entra no <b>Caixa do dia ' + rmDataBR(dia).slice(0, 5) + '</b>, como despesa "Conta paga".'
+    : 'Fica registrado quem pagou, quando e como. Se pagar um valor diferente (juros ou desconto), mude o valor acima.';
+}
+async function rmPagPagar(id){
+  const c = rmPagContas().find(x => x.id === id); if(!c) return;
+  const v = rmParseMoeda(document.getElementById('rm-pag-val').value);
+  if(!(v > 0)){ alert('Digite o valor pago.'); document.getElementById('rm-pag-val').focus(); return; }
+  const fb = document.querySelector('#rm-pag-forma button.on'); if(!fb){ alert('Escolha como pagou.'); return; }
+  const data = document.getElementById('rm-pag-data').value || rmHojeISO();
+  if(navigator.onLine === false){ alert('Para pagar precisa de internet.'); return; }
+  const btn = document.getElementById('rm-pag-ok'); btn.disabled = true;
+  try{
+    const { data: r } = await rmSb.from('configuracoes').select('*').eq('id', c.id).maybeSingle();
+    if(r && r.dados && r.dados.pago){ alert('Essa conta já foi paga por ' + (r.dados.pago.por || 'outro aparelho') + '.'); rmPagFechar('rm-pag-ov'); rmPagCarregar(); return; }
+  }catch(e){}
+  const pago = { valor: v, forma: fb.textContent, data, por: rmNomeUsuario(), em: new Date().toISOString() };
+  if(pago.forma === 'Dinheiro do caixa'){
+    const cx = rmCxDados && rmCxDados[data];
+    if(cx && cx.fechamento){ alert('O caixa do dia ' + rmDataBR(data) + ' já foi fechado. Escolha outra forma ou outra data.'); btn.disabled = false; return; }
+    const m = { tipo: 'despesa', valor: v, motivo: 'Conta paga', desc: (c.nome + (c.nf ? ' · NF ' + c.nf : '') + (c.parc && c.parc !== 'Todo mês' ? ' · ' + c.parc : '')).toUpperCase(), por: rmNomeUsuario(), em: new Date().toISOString(), conta: c.id };
+    const mid = rmUid(), cid = rmCxId(data) + '-r-' + mid;
+    const { error } = await rmSb.from('configuracoes').upsert({ id: cid, dados: m });
+    if(error){ alert('Não consegui lançar no caixa: ' + (error.message || error)); btn.disabled = false; return; }
+    pago.caixaId = cid; pago.caixaMov = m;
+    try{ if(cx) (cx.retiradas = cx.retiradas || []).push(Object.assign({ id: mid, dia: data }, m)); }catch(e){}
+  }
+  const nova = Object.assign({}, c, { pago });
+  if(!await rmPagGravar(nova)){ btn.disabled = false; return; }
+  rmLog('Pagou conta', c.nome, rmFormatMoeda(v) + ' · ' + pago.forma + (c.nf ? ' · NF ' + c.nf : '') + (c.parc ? ' · ' + c.parc : '') + ' · venc. ' + rmDataBR(c.venc));
+  rmPagFechar('rm-pag-ov');
+  rmShowToast('Conta paga: ' + c.nome + ' · ' + rmFormatMoeda(v));
+  rmPagRender();
+}
+async function rmPagDesfazer(id){
+  const c = (rmPag || []).find(x => x.id === id); if(!c || !c.pago) return;
+  const p = c.pago;
+  if(!confirm('Desfazer o pagamento de ' + c.nome + ' (' + rmFormatMoeda(p.valor) + ')? A conta volta para em aberto.' + (p.caixaId ? '\nA saída no Caixa do dia também é desfeita.' : ''))) return;
+  if(navigator.onLine === false){ alert('Precisa de internet.'); return; }
+  if(p.caixaId){
+    const cx = rmCxDados && rmCxDados[p.data];
+    if(cx && cx.fechamento){ alert('O caixa do dia ' + rmDataBR(p.data) + ' já foi fechado. Não dá para desfazer este pagamento.'); return; }
+    const { error } = await rmSb.from('configuracoes').upsert({ id: p.caixaId, dados: Object.assign({}, p.caixaMov || {}, { removida: true, removidaPor: rmNomeUsuario(), removidaEm: new Date().toISOString() }) });
+    if(error){ alert('Não consegui desfazer no caixa: ' + (error.message || error)); return; }
+    try{ const r = cx && (cx.retiradas || []).find(x => p.caixaId.endsWith('-r-' + x.id)); if(r) r.removida = true; }catch(e){}
+  }
+  if(await rmPagGravar(Object.assign({}, c, { pago: null }))){
+    rmLog('Desfez pagamento de conta', c.nome, rmFormatMoeda(p.valor) + ' · ' + (p.forma || ''));
+    rmPagRender();
+  }
+}
+// ----- lançar conta à mão -----
+function rmPagNovaAbrir(){
+  rmPagOv('rm-pagn-ov', `<div class="cp pgm" onclick="event.stopPropagation()"><h3>&#65291; Lançar conta</h3>
+    <div class="sub">Conta que não veio em nota XML: luz, água, aluguel, internet, uma compra parcelada...</div>
+    <label class="rt-lab">Fornecedor / conta</label><input class="rt-txt" id="rm-pgn-nome" autocapitalize="characters" placeholder="Ex.: ENERGISA, ALUGUEL, MOTO NORTE">
+    <label class="rt-lab">Descrição <small>(opcional)</small></label><input class="rt-txt" id="rm-pgn-desc" autocapitalize="characters" placeholder="Ex.: conta de luz da loja">
+    <div class="pg-2"><div><label class="rt-lab">Valor</label><input class="rt-txt pg-val" id="rm-pgn-val" inputmode="decimal" autocomplete="off" placeholder="R$ 0,00" oninput="rmPagNovaInfo()"></div>
+      <div><label class="rt-lab">Vencimento</label><input class="rt-txt" type="date" id="rm-pgn-venc" value="${rmHojeISO()}" onchange="rmPagNovaInfo()"></div></div>
+    <label class="rt-lab">Repete?</label><div class="rt-chips pg-chips" id="rm-pgn-rep"><button type="button" class="on" data-r="1" onclick="rmPagChip(this); rmPagNovaInfo()">Só uma vez</button><button type="button" data-r="mes" onclick="rmPagChip(this); rmPagNovaInfo()">&#128257; Todo mês</button><button type="button" data-r="parc" onclick="rmPagChip(this); rmPagNovaInfo()">Parcelado</button></div>
+    <div id="rm-pgn-parc-box" style="display:none"><label class="rt-lab">Quantas parcelas? <small>(uma por mês · o valor acima é de cada parcela)</small></label><input class="rt-txt" id="rm-pgn-parc" type="number" min="2" max="60" value="2" oninput="rmPagNovaInfo()"></div>
+    <div class="rt-info" id="rm-pgn-info"></div>
+    <div class="pe"><button onclick="rmPagFechar('rm-pagn-ov')">Cancelar</button><button class="pri" id="rm-pgn-ok" onclick="rmPagNovaSalvar()">Salvar conta</button></div></div>`);
+  rmPagNovaInfo();
+  setTimeout(() => { const i = document.getElementById('rm-pgn-nome'); if(i) i.focus(); }, 50);
+}
+function rmPagNovaInfo(){
+  const el = document.getElementById('rm-pgn-info'); if(!el) return;
+  const r = (document.querySelector('#rm-pgn-rep button.on') || {}).dataset || {}, venc = document.getElementById('rm-pgn-venc').value, v = rmParseMoeda(document.getElementById('rm-pgn-val').value);
+  document.getElementById('rm-pgn-parc-box').style.display = r.r === 'parc' ? '' : 'none';
+  if(r.r === 'mes') el.innerHTML = venc ? '&#128257; Vai aparecer <b>todo dia ' + Number(venc.slice(8, 10)) + '</b> de cada mês, a partir de ' + rmDataBR(venc).slice(0, 5) + ', até você parar de repetir. Se o valor mudar num mês (conta de luz), você altera só aquele mês na hora de pagar.' : '';
+  else if(r.r === 'parc'){ const n = Math.max(2, Math.min(60, parseInt(document.getElementById('rm-pgn-parc').value) || 2)); el.innerHTML = venc ? n + ' parcelas de ' + rmFormatMoeda(v) + ' = <b>' + rmFormatMoeda(v * n) + '</b> · de ' + rmDataBR(venc).slice(0, 5) + ' até ' + rmDataBR(rmAddMesesISO(venc, n - 1)) : ''; }
+  else el.innerHTML = '';
+}
+async function rmPagNovaSalvar(){
+  const nome = document.getElementById('rm-pgn-nome').value.trim().toUpperCase(), desc = document.getElementById('rm-pgn-desc').value.trim().toUpperCase();
+  const v = rmParseMoeda(document.getElementById('rm-pgn-val').value), venc = document.getElementById('rm-pgn-venc').value;
+  const rep = document.querySelector('#rm-pgn-rep button.on').dataset.r;
+  if(!nome){ alert('Escreva o fornecedor ou o nome da conta.'); document.getElementById('rm-pgn-nome').focus(); return; }
+  if(!(v > 0)){ alert('Digite o valor.'); document.getElementById('rm-pgn-val').focus(); return; }
+  if(!venc){ alert('Escolha o vencimento.'); return; }
+  const agora = new Date().toISOString(), base = { tipo: 'conta', nome, desc, valor: v, origem: 'manual', criadoPor: rmNomeUsuario(), criadoEm: agora, pago: null };
+  let linhas;
+  if(rep === 'mes') linhas = [{ id: 'pagar-rec-' + rmUid(), tipo: 'rec', nome, desc, valor: v, dia: Number(venc.slice(8, 10)), desde: venc.slice(0, 7), ate: null, criadoPor: rmNomeUsuario(), criadoEm: agora }];
+  else if(rep === 'parc'){
+    const n = Math.max(2, Math.min(60, parseInt(document.getElementById('rm-pgn-parc').value) || 2)), g = rmUid();
+    linhas = Array.from({ length: n }, (_, k) => Object.assign({}, base, { id: 'pagar-' + g + '-' + (k + 1), venc: rmAddMesesISO(venc, k), parc: (k + 1) + '/' + n }));
+  } else linhas = [Object.assign({}, base, { id: 'pagar-' + rmUid(), venc })];
+  const btn = document.getElementById('rm-pgn-ok'); btn.disabled = true;
+  if(!await rmPagGravar(linhas)){ btn.disabled = false; return; }
+  rmLog('Lançou conta a pagar', nome, rmFormatMoeda(v) + (rep === 'mes' ? ' · todo mês, dia ' + Number(venc.slice(8, 10)) : rep === 'parc' ? ' · ' + linhas.length + ' parcelas' : '') + ' · venc. ' + rmDataBR(venc));
+  rmPagFechar('rm-pagn-ov');
+  rmShowToast('Conta lançada: ' + nome);
+  rmPagRender();
+}
+// ----- alterar / excluir uma conta -----
+function rmPagEditar(id){
+  const c = rmPagContas().find(x => x.id === id); if(!c) return;
+  const rec = !!c.recId;
+  rmPagOv('rm-page-ov', `<div class="cp pgm" onclick="event.stopPropagation()"><h3>Alterar conta</h3>
+    <div class="sub">${c.origem === 'xml' ? 'Veio da nota NF ' + rmEscapeHtml(c.nf || '') + (c.parc ? ' · parcela ' + rmEscapeHtml(c.parc) : '') : rec ? 'Conta que se repete · aqui você muda só a deste mês (' + rmDataBR(c.venc).slice(3) + ')' : c.parc ? 'Parcela ' + rmEscapeHtml(c.parc) : 'Lançada à mão'}${c.criadoPor ? ' · por ' + rmEscapeHtml(c.criadoPor) : ''}</div>
+    <label class="rt-lab">Fornecedor / conta</label><input class="rt-txt" id="rm-pge-nome" autocapitalize="characters" value="${rmEscapeHtml(c.nome)}">
+    <label class="rt-lab">Descrição</label><input class="rt-txt" id="rm-pge-desc" autocapitalize="characters" value="${rmEscapeHtml(c.desc || '')}">
+    <div class="pg-2"><div><label class="rt-lab">Valor</label><input class="rt-txt pg-val" id="rm-pge-val" inputmode="decimal" value="${rmFormatMoeda(c.valor)}"${c.pago ? ' disabled' : ''}></div>
+      <div><label class="rt-lab">Vencimento</label><input class="rt-txt" type="date" id="rm-pge-venc" value="${String(c.venc).slice(0, 10)}"${c.pago ? ' disabled' : ''}></div></div>
+    ${c.pago ? '<div class="rt-info">Esta conta já foi paga. Para mudar valor ou vencimento, primeiro clique em "desfazer" na lista.</div>' : ''}
+    <div class="pe pg-pe">${c.pago ? '' : `<button class="pg-exc" onclick="rmPagExcluir('${rmJs(id)}')">&#128465; ${rec ? 'Pular este mês' : 'Excluir conta'}</button>`}<span style="flex:1"></span>
+      <button onclick="rmPagFechar('rm-page-ov')">Cancelar</button><button class="pri" onclick="rmPagEditarSalvar('${rmJs(id)}')">Salvar</button></div></div>`);
+}
+async function rmPagEditarSalvar(id){
+  const c = rmPagContas().find(x => x.id === id); if(!c) return;
+  const nome = document.getElementById('rm-pge-nome').value.trim().toUpperCase();
+  if(!nome){ alert('Escreva o nome da conta.'); return; }
+  const n = Object.assign({}, c, { nome, desc: document.getElementById('rm-pge-desc').value.trim().toUpperCase() });
+  if(!c.pago){
+    n.valor = rmParseMoeda(document.getElementById('rm-pge-val').value); n.venc = document.getElementById('rm-pge-venc').value;
+    if(!(n.valor > 0)){ alert('Digite o valor.'); return; }
+    if(!n.venc){ alert('Escolha o vencimento.'); return; }
+  }
+  if(!await rmPagGravar(n)) return;
+  const mud = ['nome', 'valor', 'venc'].filter(k => n[k] !== c[k]).map(k => k === 'valor' ? rmFormatMoeda(c.valor) + ' → ' + rmFormatMoeda(n.valor) : k === 'venc' ? 'venc. ' + rmDataBR(c.venc) + ' → ' + rmDataBR(n.venc) : c.nome + ' → ' + n.nome);
+  if(mud.length) rmLog('Alterou conta a pagar', c.nome, mud.join(' · '));
+  rmPagFechar('rm-page-ov'); rmPagRender();
+}
+async function rmPagExcluir(id){
+  const c = rmPagContas().find(x => x.id === id); if(!c || c.pago) return;
+  if(!confirm(c.recId ? 'Pular a conta ' + c.nome + ' deste mês (vence ' + rmDataBR(c.venc) + ')? Os outros meses continuam.' : 'Excluir a conta ' + c.nome + ' de ' + rmFormatMoeda(c.valor) + ' (vence ' + rmDataBR(c.venc) + ')?')) return;
+  if(!await rmPagGravar(Object.assign({}, c, { removida: true, removidaPor: rmNomeUsuario(), removidaEm: new Date().toISOString() }))) return;
+  rmLog(c.recId ? 'Pulou mês de conta que se repete' : 'Excluiu conta a pagar', c.nome, rmFormatMoeda(c.valor) + ' · venc. ' + rmDataBR(c.venc));
+  rmPagFechar('rm-page-ov'); rmPagRender();
+}
+// ----- contas que se repetem -----
+function rmPagRecEditar(id){
+  const r = (rmPag || []).find(x => x.id === id); if(!r) return;
+  rmPagOv('rm-pagr-ov', `<div class="cp pgm" onclick="event.stopPropagation()"><h3>&#128257; Conta que se repete</h3>
+    <div class="sub">O que mudar aqui vale para os próximos meses. Os meses já pagos não mudam.</div>
+    <label class="rt-lab">Fornecedor / conta</label><input class="rt-txt" id="rm-pgr-nome" autocapitalize="characters" value="${rmEscapeHtml(r.nome)}">
+    <label class="rt-lab">Descrição</label><input class="rt-txt" id="rm-pgr-desc" autocapitalize="characters" value="${rmEscapeHtml(r.desc || '')}">
+    <div class="pg-2"><div><label class="rt-lab">Valor</label><input class="rt-txt pg-val" id="rm-pgr-val" inputmode="decimal" value="${rmFormatMoeda(r.valor)}"></div>
+      <div><label class="rt-lab">Vence todo dia</label><input class="rt-txt" type="number" min="1" max="31" id="rm-pgr-dia" value="${r.dia}"></div></div>
+    <div class="pe"><button onclick="rmPagFechar('rm-pagr-ov')">Cancelar</button><button class="pri" onclick="rmPagRecSalvar('${rmJs(id)}')">Salvar</button></div></div>`);
+}
+async function rmPagRecSalvar(id){
+  const r = (rmPag || []).find(x => x.id === id); if(!r) return;
+  const n = Object.assign({}, r, { nome: document.getElementById('rm-pgr-nome').value.trim().toUpperCase(), desc: document.getElementById('rm-pgr-desc').value.trim().toUpperCase(),
+    valor: rmParseMoeda(document.getElementById('rm-pgr-val').value), dia: parseInt(document.getElementById('rm-pgr-dia').value) || 0 });
+  if(!n.nome){ alert('Escreva o nome da conta.'); return; }
+  if(!(n.valor > 0)){ alert('Digite o valor.'); return; }
+  if(!(n.dia >= 1 && n.dia <= 31)){ alert('O dia do vencimento vai de 1 a 31.'); return; }
+  if(!await rmPagGravar(n)) return;
+  rmLog('Alterou conta que se repete', r.nome, rmFormatMoeda(r.valor) + ' dia ' + r.dia + ' → ' + rmFormatMoeda(n.valor) + ' dia ' + n.dia);
+  rmPagFechar('rm-pagr-ov'); rmPagRender();
+}
+async function rmPagRecParar(id){
+  const r = (rmPag || []).find(x => x.id === id); if(!r) return;
+  const mes = rmHojeISO().slice(0, 7), estePago = rmPagContas().some(c => c.recId === id && c.mes === mes && c.pago) || (rmPag || []).some(c => c.id === 'pagar-r-' + id.slice(10) + '-' + mes && c.pago);
+  if(!confirm('Parar de repetir ' + r.nome + '?\n' + (estePago ? 'A deste mês já foi paga. A partir do mês que vem não aparece mais.' : 'A partir deste mês não aparece mais.') + ' As que já venceram e não foram pagas continuam na lista.')) return;
+  const ate = estePago ? mes : rmPagMesMais(mes, -1);
+  if(!await rmPagGravar(Object.assign({}, r, ate < r.desde ? { removida: true, removidaPor: rmNomeUsuario(), removidaEm: new Date().toISOString() } : { ate }))) return;
+  rmLog('Parou de repetir conta', r.nome, rmFormatMoeda(r.valor) + ' · dia ' + r.dia);
+  rmPagRender();
+}
+// ----- boletos (duplicatas) que vêm no XML da nota de compra -----
+function rmPagNfId(notaId, k){ return 'pagar-nf-' + String(notaId).replace(/[^A-Za-z0-9]/g, '').slice(-44) + '-' + k; }
+async function rmPagNotaXml(id){
+  let xml = (rmNotasPend()[id] || {}).row ? rmNotasPend()[id].row.xml : null;
+  if(!xml){ try{ const { data } = await rmSb.from('notas_compra').select('xml').eq('id', id).maybeSingle(); xml = data && data.xml; }catch(e){} }
+  return xml || '';
+}
+function rmPagDupsDoXml(xml){
+  try{
+    const d = new DOMParser().parseFromString(xml, 'application/xml');
+    return [...d.getElementsByTagName('dup')].map(e => { const t = n => { const x = e.getElementsByTagName(n)[0]; return x ? x.textContent.trim() : ''; };
+      return { n: t('nDup'), venc: t('dVenc').slice(0, 10), valor: Math.round((parseFloat(t('vDup')) || 0) * 100) / 100 }; }).filter(x => /^\d{4}-\d\d-\d\d$/.test(x.venc) && x.valor > 0);
+  }catch(e){ return []; }
+}
+async function rmPagNfJa(notaId){
+  const { data, error } = await rmSb.from('configuracoes').select('id').like('id', rmPagNfId(notaId, '') + '%');
+  if(error) throw error;
+  return new Set((data || []).map(x => x.id));
+}
+// quadro dos boletos na tela de entrada da nota
+async function rmPagNfBloco(notaId){
+  rmPagNfDups = null;
+  const el = () => document.getElementById('rm-pag-nf');
+  if(!el() || !rmPagPode()) return;
+  const xml = await rmPagNotaXml(notaId), dups = xml ? rmPagDupsDoXml(xml) : [];
+  if(!dups.length || !el() || rmImpNotaId !== notaId) return;
+  let ja; try{ ja = await rmPagNfJa(notaId); }catch(e){ return; }
+  if(!el()) return;
+  const n = (rmNotas || []).find(x => x.id === notaId) || {}, tot = dups.reduce((s, d) => s + d.valor, 0);
+  if(dups.every((d, k) => ja.has(rmPagNfId(notaId, k + 1)))){ el().innerHTML = `<div class="pg-nf pg-nf-ok">&#129534; Os ${dups.length} boleto${dups.length > 1 ? 's' : ''} desta nota já estão em <b>Financeiro &rarr; Contas a pagar</b>.</div>`; return; }
+  rmPagNfDups = { notaId, dups, nota: { numero: n.numero || '', fornecedor: n.fornecedor || '' } };
+  el().innerHTML = `<div class="pg-nf"><div class="pg-nf-t">&#129534; <b>Boletos desta nota: ${dups.length} parcela${dups.length > 1 ? 's' : ''} · ${rmFormatMoeda(tot)}</b><span>vieram no XML${n.fornecedor ? ' (' + rmEscapeHtml(n.fornecedor) + ')' : ''}</span>
+      <label><input type="checkbox" id="rm-pag-nf-chk" checked> Lançar em Contas a pagar</label></div>
+    <div class="pg-nf-l">${dups.map((d, k) => `<span><i>${k + 1}/${dups.length}</i> vence <b>${rmDataBR(d.venc).slice(0, 5)}</b> · ${rmFormatMoeda(d.valor)}</span>`).join('')}</div>
+    <small>Os boletos vão para Financeiro &rarr; Contas a pagar quando você clicar em "Lançar no estoque". Se a nota já estiver paga, é só desmarcar.</small></div>`;
+}
+async function rmPagLancarNota(info){
+  if(!info) return 0;
+  let ja; try{ ja = await rmPagNfJa(info.notaId); }catch(e){ rmShowToast('Não consegui lançar os boletos agora. Use o menu da nota (⋮) para lançar depois.'); return 0; }
+  const agora = new Date().toISOString(), tot = info.dups.length;
+  const novas = info.dups.map((d, k) => ({ id: rmPagNfId(info.notaId, k + 1), tipo: 'conta', nome: info.nota.fornecedor || 'FORNECEDOR', desc: '', nf: String(info.nota.numero || ''), parc: (k + 1) + '/' + tot,
+    valor: d.valor, venc: d.venc, origem: 'xml', nota: info.notaId, criadoPor: rmNomeUsuario(), criadoEm: agora, pago: null })).filter(c => !ja.has(c.id));
+  if(!novas.length) return 0;
+  if(!await rmPagGravar(novas)) return 0;
+  rmLog('Lançou boletos da nota em Contas a pagar', 'NF ' + info.nota.numero, info.nota.fornecedor + ' · ' + novas.length + ' parcela(s) · ' + rmFormatMoeda(novas.reduce((s, c) => s + c.valor, 0)));
+  rmShowToast(novas.length + ' boleto' + (novas.length > 1 ? 's lançados' : ' lançado') + ' em Contas a pagar');
+  rmPagCarregar();
+  return novas.length;
+}
+// menu da nota (⋮): lançar os boletos sem lançar os produtos
+async function rmPagNotaMenu(id){
+  const m = document.getElementById('rm-nf-menu'); if(m) m.remove();
+  const n = (rmNotas || []).find(x => x.id === id); if(!n) return;
+  if(navigator.onLine === false){ alert('Precisa de internet.'); return; }
+  const xml = await rmPagNotaXml(id), dups = xml ? rmPagDupsDoXml(xml) : [];
+  if(!dups.length){ alert(xml ? 'Esta nota não tem boletos no XML (deve ter sido paga à vista).' : 'Não achei o XML desta nota.'); return; }
+  let ja; try{ ja = await rmPagNfJa(id); }catch(e){ alert('Não consegui conferir agora. Tente de novo.'); return; }
+  const faltam = dups.filter((d, k) => !ja.has(rmPagNfId(id, k + 1)));
+  if(!faltam.length){ alert('Os boletos desta nota já estão em Contas a pagar.'); return; }
+  if(!confirm('Lançar ' + faltam.length + ' boleto(s) da NF ' + n.numero + ' em Contas a pagar?\n\n' + dups.map((d, k) => (k + 1) + '/' + dups.length + ' · vence ' + rmDataBR(d.venc) + ' · ' + rmFormatMoeda(d.valor)).join('\n'))) return;
+  await rmPagLancarNota({ notaId: id, dups, nota: { numero: n.numero, fornecedor: n.fornecedor } });
+}
+setInterval(() => { try{ if(rmPagPode() && document.visibilityState === 'visible') rmPagCarregar(); }catch(e){} }, 15 * 60e3);
+
 function rmSetViewFin(view){
   rmCxBotao();
   if(view === 'caixa' && !rmEhAdmin()) view = 'vendas'; // caixa do dia: só administrador
-  ['vendas','prom','cli','org','conc','notas','caixa'].forEach(v=>{
+  ['vendas','prom','cli','org','conc','notas','pagar','caixa'].forEach(v=>{
     document.getElementById('rm-view-fin-'+v).classList.toggle('active', v===view);
     document.getElementById('rm-btn-fin-'+v).classList.toggle('active', v===view);
   });
@@ -12503,6 +12898,7 @@ function rmSetViewFin(view){
   if(view === 'org'){ rmRenderFinOrg(); rmSyncProms().then(rmRenderFinOrg); }
   if(view === 'cli'){ rmRenderFinClientes(); rmSyncProms().then(rmRenderFinClientes); }
   if(view === 'notas'){ rmNotasAbrirTela(); }
+  if(view === 'pagar'){ rmPagRender(); rmPagCarregar(); }
   if(view === 'caixa'){ rmCxRender(); rmSyncProms().then(() => rmCxCarregar()); }
   if(view === 'conc'){ rmRenderConciliacao(); Promise.all([rmSyncProms(), rmConcSync()]).then(rmRenderConciliacao); }
 }
