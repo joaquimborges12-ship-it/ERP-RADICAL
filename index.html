@@ -666,6 +666,7 @@
   .nf-bt{border:1px solid var(--rm-border); background:transparent; color:var(--rm-text); padding:8px 14px; font-weight:700; cursor:pointer; font-family:inherit; white-space:nowrap;}
   .nf-bt-pri{background:#d9433a; border-color:#d9433a; color:#fff;}
   .nf-mais{background:none; border:none; color:var(--rm-text-dim); font-size:20px; cursor:pointer; padding:4px 8px;}
+  .nf-mais.nf-imp-guardar{font-size:17px; color:var(--rm-text);} .nf-menu-td{white-space:nowrap;}
   .nf-tot td{font-weight:800; border-bottom:none;}
   .nf-vazio{padding:40px; text-align:center; color:var(--rm-text-dim); border:1px dashed var(--rm-border);}
   .nf-aviso{border:1px solid #e8a33d; background:rgba(232,163,61,.10); padding:10px 14px; margin-bottom:10px; font-size:13.5px;}
@@ -2444,7 +2445,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 19/10 às 23:52</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 19/10 às 23:57</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -4383,10 +4384,30 @@ function rmRenderNotas(){
       <td class="nf-dim">${n.importadaEm ? new Date(n.importadaEm).toLocaleString('pt-BR').slice(0, 17).replace(',', '') : ''}${n.importadaPor ? '<div class="nf-sub">' + rmEscapeHtml(n.importadaPor) + '</div>' : ''}</td>
       <td>${rmNotaSitTxt(n)}</td>
       <td>${rmNotaEmAberto(n) ? `<button class="nf-bt nf-bt-pri" onclick="rmNotaLancar('${rmJs(n.id)}')">${n.itens.some(i => i.lancado) || n.itens.some(i => i.rascunho) ? 'Continuar lançando' : 'Lançar produtos'}</button>` : `<button class="nf-bt" onclick="rmNotaVerItens('${rmJs(n.id)}')">Ver itens</button>`}</td>
-      <td class="nf-menu-td"><button class="nf-mais" title="Mais opções" onclick="rmNotaMenu(event, '${rmJs(n.id)}')">&#8942;</button></td></tr>`).join('')}
+      <td class="nf-menu-td">${n.itens.some(i => i.lancado) ? `<button class="nf-mais nf-imp-guardar" title="Imprimir lista para guardar no estoque (com o local de cada peça)" onclick="rmNotaImprimirGuardar('${rmJs(n.id)}')">&#128424;</button>` : ''}<button class="nf-mais" title="Mais opções" onclick="rmNotaMenu(event, '${rmJs(n.id)}')">&#8942;</button></td></tr>`).join('')}
     <tr class="nf-tot"><td colspan="4">${lista.length} nota(s)</td><td class="r">${rmFormatMoeda(lista.reduce((s, n) => s + n.total, 0))}</td><td colspan="4"></td></tr>
     </tbody></table></div>`
     : `<div class="nf-vazio">${todas.length ? 'Nenhuma nota com esse filtro.' : 'Nenhuma nota ainda. Clique em <b>Importar XML das notas</b> quando chegar uma compra.'}</div>`);
+}
+// lista para GUARDAR a mercadoria da nota no estoque, na ordem das prateleiras (só o que já foi lançado)
+function rmNotaImprimirGuardar(id){
+  const m = document.getElementById('rm-nf-menu'); if(m) m.remove();
+  const n = (rmNotas || []).find(x => x.id === id); if(!n) return;
+  const prods = rmIdx(rmLoadProdutos());
+  const linhas = n.itens.filter(i => i.lancado).map(i => {
+    const p = i.produtoId ? prods.get(i.produtoId) : null;
+    return { loc: ((p && p.localizacao) || '').trim(), nome: (p && p.nome) || i.nome || '', qtd: Number(i.qtd) || 0, un: (p && p.unidade) || i.unidade || 'UN', cod: (p && (p.codigo || p.codigoBarras)) || '' };
+  }).sort((a, b) => (!a.loc - !b.loc) || a.loc.localeCompare(b.loc, 'pt-BR', { numeric:true }) || a.nome.localeCompare(b.nome, 'pt-BR'));
+  if(!linhas.length){ alert('Nenhum produto desta nota foi lançado no estoque ainda.'); return; }
+  const faltam = n.itens.filter(i => !i.lancado).length, semLoc = linhas.filter(l => !l.loc).length;
+  const corpo = `<div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px; border-bottom:2px solid #000; padding-bottom:4px; margin-bottom:8px;"><b style="font-size:15px;">GUARDAR NO ESTOQUE · NF ${rmH(n.numero)}</b><span>${n.emissao ? rmDataBR(n.emissao) : ''}</span></div>`
+    + rmA4Secao(rmH(n.fornecedor || ''), `<table class="a4-tab rm-sep">
+        <thead><tr><th style="width:120px">LOCAL</th><th class="r" style="width:50px">Qtd</th><th>Produto</th><th class="c" style="width:28px">✔</th></tr></thead>
+        <tbody>${linhas.map(l => `<tr><td class="sep-loc">${l.loc ? rmH(l.loc) : '&nbsp;'}</td><td class="r sep-qtd">${rmFmtQtd(l.qtd)}</td><td>${rmH(l.nome)}<div class="sep-un">${rmH(l.un)}${l.cod ? ' · ' + rmH(l.cod) : ''}</div></td><td class="c" style="font-size:14px">☐</td></tr>`).join('')}</tbody></table>
+      <style>.rm-sep .sep-loc{font-size:16px; font-weight:800; letter-spacing:0.02em; white-space:nowrap;} .rm-sep .sep-qtd{font-size:14px; font-weight:800;} .rm-sep .sep-un{font-size:9px; color:#555;} .rm-sep td{vertical-align:middle;}</style>`)
+    + `<div class="a4-txt">${linhas.length} produto(s)${semLoc ? ' · ' + semLoc + ' sem local cadastrado (em branco)' : ''}${faltam ? ' · ' + faltam + ' item(ns) da nota ainda não lançado(s) no estoque não aparecem aqui' : ''}</div>`
+    + `<div class="a4-txt" style="margin-top:10px">Guardado por: ______________________</div>`;
+  rmImprimirA4('Guardar no estoque · NF ' + n.numero, corpo);
 }
 function rmNotasImportar(){ document.getElementById('rm-prod-xml-input').click(); }
 // guarda os XML como notas EM ABERTO (o estoque ainda não muda)
@@ -4440,6 +4461,7 @@ function rmNotaMenu(ev, id){
   m = document.createElement('div'); m.id = 'rm-nf-menu'; m.className = 'nf-menu';
   m.innerHTML = `<button onclick="rmNotaVerItens('${rmJs(id)}')">&#128203; Ver itens</button>
     <button onclick="rmNotaBaixarXml('${rmJs(id)}')">&#11015; Baixar o XML</button>
+    ${n.itens.some(i => i.lancado) ? `<button onclick="rmNotaImprimirGuardar('${rmJs(id)}')">&#128424; Imprimir para guardar no estoque</button>` : ''}
     ${rmPagPode() ? `<button onclick="rmPagNotaMenu('${rmJs(id)}')">&#129534; Lançar boletos em Contas a pagar</button>` : ''}
     ${rmNotaEmAberto(n) ? `<button onclick="rmNotaConcluir('${rmJs(id)}')">&#10004; Marcar como lançada (sem lançar o resto)</button>` : `<button onclick="rmNotaReabrir('${rmJs(id)}')">&#8634; Voltar para em aberto</button>`}
     <button class="nf-menu-del" onclick="rmNotaExcluir('${rmJs(id)}')">&#128465; Excluir nota</button>`;
@@ -6472,7 +6494,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610192352; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610192357; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
