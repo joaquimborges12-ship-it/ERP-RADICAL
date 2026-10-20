@@ -2303,6 +2303,58 @@
   html[data-tema="dark"] .rm-nav-icon{color:#8d939d;}
   html[data-tema="dark"] .rm-nav-btn.active .rm-nav-icon{color:var(--rm-accent-ink);}
 
+  /* ===== Etiquetas ===== */
+  #rm-etq-scale .ek-folha{position:relative; width:210mm; height:297mm; background:#fff; overflow:hidden;}
+  #rm-etq-scale .ek{position:absolute; box-sizing:border-box; overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-family:Arial, Helvetica, sans-serif; color:#000; padding:0.6mm 1mm; line-height:1.05; background:#fff;}
+  #rm-etq-scale .ek > *{max-width:100%; flex-shrink:0;}
+  #rm-etq-scale .ek-nm{font-weight:700; max-height:2.15em; overflow:hidden; word-break:break-word; width:100%;}
+  #rm-etq-scale .ek-pr{font-weight:900; white-space:nowrap; letter-spacing:-0.02em; line-height:1.1;}
+  #rm-etq-scale .ek-px, .ek-cd{white-space:nowrap;} .ek-cd{letter-spacing:0.08em;}
+  #rm-etq-scale .ek-ex{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  #rm-etq-scale .ek-loc{font-weight:900; white-space:nowrap; line-height:1;}
+  #rm-etq-scale .ek-bc{display:block; margin-top:0.3mm; fill:#000;}
+  #rm-etq-scale .ek-logo{display:block; margin-bottom:0.3mm; object-fit:contain;}
+  #rm-etq-scale .ek-t{border:0.2mm solid #000; color:#999; font-size:3mm;}
+  .eq{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:16px; align-items:start;}
+  .eq-p{border:1px solid var(--rm-border); background:var(--rm-panel); margin-bottom:14px;}
+  .eq-p h3{margin:0; padding:11px 14px; border-bottom:1px solid var(--rm-border); font-size:15px; display:flex; align-items:center; gap:8px;}
+  .eq-p h3 .n{background:#d9433a; color:#fff; width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; font-size:12.5px; border-radius:50%; flex-shrink:0;}
+  .eq-p h3 small{margin-left:auto; font-weight:400; color:var(--rm-text-dim); font-size:12.5px;} .eq-p h3 small a{cursor:pointer; font-size:18px; padding:0 6px; color:var(--rm-text); font-weight:700;} .eq-p h3 small a.off{opacity:.25; pointer-events:none;}
+  .eq-b{padding:12px 14px;}
+  .eq-src{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;} .eq-src button{width:auto; margin:0; padding:8px 11px; border:1px solid var(--rm-border); background:transparent; color:var(--rm-text); font-family:inherit; font-size:13px; font-weight:600; cursor:pointer;}
+  .eq-src button.on{border-color:#d9433a; background:rgba(217,67,58,.14);}
+  .eq-in{width:100%; padding:10px 12px; background:var(--rm-bg); border:1px solid var(--rm-border); color:var(--rm-text); font-family:inherit; font-size:14px; box-sizing:border-box; margin:0;}
+  .eq-lin{display:flex; gap:8px;} .eq-lin .eq-in{flex:1; min-width:0;}
+  .eq-bt{width:auto; margin:0; padding:9px 14px; border:1px solid var(--rm-border); background:transparent; color:var(--rm-text); font-family:inherit; font-weight:700; font-size:13.5px; cursor:pointer; white-space:nowrap;}
+  .eq-dica{font-size:12.5px; color:var(--rm-text-dim); margin-top:8px; line-height:1.4;}
+  .eq-res{max-height:260px; overflow:auto;} .eq-r{display:flex; align-items:center; gap:10px; padding:8px 4px; border-bottom:1px solid var(--rm-border); cursor:pointer; font-size:13.5px;} .eq-r:hover{background:rgba(127,127,127,.08);}
+  .eq-r > div{flex:1; min-width:0;} .eq-r b{display:block;} .eq-r small{color:var(--rm-text-dim); font-size:12px;} .eq-r span{font-size:18px; color:#d9433a; font-weight:800;} .eq-r-vazio{padding:10px 4px; color:var(--rm-text-dim); font-size:13px;}
+  .eq-pm{max-height:200px; overflow:auto; margin:6px 0 10px; font-size:13px;} .eq-pm div{display:flex; justify-content:space-between; gap:10px; padding:5px 0; border-bottom:1px solid var(--rm-border);} .eq-pm span{white-space:nowrap;} .eq-pm s{color:var(--rm-text-dim);}
+  .eq-fila{margin-top:10px;} .eq-vazio{padding:16px 0; text-align:center; color:var(--rm-text-dim); font-size:13.5px;}
+  .eq-it{display:grid; grid-template-columns:minmax(0,1fr) auto 30px; gap:10px; align-items:center; padding:8px 0; border-bottom:1px solid var(--rm-border); font-size:13.5px;}
+  .eq-it b{display:block;} .eq-it small{color:var(--rm-text-dim); font-size:12px;} .eq-it i{color:#c9961a; font-style:normal;}
+  .eq-q{display:flex; border:1px solid var(--rm-border);} .eq-q button{width:28px; margin:0; padding:6px 0; border:0; background:transparent; color:var(--rm-text); font-size:15px; cursor:pointer;} .eq-q input{width:44px; text-align:center; border:0; background:transparent; color:var(--rm-text); font-weight:800; font-size:14px; padding:0; margin:0;}
+  .eq-x{width:30px; margin:0; padding:4px; border:0; background:transparent; color:var(--rm-text-dim); cursor:pointer; font-size:14px;}
+  .eq-tot{display:flex; justify-content:space-between; padding:10px 0 0; font-size:13.5px; color:var(--rm-text-dim);} .eq-tot b{color:var(--rm-text);} .eq-tot a, .eq-start a, .eq-pos a{cursor:pointer; text-decoration:underline;}
+  .eq-mod{display:flex; gap:10px; align-items:center;} .eq-mod select{flex:1; min-width:0;}
+  .eq-mini{background:#fff; position:relative; flex-shrink:0; border:1px solid #888;} .eq-mini i{position:absolute; background:#ddd; border:0.5px solid #999; box-sizing:border-box;}
+  .eq-cus{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:10px;} .eq-cus label{font-size:11.5px; color:var(--rm-text-dim);} .eq-cus input{width:100%; box-sizing:border-box; padding:7px; margin-top:3px; background:var(--rm-bg); border:1px solid var(--rm-border); color:var(--rm-text); font-family:inherit;}
+  .eq-start{font-size:13px; color:var(--rm-text-dim); margin-top:10px;} .eq-start input{width:52px; padding:5px; text-align:center; background:var(--rm-bg); border:1px solid var(--rm-border); color:var(--rm-text); font-weight:800; margin:0 2px;}
+  .eq-pos{margin-top:10px; padding:9px 12px; background:rgba(46,139,87,.12); border:1px solid #2e8b57; font-size:13px;}
+  .eq-lay{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;} .eq-lay > div{border:1px solid var(--rm-border); padding:8px; text-align:center; font-size:12.5px; font-weight:700; cursor:pointer;} .eq-lay > div.on{border-color:#d9433a; background:rgba(217,67,58,.12);}
+  .eq-lay .lb{background:#fff; color:#111; height:44px; margin:0 auto 6px; width:80px; display:flex; flex-direction:column; justify-content:center; align-items:center; line-height:1.1; padding:2px; box-sizing:border-box; border:1px solid #bbb;}
+  .eq-fbc{width:60px; height:8px; background:repeating-linear-gradient(90deg,#000 0 1px,#fff 1px 2px,#000 2px 4px,#fff 4px 5px);}
+  .eq-ck{display:grid; grid-template-columns:1fr 1fr; gap:6px 14px; margin-top:12px; font-size:13.5px;} .eq-ck label{display:flex; gap:8px; align-items:center; cursor:pointer;}
+  .eq-adj{display:flex; gap:8px; align-items:center; font-size:13px; color:var(--rm-text-dim); margin-top:12px; flex-wrap:wrap;} .eq-adj input{width:56px; padding:6px; background:var(--rm-bg); border:1px solid var(--rm-border); color:var(--rm-text); text-align:center; margin:0;}
+  .eq-prev{padding:14px; background:#3a3f47; overflow:hidden; box-sizing:border-box;} .eq-scale{transform-origin:top left; box-shadow:0 6px 24px rgba(0,0,0,.4);}
+  #rm-etq-scale .ek{outline:0.15mm dashed #c4c4c4; outline-offset:-0.15mm; cursor:pointer;} #rm-etq-scale .ek-u{background:repeating-linear-gradient(45deg,#e6e6e6,#e6e6e6 1mm,#f7f7f7 1mm,#f7f7f7 2mm);} #rm-etq-scale .ek-v:hover{background:#ffe9e7;}
+  .eq-go{display:flex; gap:10px; padding:12px 14px; border-top:1px solid var(--rm-border); align-items:center;} .eq-go span{font-size:13px; color:var(--rm-text-dim);}
+  .eq-go .pri{margin-left:auto; width:auto; padding:12px 18px; font-family:inherit; font-weight:800; font-size:14px; background:#d9433a; border:1px solid #d9433a; color:#fff; cursor:pointer;} .eq-go .pri:disabled{opacity:.45; cursor:default;}
+  .cp.eq-catw{width:980px;} .eq-cat{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:10px; margin-top:12px;}
+  .eq-c{border:1px solid var(--rm-border); padding:10px; text-align:center; font-size:12.5px; cursor:pointer;} .eq-c:hover{border-color:#d9433a;} .eq-c.on{border:2px solid #d9433a; background:rgba(217,67,58,.10);}
+  .eq-c b{display:block; font-size:14px; margin-top:6px;} .eq-c small{display:block; color:var(--rm-text-dim);} .eq-c .eq-mini{margin:0 auto;}
+  @media (max-width:1100px){ .eq{grid-template-columns:1fr;} }
+  @media (max-width:760px){ .eq-cus{grid-template-columns:1fr 1fr;} .eq-ck{grid-template-columns:1fr;} .eq-lay{grid-template-columns:1fr 1fr 1fr;} .eq-go{flex-wrap:wrap;} .eq-go .pri{width:100%;} }
   /* ===== Retorno de garantia ===== */
   .rm-ret-ban{background:linear-gradient(90deg,#b8601a,#d9822b); color:#fff; padding:12px 16px; margin:0 0 14px; display:flex; align-items:center; gap:8px 14px; flex-wrap:wrap;}
   .rm-ret-ban > b{font-size:16px; letter-spacing:.03em;} .rm-ret-ban span{font-size:13.5px; opacity:.96; flex:1; min-width:220px;} .rm-ret-ban a{color:#fff; text-decoration:underline; font-size:13px; font-weight:700; cursor:pointer;}
@@ -2445,7 +2497,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 20/10 às 00:04</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 20/10 às 00:27</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3146,8 +3198,7 @@
 
 
       <div id="rm-view-produtos-etiquetas" class="rm-view">
-        <h1 class="rm-title">Etiquetas</h1>
-        <p class="rm-placeholder-text">Essa área ainda vai ser construída.</p>
+        <div id="rm-etq"></div>
       </div>
     </div>
 
@@ -3574,6 +3625,7 @@ function rmAbrirCadastroProdutoRapido(produtoId, novoNaFamilia){
 
     <div class="rm-qm-footer">
       ${editando ? `<button class="rm-qm-btn rm-qm-btn-excluir" onclick="rmExcluirProduto('${existente.id}')">Excluir produto</button>` : ''}
+      ${editando ? `<button class="rm-qm-btn" onclick="rmEtqDoProduto('${existente.id}')" title="Colocar este produto na lista de etiquetas">&#127991; Etiqueta</button>` : ''}
       <button class="rm-qm-btn" onclick="rmCloseModal()">Cancelar</button>
       <button class="rm-qm-btn rm-qm-btn-salvar" onclick="rmSalvarProdutoRapido()">${editando ? 'Salvar alterações' : 'Cadastrar produto'}</button>
     </div>
@@ -4384,7 +4436,7 @@ function rmRenderNotas(){
       <td class="nf-dim">${n.importadaEm ? new Date(n.importadaEm).toLocaleString('pt-BR').slice(0, 17).replace(',', '') : ''}${n.importadaPor ? '<div class="nf-sub">' + rmEscapeHtml(n.importadaPor) + '</div>' : ''}</td>
       <td>${rmNotaSitTxt(n)}</td>
       <td>${rmNotaEmAberto(n) ? `<button class="nf-bt nf-bt-pri" onclick="rmNotaLancar('${rmJs(n.id)}')">${n.itens.some(i => i.lancado) || n.itens.some(i => i.rascunho) ? 'Continuar lançando' : 'Lançar produtos'}</button>` : `<button class="nf-bt" onclick="rmNotaVerItens('${rmJs(n.id)}')">Ver itens</button>`}</td>
-      <td class="nf-menu-td">${n.itens.some(i => i.lancado) ? `<button class="nf-mais nf-imp-guardar" title="Imprimir lista para guardar no estoque (com o local de cada peça)" onclick="rmNotaImprimirGuardar('${rmJs(n.id)}')">&#128424;</button>` : ''}<button class="nf-mais" title="Mais opções" onclick="rmNotaMenu(event, '${rmJs(n.id)}')">&#8942;</button></td></tr>`).join('')}
+      <td class="nf-menu-td">${n.itens.some(i => i.lancado) ? `<button class="nf-mais nf-imp-guardar" title="Etiquetas dos produtos desta nota" onclick="rmEtqDaNota('${rmJs(n.id)}')">&#127991;</button>` : ''}${n.itens.some(i => i.lancado) ? `<button class="nf-mais nf-imp-guardar" title="Imprimir lista para guardar no estoque (com o local de cada peça)" onclick="rmNotaImprimirGuardar('${rmJs(n.id)}')">&#128424;</button>` : ''}<button class="nf-mais" title="Mais opções" onclick="rmNotaMenu(event, '${rmJs(n.id)}')">&#8942;</button></td></tr>`).join('')}
     <tr class="nf-tot"><td colspan="4">${lista.length} nota(s)</td><td class="r">${rmFormatMoeda(lista.reduce((s, n) => s + n.total, 0))}</td><td colspan="4"></td></tr>
     </tbody></table></div>`
     : `<div class="nf-vazio">${todas.length ? 'Nenhuma nota com esse filtro.' : 'Nenhuma nota ainda. Clique em <b>Importar XML das notas</b> quando chegar uma compra.'}</div>`);
@@ -4461,7 +4513,7 @@ function rmNotaMenu(ev, id){
   m = document.createElement('div'); m.id = 'rm-nf-menu'; m.className = 'nf-menu';
   m.innerHTML = `<button onclick="rmNotaVerItens('${rmJs(id)}')">&#128203; Ver itens</button>
     <button onclick="rmNotaBaixarXml('${rmJs(id)}')">&#11015; Baixar o XML</button>
-    ${n.itens.some(i => i.lancado) ? `<button onclick="rmNotaImprimirGuardar('${rmJs(id)}')">&#128424; Imprimir para guardar no estoque</button>` : ''}
+    ${n.itens.some(i => i.lancado) ? `<button onclick="rmNotaImprimirGuardar('${rmJs(id)}')">&#128424; Imprimir para guardar no estoque</button><button onclick="rmEtqDaNota('${rmJs(id)}')">&#127991; Etiquetas dos produtos desta nota</button>` : ''}
     ${rmPagPode() ? `<button onclick="rmPagNotaMenu('${rmJs(id)}')">&#129534; Lançar boletos em Contas a pagar</button>` : ''}
     ${rmNotaEmAberto(n) ? `<button onclick="rmNotaConcluir('${rmJs(id)}')">&#10004; Marcar como lançada (sem lançar o resto)</button>` : `<button onclick="rmNotaReabrir('${rmJs(id)}')">&#8634; Voltar para em aberto</button>`}
     <button class="nf-menu-del" onclick="rmNotaExcluir('${rmJs(id)}')">&#128465; Excluir nota</button>`;
@@ -6494,7 +6546,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610200004; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610200027; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 let rmOutbox = {};
@@ -14402,6 +14454,356 @@ function rmInvImprimirRelatorio(){
   rmImprimirA4('Relatório de inventário', corpo);
 }
 
+// ===================== ETIQUETAS (Produtos → Etiquetas) =====================
+// Folhas A4 de etiqueta (Pimaco e outras). Prévia na tela e impressão em tamanho real (mm).
+// Código de barras: EAN-13 quando o código é um EAN válido; senão Code128. Tabela Code128 (módulos) conferida com a python-barcode.
+const RM_C128 = ["11011001100","11001101100","11001100110","10010011000","10010001100","10001001100","10011001000","10011000100","10001100100","11001001000","11001000100","11000100100","10110011100","10011011100","10011001110","10111001100","10011101100","10011100110","11001110010","11001011100","11001001110","11011100100","11001110100","11101101110","11101001100","11100101100","11100100110","11101100100","11100110100","11100110010","11011011000","11011000110","11000110110","10100011000","10001011000","10001000110","10110001000","10001101000","10001100010","11010001000","11000101000","11000100010","10110111000","10110001110","10001101110","10111011000","10111000110","10001110110","11101110110","11010001110","11000101110","11011101000","11011100010","11011101110","11101011000","11101000110","11100010110","11101101000","11101100010","11100011010","11101111010","11001000010","11110001010","10100110000","10100001100","10010110000","10010000110","10000101100","10000100110","10110010000","10110000100","10011010000","10011000010","10000110100","10000110010","11000010010","11001010000","11110111010","11000010100","10001111010","10100111100","10010111100","10010011110","10111100100","10011110100","10011110010","11110100100","11110010100","11110010010","11011011110","11011110110","11110110110","10101111000","10100011110","10001011110","10111101000","10111100010","11110101000","11110100010","10111011110","10111101110","11101011110","11110101110","11010000100","11010010000","11010011100"];
+// [modelo, largura, altura, colunas, linhas, margem esquerda, margem de cima, espaço entre colunas, espaço entre linhas] (mm)
+const RM_ETQ_MODELOS = [
+  ['A4248', 31, 17, 6, 16, 7, 12.5, 2, 0], ['A4249', 26, 15, 7, 18, 8, 13.5, 2, 0], ['A4251', 38.2, 21.2, 5, 13, 4.5, 10.7, 2.5, 0],
+  ['A4256', 63.5, 25.4, 3, 11, 7.2, 8.8, 2.6, 0], ['A4255', 63.5, 31, 3, 9, 7.2, 9, 2.6, 0], ['A4260', 63.5, 38.1, 3, 7, 7.2, 15.2, 2.6, 0],
+  ['A4261', 63.5, 46.5, 3, 6, 7.2, 9.1, 2.6, 0], ['A4264', 63.5, 71.9, 3, 4, 7.2, 4.7, 2.6, 0], ['A4254', 99, 25.4, 2, 11, 4.7, 8.8, 2.6, 0],
+  ['A4262', 99, 33.9, 2, 8, 4.7, 12.9, 2.6, 0], ['A4263', 99, 38.1, 2, 7, 4.7, 15.2, 2.6, 0], ['A4250', 99, 55.8, 2, 5, 4.7, 9, 2.6, 0],
+  ['A4265', 99, 67.8, 2, 4, 4.7, 13, 2.6, 0], ['A4268', 199.9, 143.4, 1, 2, 5.1, 5.1, 0, 0], ['A4267', 200, 288.5, 1, 1, 5, 4.3, 0, 0]
+];
+const RM_ETQ_CFG_KEY = 'radicalMotos_etiquetas', RM_ETQ_FILA_KEY = 'radicalMotos_etqFila';
+const RM_ETQ_CAMPOS = [['nome', 'Nome do produto'], ['preco', 'Preço consumidor'], ['parceiro', 'Preço parceiro'], ['barras', 'Código de barras'], ['codigo', 'Código interno'], ['local', 'Local'], ['marca', 'Marca'], ['logo', 'Logo da loja']];
+let rmEtqFonte = 'busca', rmEtqPagina = 0, rmEtqImpressas = null, rmEtqPos = null;
+function rmEtqCfg(){
+  let c = {}; try{ c = JSON.parse(localStorage.getItem(RM_ETQ_CFG_KEY)) || {}; }catch(e){}
+  const campos = Object.assign({ nome:true, preco:true, parceiro:false, barras:true, codigo:false, local:false, marca:false, logo:false }, c.campos || {});
+  const custom = Object.assign({ w:50, h:30, cols:3, rows:8, left:10, top:10, gapH:2, gapV:0 }, c.custom || {});
+  return Object.assign({ modelo:'A4248', estilo:'barras', inicio:1, ajX:0, ajY:0 }, c, { campos, custom });
+}
+function rmEtqCfgSalvar(c){ try{ localStorage.setItem(RM_ETQ_CFG_KEY, JSON.stringify(c)); }catch(e){} }
+function rmEtqFila(){ try{ return JSON.parse(localStorage.getItem(RM_ETQ_FILA_KEY)) || []; }catch(e){ return []; } }
+function rmEtqFilaSalvar(f){ try{ localStorage.setItem(RM_ETQ_FILA_KEY, JSON.stringify(f)); }catch(e){} }
+function rmEtqModelo(c){
+  c = c || rmEtqCfg();
+  if(c.modelo === 'custom'){ const u = c.custom, n = k => Math.max(0, Number(String(u[k]).replace(',', '.')) || 0);
+    return { cod:'custom', nome:'Outro tamanho', w:n('w') || 10, h:n('h') || 10, cols:Math.max(1, Math.round(n('cols'))), rows:Math.max(1, Math.round(n('rows'))), left:n('left'), top:n('top'), gapH:n('gapH'), gapV:n('gapV') }; }
+  const m = RM_ETQ_MODELOS.find(x => x[0] === c.modelo) || RM_ETQ_MODELOS[0];
+  return { cod:m[0], nome:'Pimaco ' + m[0], w:m[1], h:m[2], cols:m[3], rows:m[4], left:m[5], top:m[6], gapH:m[7], gapV:m[8] };
+}
+function rmEtqMm(v){ return String(v).replace('.', ','); }
+function rmEtqAdd(itens, origem){
+  const f = rmEtqFila(); let n = 0;
+  itens.forEach(({ pid, q }) => { if(!pid) return; q = Math.max(1, Math.round(Number(q) || 1)); const x = f.find(i => i.pid === pid); if(x) x.q += q; else f.push({ pid, q, origem: origem || '' }); n++; });
+  rmEtqFilaSalvar(f); return n;
+}
+function rmEtqLista(){
+  const prods = rmIdx(rmLoadProdutos()), out = [];
+  rmEtqFila().forEach(i => { const p = prods.get(i.pid); if(!p) return; for(let k = 0; k < i.q; k++) out.push(p); });
+  return out;
+}
+function rmEtqPaginas(c){
+  const m = rmEtqModelo(c), por = m.cols * m.rows, ini = Math.min(Math.max(1, parseInt(c.inicio) || 1), por) - 1, l = rmEtqLista(), pags = [];
+  let pos = ini, pg = [];
+  l.forEach(p => { if(pos >= por){ pags.push(pg); pg = []; pos = 0; } pg.push({ pos, p }); pos++; });
+  if(pg.length || !pags.length) pags.push(pg);
+  return { pags, m, por, ini, total: l.length };
+}
+// ----- código de barras -----
+const RM_EAN_L = ['0001101','0011001','0010011','0111101','0100011','0110001','0101111','0111011','0110111','0001011'];
+const RM_EAN_G = ['0100111','0110011','0011011','0100001','0011101','0111001','0000101','0010001','0001001','0010111'];
+const RM_EAN_R = ['1110010','1100110','1101100','1000010','1011100','1001110','1010000','1000100','1001000','1110100'];
+const RM_EAN_PAR = ['LLLLLL','LLGLGG','LLGGLG','LLGGGL','LGLLGG','LGGLLG','LGGGLL','LGLGLG','LGLGGL','LGGLGL'];
+function rmEtqEanDv(d12){ let t = 0; for(let i = 0; i < 12; i++) t += (+d12[i]) * (i % 2 ? 3 : 1); return (10 - t % 10) % 10; }
+function rmEtqEanOk(s){ return /^\d{13}$/.test(s) && rmEtqEanDv(s.slice(0, 12)) === +s[12]; }
+function rmEtqModulos(cod){
+  cod = String(cod || '').trim(); if(!cod) return '';
+  if(rmEtqEanOk(cod)){
+    const par = RM_EAN_PAR[+cod[0]]; let s = '101';
+    for(let i = 1; i <= 6; i++) s += (par[i - 1] === 'L' ? RM_EAN_L : RM_EAN_G)[+cod[i]];
+    s += '01010'; for(let i = 7; i <= 12; i++) s += RM_EAN_R[+cod[i]];
+    return s + '101';
+  }
+  let vals;
+  if(/^\d+$/.test(cod) && cod.length % 2 === 0){ vals = [105]; for(let i = 0; i < cod.length; i += 2) vals.push(+cod.substr(i, 2)); }
+  else if(/^\d{3,}$/.test(cod)){ vals = [104, cod.charCodeAt(0) - 32, 99]; for(let i = 1; i < cod.length; i += 2) vals.push(+cod.substr(i, 2)); } // número ímpar: 1º dígito no B, o resto no C (mais largo)
+  else { vals = [104]; for(const ch of cod){ const k = ch.charCodeAt(0) - 32; if(k >= 0 && k <= 94) vals.push(k); } }
+  let soma = vals[0]; for(let i = 1; i < vals.length; i++) soma += vals[i] * i;
+  vals.push(soma % 103);
+  return vals.map(v => RM_C128[v]).join('') + '1100011101011';
+}
+function rmEtqSvg(mod, wmm, hmm){
+  if(!mod) return '';
+  let r = '', i = 0;
+  while(i < mod.length){ if(mod[i] === '1'){ let j = i; while(mod[j] === '1') j++; r += `<rect x="${i}" width="${j - i}" height="10"/>`; i = j; } else i++; }
+  return `<svg class="ek-bc" viewBox="0 0 ${mod.length} 10" preserveAspectRatio="none" shape-rendering="crispEdges" style="width:${wmm}mm;height:${hmm}mm">${r}</svg>`;
+}
+// ----- uma etiqueta -----
+function rmEtqLabelHtml(p, m, c){
+  const s = Math.min(m.h / 17, m.w / 31, 3.2), k = c.campos, E = rmEscapeHtml, f = v => v.toFixed(2);
+  if(c.estilo === 'local'){
+    const loc = String(p.localizacao || '').trim();
+    return `<div class="ek-loc" style="font-size:${f(m.h * (k.nome ? 0.42 : 0.6))}mm">${loc ? E(loc) : '<span style="opacity:.35">SEM LOCAL</span>'}</div>${k.nome ? `<div class="ek-nm" style="font-size:${f(1.9 * s)}mm">${E(p.nome || '')}</div>` : ''}`;
+  }
+  const bc = k.barras && c.estilo === 'barras' ? String(p.codigoBarras || '').trim() : '';
+  const big = !bc;
+  const extra = [k.codigo && p.codigo ? 'Cód ' + p.codigo : '', k.local && p.localizacao ? p.localizacao : '', k.marca && p.marca ? p.marca : ''].filter(Boolean).join(' · ');
+  let h = '';
+  if(k.logo){ const lg = rmEmpresa().logo || (typeof RM_LOGO_PADRAO !== 'undefined' ? RM_LOGO_PADRAO : ''); if(lg) h += `<img class="ek-logo" src="${lg}" style="height:${f(2.8 * s)}mm">`; }
+  if(k.nome) h += `<div class="ek-nm" style="font-size:${f((big ? 2.2 : 1.85) * s)}mm">${E(p.nome || '')}</div>`;
+  if(k.preco) h += `<div class="ek-pr" style="font-size:${f((big ? 5 : 3.7) * s)}mm">${rmFormatMoeda(p.precoConsumidor)}</div>`;
+  if(k.parceiro) h += `<div class="ek-px" style="font-size:${f(1.6 * s)}mm">Parceiro ${rmFormatMoeda(p.precoParceiro)}</div>`;
+  if(bc){ const mod = rmEtqModulos(bc); const bw = Math.min(m.w - 5, mod.length * 0.3 * Math.max(1, s * 0.85)); h += rmEtqSvg(mod, f(bw), f(Math.min(4.2 * s, m.h * 0.3))) + `<div class="ek-cd" style="font-size:${f(1.35 * s)}mm">${E(bc)}</div>`; }
+  else if(k.barras && c.estilo === 'barras') h += `<div class="ek-cd" style="font-size:${f(1.35 * s)}mm; opacity:.5">sem código de barras</div>`;
+  if(extra) h += `<div class="ek-ex" style="font-size:${f(1.4 * s)}mm">${E(extra)}</div>`;
+  return h;
+}
+// diminui a letra das etiquetas que não couberem
+function rmEtqAjustar(raiz){
+  (raiz || document).querySelectorAll('.ek').forEach(el => {
+    for(let t = 0; t < 12 && (el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1 || [...el.children].some(x => x.scrollWidth > x.clientWidth + 1)); t++){
+      el.querySelectorAll('[style*="font-size"], svg, img').forEach(x => {
+        const tag = x.tagName.toLowerCase();
+        if(tag === 'svg' || tag === 'img') x.style.height = (parseFloat(x.style.height) * 0.9).toFixed(2) + 'mm';
+        else x.style.fontSize = (parseFloat(x.style.fontSize) * 0.9).toFixed(2) + 'mm';
+      });
+    }
+  });
+}
+const RM_ETQ_CSS = `.ek-folha{position:relative; width:210mm; height:297mm; background:#fff; overflow:hidden;}
+  .ek{position:absolute; box-sizing:border-box; overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-family:Arial, Helvetica, sans-serif; color:#000; padding:0.6mm 1mm; line-height:1.05; background:#fff;}
+  .ek > *{max-width:100%; flex-shrink:0;}
+  .ek-nm{font-weight:700; max-height:2.15em; overflow:hidden; word-break:break-word; width:100%;}
+  .ek-pr{font-weight:900; white-space:nowrap; letter-spacing:-0.02em; line-height:1.1;}
+  .ek-px, .ek-cd{white-space:nowrap;} .ek-cd{letter-spacing:0.08em;}
+  .ek-ex{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .ek-loc{font-weight:900; white-space:nowrap; line-height:1;}
+  .ek-bc{display:block; margin-top:0.3mm; fill:#000;}
+  .ek-logo{display:block; margin-bottom:0.3mm; object-fit:contain;}
+  .ek-t{border:0.2mm solid #000; color:#999; font-size:3mm;}`;
+function rmEtqPaginaHtml(pg, m, c, o){
+  o = o || {};
+  const por = m.cols * m.rows, ocup = new Map((pg || []).map(x => [x.pos, x.p])), ax = Number(String(c.ajX).replace(',', '.')) || 0, ay = Number(String(c.ajY).replace(',', '.')) || 0;
+  let h = '';
+  for(let pos = 0; pos < por; pos++){
+    const r = Math.floor(pos / m.cols), col = pos % m.cols;
+    const st = `left:${(m.left + ax + col * (m.w + m.gapH)).toFixed(2)}mm; top:${(m.top + ay + r * (m.h + m.gapV)).toFixed(2)}mm; width:${m.w}mm; height:${m.h}mm`;
+    const cl = o.clicavel ? ` onclick="rmEtqInicio(${pos + 1})" title="Começar nesta etiqueta (nº ${pos + 1})"` : '';
+    const p = ocup.get(pos);
+    if(o.teste) h += `<div class="ek ek-t" style="${st}">${pos + 1}</div>`;
+    else if(p) h += `<div class="ek" style="${st}"${cl}>${rmEtqLabelHtml(p, m, c)}</div>`;
+    else if(o.previa) h += `<div class="ek ek-v${o.usadas && pos < o.usadas ? ' ek-u' : ''}" style="${st}"${cl}></div>`;
+  }
+  return `<div class="ek-folha">${h}</div>`;
+}
+function rmEtqImprimirDoc(corpo, titulo){
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>${rmEscapeHtml(titulo)}</title><style>@page{size:A4; margin:0;} html,body{margin:0; padding:0;} ${RM_ETQ_CSS}
+    .ek-folha{page-break-after:always; break-after:page;} .ek-folha:last-child{page-break-after:auto; break-after:auto;}</style></head><body>${corpo}</body></html>`;
+  let frame = document.getElementById('rm-print-etq');
+  if(!frame){ frame = document.createElement('iframe'); frame.id = 'rm-print-etq'; frame.style.cssText = 'position:fixed; width:0; height:0; border:0; right:0; bottom:0;'; document.body.appendChild(frame); }
+  const doc = frame.contentWindow.document; doc.open(); doc.write(html); doc.close();
+  setTimeout(() => { try{ rmEtqAjustar(doc); }catch(e){} frame.contentWindow.focus(); frame.contentWindow.print(); }, 500);
+}
+// ----- código de barras para quem não tem (EAN-13 interno começando com 29) -----
+async function rmEtqGerarCodigos(){
+  const c = rmEtqCfg(); if(c.estilo !== 'barras' || !c.campos.barras) return true;
+  const prods = rmLoadProdutos(), idx = rmIdx(prods), ids = [...new Set(rmEtqFila().map(i => i.pid))];
+  const sem = ids.map(id => idx.get(id)).filter(p => p && !String(p.codigoBarras || '').trim());
+  if(!sem.length) return true;
+  if(!confirm(sem.length + ' produto(s) da lista não têm código de barras.\nO sistema vai criar um código para cada um (começando com 29) e salvar no cadastro do produto, para o leitor do PDV reconhecer a etiqueta.\n\nContinuar?')) return false;
+  let max = 0; const usados = new Set();
+  prods.forEach(p => { const b = String(p.codigoBarras || '').trim(); if(b) usados.add(b); if(/^29\d{11}$/.test(b)) max = Math.max(max, +b.slice(2, 12)); });
+  sem.forEach(p => { let cod; do{ max++; const d12 = '29' + String(max).padStart(10, '0'); cod = d12 + rmEtqEanDv(d12); } while(usados.has(cod)); usados.add(cod); p.codigoBarras = cod; rmDbUpsertProduto(p); });
+  rmSaveProdutos(prods);
+  rmLog('Criou código de barras para produto(s) sem código (etiquetas)', '', sem.length + ' produto(s): ' + sem.slice(0, 25).map(p => p.nome + ' = ' + p.codigoBarras).join(' | ').slice(0, 1500));
+  return true;
+}
+// ----- guarda o preço que foi impresso (para "Preço mudou") -----
+async function rmEtqImpressasCarregar(){
+  try{ const { data } = await rmSb.from('configuracoes').select('*').eq('id', 'etiquetas-impressas').maybeSingle(); rmEtqImpressas = (data && data.dados && data.dados.p) || {}; }
+  catch(e){ rmEtqImpressas = rmEtqImpressas || {}; }
+}
+async function rmEtqRegistrar(lista){
+  const agora = new Date().toISOString(), mapa = {};
+  lista.forEach(p => { mapa[p.id] = [Math.round((Number(p.precoConsumidor) || 0) * 100) / 100, agora]; });
+  rmEtqImpressas = Object.assign({}, rmEtqImpressas || {}, mapa);
+  try{
+    const { data } = await rmSb.from('configuracoes').select('*').eq('id', 'etiquetas-impressas').maybeSingle();
+    const junto = Object.assign({}, (data && data.dados && data.dados.p) || {}, mapa);
+    await rmSb.from('configuracoes').upsert({ id:'etiquetas-impressas', dados:{ p: junto } });
+    rmEtqImpressas = junto;
+  }catch(e){}
+}
+function rmEtqPrecoMudou(){
+  const imp = rmEtqImpressas || {};
+  return rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && imp[p.id] && Math.abs((Number(p.precoConsumidor) || 0) - imp[p.id][0]) > 0.004);
+}
+// ----- imprimir -----
+async function rmEtqImprimir(){
+  const c = rmEtqCfg(), lista = rmEtqLista();
+  if(!lista.length){ alert('A lista está vazia. Adicione os produtos no passo 1.'); return; }
+  if(!await rmEtqGerarCodigos()) return;
+  const { pags, m, por } = rmEtqPaginas(c);
+  rmEtqImprimirDoc(pags.map(pg => rmEtqPaginaHtml(pg, m, c)).join(''), 'Etiquetas');
+  const ult = pags[pags.length - 1], fim = ult.length ? ult[ult.length - 1].pos + 1 : 0;
+  rmEtqPos = { prox: fim < por ? fim + 1 : 1, n: lista.length };
+  rmLog('Imprimiu etiquetas', m.nome, lista.length + ' etiqueta(s) · ' + pags.length + ' folha(s)');
+  rmEtqRegistrar(lista);
+  rmEtqRender();
+}
+function rmEtqImprimirTeste(){
+  const c = rmEtqCfg(), m = rmEtqModelo(c);
+  rmEtqImprimirDoc(rmEtqPaginaHtml([], m, c, { teste:true }) , 'Folha de teste');
+}
+// ----- ações -----
+function rmEtqSet(k, v){
+  const c = rmEtqCfg(); c[k] = v;
+  if(k === 'estilo'){ if(v === 'barras') c.campos.barras = true; if(v === 'preco') c.campos.barras = false; }
+  if(k === 'modelo'){ c.inicio = 1; rmEtqPagina = 0; }
+  rmEtqCfgSalvar(c); rmEtqRender();
+}
+function rmEtqCampo(k, on){ const c = rmEtqCfg(); c.campos[k] = !!on; if(k === 'barras' && on && c.estilo === 'preco') c.estilo = 'barras'; rmEtqCfgSalvar(c); rmEtqRender(); }
+function rmEtqCustom(k, v){ const c = rmEtqCfg(); c.custom[k] = String(v).replace(',', '.'); c.inicio = 1; rmEtqCfgSalvar(c); rmEtqRender(); }
+function rmEtqAjuste(k, v){ const c = rmEtqCfg(); c[k] = Math.max(-15, Math.min(15, Number(String(v).replace(',', '.')) || 0)); rmEtqCfgSalvar(c); rmEtqRender(); }
+function rmEtqInicio(n){ const c = rmEtqCfg(), m = rmEtqModelo(c); c.inicio = Math.max(1, Math.min(m.cols * m.rows, parseInt(n) || 1)); rmEtqPagina = 0; rmEtqCfgSalvar(c); rmEtqRender(); }
+function rmEtqQtd(pid, d, abs){ const f = rmEtqFila(), x = f.find(i => i.pid === pid); if(!x) return; x.q = Math.max(1, Math.min(9999, abs ? (parseInt(d) || 1) : x.q + d)); rmEtqFilaSalvar(f); rmEtqRender(); }
+function rmEtqTirar(pid){ rmEtqFilaSalvar(rmEtqFila().filter(i => i.pid !== pid)); rmEtqRender(); }
+function rmEtqLimpar(){ if(rmEtqFila().length && !confirm('Tirar todos os produtos da lista?')) return; rmEtqFilaSalvar([]); rmEtqPos = null; rmEtqPagina = 0; rmEtqRender(); }
+function rmEtqFonteSet(f){ rmEtqFonte = f; rmEtqRender(); if(f === 'preco' && !rmEtqImpressas) rmEtqImpressasCarregar().then(rmEtqRender); if(f === 'nota' && !rmNotas) rmNotasCarregar().then(rmEtqRender); setTimeout(() => { const i = document.getElementById(f === 'busca' ? 'rm-etq-busca' : f === 'local' ? 'rm-etq-local' : ''); if(i) i.focus(); }, 30); }
+function rmEtqBuscar(v){
+  const box = document.getElementById('rm-etq-res'); if(!box) return;
+  const q = String(v || '').trim();
+  if(!q){ box.innerHTML = ''; return; }
+  const ps = rmBuscaOrdenar(rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && rmProdutoBateBusca(p, q)), q).slice(0, 30);
+  box.innerHTML = ps.length ? ps.map(p => `<div class="eq-r" onclick="rmEtqAddUm('${rmJs(p.id)}')"><div><b>${rmEscapeHtml(p.nome)}</b><small>${rmFormatMoeda(p.precoConsumidor)} · estoque ${rmFmtQtd(Number(p.estoqueAtual) || 0)}${p.localizacao ? ' · local ' + rmEscapeHtml(p.localizacao) : ''}</small></div><span>&#65291;</span></div>`).join('')
+    : '<div class="eq-r-vazio">Nenhum produto encontrado</div>';
+}
+function rmEtqBuscaTecla(ev){
+  if(ev.key !== 'Enter') return; ev.preventDefault();
+  const q = ev.target.value.trim(); if(!q) return;
+  const exato = rmLoadProdutos().find(p => p.ativo !== false && ((p.codigoBarras || '') === q || (p.codigo || '').toLowerCase() === q.toLowerCase()));
+  const pr = exato || rmBuscaOrdenar(rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && rmProdutoBateBusca(p, q)), q)[0];
+  if(pr) rmEtqAddUm(pr.id);
+}
+function rmEtqAddUm(pid){
+  rmEtqAdd([{ pid, q:1 }], 'busca');
+  rmEtqRender();
+  const i = document.getElementById('rm-etq-busca'); if(i){ i.value = ''; i.focus(); }
+  const p = rmIdx(rmLoadProdutos()).get(pid); if(p) rmShowToast('Na lista: ' + p.nome);
+}
+function rmEtqAddNota(){
+  const id = (document.getElementById('rm-etq-nota') || {}).value; if(!id) return;
+  rmEtqDaNota(id, true);
+}
+function rmEtqDaNota(id, ficar){
+  const go = () => {
+    const n = (rmNotas || []).find(x => x.id === id); if(!n) return;
+    const it = n.itens.filter(i => i.lancado && i.produtoId);
+    if(!it.length){ alert('Nenhum produto desta nota foi lançado no estoque ainda.'); return; }
+    const k = rmEtqAdd(it.map(i => ({ pid: i.produtoId, q: Math.ceil(Number(i.qtd) || 1) })), 'NF ' + n.numero);
+    const menu = document.getElementById('rm-nf-menu'); if(menu) menu.remove();
+    if(!ficar){ rmSetSection('produtos'); rmSetViewProdutos('etiquetas'); } else rmEtqRender();
+    rmShowToast(k + ' produto(s) da NF ' + n.numero + ' na lista de etiquetas');
+  };
+  if(!rmNotas) rmNotasCarregar().then(go); else go();
+}
+function rmEtqDoProduto(pid){
+  rmEtqAdd([{ pid, q:1 }], 'cadastro');
+  try{ rmCloseModal(); }catch(e){}
+  rmSetSection('produtos'); rmSetViewProdutos('etiquetas');
+  const p = rmIdx(rmLoadProdutos()).get(pid); if(p) rmShowToast('Na lista de etiquetas: ' + p.nome);
+}
+function rmEtqLocalProds(){
+  const q = rmBuscaNorm((document.getElementById('rm-etq-local') || {}).value || '').replace(/ /g, '');
+  if(!q) return [];
+  return rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && rmBuscaNorm(p.localizacao).replace(/ /g, '').startsWith(q))
+    .sort((a, b) => String(a.localizacao || '').localeCompare(String(b.localizacao || ''), 'pt-BR', { numeric:true }));
+}
+function rmEtqLocalConta(){ const el = document.getElementById('rm-etq-local-n'); if(el){ const n = rmEtqLocalProds().length; el.textContent = n ? n + ' produto(s) nesse local' : ''; } }
+function rmEtqAddLocal(){ const ps = rmEtqLocalProds(); if(!ps.length){ alert('Nenhum produto com esse local.'); return; } const k = rmEtqAdd(ps.map(p => ({ pid:p.id, q:1 })), 'local'); rmShowToast(k + ' produto(s) na lista · 1 etiqueta de cada'); rmEtqRender(); }
+function rmEtqAddPreco(){ const ps = rmEtqPrecoMudou(); if(!ps.length) return; const k = rmEtqAdd(ps.map(p => ({ pid:p.id, q:1 })), 'preço mudou'); rmShowToast(k + ' produto(s) na lista'); rmEtqRender(); }
+function rmEtqAddEstoque(){
+  const ps = rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && (Number(p.estoqueAtual) || 0) > 0);
+  const tot = ps.reduce((s, p) => s + Math.ceil(Number(p.estoqueAtual) || 0), 0);
+  if(!ps.length) return;
+  if(!confirm('Colocar ' + ps.length + ' produtos na lista, uma etiqueta para cada unidade em estoque (' + tot + ' etiquetas)?')) return;
+  rmEtqAdd(ps.map(p => ({ pid:p.id, q: Math.ceil(Number(p.estoqueAtual) || 0) })), 'estoque');
+  rmEtqRender();
+}
+function rmEtqMini(m, W){
+  const s = W / 210; let h = '';
+  for(let r = 0; r < m.rows; r++) for(let c = 0; c < m.cols; c++) h += `<i style="left:${((m.left + c * (m.w + m.gapH)) * s).toFixed(1)}px;top:${((m.top + r * (m.h + m.gapV)) * s).toFixed(1)}px;width:${(m.w * s).toFixed(1)}px;height:${(m.h * s).toFixed(1)}px"></i>`;
+  return `<div class="eq-mini" style="width:${W}px;height:${(W * 297 / 210).toFixed(0)}px">${h}</div>`;
+}
+function rmEtqCatalogo(){
+  const c = rmEtqCfg();
+  let ov = document.getElementById('rm-etq-cat'); if(ov) ov.remove();
+  ov = document.createElement('div'); ov.id = 'rm-etq-cat'; ov.className = 'cp-ov';
+  ov.onclick = e => { if(e.target === ov) ov.remove(); };
+  const card = (cod, tit, sub, sub2, mini) => `<div class="eq-c${c.modelo === cod ? ' on' : ''}" onclick="document.getElementById('rm-etq-cat').remove(); rmEtqSet('modelo','${cod}')">${mini}<b>${tit}</b><small>${sub}</small><small>${sub2}</small></div>`;
+  ov.innerHTML = `<div class="cp eq-catw" onclick="event.stopPropagation()"><h3>Escolher o modelo da folha · Pimaco A4</h3>
+    <div class="sub">O número do modelo vem escrito no pacote (ex.: A4248). Os modelos 4048 / 4248 / 4348 têm o mesmo tamanho, só muda a quantidade de folhas.</div>
+    <div class="eq-cat">${RM_ETQ_MODELOS.map(x => { const m = rmEtqModelo({ modelo:x[0] }); return card(x[0], x[0], rmEtqMm(m.w.toFixed(1)) + ' × ' + rmEtqMm(m.h.toFixed(1)) + ' mm', (m.cols * m.rows) + ' por folha', rmEtqMini(m, 56)); }).join('')}
+      ${card('custom', 'Outro tamanho', 'digite as medidas', '(qualquer marca)', '<div class="eq-mini" style="width:56px;height:79px;display:flex;align-items:center;justify-content:center;color:#333;font-size:20px">&#9998;</div>')}</div>
+    <div class="pe"><button onclick="document.getElementById('rm-etq-cat').remove()">Fechar</button></div></div>`;
+  document.body.appendChild(ov);
+}
+function rmEtqRender(){
+  const el = document.getElementById('rm-etq'); if(!el) return;
+  const c = rmEtqCfg(), fila = rmEtqFila(), prods = rmIdx(rmLoadProdutos());
+  const { pags, m, por, ini, total } = rmEtqPaginas(c);
+  rmEtqPagina = Math.max(0, Math.min(rmEtqPagina, pags.length - 1));
+  const E = rmEscapeHtml, nFolhas = total ? pags.length : 0;
+  // fonte (passo 1)
+  const fontes = [['busca', '&#128270; Procurar produto'], ['nota', '&#129534; Da nota XML'], ['preco', '&#128178; Preço mudou'], ['local', '&#128205; Por local / prateleira'], ['estoque', '&#128230; Estoque inteiro']];
+  let fonte = '';
+  if(rmEtqFonte === 'busca') fonte = `<input class="eq-in" id="rm-etq-busca" autocomplete="off" placeholder="Digite o nome, código ou código de barras... (Enter coloca o primeiro)" oninput="rmEtqBuscar(this.value)" onkeydown="rmEtqBuscaTecla(event)"><div id="rm-etq-res" class="eq-res"></div>`;
+  else if(rmEtqFonte === 'nota'){
+    const ns = (rmNotas || []).filter(n => n.itens.some(i => i.lancado)).sort((a, b) => String(b.emissao || '').localeCompare(String(a.emissao || '')));
+    fonte = rmNotas === null ? '<div class="eq-dica">Carregando notas...</div>' : ns.length ? `<div class="eq-lin"><select class="eq-in" id="rm-etq-nota">${ns.map(n => `<option value="${E(n.id)}">NF ${E(n.numero)} · ${E(n.fornecedor)} · ${n.emissao ? rmDataBR(n.emissao) : ''} · ${n.itens.filter(i => i.lancado).length} produto(s)</option>`).join('')}</select><button class="eq-bt" onclick="rmEtqAddNota()">Colocar na lista</button></div><div class="eq-dica">Entram os produtos já lançados no estoque, com a quantidade que veio na nota.</div>`
+      : '<div class="eq-dica">Nenhuma nota com produtos lançados no estoque.</div>';
+  } else if(rmEtqFonte === 'preco'){
+    const ps = rmEtqImpressas ? rmEtqPrecoMudou() : null, imp = rmEtqImpressas || {};
+    fonte = !ps ? '<div class="eq-dica">Carregando...</div>' : ps.length ? `<div class="eq-dica"><b>${ps.length} produto(s)</b> mudaram de preço desde a última etiqueta impressa:</div><div class="eq-pm">${ps.slice(0, 40).map(p => `<div>${E(p.nome)} <span><s>${rmFormatMoeda(imp[p.id][0])}</s> → <b>${rmFormatMoeda(p.precoConsumidor)}</b></span></div>`).join('')}${ps.length > 40 ? '<div>…</div>' : ''}</div><button class="eq-bt" onclick="rmEtqAddPreco()">Colocar os ${ps.length} na lista</button>`
+      : '<div class="eq-dica">Nenhum produto mudou de preço desde a última etiqueta impressa. (O sistema começa a acompanhar a partir das etiquetas impressas por aqui.)</div>';
+  } else if(rmEtqFonte === 'local') fonte = `<div class="eq-lin"><input class="eq-in" id="rm-etq-local" autocomplete="off" placeholder="Local ou começo dele — ex.: A1, DEPE, EXPOSITOR" oninput="rmEtqLocalConta()" onkeydown="if(event.key==='Enter') rmEtqAddLocal()"><button class="eq-bt" onclick="rmEtqAddLocal()">Colocar na lista</button></div><div class="eq-dica" id="rm-etq-local-n"></div><div class="eq-dica">Coloca 1 etiqueta de cada produto daquele local. Ótimo junto com o estilo "Prateleira".</div>`;
+  else { const ps = rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && (Number(p.estoqueAtual) || 0) > 0); fonte = `<div class="eq-dica">${ps.length} produto(s) com estoque · ${ps.reduce((s, p) => s + Math.ceil(Number(p.estoqueAtual) || 0), 0)} unidade(s).</div><button class="eq-bt" onclick="rmEtqAddEstoque()">Colocar todos (1 etiqueta por unidade)</button>`; }
+  const itens = fila.map(i => { const p = prods.get(i.pid); if(!p) return '';
+    return `<div class="eq-it"><div><b>${E(p.nome)}</b><small>${rmFormatMoeda(p.precoConsumidor)} · estoque ${rmFmtQtd(Number(p.estoqueAtual) || 0)}${p.localizacao ? ' · local ' + E(p.localizacao) : ''}${i.origem && i.origem !== 'busca' ? ' · ' + E(i.origem) : ''}${c.estilo === 'barras' && c.campos.barras && !String(p.codigoBarras || '').trim() ? ' · <i>sem código de barras (vai ser criado)</i>' : ''}</small></div>
+      <div class="eq-q"><button onclick="rmEtqQtd('${rmJs(p.id)}',-1)">&minus;</button><input value="${i.q}" inputmode="numeric" onchange="rmEtqQtd('${rmJs(p.id)}', this.value, true)" onfocus="this.select()"><button onclick="rmEtqQtd('${rmJs(p.id)}',1)">+</button></div>
+      <button class="eq-x" title="Tirar da lista" onclick="rmEtqTirar('${rmJs(p.id)}')">&#10005;</button></div>`; }).join('');
+  const opcoes = RM_ETQ_MODELOS.map(x => { const mm = rmEtqModelo({ modelo:x[0] }); return `<option value="${x[0]}"${c.modelo === x[0] ? ' selected' : ''}>Pimaco ${x[0]} · ${rmEtqMm(mm.w.toFixed(1))} × ${rmEtqMm(mm.h.toFixed(1))} mm · ${mm.cols * mm.rows} por folha (${mm.cols} × ${mm.rows})</option>`; }).join('') + `<option value="custom"${c.modelo === 'custom' ? ' selected' : ''}>Outro tamanho (digitar as medidas)</option>`;
+  const cu = c.custom, cin = (k, l) => `<label>${l}<input value="${E(rmEtqMm(cu[k]))}" inputmode="decimal" onchange="rmEtqCustom('${k}', this.value)"></label>`;
+  const estilos = [['preco', 'Preço grande', '<b style="font-size:6px">NOME DO PRODUTO</b><b style="font-size:11px">R$ 45,00</b>'], ['barras', 'Preço + código de barras', '<b style="font-size:6px">NOME DO PRODUTO</b><b style="font-size:9px">R$ 45,00</b><div class="eq-fbc"></div>'], ['local', 'Prateleira (local)', '<b style="font-size:13px">A1-04</b><b style="font-size:5.5px">NOME DO PRODUTO</b>']];
+  el.innerHTML = `<h1 class="rm-title">Etiquetas</h1><div class="eq"><div>
+    <div class="eq-p"><h3><span class="n">1</span> Produtos para etiquetar<small>${total} etiqueta${total === 1 ? '' : 's'}</small></h3><div class="eq-b">
+      <div class="eq-src">${fontes.map(([k, l]) => `<button class="${rmEtqFonte === k ? 'on' : ''}" onclick="rmEtqFonteSet('${k}')">${l}</button>`).join('')}</div>
+      ${fonte}
+      <div class="eq-fila">${itens || '<div class="eq-vazio">Nenhum produto na lista ainda.</div>'}
+        ${fila.length ? `<div class="eq-tot"><span>${fila.length} produto(s) · <a onclick="rmEtqLimpar()">limpar lista</a></span><span><b>${total} etiqueta${total === 1 ? '' : 's'}</b> · ${nFolhas} folha${nFolhas === 1 ? '' : 's'}</span></div>` : ''}</div></div></div>
+    <div class="eq-p"><h3><span class="n">2</span> Modelo da folha</h3><div class="eq-b">
+      <div class="eq-mod">${rmEtqMini(m, 46)}<select class="eq-in" onchange="rmEtqSet('modelo', this.value)">${opcoes}</select><button class="eq-bt" onclick="rmEtqCatalogo()">Ver todos</button></div>
+      ${c.modelo === 'custom' ? `<div class="eq-cus">${cin('w', 'Largura (mm)')}${cin('h', 'Altura (mm)')}${cin('cols', 'Colunas')}${cin('rows', 'Linhas')}${cin('left', 'Margem esquerda (mm)')}${cin('top', 'Margem de cima (mm)')}${cin('gapH', 'Espaço entre colunas (mm)')}${cin('gapV', 'Espaço entre linhas (mm)')}</div>` : ''}
+      <div class="eq-start">&#9654; Começar na etiqueta nº <input value="${ini + 1}" inputmode="numeric" onchange="rmEtqInicio(this.value)" onfocus="this.select()"> de ${por} — ou clique na folha ao lado (aproveita folha já usada)${ini ? ` · <a onclick="rmEtqInicio(1)">voltar para a nº 1</a>` : ''}</div>
+      ${rmEtqPos ? `<div class="eq-pos">&#10004; ${rmEtqPos.n} etiqueta(s) mandadas para a impressora. ${rmEtqPos.prox > 1 ? `<a onclick="rmEtqInicio(${rmEtqPos.prox}); rmEtqPos=null; rmEtqRender()">Sobrou parte da folha: começar na nº ${rmEtqPos.prox} da próxima vez</a> · ` : ''}<a onclick="rmEtqPos=null; rmEtqFilaSalvar([]); rmEtqRender()">limpar a lista</a></div>` : ''}
+    </div></div>
+    <div class="eq-p"><h3><span class="n">3</span> O que vai na etiqueta</h3><div class="eq-b">
+      <div class="eq-lay">${estilos.map(([k, l, h]) => `<div class="${c.estilo === k ? 'on' : ''}" onclick="rmEtqSet('estilo','${k}')"><div class="lb">${h}</div>${l}</div>`).join('')}</div>
+      <div class="eq-ck">${RM_ETQ_CAMPOS.map(([k, l]) => `<label><input type="checkbox"${c.campos[k] ? ' checked' : ''} onchange="rmEtqCampo('${k}', this.checked)"> ${l}</label>`).join('')}</div>
+      <div class="eq-adj">&#128424; Ajuste fino da impressora: mover <input value="${E(rmEtqMm(c.ajX))}" inputmode="decimal" onchange="rmEtqAjuste('ajX', this.value)"> mm &rarr; <input value="${E(rmEtqMm(c.ajY))}" inputmode="decimal" onchange="rmEtqAjuste('ajY', this.value)"> mm &darr; <button class="eq-bt" onclick="rmEtqImprimirTeste()">Imprimir folha de teste</button></div>
+      <div class="eq-dica">A folha de teste imprime só os contornos numerados. Imprima numa folha comum e coloque contra a luz sobre a folha de etiquetas para conferir. Se estiver deslocado, ajuste os milímetros acima (fica guardado neste computador).</div>
+    </div></div>
+  </div><div>
+    <div class="eq-p eq-pv"><h3>Prévia da folha<small>${nFolhas > 1 ? `<a onclick="rmEtqPagina--; rmEtqRender()"${rmEtqPagina ? '' : ' class="off"'}>&#8249;</a> folha ${rmEtqPagina + 1} de ${nFolhas} <a onclick="rmEtqPagina++; rmEtqRender()"${rmEtqPagina < nFolhas - 1 ? '' : ' class="off"'}>&#8250;</a> · ` : nFolhas ? 'folha 1 de 1 · ' : ''}${m.nome} · ${por} por folha</small></h3>
+      <div class="eq-prev" id="rm-etq-prev"><div class="eq-scale" id="rm-etq-scale">${rmEtqPaginaHtml(pags[rmEtqPagina], m, c, { previa:true, usadas: rmEtqPagina === 0 ? ini : 0, clicavel: rmEtqPagina === 0 })}</div></div>
+      <div class="eq-go"><span>Imprima em <b>tamanho real (100%)</b>, sem "ajustar à página".</span><button class="pri" onclick="rmEtqImprimir()"${total ? '' : ' disabled'}>&#128424; Imprimir ${total} etiqueta${total === 1 ? '' : 's'}</button></div></div>
+  </div></div>`;
+  rmEtqEscala();
+}
+function rmEtqEscala(){
+  const wrap = document.getElementById('rm-etq-prev'), sc = document.getElementById('rm-etq-scale'); if(!wrap || !sc) return;
+  const folha = sc.firstElementChild; if(!folha) return;
+  const largura = folha.offsetWidth, altura = folha.offsetHeight, k = Math.min(1, (wrap.clientWidth - 28) / largura);
+  sc.style.transform = `scale(${k})`; sc.style.width = largura + 'px'; sc.style.height = altura + 'px';
+  wrap.style.height = Math.round(altura * k + 28) + 'px';
+  try{ rmEtqAjustar(sc); }catch(e){}
+}
+window.addEventListener('resize', () => { clearTimeout(window.__etqT); window.__etqT = setTimeout(() => { const v = document.getElementById('rm-view-produtos-etiquetas'); if(v && v.classList.contains('active')) rmEtqEscala(); }, 200); });
+
 function rmSetViewProdutos(view){
   if(view === 'organizacao'){ rmSetSection('financeiro'); rmSetViewFin('notas'); return; } // as notas XML agora ficam no Financeiro
   ['estoque','cadastro','etiquetas','pedido','inventario','familias'].forEach(v=>{
@@ -14409,6 +14811,7 @@ function rmSetViewProdutos(view){
     document.getElementById('rm-btn-produtos-'+v).classList.toggle('active', v===view);
   });
   if(view === 'estoque'){ rmRenderProdutos(); }
+  if(view === 'etiquetas'){ rmEtqRender(); }
   if(view === 'pedido'){ rmRenderPedido(); rmPedidoSync().then(rmRenderPedido); }
   if(view === 'familias'){ rmFamLimparCache(); rmRenderFamilias(); rmFamSync().then(rmRenderFamilias); }
   if(view === 'inventario'){ rmRenderInventario(); rmInvSync().then(() => { if(rmInvTela === 'home') rmRenderInventario(); }); }
