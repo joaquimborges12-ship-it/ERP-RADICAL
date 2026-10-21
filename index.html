@@ -230,6 +230,40 @@
     display:flex; flex-direction:column; align-items:center; gap:6px; min-width:76px;
   }
   .rm-subnav-icon{font-size:19px; line-height:1;}
+  .rm-cav{width:32px; height:32px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid var(--rm-border); background:var(--rm-bg); vertical-align:middle; cursor:zoom-in}
+  .rm-cav-ini{display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; color:var(--rm-text-dim); cursor:default}
+  .rm-cav-g{width:52px; height:52px; font-size:17px}
+  .rm-cav-nome{display:inline-flex; align-items:center; gap:10px; min-width:0}
+  .rm-cf-head-w{display:flex; align-items:center; gap:14px; min-width:0}
+  #rm-cav-hov{position:fixed; z-index:10050; display:none; background:var(--rm-panel); border:1px solid var(--rm-border); box-shadow:0 10px 30px rgba(0,0,0,.25); padding:8px; width:216px; pointer-events:none}
+  @media (hover:none){ #rm-cav-hov{pointer-events:auto} }
+  #rm-cav-hov img{width:200px; height:200px; object-fit:cover; display:block}
+  #rm-cav-hov b{display:block; margin-top:6px; font-size:14px} #rm-cav-hov span{font-size:12.5px; color:var(--rm-text-dim)}
+  .rm-cf-box{display:flex; gap:16px; align-items:center}
+  .rm-cf-big{width:120px; height:120px; object-fit:cover; border:3px solid var(--rm-border); flex-shrink:0}
+  .rm-cf-vazio{display:flex; align-items:center; justify-content:center; font-size:34px; font-weight:800; color:var(--rm-text-dim); background:var(--rm-bg)}
+  .rm-cf-bts{display:flex; flex-direction:column; gap:8px; flex:1; min-width:0}
+  .rm-cf-bts button{padding:10px 12px; border:1px solid var(--rm-border); background:var(--rm-panel); font-family:inherit; font-weight:700; font-size:14px; text-align:left; cursor:pointer; color:var(--rm-text)}
+  .rm-cf-bts button:hover{border-color:var(--rm-text)}
+  .rm-cf-bts .rm-cf-rm{color:#c0392b; font-weight:600; font-size:13px; border:0; background:none; padding:4px 0}
+  @media (hover:none) and (pointer:coarse){ .rm-cf-pc{display:none} }
+  @media (hover:hover){ .rm-cf-cel{display:none} }
+  .rm-cav-os{display:flex; align-items:center; gap:8px; margin-top:6px} .rm-cav-os small{color:var(--rm-text-dim); font-size:12px}
+  #rm-pdv-cli-av{position:absolute; left:8px; top:50%; transform:translateY(-50%); z-index:2; line-height:0}
+  #rm-pdv-cliente-wrap input.rm-cav-pad{padding-left:50px}
+  #rm-cam-ov{position:fixed; inset:0; z-index:10040; background:rgba(0,0,0,.6); display:flex; align-items:center; justify-content:center; padding:12px}
+  .rm-cam{background:var(--rm-panel); padding:18px; width:560px; max-width:100%; color:var(--rm-text)}
+  .rm-cam-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; gap:10px} .rm-cam-top b{font-size:17px}
+  .rm-cam-top button{border:0; background:none; font-size:26px; cursor:pointer; color:var(--rm-text); line-height:1}
+  .rm-cam-vid{position:relative; background:#000; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center}
+  .rm-cam-vid video{width:100%; height:100%; object-fit:cover; transform:scaleX(-1)}
+  .rm-cam-vid canvas{height:100%; max-width:100%; object-fit:contain}
+  .rm-cam-guia{position:absolute; left:50%; top:50%; height:76%; aspect-ratio:1; border:3px dashed rgba(255,255,255,.75); transform:translate(-50%,-50%); pointer-events:none}
+  .rm-cam-vid canvas[style*="block"] ~ .rm-cam-guia{display:none}
+  .rm-cam-tx{font-size:13px; color:var(--rm-text-dim); margin-top:8px}
+  .rm-cam-bts{display:flex; gap:10px; margin-top:14px}
+  .rm-cam-bts button{flex:1; padding:14px; font-weight:800; font-size:15px; font-family:inherit; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); cursor:pointer}
+  .rm-cam-bts .go{background:#d9433a; color:#fff; border-color:#d9433a; flex:2} .rm-cam-bts .go:disabled{opacity:.5}
   .cc-top{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:16px}
   .cc-top .rm-search{flex:1; min-width:240px}
   .cc-dia{margin-bottom:22px}
@@ -2513,7 +2547,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 21/10 às 00:30</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 21/10 às 00:50</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -5833,7 +5867,12 @@ function rmOsClienteCadastrado(r){
   return clis.some(c => String(c.nome || '').trim().toUpperCase() === n);
 }
 function rmOsCliStatusHtml(r){
-  return rmOsClienteCadastrado(r) ? '' : '<div class="rm-semcad-cli"><span class="rm-semcad-tag" style="margin-left:0">CLIENTE NÃO CADASTRADO</span> <small>só o nome foi digitado</small></div>';
+  if(rmOsClienteCadastrado(r)){
+    const clis = rmLoadClientes(), n = String((r && r.nome) || '').trim().toUpperCase();
+    const c = (r && r.clienteId && clis.find(x => x.id === r.clienteId)) || clis.find(x => n && String(x.nome || '').trim().toUpperCase() === n);
+    return c && c.fotoUrl ? `<div class="rm-cav-os">${rmCliAvatar(c)}<small>passe o mouse para ver a foto do cliente</small></div>` : '';
+  }
+  return '<div class="rm-semcad-cli"><span class="rm-semcad-tag" style="margin-left:0">CLIENTE NÃO CADASTRADO</span> <small>só o nome foi digitado</small></div>';
 }
 function rmOsMudarNomeCliente(id, valor){
   const list = rmLoad(); const r = list.find(x => x.id === id); if(!r) return;
@@ -5935,6 +5974,7 @@ function rmRenderClienteSelecionadoPdv(){
   if(!wrap || !input) return;
   const botaoAntigo = document.getElementById('rm-pdv-cliente-tag');
   if(botaoAntigo) botaoAntigo.remove();
+  { const a = document.getElementById('rm-pdv-cli-av'); if(a) a.remove(); input.classList.remove('rm-cav-pad'); }
   const cli = rmPdvClienteId ? rmLoadClientes().find(x => x.id === rmPdvClienteId) : null;
 
   if(rmPdvClienteId){
@@ -5948,6 +5988,7 @@ function rmRenderClienteSelecionadoPdv(){
     b.className = 'rm-px-limpar';
     b.title = 'Trocar cliente';
     b.innerHTML = '&times;';
+    if(cli && cli.fotoUrl){ const a = document.createElement('span'); a.id = 'rm-pdv-cli-av'; a.innerHTML = rmCliAvatar(cli); wrap.appendChild(a); input.classList.add('rm-cav-pad'); }
     b.onclick = rmLimparClientePdv;
     wrap.appendChild(b);
   } else if(input.readOnly){
@@ -6586,7 +6627,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610210030; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610210050; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -11605,6 +11646,7 @@ function rmFromDbRowCliente(row){
     cep: row.cep, endereco: row.endereco, numero: row.numero, complemento: row.complemento,
     bairro: row.bairro, cidade: row.cidade, uf: row.uf, referencia: row.referencia,
     criadoEm: row.criado_em,
+    fotoUrl: row.foto_url || null,
     _v: row.versao != null ? row.versao : (row.versao_base != null ? row.versao_base : null)
   };
 }
@@ -11622,8 +11664,122 @@ function rmToDbRowCliente(c){
     cep: c.cep || null, endereco: c.endereco || null, numero: c.numero || null, complemento: c.complemento || null,
     bairro: c.bairro || null, cidade: c.cidade || null, uf: c.uf || null, referencia: c.referencia || null,
     criado_em: c.criadoEm,
+    ...(c.fotoUrl != null ? { foto_url: c.fotoUrl || null } : {}), // só manda quando tem foto ou quando a foto foi removida ('')
     versao_base: c._v != null ? c._v : null
   };
+}
+
+// ----- foto do cliente -----
+// fotinha (ou iniciais) ao lado do nome; passando o mouse (ou tocando no celular) mostra grande
+function rmCliAvatar(c, cls){
+  if(!c) return '';
+  const ini = String(c.nome || '?').trim().split(/\s+/).map(x => x[0] || '').slice(0, 2).join('').toUpperCase() || '?';
+  if(!c.fotoUrl) return `<span class="rm-cav rm-cav-ini ${cls || ''}" aria-hidden="true">${rmEscapeHtml(ini)}</span>`;
+  return `<img class="rm-cav ${cls || ''}" src="${rmEscapeHtml(c.fotoUrl)}" loading="lazy" decoding="async" alt="" data-cid="${rmEscapeHtml(c.id)}" onmouseenter="rmCliFotoVer(event,this)" onmouseleave="rmCliFotoEsconder()" onclick="if(matchMedia('(hover:none)').matches){ event.stopPropagation(); rmCliFotoVer(event,this); }">`;
+}
+function rmCliFotoVer(ev, el){
+  const c = rmLoadClientes().find(x => x.id === el.dataset.cid); if(!c || !c.fotoUrl) return;
+  let h = document.getElementById('rm-cav-hov');
+  if(!h){ h = document.createElement('div'); h.id = 'rm-cav-hov'; h.onclick = () => rmCliFotoEsconder(); document.body.appendChild(h); }
+  h.innerHTML = `<img src="${rmEscapeHtml(c.fotoUrl)}" alt=""><b>${rmEscapeHtml(c.nome || '')}</b><span>${rmEscapeHtml(c.telefone || '')}</span>`;
+  const r = el.getBoundingClientRect(), W = 216, H = 262;
+  let x = r.right + 10, y = r.top - 10;
+  if(x + W > innerWidth - 8) x = Math.max(8, r.left - W - 10);
+  if(x < 8) x = 8;
+  if(y + H > innerHeight - 8) y = Math.max(8, innerHeight - H - 8);
+  h.style.left = x + 'px'; h.style.top = y + 'px'; h.style.display = 'block';
+  clearTimeout(rmCliFotoVer.t); if(matchMedia('(hover:none)').matches) rmCliFotoVer.t = setTimeout(rmCliFotoEsconder, 4000);
+}
+function rmCliFotoEsconder(){ const h = document.getElementById('rm-cav-hov'); if(h) h.style.display = 'none'; }
+function rmCliFotoBoxHtml(c, id){
+  return `<div class="rm-modal-section" id="rm-cf-sec"><span class="rm-modal-section-label">Foto do cliente</span>
+    <div class="rm-cf-box">${c.fotoUrl ? `<img class="rm-cf-big" src="${rmEscapeHtml(c.fotoUrl)}" alt="">` : `<div class="rm-cf-big rm-cf-vazio">${rmEscapeHtml(String(c.nome || '?').trim().split(/\s+/).map(x => x[0] || '').slice(0, 2).join('').toUpperCase() || '?')}</div>`}
+      <div class="rm-cf-bts">
+        <button type="button" class="rm-cf-pc" onclick="rmCliWebcam('${rmJs(id)}')">&#128247; Tirar foto com a webcam</button>
+        <button type="button" class="rm-cf-cel" onclick="document.getElementById('rmcf-cam').click()">&#128241; Tirar foto (celular)</button>
+        <button type="button" onclick="document.getElementById('rmcf-arq').click()">&#128444; Escolher foto já pronta</button>
+        ${c.fotoUrl ? `<button type="button" class="rm-cf-rm" onclick="rmCliFotoDefinir('${rmJs(id)}', null)">Remover foto</button>` : ''}
+        <input type="file" id="rmcf-cam" accept="image/*" capture="user" hidden onchange="rmCliFotoArquivo('${rmJs(id)}', this)">
+        <input type="file" id="rmcf-arq" accept="image/*" hidden onchange="rmCliFotoArquivo('${rmJs(id)}', this)">
+      </div></div></div>`;
+}
+async function rmCliFotoEnviar(blob, id){
+  const peq = await rmComprimirImagem(blob, 480, 0.72);
+  const path = 'clientes/' + (id === 'novo' ? 'novo' : id) + '-' + Date.now() + '.jpg';
+  const { error } = await rmSb.storage.from('motos-fotos').upload(path, peq, { contentType: 'image/jpeg', upsert: true });
+  if(error) throw error;
+  return rmSb.storage.from('motos-fotos').getPublicUrl(path).data.publicUrl;
+}
+async function rmCliFotoArquivo(id, input){
+  const f = input.files && input.files[0]; input.value = ''; if(!f) return;
+  await rmCliFotoSalvarBlob(id, f);
+}
+async function rmCliFotoSalvarBlob(id, blob){
+  if(navigator.onLine === false){ alert('Sem internet: a foto não pode ser enviada agora. Tente de novo quando a internet voltar.'); return; }
+  rmShowToast('Enviando foto...');
+  try{ rmCliFotoDefinir(id, await rmCliFotoEnviar(blob, id)); rmShowToast('Foto do cliente salva'); }
+  catch(e){ console.error(e); alert('Não consegui enviar a foto. Verifique a internet e tente de novo.'); }
+}
+function rmCliFotoDefinir(id, url){
+  if(url === null && !confirm('Remover a foto deste cliente?')) return;
+  if(url === null) url = ''; // '' = removida (vai como vazio para o servidor)
+  let c;
+  if(id === 'novo'){ c = rmClienteRascunho; c.fotoUrl = url; }
+  else {
+    const list = rmLoadClientes(); c = list.find(x => x.id === id); if(!c) return;
+    c.fotoUrl = url; rmSaveClientes(list); rmDbUpsertCliente(c);
+    rmLog(url ? 'Colocou foto no cliente' : 'Tirou a foto do cliente', c.nome || '');
+    try{ rmRenderClientes(); }catch(e){}
+  }
+  const sec = document.getElementById('rm-cf-sec'); if(sec) sec.outerHTML = rmCliFotoBoxHtml(c, id);
+  const av = document.getElementById('rm-cf-head'); if(av) av.innerHTML = rmCliAvatar(Object.assign({}, c, { id: id === 'novo' ? '' : id }), 'rm-cav-g');
+}
+// webcam do computador
+let rmCamStream = null;
+async function rmCliWebcam(id){
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ alert('Este navegador não deixa usar a webcam. Use "Escolher foto já pronta".'); return; }
+  const c = id === 'novo' ? rmClienteRascunho : rmLoadClientes().find(x => x.id === id);
+  const ov = document.createElement('div'); ov.id = 'rm-cam-ov';
+  ov.innerHTML = `<div class="rm-cam"><div class="rm-cam-top"><b>Foto pela webcam${c && c.nome ? ' · ' + rmEscapeHtml(c.nome) : ''}</b><button type="button" onclick="rmCliWebcamFechar()">&times;</button></div>
+    <div class="rm-cam-vid"><video id="rm-cam-v" autoplay playsinline muted></video><canvas id="rm-cam-c" style="display:none"></canvas><div class="rm-cam-guia"></div></div>
+    <div class="rm-cam-tx" id="rm-cam-tx">Abrindo a câmera... (se o navegador perguntar, clique em Permitir)</div>
+    <div class="rm-cam-bts" id="rm-cam-bts"><button type="button" onclick="rmCliWebcamFechar()">Cancelar</button><button type="button" class="go" id="rm-cam-tirar" disabled onclick="rmCliWebcamTirar()">&#128247; Tirar foto</button></div></div>`;
+  ov.onclick = e => { if(e.target === ov) rmCliWebcamFechar(); };
+  ov.dataset.cid = id;
+  document.body.appendChild(ov);
+  try{
+    rmCamStream = await navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1280 }, height: { ideal: 960 }, facingMode: 'user' }, audio: false });
+    if(!document.getElementById('rm-cam-ov')){ rmCamParar(); return; }
+    document.getElementById('rm-cam-v').srcObject = rmCamStream;
+    document.getElementById('rm-cam-tx').textContent = 'Centralize o rosto no quadro e clique em Tirar foto.';
+    document.getElementById('rm-cam-tirar').disabled = false;
+  }catch(e){
+    console.warn(e);
+    const tx = document.getElementById('rm-cam-tx');
+    if(tx) tx.textContent = (e && e.name === 'NotAllowedError') ? 'O navegador não deixou usar a câmera. Clique no cadeado ao lado do endereço do site e permita a câmera.' : 'Não encontrei nenhuma webcam neste computador.';
+  }
+}
+function rmCamParar(){ if(rmCamStream){ rmCamStream.getTracks().forEach(t => t.stop()); rmCamStream = null; } }
+function rmCliWebcamFechar(){ rmCamParar(); const o = document.getElementById('rm-cam-ov'); if(o) o.remove(); }
+function rmCliWebcamTirar(){
+  const v = document.getElementById('rm-cam-v'), cv = document.getElementById('rm-cam-c'); if(!v || !v.videoWidth) return;
+  // recorta um quadrado do meio (rosto)
+  const lado = Math.min(v.videoWidth, v.videoHeight), sx = (v.videoWidth - lado) / 2, sy = (v.videoHeight - lado) / 2;
+  cv.width = cv.height = Math.min(lado, 720);
+  cv.getContext('2d').drawImage(v, sx, sy, lado, lado, 0, 0, cv.width, cv.height);
+  v.style.display = 'none'; cv.style.display = 'block'; v.pause();
+  document.getElementById('rm-cam-tx').textContent = 'Ficou boa? Salve ou tire de novo.';
+  document.getElementById('rm-cam-bts').innerHTML = `<button type="button" onclick="rmCliWebcamDeNovo()">Tirar de novo</button><button type="button" class="go" onclick="rmCliWebcamSalvar()">&#10004; Usar esta foto</button>`;
+}
+function rmCliWebcamDeNovo(){
+  const v = document.getElementById('rm-cam-v'), cv = document.getElementById('rm-cam-c');
+  cv.style.display = 'none'; v.style.display = ''; v.play();
+  document.getElementById('rm-cam-tx').textContent = 'Centralize o rosto no quadro e clique em Tirar foto.';
+  document.getElementById('rm-cam-bts').innerHTML = `<button type="button" onclick="rmCliWebcamFechar()">Cancelar</button><button type="button" class="go" id="rm-cam-tirar" onclick="rmCliWebcamTirar()">&#128247; Tirar foto</button>`;
+}
+function rmCliWebcamSalvar(){
+  const ov = document.getElementById('rm-cam-ov'), id = ov.dataset.cid;
+  document.getElementById('rm-cam-c').toBlob(b => { rmCliWebcamFechar(); if(b) rmCliFotoSalvarBlob(id, b); }, 'image/jpeg', 0.9);
 }
 
 async function rmDbUpsertCliente(cliente){ rmOutboxPor('clientes', cliente.id, 'up', rmToDbRowCliente(cliente)); }
@@ -13387,7 +13543,7 @@ function rmRenderFinClientes(){
   const linhasOrd = rmOrdAplicar('fcli', linhas);
   body.innerHTML = rmLimitar('fcli', linhasOrd).map(l => `
     <tr style="cursor:pointer" onclick="rmClienteAba='pagamentos'; rmClienteRascunho={id:'${l.c.id}'}; rmAbrirModalCliente('${l.c.id}')">
-      <td>${rmEscapeHtml(l.c.nome||'—')}${l.c.apelido?` <small style="color:var(--rm-text-dim)">(${rmEscapeHtml(l.c.apelido)})</small>`:''}</td>
+      <td><span class="rm-cav-nome">${rmCliAvatar(l.c)}<span>${rmEscapeHtml(l.c.nome||'—')}${l.c.apelido?` <small style="color:var(--rm-text-dim)">(${rmEscapeHtml(l.c.apelido)})</small>`:''}</span></span></td>
       <td>${rmEscapeHtml(l.c.telefone||'—')}</td>
       <td style="text-align:center">${l.compras}</td>
       <td style="text-align:right">${rmFormatMoeda(l.pago)}</td>
@@ -15591,7 +15747,7 @@ function rmRenderClientes(){
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td data-label="Nome">
-        <div>${c.nome || '—'}</div>
+        <div class="rm-cav-nome">${rmCliAvatar(c)}<span>${c.nome || '—'}</span></div>
         ${c.apelido?`<div class="rm-cliente-apelido">${c.apelido}</div>`:''}
       </td>
       <td data-label="Situação"><span class="rm-lista-status-pill" style="background:${situacaoInfo.color}">${situacaoInfo.label}</span></td>
@@ -15696,9 +15852,9 @@ function rmRenderModalCliente(c, novo){
   modal.classList.add('rm-modal-large');
   modal.innerHTML = `
     <div class="rm-modal-header">
-      <div>
+      <div class="rm-cf-head-w"><span id="rm-cf-head">${rmCliAvatar(Object.assign({}, c, { id: novo ? '' : c.id }), 'rm-cav-g')}</span><div>
         <div class="rm-modal-title">${novo ? 'Novo cliente' : esc(c.nome || 'Cliente sem nome')}</div>
-        <div class="rm-modal-sub">${novo ? 'Preencha os dados e clique em Salvar cliente' : `${motos.length} moto${motos.length===1?'':'s'} atendida${motos.length===1?'':'s'}`}</div>
+        <div class="rm-modal-sub">${novo ? 'Preencha os dados e clique em Salvar cliente' : `${motos.length} moto${motos.length===1?'':'s'} atendida${motos.length===1?'':'s'}`}</div></div>
       </div>
       <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
     </div>
@@ -15714,6 +15870,7 @@ function rmRenderModalCliente(c, novo){
     <div id="rm-cli-panel-dados">
     <div class="rm-modal-body">
     <div class="rm-modal-col">
+      ${rmCliFotoBoxHtml(c, id)}
       <div class="rm-modal-section">
         <span class="rm-modal-section-label">Situação</span>
         <div class="rm-modal-status-row">${pills}</div>
