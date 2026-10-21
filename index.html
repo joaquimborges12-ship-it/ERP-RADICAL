@@ -2493,7 +2493,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 20/10 às 23:33</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 20/10 às 23:49</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3303,8 +3303,8 @@
         </div>
         <div class="rm-table-wrap">
           <table class="rm-table">
-            <colgroup><col style="width:105px"><col><col style="width:150px"><col style="width:70px"><col style="width:110px"><col style="width:190px"><col style="width:230px"></colgroup>
-            <thead><tr><th>Vencimento</th><th>Cliente</th><th>Venda</th><th>Parcela</th><th style="text-align:right">Valor</th><th>Situação</th><th></th></tr></thead>
+            <colgroup><col style="width:120px"><col style="width:105px"><col><col style="width:150px"><col style="width:70px"><col style="width:110px"><col style="width:190px"><col style="width:230px"></colgroup>
+            <thead><tr><th>Data da compra</th><th>Vencimento</th><th>Cliente</th><th>Venda</th><th>Parcela</th><th style="text-align:right">Valor</th><th>Situação</th><th></th></tr></thead>
             <tbody id="rm-fin-prom-body"></tbody>
           </table>
           <div class="rm-problema-empty" id="rm-fin-prom-empty" style="display:none; padding:20px;">Nenhuma parcela encontrada</div>
@@ -6541,7 +6541,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610202333; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610202349; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -9098,7 +9098,7 @@ try{ Object.assign(rmOrd, JSON.parse(localStorage.getItem('radicalMotos_ordem'))
 const RM_ORD_COLS = {
   fcli:  [l => l.c.nome, l => l.c.telefone, l => l.compras, l => l.pago, l => l.receber, l => l.vencido],
   vend:  [v => v.data, v => v.codigo, v => v.origem, v => v.cliente, v => v.por, v => v.forma, v => v.total],
-  prom:  [x => x.p.vencimento, x => x.nota.clienteNome, x => x.nota.refCodigo, x => rmParcRotulo(x.p, x.nota), x => x.sit === 'paga' ? x.p.valor : rmParcRestante(x.p), x => x.sit, null],
+  prom:  [x => x.nota.criadoEm || '', x => x.p.vencimento, x => x.nota.clienteNome, x => x.nota.refCodigo, x => rmParcRotulo(x.p, x.nota), x => x.sit === 'paga' ? x.p.valor : rmParcRestante(x.p), x => x.sit, null],
   cli:   [c => c.nome, c => c.situacao, c => Number(c.limiteCredito) || 0, c => c.telefone, c => c.cpf, c => rmMotosDoCliente(c).length, c => c.observacao]
 };
 const RM_ORD_RENDER = { fcli:'rmRenderFinClientes', vend:'rmRenderFinVendas', prom:'rmRenderFinProm', cli:'rmRenderClientes' };
@@ -13356,6 +13356,7 @@ function rmRenderFinProm(){
     const parcial = sit !== 'paga' && pago > 0;
     return `
     <tr style="cursor:pointer" onclick="${nota.origem==='PDV' ? `rmAbrirDetalheVenda('${nota.refId}')` : `rmAbrirDetalheOS('${nota.refId}')`}">
+      <td>${nota.criadoEm ? new Date(nota.criadoEm).toLocaleDateString('pt-BR') : '—'}</td>
       <td>${rmDataBR(p.vencimento)}</td>
       <td>${rmEscapeHtml(nota.clienteNome||'—')}</td>
       <td>${rmEscapeHtml(nota.refCodigo||'')} <span class="rm-fin-tag rm-fin-tag-${nota.origem}">${nota.origem}</span></td>
