@@ -230,6 +230,9 @@
     display:flex; flex-direction:column; align-items:center; gap:6px; min-width:76px;
   }
   .rm-subnav-icon{font-size:19px; line-height:1;}
+  .vg-obra{margin-top:18px; border:2px dashed var(--rm-border); background:var(--rm-panel); padding:48px 24px; text-align:center; color:var(--rm-text-dim); display:flex; flex-direction:column; align-items:center; gap:8px; font-size:15px}
+  .vg-obra-i{font-size:40px; line-height:1} .vg-obra b{font-size:20px; color:var(--rm-text)}
+  #rm-section-visao-geral:fullscreen > .rm-subnav{display:none}
   .rm-subnav-icon-badge-wrap{position:relative; display:inline-block;}
   .rm-badge{
     position:absolute; top:-6px; right:-9px; min-width:16px; height:16px; padding:0 4px;
@@ -2493,7 +2496,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 20/10 às 23:49</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 21/10 às 00:05</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2506,6 +2509,14 @@
 
   <main>
     <div id="rm-section-visao-geral" class="rm-section">
+      <div class="rm-subnav">
+        <button class="rm-subnav-btn active" id="rm-btn-vg-geral" onclick="rmSetViewVg('geral')"><span class="rm-subnav-icon"></span><span>Geral</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-vg-oficina" onclick="rmSetViewVg('oficina')"><span class="rm-subnav-icon"></span><span>Oficina</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-vg-produtos" onclick="rmSetViewVg('produtos')"><span class="rm-subnav-icon"></span><span>Produtos</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-vg-compras" onclick="rmSetViewVg('compras')"><span class="rm-subnav-icon"></span><span>Compras</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-vg-func" onclick="rmSetViewVg('func')"><span class="rm-subnav-icon"></span><span>Funcionários</span></button>
+      </div>
+      <div id="rm-view-vg-geral" class="rm-view active">
       <div class="vg-topo">
         <h1 class="rm-title" style="margin:0;">Visão Geral</h1>
         <div class="vg-ctrl">
@@ -2525,6 +2536,11 @@
         </div>
       </div>
       <div id="rm-vg"></div>
+      </div>
+      <div id="rm-view-vg-oficina" class="rm-view"><div class="vg-topo"><h1 class="rm-title" style="margin:0;">Visão Geral · Oficina</h1></div><div class="vg-obra"><div class="vg-obra-i">&#128679;</div><b>Em construção</b><span>Esta aba vai sendo montada aos poucos. Por enquanto está vazia.</span></div></div>
+      <div id="rm-view-vg-produtos" class="rm-view"><div class="vg-topo"><h1 class="rm-title" style="margin:0;">Visão Geral · Produtos</h1></div><div class="vg-obra"><div class="vg-obra-i">&#128679;</div><b>Em construção</b><span>Esta aba vai sendo montada aos poucos. Por enquanto está vazia.</span></div></div>
+      <div id="rm-view-vg-compras" class="rm-view"><div class="vg-topo"><h1 class="rm-title" style="margin:0;">Visão Geral · Compras</h1></div><div class="vg-obra"><div class="vg-obra-i">&#128679;</div><b>Em construção</b><span>Esta aba vai sendo montada aos poucos. Por enquanto está vazia.</span></div></div>
+      <div id="rm-view-vg-func" class="rm-view"><div class="vg-topo"><h1 class="rm-title" style="margin:0;">Visão Geral · Funcionários</h1></div><div class="vg-obra"><div class="vg-obra-i">&#128679;</div><b>Em construção</b><span>Esta aba vai sendo montada aos poucos. Por enquanto está vazia.</span></div></div>
     </div>
 
     <div id="rm-section-pdv" class="rm-section">
@@ -6541,7 +6557,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610202349; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610210005; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -7667,7 +7683,7 @@ const RM_SUB_SO_ADMIN = ['rm-btn-fin-caixa', 'rm-btn-cfg-usuarios', 'rm-btn-cfg-
 // subabas que começam FECHADAS para funcionário: só vê quem o administrador liberar ("+sub:<id>")
 const RM_SUB_OPTIN = ['rm-btn-fin-pagar'];
 function rmSubNega(u, id){ return RM_SUB_OPTIN.includes(id) ? !((u && u.permissoes) || []).includes('+sub:' + id) : rmSubBloqueadas(u).includes(id); }
-const RM_SUB_PREFIXO = { 'rm-btn-produtos-':'produtos', 'rm-btn-fin-':'financeiro', 'rm-btn-pla-':'planilha', 'rm-btn-rel-':'relatorio', 'rm-btn-cfg-':'configuracoes' };
+const RM_SUB_PREFIXO = { 'rm-btn-vg-':'visao-geral', 'rm-btn-produtos-':'produtos', 'rm-btn-fin-':'financeiro', 'rm-btn-pla-':'planilha', 'rm-btn-rel-':'relatorio', 'rm-btn-cfg-':'configuracoes' };
 function rmSubBloqueadas(u){ return ((u && u.permissoes) || []).filter(x => typeof x === 'string' && x.startsWith('!sub:')).map(x => x.slice(5)); }
 function rmSubPode(id){
   if(!rmUsuario || rmEhAdmin()) return true;
@@ -7702,6 +7718,7 @@ function rmSubTravar(nome, idDe){
 rmSubTravar('rmSetView', v => 'rm-btn-' + v);
 rmSubTravar('rmSetViewProdutos', v => 'rm-btn-produtos-' + v);
 rmSubTravar('rmSetViewFin', v => 'rm-btn-fin-' + v);
+rmSubTravar('rmSetViewVg', v => 'rm-btn-vg-' + v);
 rmSubTravar('rmSetViewPlanilha', v => 'rm-btn-pla-' + v);
 rmSubTravar('rmComSetModo', v => 'rm-btn-rel-' + v);
 rmSubTravar('rmSetViewCfg', v => 'rm-btn-cfg-' + v);
@@ -8247,6 +8264,18 @@ setInterval(() => {
     olho.innerHTML = `&#128065; Ocultar <span class="vg-crono">${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}</span>`;
   }
 }, 1000);
+// subabas da Visão Geral (Geral = a tela de sempre; as outras vão sendo montadas com o tempo)
+const RM_VG_SUBS = ['geral', 'oficina', 'produtos', 'compras', 'func'];
+let rmVgSub = (() => { try{ const v = localStorage.getItem('radicalMotos_vgSub'); return RM_VG_SUBS.includes(v) ? v : 'geral'; }catch(e){ return 'geral'; } })();
+function rmSetViewVg(view){
+  if(!RM_VG_SUBS.includes(view)) view = 'geral';
+  rmVgSub = view; try{ localStorage.setItem('radicalMotos_vgSub', view); }catch(e){}
+  RM_VG_SUBS.forEach(v => {
+    const a = document.getElementById('rm-view-vg-' + v), b = document.getElementById('rm-btn-vg-' + v);
+    if(a) a.classList.toggle('active', v === view); if(b) b.classList.toggle('active', v === view);
+  });
+  if(view === 'geral') rmRenderVisaoGeral();
+}
 function rmVgTelaCheia(){
   const el = document.getElementById('rm-section-visao-geral');
   if(document.fullscreenElement){ document.exitFullscreen(); return; }
@@ -11968,6 +11997,11 @@ const RM_CFG_CAMPOS = [['nome','Nome fantasia'],['razao','Razão social'],['doc'
 
 // ===================== ÍCONES DAS ABAS =====================
 const RM_ABA_ICONES = {
+  'rm-btn-vg-geral':'<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>',
+  'rm-btn-vg-oficina':'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.5-.5-2.4z"/>',
+  'rm-btn-vg-produtos':'<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
+  'rm-btn-vg-compras':'<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h9.6a1 1 0 0 0 1-.8L21 7H6"/>',
+  'rm-btn-vg-func':'<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2.4.7 4 2.8 4 6"/>',
   'rm-btn-reception':'<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
   'rm-btn-lista':'<path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01"/>',
   'rm-btn-dashboard':'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
@@ -13589,7 +13623,7 @@ function rmSetSection(section){
     if(btn) btn.classList.toggle('active', s===section);
   });
   if(section === 'clientes'){ rmRenderClientes(); rmSyncProms(); }
-  if(section === 'visao-geral'){ rmVgSyncSenha(); rmRenderVisaoGeral(); rmSyncProms().then(rmRenderVisaoGeral); }
+  if(section === 'visao-geral'){ rmVgSyncSenha(); rmSetViewVg(rmVgSub); rmSyncProms().then(rmRenderVisaoGeral); }
   if(section === 'planilha'){ if(document.getElementById('rm-view-pla-vale').classList.contains('active')){ rmRenderVale(); rmValeSync().then(rmValeRenderSeLivre); } if(document.getElementById('rm-view-pla-lembretes').classList.contains('active')){ rmRenderLembretes(); rmLemSync().then(() => rmRenderLembretes(true)); } }
   if(section === 'relatorio'){ rmRenderComissao(); rmComSync().then(rmRenderComissao); }
   if(section === 'configuracoes'){ rmRenderConfigEmpresa(); rmSyncEmpresa().then(rmRenderConfigEmpresa); }
