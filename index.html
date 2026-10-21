@@ -230,6 +230,23 @@
     display:flex; flex-direction:column; align-items:center; gap:6px; min-width:76px;
   }
   .rm-subnav-icon{font-size:19px; line-height:1;}
+  .cc-top{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:16px}
+  .cc-top .rm-search{flex:1; min-width:240px}
+  .cc-dia{margin-bottom:22px}
+  .cc-dia-cab{display:flex; align-items:baseline; gap:10px; padding:8px 2px; border-bottom:2px solid var(--rm-text); margin-bottom:10px}
+  .cc-dia-cab b{font-size:16px} .cc-dia-cab span{color:var(--rm-text-dim); font-size:13.5px}
+  .cc-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:8px}
+  .cc-grid > *{min-width:0}
+  .cc-it{display:flex; gap:12px; align-items:center; background:var(--rm-panel); border:1px solid var(--rm-border); padding:8px; cursor:pointer}
+  .cc-it:hover{border-color:var(--rm-text)}
+  .cc-it img, .cc-sf{width:72px; height:54px; object-fit:cover; flex-shrink:0; background:var(--rm-bg); display:flex; align-items:center; justify-content:center; font-size:24px}
+  .cc-tx{min-width:0; flex:1} .cc-tx b{display:block; font-size:14.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .cc-tx span{display:block; font-size:13px; color:var(--rm-text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .cc-dir{text-align:right; flex-shrink:0; font-size:12.5px} .cc-dir b{display:block; font-size:14px}
+  .cc-st{display:inline-block; font-size:11px; font-weight:800; padding:2px 7px; text-transform:uppercase; margin-top:3px}
+  .cc-st.p{background:#fff1d6; color:#9a6a00} .cc-st.e{background:#e3f4ea; color:#2e8b57} .cc-st.r{background:#e7eefb; color:#2e6fd0}
+  .cc-mais{width:100%; padding:12px; font-weight:700; cursor:pointer}
+  @media(max-width:700px){ .cc-grid{grid-template-columns:minmax(0,1fr)} .cc-it img, .cc-sf{width:64px; height:48px} }
   .vg-obra{margin-top:18px; border:2px dashed var(--rm-border); background:var(--rm-panel); padding:48px 24px; text-align:center; color:var(--rm-text-dim); display:flex; flex-direction:column; align-items:center; gap:8px; font-size:15px}
   .vg-obra-i{font-size:40px; line-height:1} .vg-obra b{font-size:20px; color:var(--rm-text)}
   #rm-section-visao-geral:fullscreen > .rm-subnav{display:none}
@@ -2496,7 +2513,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 21/10 às 00:05</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 21/10 às 00:30</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2711,6 +2728,7 @@
         <button class="rm-subnav-btn" id="rm-btn-dashboard" onclick="rmSetView('dashboard')"><span class="rm-subnav-icon">&#9638;</span><span>Painel</span></button>
         <button class="rm-subnav-btn" id="rm-btn-mecanicos" onclick="rmSetView('mecanicos')"><span class="rm-subnav-icon">&#128295;</span><span>Mecânicos</span></button>
         <button class="rm-subnav-btn" id="rm-btn-avisos" onclick="rmSetView('avisos')"><span class="rm-subnav-icon rm-subnav-icon-badge-wrap">&#128226;<span class="rm-badge" id="rm-badge-avisos" style="display:none;">0</span></span><span>Aviso</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-concluidas" onclick="rmSetView('concluidas')"><span class="rm-subnav-icon">&#10004;</span><span>Concluídas</span></button>
       </div>
 
     <section id="rm-view-reception" class="rm-view">
@@ -2901,6 +2919,17 @@
         <div class="rm-lista-empty" id="rm-lista-empty" style="display:none;">Nenhuma moto encontrada</div>
       </div>
 
+    </section>
+
+    <section id="rm-view-concluidas" class="rm-view">
+      <h1 class="rm-title" style="margin:0 0 14px">Motos concluídas</h1>
+      <div class="cc-top">
+        <input class="rm-search" id="rm-cc-busca" placeholder="Buscar por moto, cliente, telefone, placa ou nº da OS..." oninput="rmCcDias=7; rmCcRender()">
+        <select class="rm-osl-sel" id="rm-cc-per" onchange="rmCcDias=7; rmCcRender()"><option value="7">Últimos 7 dias</option><option value="30">Últimos 30 dias</option><option value="90">Últimos 90 dias</option><option value="tudo">Todo o período</option><option value="esc">Escolher período…</option></select>
+        <input type="date" class="rm-osl-sel" id="rm-cc-de" style="display:none" onchange="rmCcRender()"><input type="date" class="rm-osl-sel" id="rm-cc-ate" style="display:none" onchange="rmCcRender()">
+        <select class="rm-osl-sel" id="rm-cc-mec" onchange="rmCcRender()"><option value="">Todos os mecânicos</option></select>
+      </div>
+      <div id="rm-cc-lista"></div>
     </section>
 
     <section id="rm-view-avisos" class="rm-view">
@@ -6557,7 +6586,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610210005; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610210030; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -12006,6 +12035,7 @@ const RM_ABA_ICONES = {
   'rm-btn-lista':'<path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01"/>',
   'rm-btn-dashboard':'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
   'rm-btn-mecanicos':'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.5-.5-2.4z"/>',
+  'rm-btn-concluidas':'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',
   'rm-btn-avisos':'<path d="M3 11v3a1 1 0 0 0 1 1h3l6 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M17 9a4 4 0 0 1 0 6"/>',
   'rm-btn-produtos-cadastro':'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/>',
   'rm-btn-produtos-estoque':'<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
@@ -14995,6 +15025,9 @@ function rmSetView(view){
   document.getElementById('rm-view-mecanicos').classList.toggle('active', view==='mecanicos');
   document.getElementById('rm-view-lista').classList.toggle('active', view==='lista');
   document.getElementById('rm-view-avisos').classList.toggle('active', view==='avisos');
+  document.getElementById('rm-view-concluidas').classList.toggle('active', view==='concluidas');
+  document.getElementById('rm-btn-concluidas').classList.toggle('active', view==='concluidas');
+  if(view==='concluidas'){ rmCcDias = 7; rmCcRender(); }
   document.getElementById('rm-btn-reception').classList.toggle('active', view==='reception');
   document.getElementById('rm-btn-dashboard').classList.toggle('active', view==='dashboard');
   document.getElementById('rm-btn-mecanicos').classList.toggle('active', view==='mecanicos');
@@ -16791,6 +16824,61 @@ function rmHighlightColumnUnder(x, y){
   document.querySelectorAll('.rm-column').forEach(c=>c.classList.toggle('rm-column-hover', c===col));
 }
 
+// ----- Oficina › Concluídas: motos feitas, separadas por dia, com foto pequena -----
+let rmCcDias = 7;   // quantos dias aparecem (vai aumentando com "Ver dias anteriores")
+const RM_CC_FEITA = new Set(['prontas', 'entregue']);
+// dia em que a moto ficou pronta (se foi direto para entregue, o dia da entrega)
+function rmCcQuando(r){
+  if(!RM_CC_FEITA.has(r.status)) return null;
+  const h = (r.historico || []).filter(x => x && x.em && x.status !== 'pago');
+  let quando = null;
+  for(let i = h.length - 1; i >= 0; i--){ if(RM_CC_FEITA.has(h[i].status)) quando = h[i].em; else break; }
+  return quando || r.pagoEm || r.dataManual || r.entrada || null;
+}
+const rmCcDiaLocal = iso => { const d = new Date(iso); return isNaN(d) ? '' : new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); };
+function rmCcServico(r){
+  const pr = (r.problemas || []).map(p => typeof p === 'string' ? p : (p && p.texto) || '').filter(Boolean);
+  if(pr.length) return pr.join(' · ');
+  return (r.pecasUsadas || []).map(p => p.nome).filter(Boolean).slice(0, 3).join(' · ');
+}
+function rmCcRender(){
+  const el = document.getElementById('rm-cc-lista'); if(!el) return;
+  const per = document.getElementById('rm-cc-per').value, q = (document.getElementById('rm-cc-busca').value || '').trim();
+  const de = document.getElementById('rm-cc-de'), ate = document.getElementById('rm-cc-ate');
+  de.style.display = ate.style.display = per === 'esc' ? '' : 'none';
+  const mecSel = document.getElementById('rm-cc-mec'), mecAt = mecSel.value;
+  const hoje = rmHojeISO();
+  const todas = rmLoad().filter(r => !r.cancelamento).map(r => ({ r, q: rmCcQuando(r) })).filter(x => x.q);
+  const mecs = [...new Set(todas.map(x => x.r.mecanico).filter(Boolean))].sort();
+  mecSel.innerHTML = '<option value="">Todos os mecânicos</option>' + mecs.map(m => `<option${m === mecAt ? ' selected' : ''}>${rmEscapeHtml(m)}</option>`).join('');
+  let ini = '', fim = hoje;
+  if(per === 'esc'){ ini = de.value || ''; fim = ate.value || hoje; }
+  else if(per !== 'tudo') ini = rmAddDiasISO(hoje, -(Number(per) - 1));
+  let lista = todas.map(x => Object.assign(x, { dia: rmCcDiaLocal(x.q) }))
+    .filter(x => (!ini || x.dia >= ini) && x.dia <= fim && (!mecAt || x.r.mecanico === mecAt) &&
+      (!q || rmBuscaBate([x.r.modelo, x.r.nome, x.r.telefone, x.r.placa, x.r.codigoApp, x.r.mecanico, rmCcServico(x.r)], q)))
+    .sort((a, b) => String(b.q).localeCompare(String(a.q)));
+  if(!lista.length){ el.innerHTML = '<div class="rm-problema-empty" style="padding:24px">Nenhuma moto concluída ' + (q ? 'com essa busca ' : '') + 'nesse período</div>'; return; }
+  // agrupa por dia e mostra só os primeiros dias (as fotos só carregam quando aparecem na tela)
+  const grupos = []; lista.forEach(x => { const g = grupos[grupos.length - 1]; if(g && g.dia === x.dia) g.l.push(x); else grupos.push({ dia: x.dia, l: [x] }); });
+  const mostra = grupos.slice(0, rmCcDias);
+  const ontem = rmAddDiasISO(hoje, -1);
+  const semana = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+  const card = ({ r }) => {
+    const sem = !r.clienteId;
+    const cli = (r.nome || (sem ? '' : '—')) + (sem ? (r.nome ? ' · ' : '') + '(sem cadastro)' + (r.telefone ? ' · ' + r.telefone : '') : '');
+    const st = r.status === 'entregue' ? '<span class="cc-st e">Entregue</span>' : '<span class="cc-st p">Pronta</span>';
+    return `<div class="cc-it" onclick="rmOpenModal('${rmJs(r.id)}', true)">${r.fotoUrl ? `<img src="${rmEscapeHtml(r.fotoUrl)}" loading="lazy" decoding="async" alt="">` : '<div class="cc-sf">&#127949;</div>'}
+      <div class="cc-tx"><b>${rmEscapeHtml(r.modelo || 'MOTO')}</b><span>${rmEscapeHtml(cli)}</span><span>${rmEscapeHtml([rmCcServico(r), r.mecanico].filter(Boolean).join(' · ') || '—')}</span></div>
+      <div class="cc-dir"><b>${rmFormatMoeda(rmOsTotais(r).total)}</b>${rmEscapeHtml(r.codigoApp || '')}<br>${r.retorno ? '<span class="cc-st r">Retorno</span> ' : ''}${st}</div></div>`;
+  };
+  el.innerHTML = mostra.map(g => {
+    const d = new Date(g.dia + 'T12:00:00'), dd = g.dia.slice(8, 10) + '/' + g.dia.slice(5, 7) + (g.dia.slice(0, 4) !== hoje.slice(0, 4) ? '/' + g.dia.slice(0, 4) : '');
+    const rot = (g.dia === hoje ? 'Hoje · ' : g.dia === ontem ? 'Ontem · ' : '') + semana[d.getDay()] + ', ' + dd;
+    return `<div class="cc-dia"><div class="cc-dia-cab"><b>${rot}</b><span>${g.l.length} moto(s)</span></div><div class="cc-grid">${g.l.map(card).join('')}</div></div>`;
+  }).join('') + (grupos.length > mostra.length ? `<button class="rm-osl-sel cc-mais" onclick="rmCcDias += 7; rmCcRender()">Ver dias anteriores (${grupos.length - mostra.length} dia(s) com motos)</button>` : '');
+}
+
 function rmChangeStatus(id, novoStatus){
   const list = rmLoad();
   const item = list.find(r=>r.id===id);
@@ -17060,7 +17148,6 @@ async function rmRetFinalizar(id){
   if(!r.historico) r.historico = [];
   r.historico.push({ status:'pago', em:r.pagoEm, por: rmNomeUsuario() });
   rmSave(list); rmDbUpsertRecepcao(r);
-  if(!rmChangeStatus(id, 'prontas')) {}
   rmOpenModal(id, rmActiveModalLarge);
   const t = rmOsTotais(r);
   rmShowToast('Retorno finalizado · sem cobrança');
@@ -17327,7 +17414,7 @@ async function rmOsFinalizar(id){
   } finally {
     rmOsFinalizandoId = null;
     const b = document.querySelector('.rm-os-bt-finalizar');
-    if(b){ b.disabled = false; b.innerHTML = '&#10004; Finalizar moto'; }
+    if(b){ b.disabled = false; b.innerHTML = '&#10004; Marcar como paga'; }
   }
   if(seguir) rmOsFinalizarAgora(id);
 }
@@ -17352,7 +17439,7 @@ function rmOsFinalizarAgora(id){
     r.clienteId = c.id;
   }
   if(rmAPrazo(r.formaPagamento) && !rmLimiteOk(r.clienteId, rmOsTotais(r).total - (Number(r.promEntrada) || 0), r.id)){ rmSave(list); return; }
-  if(!confirm('Finalizar esta moto? Ela fica como PAGA e PRONTA.\nTotal: ' + rmFormatMoeda(rmOsTotais(r).total) + ' · ' + r.formaPagamento)) return;
+  if(!confirm('Marcar esta OS como PAGA?\nA situação da moto não muda (andamento, pronta ou entregue continua igual).\nTotal: ' + rmFormatMoeda(rmOsTotais(r).total) + ' · ' + r.formaPagamento)) return;
   r.pago = true;
   r.pagoEm = new Date().toISOString();
   r.finalizadoPor = rmNomeUsuario();
@@ -17365,11 +17452,10 @@ function rmOsFinalizarAgora(id){
     rmCriarPromissoria({ origem:'OS', refId:r.id, refCodigo:r.codigoApp || ('OS-'+r.id), clienteId:r.clienteId,
       clienteNome:r.nome, total:r.valorPago, nParc:r.promParcelas || 1, venc:r.promVenc || rmAddDiasISO(rmHojeISO(), 30), entrada:r.promEntrada || 0, formaEnt:r.promEntradaForma || 'Dinheiro' });
   }
-  if(!rmChangeStatus(id, 'prontas')) {}
   rmOpenModal(id, rmActiveModalLarge);
-  rmShowToast('Moto finalizada · ' + rmFormatMoeda(r.valorPago));
+  rmShowToast('OS paga · ' + rmFormatMoeda(r.valorPago));
   rmLog('Finalizou OS (pago)', r.codigoApp, rmFormatMoeda(r.valorPago) + ' · ' + r.formaPagamento);
-  setTimeout(() => { if(confirm('Moto finalizada. Imprimir a ordem de serviço para o cliente?')) rmImprimirOSA4(id); }, 200);
+  setTimeout(() => { if(confirm('Pagamento registrado. Imprimir a ordem de serviço para o cliente?')) rmImprimirOSA4(id); }, 200);
 }
 
 function rmOsAbrirBusca(){
@@ -17825,7 +17911,7 @@ function rmOpenModal(id, large){
           : rmPodeCancelar() ? `<button class="rm-os-bt rm-os-bt-excluir" onclick="rmCancelarAbrir('os','${r.id}')">&#10005; Cancelar OS</button>` : ''}
         <span class="rm-os-auto">&#10004; Tudo o que você lança já é salvo automaticamente</span>
         ${r.pago ? `<button class="rm-os-bt rm-os-bt-imprimir" onclick="rmImprimirOSA4('${r.id}')">&#128424; Imprimir</button>` : ''}
-        ${r.pago || r.cancelamento ? '' : r.retorno ? `<button class="rm-os-bt rm-os-bt-finalizar rm-ret-finbt" onclick="rmRetFinalizar('${r.id}')">&#10004; Finalizar retorno</button>` : `<button class="rm-os-bt rm-os-bt-finalizar" onclick="rmOsFinalizar('${r.id}')">&#10004; Finalizar moto</button>`}
+        ${r.pago || r.cancelamento ? '' : r.retorno ? `<button class="rm-os-bt rm-os-bt-finalizar rm-ret-finbt" onclick="rmRetFinalizar('${r.id}')">&#10004; Finalizar retorno</button>` : `<button class="rm-os-bt rm-os-bt-finalizar" onclick="rmOsFinalizar('${r.id}')">&#10004; Marcar como paga</button>`}
         <button class="rm-os-bt rm-os-salvar" onclick="rmOsSalvarManual('${r.id}')">&#128190; Salvar</button>
       </div>
     </div>
