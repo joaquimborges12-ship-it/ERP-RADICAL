@@ -53,8 +53,8 @@
     background: repeating-linear-gradient(45deg, var(--rm-accent) 0 6px, #1c1300 6px 12px);
     flex-shrink:0;
   }
-  .rm-brand-text{font-family:var(--rm-font-display); font-size:15px; letter-spacing:0.04em; color:var(--rm-text-dim);}
-  .rm-brand-text b{color:var(--rm-text); font-weight:600;}
+
+
   .rm-nav{
     display:flex; gap:2px; align-items:center; background:var(--rm-panel-2);
     border:1px solid var(--rm-border); border-radius:10px; padding:3px;
@@ -65,29 +65,20 @@
   .rm-sync-dot{width:8px; height:8px; border-radius:50%; background:var(--rm-green); flex-shrink:0;}
   .rm-sync-dot.rm-sync-offline{background:var(--rm-red);}
   .rm-settings-wrap{position:relative;}
-  .rm-settings-btn{
-    background:transparent; border:1px solid var(--rm-border); color:var(--rm-text-dim);
-    border-radius:7px; width:36px; height:36px; font-size:16px; cursor:pointer; line-height:1;
-  }
-  .rm-settings-btn:hover{color:var(--rm-text); border-color:var(--rm-text-dim);}
-  .rm-settings-btn{display:flex; align-items:center; justify-content:center;}
-  .rm-settings-btn svg, .rm-sidebar-toggle svg, .rm-sidebar-expand svg{width:18px; height:18px; fill:currentColor; display:block;}
+
+
+
+  .rm-sidebar-toggle svg, .rm-sidebar-expand svg{width:18px; height:18px; fill:currentColor; display:block;}
   .rm-settings-menu{
     display:none; position:absolute; top:44px; right:0; background:var(--rm-panel);
     border:1px solid var(--rm-border); border-radius:9px; padding:6px; min-width:180px;
     box-shadow:0 8px 20px rgba(0,0,0,0.12); z-index:30; flex-direction:column; gap:2px;
   }
   .rm-settings-menu.show{display:flex;}
-  .rm-settings-item{
-    background:none; border:none; color:var(--rm-text); text-align:left; padding:9px 10px;
-    border-radius:6px; font-size:13.5px; font-family:var(--rm-font-body); cursor:pointer;
-  }
-  .rm-settings-item:hover{background:var(--rm-panel-2);}
-  .rm-settings-divider{height:1px; background:var(--rm-border); margin:4px 2px;}
-  .rm-settings-toggle-item{
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-    padding:9px 10px; border-radius:6px; font-size:12.5px; color:var(--rm-text); cursor:default;
-  }
+
+
+
+
   .rm-nav-btn{
     font-family:var(--rm-font-body); font-size:13px; font-weight:600;
     background:transparent; color:var(--rm-text-dim); border:none;
@@ -107,7 +98,7 @@
   main{padding:20px;}
   .rm-section{display:none;}
   .rm-section.active{display:block;}
-  .rm-placeholder-text{color:var(--rm-text-dim); font-size:14px;}
+
   .rm-foto-preview{margin-top:10px;}
   .rm-foto-thumb{width:100%; max-width:220px; border-radius:9px; display:block; margin-bottom:8px; border:1px solid var(--rm-border);}
   .rm-foto-preview button{
@@ -131,20 +122,20 @@
     display:inline-block; background:var(--rm-panel-2); color:var(--rm-text-dim); font-size:11px;
     font-weight:700; padding:3px 9px; border-radius:20px; text-transform:uppercase; letter-spacing:0.03em;
   }
-  .rm-pdv-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:start; margin-bottom:32px;}
-  .rm-pdv-col-checkout{position:sticky; top:20px;}
+
+
 
   /* Barra de adicionar item */
   .rm-pdv-toggles-row{display:flex; gap:28px; flex-wrap:wrap; margin-bottom:22px;}
   .rm-pdv-toggles-row .rm-pdv-modo-toggle{margin-bottom:0;}
-  .rm-pdv-add-row{display:flex; gap:10px; align-items:flex-end; margin-bottom:16px;}
-  .rm-pdv-add-field{display:flex; flex-direction:column;}
-  .rm-pdv-add-row .rm-autocomplete-wrap{margin-bottom:0;}
-  .rm-pdv-add-nome{flex:1;}
-  .rm-pdv-add-preco{width:120px;}
-  .rm-pdv-add-qtd{width:70px;}
-  .rm-pdv-mini-label{font-size:11px; color:var(--rm-text-dim); font-weight:600; margin-bottom:5px; text-transform:uppercase; letter-spacing:0.03em;}
-  .rm-pdv-add-row .rm-input{margin-bottom:0;}
+
+
+
+
+
+
+
+
   .rm-pdv-add-btn{
     background:var(--rm-accent); color:var(--rm-accent-ink); border:none; border-radius:9px;
     width:47px; height:47px; font-size:22px; font-weight:700; cursor:pointer; flex-shrink:0; line-height:1;
@@ -177,18 +168,13 @@
   }
   .rm-pdv-cart-item-nome{font-size:14px; font-weight:600;}
   .rm-pdv-cart-item-detalhe{font-size:12px; color:var(--rm-text-dim); margin-top:1px;}
-  .rm-pdv-cart-item-right{display:flex; align-items:center; gap:14px;}
-  .rm-pdv-cart-item-subtotal{font-weight:700; font-size:14px;}
-  .rm-pdv-cart-item-remove{background:none; border:none; color:var(--rm-text-dim); font-size:18px; cursor:pointer; line-height:1;}
-  .rm-pdv-cart-item-remove:hover{color:var(--rm-red);}
 
-  /* Total em destaque (hero) */
-  .rm-pdv-hero{
-    background:var(--rm-panel-2); border-radius:12px; padding:20px 22px; margin-bottom:20px;
-    display:flex; flex-direction:column; align-items:flex-start;
-  }
-  .rm-pdv-hero-label{font-size:12px; color:var(--rm-text-dim); font-weight:700; text-transform:uppercase; letter-spacing:0.04em;}
-  .rm-pdv-hero-valor{font-family:var(--rm-font-display); font-size:38px; font-weight:700; color:var(--rm-accent); line-height:1.2;}
+  .rm-pdv-cart-item-subtotal{font-weight:700; font-size:14px;}
+
+
+
+
+
   .rm-pdv-hero-lines{
     width:100%; margin-top:12px; padding-top:12px; border-top:1px solid var(--rm-border);
     display:flex; flex-direction:column; gap:6px;
@@ -196,19 +182,12 @@
   .rm-pdv-hero-line{display:flex; align-items:center; justify-content:space-between; font-size:14.5px; color:var(--rm-text-dim);}
   .rm-pdv-hero-line b{color:var(--rm-text); font-weight:700; font-size:15px;}
   .rm-pdv-hero-line#rm-pdv-desconto-line.rm-pdv-desconto-ativo b{color:var(--rm-red);}
-  .rm-pdv-desconto-inline{display:flex; gap:6px; margin-top:12px;}
-  .rm-pdv-desconto-inline .rm-input{
-    margin-bottom:0; padding:9px 10px; font-size:13px; background:var(--rm-panel);
-  }
-  .rm-pdv-desconto-inline select.rm-input{width:64px; flex-shrink:0;}
 
-  /* Blocos do checkout — sem caixa, só espaçamento e rótulo */
-  .rm-pdv-block{margin-bottom:20px;}
-  .rm-pdv-block-label{
-    display:block; font-size:12px; color:var(--rm-text-dim); font-weight:700;
-    text-transform:uppercase; letter-spacing:0.04em; margin-bottom:8px;
-  }
-  .rm-pdv-block .rm-input{margin-bottom:0;}
+
+
+
+
+
 
   .rm-pdv-pagamento-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
   .rm-pdv-pag-btn{
@@ -216,8 +195,8 @@
     font-size:13px; font-weight:700; color:var(--rm-text-dim); cursor:pointer; text-align:center;
   }
   .rm-pdv-pag-btn.active{background:var(--rm-accent); color:var(--rm-accent-ink); border-color:var(--rm-accent);}
-  .rm-pdv-troco-block{margin-top:14px; padding-top:14px; border-top:1px solid var(--rm-border);}
-  .rm-pdv-troco-block .rm-input{margin-bottom:0;}
+
+
   #rm-pdv-troco-linha{font-weight:500;}
   #rm-pdv-troco-linha.rm-pdv-troco-ok{color:var(--rm-green); font-weight:700;}
   #rm-pdv-troco-linha.rm-pdv-troco-falta{color:var(--rm-red); font-weight:700; font-size:19px;}
@@ -236,8 +215,8 @@
   .rm-pdv-finalizar:active{transform:scale(0.99);}
 
   @media (max-width:900px){
-    .rm-pdv-grid{grid-template-columns:1fr;}
-    .rm-pdv-col-checkout{position:static; order:-1; margin-bottom:28px;}
+
+
   }
   .rm-subnav{
     display:flex; gap:4px; align-items:stretch; background:var(--rm-panel);
@@ -404,9 +383,9 @@
   table.rm-table tbody tr:last-child td{border-bottom:none;}
   table.rm-table tbody tr:nth-child(even){background:rgba(0,0,0,0.018);}
   table.rm-table tbody tr:hover{background:var(--rm-panel-2);}
-  table.rm-table tbody tr.rm-lista-row-pago{background:rgba(76,175,125,0.16);}
-  table.rm-table tbody tr.rm-lista-row-pago:hover{background:rgba(76,175,125,0.26);}
-  .rm-lista-code{font-weight:700;}
+
+
+
   .rm-lista-foto-icon{
     display:inline-flex; align-items:center; justify-content:center; font-size:11px;
     background:var(--rm-panel-2); border:1px solid var(--rm-border); border-radius:5px; padding:2px 5px;
@@ -416,11 +395,11 @@
     border-radius:10px; box-shadow:0 10px 28px rgba(0,0,0,0.3); border:2px solid var(--rm-panel);
     background:var(--rm-panel); pointer-events:none;
   }
-  .rm-lista-flags{display:flex; gap:4px; margin-top:1px; font-size:11px; color:var(--rm-text-dim);}
+
   .rm-lista-status-pill{
     display:inline-block; font-size:11px; font-weight:700; padding:2px 9px; border-radius:20px; color:#fff; white-space:nowrap;
   }
-  .rm-lista-problemas{color:var(--rm-text-dim); font-size:12px;}
+
   .rm-lista-empty{padding:48px 20px; text-align:center; color:var(--rm-text-dim);}
   .rm-produto-estoque-baixo{color:var(--rm-red); font-weight:700;}
   .rm-margem-texto{display:block; font-size:11.5px; color:var(--rm-text-dim); margin-top:4px; font-weight:600;}
@@ -680,11 +659,8 @@
   .rm-modal.rm-modal-large .rm-modal-body{display:grid; grid-template-columns:1fr 1fr; gap:0 32px; align-items:start;}
   .rm-modal.rm-modal-large .rm-modal-col{display:flex; flex-direction:column;}
   .rm-modal-header-actions{display:flex; align-items:center; gap:8px; flex-shrink:0;}
-  .rm-modal-icon-btn{
-    background:transparent; border:1px solid var(--rm-border); color:var(--rm-text-dim);
-    border-radius:7px; width:30px; height:30px; font-size:13px; cursor:pointer; line-height:1;
-  }
-  .rm-modal-icon-btn:hover{color:var(--rm-accent); border-color:var(--rm-accent);}
+
+
   .rm-modal-header{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;}
   .rm-modal-title{font-family:var(--rm-font-display); font-size:20px; font-weight:600;}
   .rm-modal-sub{font-size:12.5px; color:var(--rm-text-dim); margin-top:3px;}
@@ -785,7 +761,6 @@
   .rm-history-item{display:flex; justify-content:space-between; font-size:12.5px; padding:7px 0; border-bottom:1px solid var(--rm-border);}
   .rm-history-item:last-child{border-bottom:none;}
 
-  .rm-contato-row{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;}
   .rm-cliente-hist-item{
     background:var(--rm-bg); border:1px solid var(--rm-border); border-radius:8px;
     padding:10px 12px; margin-bottom:8px; font-size:13px;
@@ -938,7 +913,7 @@
 
     .rm-sync-status{ order:2; margin-top:auto; padding:0 14px 10px; }
     .rm-settings-wrap{ order:3; padding:0 14px 14px; }
-    .rm-settings-btn{ width:100%; height:36px; }
+
     .rm-settings-menu{ top:auto; bottom:100%; left:14px; right:14px; width:auto; margin-bottom:6px; }
   }
   @media (max-width: 640px){
@@ -961,7 +936,7 @@
     .rm-nav-btn{ padding:8px 9px; }
     .rm-nav-text{ display:none; }
     .rm-nav-icon{ font-size:15px; }
-    .rm-settings-btn{ width:32px; height:32px; flex-shrink:0; }
+
   }
 
   /* ===== PDV no estilo da referência: painéis quadrados e campos em grade ===== */
@@ -1110,12 +1085,12 @@
   .rm-os-item .rm-autocomplete-item{color:#333; border-bottom:1px solid #eee;}
   .rm-os-item .rm-autocomplete-item:hover{background:#f2f2f2;}
   .rm-os-item .rm-autocomplete-tel, .rm-os-item .rm-autocomplete-empty{color:#777;}
-  .rm-fin-resumo{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px;}
-  .rm-fin-card{background:var(--rm-panel); border:1px solid var(--rm-border); padding:10px 14px; min-width:130px; display:flex; flex-direction:column; gap:2px;}
-  .rm-fin-card span{font-size:12px; color:var(--rm-text-dim);}
-  .rm-fin-card b{font-size:17px;}
-  .rm-fin-card small{font-size:11px; color:var(--rm-text-dim);}
-  .rm-fin-card-total b{font-size:22px; color:var(--rm-accent);}
+
+
+
+
+
+
   .rm-prom-cfg{margin-top:10px; border:1px solid var(--rm-border); background:var(--rm-panel); padding:10px;}
   .rm-prom-cfg-row{display:flex; gap:10px; flex-wrap:wrap;}
   .rm-prom-cfg-row label{display:flex; flex-direction:column; font-size:12px; gap:4px; flex:1; min-width:110px; color:var(--rm-text);}
@@ -1128,18 +1103,18 @@
   .rm-prom-sit-parcial{background:#fff3cd; color:#7a5b00;}
   .rm-prom-pg-hist{margin-top:8px; border-top:1px dashed var(--rm-border); padding-top:6px; font-size:13px;}
   .rm-prom-pg-hist div{display:flex; justify-content:space-between; padding:2px 0; color:var(--rm-text-dim);}
-  .rm-pe-parc{border:1px solid var(--rm-border); padding:10px 12px; margin-bottom:8px;}
-  .rm-pe-linha{display:flex; align-items:flex-end; gap:10px; flex-wrap:wrap;}
-  .rm-pe-linha label{display:flex; flex-direction:column; gap:3px; font-size:11px; color:var(--rm-text-dim); flex:1; min-width:110px;}
-  .rm-pe-linha input, .rm-pe-linha select{padding:7px 8px; font-size:14px; border:1px solid var(--rm-border); border-radius:0; background:#fff; color:#333; font-family:inherit;}
-  .rm-pe-n{width:38px; padding-bottom:8px; font-size:14px;}
-  .rm-pe-pg{margin-top:8px; padding-left:12px; border-left:3px solid #c3e6cb;}
-  .rm-pe-pg .rm-pe-n{font-size:11px; font-weight:600; color:#3c763d;}
-  .rm-pe-resta{font-size:12px; color:var(--rm-text-dim); padding-bottom:9px; min-width:90px;}
-  .rm-pe-x{background:none; border:1px solid var(--rm-border); color:#b3261e; width:32px; height:32px; font-size:18px; cursor:pointer; border-radius:0;}
-  .rm-pe-add{background:none; border:1px dashed var(--rm-border); color:var(--rm-text); padding:5px 10px; font-size:12px; cursor:pointer; margin-top:8px; border-radius:0;}
+
+
+
+
+
+
+
+
+
+
   .rm-pe-soma{font-size:13px; padding:8px 10px; background:#dff0d8; color:#3c763d; margin-bottom:12px;}
-  .rm-pe-soma-erro{background:#fff3cd; color:#7a5b00;}
+
   .rm-pe2-resumo{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:10px;}
   .rm-pe2-resumo div{border:1px solid var(--rm-border); padding:8px 10px; display:flex; flex-direction:column; gap:2px;}
   .rm-pe2-resumo span, .rm-pe2-mini span{font-size:11px; color:var(--rm-text-dim); text-transform:uppercase; letter-spacing:0.03em;}
@@ -1240,9 +1215,9 @@
   .rm-ped-est{font-size:12px; color:var(--rm-text-dim); white-space:nowrap;}
   .rm-ped-zero{color:#b3261e; font-weight:700;}
   @media (max-width:900px){ .rm-ped-grid{grid-template-columns:1fr;} }
-  .rm-fab-lateral{order:2; margin:8px 14px 0; padding:9px 10px; border:1px dashed var(--rm-border); background:transparent; color:var(--rm-text); font-size:13px; font-weight:600; cursor:pointer; text-align:left; border-radius:0; font-family:inherit;}
-  .rm-fab-lateral:hover{border-color:var(--rm-accent); color:var(--rm-accent);}
-  @media (max-width:760px){ .rm-fab-lateral{display:none;} }
+
+
+  @media (max-width:760px){ }
   .rm-fab{position:fixed; right:18px; bottom:18px; width:48px; height:48px; border-radius:50%; border:1px solid #ddd; background:#fff; color:#333; font-size:22px; cursor:pointer; z-index:10050; box-shadow:0 4px 14px rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:center; padding:0;}
   .rm-fab:hover{transform:scale(1.06);}
   #rm-chat-fab{right:76px;}
@@ -1300,7 +1275,7 @@
   }
   @media print{ #rm-chat-fab, .rm-chat{display:none !important;} }
   body[data-secao="pdv"] .rm-fab{bottom:96px;}
-  .rm-fab-badge{position:absolute; top:-3px; right:-3px; min-width:18px; height:18px; padding:0 4px; border-radius:9px; background:#fff; color:var(--rm-accent); font-size:11px; font-weight:800; line-height:18px; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,0.3);}
+
   .rm-fab-painel{position:fixed; right:18px; bottom:76px; width:310px; background:var(--rm-panel); border:1px solid var(--rm-border); box-shadow:0 10px 30px rgba(0,0,0,0.25); padding:12px; z-index:10051; display:none;}
   body[data-secao="pdv"] .rm-fab-painel{bottom:154px;}
   .rm-fab-painel.show{display:block;}
@@ -1311,15 +1286,15 @@
   #rm-fab-qtd{width:52px; text-align:center; font-weight:700;}
   #rm-fab-txt{flex:1; text-transform:uppercase;}
   .rm-fab-add{width:100%; margin-top:8px; background:#5cb85c; color:#fff; border:none; padding:9px; font-weight:700; cursor:pointer; border-radius:0;}
-  .rm-fab-ult{margin-top:10px; font-size:12px; color:var(--rm-text-dim);}
-  .rm-fab-ult > div{padding:2px 0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-  .rm-fab-ult-tit{font-weight:700; text-transform:uppercase; font-size:10.5px; letter-spacing:0.04em; margin-bottom:2px;}
-  .rm-fab-ult a{display:inline-block; margin-top:6px; color:var(--rm-accent); font-weight:600; text-decoration:none;}
+
+
+
+
   @media print{ .rm-fab, .rm-fab-painel{display:none !important;} }
-  .rm-osl-fin-tit{font-size:18px; font-weight:700; margin:34px 0 10px; padding-top:18px; border-top:2px solid var(--rm-border);}
-  .rm-osl-fin-tit span{font-weight:400; font-size:14px; color:var(--rm-text-dim);}
-  .rm-pdv-para-os{flex:none; width:100%; margin-bottom:8px; padding:10px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-weight:700; font-size:14px; cursor:pointer; border-radius:0; font-family:inherit;}
-  .rm-pdv-para-os:hover{background:var(--rm-panel-2);}
+
+
+
+
   .rm-o2s-aviso{background:#e8f1fb; border-left:4px solid #2f6fb5; color:#1f4e79; padding:10px 14px; margin:-4px 0 14px; font-size:14px;}
   .rm-o2s-aviso span{display:block; font-size:12.5px; margin-top:4px; opacity:0.85;}
   html[data-tema="dark"] .rm-o2s-aviso{background:#1b2c40; color:#a9c9ec;}
@@ -1350,13 +1325,13 @@
   .rm-osl-anot{min-width:180px; max-width:240px; text-transform:uppercase; font-size:12px; line-height:1.3;}
   .rm-osl-anot div{display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; white-space:normal;}
   .rm-osl-mod{text-transform:uppercase; max-width:220px; overflow:hidden; text-overflow:ellipsis;}
-  .rm-osl-moto{color:#888; font-size:13px; margin-left:6px;}
+
   .rm-os-status-topo{margin:10px 0 0; flex-wrap:wrap;}
   .rm-os-problemas{border:1px solid var(--rm-border); padding:12px 14px; margin-bottom:14px;}
-  .rm-osl tbody tr.rm-osl-fim{background:#eaf7ee;}
-  .rm-osl tbody tr.rm-osl-fim:hover{background:#dcf1e3;}
-  .rm-osl tbody tr.rm-osl-devendo{background:#fdeceb;}
-  .rm-osl tbody tr.rm-osl-devendo:hover{background:#fadcda;}
+
+
+
+
   .rm-osl-tag{display:inline-block; font-size:11px; font-weight:700; padding:2px 8px; margin-right:4px; color:#fff; text-transform:uppercase; letter-spacing:0.03em;}
   .rm-osl-tag-ent{background:#1a73e8;}
   .rm-osl-tag-bus{background:#e8710a;}
@@ -1371,10 +1346,10 @@
   .rm-osl td:nth-child(-n+2){overflow:visible; position:relative;}
   .rm-osl-svg{width:22px; height:22px; display:inline-block; vertical-align:middle;}
   .rm-osl-foto{font-size:18px; cursor:zoom-in;}
-  .rm-osl-ic{display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; box-sizing:border-box; font-size:12px; font-weight:900;}
-  .rm-osl-ok{background:#1e8e3e; color:#fff;}
-  .rm-osl-andam{border:2.5px solid #1e8e3e;}
-  .rm-osl-vazio{border:2.5px solid #222;}
+
+
+
+
   html.rm-sem-login #rm-app, html.rm-sem-login #rm-bancada, html.rm-sem-login .rm-fab, html.rm-sem-login .rm-chat{visibility:hidden;}
   #rm-login{position:fixed; inset:0; z-index:20000; display:flex; align-items:center; justify-content:center; background:var(--rm-bg);}
   .rm-login-card{background:var(--rm-panel); border:1px solid var(--rm-border); box-shadow:var(--rm-shadow); padding:30px 28px; width:320px; display:flex; flex-direction:column; gap:10px; text-align:center;}
@@ -1557,8 +1532,8 @@
   html[data-tema="dark"] .rm-inv-selo.forte{background:#1e8e3e; color:#fff;}
   .rm-pdv-item-info{display:flex; flex-wrap:wrap; align-items:center; gap:4px 12px; font-size:13px; color:var(--rm-text-dim); margin:-4px 0 8px;}
   .rm-pdv-item-info:empty{display:none;}
-  .rm-pdv-loc{font-weight:800; color:var(--rm-text); background:#fff3cd; border:1px solid #ffe08a; padding:1px 8px;}
-  html[data-tema="dark"] .rm-pdv-loc{background:#3a321a; border-color:#5c4d1f; color:#f0d27a;}
+
+
   .rm-pdv-loc-tab{font-size:11px; font-weight:700; color:var(--rm-text-dim); border:1px solid var(--rm-border); padding:0 5px; margin-left:4px; white-space:nowrap;}
   .rm-sep-btn{float:right; font-size:12px; font-weight:600; padding:4px 10px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text-dim); cursor:pointer; border-radius:0; font-family:var(--rm-font-body); text-transform:none; letter-spacing:0;}
   .rm-sep-btn:hover{color:var(--rm-text); border-color:var(--rm-text-dim);}
@@ -1735,9 +1710,9 @@
   .rm-lem-form{transform:none !important; border:2px dashed rgba(0,0,0,0.18);}
   .rm-lem-form textarea{flex:1; min-height:150px; border:none; background:transparent; resize:vertical; font-family:inherit; font-size:15.5px; color:#2b2b2b; outline:none;}
   .rm-lem-form textarea::placeholder{color:rgba(0,0,0,0.4);}
-  .rm-lem-cores{display:flex; gap:6px;}
-  .rm-lem-cores button{width:22px; height:22px; border-radius:50%; border:1px solid rgba(0,0,0,0.2); cursor:pointer; padding:0;}
-  .rm-lem-cores button.on{outline:2px solid #333; outline-offset:1px;}
+
+
+
   .rm-lem-quando{display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:#444;}
   .rm-lem-quando input{flex:1; min-width:0;}
   .rm-lem-quando select{padding:6px 4px; border:1px solid rgba(0,0,0,0.18); background:rgba(255,255,255,0.7); font-family:inherit; font-size:14px; color:#222; border-radius:0;}
@@ -1812,7 +1787,7 @@
   #rm-pdv-produto-lista .rm-ac-fam{background:transparent; padding:9px 14px 3px; border-bottom:0; border-top:1px solid var(--rm-border); font-size:11.5px; color:var(--rm-text-dim); text-transform:uppercase; letter-spacing:.04em; gap:6px;}
   #rm-pdv-produto-lista .rm-ac-fam:first-child{border-top:0;}
   #rm-pdv-produto-lista .rm-ac-fam b{font-weight:700;} #rm-pdv-produto-lista .rm-ac-fam span{font-size:11px; text-transform:none; letter-spacing:0;}
-  #rm-pdv-produto-lista .rm-ac-fam .rm-curva-badge, #rm-pdv-produto-lista .rm-ac-fam [class*="curva"]{transform:scale(.85);}
+  #rm-pdv-produto-lista .rm-ac-fam [class*="curva"]{transform:scale(.85);}
   #rm-pdv-produto-lista .rm-autocomplete-item.rm-ac-marca{padding-left:14px; border-left:3px solid rgba(127,127,127,.35); border-bottom:1px solid var(--rm-border);}
   @media (max-width:760px){ #rm-pdv-produto-lista .rm-ac-preco{font-size:15px; min-width:0;} }
 
@@ -1997,8 +1972,8 @@
   html[data-tema="dark"] .rm-ret-btn{color:#ffd27a;}
   .rm-ret-btn:hover{background:rgba(201,150,26,.2);}
   @media (max-width:760px){ .rm-ret-btn{justify-content:center;} }
-  .rm-ret-card{max-width:520px; background:var(--rm-panel); border:1px solid var(--rm-border); padding:6px 18px 18px;}
-  .rm-ret-bts{margin-top:16px;} .rm-ret-ok{background:#c9961a !important; color:#1b1b1b !important;}
+
+
   #rm-ret-alerta{display:flex; flex-direction:column; gap:6px; margin-bottom:10px;}
   #rm-ret-alerta:empty{display:none;}
   .rm-ret-al{display:flex; align-items:center; gap:10px; flex-wrap:wrap; background:rgba(217,67,58,.12); border:1px solid #d9433a; border-left:5px solid #d9433a; padding:9px 12px; font-size:14px; color:var(--rm-text);}
@@ -2202,8 +2177,8 @@
   .rm-os-bt-excluir{background:transparent; color:#d9433a; border:1px solid #d9433a; margin-right:auto; font-size:14px; padding:11px 16px;}
   .rm-os-bt-excluir:hover{background:#d9433a; color:#fff;}
   @media (max-width:640px){ .rm-os-salvar-bar .rm-os-auto{width:100%; text-align:right;} .rm-os-bt{flex:1; justify-content:center;} .rm-os-bt-excluir{order:9; flex-basis:100%;} }
-  .rm-os-finalizar{width:100%; background:#5cb85c; color:#fff; border:none; border-radius:0; padding:16px; font-size:18px; font-weight:700; cursor:pointer; margin-bottom:18px;}
-  .rm-os-finalizar:hover{background:#4cae4c;}
+
+
   .rm-os-finalizada{background:#dff0d8; color:#3c763d; border:1px solid #c3e6cb; padding:14px 16px; font-size:16px; font-weight:600; margin-bottom:18px;}
   .rm-os-box{border:1px solid #ddd; margin-bottom:18px; color:var(--rm-text);}
   .rm-os-box-head{background:#f4f4f4; color:#555; padding:14px 18px; font-size:18px; border-bottom:1px solid #ddd;}
@@ -2255,7 +2230,7 @@
   html[data-tema="dark"] .rm-osl-naopago{background:#3a1f1e; border-color:#6b2f2b; color:#f19a93;}
   html[data-tema="dark"] .rm-osl-at-pronta{background:#1d3324; border-color:#2c5a3a; color:#8fd19e;}
   html[data-tema="dark"] .rm-fab{background:#2a2e35; color:#fff; border-color:#444;}
-  html[data-tema="dark"] .rm-pe2-aviso, html[data-tema="dark"] .rm-pe-soma-erro, html[data-tema="dark"] .rm-pdv-edicao-banner{background:#3a321a; color:#f0d27a; border-color:#5c4d1f;}
+  html[data-tema="dark"] .rm-pe2-aviso, html[data-tema="dark"] .rm-pdv-edicao-banner{background:#3a321a; color:#f0d27a; border-color:#5c4d1f;}
   html[data-tema="dark"] .rm-pe-soma{background:#1d3324; color:#8fd19e;}
   html[data-tema="dark"] .rm-av-linha.rm-av-quita{background:#1d3324; border-color:#2c5a3a;}
   html[data-tema="dark"] .rm-av-linha.rm-av-parcial{background:#3a321a; border-color:#5c4d1f;}
@@ -2287,11 +2262,11 @@
   html[data-tema="dark"] .rm-osl-sel{border-color:var(--rm-border);}
   html[data-tema="dark"] .rm-os-lapis:hover{background:#343944;}
   html[data-tema="dark"] .rm-os-box-head{color:var(--rm-text);}
-  html[data-tema="dark"] .rm-pe-pg{border-left-color:#2c5a3a;}
-  html[data-tema="dark"] .rm-pe-pg .rm-pe-n, html[data-tema="dark"] .rm-os-finalizada{color:#8fd19e;}
+
+  html[data-tema="dark"] .rm-os-finalizada{color:#8fd19e;}
   html[data-tema="dark"] .rm-osl-at-pronta:hover{background:#244030;}
   html[data-tema="dark"] .rm-osl-naopago:hover{background:#4a2624;}
-  html[data-tema="dark"] .rm-ped-zero, html[data-tema="dark"] .rm-pe-x, html[data-tema="dark"] .rm-pe2-btn-del, html[data-tema="dark"] #rm-login-msg{color:#f19a93;}
+  html[data-tema="dark"] .rm-ped-zero, html[data-tema="dark"] .rm-pe2-btn-del, html[data-tema="dark"] #rm-login-msg{color:#f19a93;}
   html[data-tema="dark"] .rm-cfg-card, html[data-tema="dark"] .rm-ped-col, html[data-tema="dark"] .rm-org-grupo{background:var(--rm-panel);}
   html[data-tema="dark"] [style*="background:#fff"]:not(img), html[data-tema="dark"] [style*="background: #fff"]:not(img){background:var(--rm-panel) !important;}
   html[data-tema="dark"] [style*="color:#3c763d"]{color:#8fd19e !important;}
@@ -2362,10 +2337,10 @@
   .eq-cus{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:10px;} .eq-cus label{font-size:11.5px; color:var(--rm-text-dim);} .eq-cus input{width:100%; box-sizing:border-box; padding:7px; margin-top:3px; background:var(--rm-bg); border:1px solid var(--rm-border); color:var(--rm-text); font-family:inherit;}
   .eq-start{font-size:13px; color:var(--rm-text-dim); margin-top:10px;} .eq-start input{width:52px; padding:5px; text-align:center; background:var(--rm-bg); border:1px solid var(--rm-border); color:var(--rm-text); font-weight:800; margin:0 2px;}
   .eq-pos{margin-top:10px; padding:9px 12px; background:rgba(46,139,87,.12); border:1px solid #2e8b57; font-size:13px;}
-  .eq-lay{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;} .eq-lay > div{border:1px solid var(--rm-border); padding:8px; text-align:center; font-size:12.5px; font-weight:700; cursor:pointer;} .eq-lay > div.on{border-color:#d9433a; background:rgba(217,67,58,.12);}
-  .eq-lay .lb{background:#fff; color:#111; height:44px; margin:0 auto 6px; width:80px; display:flex; flex-direction:column; justify-content:center; align-items:center; line-height:1.1; padding:2px; box-sizing:border-box; border:1px solid #bbb;}
-  .eq-fbc{width:60px; height:8px; background:repeating-linear-gradient(90deg,#000 0 1px,#fff 1px 2px,#000 2px 4px,#fff 4px 5px);}
-  .eq-ck{display:grid; grid-template-columns:1fr 1fr; gap:6px 14px; margin-top:12px; font-size:13.5px;} .eq-ck label{display:flex; gap:8px; align-items:center; cursor:pointer;}
+
+
+
+
   .eq-adj{display:flex; gap:8px; align-items:center; font-size:13px; color:var(--rm-text-dim); margin-top:12px; flex-wrap:wrap;} .eq-adj input{width:56px; padding:6px; background:var(--rm-bg); border:1px solid var(--rm-border); color:var(--rm-text); text-align:center; margin:0;}
   .eq-prev{padding:14px; background:#3a3f47; overflow:hidden; box-sizing:border-box;} .eq-scale{transform-origin:top left; box-shadow:0 6px 24px rgba(0,0,0,.4);}
   #rm-etq-scale .ek{outline:0.15mm dashed #c4c4c4; outline-offset:-0.15mm; cursor:pointer;} #rm-etq-scale .ek-u{background:repeating-linear-gradient(45deg,#e6e6e6,#e6e6e6 1mm,#f7f7f7 1mm,#f7f7f7 2mm);} #rm-etq-scale .ek-v:hover{background:#ffe9e7;}
@@ -2375,7 +2350,7 @@
   .eq-c{border:1px solid var(--rm-border); padding:10px; text-align:center; font-size:12.5px; cursor:pointer;} .eq-c:hover{border-color:#d9433a;} .eq-c.on{border:2px solid #d9433a; background:rgba(217,67,58,.10);}
   .eq-c b{display:block; font-size:14px; margin-top:6px;} .eq-c small{display:block; color:var(--rm-text-dim);} .eq-c .eq-mini{margin:0 auto;}
   @media (max-width:1100px){ .eq{grid-template-columns:1fr;} }
-  @media (max-width:760px){ .eq-cus{grid-template-columns:1fr 1fr;} .eq-ck{grid-template-columns:1fr;} .eq-lay{grid-template-columns:1fr 1fr 1fr;} .eq-go{flex-wrap:wrap;} .eq-go .pri{width:100%;} }
+  @media (max-width:760px){ .eq-cus{grid-template-columns:1fr 1fr;} .eq-go{flex-wrap:wrap;} .eq-go .pri{width:100%;} }
   /* ===== Retorno de garantia ===== */
   .rm-ret-ban{background:linear-gradient(90deg,#b8601a,#d9822b); color:#fff; padding:12px 16px; margin:0 0 14px; display:flex; align-items:center; gap:8px 14px; flex-wrap:wrap;}
   .rm-ret-ban > b{font-size:16px; letter-spacing:.03em;} .rm-ret-ban span{font-size:13.5px; opacity:.96; flex:1; min-width:220px;} .rm-ret-ban a{color:#fff; text-decoration:underline; font-size:13px; font-weight:700; cursor:pointer;}
@@ -2518,7 +2493,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 20/10 às 22:58</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 20/10 às 23:33</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -5961,7 +5936,6 @@ document.addEventListener('click', function(e){
   }
 });
 
-function rmNextVendaCode(){ return rmNextNumeroDoc(); }
 
 function rmNextOrcamentoCode(){
   const list = rmLoadVendas();
@@ -6567,9 +6541,11 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610202258; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610202333; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
+// tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
+const RM_VERSAO_TABS = RM_SYNC_TABS.concat(['promissorias', 'inventarios']);
 let rmOutbox = {};
 try{ rmOutbox = JSON.parse(localStorage.getItem(RM_OUTBOX_KEY)) || {}; }catch(e){ rmOutbox = {}; }
 // a fila também é guardada no IndexedDB: se o localStorage encher, nada se perde
@@ -6583,6 +6559,8 @@ function rmTabCfg(t){
   if(t === 'vendas') return { de: rmFromDbRowVenda, para: rmToDbRowVenda, ler: rmLoadVendas, gravar: rmSaveVendas };
   if(t === 'clientes') return { de: rmFromDbRowCliente, para: rmToDbRowCliente, ler: rmLoadClientes, gravar: rmSaveClientes };
   if(t === 'produtos') return { de: rmFromDbRowProduto, para: rmToDbRowProduto, ler: rmLoadProdutos, gravar: rmSaveProdutos };
+  if(t === 'promissorias') return { de: rmPromFromDb, para: rmPromToDb, ler: rmLoadProms, gravar: rmSaveProms };
+  if(t === 'inventarios') return { de: rmInvFromDb, para: rmInvToDb, ler: rmInvLoad, gravar: rmInvSaveLocal };
   return null;
 }
 // comparação que não liga para ordem das chaves nem para o formato da data
@@ -6633,7 +6611,50 @@ function rmJuntarCampo(t, k, B, L, S, temBase){
     return [...m.values()].sort((a, b) => String(a.em || '').localeCompare(String(b.em || '')));
   }
   if(t === 'produtos' && k === 'estoque_atual' && temBase) return Math.round(((Number(S) || 0) + (Number(L) || 0) - (Number(B) || 0)) * 1000) / 1000;
+  if(t === 'promissorias' && k === 'parcelas') return rmJuntarParcelas(temBase ? B : null, L, S);
+  if(t === 'promissorias' && k === 'removidos') return [...new Set([].concat(L || [], S || []))];
+  if(t === 'inventarios' && k === 'itens') return rmJuntarItensInv(temBase ? B : null, L, S);
   return L; // o mesmo campo mudou nos dois: vale a alteração mais recente (a deste aparelho)
+}
+// notas a prazo: cada parcela é juntada campo a campo; os pagamentos dos dois aparelhos sempre somam (nunca se perdem)
+const rmChaveParcela = p => p && p.entrada ? 'E' : 'n' + (p && p.n);
+function rmJuntarParcelas(B, L, S){
+  const mB = new Map((B || []).map(p => [rmChaveParcela(p), p])), mL = new Map((L || []).map(p => [rmChaveParcela(p), p])), mS = new Map((S || []).map(p => [rmChaveParcela(p), p]));
+  const pgs = p => Array.isArray(p && p.pagamentos) ? p.pagamentos : [];
+  const out = [];
+  const juntar = (l, s, b) => {
+    const o = Object.assign({}, s);
+    Object.keys(l).forEach(f => { if(f === 'pagamentos') return; if(b && rmEq(l[f], b[f])) return; o[f] = l[f]; });
+    const vistos = new Set(), lista = [];
+    pgs(s).concat(pgs(l)).forEach(pg => { const k = rmPgChave(pg); if(!vistos.has(k)){ vistos.add(k); lista.push(pg); } });
+    o.pagamentos = lista.sort((a, b2) => String(a.data).localeCompare(String(b2.data)));
+    return o;
+  };
+  const chaves = [...new Set([...mS.keys(), ...mL.keys()])];
+  chaves.forEach(k => {
+    const l = mL.get(k), s = mS.get(k), b = mB.get(k);
+    if(l && s){ out.push(juntar(l, s, b)); return; }
+    const so = l || s, outro = l ? 'S' : 'L';
+    // o outro aparelho tirou a parcela: só fica se esta ganhou pagamento novo
+    if(b && !pgs(so).some(pg => !pgs(b).some(x => rmPgChave(x) === rmPgChave(pg)))) return;
+    out.push(so);
+  });
+  return out.sort((a, b) => (b.entrada ? 1 : 0) - (a.entrada ? 1 : 0) || (Number(a.n) || 0) - (Number(b.n) || 0));
+}
+// inventário: cada produto contado é juntado separado (duas pessoas contando a mesma lista não apagam a contagem uma da outra)
+function rmJuntarItensInv(B, L, S){
+  const ch = it => (it && (it.pid || it.nome)) || '';
+  const mB = new Map((B || []).map(i => [ch(i), i])), mL = new Map((L || []).map(i => [ch(i), i]));
+  const out = [], usados = new Set();
+  (S || []).forEach(s => {
+    const k = ch(s), l = mL.get(k), b = mB.get(k); usados.add(k);
+    if(!l){ if(!b || !rmEq(s, b)) out.push(s); return; }     // este aparelho tirou da lista: só fica se o outro mexeu nele
+    if(rmEq(l, s) || (b && rmEq(l, b))){ out.push(s); return; }
+    if(b && rmEq(s, b)){ out.push(l); return; }
+    out.push(String(l.contadoEm || '') >= String(s.contadoEm || '') ? l : s); // os dois contaram: vale a contagem mais recente
+  });
+  (L || []).forEach(l => { const k = ch(l); if(!usados.has(k) && !mB.has(k)) out.push(l); });
+  return out;
 }
 function rmJuntar3(t, baseStr, local, server){
   const base = baseStr ? JSON.parse(baseStr) : null;
@@ -6648,12 +6669,18 @@ function rmJuntar3(t, baseStr, local, server){
     if(base && rmEq(S, B)){ out[k] = L; return; }  // só este aparelho mudou
     out[k] = rmJuntarCampo(t, k, B, L, S, !!base);
   });
+  if(t === 'promissorias'){
+    // pagamento apagado de propósito (em qualquer aparelho) não volta
+    const rem = new Set([].concat(local.removidos || [], server.removidos || []));
+    out.removidos = [...rem];
+    out.parcelas = (out.parcelas || []).map(p => { const c = Object.assign({}, p); c.pagamentos = (Array.isArray(c.pagamentos) ? c.pagamentos : []).filter(pg => !rem.has(rmPgChave(pg))); rmParcAtualizar(c); return c; });
+  }
   return out;
 }
 // ----- versão do sistema -----
 let rmAppBloqueado = false, rmAppMinima = null;
 function rmComVersaoApp(t, rows){
-  if(!RM_SYNC_TABS.includes(t) || (rmColFaltando[t] && rmColFaltando[t].has('app_versao'))) return rows;
+  if(!RM_VERSAO_TABS.includes(t) || (rmColFaltando[t] && rmColFaltando[t].has('app_versao'))) return rows;
   return rows.map(r => Object.assign({}, r, { app_versao: RM_APP_VERSAO }));
 }
 // gravação direta (backup, importação): carimba a versão e tira colunas que o banco ainda não tem
@@ -6722,16 +6749,47 @@ function rmRelogioConferir(dados, t0, t1){
 }
 function rmUid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
 // grava linhas no Supabase: tira colunas que ainda não existem e junta quando outro aparelho mudou antes
+async function rmJuntarSemVersao(t, rows, falta){
+  try{
+    const srv = await rmSb.from(t).select('*').in('id', rows.map(r => r.id));
+    if(srv.error) return rows;
+    const porId = new Map((srv.data || []).map(x => [x.id, x]));
+    return rows.map(r => {
+      const x = porId.get(r.id); if(!x) return r;
+      const o = t === 'promissorias' ? rmPromToDb(rmPromMesclar(rmPromFromDb(x), rmPromFromDb(r))) : Object.assign({}, r, { itens: rmJuntarItensInv(null, r.itens, x.itens) });
+      (falta || []).forEach(c => delete o[c]);
+      return o;
+    });
+  }catch(e){ return rows; }
+}
+// confere se o que foi gravado ficou mesmo lá (pagamentos / contagens)
+async function rmConferirSemVersao(t, rows){
+  try{
+    const srv = await rmSb.from(t).select('*').in('id', rows.map(r => r.id));
+    if(srv.error) return true;
+    const porId = new Map((srv.data || []).map(x => [x.id, x]));
+    return rows.every(r => {
+      const x = porId.get(r.id); if(!x) return true;
+      if(t === 'promissorias'){ const tem = new Set((x.parcelas || []).flatMap(p => (p.pagamentos || []).map(rmPgChave))); return (r.parcelas || []).every(p => (p.pagamentos || []).every(pg => tem.has(rmPgChave(pg)))); }
+      const m = new Map((x.itens || []).map(i => [i.pid || i.nome, i]));
+      return (r.itens || []).every(i => { const s = m.get(i.pid || i.nome); return !s || String(s.contadoEm || '') >= String(i.contadoEm || ''); });
+    });
+  }catch(e){ return true; }
+}
 async function rmGravarLinhas(t, rows, bases){
   const juntou = new Map(), apagados = new Set();
   for(let tent = 0; tent < 6 + apagados.size; tent++){
     const falta = rmColFaltando[t];
     if(falta) rows.forEach(r => falta.forEach(c => delete r[c]));
     const comVersao = !(falta && (falta.has('versao') || falta.has('versao_base')));
+    // SQL da versão ainda não rodado (notas a prazo / inventário): junta com a do servidor antes de gravar e confere depois
+    const semVersaoJunta = !comVersao && (t === 'promissorias' || t === 'inventarios');
+    if(semVersaoJunta) rows = await rmJuntarSemVersao(t, rows, falta);
     const envio = rmComVersaoApp(t, rows);
     let res, t0 = Date.now();
     try{ res = comVersao ? await rmSb.from(t).upsert(envio).select('id,versao,atualizado_em') : await rmSb.from(t).upsert(envio); }catch(e){ return { erro: e }; }
     const error = res && res.error;
+    if(!error && semVersaoJunta && tent < 5 + apagados.size && !await rmConferirSemVersao(t, rows)) continue; // outro aparelho gravou junto: junta de novo
     if(!error){
       if(comVersao && Array.isArray(res.data)) rmRelogioConferir(res.data, t0, Date.now());
       return { ok: true, data: (comVersao && Array.isArray(res.data)) ? res.data : [], juntou, apagados };
@@ -6890,7 +6948,7 @@ function rmApagadoEmOutroAparelho(tab, i){
     localStorage.setItem(RM_DESCARTADOS_KEY, JSON.stringify(l.slice(0, 30)));
   }catch(e){}
   const row = i.row || {};
-  const nome = tab === 'recepcoes' ? 'A OS ' + (row.codigo_app || '') : tab === 'vendas' ? 'A venda ' + (row.codigo_venda || '') : tab === 'clientes' ? 'O cliente ' + (row.nome || '') : 'O produto ' + (row.nome || row.descricao || '');
+  const nome = tab === 'recepcoes' ? 'A OS ' + (row.codigo_app || '') : tab === 'vendas' ? 'A venda ' + (row.codigo_venda || '') : tab === 'clientes' ? 'O cliente ' + (row.nome || '') : tab === 'promissorias' ? 'A nota a prazo ' + (row.ref_codigo || row.cliente_nome || '') : tab === 'inventarios' ? 'O inventário ' + (row.titulo || '') : 'O produto ' + (row.nome || row.descricao || '');
   rmShowToast('⚠ ' + nome.trim() + ' foi excluído(a) em outro aparelho · a alteração feita aqui não foi salva');
   try{ rmLog('Alteração descartada: registro excluído em outro aparelho', row.codigo_app || row.codigo_venda || row.nome || i.id, tab); }catch(e){}
 }
@@ -6912,7 +6970,7 @@ function rmOutboxEnviar(){
           const bases = {}; lote.forEach(i => { bases[i.id] = i.base || null; });
           let r;
           try{
-            if(RM_SYNC_TABS.includes(tab)) r = await rmGravarLinhas(tab, rows, bases);
+            if(RM_VERSAO_TABS.includes(tab)) r = await rmGravarLinhas(tab, rows, bases);
             else { const { error } = await rmSb.from(tab).upsert(rows); r = error ? { erro: error } : { ok: true, data: [], juntou: new Map() }; }
           }catch(e){ r = { erro: e }; }
           if(r.erro){ console.warn('fila de envio (' + tab + '):', r.erro); tudoOk = false; break; }
@@ -8125,11 +8183,6 @@ function rmVgReceitas(r){
   return docs;
 }
 
-function rmVgVar(atual, ant){
-  if(!ant) return atual ? '<span class="vg-var vg-up">novo</span>' : '';
-  const p = (atual - ant) / ant * 100;
-  return `<span class="vg-var ${p >= 0 ? 'vg-up' : 'vg-down'}">${p >= 0 ? '▲' : '▼'} ${Math.abs(p).toFixed(0)}%</span>`;
-}
 
 const RM_VG_BLOCOS = [['alertas','Alertas'],['fin','Faturamento'],['ofi','Oficina'],['prod','Produtos'],['cli','Clientes']];
 function rmVgOcultos(){ try{ return JSON.parse(localStorage.getItem('radicalMotos_vgOcultos')) || []; }catch(e){ return []; } }
@@ -9367,7 +9420,6 @@ function rmLemQuandoTxt(iso){
   return d.toLocaleDateString('pt-BR', { weekday:'short', day:'2-digit', month:'2-digit' }) + ' às ' + h;
 }
 function rmLemCor(c){ return (RM_LEM_CORES.find(x => x[0] === c) || RM_LEM_CORES[0])[1]; }
-function rmLemCoresHtml(sel, onclick){ return `<div class="rm-lem-cores">${RM_LEM_CORES.map(([k, v]) => `<button type="button" class="${k === sel ? 'on' : ''}" style="background:${v}" title="${k}" onclick="${onclick.replace('%C', k)}"></button>`).join('')}</div>`; }
 function rmLemFormHtml(x){
   const novo = !x, sf = novo ? 'n' : 'e';
   const cor = novo ? 'amarelo' : x.cor;
@@ -9381,14 +9433,6 @@ function rmLemFormHtml(x){
   </div>`;
 }
 // troca a cor sem perder o que já foi digitado
-function rmLemTrocarCor(sf, c){
-  const campo = id => document.getElementById(id);
-  const guarda = ['n','e'].map(k => [k, campo('rm-lem-txt-' + k) && campo('rm-lem-txt-' + k).value, campo('rm-lem-quando-' + k) && campo('rm-lem-quando-' + k).value]);
-  if(sf === 'n') rmLemCorNova = c;
-  else { const x = rmLem.itens.find(i => i.id === rmLemEditando); if(x) x.__cor = c; }
-  rmRenderLembretes();
-  guarda.forEach(([k, t, q]) => { if(t != null && campo('rm-lem-txt-' + k)) campo('rm-lem-txt-' + k).value = t; if(q && campo('rm-lem-quando-' + k)) campo('rm-lem-quando-' + k).value = q; });
-}
 function rmLemSalvarForm(id){
   const sf = id ? 'e' : 'n';
   const texto = document.getElementById('rm-lem-txt-' + sf).value.trim();
@@ -9957,7 +10001,6 @@ function rmFamLocal(fid, prods){
   (prods ? rmFamMembrosDe(fid, prods) : rmFamMembros(fid)).forEach(p => { const l = String(p.localizacao || '').trim().toUpperCase(); if(l) c.set(l, (c.get(l) || 0) + 1); });
   return [...c.entries()].sort((a,b) => b[1] - a[1])[0]?.[0] || '';
 }
-function rmFamEstoque(fid){ return rmFamMembros(fid).reduce((s,p) => s + (Number(p.estoqueAtual) || 0), 0); }
 function rmFamMarcaDe(p){ return (p.marca || '').trim() || rmFamSeparar(p.nome).marca || 'SEM MARCA'; }
 
 // ----- separar o nome em "produto" + "marca" (a marca está só no nome) -----
@@ -10671,7 +10714,6 @@ function rmCxSoma(l){ return Math.round(l.reduce((s, x) => s + (Number(x) || 0),
 function rmCxR2(v){ return Math.round((Number(v) || 0) * 100) / 100; }
 // movimentos válidos (antigos sem tipo = despesa)
 function rmCxMovs(c){ return ((c && c.retiradas) || []).filter(r => !r.removida).map(r => Object.assign({ tipo: 'despesa' }, r)); }
-function rmCxRetiradas(c){ return rmCxMovs(c).filter(r => r.tipo !== 'entrada'); }
 // quanto saiu de verdade: o que foi levado menos o troco devolvido
 function rmCxMovValor(m){ return rmCxR2((Number(m.valor) || 0) - (Number(m.devolvido) || 0)); }
 function rmCxTrocoPendente(m){ return !!(m.trocoPendente && m.devolvido == null && !m.removida); }
@@ -11294,25 +11336,6 @@ function rmBackupCardHtml(){
   </div>`;
 }
 
-function rmExportarBackup(){
-  const dados = {
-    recepcoes: rmLoad(),
-    mecanicos: rmLoadMecanicos(),
-    contador: localStorage.getItem(RM_COUNTER_KEY) || '0',
-    exportadoEm: new Date().toISOString()
-  };
-  const blob = new Blob([JSON.stringify(dados, null, 2)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  const dataStr = new Date().toISOString().slice(0,10);
-  a.href = url;
-  a.download = `radical-motos-backup-${dataStr}.json`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  rmShowToast('Backup baixado com sucesso');
-}
 
 // backup no formato antigo (só motos e mecânicos): JUNTA com o que existe — nunca apaga nada.
 // As motos do backup substituem as que têm o mesmo código; o que foi criado depois continua.
@@ -11379,10 +11402,6 @@ function rmAvisosAtivos(){
 async function rmDbUpsertAviso(aviso){
   const { error } = await rmSb.from('avisos').upsert(rmToDbRowAviso(aviso));
   if(error) console.error('Supabase upsert aviso:', error);
-}
-async function rmDbDeleteAviso(id){
-  const { error } = await rmSb.from('avisos').delete().eq('id', id);
-  if(error) console.error('Supabase delete aviso:', error);
 }
 
 const RM_PRODUTOS_KEY = 'radicalMotos_produtos_v1';
@@ -11866,10 +11885,6 @@ function rmNextNumeroDoc(){
   return 'V-' + String(max + 1).padStart(6, '0');
 }
 // se o número reservado no formulário já foi usado por outra venda/OS, pega o próximo
-function rmCodigoLivre(c){
-  const usados = new Set(rmLoad().map(r => r.codigoApp).concat(rmLoadVendas().map(v => v.codigoVenda)));
-  return (c && !usados.has(c)) ? c : rmNextNumeroDoc();
-}
 function rmNextCode(){ return rmNextNumeroDoc(); }
 
 let rmPendingCode = null;
@@ -11904,10 +11919,6 @@ function rmRenderFormProblemas(){
   `).join('');
 }
 
-function rmToggleSettingsMenu(evt){
-  if(evt) evt.stopPropagation();
-  document.getElementById('rm-settings-menu').classList.toggle('show');
-}
 document.addEventListener('click', function(e){
   const menu = document.getElementById('rm-settings-menu');
   const wrap = document.querySelector('.rm-settings-wrap');
@@ -12204,13 +12215,6 @@ function rmA4Itens(itens, extras, simples){
       </tfoot>
     </table>
     ${temZerado ? '<div class="a4-nota">* Produtos com estoque zero ou negativo</div>' : ''}`);
-}
-function rmA4Prom(refId){
-  const nota = rmLoadProms().find(n => n.refId === refId);
-  if(!nota) return '';
-  return rmA4Secao('A prazo · ' + nota.parcelas.length + 'x', `
-    <table class="a4-tab"><thead><tr><th class="c" style="width:60px">Parcela</th><th>Vencimento</th><th class="r">Valor (R$)</th><th class="r">Pago (R$)</th></tr></thead>
-    <tbody>${nota.parcelas.map(p => `<tr><td class="c">${rmParcRotulo(p, nota)}</td><td>${rmDataBR(p.vencimento)}</td><td class="r">${rmFmtNum(p.valor)}</td><td class="r">${rmParcPago(p) > 0 ? rmFmtNum(rmParcPago(p)) : '—'}</td></tr>`).join('')}</tbody></table>`);
 }
 function rmA4Pagamentos(refId, forma, total, data, subtotal, desconto){
   const nota = rmLoadProms().find(n => n.refId === refId);
@@ -12569,11 +12573,13 @@ function rmPromFromDb(r){
 }
 function rmPromFromDbCru(r){
   return { id:r.id, origem:r.origem, refId:r.ref_id, refCodigo:r.ref_codigo, clienteId:r.cliente_id,
-    clienteNome:r.cliente_nome, total:Number(r.total)||0, parcelas:r.parcelas||[], observacao:r.observacao, criadoEm:r.criado_em, entregueEm:r.entregue_em || null, removidos:r.removidos || [] };
+    clienteNome:r.cliente_nome, total:Number(r.total)||0, parcelas:r.parcelas||[], observacao:r.observacao, criadoEm:r.criado_em, entregueEm:r.entregue_em || null, removidos:r.removidos || [],
+    _v: r.versao != null ? r.versao : (r.versao_base != null ? r.versao_base : null) };
 }
 function rmPromToDb(p){
   return { id:p.id, origem:p.origem, ref_id:p.refId, ref_codigo:p.refCodigo, cliente_id:p.clienteId||null,
-    cliente_nome:p.clienteNome||null, total:p.total, parcelas:p.parcelas, observacao:p.observacao||null, criado_em:p.criadoEm, entregue_em:p.entregueEm||null, removidos:p.removidos||[] };
+    cliente_nome:p.clienteNome||null, total:p.total, parcelas:p.parcelas, observacao:p.observacao||null, criado_em:p.criadoEm, entregue_em:p.entregueEm||null, removidos:p.removidos||[],
+    versao_base: p._v != null ? p._v : null };
 }
 // ===================== BLINDAGEM DOS RECEBIMENTOS =====================
 // 1) cada pagamento tem um id único; 2) antes de gravar, junta com a versão do servidor (nunca apaga pagamento de outro aparelho);
@@ -12610,43 +12616,10 @@ function rmPromMesclar(remota, local){
 let rmPromAvisouOffline = false;
 const rmEspera = ms => new Promise(r => setTimeout(r, ms));
 // grava a nota juntando com o servidor e CONFERE: se outro aparelho gravou ao mesmo tempo e um pagamento sumiu, junta de novo e regrava
-async function rmDbUpsertProm(p){
-  const pend = new Set(rmPendLer(RM_PROM_PEND_KEY)); pend.add(p.id); rmPendGravar(RM_PROM_PEND_KEY, [...pend]);
-  try{
-    let atual = p;
-    for(let tentativa = 0; tentativa < 8; tentativa++){
-      const r = await rmSb.from('promissorias').select('*').eq('id', atual.id).maybeSingle();
-      if(r && r.error) throw r.error;
-      const final = r && r.data ? rmPromMesclar(rmPromFromDb(r.data), atual) : atual;
-      const { error } = await rmSb.from('promissorias').upsert(rmPromToDb(final));
-      if(error) throw error;
-      // confere o que ficou gravado
-      await rmEspera(120 + Math.random() * 380);
-      const v = await rmSb.from('promissorias').select('*').eq('id', atual.id).maybeSingle();
-      if(v && v.error) throw v.error;
-      const gravado = v && v.data ? rmPromFromDb(v.data) : null;
-      const removidos = new Set(final.removidos || []);
-      const chavesGravadas = new Set(gravado ? gravado.parcelas.flatMap(x => (x.pagamentos || []).map(rmPgChave)) : []);
-      const faltam = final.parcelas.flatMap(x => rmParcPagamentos(x)).filter(pg => !removidos.has(rmPgChave(pg)) && !chavesGravadas.has(rmPgChave(pg)));
-      const combinado = gravado ? rmPromMesclar(gravado, final) : final;
-      rmSaveProms(rmLoadProms().map(n => n.id === combinado.id ? combinado : n));
-      if(!faltam.length){
-        const pd = new Set(rmPendLer(RM_PROM_PEND_KEY)); pd.delete(p.id); rmPendGravar(RM_PROM_PEND_KEY, [...pd]);
-        rmPromAvisouOffline = false;
-        return true;
-      }
-      atual = combinado; // alguém gravou por cima ao mesmo tempo: junta e tenta de novo
-    }
-    throw new Error('não confirmou a gravação');
-  }catch(e){
-    console.error('Supabase promissória (vai tentar de novo):', e);
-    if(!rmPromAvisouOffline){ rmPromAvisouOffline = true; rmShowToast('Sem conexão: o recebimento ficou guardado neste aparelho e será enviado assim que a internet voltar.'); }
-    return false;
-  }
-}
-async function rmPromApagarServidor(id){
-  try{ const r = await rmSb.from('promissorias').delete().eq('id', id); if(r && r.error) throw r.error; }catch(e){ console.error(e); }
-}
+// grava pela fila de envio com versão: se outro aparelho gravou antes, o servidor recusa e o aparelho junta as duas
+// (pagamentos sempre somam, apagados não voltam). Sem internet fica guardado no aparelho até conseguir enviar.
+async function rmDbUpsertProm(p){ if(!p || !p.id) return false; rmOutboxPor('promissorias', p.id, 'up', rmPromToDb(p)); return true; }
+async function rmPromApagarServidor(id){ rmOutboxPor('promissorias', id, 'del'); }
 
 // livro-caixa dos recebimentos (só acrescenta; estorno fica marcado, nunca apagado)
 function rmLedgerRegistrar(nota, p, pg){
@@ -12677,8 +12650,10 @@ async function rmLedgerEnviar(){
 
 // reenvia o que ficou pendente
 async function rmPromReenviarPendentes(){
+  // notas que ficaram pendentes no jeito antigo (antes da fila com versão): passam para a fila
   const ids = rmPendLer(RM_PROM_PEND_KEY);
-  for(const id of ids){ const n = rmLoadProms().find(x => x.id === id); if(n) await rmDbUpsertProm(n); else { const pd = new Set(rmPendLer(RM_PROM_PEND_KEY)); pd.delete(id); rmPendGravar(RM_PROM_PEND_KEY, [...pd]); } }
+  if(ids.length){ ids.forEach(id => { const n = rmLoadProms().find(x => x.id === id); if(n) rmDbUpsertProm(n); }); rmPendGravar(RM_PROM_PEND_KEY, []); }
+  if(Object.values(rmOutbox).some(i => i.tabela === 'promissorias')) await rmOutboxEnviar();
   rmLedgerEnviar();
 }
 setInterval(() => { if(typeof rmUsuario !== 'undefined' && rmUsuario) rmPromReenviarPendentes(); }, 20000);
@@ -12728,16 +12703,28 @@ async function rmRestaurarRecebimentos(ids){
   rmConferirRecebimentos();
 }
 
+// baixa uma tabela inteira com versão (notas a prazo, inventários): o que ainda não foi enviado continua valendo o do aparelho
+async function rmSyncTabelaVersao(t, ordenar){
+  const cfg = rmTabCfg(t);
+  await rmOutboxEnviar();
+  const desde = Date.now();
+  const { data, error } = await rmSelectTudo(t, '*');
+  if(error || !data) return false;
+  const antes = rmIdx(cfg.ler());
+  let lista = data.map(row => {
+    if(!rmPendente(t, row.id)) rmBaseGuardar(t, row);
+    const loc = antes.get(row.id);
+    if(loc && loc._v != null && row.versao != null && loc._v > row.versao) return loc;
+    return cfg.de(row);
+  });
+  lista = rmOutboxSobrepor(t, lista, cfg.de, desde);
+  if(ordenar) lista.sort(ordenar);
+  cfg.gravar(lista);
+  return true;
+}
 async function rmSyncProms(){
-  const { data, error } = await rmSelectTudo('promissorias', '*');
-  if(error || !data) return;
-  // o que ainda não subiu para o servidor NUNCA é substituído: junta com a versão de lá
-  const pend = new Set(rmPendLer(RM_PROM_PEND_KEY));
-  const locais = rmLoadProms();
-  const remotas = data.map(rmPromFromDb);
-  const final = remotas.map(r => pend.has(r.id) ? rmPromMesclar(r, locais.find(l => l.id === r.id) || r) : r);
-  locais.filter(l => pend.has(l.id) && !remotas.some(r => r.id === l.id)).forEach(l => final.unshift(l));
-  rmSaveProms(final);
+  await rmPromReenviarPendentes();
+  await rmSyncTabelaVersao('promissorias');
 }
 
 function rmHojeISO(){ const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset()*6e4).toISOString().slice(0,10); }
@@ -13447,18 +13434,6 @@ function rmPromConfirmarRecebimento(notaId, n){
   rmRenderFinProm();
 }
 
-function rmPromEstornar(notaId, n){
-  const lista = rmLoadProms(); const nota = lista.find(x=>x.id===notaId); if(!nota) return;
-  const p = nota.parcelas.find(x=>x.n===n);
-  const pgs = rmParcPagamentos(p);
-  if(!pgs.length) return;
-  const ult = pgs[pgs.length-1];
-  if(!confirm(`Desfazer o último pagamento desta parcela (${rmFormatMoeda(ult.valor)} em ${rmDataHoraBR(ult.data)})?`)) return;
-  pgs.pop();
-  rmParcAtualizar(p);
-  rmSaveProms(lista); rmDbUpsertProm(nota);
-  rmRenderFinProm();
-}
 
 // valor por extenso (reais)
 function rmExtenso(valor){
@@ -13591,14 +13566,6 @@ function rmFabAdd(){
   rmFabFechar();
   if(document.getElementById('rm-view-produtos-pedido').classList.contains('active')) rmRenderPedido();
   rmShowToast('Anotado: ' + texto);
-}
-function rmFabUltimos(){
-  const ult = (rmPedido.itens || []).filter(i => !i.comprado).slice(-4).reverse();
-  const prods = rmLoadProdutos();
-  document.getElementById('rm-fab-ult').innerHTML = ult.length ? '<div class="rm-fab-ult-tit">Últimos anotados</div>' + ult.map(i => {
-    const p = i.produtoId ? rmIdx(prods).get(i.produtoId) : null;
-    return `<div>${rmFmtQtd(i.qtd)}× ${rmEscapeHtml(p ? p.nome : i.texto)}</div>`;
-  }).join('') + `<a href="#" onclick="event.preventDefault(); rmFabFechar(); rmCloseModal(); rmSetSection('produtos'); rmSetViewProdutos('pedido');">Ver lista completa →</a>` : '';
 }
 document.addEventListener('mousedown', ev => {
   const p = document.getElementById('rm-fab-painel');
@@ -13849,45 +13816,41 @@ let rmInvSoFaltando = false;
 
 function rmInvLoad(){ return rmStoreLer(RM_INV_KEY); }
 function rmInvSaveLocal(l){ rmStoreSalvar(RM_INV_KEY, l); }
-function rmInvFromDb(r){ return { id:r.id, titulo:r.titulo, tipo:r.tipo, status:r.status, itens:r.itens || [], criadoEm:r.criado_em, criadoPor:r.criado_por, finalizadoEm:r.finalizado_em, finalizadoPor:r.finalizado_por, resumo:r.resumo || null }; }
-function rmInvToDb(i){ return { id:i.id, titulo:i.titulo, tipo:i.tipo, status:i.status, itens:i.itens, criado_em:i.criadoEm, criado_por:i.criadoPor||null, finalizado_em:i.finalizadoEm||null, finalizado_por:i.finalizadoPor||null, resumo:i.resumo||null }; }
+function rmInvFromDb(r){ return { id:r.id, titulo:r.titulo, tipo:r.tipo, status:r.status, itens:r.itens || [], criadoEm:r.criado_em, criadoPor:r.criado_por, finalizadoEm:r.finalizado_em, finalizadoPor:r.finalizado_por, resumo:r.resumo || null, _v: r.versao != null ? r.versao : (r.versao_base != null ? r.versao_base : null) }; }
+function rmInvToDb(i){ return { id:i.id, titulo:i.titulo, tipo:i.tipo, status:i.status, itens:i.itens, criado_em:i.criadoEm, criado_por:i.criadoPor||null, finalizado_em:i.finalizadoEm||null, finalizado_por:i.finalizadoPor||null, resumo:i.resumo||null, versao_base: i._v != null ? i._v : null }; }
 let rmInvTimer = {};
 // contagens feitas sem internet ficam marcadas como "pendentes" e são enviadas quando a conexão voltar;
 // enquanto estiverem pendentes, a cópia do aparelho nunca é trocada pela do servidor
 const RM_INV_PEND_KEY = 'radicalMotos_invPendentes';
 const rmInvPend = () => { try{ return JSON.parse(localStorage.getItem(RM_INV_PEND_KEY)) || []; }catch(e){ return []; } };
 const rmInvPendSet = l => { try{ localStorage.setItem(RM_INV_PEND_KEY, JSON.stringify([...new Set(l)])); }catch(e){} };
-async function rmInvEnviar(id){
-  const inv = rmInvGet(id); if(!inv) return false;
-  try{
-    const { error } = await rmSb.from('inventarios').upsert(rmInvToDb(inv));
-    if(error) throw error;
-    const atual = rmInvGet(id);
-    if(atual && JSON.stringify(rmInvToDb(atual)) === JSON.stringify(rmInvToDb(inv))) rmInvPendSet(rmInvPend().filter(x => x !== id)); // não mudou enquanto enviava
-    rmInvStatus();
-    return true;
-  }catch(e){ console.warn('inventario (fica guardado no aparelho):', e); rmInvStatus(); return false; }
+// manda a contagem para a fila de envio com versão (duas pessoas contando a mesma lista: o aparelho junta produto por produto)
+function rmInvEnviar(id){
+  clearTimeout(rmInvTimer[id]); delete rmInvTimer[id];
+  const inv = rmInvGet(id); if(!inv) return Promise.resolve(false);
+  rmOutboxPor('inventarios', id, 'up', rmInvToDb(inv));
+  rmInvStatus();
+  return Promise.resolve(true);
 }
-async function rmInvEnviarPendentes(){ for(const id of rmInvPend()) await rmInvEnviar(id); }
+async function rmInvEnviarPendentes(){
+  // o que estava esperando para ir (digitação) e as pendências do jeito antigo vão para a fila
+  Object.keys(rmInvTimer).forEach(id => rmInvEnviar(id));
+  const antigos = rmInvPend(); if(antigos.length){ antigos.forEach(id => rmInvEnviar(id)); rmInvPendSet([]); }
+  if(Object.values(rmOutbox).some(i => i.tabela === 'inventarios')) await rmOutboxEnviar();
+  rmInvStatus();
+}
 function rmInvStatus(){
-  const n = rmInvPend().length, e = document.getElementById('rm-inv-pend');
+  const n = Object.values(rmOutbox).filter(i => i.tabela === 'inventarios').length + Object.keys(rmInvTimer).length, e = document.getElementById('rm-inv-pend');
   if(e){ e.style.display = n ? '' : 'none'; e.textContent = n ? '⏳ Contagem salva no aparelho · envia quando tiver internet' : ''; }
 }
 function rmInvSalvar(inv, imediato){
   const l = rmInvLoad().filter(x => x.id !== inv.id); l.unshift(inv); rmInvSaveLocal(l);
-  rmInvPendSet(rmInvPend().concat([inv.id]));
   clearTimeout(rmInvTimer[inv.id]);
   if(imediato) rmInvEnviar(inv.id); else rmInvTimer[inv.id] = setTimeout(() => rmInvEnviar(inv.id), 800);
 }
 async function rmInvSync(){
   await rmInvEnviarPendentes();
-  const { data, error } = await rmSelectTudo('inventarios', '*');
-  if(!error && data){
-    const pend = rmInvPend(), local = rmInvLoad();
-    const m = new Map(data.map(rmInvFromDb).map(x => [x.id, x]));
-    local.forEach(x => { if(pend.includes(x.id)) m.set(x.id, x); });
-    rmInvSaveLocal([...m.values()].sort((a,b) => String(b.criadoEm).localeCompare(String(a.criadoEm))));
-  }
+  await rmSyncTabelaVersao('inventarios', (a, b) => String(b.criadoEm).localeCompare(String(a.criadoEm)));
   rmInvStatus();
 }
 window.addEventListener('online', () => { if(typeof rmUsuario !== 'undefined' && rmUsuario) rmInvEnviarPendentes(); });
@@ -14263,7 +14226,7 @@ function rmInvInativar(k){
   const p = rmIdx(rmLoadProdutos()).get(it.pid);
   const est = p ? Number(p.estoqueAtual) || 0 : 0;
   if(!confirm(`Inativar "${it.nome}"?\n\nEle deixa de aparecer no PDV, na OS e nas buscas (o histórico de vendas continua).` + (est ? `\n\nO sistema tem ${rmFmtQtd(est)} ${it.un} dele: a contagem fica 0 e, ao aprovar o inventário, o estoque é zerado.` : ''))) return;
-  it.inativado = true; it.contado = 0;
+  it.inativado = true; it.contado = 0; it.contadoEm = new Date().toISOString(); it.contadoPor = rmNomeUsuario();
   if(p){ const prods = rmLoadProdutos(), x = rmIdx(prods).get(it.pid); x.ativo = false; rmSaveProdutos(prods); rmDbUpsertProduto(x); }
   rmInvSalvar(inv, true);
   rmLog('Inativou produto na contagem', it.nome, est ? 'estoque no sistema ' + rmFmtQtd(est) : '');
@@ -14271,19 +14234,19 @@ function rmInvInativar(k){
 }
 function rmInvReativar(k){
   const inv = rmInvGet(rmInvAtual), it = inv.itens[k]; if(!it) return;
-  it.inativado = false; it.contado = null;
+  it.inativado = false; it.contado = null; it.contadoEm = new Date().toISOString(); it.contadoPor = rmNomeUsuario();
   const prods = rmLoadProdutos(), x = rmIdx(prods).get(it.pid);
   if(x){ x.ativo = true; rmSaveProdutos(prods); rmDbUpsertProduto(x); }
   rmInvSalvar(inv, true); rmLog('Reativou produto na contagem', it.nome); rmFamLimparCache(); rmInvRenderContagem();
 }
 function rmInvDefinir(k, v){
   const inv = rmInvGet(rmInvAtual); const it = inv.itens[k]; if(!it) return;
-  it.contado = String(v).trim() === '' ? null : Math.max(0, rmParseMoeda(v));
+  it.contado = String(v).trim() === '' ? null : Math.max(0, rmParseMoeda(v)); it.contadoEm = new Date().toISOString(); it.contadoPor = rmNomeUsuario();
   rmInvSalvar(inv); rmInvAtualizarLinha(inv, k);
 }
 function rmInvSomar(k, d){
   const inv = rmInvGet(rmInvAtual); const it = inv.itens[k]; if(!it) return;
-  it.contado = Math.max(0, (it.contado || 0) + d);
+  it.contado = Math.max(0, (it.contado || 0) + d); it.contadoEm = new Date().toISOString(); it.contadoPor = rmNomeUsuario();
   rmInvSalvar(inv); rmInvAtualizarLinha(inv, k);
 }
 function rmInvAtualizarLinha(inv, k){
@@ -15515,68 +15478,9 @@ function rmRenderBoard(){
 
 let rmListaSort = {key:null, dir:'desc'};
 
-function rmListaSortClick(key){
-  if(rmListaSort.key === key){
-    rmListaSort.dir = rmListaSort.dir === 'asc' ? 'desc' : 'asc';
-  } else {
-    rmListaSort.key = key;
-    rmListaSort.dir = 'asc';
-  }
-  rmRenderLista();
-}
 
-function rmListaSortValue(r, key){
-  switch(key){
-    case 'os': return r.codigoApp || '';
-    case 'moto': return (r.modelo||'').toLowerCase();
-    case 'cliente': return (r.nome||'').toLowerCase();
-    case 'status': {
-      const idx = RM_STATUS_ORDER.indexOf(r.status);
-      return idx >= 0 ? idx : 999;
-    }
-    case 'mecanico': return r.mecanico ? r.mecanico.toLowerCase() : 'zzzzzz';
-    case 'parado': {
-      let desde;
-      if(r.dataManual){
-        desde = r.dataManual;
-      } else {
-        const hist = r.historico || [];
-        desde = hist.length ? hist[hist.length-1].em : r.entrada;
-      }
-      return new Date(desde).getTime();
-    }
-    case 'problemas': return (r.problemas||[]).length;
-    case 'pago': return r.pago ? 1 : 0;
-    case 'valor': return rmTotalPecasUsadas(r);
-    default: return new Date(rmOsDataRef(r)).getTime();
-  }
-}
 
-function rmListaCompare(a, b, key, dir){
-  const va = rmListaSortValue(a, key);
-  const vb = rmListaSortValue(b, key);
-  let cmp;
-  if(typeof va === 'number' && typeof vb === 'number'){
-    cmp = va - vb;
-  } else {
-    cmp = String(va).localeCompare(String(vb), 'pt-BR');
-  }
-  return dir === 'asc' ? cmp : -cmp;
-}
 
-function rmUpdateListaHeaders(){
-  document.querySelectorAll('.rm-th-sortable').forEach(th=>{
-    const key = th.dataset.key;
-    const label = th.dataset.label;
-    if(rmListaSort.key === key){
-      th.textContent = label + (rmListaSort.dir==='asc' ? ' \u25B2' : ' \u25BC');
-      th.classList.add('rm-th-sorted');
-    } else {
-      th.textContent = label;
-      th.classList.remove('rm-th-sorted');
-    }
-  });
-}
 
 function rmMotosDoCliente(cliente){
   const telefoneDigits = (cliente.telefone||'').replace(/\D/g,'');
@@ -16534,38 +16438,6 @@ function rmAbrirDetalheOS(id){
   document.getElementById('rm-modal-backdrop').classList.add('show');
 }
 
-function rmClienteHistToggle(tipo, id){
-  const el = document.getElementById('rm-cli-hist-' + id);
-  if(!el) return;
-  if(el.style.display !== 'none'){ el.style.display = 'none'; return; }
-  let itens = [], linhas = [];
-  if(tipo === 'OS'){
-    const r = rmIdx(rmMemLista(RM_KEY)).get(id); if(!r) return;
-    const t = rmOsTotais(r);
-    itens = r.pecasUsadas || [];
-    linhas = [
-      r.problemas && r.problemas.length ? ['Problemas', r.problemas.map(p => typeof p === 'string' ? p : (p.texto||'')).join(', ')] : null,
-      r.mecanico ? ['Mecânico', r.mecanico] : null,
-      ['Produtos', rmFormatMoeda(t.tP)], ['Serviços / mão de obra', rmFormatMoeda(t.tS)],
-      t.desc > 0 ? ['Desconto', '-' + rmFormatMoeda(t.desc)] : null,
-      ['Total', rmFormatMoeda(t.total)],
-      ['Pagamento', r.pago ? (r.formaPagamento||'—') + (r.pagoEm ? ' em ' + rmDataHoraBR(r.pagoEm) : '') : 'Ainda não finalizada']
-    ];
-  } else {
-    const v = rmLoadVendas().find(x=>x.id===id); if(!v) return;
-    itens = v.itens || [];
-    linhas = [
-      ['Subtotal', rmFormatMoeda(v.subtotal)],
-      v.desconto > 0 ? ['Desconto', '-' + rmFormatMoeda(v.desconto)] : null,
-      ['Total', rmFormatMoeda(v.total)], ['Pagamento', v.formaPagamento || '—'],
-      v.observacao ? ['Observação', v.observacao] : null
-    ];
-  }
-  el.innerHTML = `
-    ${itens.length ? `<table class="rm-cli-hist-itens">${itens.map(i => `<tr><td>${rmFmtQtd(i.quantidade)}×</td><td>${rmEscapeHtml(i.nome||'')}</td><td style="text-align:right">${rmFormatMoeda(i.subtotal)}</td></tr>`).join('')}</table>` : '<div style="color:var(--rm-text-dim); font-size:13px;">Sem itens lançados</div>'}
-    <div class="rm-cli-hist-tot">${linhas.filter(Boolean).map(([k,v]) => `<div><span>${k}</span><b>${rmEscapeHtml(String(v))}</b></div>`).join('')}</div>`;
-  el.style.display = '';
-}
 
 function rmCriarCliente(){
   // pega também o que foi digitado e ainda não saiu do campo
@@ -17046,9 +16918,6 @@ function rmToggleDetalhesModal(){
 
 let rmModalPecaProdutoSelecionadoId = null;
 
-function rmSubtotalPecasUsadas(r){
-  return (r.pecasUsadas||[]).reduce((soma, item) => soma + (item.subtotal||0), 0);
-}
 
 function rmCalcularDescontoPecasValor(r, subtotalGeral){
   const valor = r.pecasDescontoValor || 0;
@@ -17056,11 +16925,6 @@ function rmCalcularDescontoPecasValor(r, subtotalGeral){
   return r.pecasDescontoTipo === 'percentual' ? subtotalGeral * (valor / 100) : valor;
 }
 
-function rmTotalPecasUsadas(r){
-  const subtotalGeral = rmSubtotalPecasUsadas(r) + (r.maoDeObra || 0);
-  const desconto = rmCalcularDescontoPecasValor(r, subtotalGeral);
-  return Math.max(0, subtotalGeral - desconto);
-}
 
 const rmOsFechados = new Set(); // blocos recolhidos (id+index)
 
@@ -17265,11 +17129,6 @@ function rmOsAtualizarTotais(r){
   if(rv && r.retorno) rv.innerHTML = rmRetValoresHtml(r);
 }
 
-function rmAtualizarMecanicoPecas(id, mecanico){
-  rmUpdateField(id, 'mecanico', mecanico);
-  const outroSelect = document.getElementById('rm-modal-mecanico');
-  if(outroSelect) outroSelect.value = mecanico;
-}
 
 function rmAtualizarMaoDeObra(id){
   const list = rmLoad();
@@ -17631,26 +17490,6 @@ document.addEventListener('keydown', ev => {
   }
 });
 
-function rmBuscarProdutoMoto(query){
-  const lista = document.getElementById('rm-modal-peca-lista');
-  rmModalPecaProdutoSelecionadoId = null;
-  const q = (query||'').trim().toLowerCase();
-  if(!q){ lista.classList.remove('show'); return; }
-  let produtos = rmLoadProdutos().filter(p => p.ativo !== false);
-  produtos = rmBuscaOrdenar(produtos.filter(p => rmProdutoBateBusca(p, q)), q).slice(0, 8);
-
-  if(produtos.length === 0){
-    lista.innerHTML = '<div class="rm-autocomplete-empty">Nenhum produto encontrado</div>';
-  } else {
-    lista.innerHTML = produtos.map(p => `
-      <div class="rm-autocomplete-item" onclick="rmEscolherProdutoMoto('${p.id}')">
-        <div class="rm-autocomplete-nome">${p.nome}${p.codigo?` <span class="rm-autocomplete-apelido">(${p.codigo})</span>`:''}${p.localizacao?` · ${p.localizacao}`:''}</div>
-        <div class="rm-autocomplete-tel">${rmFormatMoeda(p.precoConsumidor)} · estoque: ${p.estoqueAtual}${p.unidade?' '+p.unidade:''}</div>
-      </div>
-    `).join('');
-  }
-  lista.classList.add('show');
-}
 
 function rmEscolherProdutoMoto(produtoId){
   const inp = document.getElementById('rm-modal-peca-nome');
@@ -18121,9 +17960,6 @@ function rmEditarProblema(id, index, novoTexto){
   rmRenderActiveBoard();
 }
 
-function rmTogglePago(id, checked){
-  rmUpdateField(id, 'pago', checked);
-}
 
 function rmUpdateField(id, field, value){
   const list = rmLoad();
