@@ -235,19 +235,32 @@
   .rm-nova-versao .x{background:none; font-size:20px; padding:0 4px}
 
   /* ===== Parafusos › Vender (toque / iPad) ===== */
-  .ip{display:grid; grid-template-columns:290px minmax(0,1fr) 330px; gap:14px; align-items:start; -webkit-user-select:none; user-select:none}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%}
+  /* tablet em pé (641 a 859 px): o menu de cima rola para o lado em vez de alargar a página inteira */
+  @media (min-width:641px) and (max-width:859px){
+    .rm-header{flex-wrap:wrap} .rm-header-right{min-width:0; flex:1 1 100%; max-width:100%}
+    .rm-header-right .rm-nav{min-width:0; max-width:100%; flex:1 1 100%; overflow-x:auto; -webkit-overflow-scrolling:touch}
+  }
+  /* no Safari do iPad o botão ocupa o tamanho do texto: força cada coluna a caber no espaço dela */
+  .ip, .ip *, .ipt-w, .ipt-w *{box-sizing:border-box}
+  .ip-pad, .ip-card, .ip-ces{min-width:0; overflow:hidden}
+  .ip-kp, .ip-modo, .ip-alt, .ip-rap{width:100%}
+  .ip-kp > button, .ip-modo > button, .ip-alt > button, .ip-rap > button, .ip-it .st > button, .ip-mv > button, .ipt > button, .ipm > button{min-width:0; width:100%; padding:0 2px; margin:0; overflow:hidden; -webkit-appearance:none; appearance:none; border-radius:0; line-height:1.1}
+  .ip-mv > button{width:96px} .ip-it .st > button{width:48px}
+  .ip-alt > button{padding:10px 4px; white-space:normal}
+  .ip{display:grid; grid-template-columns:minmax(0,290px) minmax(0,1fr) minmax(0,330px); gap:14px; align-items:start; -webkit-user-select:none; user-select:none}
   .ip button, .ipt button, .ipm button, .ip-volta{touch-action:manipulation; -webkit-tap-highlight-color:transparent; cursor:pointer}
   .ip button:active, .ipt button:active, .ipm button:active{transform:scale(.97)}
   .ip-h{margin-bottom:10px}
   .ip-pad{background:var(--rm-panel); border:1px solid var(--rm-border); padding:12px; position:sticky; top:10px}
-  .ip-modo{display:grid; grid-template-columns:1fr 1fr; margin-bottom:10px} .ip-modo button{padding:12px 6px; font-weight:800; font-size:15px; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text-dim); font-family:inherit}
+  .ip-modo{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); margin-bottom:10px} .ip-modo button{padding:12px 6px; font-weight:800; font-size:15px; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text-dim); font-family:inherit}
   .ip-modo button.on{background:var(--rm-text); color:var(--rm-panel); border-color:var(--rm-text)} .ip-modo button:disabled{opacity:.45; cursor:default}
   .ip-vis{border:3px solid var(--rm-text); background:var(--rm-bg); padding:6px 14px; text-align:right; font-size:56px; font-weight:900; line-height:1.1; min-height:72px; margin-bottom:10px; letter-spacing:.02em; overflow:hidden}
   .ip-vis.qtd{border-color:#2e6fd0} .ip-vis small{display:block; text-align:left; font-size:12px; font-weight:700; color:var(--rm-text-dim); letter-spacing:.05em; text-transform:uppercase} .ip-vis.qtd small{color:#2e6fd0}
   .ip-ph{color:var(--rm-border)}
-  .ip-kp{display:grid; grid-template-columns:repeat(3,1fr); gap:8px} .ip-kp button{height:74px; font-size:32px; font-weight:800; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit}
-  .ip-kp .ok{background:#2e8b57; color:#fff; border-color:#2e8b57; font-size:22px} .ip-kp .ok.add{font-size:13.5px} .ip-kp .del{font-size:26px}
-  .ip-alt{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px} .ip-alt button{padding:14px 6px; font-weight:800; font-size:14.5px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-family:inherit}
+  .ip-kp{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px} .ip-kp button{height:74px; font-size:32px; font-weight:800; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit}
+  .ip-kp .ok{background:#2e8b57; color:#fff; border-color:#2e8b57; font-size:22px} .ip-kp .ok.add{font-size:34px} .ip-kp .del{font-size:26px}
+  .ip-alt{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:10px} .ip-alt button{padding:14px 6px; font-weight:800; font-size:14.5px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-family:inherit}
   .ip-card{background:var(--rm-panel); border:1px solid var(--rm-border); padding:16px; min-width:0}
   .ip-vazio{display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; padding:30px 12px; color:var(--rm-text-dim); font-size:15px; line-height:1.5}
   .ip-vazio b{font-size:20px; color:var(--rm-text)} .ip-vazio-i{font-size:46px}
@@ -256,12 +269,12 @@
   .ip-cx{display:inline-block; background:#d9433a; color:#fff; font-weight:900; font-size:clamp(17px,1.7vw,24px); padding:6px 14px; white-space:nowrap}
   .ip-tipo{font-size:15px; color:var(--rm-text-dim); margin:10px 0 2px} .ip-med{font-size:46px; font-weight:900; line-height:1.05; overflow-wrap:break-word}
   .ip-inf{display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:12px; font-size:13px; color:var(--rm-text-dim)} .ip-inf b{display:block; font-size:24px; color:var(--rm-text); white-space:nowrap}
-  .ip-q{display:flex; align-items:stretch; gap:10px; margin-top:16px} .ip-q > button{width:84px; height:84px; font-size:40px; font-weight:800; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit}
-  .ip-q .v{flex:1; border:3px solid var(--rm-border); display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:40px; font-weight:900; background:var(--rm-panel); cursor:pointer}
+  .ip-q{display:flex; align-items:stretch; gap:10px; margin-top:16px} .ip-q > button{width:84px; height:84px; flex-shrink:0; padding:0; -webkit-appearance:none; appearance:none; border-radius:0; font-size:40px; font-weight:800; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit}
+  .ip-q .v{flex:1; min-width:0; border:3px solid var(--rm-border); display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:40px; font-weight:900; background:var(--rm-panel); cursor:pointer}
   .ip-q .v.on{border-color:#2e6fd0} .ip-q .v small{font-size:11px; font-weight:700; color:#2e6fd0; letter-spacing:.05em}
-  .ip-rap{display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin-top:10px} .ip-rap button{height:58px; font-size:20px; font-weight:800; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit}
+  .ip-rap{display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px; margin-top:10px} .ip-rap button{height:58px; font-size:20px; font-weight:800; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit}
   .ip-rap button.on{background:#2e6fd0; color:#fff; border-color:#2e6fd0}
-  .ip-add{width:100%; min-height:80px; margin-top:14px; border:0; background:#2e8b57; color:#fff; font-size:23px; font-weight:900; font-family:inherit}
+  .ip-add{width:100%; -webkit-appearance:none; appearance:none; border-radius:0; padding:8px; min-height:80px; margin-top:14px; border:0; background:#2e8b57; color:#fff; font-size:23px; font-weight:900; font-family:inherit}
   .ip-ces{background:var(--rm-panel); border:1px solid var(--rm-border); padding:12px; display:flex; flex-direction:column; position:sticky; top:10px}
   .ip-ces h3{margin:0 0 8px; font-size:17px; display:flex; justify-content:space-between} .ip-ces h3 small{font-weight:600; color:var(--rm-text-dim); font-size:13px}
   .ip-it{display:grid; grid-template-columns:44px minmax(0,1fr) auto; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid var(--rm-border)}
@@ -288,7 +301,7 @@
   .ipm button{min-height:76px; border:1px solid var(--rm-border); background:var(--rm-panel); font-family:inherit; color:var(--rm-text); padding:6px}
   .ipm button.sem{opacity:.55} .ipm b{display:block; font-size:19px} .ipm small{color:#d9433a; font-weight:800}
   .ip-bl .pf-li{min-height:64px}
-  @media (max-width:1250px) and (min-width:1001px){ .ip{grid-template-columns:270px minmax(0,1fr) 310px} .ip-foto{width:170px; height:170px} .ip-cx{font-size:20px} .ip-med{font-size:38px} }
+  @media (max-width:1250px) and (min-width:1001px){ .ip{grid-template-columns:minmax(0,250px) minmax(0,1fr) minmax(0,290px); gap:10px} .ip-q > button{width:70px; height:76px} .ip-kp button{height:68px; font-size:28px} .ip-foto{width:170px; height:170px} .ip-cx{font-size:20px} .ip-med{font-size:38px} }
   @media (max-width:1000px) and (min-width:701px){
     .ip{grid-template-columns:270px minmax(0,1fr); grid-template-areas:"pad card" "ces ces"} .ip-card{grid-area:card} .ip-pad{grid-area:pad; position:static} .ip-ces{grid-area:ces; position:static}
     .ip-foto{width:150px; height:150px} .ip-med{font-size:34px} .ip-kp button{height:66px} .ipt-w{grid-template-columns:minmax(0,1fr)} .ipm-w{position:static}
@@ -2804,7 +2817,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 22/10 às 00:32</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 22/10 às 00:39</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -6922,7 +6935,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610220032; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610220039; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -17396,7 +17409,7 @@ function rmPfRenderVisor(){
   if(b) b.disabled = !temSel;
   v.classList.toggle('qtd', rmPfModo === 'qtd');
   v.innerHTML = rmPfModo === 'qtd' ? `<small>quantidade</small>${rmFmtQtd(rmPfQtd || 0)}` : `<small>caixinha</small>${rmEscapeHtml(rmPfVis) || '<span class="ip-ph">—</span>'}`;
-  if(ok) ok.textContent = rmPfModo === 'qtd' ? 'ADICIONAR' : 'OK';
+  if(ok){ ok.innerHTML = rmPfModo === 'qtd' ? '&#10004;' : 'OK'; ok.title = rmPfModo === 'qtd' ? 'Adicionar' : 'OK'; }
   ok && ok.classList.toggle('add', rmPfModo === 'qtd');
 }
 function rmPfTecla(k){
