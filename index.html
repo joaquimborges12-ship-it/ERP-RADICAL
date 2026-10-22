@@ -230,6 +230,147 @@
     display:flex; flex-direction:column; align-items:center; gap:6px; min-width:76px;
   }
   .rm-subnav-icon{font-size:19px; line-height:1;}
+  /* ===== Parafusos ===== */
+  .rm-pf-mostra{display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; white-space:nowrap; cursor:pointer}
+  .pf-h{display:flex; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap} .pf-h h1{margin:0}
+  .pf-sub-t{color:var(--rm-text-dim); font-size:14px}
+  .pf-hint{font-size:13px; color:var(--rm-text-dim); margin-top:6px}
+  .pf-sf{display:flex; align-items:center; justify-content:center; background:var(--rm-bg); font-size:20px}
+  .pf-vend{display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:18px}
+  .pf-busca input{width:100%; box-sizing:border-box; font-size:26px; font-weight:800; padding:14px 18px; border:2px solid var(--rm-text); background:var(--rm-panel); color:var(--rm-text); font-family:inherit}
+  .pf-chips{display:flex; gap:6px; flex-wrap:wrap; margin:12px 0 4px; align-items:center} .pf-chips-t{color:var(--rm-text-dim); font-size:13px; margin-right:2px}
+  .pf-chips button{padding:7px 11px; border:1px solid var(--rm-border); background:var(--rm-panel); font-size:13px; font-weight:600; white-space:nowrap; font-family:inherit; color:var(--rm-text); cursor:pointer}
+  .pf-chips button b{color:#d9433a; margin-right:5px} .pf-chips button:hover{border-color:var(--rm-text)}
+  .pf-dica{margin-top:14px; padding:18px; border:2px dashed var(--rm-border); color:var(--rm-text-dim); font-size:14.5px; background:var(--rm-panel)}
+  .pf-res{display:grid; grid-template-columns:230px minmax(0,1fr); gap:20px; background:var(--rm-panel); border:1px solid var(--rm-border); padding:18px; margin-top:14px}
+  .pf-foto{width:230px; height:230px; object-fit:contain; background:#fff; border:1px solid var(--rm-border); font-size:60px}
+  .pf-cx{display:inline-block; background:#d9433a; color:#fff; font-weight:900; font-size:22px; padding:6px 14px; letter-spacing:.02em}
+  .pf-tag-in{display:inline-block; background:#7f8c8d; color:#fff; font-weight:800; font-size:12px; padding:3px 8px; vertical-align:middle}
+  .pf-nome{font-size:15px; color:var(--rm-text-dim); margin:10px 0 2px} .pf-med{font-size:40px; font-weight:900; line-height:1.05; word-break:break-word}
+  .pf-info{display:flex; gap:22px; margin:12px 0; font-size:14px; flex-wrap:wrap} .pf-info b{display:block; font-size:22px}
+  .pf-zero{color:#c0392b}
+  .pf-qtd{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+  .pf-qtd button{min-width:52px; height:52px; font-size:20px; font-weight:800; border:1px solid var(--rm-border); background:var(--rm-bg); font-family:inherit; color:var(--rm-text); cursor:pointer}
+  .pf-qtd input{width:96px; height:52px; text-align:center; font-size:24px; font-weight:800; border:2px solid var(--rm-text); font-family:inherit; background:var(--rm-panel); color:var(--rm-text)}
+  .pf-qtd .rap{min-width:46px; height:40px; font-size:14px} .pf-rap-t{margin:0 2px 0 6px; color:var(--rm-text-dim); font-size:13px}
+  .pf-add{display:flex; gap:10px; margin-top:14px} .pf-add button{flex:1; padding:16px; font-size:17px; font-weight:800; font-family:inherit; border:0; cursor:pointer}
+  .pf-add .go{background:#2e8b57; color:#fff}
+  .pf-semp{margin-top:10px; padding:12px; background:#fff1d6; color:#7a5300; font-size:14px; display:flex; flex-direction:column; gap:8px}
+  .pf-semp input{width:110px; padding:9px; font-size:16px; font-weight:700; border:1px solid #c9a24d; font-family:inherit}
+  .pf-semp button{padding:9px 14px; border:0; background:#2e8b57; color:#fff; font-weight:800; font-family:inherit; cursor:pointer}
+  .pf-apl{font-size:13px; color:var(--rm-text-dim); margin-top:12px; line-height:1.45} .pf-mini{margin-top:8px; font-size:12.5px} .pf-mini a{color:var(--rm-text-dim)}
+  .pf-lista{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:6px; margin-top:12px}
+  .pf-li{display:flex; align-items:center; gap:10px; background:var(--rm-panel); border:1px solid var(--rm-border); padding:6px 10px 6px 6px; cursor:pointer; min-width:0}
+  .pf-li:hover{border-color:var(--rm-text)} .pf-li img, .pf-li .pf-sf{width:44px; height:44px; object-fit:contain; background:#fff; flex-shrink:0}
+  .pf-li .cxs{font-weight:900; color:#d9433a; font-size:17px; min-width:34px} .pf-li div{flex:1; min-width:0} .pf-li b{display:block; font-size:14.5px}
+  .pf-li small{display:block; font-size:12px; color:var(--rm-text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis} .pf-li i{font-style:normal; font-weight:800; font-size:13px; white-space:nowrap}
+  .pf-li.sp i{color:#c0392b; font-weight:600}
+  .pf-cesta{background:var(--rm-panel); border:1px solid var(--rm-border); padding:14px; align-self:start; position:sticky; top:10px}
+  .pf-cesta h3{margin:0 0 10px; font-size:16px} .pf-cesta-v{color:var(--rm-text-dim); font-size:13.5px; padding:14px 0; text-align:center}
+  .pf-ci{display:flex; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid var(--rm-border); font-size:13px}
+  .pf-ci img, .pf-ci .pf-sf{width:38px; height:38px; object-fit:contain; background:#fff; border:1px solid var(--rm-border); flex-shrink:0} .pf-ci div{flex:1; min-width:0} .pf-ci small{display:block; color:var(--rm-text-dim)}
+  .pf-ci .cxs{font-weight:900; color:#d9433a; min-width:30px} .pf-ci > button{border:0; background:none; font-size:20px; color:var(--rm-text-dim); cursor:pointer; padding:0 2px}
+  .pf-tot{display:flex; justify-content:space-between; font-size:20px; font-weight:900; margin:12px 0}
+  .pf-cesta .go, .pf-cesta .go2{width:100%; padding:14px; border:0; font-weight:800; font-size:15px; font-family:inherit; cursor:pointer}
+  .pf-cesta .go{background:#d9433a; color:#fff} .pf-cesta .go2{margin-top:8px; background:var(--rm-bg); color:var(--rm-text); border:1px solid var(--rm-border)}
+  .pf-cesta .go:disabled, .pf-cesta .go2:disabled{opacity:.45; cursor:default}
+  .pf-limpa{border:0; background:none; color:var(--rm-text-dim); font-size:12.5px; margin-top:6px; text-decoration:underline; cursor:pointer; font-family:inherit}
+  .pf-tec{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-top:14px}
+  .pf-tec button{height:52px; font-size:21px; font-weight:800; border:1px solid var(--rm-border); background:var(--rm-bg); font-family:inherit; color:var(--rm-text); cursor:pointer}
+  .pf-osi{display:flex; align-items:center; gap:10px; padding:10px; border:1px solid var(--rm-border); margin-bottom:6px; cursor:pointer}
+  .pf-osi:hover{border-color:var(--rm-text)} .pf-osi img, .pf-osi > span{width:48px; height:36px; object-fit:cover; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:var(--rm-bg)}
+  .pf-osi div{flex:1; min-width:0} .pf-osi small{display:block; color:var(--rm-text-dim)} .pf-osi i{font-style:normal; font-weight:700; font-size:12.5px}
+  .pf-exp-tabs{display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap}
+  .pf-exp-tabs button{padding:9px 14px; border:1px solid var(--rm-border); font-weight:700; font-size:14px; background:var(--rm-panel); color:var(--rm-text); font-family:inherit; cursor:pointer}
+  .pf-exp-tabs button.on{background:var(--rm-text); color:var(--rm-panel); border-color:var(--rm-text)}
+  .pf-exp{display:grid; grid-template-columns:repeat(10,minmax(0,1fr)); gap:6px; background:#3a3a3a; padding:10px}
+  .pf-bx{background:#fff; color:#222; border-top:5px solid var(--c,#999); padding:5px 4px 6px; text-align:center; position:relative; min-width:0; cursor:pointer}
+  .pf-bx:hover{outline:3px solid #d9433a; outline-offset:-2px}
+  .pf-bx b{display:block; font-size:17px; font-weight:900; line-height:1} .pf-bx img, .pf-bx .pf-sf{width:100%; height:46px; object-fit:contain; margin:3px 0}
+  .pf-bx span{display:block; font-size:11px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .pf-bx i{display:block; font-style:normal; font-size:11px; font-weight:800; color:#2e8b57; margin-top:1px; white-space:nowrap} .pf-bx i.sp{color:#c0392b; font-weight:700; font-size:10px}
+  .pf-bx.sem{opacity:.6} .pf-bx-v{background:#555; color:#aaa; border-top-color:#555; cursor:default} .pf-bx-v:hover{outline:0}
+  .pf-leg{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; font-size:12.5px} .pf-leg i{display:inline-block; width:12px; height:12px; margin-right:5px; vertical-align:-1px}
+  .pf-leg-s i{background:#fff; opacity:.6; border:1px solid #999}
+  .pf-exp-tabs small{font-weight:500; opacity:.8}
+  .pf-cat-q{flex:1; min-width:220px}
+  .pf-cat{display:grid; grid-template-columns:280px minmax(0,1fr); gap:18px}
+  .pf-cl{background:var(--rm-panel); border:1px solid var(--rm-border); max-height:calc(100vh - 210px); overflow:auto; align-self:start}
+  .pf-cl > div{display:flex; align-items:center; gap:10px; padding:8px 10px; border-bottom:1px solid var(--rm-border); font-size:13.5px; font-weight:600; cursor:pointer}
+  .pf-cl > div:hover{background:var(--rm-bg)} .pf-cl > div.on{background:var(--rm-bg); box-shadow:inset 4px 0 #d9433a}
+  .pf-cl img, .pf-cl .pf-sf{width:40px; height:40px; object-fit:contain; background:#fff; flex-shrink:0} .pf-cl span{flex:1; min-width:0} .pf-cl small{color:var(--rm-text-dim)}
+  .pf-cl-v{padding:16px; color:var(--rm-text-dim)}
+  .pf-fam{background:var(--rm-panel); border:1px solid var(--rm-border); padding:16px; min-width:0; align-self:start}
+  .pf-fam-top{display:flex; gap:16px} .pf-fam-top > img, .pf-fam-top > .pf-sf{width:120px; height:120px; object-fit:contain; background:#fff; border:1px solid var(--rm-border); flex-shrink:0}
+  .pf-fam-top h2{margin:0 0 6px; font-size:20px} .pf-fam-top p{margin:0 0 6px; font-size:13.5px; color:var(--rm-text-dim); line-height:1.45}
+  .pf-fam-top a{color:#2e6fd0} .pf-fam-cat{font-size:12px; font-weight:800; color:#d9433a; text-transform:uppercase; letter-spacing:.04em}
+  .pf-mx-w{overflow-x:auto; margin-top:16px}
+  .pf-mx{border-collapse:collapse; width:100%; font-size:13px}
+  .pf-mx th{background:var(--rm-bg); padding:8px; border:1px solid var(--rm-border); font-size:12px; white-space:nowrap} .pf-mx th small{font-weight:400; color:var(--rm-text-dim)}
+  .pf-mx td{border:1px solid var(--rm-border); padding:6px; text-align:center; height:46px; min-width:72px; cursor:pointer}
+  .pf-mx td:hover{background:var(--rm-bg)} .pf-mx td b{display:block; color:#d9433a; font-size:15px} .pf-mx td small{color:var(--rm-text-dim); font-size:11.5px}
+  .pf-mx td.sem{opacity:.55} .pf-mx td.v{cursor:default; background:repeating-linear-gradient(45deg,transparent,transparent 5px,var(--rm-bg) 5px,var(--rm-bg) 10px)}
+  .pf-mx th.r{text-align:left}
+  .pf-meds{display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:6px; margin-top:16px}
+  .pf-meds > div{border:1px solid var(--rm-border); padding:8px; text-align:center; cursor:pointer} .pf-meds > div:hover{border-color:var(--rm-text)} .pf-meds > div.sem{opacity:.55}
+  .pf-meds span{display:block; font-weight:900; font-size:16px} .pf-meds b{display:block; color:#d9433a} .pf-meds small{color:var(--rm-text-dim); font-size:11.5px}
+  .pf-est-res{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px} .pf-est-res > div{background:var(--rm-panel); border:1px solid var(--rm-border); padding:10px 14px; min-width:120px}
+  .pf-est-res span{display:block; font-size:12px; color:var(--rm-text-dim); text-transform:uppercase; letter-spacing:.03em} .pf-est-res b{font-size:20px}
+  .pf-est-bar{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px} .pf-est-bar .rm-search{flex:1; min-width:220px}
+  .pf-bt{padding:10px 14px; border:1px solid var(--rm-border); background:var(--rm-panel); font-weight:700; font-size:14px; font-family:inherit; color:var(--rm-text); cursor:pointer; display:inline-flex; align-items:center; gap:6px}
+  .pf-bt-pri{padding:11px 18px; border:0; background:#d9433a; color:#fff; font-weight:800; font-size:14px; font-family:inherit; cursor:pointer}
+  .pf-h .pf-bt-pri, .pf-h .pf-bt-imp{margin-left:auto}
+  .pf-est td{vertical-align:middle} .pf-est tr{cursor:pointer} .pf-est tr.pf-in{opacity:.5}
+  .pf-cxn{font-size:17px; color:#d9433a}
+  .pf-tf{width:40px; height:40px; object-fit:contain; background:#fff; display:block}
+  .pf-tcat{display:block; color:var(--rm-text-dim); font-size:12px}
+  .pf-in-v{width:88px; box-sizing:border-box; padding:7px 8px; font-weight:800; font-size:15px; text-align:right; border:1px solid var(--rm-border); font-family:inherit; background:var(--rm-bg); color:var(--rm-text)}
+  .pf-in-v:focus{border-color:var(--rm-text); background:var(--rm-panel); outline:0} .pf-in-v.vazio{border-color:#e8a33d; background:#fff8e8} .pf-in-v.baixo{color:#c0392b}
+  .pf-in-cx{width:70px; text-align:center; font-weight:900} .pf-in-cx.dup{border-color:#c0392b; background:#fde4e2}
+  .pf-ed{display:grid; grid-template-columns:150px minmax(0,1fr); gap:16px}
+  .pf-ed-foto{display:flex; flex-direction:column; gap:8px; align-items:stretch}
+  .pf-ed-img{width:150px; height:150px; object-fit:contain; background:#fff; border:1px solid var(--rm-border); font-size:44px}
+  .pf-ed-g{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+  .pf-ed-g label{display:flex; flex-direction:column; gap:4px; font-size:13px; font-weight:600} .pf-ed-g .w2{grid-column:1/3}
+  .pf-ed-g .rm-input{margin:0} .pf-ck{flex-direction:row !important; align-items:center}
+  .pf-ed-bts{display:flex; gap:10px; justify-content:flex-end; margin-top:16px; flex-wrap:wrap}
+  .pf-ed-bts button{padding:12px 18px; border:1px solid var(--rm-border); background:var(--rm-panel); font-weight:700; font-family:inherit; color:var(--rm-text); cursor:pointer}
+  .pf-ed-bts .pri{background:#d9433a; color:#fff; border-color:#d9433a} .pf-ed-bts .pri:disabled{opacity:.6}
+  .pf-nt{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px}
+  .pf-card{background:var(--rm-panel); border:1px solid var(--rm-border); padding:16px; min-width:0} .pf-card-w{grid-column:1/3}
+  .pf-card h3{margin:0 0 10px; font-size:17px} .pf-card p{font-size:13.5px; line-height:1.5; margin:6px 0}
+  .pf-tw{overflow-x:auto} .pf-card table{border-collapse:collapse; width:100%; font-size:13px}
+  .pf-card td, .pf-card th{border:1px solid var(--rm-border); padding:5px 7px; text-align:center; white-space:nowrap} .pf-card th{background:var(--rm-bg)}
+  .pf-obs{font-size:12px !important; color:var(--rm-text-dim)}
+  .pf-ul{margin:0; padding-left:18px; font-size:13.5px; line-height:1.5} .pf-ul li{margin-bottom:6px}
+  .pf-svg{width:100%; max-width:440px; display:block; margin:6px auto; color:var(--rm-text)}
+  .pf-tipos{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px}
+  .pf-tipo{border:1px solid var(--rm-border); padding:8px; font-size:12.5px; cursor:pointer} .pf-tipo:hover{border-color:var(--rm-text)}
+  .pf-tipo img, .pf-tipo .pf-sf{width:100%; height:80px; object-fit:contain; background:#fff} .pf-tipo b{display:block; font-size:13.5px; margin:4px 0 2px} .pf-tipo span{color:var(--rm-text-dim); line-height:1.35; display:block}
+  .pf-imp-dica{padding:16px; border:2px dashed #2e6fd0; background:rgba(46,111,208,.06); font-size:14.5px; line-height:1.5; margin-bottom:14px}
+  .pf-alerta{padding:10px 14px; background:#fde4e2; color:#b3261e; font-weight:700; margin-bottom:12px}
+  .pf-org{display:grid; grid-template-columns:minmax(0,1fr) 420px; gap:18px}
+  .pf-tb td{vertical-align:middle}
+  .pf-etq-p{background:var(--rm-panel); border:1px solid var(--rm-border); padding:14px; align-self:start; display:flex; flex-direction:column; gap:10px}
+  .pf-etq-p h3{margin:0; font-size:16px} .pf-etq-p label{display:flex; flex-direction:column; gap:4px; font-size:13px; font-weight:600} .pf-etq-p .rm-input{margin:0}
+  .pf-etq-2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+  .pf-etq-r{display:flex; gap:4px; flex-wrap:wrap} .pf-etq-r button{padding:5px 8px; font-size:12px; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit; cursor:pointer}
+  .pf-etq-prev{background:#ddd; padding:8px; overflow:hidden}
+  .pfe-esc{width:210mm; height:297mm; transform:scale(.45); transform-origin:0 0; margin-bottom:calc(-297mm * .55); margin-right:calc(-210mm * .55)}
+  .pfe-esc .pfe-k{outline:1px dashed #bbb} .pfe-esc .pfe-k.v{outline-color:#eee}
+  #rm-pf-imp-ov{position:fixed; inset:0; z-index:10060; background:rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center}
+  #rm-pf-imp-ov > div{background:var(--rm-panel); color:var(--rm-text); padding:24px; width:360px; max-width:90vw; display:flex; flex-direction:column; gap:10px}
+  #rm-pf-imp-ov i{display:block; height:10px; background:var(--rm-bg)} #rm-pf-imp-ov u{display:block; height:100%; width:0; background:#2e8b57; transition:width .2s}
+  @media(max-width:1100px){ .pf-vend{grid-template-columns:minmax(0,1fr)} .pf-cesta{position:static} .pf-org{grid-template-columns:minmax(0,1fr)} }
+  @media(max-width:700px){
+    .pf-res{grid-template-columns:minmax(0,1fr)} .pf-foto{width:100%; height:180px} .pf-med{font-size:32px} .pf-busca input{font-size:22px}
+    .pf-exp{grid-template-columns:repeat(5,minmax(0,1fr))} .pf-cat{grid-template-columns:minmax(0,1fr)} .pf-cl{max-height:260px}
+    .pf-nt{grid-template-columns:minmax(0,1fr)} .pf-card-w{grid-column:auto} .pf-fam-top > img, .pf-fam-top > .pf-sf{width:80px; height:80px}
+    .pf-ed{grid-template-columns:minmax(0,1fr)} .pf-ed-g{grid-template-columns:minmax(0,1fr)} .pf-ed-g .w2{grid-column:auto}
+    .pf-tec{display:none} .pf-in-v{width:80px}
+    .pf-chips button:nth-of-type(n+7){display:none} .pf-xl, .pf-exp-tabs small{display:none} .pf-exp-tabs button{padding:8px 12px; min-width:44px}
+  }
+
   .rm-cav{width:32px; height:32px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid var(--rm-border); background:var(--rm-bg); vertical-align:middle; cursor:zoom-in}
   .rm-cav-ini{display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; color:var(--rm-text-dim); cursor:default}
   .rm-cav-g{width:52px; height:52px; font-size:17px}
@@ -2544,12 +2685,12 @@
 
         <button class="rm-nav-btn" id="rm-btn-clientes" onclick="rmSetSection('clientes')" title="Clientes"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Clientes</span><span class="rm-nav-sub">Cadastro de clientes</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-produtos" onclick="rmSetSection('produtos')" title="Produtos"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Produtos</span><span class="rm-nav-sub">Estoque e peças</span></span></button>
-        <button class="rm-nav-btn" id="rm-btn-parafusos" onclick="rmSetSection('parafusos')" title="Parafusos"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-1.5 4h-5z"/><path d="M10 7v14M14 7v14M10 10l4 2M10 14l4 2M10 18l4 2"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Parafusos</span><span class="rm-nav-sub">Em construção</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-parafusos" onclick="rmSetSection('parafusos')" title="Parafusos"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-1.5 4h-5z"/><path d="M10 7v14M14 7v14M10 10l4 2M10 14l4 2M10 18l4 2"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Parafusos</span><span class="rm-nav-sub">Caixinhas e expositor</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-ferramentas" onclick="rmSetSection('ferramentas')" title="Ferramentas"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.5-.5-2.4z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Ferramentas</span><span class="rm-nav-sub">Em construção</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 21/10 às 21:55</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 21/10 às 22:25</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3081,6 +3222,7 @@
 
         <div class="rm-toolbar">
           <input class="rm-search" id="rm-search-produtos" placeholder="Buscar por nome, código ou categoria..." oninput="rmRenderProdutos()">
+          <label class="rm-pf-mostra" title="Mostrar ou esconder os parafusos (da aba Parafusos) nesta lista"><input type="checkbox" id="rm-prod-mostra-pf" onchange="try{localStorage.setItem('radicalMotos_mostraPf', this.checked ? '1' : '0')}catch(e){} rmRenderProdutos()"> Mostrar parafusos</label>
           <button class="rm-btn-add" onclick="rmBaixarModeloProdutos()">Baixar modelo de planilha</button>
           <button class="rm-btn-add" onclick="rmAbrirImportacaoCsv()">Importar planilha</button>
         </div>
@@ -3280,8 +3422,20 @@
     </div>
 
     <div id="rm-section-parafusos" class="rm-section">
-      <h1 class="rm-title" style="margin:0;">Parafusos</h1>
-      <div class="vg-obra"><div class="vg-obra-i">&#128679;</div><b>Em construção</b><span>Esta parte vai sendo montada aos poucos. Por enquanto está vazia.</span></div>
+      <div class="rm-subnav">
+        <button class="rm-subnav-btn active" id="rm-btn-pf-vender" onclick="rmSetViewPf('vender')"><span class="rm-subnav-icon">&#128722;</span><span>Vender</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-pf-expositor" onclick="rmSetViewPf('expositor')"><span class="rm-subnav-icon">&#9638;</span><span>Expositor</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-pf-catalogo" onclick="rmSetViewPf('catalogo')"><span class="rm-subnav-icon">&#128214;</span><span>Catálogo</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-pf-estoque" onclick="rmSetViewPf('estoque')"><span class="rm-subnav-icon">&#128230;</span><span>Estoque</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-pf-nocoes" onclick="rmSetViewPf('nocoes')"><span class="rm-subnav-icon">&#128208;</span><span>Noções técnicas</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-pf-caixinhas" onclick="rmSetViewPf('caixinhas')"><span class="rm-subnav-icon">&#127991;</span><span>Caixinhas e etiquetas</span></button>
+      </div>
+      <div id="rm-view-pf-vender" class="rm-view active"></div>
+      <div id="rm-view-pf-expositor" class="rm-view"></div>
+      <div id="rm-view-pf-catalogo" class="rm-view"></div>
+      <div id="rm-view-pf-estoque" class="rm-view"></div>
+      <div id="rm-view-pf-nocoes" class="rm-view"></div>
+      <div id="rm-view-pf-caixinhas" class="rm-view"></div>
     </div>
 
     <div id="rm-section-ferramentas" class="rm-section">
@@ -5219,6 +5373,8 @@ function rmProdutoBateBusca(p, search){
 function rmRenderProdutos(){
   const search = document.getElementById('rm-search-produtos').value.toLowerCase();
   let list = rmLoadProdutos();
+  { const ck = document.getElementById('rm-prod-mostra-pf'); if(ck && !ck.dataset.ok){ ck.dataset.ok = '1'; let v = '1'; try{ v = localStorage.getItem('radicalMotos_mostraPf') || '1'; }catch(e){} ck.checked = v !== '0'; }
+    if(ck && !ck.checked) list = list.filter(p => !p.parafuso); }
   if(search){
     list = list.filter(p => rmProdutoBateBusca(p, search));
   }
@@ -6639,7 +6795,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610212155; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610212225; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -7765,7 +7921,7 @@ const RM_SUB_SO_ADMIN = ['rm-btn-fin-caixa', 'rm-btn-cfg-usuarios', 'rm-btn-cfg-
 // subabas que começam FECHADAS para funcionário: só vê quem o administrador liberar ("+sub:<id>")
 const RM_SUB_OPTIN = ['rm-btn-fin-pagar'];
 function rmSubNega(u, id){ return RM_SUB_OPTIN.includes(id) ? !((u && u.permissoes) || []).includes('+sub:' + id) : rmSubBloqueadas(u).includes(id); }
-const RM_SUB_PREFIXO = { 'rm-btn-vg-':'visao-geral', 'rm-btn-produtos-':'produtos', 'rm-btn-fin-':'financeiro', 'rm-btn-pla-':'planilha', 'rm-btn-rel-':'relatorio', 'rm-btn-cfg-':'configuracoes' };
+const RM_SUB_PREFIXO = { 'rm-btn-pf-':'parafusos', 'rm-btn-vg-':'visao-geral', 'rm-btn-produtos-':'produtos', 'rm-btn-fin-':'financeiro', 'rm-btn-pla-':'planilha', 'rm-btn-rel-':'relatorio', 'rm-btn-cfg-':'configuracoes' };
 function rmSubBloqueadas(u){ return ((u && u.permissoes) || []).filter(x => typeof x === 'string' && x.startsWith('!sub:')).map(x => x.slice(5)); }
 function rmSubPode(id){
   if(!rmUsuario || rmEhAdmin()) return true;
@@ -7801,6 +7957,7 @@ rmSubTravar('rmSetView', v => 'rm-btn-' + v);
 rmSubTravar('rmSetViewProdutos', v => 'rm-btn-produtos-' + v);
 rmSubTravar('rmSetViewFin', v => 'rm-btn-fin-' + v);
 rmSubTravar('rmSetViewVg', v => 'rm-btn-vg-' + v);
+rmSubTravar('rmSetViewPf', v => 'rm-btn-pf-' + v);
 rmSubTravar('rmSetViewPlanilha', v => 'rm-btn-pla-' + v);
 rmSubTravar('rmComSetModo', v => 'rm-btn-rel-' + v);
 rmSubTravar('rmSetViewCfg', v => 'rm-btn-cfg-' + v);
@@ -11551,6 +11708,7 @@ function rmFromDbRowProduto(row){
     ehServico: row.eh_servico === true,
     observacao: row.observacao,
     fotoUrl: row.foto_url,
+    parafuso: row.parafuso || null,
     ativo: row.ativo !== false,
     criadoEm: row.criado_em,
     _v: row.versao != null ? row.versao : (row.versao_base != null ? row.versao_base : null)
@@ -11588,6 +11746,7 @@ function rmToDbRowProduto(p){
     eh_servico: p.ehServico === true,
     observacao: p.observacao || null,
     foto_url: p.fotoUrl || null,
+    ...(p.parafuso ? { parafuso: p.parafuso } : {}), // só parafusos mandam (precisa do parafusos-supabase.sql)
     ativo: p.ativo !== false,
     criado_em: p.criadoEm,
     versao_base: p._v != null ? p._v : null
@@ -12194,6 +12353,12 @@ const RM_CFG_CAMPOS = [['nome','Nome fantasia'],['razao','Razão social'],['doc'
 
 // ===================== ÍCONES DAS ABAS =====================
 const RM_ABA_ICONES = {
+  'rm-btn-pf-vender':'<path d="M3 3h18v4H3zM5 7v13h14V7"/><path d="M9 12h6"/>',
+  'rm-btn-pf-expositor':'<rect x="3" y="3" width="18" height="18"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',
+  'rm-btn-pf-catalogo':'<path d="M4 4h16v16H4z"/><path d="M4 9h16M9 9v11"/>',
+  'rm-btn-pf-estoque':'<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
+  'rm-btn-pf-nocoes':'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/>',
+  'rm-btn-pf-caixinhas':'<path d="M20.6 13.4L13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><path d="M7.5 7.5h.01"/>',
   'rm-btn-vg-geral':'<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>',
   'rm-btn-vg-oficina':'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.5-.5-2.4z"/>',
   'rm-btn-vg-produtos':'<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
@@ -13821,6 +13986,7 @@ function rmSetSection(section){
     if(btn) btn.classList.toggle('active', s===section);
   });
   if(section === 'clientes'){ rmRenderClientes(); rmSyncProms(); }
+  if(section === 'parafusos') rmSetViewPf(rmPfSub);
   if(section === 'visao-geral'){ rmVgSyncSenha(); rmSetViewVg(rmVgSub); rmSyncProms().then(rmRenderVisaoGeral); }
   if(section === 'planilha'){ if(document.getElementById('rm-view-pla-vale').classList.contains('active')){ rmRenderVale(); rmValeSync().then(rmValeRenderSeLivre); } if(document.getElementById('rm-view-pla-lembretes').classList.contains('active')){ rmRenderLembretes(); rmLemSync().then(() => rmRenderLembretes(true)); } }
   if(section === 'relatorio'){ rmRenderComissao(); rmComSync().then(rmRenderComissao); }
@@ -16991,6 +17157,616 @@ function rmColumnAt(x, y){
 function rmHighlightColumnUnder(x, y){
   const col = rmColumnAt(x, y);
   document.querySelectorAll('.rm-column').forEach(c=>c.classList.toggle('rm-column-hover', c===col));
+}
+
+// ===================== PARAFUSOS (aba própria; os itens são produtos normais do estoque, marcados com "parafuso") =====================
+// p.parafuso = { cx: nº da caixinha, cat: categoria (Parafuso Chipboard...), tipo: nome técnico, med: medida, mais: mais vendido }
+const RM_PF_SUBS = ['vender', 'expositor', 'catalogo', 'estoque', 'nocoes', 'caixinhas'];
+const RM_PF_POR_EXPOSITOR = 60;
+const RM_PF_CESTA_KEY = 'radicalMotos_pfCesta';
+let rmPfSub = (() => { try{ const v = localStorage.getItem('radicalMotos_pfSub'); return RM_PF_SUBS.includes(v) ? v : 'vender'; }catch(e){ return 'vender'; } })();
+let rmPfSel = null;          // caixinha aberta na tela Vender
+let rmPfQtd = 1;
+let rmPfExp = 1;             // expositor aberto
+let rmPfFam = null;          // tipo aberto no catálogo
+let rmPfColOk = null;        // a coluna "parafuso" existe no banco?
+const rmPfLista = () => rmLoadProdutos().filter(p => p.parafuso && p.parafuso.cx != null);
+const rmPfPorCx = () => { const m = new Map(); rmPfLista().forEach(p => m.set(Number(p.parafuso.cx), p)); return m; };
+const rmPfPreco = p => Number(p && p.precoConsumidor) || 0;
+const rmPfCesta = () => { try{ return JSON.parse(localStorage.getItem(RM_PF_CESTA_KEY)) || []; }catch(e){ return []; } };
+const rmPfCestaGravar = l => { try{ localStorage.setItem(RM_PF_CESTA_KEY, JSON.stringify(l)); }catch(e){} };
+const RM_PF_CORES = ['#d9433a','#2e6fd0','#2e8b57','#e8a33d','#8e44ad','#16a085','#7f8c8d','#c0392b','#2c3e50','#d35400','#27ae60','#8e6b3a','#1abc9c','#e84393','#6c5ce7','#00838f'];
+function rmPfCor(cat){
+  const cats = [...new Set(rmPfLista().sort((a, b) => a.parafuso.cx - b.parafuso.cx).map(p => p.parafuso.cat || ''))];
+  const i = cats.indexOf(cat || ''); return RM_PF_CORES[(i < 0 ? 0 : i) % RM_PF_CORES.length];
+}
+function rmPfFotoHtml(p, cls){ return p && p.fotoUrl ? `<img class="${cls || ''}" src="${rmEscapeHtml(p.fotoUrl)}" loading="lazy" decoding="async" alt="">` : `<div class="${cls || ''} pf-sf">&#128297;</div>`; }
+// número da medida para ordenar: "1/4" → .25 · "11/2" → 1,5 (é 1.1/2) · "3,5" → 3,5 · "M6" → 6
+function rmPfNum(s){
+  s = String(s || '').replace(/["¨]/g, '').replace(/^M/i, '').trim().replace(',', '.');
+  let m = /^(\d+)\s+(\d+)\/(\d+)/.exec(s); if(m) return +m[1] + m[2] / m[3];
+  m = /^(\d+)\/(\d+)/.exec(s);
+  if(m){ const n = +m[1], d = +m[2]; if(n > d && String(n).length > 1){ const a = +String(n)[0], b = +String(n).slice(1); if(b < d) return a + b / d; } return n / d; }
+  m = /^(\d+(?:\.\d+)?)/.exec(s); return m ? +m[1] : 9999;
+}
+const rmPfPolegada = p => /\//.test(p.parafuso.med || '') || /polegada|unc/i.test(p.parafuso.tipo || '');
+function rmPfMedTxt(med){ return String(med || '').replace(/X/g, ' × '); }
+
+function rmSetViewPf(view){
+  if(!RM_PF_SUBS.includes(view)) view = 'vender';
+  rmPfSub = view; try{ localStorage.setItem('radicalMotos_pfSub', view); }catch(e){}
+  RM_PF_SUBS.forEach(v => { const a = document.getElementById('rm-view-pf-' + v), b = document.getElementById('rm-btn-pf-' + v); if(a) a.classList.toggle('active', v === view); if(b) b.classList.toggle('active', v === view); });
+  rmPfRender();
+}
+function rmPfRender(){
+  const v = rmPfSub, el = document.getElementById('rm-view-pf-' + v); if(!el) return;
+  if(!rmPfLista().length && v !== 'nocoes' && v !== 'caixinhas'){ el.innerHTML = rmPfVazioHtml(); return; }
+  if(v === 'vender') rmPfRenderVender();
+  else if(v === 'expositor') rmPfRenderExpositor();
+  else if(v === 'catalogo') rmPfRenderCatalogo();
+  else if(v === 'estoque') rmPfRenderEstoque();
+  else if(v === 'nocoes') rmPfRenderNocoes();
+  else if(v === 'caixinhas') rmPfRenderCaixinhas();
+}
+function rmPfVazioHtml(){
+  return `<div class="vg-obra"><div class="vg-obra-i">&#128297;</div><b>Nenhum parafuso cadastrado ainda</b><span>Vá em <a href="#" onclick="rmSetViewPf('caixinhas'); return false;">Caixinhas e etiquetas</a> e clique em <b>Importar catálogo</b> para trazer os parafusos da planilha, ou cadastre um a um em <a href="#" onclick="rmSetViewPf('estoque'); setTimeout(() => rmPfEditar(null), 50); return false;">Estoque → Novo parafuso</a>.</span></div>`;
+}
+// abre a tela Vender já com a caixinha escolhida
+function rmPfVenderCx(cx){ rmPfSel = Number(cx); rmPfQtd = 1; rmSetViewPf('vender'); }
+
+// ----- VENDER -----
+function rmPfRenderVender(){
+  const el = document.getElementById('rm-view-pf-vender');
+  const q = rmPfBuscaTexto || '';
+  el.innerHTML = `<div class="pf-h"><h1 class="rm-title">Vender parafuso</h1></div>
+    <div class="pf-vend"><div class="pf-vend-esq">
+      <div class="pf-busca"><input id="rm-pf-busca" value="${rmEscapeHtml(q)}" placeholder="Nº da caixinha ou nome (ex: 57 ou allen 6x20)" autocomplete="off" inputmode="search" oninput="rmPfBuscar(this.value)" onkeydown="if(event.key==='Enter'){ event.preventDefault(); rmPfEnter(); }"></div>
+      <div class="pf-hint">Digite o <b>número da caixinha</b> que o cliente apontou no expositor, ou escreva o nome/medida. <b>Enter</b> adiciona.</div>
+      <div class="pf-chips" id="rm-pf-mais"></div>
+      <div id="rm-pf-res"></div>
+    </div>
+    <div class="pf-cesta" id="rm-pf-cesta"></div></div>`;
+  const mais = rmPfLista().filter(p => p.parafuso.mais).sort((a, b) => a.parafuso.cx - b.parafuso.cx).slice(0, 12);
+  document.getElementById('rm-pf-mais').innerHTML = mais.length ? '<span class="pf-chips-t">Mais vendidos:</span>' + mais.map(p => `<button type="button" onclick="rmPfVenderCx(${p.parafuso.cx})"><b>${p.parafuso.cx}</b>${rmEscapeHtml(String(p.parafuso.cat || '').replace(/^Parafuso /i, ''))} ${rmEscapeHtml(p.parafuso.med || '')}</button>`).join('') : '';
+  rmPfRenderRes(); rmPfRenderCesta();
+  if(!matchMedia('(pointer:coarse)').matches){ const i = document.getElementById('rm-pf-busca'); if(i){ i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }
+}
+let rmPfBuscaTexto = '';
+function rmPfBuscar(v){
+  rmPfBuscaTexto = v; const t = String(v || '').trim();
+  rmPfSel = /^\d+$/.test(t) ? Number(t) : null; rmPfQtd = 1;
+  rmPfRenderRes();
+}
+function rmPfEnter(){
+  const t = String(rmPfBuscaTexto || '').trim();
+  if(rmPfSel != null && rmPfPorCx().get(rmPfSel)){ rmPfAdicionar(); return; }
+  if(t){ const r = rmPfResultados(t); if(r.length === 1){ rmPfSel = r[0].parafuso.cx; rmPfRenderRes(); } }
+}
+function rmPfResultados(t){
+  const l = rmPfLista().filter(p => rmBuscaBate([p.nome, p.parafuso.cat, p.parafuso.tipo, p.parafuso.med, 'cx ' + p.parafuso.cx, p.aplicacao], t));
+  return l.sort((a, b) => a.parafuso.cx - b.parafuso.cx);
+}
+function rmPfRenderRes(){
+  const el = document.getElementById('rm-pf-res'); if(!el) return;
+  if(rmPfSel == null && rmPfBuscaTexto && rmPfBuscaTexto.trim()){
+    const r = rmPfResultados(rmPfBuscaTexto.trim());
+    el.innerHTML = r.length ? `<div class="pf-lista">${r.slice(0, 60).map(p => `<div class="pf-li${rmPfPreco(p) ? '' : ' sp'}" onclick="rmPfSel=${p.parafuso.cx}; rmPfQtd=1; rmPfRenderRes();">${rmPfFotoHtml(p)}<span class="cxs">${p.parafuso.cx}</span><div><b>${rmEscapeHtml(rmPfMedTxt(p.parafuso.med))}</b><small>${rmEscapeHtml(p.parafuso.tipo || p.nome)}</small></div><i>${rmPfPreco(p) ? rmFormatMoeda(rmPfPreco(p)) : 'sem preço'}</i></div>`).join('')}</div>${r.length > 60 ? `<div class="pf-hint">Mostrando 60 de ${r.length}. Digite mais para filtrar.</div>` : ''}` : '<div class="rm-problema-empty" style="padding:20px">Nenhum parafuso encontrado</div>';
+    return;
+  }
+  if(rmPfSel == null){ el.innerHTML = '<div class="pf-dica">&#128073; Digite o número da caixinha ou procure pelo nome. Também dá para escolher pelo <a href="#" onclick="rmSetViewPf(\'expositor\'); return false;">Expositor</a> ou pelo <a href="#" onclick="rmSetViewPf(\'catalogo\'); return false;">Catálogo</a>.</div>'; return; }
+  const p = rmPfPorCx().get(rmPfSel);
+  if(!p){ el.innerHTML = `<div class="rm-problema-empty" style="padding:20px">Não existe parafuso na caixinha ${rmPfSel}</div>`; return; }
+  const pr = rmPfPreco(p), est = Number(p.estoqueAtual) || 0, inativo = p.ativo === false;
+  el.innerHTML = `<div class="pf-res">${rmPfFotoHtml(p, 'pf-foto')}<div class="pf-res-d">
+    <span class="pf-cx">CAIXINHA ${p.parafuso.cx}</span>${inativo ? ' <span class="pf-tag-in">INATIVO</span>' : ''}
+    <div class="pf-nome">${rmEscapeHtml(p.parafuso.tipo || p.nome)}</div><div class="pf-med">${rmEscapeHtml(rmPfMedTxt(p.parafuso.med))}</div>
+    <div class="pf-info"><div>Preço por unidade<b>${pr ? rmFormatMoeda(pr) : '<span style="color:#c0392b">sem preço</span>'}</b></div><div>Em estoque<b class="${est <= 0 ? 'pf-zero' : ''}">${rmFmtQtd(est)} ${rmEscapeHtml((p.unidade || 'UN').toLowerCase())}</b></div><div>Medida em<b>${rmPfPolegada(p) ? 'Polegada' : 'Milímetro'}</b></div></div>
+    ${pr ? `<div class="pf-qtd"><button type="button" onclick="rmPfMudaQtd(-1)">&minus;</button><input id="rm-pf-qtd" inputmode="decimal" value="${rmFmtQtd(rmPfQtd)}" onfocus="this.select()" oninput="rmPfQtd=Math.max(0,rmParseMoeda(this.value)); rmPfAtualizaBotao()" onkeydown="if(event.key==='Enter'){ event.preventDefault(); rmPfAdicionar(); }"><button type="button" onclick="rmPfMudaQtd(1)">+</button>
+      <span class="pf-rap-t">rápido:</span>${[5, 10, 25, 50, 100].map(n => `<button type="button" class="rap" onclick="rmPfQtd=${n}; document.getElementById('rm-pf-qtd').value='${n}'; rmPfAtualizaBotao()">${n}</button>`).join('')}</div>
+    <div class="pf-add"><button type="button" class="go" id="rm-pf-add" onclick="rmPfAdicionar()"></button></div>`
+    : `<div class="pf-semp">Este parafuso ainda não tem preço. ${rmPfPodeEditar() ? `<span>Preço por unidade: <input id="rm-pf-prnovo" inputmode="decimal" placeholder="0,00" onkeydown="if(event.key==='Enter') rmPfPrecoRapido(${p.parafuso.cx})"> <button type="button" onclick="rmPfPrecoRapido(${p.parafuso.cx})">Salvar preço</button></span>` : 'Peça ao administrador para colocar o preço.'}</div>`}
+    ${p.aplicacao ? `<div class="pf-apl">&#8505;&#65039; ${rmEscapeHtml(p.aplicacao)}</div>` : ''}
+    <div class="pf-mini"><a href="#" onclick="rmPfEditar('${rmJs(p.id)}'); return false;">editar este parafuso</a></div>
+  </div></div>`;
+  rmPfAtualizaBotao();
+}
+function rmPfPodeEditar(){ return rmEhAdmin() || rmSubPode('rm-btn-pf-estoque'); }
+function rmPfMudaQtd(d){ rmPfQtd = Math.max(1, (Number(rmPfQtd) || 0) + d); const i = document.getElementById('rm-pf-qtd'); if(i) i.value = rmFmtQtd(rmPfQtd); rmPfAtualizaBotao(); }
+function rmPfAtualizaBotao(){
+  const b = document.getElementById('rm-pf-add'), p = rmPfPorCx().get(rmPfSel); if(!b || !p) return;
+  b.innerHTML = '&#10004; Adicionar ' + rmFmtQtd(rmPfQtd || 0) + ' · ' + rmFormatMoeda(rmPfPreco(p) * (rmPfQtd || 0));
+}
+function rmPfPrecoRapido(cx){
+  const v = rmParseMoeda((document.getElementById('rm-pf-prnovo') || {}).value);
+  if(!(v > 0)){ alert('Digite o preço por unidade.'); return; }
+  const prods = rmLoadProdutos(), p = prods.find(x => x.parafuso && Number(x.parafuso.cx) === Number(cx)); if(!p) return;
+  p.precoConsumidor = v; if(!(Number(p.precoParceiro) > 0)) p.precoParceiro = v;
+  rmSaveProdutos(prods); rmDbUpsertProduto(p); rmLog('Colocou preço no parafuso', 'CX ' + cx + ' · ' + p.nome, rmFormatMoeda(v));
+  rmShowToast('Preço salvo · ' + rmFormatMoeda(v)); rmPfRenderRes();
+}
+function rmPfAdicionar(){
+  const p = rmPfPorCx().get(rmPfSel); if(!p) return;
+  const q = Number(rmPfQtd) || 0; if(!(q > 0)){ alert('Informe a quantidade.'); return; }
+  if(!rmPfPreco(p)){ alert('Este parafuso ainda não tem preço.'); return; }
+  if(p.ativo === false && !confirm('Este parafuso está INATIVO. Vender mesmo assim?')) return;
+  const l = rmPfCesta(), ex = l.find(i => i.pid === p.id);
+  if(ex) ex.q = (Number(ex.q) || 0) + q; else l.push({ pid: p.id, q });
+  rmPfCestaGravar(l);
+  rmShowToast('Adicionado: ' + rmFmtQtd(q) + ' × CX ' + p.parafuso.cx + ' ' + (p.parafuso.med || ''));
+  rmPfSel = null; rmPfBuscaTexto = ''; rmPfQtd = 1;
+  const i = document.getElementById('rm-pf-busca'); if(i){ i.value = ''; if(!matchMedia('(pointer:coarse)').matches) i.focus(); }
+  rmPfRenderRes(); rmPfRenderCesta();
+}
+function rmPfRenderCesta(){
+  const el = document.getElementById('rm-pf-cesta'); if(!el) return;
+  const idx = rmIdx(rmLoadProdutos()), l = rmPfCesta().map(i => ({ i, p: idx.get(i.pid) })).filter(x => x.p);
+  const tot = l.reduce((s, x) => s + rmPfPreco(x.p) * x.i.q, 0);
+  el.innerHTML = `<h3>Parafusos desta venda</h3>${l.length ? l.map(({ i, p }) => `<div class="pf-ci"><span class="cxs">${p.parafuso.cx}</span>${rmPfFotoHtml(p)}<div><b>${rmEscapeHtml(rmPfMedTxt(p.parafuso.med))}</b><small>${rmEscapeHtml(p.parafuso.cat || '')} · ${rmFmtQtd(i.q)} × ${rmFormatMoeda(rmPfPreco(p))}</small></div><b>${rmFormatMoeda(rmPfPreco(p) * i.q)}</b><button type="button" title="Tirar" onclick="rmPfCestaTirar('${rmJs(p.id)}')">&times;</button></div>`).join('')
+      : '<div class="pf-cesta-v">Nenhum parafuso ainda.<br>Digite o nº da caixinha e clique em Adicionar.</div>'}
+    <div class="pf-tot"><span>Total</span><span>${rmFormatMoeda(tot)}</span></div>
+    <button type="button" class="go" onclick="rmPfMandarPdv()"${l.length ? '' : ' disabled'}>Mandar para o PDV e cobrar &rarr;</button>
+    <button type="button" class="go2" onclick="rmPfEscolherOs()"${l.length ? '' : ' disabled'}>&#128295; Lançar numa OS</button>
+    ${l.length ? '<button type="button" class="pf-limpa" onclick="if(confirm(\'Limpar a lista de parafusos?\')){ rmPfCestaGravar([]); rmPfRenderCesta(); }">limpar lista</button>' : ''}
+    <div class="pf-tec">${[1, 2, 3, 4, 5, 6, 7, 8, 9, '&#9003;', 0, 'OK'].map(k => `<button type="button" onclick="rmPfTecla('${k === '&#9003;' ? 'del' : k}')">${k}</button>`).join('')}</div>`;
+}
+function rmPfTecla(k){
+  const qtdFoco = document.activeElement && document.activeElement.id === 'rm-pf-qtd';
+  const i = document.getElementById(qtdFoco ? 'rm-pf-qtd' : 'rm-pf-busca'); if(!i) return;
+  if(k === 'OK'){ if(qtdFoco || (rmPfSel != null && rmPfPorCx().get(rmPfSel))) rmPfAdicionar(); else rmPfEnter(); return; }
+  i.value = k === 'del' ? i.value.slice(0, -1) : i.value + k;
+  if(qtdFoco){ rmPfQtd = Math.max(0, rmParseMoeda(i.value)); rmPfAtualizaBotao(); } else rmPfBuscar(i.value);
+}
+function rmPfCestaTirar(pid){ rmPfCestaGravar(rmPfCesta().filter(i => i.pid !== pid)); rmPfRenderCesta(); }
+function rmPfMandarPdv(){
+  const idx = rmIdx(rmLoadProdutos()), l = rmPfCesta().map(i => ({ i, p: idx.get(i.pid) })).filter(x => x.p);
+  if(!l.length) return;
+  if(typeof rmPdvModo !== 'undefined' && rmPdvModo !== 'venda' && !confirm('O PDV está em modo orçamento. Os parafusos vão para o orçamento. Continuar?')) return;
+  l.forEach(({ i, p }) => {
+    const preco = (rmPdvTabelaPreco === 'parceiro' && Number(p.precoParceiro) > 0) ? Number(p.precoParceiro) : rmPfPreco(p);
+    const ex = rmPdvCarrinho.find(c => c.produtoId === p.id && !(c.desconto > 0));
+    if(ex){ ex.quantidade = (Number(ex.quantidade) || 0) + i.q; ex.subtotal = ex.precoUnit * ex.quantidade; }
+    else rmPdvCarrinho.push({ nome: p.nome, precoUnit: preco, quantidade: i.q, desconto: 0, descontoPct: 0, subtotal: preco * i.q, produtoId: p.id });
+  });
+  rmPfCestaGravar([]);
+  rmSetSection('pdv'); try{ rmRenderCarrinhoPdv(); }catch(e){}
+  rmShowToast(l.length + ' parafuso(s) no PDV · é só cobrar');
+}
+// escolher a OS para lançar os parafusos
+function rmPfEscolherOs(){
+  const os = rmLoad().filter(r => !r.cancelamento && r.status !== 'entregue').sort((a, b) => String(b.entrada || '').localeCompare(String(a.entrada || '')));
+  const modal = document.getElementById('rm-modal'); modal.classList.remove('rm-modal-large', 'rm-modal-os');
+  modal.innerHTML = `<div class="rm-modal-header"><div><div class="rm-modal-title">Lançar parafusos numa OS</div><div class="rm-modal-sub">Escolha a moto (só as que ainda não foram entregues)</div></div><button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
+    <div class="rm-modal-section"><input class="rm-input" id="rm-pf-os-q" placeholder="Buscar por nº da OS, cliente ou moto..." oninput="rmPfOsLista()"></div>
+    <div class="rm-modal-section" id="rm-pf-os-l"></div>`;
+  modal.dataset.pfOs = JSON.stringify(os.map(r => r.id));
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+  rmPfOsLista(); setTimeout(() => { const i = document.getElementById('rm-pf-os-q'); if(i) i.focus(); }, 50);
+}
+function rmPfOsLista(){
+  const el = document.getElementById('rm-pf-os-l'); if(!el) return;
+  const q = (document.getElementById('rm-pf-os-q').value || '').trim();
+  const os = rmLoad().filter(r => !r.cancelamento && r.status !== 'entregue' && (!q || rmBuscaBate([r.codigoApp, r.nome, r.modelo, r.placa, r.mecanico], q)))
+    .sort((a, b) => String(b.entrada || '').localeCompare(String(a.entrada || ''))).slice(0, 40);
+  el.innerHTML = os.length ? os.map(r => { const st = RM_STATUS[r.status] || RM_STATUS.aberto; return `<div class="pf-osi" onclick="rmPfLancarOs('${rmJs(r.id)}')">${r.fotoUrl ? `<img src="${rmEscapeHtml(r.fotoUrl)}" alt="">` : '<span>&#127949;</span>'}<div><b>${rmEscapeHtml(r.codigoApp || '')} · ${rmEscapeHtml(r.modelo || '')}</b><small>${rmEscapeHtml(r.nome || '—')}${r.mecanico ? ' · ' + rmEscapeHtml(r.mecanico) : ''}</small></div><i style="color:${st.color}">${st.label}</i></div>`; }).join('') : '<div class="rm-problema-empty">Nenhuma OS aberta encontrada</div>';
+}
+function rmPfLancarOs(osId){
+  const list = rmLoad(), r = list.find(x => x.id === osId); if(!r) return;
+  if(!rmOsPagaConfirmar(r)) return;
+  const prods = rmLoadProdutos(), idx = rmIdx(prods);
+  const l = rmPfCesta().map(i => ({ i, p: idx.get(i.pid) })).filter(x => x.p); if(!l.length) return;
+  if(!r.pecasUsadas) r.pecasUsadas = [];
+  l.forEach(({ i, p }) => {
+    const pr = rmPfPreco(p);
+    r.pecasUsadas.push({ uid: rmUid(), produtoId: p.id, nome: p.nome, codigo: p.codigo || '', localizacao: p.localizacao || '', categoria: p.categoria || '', servico: false,
+      quantidade: i.q, precoUnit: pr, desconto: 0, subtotal: pr * i.q, por: rmNomeUsuario() });
+    p.estoqueAtual = (Number(p.estoqueAtual) || 0) - i.q; rmDbUpsertProduto(p);
+  });
+  rmSaveProdutos(prods); rmSave(list); rmDbUpsertRecepcao(r);
+  rmLog('Lançou parafusos na OS', r.codigoApp, l.map(({ i, p }) => 'CX ' + p.parafuso.cx + ' ' + (p.parafuso.med || '') + ' x' + rmFmtQtd(i.q)).join(' · '));
+  rmPfCestaGravar([]);
+  rmOsPagaReajustar(osId);
+  rmCloseModal(); rmSetSection('oficina'); rmOpenModal(osId, true);
+  rmShowToast(l.length + ' parafuso(s) lançado(s) na ' + (r.codigoApp || 'OS'));
+}
+
+// ----- EXPOSITOR -----
+function rmPfRenderExpositor(){
+  const el = document.getElementById('rm-view-pf-expositor'), m = rmPfPorCx();
+  const max = Math.max(0, ...m.keys()), n = Math.max(1, Math.ceil(max / RM_PF_POR_EXPOSITOR));
+  if(rmPfExp > n) rmPfExp = 1;
+  const ini = (rmPfExp - 1) * RM_PF_POR_EXPOSITOR + 1, cats = [...new Set([...m.values()].sort((a, b) => a.parafuso.cx - b.parafuso.cx).map(p => p.parafuso.cat || ''))];
+  let caixas = ''; const naTela = new Set();
+  for(let cx = ini; cx < ini + RM_PF_POR_EXPOSITOR; cx++){
+    const p = m.get(cx);
+    if(!p){ caixas += `<div class="pf-bx pf-bx-v"><b>${cx}</b><span>vazia</span></div>`; continue; }
+    naTela.add(p.parafuso.cat || '');
+    const sem = (Number(p.estoqueAtual) || 0) <= 0, sp = !rmPfPreco(p);
+    caixas += `<div class="pf-bx${sem ? ' sem' : ''}" style="--c:${rmPfCor(p.parafuso.cat)}" onclick="rmPfVenderCx(${cx})" title="${rmEscapeHtml(p.nome)}"><b>${cx}</b>${rmPfFotoHtml(p)}<span>${rmEscapeHtml(p.parafuso.med || '')}</span><i class="${sp ? 'sp' : ''}">${sp ? 'sem preço' : rmFormatMoeda(rmPfPreco(p))}</i></div>`;
+  }
+  el.innerHTML = `<div class="pf-h"><h1 class="rm-title">Expositor</h1><span class="pf-sub-t">igual ao expositor da loja: clique na caixinha para vender</span></div>
+    <div class="pf-exp-tabs">${Array.from({ length: n }, (_, i) => { const a = i * RM_PF_POR_EXPOSITOR + 1; return `<button type="button" class="${i + 1 === rmPfExp ? 'on' : ''}" onclick="rmPfExp=${i + 1}; rmPfRenderExpositor()"><span class="pf-xl">Expositor </span>${i + 1}<small> · ${a}–${Math.min(a + RM_PF_POR_EXPOSITOR - 1, Math.max(max, a))}</small></button>`; }).join('')}</div>
+    <div class="pf-exp">${caixas}</div>
+    <div class="pf-leg">${cats.filter(c => naTela.has(c)).map(c => `<span><i style="background:${rmPfCor(c)}"></i>${rmEscapeHtml(c || 'Sem categoria')}</span>`).join('')}<span class="pf-leg-s"><i></i>caixinha apagada = sem estoque</span></div>`;
+}
+
+// ----- CATÁLOGO -----
+function rmPfFamilias(){
+  const g = new Map();
+  rmPfLista().sort((a, b) => a.parafuso.cx - b.parafuso.cx).forEach(p => { const k = p.parafuso.tipo || p.nome; if(!g.has(k)) g.set(k, []); g.get(k).push(p); });
+  return [...g.entries()].map(([tipo, itens]) => ({ tipo, itens, cat: itens[0].parafuso.cat || '', foto: itens.find(x => x.fotoUrl) }));
+}
+function rmPfRenderCatalogo(){
+  const el = document.getElementById('rm-view-pf-catalogo');
+  const q = (rmPfCatBusca || '').trim();
+  let fams = rmPfFamilias();
+  if(q) fams = fams.filter(f => rmBuscaBate([f.tipo, f.cat].concat(f.itens.map(i => i.parafuso.med)), q) || f.itens.some(i => rmBuscaBate([i.nome, i.parafuso.med, 'cx ' + i.parafuso.cx], q)));
+  if(!rmPfFam || !fams.some(f => f.tipo === rmPfFam)) rmPfFam = fams[0] ? fams[0].tipo : null;
+  const f = fams.find(x => x.tipo === rmPfFam);
+  el.innerHTML = `<div class="pf-h"><h1 class="rm-title">Catálogo</h1><input class="rm-search pf-cat-q" id="rm-pf-cat-q" value="${rmEscapeHtml(q)}" placeholder="Buscar tipo ou medida… (ex: sextavado 1/4, allen m6, porca travante)" oninput="rmPfCatBusca=this.value; rmPfRenderCatalogo(); const i=document.getElementById('rm-pf-cat-q'); i.focus(); i.setSelectionRange(i.value.length,i.value.length);"></div>
+    <div class="pf-cat"><div class="pf-cl">${fams.length ? fams.map(x => `<div class="${x.tipo === rmPfFam ? 'on' : ''}" onclick="rmPfFam=${rmEscapeHtml(JSON.stringify(x.tipo))}; rmPfRenderCatalogo(); if(matchMedia('(max-width:700px)').matches) document.getElementById('rm-pf-fam').scrollIntoView({behavior:'smooth'});">${rmPfFotoHtml(x.foto)}<span>${rmEscapeHtml(x.tipo.replace(/^Parafuso /i, ''))}</span><small>${x.itens.length}</small></div>`).join('') : '<div class="pf-cl-v">Nada encontrado</div>'}</div>
+    <div class="pf-fam" id="rm-pf-fam">${f ? rmPfFamHtml(f) : ''}</div></div>`;
+}
+let rmPfCatBusca = '';
+function rmPfFamHtml(f){
+  const pol = f.itens.some(rmPfPolegada);
+  const partes = f.itens.map(p => String(p.parafuso.med || '').split(/X/i));
+  const matriz = partes.every(x => x.length === 2 && x[0] && x[1]);
+  let corpo;
+  const cel = p => `<b>CX ${p.parafuso.cx}</b><small>${rmPfPreco(p) ? rmFormatMoeda(rmPfPreco(p)) : 'sem preço'} · ${rmFmtQtd(Number(p.estoqueAtual) || 0)} un</small>`;
+  if(matriz){
+    const dia = [...new Set(partes.map(x => x[0]))].sort((a, b) => rmPfNum(a) - rmPfNum(b));
+    const com = [...new Set(partes.map(x => x[1]))].sort((a, b) => rmPfNum(a) - rmPfNum(b));
+    const mm = d => { if(!/\//.test(d)) return ''; const v = rmPfNum(d) * 25.4; return ' <small>(' + v.toFixed(1).replace('.', ',') + ' mm)</small>'; };
+    corpo = `<div class="pf-mx-w"><table class="pf-mx"><tr><th class="r">Diâmetro &darr; · Comprimento &rarr;</th>${com.map(c => `<th>${rmEscapeHtml(c)}${pol && /\//.test(c) || pol && !/\D/.test(c) && rmPfNum(c) < 13 ? '"' : ''}</th>`).join('')}</tr>
+      ${dia.map(d => `<tr><th class="r">${rmEscapeHtml(d)}${/\//.test(d) ? '"' : ''}${mm(d)}</th>${com.map(c => { const p = f.itens.find(i => { const x = String(i.parafuso.med || '').split(/X/i); return x[0] === d && x[1] === c; }); return p ? `<td class="${(Number(p.estoqueAtual) || 0) <= 0 ? 'sem' : ''}" onclick="rmPfVenderCx(${p.parafuso.cx})">${cel(p)}</td>` : '<td class="v"></td>'; }).join('')}</tr>`).join('')}</table></div>
+      <div class="pf-hint">Cada quadrinho é uma caixinha: clique para vender. Riscado = essa medida não tem na loja.</div>`;
+  } else {
+    corpo = `<div class="pf-meds">${f.itens.slice().sort((a, b) => rmPfNum(a.parafuso.med) - rmPfNum(b.parafuso.med)).map(p => `<div class="${(Number(p.estoqueAtual) || 0) <= 0 ? 'sem' : ''}" onclick="rmPfVenderCx(${p.parafuso.cx})"><span>${rmEscapeHtml(p.parafuso.med || '')}</span>${cel(p)}</div>`).join('')}</div>`;
+  }
+  const ap = f.itens.find(i => i.aplicacao);
+  return `<div class="pf-fam-top">${rmPfFotoHtml(f.foto)}<div><div class="pf-fam-cat">${rmEscapeHtml(f.cat)}</div><h2>${rmEscapeHtml(f.tipo)}</h2>${ap ? `<p><b>Para que serve:</b> ${rmEscapeHtml(ap.aplicacao)}</p>` : ''}
+    <p class="pf-fam-n">${pol ? '<b>Medida em polegada</b> (1" = 25,4 mm). Ex.: 1/4 × 1 = diâmetro 1/4" e comprimento 1".' : '<b>Medida em milímetro.</b> Ex.: 4,5 × 16 = 4,5 mm de diâmetro e 16 mm de comprimento.'} <a href="#" onclick="rmSetViewPf('nocoes'); return false;">ver Noções técnicas</a></p></div></div>${corpo}`;
+}
+
+// ----- ESTOQUE (só parafusos) -----
+let rmPfEstFiltro = 'todos', rmPfEstCat = '', rmPfEstBusca = '';
+function rmPfEstLista(){
+  let l = rmPfLista().sort((a, b) => a.parafuso.cx - b.parafuso.cx);
+  if(rmPfEstCat) l = l.filter(p => (p.parafuso.cat || '') === rmPfEstCat);
+  if(rmPfEstFiltro === 'semp') l = l.filter(p => !rmPfPreco(p));
+  if(rmPfEstFiltro === 'seme') l = l.filter(p => (Number(p.estoqueAtual) || 0) <= 0);
+  if(rmPfEstFiltro === 'baixo') l = l.filter(p => Number(p.estoqueMinimo) > 0 && (Number(p.estoqueAtual) || 0) <= Number(p.estoqueMinimo));
+  if(rmPfEstFiltro === 'inativos') l = l.filter(p => p.ativo === false);
+  const q = rmPfEstBusca.trim();
+  if(q){ const n = /^\d+$/.test(q) ? Number(q) : null; l = l.filter(p => (n != null && p.parafuso.cx === n) || rmBuscaBate([p.nome, p.parafuso.cat, p.parafuso.tipo, p.parafuso.med, 'cx ' + p.parafuso.cx], q)); }
+  return l;
+}
+function rmPfRenderEstoque(){
+  const el = document.getElementById('rm-view-pf-estoque'), todos = rmPfLista();
+  const cats = [...new Set(todos.sort((a, b) => a.parafuso.cx - b.parafuso.cx).map(p => p.parafuso.cat || ''))];
+  const semP = todos.filter(p => !rmPfPreco(p)).length, valor = todos.reduce((s, p) => s + Math.max(0, Number(p.estoqueAtual) || 0) * (Number(p.precoCusto) || 0), 0);
+  const pode = rmPfPodeEditar();
+  el.innerHTML = `<div class="pf-h"><h1 class="rm-title">Estoque de parafusos</h1>${pode ? `<button type="button" class="pf-bt-pri" onclick="rmPfEditar(null)">+ Novo parafuso</button>` : ''}</div>
+    <div class="pf-est-res"><div><span>Itens</span><b>${todos.length}</b></div><div><span>Sem preço</span><b class="${semP ? 'pf-zero' : ''}">${semP}</b></div><div><span>Sem estoque</span><b>${todos.filter(p => (Number(p.estoqueAtual) || 0) <= 0).length}</b></div>${rmEhAdmin() ? `<div><span>Valor em estoque (custo)</span><b>${rmFormatMoeda(valor)}</b></div>` : ''}</div>
+    <div class="pf-est-bar"><input class="rm-search" id="rm-pf-est-q" value="${rmEscapeHtml(rmPfEstBusca)}" placeholder="Buscar nº da caixinha, tipo ou medida..." oninput="rmPfEstBusca=this.value; rmPfEstCorpo()">
+      <select class="rm-osl-sel" onchange="rmPfEstCat=this.value; rmPfEstCorpo()"><option value="">Todas as categorias</option>${cats.map(c => `<option${c === rmPfEstCat ? ' selected' : ''}>${rmEscapeHtml(c)}</option>`).join('')}</select>
+      <select class="rm-osl-sel" onchange="rmPfEstFiltro=this.value; rmPfEstCorpo()">${[['todos', 'Todos'], ['semp', 'Sem preço'], ['seme', 'Sem estoque'], ['baixo', 'Estoque baixo'], ['inativos', 'Inativos']].map(([k, t]) => `<option value="${k}"${k === rmPfEstFiltro ? ' selected' : ''}>${t}</option>`).join('')}</select>
+      ${pode ? `<button type="button" class="rm-osl-sel pf-bt" onclick="rmPfPrecoLote()">Preço em lote</button>` : ''}</div>
+    <div class="pf-hint" style="margin:0 0 8px">${pode ? 'Preço e estoque podem ser mudados direto na tabela (é só digitar e sair do campo). Clique na linha para editar o parafuso.' : 'Clique na linha para ver o parafuso.'}</div>
+    <div class="rm-table-wrap"><table class="rm-table pf-est"><thead><tr><th style="width:62px">Caixa</th><th style="width:52px"></th><th>Tipo</th><th>Medida</th><th style="width:126px">Preço un.</th><th style="width:116px">Estoque</th><th style="width:110px">Contagem</th><th style="width:80px">Status</th></tr></thead><tbody id="rm-pf-est-b"></tbody></table></div>`;
+  rmPfEstCorpo();
+}
+function rmPfEstCorpo(){
+  const b = document.getElementById('rm-pf-est-b'); if(!b) return;
+  const l = rmPfEstLista(), pode = rmPfPodeEditar();
+  b.innerHTML = l.length ? rmLimitar('pf', l).map(p => {
+    const est = Number(p.estoqueAtual) || 0, baixo = Number(p.estoqueMinimo) > 0 && est <= Number(p.estoqueMinimo);
+    return `<tr class="${p.ativo === false ? 'pf-in' : ''}" onclick="if(!event.target.closest('input')) rmPfEditar('${rmJs(p.id)}')">
+      <td data-label="Caixa"><b class="pf-cxn">${p.parafuso.cx}</b></td><td>${rmPfFotoHtml(p, 'pf-tf')}</td>
+      <td data-label="Tipo">${rmEscapeHtml(p.parafuso.tipo || p.nome)}<small class="pf-tcat">${rmEscapeHtml(p.parafuso.cat || '')}</small></td>
+      <td data-label="Medida"><b>${rmEscapeHtml(p.parafuso.med || '')}</b></td>
+      <td data-label="Preço un.">${pode ? `<input class="pf-in-v${rmPfPreco(p) ? '' : ' vazio'}" inputmode="decimal" value="${rmPfPreco(p) ? rmFmtNum(rmPfPreco(p)) : ''}" placeholder="sem preço" onfocus="this.select()" onchange="rmPfSalvarCampo('${rmJs(p.id)}','preco',this.value)" onkeydown="rmPfTabEnter(event)">` : (rmPfPreco(p) ? rmFormatMoeda(rmPfPreco(p)) : 'sem preço')}</td>
+      <td data-label="Estoque">${pode ? `<input class="pf-in-v${baixo ? ' baixo' : ''}" inputmode="decimal" value="${rmFmtQtd(est)}" onfocus="this.select()" onchange="rmPfSalvarCampo('${rmJs(p.id)}','estoque',this.value)" onkeydown="rmPfTabEnter(event)">` : `<span class="${baixo ? 'rm-produto-estoque-baixo' : ''}">${rmFmtQtd(est)}</span>`}</td>
+      <td data-label="Contagem">${rmInvSeloLista(p.id)}</td>
+      <td data-label="Status">${p.ativo === false ? '<span class="rm-pdv-tag-orcamento">Inativo</span>' : 'Ativo'}</td></tr>`;
+  }).join('') + rmMaisLinha('pf', l.length, 'rmPfEstCorpo', 8) : '<tr><td colspan="8" class="rm-problema-empty" style="padding:20px">Nenhum parafuso nesse filtro</td></tr>';
+}
+// Enter desce para o mesmo campo da próxima linha (para preencher preços rápido)
+function rmPfTabEnter(ev){
+  if(ev.key !== 'Enter') return; ev.preventDefault();
+  const td = ev.target.closest('td'), tr = td.closest('tr'), col = [...tr.children].indexOf(td);
+  ev.target.blur();
+  let prox = tr.nextElementSibling; while(prox && !(prox.children[col] && prox.children[col].querySelector('input'))) prox = prox.nextElementSibling;
+  if(prox){ const i = prox.children[col].querySelector('input'); i.focus(); i.select(); }
+}
+function rmPfSalvarCampo(id, campo, valor){
+  const prods = rmLoadProdutos(), p = prods.find(x => x.id === id); if(!p) return;
+  const v = Math.max(0, rmParseMoeda(valor));
+  if(campo === 'preco'){
+    const antes = rmPfPreco(p); if(Math.abs(antes - v) < 0.0001) return;
+    const parcIgual = !(Number(p.precoParceiro) > 0) || Math.abs(Number(p.precoParceiro) - antes) < 0.0001;
+    p.precoConsumidor = v; if(parcIgual) p.precoParceiro = v;
+    rmLog('Mudou preço do parafuso', 'CX ' + p.parafuso.cx + ' · ' + p.nome, rmFormatMoeda(antes) + ' → ' + rmFormatMoeda(v));
+  } else {
+    const antes = Number(p.estoqueAtual) || 0; if(Math.abs(antes - v) < 0.0001) return;
+    p.estoqueAtual = v;
+    rmLog('Ajustou estoque do parafuso', 'CX ' + p.parafuso.cx + ' · ' + p.nome, rmFmtQtd(antes) + ' → ' + rmFmtQtd(v));
+  }
+  rmSaveProdutos(prods); rmDbUpsertProduto(p);
+  rmShowToast('CX ' + p.parafuso.cx + ' salvo');
+}
+function rmPfPrecoLote(){
+  const l = rmPfEstLista(); if(!l.length) return;
+  const sem = l.filter(p => !rmPfPreco(p));
+  const v = prompt(`Preço por unidade para ${sem.length ? 'os ' + sem.length + ' parafuso(s) SEM PREÇO' : 'os ' + l.length + ' parafuso(s)'} da lista filtrada:\n(ex.: 0,35)`);
+  if(v == null) return;
+  const n = rmParseMoeda(v); if(!(n > 0)){ alert('Preço inválido.'); return; }
+  const alvo = sem.length ? sem : l;
+  if(!confirm('Colocar ' + rmFormatMoeda(n) + ' em ' + alvo.length + ' parafuso(s)?')) return;
+  const prods = rmLoadProdutos(), idx = rmIdx(prods);
+  alvo.forEach(a => { const p = idx.get(a.id); if(!p) return; p.precoConsumidor = n; if(!(Number(p.precoParceiro) > 0)) p.precoParceiro = n; rmDbUpsertProduto(p); });
+  rmSaveProdutos(prods);
+  rmLog('Preço em lote nos parafusos', alvo.length + ' item(ns)', rmFormatMoeda(n) + ' · CX ' + alvo.map(p => p.parafuso.cx).join(', ').slice(0, 800));
+  rmShowToast('Preço colocado em ' + alvo.length + ' parafuso(s)'); rmPfRenderEstoque();
+}
+// novo / editar parafuso
+let rmPfFotoNova = null;
+function rmPfEditar(id){
+  const p = id ? rmLoadProdutos().find(x => x.id === id) : null;
+  if(!rmPfPodeEditar()){ if(p) rmPfVenderCx(p.parafuso.cx); return; }
+  const lista = rmPfLista(), prox = Math.max(0, ...lista.map(x => Number(x.parafuso.cx) || 0)) + 1;
+  const pf = p ? p.parafuso : { cx: prox, cat: '', tipo: '', med: '', mais: false };
+  rmPfFotoNova = null;
+  const cats = [...new Set(lista.map(x => x.parafuso.cat).filter(Boolean))].sort(), tipos = [...new Set(lista.map(x => x.parafuso.tipo).filter(Boolean))].sort();
+  const modal = document.getElementById('rm-modal'); modal.classList.remove('rm-modal-large', 'rm-modal-os');
+  modal.innerHTML = `<div class="rm-modal-header"><div><div class="rm-modal-title">${p ? 'Editar parafuso · CX ' + pf.cx : 'Novo parafuso'}</div><div class="rm-modal-sub">${p ? rmEscapeHtml(p.nome) : 'Ele entra no estoque geral, marcado como parafuso'}</div></div><button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
+    <div class="pf-ed">
+      <div class="pf-ed-foto"><div id="rm-pf-ed-fv">${rmPfFotoHtml(p, 'pf-ed-img')}</div><label class="pf-bt">&#128444; Trocar foto<input type="file" accept="image/*" hidden onchange="rmPfFotoEscolher(this)"></label></div>
+      <div class="pf-ed-g">
+        <label>Nº da caixinha<input class="rm-input" id="rm-pf-ed-cx" inputmode="numeric" value="${pf.cx}"></label>
+        <label>Categoria<input class="rm-input" id="rm-pf-ed-cat" list="rm-pf-dl-cat" value="${rmEscapeHtml(pf.cat || '')}" placeholder="ex: Parafuso Sextavado"></label>
+        <label class="w2">Tipo (nome técnico)<input class="rm-input" id="rm-pf-ed-tipo" list="rm-pf-dl-tipo" value="${rmEscapeHtml(pf.tipo || '')}" placeholder="ex: Parafuso Sextavado Aço Grau 2 Polegada Unc" onchange="rmPfTipoEscolhido(this.value)"></label>
+        <label>Medida<input class="rm-input" id="rm-pf-ed-med" value="${rmEscapeHtml(pf.med || '')}" placeholder="ex: 1/4X1 ou 6X20 ou M8"></label>
+        <label>Unidade<input class="rm-input" id="rm-pf-ed-un" value="${rmEscapeHtml((p && p.unidade) || 'UN')}"></label>
+        <label>Preço por unidade<input class="rm-input" id="rm-pf-ed-pr" inputmode="decimal" value="${p && rmPfPreco(p) ? rmFmtNum(rmPfPreco(p)) : ''}" placeholder="0,00"></label>
+        <label>Preço de custo<input class="rm-input" id="rm-pf-ed-cu" inputmode="decimal" value="${p && Number(p.precoCusto) ? rmFmtNum(p.precoCusto) : ''}" placeholder="0,00"></label>
+        <label>Estoque atual<input class="rm-input" id="rm-pf-ed-est" inputmode="decimal" value="${p ? rmFmtQtd(Number(p.estoqueAtual) || 0) : '0'}"></label>
+        <label>Estoque mínimo<input class="rm-input" id="rm-pf-ed-min" inputmode="decimal" value="${p && Number(p.estoqueMinimo) ? rmFmtQtd(p.estoqueMinimo) : ''}" placeholder="0"></label>
+        <label class="w2">Para que serve (aplicação)<textarea class="rm-input" id="rm-pf-ed-apl" rows="2">${rmEscapeHtml((p && p.aplicacao) || '')}</textarea></label>
+        <label class="pf-ck"><input type="checkbox" id="rm-pf-ed-mais"${pf.mais ? ' checked' : ''}> Mais vendido (aparece nos atalhos)</label>
+        <label class="pf-ck"><input type="checkbox" id="rm-pf-ed-at"${!p || p.ativo !== false ? ' checked' : ''}> Ativo</label>
+      </div></div>
+    <datalist id="rm-pf-dl-cat">${cats.map(c => `<option value="${rmEscapeHtml(c)}">`).join('')}</datalist><datalist id="rm-pf-dl-tipo">${tipos.map(c => `<option value="${rmEscapeHtml(c)}">`).join('')}</datalist>
+    <div class="pf-ed-bts">${p ? `<button type="button" onclick="rmAbrirCadastroProdutoRapido('${rmJs(p.id)}')">Cadastro completo do produto</button>` : ''}<button type="button" class="pri" id="rm-pf-ed-ok" onclick="rmPfSalvarEdicao(${p ? `'${rmJs(p.id)}'` : 'null'})">${p ? 'Salvar' : 'Cadastrar parafuso'}</button></div>`;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+// tipo já existente: puxa categoria, aplicação e foto
+function rmPfTipoEscolhido(v){
+  const x = rmPfLista().find(p => p.parafuso.tipo === v); if(!x) return;
+  const set = (id, val) => { const e = document.getElementById(id); if(e && !e.value.trim()) e.value = val || ''; };
+  set('rm-pf-ed-cat', x.parafuso.cat); set('rm-pf-ed-apl', x.aplicacao);
+  const fv = document.getElementById('rm-pf-ed-fv'); if(fv && !fv.querySelector('img') && x.fotoUrl && !rmPfFotoNova){ rmPfFotoNova = { url: x.fotoUrl }; fv.innerHTML = rmPfFotoHtml(x, 'pf-ed-img'); }
+}
+function rmPfFotoEscolher(inp){
+  const f = inp.files && inp.files[0]; if(!f) return;
+  rmPfFotoNova = { file: f };
+  const r = new FileReader(); r.onload = e => { document.getElementById('rm-pf-ed-fv').innerHTML = `<img class="pf-ed-img" src="${e.target.result}" alt="">`; }; r.readAsDataURL(f);
+}
+async function rmPfSalvarEdicao(id){
+  const g = k => (document.getElementById('rm-pf-ed-' + k) || {}).value || '';
+  const cx = parseInt(g('cx'), 10), tipo = g('tipo').trim(), med = g('med').trim().toUpperCase().replace(/(\d)\.(\d)/g, '$1,$2');
+  if(!(cx > 0)){ alert('Informe o número da caixinha.'); return; }
+  if(!tipo){ alert('Informe o tipo do parafuso.'); return; }
+  if(!med){ alert('Informe a medida.'); return; }
+  if(!await rmPfColunaOk()){ alert('Falta rodar no Supabase o arquivo parafusos-supabase.sql (ele só acrescenta a coluna "parafuso" nos produtos). Depois disso o cadastro funciona.'); return; }
+  const prods = rmLoadProdutos();
+  const outro = prods.find(x => x.parafuso && Number(x.parafuso.cx) === cx && x.id !== id);
+  if(outro && !confirm(`A caixinha ${cx} já é do parafuso "${outro.nome}".\nUsar o mesmo número mesmo assim? (o certo é cada caixinha ter um número só)`)) return;
+  const bt = document.getElementById('rm-pf-ed-ok'); if(bt){ bt.disabled = true; bt.textContent = 'Salvando...'; }
+  let fotoUrl;
+  if(rmPfFotoNova && rmPfFotoNova.file){ fotoUrl = await rmUploadFotoProduto(rmPfFotoNova.file, id || 'pf'); if(!fotoUrl){ alert('Não consegui enviar a foto (sem internet?). O parafuso será salvo sem trocar a foto.'); } }
+  else if(rmPfFotoNova && rmPfFotoNova.url) fotoUrl = rmPfFotoNova.url;
+  let p = id ? prods.find(x => x.id === id) : null; const novo = !p;
+  if(novo){ p = { id: 'p' + Date.now() + Math.random().toString(36).slice(2, 5), criadoEm: new Date().toISOString(), codigo: '', marca: '', categoria: 'PARAFUSOS', ativo: true }; prods.unshift(p); }
+  const antes = novo ? null : JSON.stringify({ c: p.parafuso, pr: p.precoConsumidor, e: p.estoqueAtual });
+  const pr = rmParseMoeda(g('pr')), estNovo = rmParseMoeda(g('est'));
+  const parcIgual = !(Number(p.precoParceiro) > 0) || Math.abs(Number(p.precoParceiro) - rmPfPreco(p)) < 0.0001;
+  p.parafuso = { cx, cat: g('cat').trim(), tipo, med, mais: !!(document.getElementById('rm-pf-ed-mais') || {}).checked };
+  p.nome = (tipo + ' ' + med).toUpperCase();
+  p.categoria = p.categoria || 'PARAFUSOS'; p.subcategoria = p.parafuso.cat;
+  p.localizacao = 'CX ' + cx; p.aplicacao = g('apl').trim(); p.unidade = (g('un').trim() || 'UN').toUpperCase();
+  p.precoConsumidor = pr; if(parcIgual) p.precoParceiro = pr;
+  p.precoCusto = rmParseMoeda(g('cu')); p.estoqueMinimo = rmParseMoeda(g('min'));
+  p.estoqueAtual = estNovo; p.ativo = !!(document.getElementById('rm-pf-ed-at') || {}).checked;
+  if(fotoUrl) p.fotoUrl = fotoUrl;
+  rmSaveProdutos(prods); rmDbUpsertProduto(p);
+  rmLog(novo ? 'Cadastrou parafuso' : 'Editou parafuso', 'CX ' + cx + ' · ' + p.nome, novo ? rmFormatMoeda(pr) + ' · estoque ' + rmFmtQtd(estNovo) : antes + ' → ' + JSON.stringify({ c: p.parafuso, pr: p.precoConsumidor, e: p.estoqueAtual }));
+  rmCloseModal(); rmShowToast(novo ? 'Parafuso cadastrado · CX ' + cx : 'Parafuso salvo'); rmPfRender();
+}
+async function rmPfColunaOk(){
+  if(rmPfColOk === true) return true;
+  if(navigator.onLine === false) return rmPfColOk !== false;
+  try{ const r = await rmSb.from('produtos').select('id,parafuso').limit(1); rmPfColOk = !(r && r.error && /parafuso/i.test(String(r.error.message || r.error))); }
+  catch(e){ return true; }
+  return rmPfColOk;
+}
+
+// ----- NOÇÕES TÉCNICAS -----
+function rmPfRenderNocoes(){
+  const el = document.getElementById('rm-view-pf-nocoes');
+  const pol = [['1/8', '3,18', 40], ['5/32', '3,97', 32], ['3/16', '4,76', 24], ['1/4', '6,35', 20], ['5/16', '7,94', 18], ['3/8', '9,53', 16], ['1/2', '12,70', 13], ['5/8', '15,88', 11], ['3/4', '19,05', 10], ['7/8', '22,23', 9], ['1"', '25,40', 8]];
+  const mm = [['M3', '0,5', '5,5', '2,5'], ['M4', '0,7', '7', '3'], ['M5', '0,8', '8', '4'], ['M6', '1,0', '10', '5'], ['M8', '1,25', '13', '6'], ['M10', '1,5', '17', '8'], ['M12', '1,75', '19', '10'], ['M14', '2,0', '22', '12'], ['M16', '2,0', '24', '14']];
+  const svg = `<svg viewBox="0 0 440 175" class="pf-svg" role="img" aria-label="Partes de um parafuso"><g stroke="currentColor" stroke-width="2" fill="var(--rm-bg)"><polygon points="40,35 70,35 70,135 40,135"/><rect x="70" y="62" width="290" height="46"/></g>
+    ${Array.from({ length: 24 }, (_, i) => `<line x1="${140 + i * 9}" y1="62" x2="${146 + i * 9}" y2="108" stroke="currentColor" stroke-width="1.3" opacity=".7"/>`).join('')}
+    <g stroke="#d9433a" stroke-width="2" fill="#d9433a" font-size="14" font-family="inherit" font-weight="700"><line x1="70" y1="150" x2="360" y2="150"/><polygon points="70,150 80,145 80,155"/><polygon points="360,150 350,145 350,155"/><text x="150" y="170" stroke="none">COMPRIMENTO (ex: 25 mm)</text>
+    <line x1="385" y1="62" x2="385" y2="108"/><polygon points="385,62 380,72 390,72"/><polygon points="385,108 380,98 390,98"/><text x="368" y="128" stroke="none">Ø 6 mm</text><text x="20" y="25" stroke="none">CABEÇA</text><text x="150" y="52" stroke="none" fill="#2e6fd0">PASSO = distância entre os fios</text></g></svg>`;
+  // um cartão por categoria que existe na loja (foto e explicação vêm do cadastro)
+  const porCat = new Map(); rmPfLista().sort((a, b) => a.parafuso.cx - b.parafuso.cx).forEach(p => { const c = p.parafuso.cat || ''; if(c && !porCat.has(c)) porCat.set(c, p); if(c && porCat.has(c) && !porCat.get(c).aplicacao && p.aplicacao) porCat.set(c, p); });
+  const dicas = {
+    'Parafuso Chipboard': 'Rosca total e ponta fina. Para madeira, MDF e aglomerado (móveis). Não precisa de bucha em madeira.',
+    'Parafuso Autoatarraxante': 'Abre a própria rosca em chapa fina, plástico e madeira. Em chapa, precisa de um furo pequeno antes.',
+    'Parafuso Auto Brocante': 'Tem uma pontinha de broca: fura e rosqueia a chapa de metal de uma vez, sem furar antes.',
+    'Parafuso Sextavado': 'Cabeça de 6 lados para chave fixa/soquete. Rosca máquina (usa porca ou rosca no furo) ou rosca soberba (madeira com bucha).',
+    'Parafuso Allen': 'Cabeça com sextavado interno (chave Allen). Usado em motor, máquinas e onde a cabeça precisa ficar embutida.',
+    'Parafuso Francês': 'Cabeça redonda lisa com pescoço quadrado que trava na madeira. Usa porca do outro lado.',
+    'Parafuso Rosca Máquina': 'Rosca fina e igual do começo ao fim. Trabalha com porca ou furo roscado.',
+    'Porca': 'Medida da porca = medida do parafuso (ex.: porca M8 vai no parafuso M8). Travante (parlock) tem anel de nylon que não deixa soltar.',
+    'Arruela': 'Lisa: distribui a força e protege a peça. De pressão: ajuda a não soltar com vibração.',
+    'Bucha': 'O número da bucha é o número da broca (bucha 6 = broca 6 mm). Bucha 6 usa parafuso de 4,0 a 4,5; bucha 8 usa 4,5 a 5; bucha 10 usa 6.',
+    'Parabolt / Chumbador': 'Fixação pesada em concreto: fura com a medida do parabolt, coloca e aperta a porca que ele expande.',
+    'Rebite': 'Une chapas sem rosca, com rebitador. Medida = diâmetro × comprimento (o comprimento deve passar um pouco a espessura das chapas).'
+  };
+  el.innerHTML = `<div class="pf-h"><h1 class="rm-title">Noções técnicas</h1><span class="pf-sub-t">para quem está no balcão entender e explicar ao cliente</span></div>
+    <div class="pf-nt">
+      <div class="pf-card"><h3>&#128207; Como ler a medida de um parafuso</h3>${svg}
+        <p><b>M6 × 1,0 × 25</b> &rarr; <b>M6</b> = rosca métrica de 6 mm de diâmetro · <b>1,0</b> = passo da rosca · <b>25</b> = comprimento em mm (medido sem a cabeça; na cabeça chata conta a cabeça).</p>
+        <p><b>1/4 × 1</b> (polegada) &rarr; diâmetro 1/4" e comprimento 1". <b>4,5 × 16</b> (chipboard/madeira) &rarr; 4,5 mm de diâmetro e 16 mm de comprimento.</p>
+        <p><b>Dica:</b> sem saber a medida, meça o diâmetro da rosca com paquímetro (ou compare com um parafuso do expositor) e o comprimento sem a cabeça.</p></div>
+      <div class="pf-card"><h3>&#128208; Polegada &#8644; milímetro</h3><div class="pf-tw"><table><tr><th>Polegada</th>${pol.map(p => `<td><b>${p[0]}</b></td>`).join('')}</tr><tr><th>mm</th>${pol.map(p => `<td>${p[1]}</td>`).join('')}</tr><tr><th>Fios por pol. (UNC)</th>${pol.map(p => `<td>${p[2]}</td>`).join('')}</tr></table></div>
+        <p>1 polegada = 25,4 mm. Na planilha, <b>11/2</b> quer dizer <b>1 e 1/2"</b> e <b>21/2</b> quer dizer <b>2 e 1/2"</b>. <b>UNC</b> = rosca grossa americana. <b>Soberba</b> = rosca para madeira (sem porca).</p>
+        <h3 style="margin-top:14px">&#128297; Milímetro: M3 a M16</h3><div class="pf-tw"><table><tr><th>Rosca</th>${mm.map(m => `<td><b>${m[0]}</b></td>`).join('')}</tr><tr><th>Passo normal</th>${mm.map(m => `<td>${m[1]}</td>`).join('')}</tr><tr><th>Chave sextavado</th>${mm.map(m => `<td>${m[2]}</td>`).join('')}</tr><tr><th>Chave Allen</th>${mm.map(m => `<td>${m[3]}</td>`).join('')}</tr></table></div>
+        <p class="pf-obs">Chave: tamanho mais comum (norma DIN). Alguns fabricantes usam uma medida diferente em M10, M12 e M14.</p></div>
+      <div class="pf-card"><h3>&#128737;&#65039; Acabamento</h3><ul class="pf-ul">
+        <li><b>Zincado branco:</b> prateado, proteção básica contra ferrugem. Uso geral e interno.</li>
+        <li><b>Bicromatizado:</b> amarelado/dourado, protege um pouco mais que o zincado branco.</li>
+        <li><b>Fosfotizado (preto):</b> uso interno e drywall; enferruja fácil no tempo.</li>
+        <li><b>Inox:</b> não enferruja. Para área externa, úmida, banheiro, barco.</li></ul></div>
+      <div class="pf-card"><h3>&#128170; Resistência</h3><ul class="pf-ul">
+        <li><b>Milímetro:</b> o número na cabeça. <b>8.8</b> = resistente (uso mecânico geral) · <b>10.9</b> e <b>12.9</b> = muito resistentes (motor, máquinas; o Allen 12.9 é desses).</li>
+        <li><b>Polegada:</b> <b>Grau 2</b> = comum (sem riscos na cabeça) · <b>Grau 5</b> = resistente (3 riscos) · <b>Grau 8</b> = muito resistente (6 riscos).</li>
+        <li>Na dúvida, troque por um igual ou mais forte. Nunca por um mais fraco em peça de segurança (freio, roda, suspensão).</li></ul></div>
+      <div class="pf-card pf-card-w"><h3>&#129520; Tipos que tem na loja</h3><div class="pf-tipos">${[...porCat.entries()].map(([c, p]) => `<div class="pf-tipo" onclick="rmPfFam=${rmEscapeHtml(JSON.stringify(p.parafuso.tipo))}; rmPfCatBusca=''; rmSetViewPf('catalogo')">${rmPfFotoHtml(p)}<b>${rmEscapeHtml(c)}</b><span>${rmEscapeHtml(dicas[c] || p.aplicacao || '')}</span></div>`).join('') || '<div class="pf-hint">Importe o catálogo para ver os tipos aqui.</div>'}</div></div>
+    </div>`;
+}
+
+// ----- CAIXINHAS E ETIQUETAS -----
+let rmPfEtqModelo = 'A4260', rmPfEtqTipo = 'caixa', rmPfEtqDe = 1, rmPfEtqAte = 60, rmPfEtqInicio = 1, rmPfCxBusca = '';
+function rmPfRenderCaixinhas(){
+  if(!document.getElementById('rm-pf-etq-css')){ const st = document.createElement('style'); st.id = 'rm-pf-etq-css'; st.textContent = RM_PF_ETQ_CSS; document.head.appendChild(st); }
+  const el = document.getElementById('rm-view-pf-caixinhas'), l = rmPfLista().sort((a, b) => a.parafuso.cx - b.parafuso.cx), pode = rmPfPodeEditar();
+  const max = l.length ? l[l.length - 1].parafuso.cx : 0;
+  if(rmPfEtqAte > max && max) rmPfEtqAte = Math.min(max, rmPfEtqDe + 59);
+  const rep = new Map(); l.forEach(p => rep.set(p.parafuso.cx, (rep.get(p.parafuso.cx) || 0) + 1));
+  const dup = [...rep.entries()].filter(([, n]) => n > 1).map(([c]) => c);
+  const mods = RM_ETQ_MODELOS.filter(m => ['A4251', 'A4256', 'A4255', 'A4260', 'A4261', 'A4262', 'A4263'].includes(m[0]));
+  const q = rmPfCxBusca.trim();
+  const vis = q ? l.filter(p => (/^\d+$/.test(q) && p.parafuso.cx === Number(q)) || rmBuscaBate([p.nome, p.parafuso.med, p.parafuso.cat], q)) : l;
+  el.innerHTML = `<div class="pf-h"><h1 class="rm-title">Caixinhas e etiquetas</h1>${pode ? `<label class="pf-bt pf-bt-imp">&#128229; Importar catálogo<input type="file" accept=".json,application/json" hidden onchange="rmPfImportar(this)"></label>` : ''}</div>
+    ${!l.length ? `<div class="pf-imp-dica"><b>Comece por aqui:</b> clique em <b>Importar catálogo</b> e escolha o arquivo <b>parafusos-catalogo.json</b>. Entram os 607 itens da planilha, já com foto, tipo e o número da caixinha (1 a 607), com preço e estoque zerados. Depois é só colocar os preços na subaba Estoque.</div>` : ''}
+    ${dup.length ? `<div class="pf-alerta">&#9888; Caixinha com número repetido: ${dup.join(', ')}. Cada caixinha deve ter um número só.</div>` : ''}
+    ${l.length ? `<div class="pf-org"><div>
+      <div class="pf-est-bar"><input class="rm-search" value="${rmEscapeHtml(q)}" placeholder="Buscar caixinha, tipo ou medida..." oninput="rmPfCxBusca=this.value; rmPfRenderCaixinhas(); const i=this; setTimeout(()=>{ const n=document.querySelector('#rm-view-pf-caixinhas .rm-search'); n.focus(); n.setSelectionRange(n.value.length,n.value.length); })"></div>
+      <div class="rm-table-wrap"><table class="rm-table pf-tb"><thead><tr><th style="width:100px">Caixinha</th><th style="width:50px"></th><th>Produto</th><th>Medida</th><th>Preço un.</th><th>Estoque</th></tr></thead><tbody>
+      ${rmLimitar('pfcx', vis).map(p => `<tr><td>${pode ? `<input class="pf-in-v pf-in-cx${rep.get(p.parafuso.cx) > 1 ? ' dup' : ''}" inputmode="numeric" value="${p.parafuso.cx}" onfocus="this.select()" onchange="rmPfMudarCx('${rmJs(p.id)}', this.value)" onkeydown="rmPfTabEnter(event)">` : `<b>${p.parafuso.cx}</b>`}</td><td>${rmPfFotoHtml(p, 'pf-tf')}</td><td>${rmEscapeHtml(p.parafuso.tipo || p.nome)}</td><td><b>${rmEscapeHtml(p.parafuso.med || '')}</b></td><td>${rmPfPreco(p) ? rmFormatMoeda(rmPfPreco(p)) : '<span class="pf-zero">sem preço</span>'}</td><td>${rmFmtQtd(Number(p.estoqueAtual) || 0)}</td></tr>`).join('')}
+      ${rmMaisLinha('pfcx', vis.length, 'rmPfRenderCaixinhas', 6)}</tbody></table></div>
+      <div class="pf-hint">Para trocar o número de uma caixinha, digite o novo número e saia do campo.</div></div>
+      <div class="pf-etq-p"><h3>&#128424; Imprimir etiquetas</h3>
+        <label>O que imprimir<select class="rm-osl-sel" onchange="rmPfEtqTipo=this.value; rmPfEtqModelo=this.value==='numero'?'A4251':'A4260'; rmPfRenderCaixinhas()"><option value="caixa"${rmPfEtqTipo === 'caixa' ? ' selected' : ''}>Etiqueta completa (nº, foto, medida e preço)</option><option value="numero"${rmPfEtqTipo === 'numero' ? ' selected' : ''}>Só o número (para o expositor)</option></select></label>
+        <div class="pf-etq-2"><label>Da caixinha<input class="rm-input" inputmode="numeric" value="${rmPfEtqDe}" onchange="rmPfEtqDe=Math.max(1,parseInt(this.value)||1); rmPfRenderCaixinhas()"></label><label>até<input class="rm-input" inputmode="numeric" value="${rmPfEtqAte}" onchange="rmPfEtqAte=Math.max(1,parseInt(this.value)||1); rmPfRenderCaixinhas()"></label></div>
+        <div class="pf-etq-r">${Array.from({ length: Math.ceil(Math.max(max, 1) / RM_PF_POR_EXPOSITOR) }, (_, i) => `<button type="button" onclick="rmPfEtqDe=${i * 60 + 1}; rmPfEtqAte=${Math.min(max, i * 60 + 60)}; rmPfRenderCaixinhas()">Exp. ${i + 1}</button>`).join('')}</div>
+        <label>Folha Pimaco<select class="rm-osl-sel" onchange="rmPfEtqModelo=this.value; rmPfRenderCaixinhas()">${mods.map(m => `<option value="${m[0]}"${m[0] === rmPfEtqModelo ? ' selected' : ''}>${m[0]} · ${m[3] * m[4]} por folha (${String(m[1]).replace('.', ',')} × ${String(m[2]).replace('.', ',')} mm)</option>`).join('')}</select></label>
+        <label>Começar na etiqueta nº<input class="rm-input" inputmode="numeric" value="${rmPfEtqInicio}" onchange="rmPfEtqInicio=Math.max(1,parseInt(this.value)||1); rmPfRenderCaixinhas()"></label>
+        <div class="pf-etq-prev">${rmPfEtqFolhas(true)}</div>
+        <button type="button" class="pf-bt-pri" style="width:100%" onclick="rmPfEtqImprimir()">Imprimir ${rmPfEtqItens().length} etiqueta(s)</button></div></div>` : ''}`;
+}
+function rmPfEtqItens(){ const de = Math.min(rmPfEtqDe, rmPfEtqAte), ate = Math.max(rmPfEtqDe, rmPfEtqAte); return rmPfLista().filter(p => p.parafuso.cx >= de && p.parafuso.cx <= ate).sort((a, b) => a.parafuso.cx - b.parafuso.cx); }
+function rmPfEtqFolhas(previa){
+  const m = RM_ETQ_MODELOS.find(x => x[0] === rmPfEtqModelo) || RM_ETQ_MODELOS[5];
+  const [, w, h, cols, rows, left, top, gapH, gapV] = m, por = cols * rows;
+  const its = rmPfEtqItens(), pos = []; for(let i = 0; i < Math.min(rmPfEtqInicio - 1, por - 1); i++) pos.push(null); its.forEach(p => pos.push(p));
+  const folhas = []; for(let i = 0; i < pos.length; i += por) folhas.push(pos.slice(i, i + por));
+  const etq = p => {
+    if(!p) return '';
+    if(rmPfEtqTipo === 'numero') return `<div class="pfe-n" style="font-size:${(h * 0.62).toFixed(1)}mm">${p.parafuso.cx}</div>`;
+    const ft = Math.min(h * 0.62, w * 0.36);
+    return `<div class="pfe"><div class="pfe-n" style="font-size:${(h * 0.26).toFixed(1)}mm">${p.parafuso.cx}</div><div class="pfe-c">${p.fotoUrl ? `<img src="${rmEscapeHtml(p.fotoUrl)}" style="width:${ft.toFixed(1)}mm;height:${ft.toFixed(1)}mm">` : ''}<div><b style="font-size:${(h * 0.13).toFixed(1)}mm">${rmEscapeHtml(p.parafuso.med || '')}</b><span style="font-size:${(h * 0.075).toFixed(1)}mm">${rmEscapeHtml(p.parafuso.tipo || p.nome)}</span>${rmPfPreco(p) ? `<i style="font-size:${(h * 0.12).toFixed(1)}mm">${rmFormatMoeda(rmPfPreco(p))} un</i>` : ''}</div></div></div>`;
+  };
+  const folha = l => `<div class="pfe-folha">${l.map((p, i) => { const r = Math.floor(i / cols), c = i % cols; return `<div class="pfe-k${p ? '' : ' v'}" style="left:${(left + c * (w + gapH)).toFixed(2)}mm;top:${(top + r * (h + gapV)).toFixed(2)}mm;width:${w}mm;height:${h}mm">${etq(p)}</div>`; }).join('')}</div>`;
+  if(previa) return folhas.length ? `<div class="pfe-esc">${folha(folhas[0])}</div><div class="pf-hint">${folhas.length} folha(s) · prévia da 1ª</div>` : '<div class="pf-hint">Nenhuma caixinha nesse intervalo</div>';
+  return folhas.map(folha).join('');
+}
+const RM_PF_ETQ_CSS = `.pfe-folha{position:relative; width:210mm; height:297mm; overflow:hidden; background:#fff; color:#111; font-family:Arial,Helvetica,sans-serif}
+  .pfe-k{position:absolute; box-sizing:border-box; padding:1.2mm 1.5mm; overflow:hidden; display:flex; align-items:center; justify-content:center}
+  .pfe{width:100%; height:100%; display:flex; flex-direction:column}
+  .pfe-n{font-weight:900; text-align:center; line-height:1; width:100%}
+  .pfe .pfe-n{border-bottom:.5mm solid #111; padding-bottom:.6mm}
+  .pfe-c{flex:1; display:flex; align-items:center; gap:1.5mm; min-height:0; padding-top:.6mm}
+  .pfe-c img{object-fit:contain; flex-shrink:0} .pfe-c div{min-width:0; display:flex; flex-direction:column; gap:.4mm}
+  .pfe-c b{font-weight:900; line-height:1.05} .pfe-c span{line-height:1.1; max-height:3.4em; overflow:hidden} .pfe-c i{font-style:normal; font-weight:900}`;
+function rmPfEtqImprimir(){
+  if(!rmPfEtqItens().length){ alert('Nenhuma caixinha nesse intervalo.'); return; }
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>Etiquetas das caixinhas</title><style>@page{size:A4; margin:0;} html,body{margin:0; padding:0;} ${RM_PF_ETQ_CSS}
+    .pfe-folha{page-break-after:always; break-after:page;} .pfe-folha:last-child{page-break-after:auto; break-after:auto;}</style></head><body>${rmPfEtqFolhas(false)}</body></html>`;
+  let frame = document.getElementById('rm-print-etq');
+  if(!frame){ frame = document.createElement('iframe'); frame.id = 'rm-print-etq'; frame.style.cssText = 'position:fixed; width:0; height:0; border:0; right:0; bottom:0;'; document.body.appendChild(frame); }
+  const doc = frame.contentWindow.document; doc.open(); doc.write(html); doc.close();
+  const imgs = [...doc.images];
+  Promise.race([Promise.all(imgs.map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; }))), new Promise(r => setTimeout(r, 6000))])
+    .then(() => { frame.contentWindow.focus(); frame.contentWindow.print(); });
+  rmLog('Imprimiu etiquetas das caixinhas', 'CX ' + Math.min(rmPfEtqDe, rmPfEtqAte) + ' a ' + Math.max(rmPfEtqDe, rmPfEtqAte), rmPfEtqTipo === 'numero' ? 'só número' : 'completa');
+}
+function rmPfMudarCx(id, v){
+  const n = parseInt(v, 10); const prods = rmLoadProdutos(), p = prods.find(x => x.id === id); if(!p) return;
+  if(!(n > 0)){ alert('Número inválido.'); rmPfRenderCaixinhas(); return; }
+  if(n === p.parafuso.cx) return;
+  const outro = prods.find(x => x.parafuso && Number(x.parafuso.cx) === n && x.id !== id);
+  if(outro){
+    if(!confirm(`A caixinha ${n} é do "${outro.nome}".\nTrocar os dois de lugar? (este vai para a ${n} e aquele para a ${p.parafuso.cx})`)){ rmPfRenderCaixinhas(); return; }
+    outro.parafuso = Object.assign({}, outro.parafuso, { cx: p.parafuso.cx }); outro.localizacao = 'CX ' + p.parafuso.cx; rmDbUpsertProduto(outro);
+  }
+  const antes = p.parafuso.cx;
+  p.parafuso = Object.assign({}, p.parafuso, { cx: n }); p.localizacao = 'CX ' + n; rmDbUpsertProduto(p);
+  rmSaveProdutos(prods); rmLog('Mudou o número da caixinha', p.nome, antes + ' → ' + n + (outro ? ' (trocou com ' + outro.nome + ')' : ''));
+  rmShowToast('Caixinha ' + antes + ' → ' + n); rmPfRenderCaixinhas();
+}
+// importa o catálogo (arquivo parafusos-catalogo.json): cria os produtos com foto, sem preço e sem estoque. Não duplica.
+async function rmPfImportar(inp){
+  const f = inp.files && inp.files[0]; inp.value = ''; if(!f) return;
+  let d; try{ d = JSON.parse(await f.text()); }catch(e){ alert('Esse arquivo não é o catálogo de parafusos.'); return; }
+  if(!d || d.formato !== 'radical-parafusos' || !Array.isArray(d.itens)){ alert('Esse arquivo não é o catálogo de parafusos (parafusos-catalogo.json).'); return; }
+  if(navigator.onLine === false){ alert('Precisa de internet para importar (as fotos vão para o servidor).'); return; }
+  rmPfColOk = null;
+  if(!await rmPfColunaOk()){ alert('Falta rodar no Supabase o arquivo parafusos-supabase.sql (ele só acrescenta a coluna "parafuso" nos produtos). Rode e depois importe de novo.'); return; }
+  const prods = rmLoadProdutos(), ids = new Set(prods.map(p => p.id));
+  const novos = d.itens.filter(i => !ids.has('pfcx' + i.cx));
+  if(!novos.length){ alert('Esse catálogo já foi importado. Nada novo para trazer.'); return; }
+  if(!confirm(`Importar ${novos.length} item(ns) do catálogo de parafusos?\n\nEles entram no estoque geral marcados como parafuso, com foto, na caixinha da planilha, SEM preço e com estoque zero.` + (novos.length < d.itens.length ? `\n(${d.itens.length - novos.length} já existiam e ficam como estão)` : ''))) return;
+  const ov = document.createElement('div'); ov.id = 'rm-pf-imp-ov'; ov.innerHTML = '<div><b>Importando parafusos...</b><span id="rm-pf-imp-tx">Enviando fotos</span><i><u id="rm-pf-imp-bar"></u></i></div>'; document.body.appendChild(ov);
+  const prog = (t, f) => { const a = document.getElementById('rm-pf-imp-tx'), b = document.getElementById('rm-pf-imp-bar'); if(a) a.textContent = t; if(b) b.style.width = Math.round(f * 100) + '%'; };
+  try{
+    // 1) fotos (uma por tipo)
+    const precisa = [...new Set(novos.map(i => i.foto).filter(Boolean))], urls = {};
+    let k = 0;
+    for(const h of precisa){
+      const src = d.fotos && d.fotos[h]; k++; prog('Enviando fotos ' + k + ' de ' + precisa.length, k / precisa.length * 0.5);
+      if(!src) continue;
+      const blob = await (await fetch(src)).blob(), ext = (blob.type.split('/')[1] || 'png').replace('jpeg', 'jpg'), path = 'parafusos/' + h + '.' + ext;
+      let ok = false;
+      for(let t = 0; t < 3 && !ok; t++){ const r = await rmSb.storage.from('produtos-fotos').upload(path, blob, { contentType: blob.type || 'image/png', upsert: true }); ok = !(r && r.error); if(!ok) await rmEspera(1000); }
+      if(ok) urls[h] = rmSb.storage.from('produtos-fotos').getPublicUrl(path).data.publicUrl;
+    }
+    // 2) produtos
+    const agora = new Date().toISOString();
+    const lista = novos.map(i => ({ id: 'pfcx' + i.cx, nome: (i.tipo + ' ' + i.med).toUpperCase(), codigo: '', codigoBarras: '', marca: '', aplicacao: i.apl || '', curva: '', categoria: 'PARAFUSOS', subcategoria: i.cat || '',
+      localizacao: 'CX ' + i.cx, precoCusto: 0, precoConsumidor: 0, precoParceiro: 0, estoqueAtual: 0, estoqueMinimo: 0, estoqueMaximo: 0, unidade: 'UN', ehServico: false, observacao: '',
+      fotoUrl: (i.foto && urls[i.foto]) || null, ativo: true, criadoEm: agora, parafuso: { cx: i.cx, cat: i.cat || '', tipo: i.tipo || '', med: i.med || '', mais: !!i.mais } }));
+    for(let a = 0; a < lista.length; a += 100){
+      prog('Gravando parafusos ' + Math.min(a + 100, lista.length) + ' de ' + lista.length, 0.5 + (a + 100) / lista.length * 0.5);
+      let ok = false, err;
+      for(let t = 0; t < 4 && !ok; t++){ const { error } = await rmUpsertDireto('produtos', lista.slice(a, a + 100).map(rmToDbRowProduto)); ok = !error; err = error; if(!ok) await rmEspera(1500); }
+      if(!ok) throw err || new Error('falha ao gravar');
+      const atual = rmLoadProdutos(), tem = new Set(atual.map(p => p.id));
+      rmSaveProdutos(lista.slice(a, a + 100).filter(p => !tem.has(p.id)).concat(atual));
+    }
+    rmLog('Importou catálogo de parafusos', lista.length + ' item(ns)', Object.keys(urls).length + ' foto(s)');
+    ov.remove();
+    alert(lista.length + ' parafuso(s) importado(s)!\n\nAgora coloque os preços em Parafusos → Estoque (dá para digitar direto na tabela, ou usar "Preço em lote").');
+    rmSetViewPf('estoque');
+  }catch(e){
+    console.error(e); ov.remove();
+    alert('A importação parou no meio (' + (e && e.message || e) + ').\nVerifique a internet e clique em Importar de novo: o que já entrou não duplica.');
+    rmPfRender();
+  }
 }
 
 // ----- Oficina › Concluídas: motos feitas, separadas por dia, com foto pequena -----
