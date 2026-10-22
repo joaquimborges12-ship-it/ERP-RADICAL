@@ -424,6 +424,16 @@
   .cc-st{display:inline-block; font-size:11px; font-weight:800; padding:2px 7px; text-transform:uppercase; margin-top:3px}
   .cc-st.p{background:#fff1d6; color:#9a6a00} .cc-st.e{background:#e3f4ea; color:#2e8b57} .cc-st.r{background:#e7eefb; color:#2e6fd0}
   .cc-mais{width:100%; padding:12px; font-weight:700; cursor:pointer}
+  /* card das subabas Na oficina e Concluídas: nome inteiro em cima, etiquetas embaixo */
+  .cc-it.cb{display:grid; grid-template-columns:96px minmax(0,1fr); gap:6px 12px; align-items:start}
+  .cc-it.cb > img, .cc-it.cb > .cc-sf{width:96px; height:72px; grid-row:1}
+  .cb-tx{min-width:0} .cb-tx span{display:block; font-size:13px; color:var(--rm-text-dim); overflow-wrap:break-word}
+  .cb-tx .cb-cli{color:var(--rm-text)}
+  .cb-top{display:flex; justify-content:space-between; gap:8px; align-items:baseline} .cb-top b{font-size:14.5px; overflow-wrap:break-word; min-width:0}
+  .cb-top small{font-weight:700; color:var(--rm-text-dim); white-space:nowrap; font-size:12.5px}
+  .cb-pe{grid-column:1 / 3; display:flex; gap:6px 10px; flex-wrap:wrap; align-items:center; border-top:1px solid var(--rm-border); padding-top:6px; font-size:12.5px}
+  .cb-pe .cc-st{margin:0} .cb-mec{color:var(--rm-text-dim); overflow-wrap:break-word} .cb-dir{margin-left:auto; font-size:13px; white-space:nowrap}
+  .cb-pe .no-d{font-size:12.5px !important}
   .no-tot{font-size:18px; color:var(--rm-text-dim); font-weight:600}
   .no-res{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px}
   .no-chip{padding:8px 14px; background:var(--rm-panel); border:1px solid var(--rm-border); border-left:5px solid var(--c); font-weight:700; font-size:14px; font-family:inherit; color:var(--rm-text); cursor:pointer}
@@ -2729,7 +2739,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 22/10 às 00:10</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 22/10 às 00:25</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -6847,7 +6857,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610220010; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610220025; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -17855,9 +17865,9 @@ function rmNoRender(){
     const sem = !r.clienteId, st = RM_STATUS[r.status] || RM_STATUS.aberto, d = rmNoDiasParada(r);
     const cli = (r.nome || (sem ? '' : '—')) + (sem ? (r.nome ? ' · ' : '') + '(sem cadastro)' + (r.telefone ? ' · ' + r.telefone : '') : '');
     const quando = d === 0 ? 'hoje' : d === 1 ? 'há 1 dia' : 'há ' + d + ' dias';
-    return `<div class="cc-it${d > 7 ? ' no-parada' : ''}" onclick="rmOpenModal('${rmJs(r.id)}', true)">${r.fotoUrl ? `<img src="${rmEscapeHtml(r.fotoUrl)}" loading="lazy" decoding="async" alt="">` : '<div class="cc-sf">&#127949;</div>'}
-      <div class="cc-tx"><b>${rmEscapeHtml(r.modelo || 'MOTO')}</b><span>${rmEscapeHtml(cli)}</span><span>${rmEscapeHtml(rmCcServico(r) || '—')} · ${r.mecanico ? rmEscapeHtml(r.mecanico) : '<i class="no-semmec">sem mecânico</i>'}</span></div>
-      <div class="cc-dir"><b class="no-d${d > 7 ? ' ruim' : ''}">${quando}</b>${rmEscapeHtml(r.codigoApp || '')}<br><span class="cc-st" style="background:${st.color}22; color:${st.color}">${rmEscapeHtml(st.label)}</span></div></div>`;
+    return `<div class="cc-it cb${d > 7 ? ' no-parada' : ''}" onclick="rmOpenModal('${rmJs(r.id)}', true)">${r.fotoUrl ? `<img src="${rmEscapeHtml(r.fotoUrl)}" loading="lazy" decoding="async" alt="">` : '<div class="cc-sf">&#127949;</div>'}
+      <div class="cb-tx"><div class="cb-top"><b>${rmEscapeHtml(r.modelo || 'MOTO')}</b><small>${rmEscapeHtml(r.codigoApp || '')}</small></div><span class="cb-cli">${rmEscapeHtml(cli)}</span><span>${rmEscapeHtml(rmCcServico(r) || '—')}</span></div>
+      <div class="cb-pe"><span class="cc-st" style="background:${st.color}22; color:${st.color}">${rmEscapeHtml(st.label)}</span><span class="cb-mec">&#128295; ${r.mecanico ? rmEscapeHtml(r.mecanico) : '<i class="no-semmec">sem mecânico</i>'}</span><b class="cb-dir no-d${d > 7 ? ' ruim' : ''}">${d === 0 ? 'chegou hoje' : quando}</b></div></div>`;
   };
   el.innerHTML = mostra.map(g => {
     const dt = new Date(g.dia + 'T12:00:00'), dd = g.dia.slice(8, 10) + '/' + g.dia.slice(5, 7) + (g.dia.slice(0, 4) !== hoje.slice(0, 4) ? '/' + g.dia.slice(0, 4) : '');
@@ -17910,9 +17920,9 @@ function rmCcRender(){
     const sem = !r.clienteId;
     const cli = (r.nome || (sem ? '' : '—')) + (sem ? (r.nome ? ' · ' : '') + '(sem cadastro)' + (r.telefone ? ' · ' + r.telefone : '') : '');
     const st = r.status === 'entregue' ? '<span class="cc-st e">Entregue</span>' : '<span class="cc-st p">Pronta</span>';
-    return `<div class="cc-it" onclick="rmOpenModal('${rmJs(r.id)}', true)">${r.fotoUrl ? `<img src="${rmEscapeHtml(r.fotoUrl)}" loading="lazy" decoding="async" alt="">` : '<div class="cc-sf">&#127949;</div>'}
-      <div class="cc-tx"><b>${rmEscapeHtml(r.modelo || 'MOTO')}</b><span>${rmEscapeHtml(cli)}</span><span>${rmEscapeHtml([rmCcServico(r), r.mecanico].filter(Boolean).join(' · ') || '—')}</span></div>
-      <div class="cc-dir"><b>${rmFormatMoeda(rmOsTotais(r).total)}</b>${rmEscapeHtml(r.codigoApp || '')}<br>${r.retorno ? '<span class="cc-st r">Retorno</span> ' : ''}${st}</div></div>`;
+    return `<div class="cc-it cb" onclick="rmOpenModal('${rmJs(r.id)}', true)">${r.fotoUrl ? `<img src="${rmEscapeHtml(r.fotoUrl)}" loading="lazy" decoding="async" alt="">` : '<div class="cc-sf">&#127949;</div>'}
+      <div class="cb-tx"><div class="cb-top"><b>${rmEscapeHtml(r.modelo || 'MOTO')}</b><small>${rmEscapeHtml(r.codigoApp || '')}</small></div><span class="cb-cli">${rmEscapeHtml(cli)}</span><span>${rmEscapeHtml(rmCcServico(r) || '—')}</span></div>
+      <div class="cb-pe">${r.retorno ? '<span class="cc-st r">Retorno</span>' : ''}${st}${r.mecanico ? `<span class="cb-mec">&#128295; ${rmEscapeHtml(r.mecanico)}</span>` : ''}<b class="cb-dir">${rmFormatMoeda(rmOsTotais(r).total)}</b></div></div>`;
   };
   el.innerHTML = mostra.map(g => {
     const d = new Date(g.dia + 'T12:00:00'), dd = g.dia.slice(8, 10) + '/' + g.dia.slice(5, 7) + (g.dia.slice(0, 4) !== hoje.slice(0, 4) ? '/' + g.dia.slice(0, 4) : '');
