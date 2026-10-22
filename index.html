@@ -233,6 +233,71 @@
   .rm-nova-versao{position:fixed; left:50%; bottom:calc(84px + env(safe-area-inset-bottom)); transform:translateX(-50%); z-index:10070; background:#1f2329; color:#fff; display:flex; align-items:center; gap:10px; padding:10px 10px 10px 16px; box-shadow:0 8px 24px rgba(0,0,0,.3); font-size:14px; max-width:calc(100vw - 24px)}
   .rm-nova-versao button{border:0; background:#d9433a; color:#fff; font-weight:800; padding:8px 14px; font-family:inherit; cursor:pointer}
   .rm-nova-versao .x{background:none; font-size:20px; padding:0 4px}
+
+  /* ===== Parafusos › Vender (toque / iPad) ===== */
+  .ip{display:grid; grid-template-columns:290px minmax(0,1fr) 330px; gap:14px; align-items:start; -webkit-user-select:none; user-select:none}
+  .ip button, .ipt button, .ipm button, .ip-volta{touch-action:manipulation; -webkit-tap-highlight-color:transparent; cursor:pointer}
+  .ip button:active, .ipt button:active, .ipm button:active{transform:scale(.97)}
+  .ip-h{margin-bottom:10px}
+  .ip-pad{background:var(--rm-panel); border:1px solid var(--rm-border); padding:12px; position:sticky; top:10px}
+  .ip-modo{display:grid; grid-template-columns:1fr 1fr; margin-bottom:10px} .ip-modo button{padding:12px 6px; font-weight:800; font-size:15px; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text-dim); font-family:inherit}
+  .ip-modo button.on{background:var(--rm-text); color:var(--rm-panel); border-color:var(--rm-text)} .ip-modo button:disabled{opacity:.45; cursor:default}
+  .ip-vis{border:3px solid var(--rm-text); background:var(--rm-bg); padding:6px 14px; text-align:right; font-size:56px; font-weight:900; line-height:1.1; min-height:72px; margin-bottom:10px; letter-spacing:.02em; overflow:hidden}
+  .ip-vis.qtd{border-color:#2e6fd0} .ip-vis small{display:block; text-align:left; font-size:12px; font-weight:700; color:var(--rm-text-dim); letter-spacing:.05em; text-transform:uppercase} .ip-vis.qtd small{color:#2e6fd0}
+  .ip-ph{color:var(--rm-border)}
+  .ip-kp{display:grid; grid-template-columns:repeat(3,1fr); gap:8px} .ip-kp button{height:74px; font-size:32px; font-weight:800; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit}
+  .ip-kp .ok{background:#2e8b57; color:#fff; border-color:#2e8b57; font-size:22px} .ip-kp .ok.add{font-size:13.5px} .ip-kp .del{font-size:26px}
+  .ip-alt{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px} .ip-alt button{padding:14px 6px; font-weight:800; font-size:14.5px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-family:inherit}
+  .ip-card{background:var(--rm-panel); border:1px solid var(--rm-border); padding:16px; min-width:0}
+  .ip-vazio{display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; padding:30px 12px; color:var(--rm-text-dim); font-size:15px; line-height:1.5}
+  .ip-vazio b{font-size:20px; color:var(--rm-text)} .ip-vazio-i{font-size:46px}
+  .ip-top{display:flex; gap:16px} .ip-dados{min-width:0}
+  .ip-foto{width:230px; height:230px; object-fit:contain; background:#fff; border:1px solid var(--rm-border); flex-shrink:0; font-size:60px}
+  .ip-cx{display:inline-block; background:#d9433a; color:#fff; font-weight:900; font-size:clamp(17px,1.7vw,24px); padding:6px 14px; white-space:nowrap}
+  .ip-tipo{font-size:15px; color:var(--rm-text-dim); margin:10px 0 2px} .ip-med{font-size:46px; font-weight:900; line-height:1.05; overflow-wrap:break-word}
+  .ip-inf{display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:12px; font-size:13px; color:var(--rm-text-dim)} .ip-inf b{display:block; font-size:24px; color:var(--rm-text); white-space:nowrap}
+  .ip-q{display:flex; align-items:stretch; gap:10px; margin-top:16px} .ip-q > button{width:84px; height:84px; font-size:40px; font-weight:800; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit}
+  .ip-q .v{flex:1; border:3px solid var(--rm-border); display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:40px; font-weight:900; background:var(--rm-panel); cursor:pointer}
+  .ip-q .v.on{border-color:#2e6fd0} .ip-q .v small{font-size:11px; font-weight:700; color:#2e6fd0; letter-spacing:.05em}
+  .ip-rap{display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin-top:10px} .ip-rap button{height:58px; font-size:20px; font-weight:800; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit}
+  .ip-rap button.on{background:#2e6fd0; color:#fff; border-color:#2e6fd0}
+  .ip-add{width:100%; min-height:80px; margin-top:14px; border:0; background:#2e8b57; color:#fff; font-size:23px; font-weight:900; font-family:inherit}
+  .ip-ces{background:var(--rm-panel); border:1px solid var(--rm-border); padding:12px; display:flex; flex-direction:column; position:sticky; top:10px}
+  .ip-ces h3{margin:0 0 8px; font-size:17px; display:flex; justify-content:space-between} .ip-ces h3 small{font-weight:600; color:var(--rm-text-dim); font-size:13px}
+  .ip-it{display:grid; grid-template-columns:44px minmax(0,1fr) auto; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid var(--rm-border)}
+  .ip-it > img, .ip-it > .pf-sf{width:44px; height:44px; object-fit:contain; background:#fff; border:1px solid var(--rm-border)} .ip-it b{font-size:14px; display:block} .ip-it small{font-size:12px; color:var(--rm-text-dim); display:block}
+  .ip-it .cx{color:#d9433a; font-weight:900}
+  .ip-it .st{grid-column:2 / 4; display:flex; align-items:center; gap:6px} .ip-it .st button{width:48px; height:44px; font-size:22px; font-weight:800; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit}
+  .ip-it .st span{min-width:44px; text-align:center; font-weight:900; font-size:17px} .ip-it .st .x{margin-left:auto; font-size:19px} .ip-it .vl{font-weight:900; font-size:15px}
+  .ip-tot{display:flex; justify-content:space-between; font-size:26px; font-weight:900; margin:12px 0}
+  .ip-ces .go{min-height:72px; border:0; background:#d9433a; color:#fff; font-size:20px; font-weight:900; font-family:inherit}
+  .ip-ces .go2{min-height:60px; margin-top:8px; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-size:17px; font-weight:800; font-family:inherit}
+  .ip-ces .go:disabled, .ip-ces .go2:disabled{opacity:.45; cursor:default}
+  .ip-mvt{font-size:13px; font-weight:700; color:var(--rm-text-dim); margin-top:16px}
+  .ip-mv{display:flex; gap:8px; overflow-x:auto; margin-top:6px; padding-bottom:6px; -webkit-overflow-scrolling:touch}
+  .ip-mv button{flex:0 0 auto; display:flex; flex-direction:column; align-items:center; width:96px; padding:6px; border:1px solid var(--rm-border); background:var(--rm-panel); font-family:inherit; color:var(--rm-text)}
+  .ip-mv img, .ip-mv .pf-sf{width:60px; height:44px; object-fit:contain} .ip-mv b{color:#d9433a; font-size:16px} .ip-mv span{font-size:11.5px; font-weight:700; white-space:nowrap}
+  .ip-volta{font-size:17px; padding:14px 18px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-weight:800; font-family:inherit}
+  .ipt-w{display:grid; grid-template-columns:minmax(0,1fr) 420px; gap:14px; align-items:start}
+  .ipt{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px}
+  .ipt button{display:flex; flex-direction:column; align-items:center; gap:6px; padding:10px; border:1px solid var(--rm-border); background:var(--rm-panel); font-family:inherit; color:var(--rm-text); min-height:150px}
+  .ipt button.on{outline:3px solid #d9433a; outline-offset:-3px} .ipt img, .ipt .pf-sf{width:100%; height:84px; object-fit:contain; background:#fff}
+  .ipt b{font-size:13.5px; line-height:1.2} .ipt small{color:var(--rm-text-dim)}
+  .ipm-w{position:sticky; top:10px} .ipm-t{font-size:17px; display:block}
+  .ipm{display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:8px; margin-top:12px}
+  .ipm button{min-height:76px; border:1px solid var(--rm-border); background:var(--rm-panel); font-family:inherit; color:var(--rm-text); padding:6px}
+  .ipm button.sem{opacity:.55} .ipm b{display:block; font-size:19px} .ipm small{color:#d9433a; font-weight:800}
+  .ip-bl .pf-li{min-height:64px}
+  @media (max-width:1250px) and (min-width:1001px){ .ip{grid-template-columns:270px minmax(0,1fr) 310px} .ip-foto{width:170px; height:170px} .ip-cx{font-size:20px} .ip-med{font-size:38px} }
+  @media (max-width:1000px) and (min-width:701px){
+    .ip{grid-template-columns:270px minmax(0,1fr); grid-template-areas:"pad card" "ces ces"} .ip-card{grid-area:card} .ip-pad{grid-area:pad; position:static} .ip-ces{grid-area:ces; position:static}
+    .ip-foto{width:150px; height:150px} .ip-med{font-size:34px} .ip-kp button{height:66px} .ipt-w{grid-template-columns:minmax(0,1fr)} .ipm-w{position:static}
+  }
+  @media (max-width:700px){
+    .ip{grid-template-columns:minmax(0,1fr)} .ip-pad, .ip-ces{position:static} .ip-card{order:-1}
+    .ip-top{flex-direction:column} .ip-foto{width:100%; height:170px} .ip-med{font-size:32px} .ip-kp button{height:60px}
+    .ip-q > button{width:68px; height:68px} .ip-rap{grid-template-columns:repeat(3,1fr)} .ipt-w{grid-template-columns:minmax(0,1fr)} .ipt{grid-template-columns:repeat(2,minmax(0,1fr))} .ipm-w{position:static}
+  }
   /* ===== Parafusos ===== */
   .rm-pf-mostra{display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; white-space:nowrap; cursor:pointer}
   .pf-h{display:flex; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap} .pf-h h1{margin:0}
@@ -2739,7 +2804,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 22/10 às 00:25</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 22/10 às 00:32</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -6857,7 +6922,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610220025; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610220032; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -14050,7 +14115,7 @@ function rmSetSection(section){
     if(btn) btn.classList.toggle('active', s===section);
   });
   if(section === 'clientes'){ rmRenderClientes(); rmSyncProms(); }
-  if(section === 'parafusos') rmSetViewPf(rmPfSub);
+  if(section === 'parafusos') rmSetViewPf(rmPfSub); else rmPfModoBalcao(false);
   if(section === 'visao-geral'){ rmVgSyncSenha(); rmSetViewVg(rmVgSub); rmSyncProms().then(rmRenderVisaoGeral); }
   if(section === 'planilha'){ if(document.getElementById('rm-view-pla-vale').classList.contains('active')){ rmRenderVale(); rmValeSync().then(rmValeRenderSeLivre); } if(document.getElementById('rm-view-pla-lembretes').classList.contains('active')){ rmRenderLembretes(); rmLemSync().then(() => rmRenderLembretes(true)); } }
   if(section === 'relatorio'){ rmRenderComissao(); rmComSync().then(rmRenderComissao); }
@@ -17263,6 +17328,7 @@ function rmSetViewPf(view){
   if(!RM_PF_SUBS.includes(view)) view = 'vender';
   rmPfSub = view; try{ localStorage.setItem('radicalMotos_pfSub', view); }catch(e){}
   RM_PF_SUBS.forEach(v => { const a = document.getElementById('rm-view-pf-' + v), b = document.getElementById('rm-btn-pf-' + v); if(a) a.classList.toggle('active', v === view); if(b) b.classList.toggle('active', v === view); });
+  rmPfModoBalcao(view === 'vender' && rmPfLista().length > 0);
   rmPfRender();
 }
 function rmPfRender(){
@@ -17279,111 +17345,199 @@ function rmPfVazioHtml(){
   return `<div class="vg-obra"><div class="vg-obra-i">&#128297;</div><b>Nenhum parafuso cadastrado ainda</b><span>Vá em <a href="#" onclick="rmSetViewPf('caixinhas'); return false;">Caixinhas e etiquetas</a> e clique em <b>Importar catálogo</b> para trazer os parafusos da planilha, ou cadastre um a um em <a href="#" onclick="rmSetViewPf('estoque'); setTimeout(() => rmPfEditar(null), 50); return false;">Estoque → Novo parafuso</a>.</span></div>`;
 }
 // abre a tela Vender já com a caixinha escolhida
-function rmPfVenderCx(cx){ rmPfSel = Number(cx); rmPfQtd = 1; rmSetViewPf('vender'); }
+function rmPfVenderCx(cx){
+  rmPfSel = Number(cx); rmPfQtd = 1; rmPfQtdNova = true; rmPfTela = 'principal'; rmPfVis = '';
+  const p = rmPfPorCx().get(rmPfSel); rmPfModo = p && rmPfPreco(p) ? 'qtd' : 'cx';
+  if(rmPfSub === 'vender' && document.getElementById('rm-pf-res')){ rmPfRenderRes(); rmPfRenderVisor(); window.scrollTo({ top: 0, behavior: 'smooth' }); } else rmSetViewPf('vender');
+}
 
-// ----- VENDER -----
+// ----- VENDER (feito para toque: iPad; no computador o teclado físico também funciona) -----
+let rmPfModo = 'cx';       // o teclado da tela digita: 'cx' = nº da caixinha · 'qtd' = quantidade
+let rmPfVis = '';          // o que está no visor
+let rmPfQtdNova = true;    // próximo número digitado na quantidade substitui (não soma no fim)
+let rmPfTela = 'principal';// 'principal' · 'tipo' · 'busca'
+let rmPfBuscaTexto = '';
+let rmPfBalcao = false;    // o menu lateral foi escondido pela tela de venda (modo balcão)
+const rmPfToque = () => matchMedia('(pointer:coarse)').matches;
+function rmPfModoBalcao(liga){
+  const app = document.getElementById('rm-app'); if(!app) return;
+  if(liga){ if(rmPfToque() && innerWidth >= 860 && !app.classList.contains('rm-sidebar-collapsed')){ app.classList.add('rm-sidebar-collapsed'); rmPfBalcao = true; } }
+  else if(rmPfBalcao){ rmPfBalcao = false; app.classList.remove('rm-sidebar-collapsed'); }
+}
 function rmPfRenderVender(){
   const el = document.getElementById('rm-view-pf-vender');
-  const q = rmPfBuscaTexto || '';
-  el.innerHTML = `<div class="pf-h"><h1 class="rm-title">Vender parafuso</h1></div>
-    <div class="pf-vend"><div class="pf-vend-esq">
-      <div class="pf-busca"><input id="rm-pf-busca" value="${rmEscapeHtml(q)}" placeholder="Nº da caixinha ou nome (ex: 57 ou allen 6x20)" autocomplete="off" inputmode="search" oninput="rmPfBuscar(this.value)" onkeydown="if(event.key==='Enter'){ event.preventDefault(); rmPfEnter(); }"></div>
-      <div class="pf-hint">Digite o <b>número da caixinha</b> que o cliente apontou no expositor, ou escreva o nome/medida. <b>Enter</b> adiciona.</div>
-      <div class="pf-chips" id="rm-pf-mais"></div>
-      <div id="rm-pf-res"></div>
-    </div>
-    <div class="pf-cesta" id="rm-pf-cesta"></div></div>`;
-  const mais = rmPfLista().filter(p => p.parafuso.mais).sort((a, b) => a.parafuso.cx - b.parafuso.cx).slice(0, 12);
-  document.getElementById('rm-pf-mais').innerHTML = mais.length ? '<span class="pf-chips-t">Mais vendidos:</span>' + mais.map(p => `<button type="button" onclick="rmPfVenderCx(${p.parafuso.cx})"><b>${p.parafuso.cx}</b>${rmEscapeHtml(String(p.parafuso.cat || '').replace(/^Parafuso /i, ''))} ${rmEscapeHtml(p.parafuso.med || '')}</button>`).join('') : '';
-  rmPfRenderRes(); rmPfRenderCesta();
-  if(!matchMedia('(pointer:coarse)').matches){ const i = document.getElementById('rm-pf-busca'); if(i){ i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }
+  if(rmPfTela === 'tipo'){ rmPfRenderTipo(el); return; }
+  if(rmPfTela === 'busca'){ rmPfRenderBusca(el); return; }
+  el.innerHTML = `<div class="pf-h ip-h"><h1 class="rm-title">Vender parafuso</h1>${rmPfBalcao && document.getElementById('rm-app').classList.contains('rm-sidebar-collapsed') ? '<span class="pf-sub-t">modo balcão · toque em &#9776; no canto para abrir o menu</span>' : ''}</div>
+    <div class="ip">
+      <div class="ip-pad">
+        <div class="ip-modo"><button type="button" id="rm-ip-m-cx" onclick="rmPfMudaModo('cx')">Nº caixinha</button><button type="button" id="rm-ip-m-qtd" onclick="rmPfMudaModo('qtd')">Quantidade</button></div>
+        <div class="ip-vis" id="rm-ip-vis"></div>
+        <div class="ip-kp">${[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => `<button type="button" onclick="rmPfTecla('${n}')">${n}</button>`).join('')}<button type="button" class="del" onclick="rmPfTecla('del')" title="Apagar">&#9003;</button><button type="button" onclick="rmPfTecla('0')">0</button><button type="button" class="ok" id="rm-ip-ok" onclick="rmPfTecla('ok')">OK</button></div>
+        <div class="ip-alt"><button type="button" onclick="rmPfAbrirTela('busca')">&#128270; Buscar nome</button><button type="button" onclick="rmPfAbrirTela('tipo')">&#128214; Pelo tipo</button></div>
+      </div>
+      <div class="ip-card" id="rm-pf-res"></div>
+      <div class="ip-ces" id="rm-pf-cesta"></div>
+    </div>`;
+  rmPfRenderRes(); rmPfRenderCesta(); rmPfRenderVisor();
 }
-let rmPfBuscaTexto = '';
-function rmPfBuscar(v){
-  rmPfBuscaTexto = v; const t = String(v || '').trim();
-  rmPfSel = /^\d+$/.test(t) ? Number(t) : null; rmPfQtd = 1;
-  rmPfRenderRes();
+function rmPfAbrirTela(t){ rmPfTela = t; rmPfRenderVender(); if(t === 'busca') setTimeout(() => { const i = document.getElementById('rm-pf-busca'); if(i) i.focus(); }, 60); }
+function rmPfVoltar(){ rmPfTela = 'principal'; rmPfRenderVender(); }
+function rmPfMudaModo(m){
+  if(m === 'qtd' && !rmPfPorCx().get(rmPfSel)){ m = 'cx'; }
+  rmPfModo = m; if(m === 'qtd') rmPfQtdNova = true; else rmPfVis = '';
+  rmPfRenderVisor();
 }
-function rmPfEnter(){
-  const t = String(rmPfBuscaTexto || '').trim();
-  if(rmPfSel != null && rmPfPorCx().get(rmPfSel)){ rmPfAdicionar(); return; }
-  if(t){ const r = rmPfResultados(t); if(r.length === 1){ rmPfSel = r[0].parafuso.cx; rmPfRenderRes(); } }
+function rmPfRenderVisor(){
+  const v = document.getElementById('rm-ip-vis'); if(!v) return;
+  const a = document.getElementById('rm-ip-m-cx'), b = document.getElementById('rm-ip-m-qtd'), ok = document.getElementById('rm-ip-ok');
+  if(a) a.classList.toggle('on', rmPfModo === 'cx'); if(b) b.classList.toggle('on', rmPfModo === 'qtd');
+  const temSel = !!rmPfPorCx().get(rmPfSel);
+  if(b) b.disabled = !temSel;
+  v.classList.toggle('qtd', rmPfModo === 'qtd');
+  v.innerHTML = rmPfModo === 'qtd' ? `<small>quantidade</small>${rmFmtQtd(rmPfQtd || 0)}` : `<small>caixinha</small>${rmEscapeHtml(rmPfVis) || '<span class="ip-ph">—</span>'}`;
+  if(ok) ok.textContent = rmPfModo === 'qtd' ? 'ADICIONAR' : 'OK';
+  ok && ok.classList.toggle('add', rmPfModo === 'qtd');
 }
-function rmPfResultados(t){
-  const l = rmPfLista().filter(p => rmBuscaBate([p.nome, p.parafuso.cat, p.parafuso.tipo, p.parafuso.med, 'cx ' + p.parafuso.cx, p.aplicacao], t));
-  return l.sort((a, b) => a.parafuso.cx - b.parafuso.cx);
-}
-function rmPfRenderRes(){
-  const el = document.getElementById('rm-pf-res'); if(!el) return;
-  if(rmPfSel == null && rmPfBuscaTexto && rmPfBuscaTexto.trim()){
-    const r = rmPfResultados(rmPfBuscaTexto.trim());
-    el.innerHTML = r.length ? `<div class="pf-lista">${r.slice(0, 60).map(p => `<div class="pf-li${rmPfPreco(p) ? '' : ' sp'}" onclick="rmPfSel=${p.parafuso.cx}; rmPfQtd=1; rmPfRenderRes();">${rmPfFotoHtml(p)}<span class="cxs">${p.parafuso.cx}</span><div><b>${rmEscapeHtml(rmPfMedTxt(p.parafuso.med))}</b><small>${rmEscapeHtml(p.parafuso.tipo || p.nome)}</small></div><i>${rmPfPreco(p) ? rmFormatMoeda(rmPfPreco(p)) : 'sem preço'}</i></div>`).join('')}</div>${r.length > 60 ? `<div class="pf-hint">Mostrando 60 de ${r.length}. Digite mais para filtrar.</div>` : ''}` : '<div class="rm-problema-empty" style="padding:20px">Nenhum parafuso encontrado</div>';
+function rmPfTecla(k){
+  if(rmPfModo === 'qtd'){
+    if(k === 'ok'){ rmPfAdicionar(); return; }
+    let s = rmPfQtdNova ? '' : String(rmFmtQtd(rmPfQtd || 0)).replace(/\D/g, '');
+    if(k === 'del'){ s = s.slice(0, -1); } else { s = (s + k).replace(/^0+(?=\d)/, '').slice(0, 5); }
+    rmPfQtdNova = false; rmPfQtd = Number(s) || 0;
+    rmPfRenderVisor(); rmPfAtualizaQtd();
     return;
   }
-  if(rmPfSel == null){ el.innerHTML = '<div class="pf-dica">&#128073; Digite o número da caixinha ou procure pelo nome. Também dá para escolher pelo <a href="#" onclick="rmSetViewPf(\'expositor\'); return false;">Expositor</a> ou pelo <a href="#" onclick="rmSetViewPf(\'catalogo\'); return false;">Catálogo</a>.</div>'; return; }
-  const p = rmPfPorCx().get(rmPfSel);
-  if(!p){ el.innerHTML = `<div class="rm-problema-empty" style="padding:20px">Não existe parafuso na caixinha ${rmPfSel}</div>`; return; }
-  const pr = rmPfPreco(p), est = Number(p.estoqueAtual) || 0, inativo = p.ativo === false;
-  el.innerHTML = `<div class="pf-res">${rmPfFotoHtml(p, 'pf-foto')}<div class="pf-res-d">
-    <span class="pf-cx">CAIXINHA ${p.parafuso.cx}</span>${inativo ? ' <span class="pf-tag-in">INATIVO</span>' : ''}
-    <div class="pf-nome">${rmEscapeHtml(p.parafuso.tipo || p.nome)}</div><div class="pf-med">${rmEscapeHtml(rmPfMedTxt(p.parafuso.med))}</div>
-    <div class="pf-info"><div>Preço por unidade<b>${pr ? rmFormatMoeda(pr) : '<span style="color:#c0392b">sem preço</span>'}</b></div><div>Em estoque<b class="${est <= 0 ? 'pf-zero' : ''}">${rmFmtQtd(est)} ${rmEscapeHtml((p.unidade || 'UN').toLowerCase())}</b></div><div>Medida em<b>${rmPfPolegada(p) ? 'Polegada' : 'Milímetro'}</b></div></div>
-    ${pr ? `<div class="pf-qtd"><button type="button" onclick="rmPfMudaQtd(-1)">&minus;</button><input id="rm-pf-qtd" inputmode="decimal" value="${rmFmtQtd(rmPfQtd)}" onfocus="this.select()" oninput="rmPfQtd=Math.max(0,rmParseMoeda(this.value)); rmPfAtualizaBotao()" onkeydown="if(event.key==='Enter'){ event.preventDefault(); rmPfAdicionar(); }"><button type="button" onclick="rmPfMudaQtd(1)">+</button>
-      <span class="pf-rap-t">rápido:</span>${[5, 10, 25, 50, 100].map(n => `<button type="button" class="rap" onclick="rmPfQtd=${n}; document.getElementById('rm-pf-qtd').value='${n}'; rmPfAtualizaBotao()">${n}</button>`).join('')}</div>
-    <div class="pf-add"><button type="button" class="go" id="rm-pf-add" onclick="rmPfAdicionar()"></button></div>`
+  if(k === 'ok'){
+    if(!rmPfVis){ return; }
+    const cx = Number(rmPfVis), p = rmPfPorCx().get(cx);
+    if(!p){ rmShowToast('Não tem parafuso na caixinha ' + cx); rmPfVis = ''; rmPfRenderVisor(); return; }
+    rmPfSel = cx; rmPfQtd = 1; rmPfRenderRes();
+    if(rmPfPreco(p)) rmPfMudaModo('qtd'); else { rmPfVis = ''; rmPfRenderVisor(); }
+    return;
+  }
+  rmPfVis = k === 'del' ? rmPfVis.slice(0, -1) : (rmPfVis + k).replace(/^0+(?=\d)/, '').slice(0, 5);
+  // mostra na hora o parafuso daquela caixinha (se existir)
+  const p = rmPfPorCx().get(Number(rmPfVis));
+  if(p && Number(rmPfVis) !== rmPfSel){ rmPfSel = Number(rmPfVis); rmPfQtd = 1; rmPfRenderRes(); }
+  rmPfRenderVisor();
+}
+// teclado físico (computador): números, Enter, Backspace, + e -
+document.addEventListener('keydown', ev => {
+  if(rmPfSub !== 'vender' || rmPfTela !== 'principal') return;
+  const sec = document.getElementById('rm-section-parafusos'); if(!sec || !sec.classList.contains('active')) return;
+  if(document.querySelector('#rm-modal-backdrop.show')) return;
+  const a = document.activeElement; if(a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
+  if(ev.ctrlKey || ev.metaKey || ev.altKey) return;
+  if(/^[0-9]$/.test(ev.key)){ ev.preventDefault(); rmPfTecla(ev.key); }
+  else if(ev.key === 'Backspace'){ ev.preventDefault(); rmPfTecla('del'); }
+  else if(ev.key === 'Enter'){ ev.preventDefault(); rmPfTecla('ok'); }
+  else if(ev.key === '+'){ ev.preventDefault(); rmPfMudaQtd(1); }
+  else if(ev.key === '-'){ ev.preventDefault(); rmPfMudaQtd(-1); }
+  else if(ev.key === 'Escape'){ rmPfMudaModo('cx'); }
+  else if(ev.key.length === 1 && /[a-zA-Z]/.test(ev.key)){ ev.preventDefault(); rmPfBuscaTexto = ev.key; rmPfAbrirTela('busca'); }
+});
+function rmPfRenderRes(){
+  const el = document.getElementById('rm-pf-res'); if(!el) return;
+  const p = rmPfSel != null ? rmPfPorCx().get(rmPfSel) : null;
+  const mais = rmPfLista().filter(x => x.parafuso.mais).sort((a, b) => a.parafuso.cx - b.parafuso.cx).slice(0, 16);
+  const maisHtml = mais.length ? `<div class="ip-mvt">Mais vendidos</div><div class="ip-mv">${mais.map(m => `<button type="button" onclick="rmPfVenderCx(${m.parafuso.cx})">${rmPfFotoHtml(m)}<b>${m.parafuso.cx}</b><span>${rmEscapeHtml(m.parafuso.med || '')}</span></button>`).join('')}</div>` : '';
+  if(!p){
+    el.innerHTML = `<div class="ip-vazio"><div class="ip-vazio-i">&#128297;</div><b>Digite o número da caixinha</b><span>que o cliente apontou no expositor e toque em <b>OK</b>.<br>Ou use <b>Buscar nome</b> ou <b>Pelo tipo</b>.</span></div>${maisHtml}`;
+    return;
+  }
+  const pr = rmPfPreco(p), est = Number(p.estoqueAtual) || 0;
+  el.innerHTML = `<div class="ip-top">${rmPfFotoHtml(p, 'ip-foto')}<div class="ip-dados"><span class="ip-cx">CAIXINHA ${p.parafuso.cx}</span>${p.ativo === false ? ' <span class="pf-tag-in">INATIVO</span>' : ''}
+      <div class="ip-tipo">${rmEscapeHtml(p.parafuso.tipo || p.nome)}</div><div class="ip-med">${rmEscapeHtml(rmPfMedTxt(p.parafuso.med))}</div>
+      <div class="ip-inf"><div>Preço un.<b>${pr ? rmFormatMoeda(pr) : '<span class="pf-zero">sem preço</span>'}</b></div><div>Estoque<b class="${est <= 0 ? 'pf-zero' : ''}">${rmFmtQtd(est)} ${rmEscapeHtml((p.unidade || 'UN').toLowerCase())}</b></div><div>Medida<b>${rmPfPolegada(p) ? 'Polegada' : 'Milímetro'}</b></div></div></div></div>
+    ${pr ? `<div class="ip-q"><button type="button" onclick="rmPfMudaQtd(-1)">&minus;</button><div class="v" id="rm-ip-qv" onclick="rmPfMudaModo('qtd')"><small>QUANTIDADE</small><span id="rm-ip-q">${rmFmtQtd(rmPfQtd)}</span></div><button type="button" onclick="rmPfMudaQtd(1)">+</button></div>
+      <div class="ip-rap">${[1, 5, 10, 25, 50, 100].map(n => `<button type="button" data-n="${n}" onclick="rmPfQtd=${n}; rmPfQtdNova=true; rmPfAtualizaQtd(); rmPfRenderVisor()">${n}</button>`).join('')}</div>
+      <button type="button" class="ip-add" id="rm-pf-add" onclick="rmPfAdicionar()"></button>`
     : `<div class="pf-semp">Este parafuso ainda não tem preço. ${rmPfPodeEditar() ? `<span>Preço por unidade: <input id="rm-pf-prnovo" inputmode="decimal" placeholder="0,00" onkeydown="if(event.key==='Enter') rmPfPrecoRapido(${p.parafuso.cx})"> <button type="button" onclick="rmPfPrecoRapido(${p.parafuso.cx})">Salvar preço</button></span>` : 'Peça ao administrador para colocar o preço.'}</div>`}
     ${p.aplicacao ? `<div class="pf-apl">&#8505;&#65039; ${rmEscapeHtml(p.aplicacao)}</div>` : ''}
-    <div class="pf-mini"><a href="#" onclick="rmPfEditar('${rmJs(p.id)}'); return false;">editar este parafuso</a></div>
-  </div></div>`;
-  rmPfAtualizaBotao();
+    <div class="pf-mini"><a href="#" onclick="rmPfEditar('${rmJs(p.id)}'); return false;">editar este parafuso</a></div>${maisHtml}`;
+  rmPfAtualizaQtd();
 }
+function rmPfAtualizaQtd(){
+  const p = rmPfPorCx().get(rmPfSel); if(!p) return;
+  const q = document.getElementById('rm-ip-q'); if(q) q.textContent = rmFmtQtd(rmPfQtd || 0);
+  const b = document.getElementById('rm-pf-add'); if(b) b.innerHTML = '&#10004; ADICIONAR ' + rmFmtQtd(rmPfQtd || 0) + ' · ' + rmFormatMoeda(rmPfPreco(p) * (rmPfQtd || 0));
+  document.querySelectorAll('.ip-rap button').forEach(x => x.classList.toggle('on', Number(x.dataset.n) === Number(rmPfQtd)));
+  const qv = document.getElementById('rm-ip-qv'); if(qv) qv.classList.toggle('on', rmPfModo === 'qtd');
+}
+function rmPfMudaQtd(d){ if(!rmPfPorCx().get(rmPfSel)) return; rmPfQtd = Math.max(1, (Number(rmPfQtd) || 0) + d); rmPfQtdNova = true; rmPfAtualizaQtd(); rmPfRenderVisor(); }
 function rmPfPodeEditar(){ return rmEhAdmin() || rmSubPode('rm-btn-pf-estoque'); }
-function rmPfMudaQtd(d){ rmPfQtd = Math.max(1, (Number(rmPfQtd) || 0) + d); const i = document.getElementById('rm-pf-qtd'); if(i) i.value = rmFmtQtd(rmPfQtd); rmPfAtualizaBotao(); }
-function rmPfAtualizaBotao(){
-  const b = document.getElementById('rm-pf-add'), p = rmPfPorCx().get(rmPfSel); if(!b || !p) return;
-  b.innerHTML = '&#10004; Adicionar ' + rmFmtQtd(rmPfQtd || 0) + ' · ' + rmFormatMoeda(rmPfPreco(p) * (rmPfQtd || 0));
-}
 function rmPfPrecoRapido(cx){
   const v = rmParseMoeda((document.getElementById('rm-pf-prnovo') || {}).value);
   if(!(v > 0)){ alert('Digite o preço por unidade.'); return; }
   const prods = rmLoadProdutos(), p = prods.find(x => x.parafuso && Number(x.parafuso.cx) === Number(cx)); if(!p) return;
   p.precoConsumidor = v; if(!(Number(p.precoParceiro) > 0)) p.precoParceiro = v;
   rmSaveProdutos(prods); rmDbUpsertProduto(p); rmLog('Colocou preço no parafuso', 'CX ' + cx + ' · ' + p.nome, rmFormatMoeda(v));
-  rmShowToast('Preço salvo · ' + rmFormatMoeda(v)); rmPfRenderRes();
+  rmShowToast('Preço salvo · ' + rmFormatMoeda(v)); rmPfRenderRes(); rmPfMudaModo('qtd');
 }
 function rmPfAdicionar(){
   const p = rmPfPorCx().get(rmPfSel); if(!p) return;
-  const q = Number(rmPfQtd) || 0; if(!(q > 0)){ alert('Informe a quantidade.'); return; }
+  const q = Number(rmPfQtd) || 0; if(!(q > 0)){ rmShowToast('Informe a quantidade'); return; }
   if(!rmPfPreco(p)){ alert('Este parafuso ainda não tem preço.'); return; }
   if(p.ativo === false && !confirm('Este parafuso está INATIVO. Vender mesmo assim?')) return;
   const l = rmPfCesta(), ex = l.find(i => i.pid === p.id);
   if(ex) ex.q = (Number(ex.q) || 0) + q; else l.push({ pid: p.id, q });
   rmPfCestaGravar(l);
   rmShowToast('Adicionado: ' + rmFmtQtd(q) + ' × CX ' + p.parafuso.cx + ' ' + (p.parafuso.med || ''));
-  rmPfSel = null; rmPfBuscaTexto = ''; rmPfQtd = 1;
-  const i = document.getElementById('rm-pf-busca'); if(i){ i.value = ''; if(!matchMedia('(pointer:coarse)').matches) i.focus(); }
-  rmPfRenderRes(); rmPfRenderCesta();
+  rmPfSel = null; rmPfQtd = 1; rmPfVis = ''; rmPfModo = 'cx';
+  rmPfRenderRes(); rmPfRenderCesta(); rmPfRenderVisor();
 }
 function rmPfRenderCesta(){
   const el = document.getElementById('rm-pf-cesta'); if(!el) return;
   const idx = rmIdx(rmLoadProdutos()), l = rmPfCesta().map(i => ({ i, p: idx.get(i.pid) })).filter(x => x.p);
   const tot = l.reduce((s, x) => s + rmPfPreco(x.p) * x.i.q, 0);
-  el.innerHTML = `<h3>Parafusos desta venda</h3>${l.length ? l.map(({ i, p }) => `<div class="pf-ci"><span class="cxs">${p.parafuso.cx}</span>${rmPfFotoHtml(p)}<div><b>${rmEscapeHtml(rmPfMedTxt(p.parafuso.med))}</b><small>${rmEscapeHtml(p.parafuso.cat || '')} · ${rmFmtQtd(i.q)} × ${rmFormatMoeda(rmPfPreco(p))}</small></div><b>${rmFormatMoeda(rmPfPreco(p) * i.q)}</b><button type="button" title="Tirar" onclick="rmPfCestaTirar('${rmJs(p.id)}')">&times;</button></div>`).join('')
-      : '<div class="pf-cesta-v">Nenhum parafuso ainda.<br>Digite o nº da caixinha e clique em Adicionar.</div>'}
-    <div class="pf-tot"><span>Total</span><span>${rmFormatMoeda(tot)}</span></div>
-    <button type="button" class="go" onclick="rmPfMandarPdv()"${l.length ? '' : ' disabled'}>Mandar para o PDV e cobrar &rarr;</button>
+  el.innerHTML = `<h3>Venda <small>${l.length ? l.length + (l.length === 1 ? ' item' : ' itens') : ''}</small></h3>
+    ${l.length ? l.map(({ i, p }) => `<div class="ip-it">${rmPfFotoHtml(p)}<div><b><span class="cx">${p.parafuso.cx}</span> · ${rmEscapeHtml(p.parafuso.med || '')}</b><small>${rmEscapeHtml(p.parafuso.cat || '')} · ${rmFormatMoeda(rmPfPreco(p))} un</small></div><span class="vl">${rmFormatMoeda(rmPfPreco(p) * i.q)}</span>
+      <div class="st"><button type="button" onclick="rmPfCestaQtd('${rmJs(p.id)}',-1)">&minus;</button><span>${rmFmtQtd(i.q)}</span><button type="button" onclick="rmPfCestaQtd('${rmJs(p.id)}',1)">+</button><button type="button" class="x" title="Tirar" onclick="rmPfCestaTirar('${rmJs(p.id)}')">&#128465;</button></div></div>`).join('')
+      : '<div class="pf-cesta-v">Nenhum parafuso ainda.<br>Digite o nº da caixinha, a quantidade e toque em ADICIONAR.</div>'}
+    <div class="ip-tot"><span>Total</span><span>${rmFormatMoeda(tot)}</span></div>
+    <button type="button" class="go" onclick="rmPfMandarPdv()"${l.length ? '' : ' disabled'}>Cobrar no PDV &rarr;</button>
     <button type="button" class="go2" onclick="rmPfEscolherOs()"${l.length ? '' : ' disabled'}>&#128295; Lançar numa OS</button>
-    ${l.length ? '<button type="button" class="pf-limpa" onclick="if(confirm(\'Limpar a lista de parafusos?\')){ rmPfCestaGravar([]); rmPfRenderCesta(); }">limpar lista</button>' : ''}
-    <div class="pf-tec">${[1, 2, 3, 4, 5, 6, 7, 8, 9, '&#9003;', 0, 'OK'].map(k => `<button type="button" onclick="rmPfTecla('${k === '&#9003;' ? 'del' : k}')">${k}</button>`).join('')}</div>`;
+    ${l.length ? '<button type="button" class="pf-limpa" onclick="if(confirm(\'Limpar a lista de parafusos?\')){ rmPfCestaGravar([]); rmPfRenderCesta(); }">limpar a venda</button>' : ''}`;
 }
-function rmPfTecla(k){
-  const qtdFoco = document.activeElement && document.activeElement.id === 'rm-pf-qtd';
-  const i = document.getElementById(qtdFoco ? 'rm-pf-qtd' : 'rm-pf-busca'); if(!i) return;
-  if(k === 'OK'){ if(qtdFoco || (rmPfSel != null && rmPfPorCx().get(rmPfSel))) rmPfAdicionar(); else rmPfEnter(); return; }
-  i.value = k === 'del' ? i.value.slice(0, -1) : i.value + k;
-  if(qtdFoco){ rmPfQtd = Math.max(0, rmParseMoeda(i.value)); rmPfAtualizaBotao(); } else rmPfBuscar(i.value);
+function rmPfCestaQtd(pid, d){
+  const l = rmPfCesta(), it = l.find(i => i.pid === pid); if(!it) return;
+  it.q = (Number(it.q) || 0) + d;
+  if(it.q <= 0){ if(!confirm('Tirar este parafuso da venda?')){ it.q = 1; } else { rmPfCestaGravar(l.filter(i => i.pid !== pid)); rmPfRenderCesta(); return; } }
+  rmPfCestaGravar(l); rmPfRenderCesta();
 }
 function rmPfCestaTirar(pid){ rmPfCestaGravar(rmPfCesta().filter(i => i.pid !== pid)); rmPfRenderCesta(); }
+// escolher pelo tipo (só toque)
+let rmPfTipoSel = null;
+function rmPfRenderTipo(el){
+  const fams = rmPfFamilias();
+  if(!rmPfTipoSel || !fams.some(f => f.tipo === rmPfTipoSel)) rmPfTipoSel = null;
+  const f = fams.find(x => x.tipo === rmPfTipoSel);
+  const meds = f ? f.itens.slice().sort((a, b) => { const x = String(a.parafuso.med).split(/X/i), y = String(b.parafuso.med).split(/X/i); return rmPfNum(x[0]) - rmPfNum(y[0]) || rmPfNum(x[1]) - rmPfNum(y[1]); }) : [];
+  el.innerHTML = `<div class="pf-h"><button type="button" class="ip-volta" onclick="rmPfVoltar()">&larr; Voltar</button><h1 class="rm-title" style="margin:0">Escolher pelo tipo</h1></div>
+    <div class="ipt-w"><div class="ipt">${fams.map(x => `<button type="button" class="${x.tipo === rmPfTipoSel ? 'on' : ''}" onclick="rmPfTipoSel=${rmEscapeHtml(JSON.stringify(x.tipo))}; rmPfRenderVender(); if(matchMedia('(max-width:900px)').matches) document.getElementById('rm-ipm').scrollIntoView({behavior:'smooth'})">${rmPfFotoHtml(x.foto)}<b>${rmEscapeHtml(x.tipo.replace(/^Parafuso /i, ''))}</b><small>${x.itens.length} medida${x.itens.length > 1 ? 's' : ''}</small></button>`).join('')}</div>
+    <div class="ip-card ipm-w" id="rm-ipm">${f ? `<b class="ipm-t">${rmEscapeHtml(f.tipo)}</b><div class="pf-hint">Toque na medida para vender</div><div class="ipm">${meds.map(p => `<button type="button" class="${(Number(p.estoqueAtual) || 0) <= 0 ? 'sem' : ''}" onclick="rmPfTela='principal'; rmPfVenderCx(${p.parafuso.cx})"><b>${rmEscapeHtml(rmPfMedTxt(p.parafuso.med))}</b><small>CX ${p.parafuso.cx}${rmPfPreco(p) ? ' · ' + rmFormatMoeda(rmPfPreco(p)) : ''}</small></button>`).join('')}</div>` : '<div class="ip-vazio"><b>Toque em um tipo</b><span>As medidas aparecem aqui.</span></div>'}</div></div>`;
+}
+// buscar pelo nome (aqui sim usa o teclado do aparelho)
+function rmPfRenderBusca(el){
+  el.innerHTML = `<div class="pf-h"><button type="button" class="ip-volta" onclick="rmPfVoltar()">&larr; Voltar</button><h1 class="rm-title" style="margin:0">Buscar parafuso</h1></div>
+    <div class="pf-busca"><input id="rm-pf-busca" value="${rmEscapeHtml(rmPfBuscaTexto)}" placeholder="ex: allen 6x20, sextavado 1/4, porca m8" autocomplete="off" oninput="rmPfBuscaTexto=this.value; rmPfBuscaLista()" onkeydown="if(event.key==='Enter'){ event.preventDefault(); const r=rmPfResultados(this.value.trim()); if(r.length===1){ rmPfTela='principal'; rmPfVenderCx(r[0].parafuso.cx); } } else if(event.key==='Escape') rmPfVoltar();"></div>
+    <div id="rm-pf-bl"></div>`;
+  rmPfBuscaLista();
+  const i = document.getElementById('rm-pf-busca'); if(i){ i.focus(); i.setSelectionRange(i.value.length, i.value.length); }
+}
+function rmPfBuscaLista(){
+  const el = document.getElementById('rm-pf-bl'); if(!el) return;
+  const t = (rmPfBuscaTexto || '').trim();
+  if(!t){ el.innerHTML = '<div class="pf-dica">Escreva o tipo e/ou a medida.</div>'; return; }
+  const r = rmPfResultados(t);
+  el.innerHTML = r.length ? `<div class="pf-lista ip-bl">${r.slice(0, 80).map(p => `<div class="pf-li${rmPfPreco(p) ? '' : ' sp'}" onclick="rmPfTela='principal'; rmPfVenderCx(${p.parafuso.cx})">${rmPfFotoHtml(p)}<span class="cxs">${p.parafuso.cx}</span><div><b>${rmEscapeHtml(rmPfMedTxt(p.parafuso.med))}</b><small>${rmEscapeHtml(p.parafuso.tipo || p.nome)}</small></div><i>${rmPfPreco(p) ? rmFormatMoeda(rmPfPreco(p)) : 'sem preço'}</i></div>`).join('')}</div>${r.length > 80 ? `<div class="pf-hint">Mostrando 80 de ${r.length}. Escreva mais para filtrar.</div>` : ''}` : '<div class="rm-problema-empty" style="padding:20px">Nenhum parafuso encontrado</div>';
+}
+function rmPfResultados(t){
+  const l = rmPfLista().filter(p => rmBuscaBate([p.nome, p.parafuso.cat, p.parafuso.tipo, p.parafuso.med, 'cx ' + p.parafuso.cx, p.aplicacao], t));
+  return l.sort((a, b) => a.parafuso.cx - b.parafuso.cx);
+}
+
 function rmPfMandarPdv(){
   const idx = rmIdx(rmLoadProdutos()), l = rmPfCesta().map(i => ({ i, p: idx.get(i.pid) })).filter(x => x.p);
   if(!l.length) return;
