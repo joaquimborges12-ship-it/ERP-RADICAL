@@ -230,6 +230,9 @@
     display:flex; flex-direction:column; align-items:center; gap:6px; min-width:76px;
   }
   .rm-subnav-icon{font-size:19px; line-height:1;}
+  .rm-nova-versao{position:fixed; left:50%; bottom:calc(84px + env(safe-area-inset-bottom)); transform:translateX(-50%); z-index:10070; background:#1f2329; color:#fff; display:flex; align-items:center; gap:10px; padding:10px 10px 10px 16px; box-shadow:0 8px 24px rgba(0,0,0,.3); font-size:14px; max-width:calc(100vw - 24px)}
+  .rm-nova-versao button{border:0; background:#d9433a; color:#fff; font-weight:800; padding:8px 14px; font-family:inherit; cursor:pointer}
+  .rm-nova-versao .x{background:none; font-size:20px; padding:0 4px}
   /* ===== Parafusos ===== */
   .rm-pf-mostra{display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; white-space:nowrap; cursor:pointer}
   .pf-h{display:flex; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap} .pf-h h1{margin:0}
@@ -1110,6 +1113,15 @@
     .rm-settings-wrap{ order:3; padding:0 14px 14px; }
 
     .rm-settings-menu{ top:auto; bottom:100%; left:14px; right:14px; width:auto; margin-bottom:6px; }
+  }
+  /* telas mais baixas (notebook): menu mais compacto para caberem todos os itens sem rolar */
+  @media (min-width: 860px) and (max-height: 860px){
+    .rm-nav-btn{ padding-top:7px; padding-bottom:7px; }
+    .rm-nav-sub{ font-size:11px; }
+  }
+  @media (min-width: 860px) and (max-height: 760px){
+    .rm-nav-sub{ display:none; }
+    .rm-nav-btn{ padding-top:9px; padding-bottom:9px; }
   }
   @media (max-width: 640px){
     .rm-row{flex-direction:column;}
@@ -2648,8 +2660,28 @@
     .rm-px-tabela th:first-child, .rm-px-tabela td:first-child{padding-right:8px;}
   }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+// bibliotecas de planilha (pesadas): só carregam na hora de importar uma planilha, não ao abrir o sistema
+const RM_LIBS = { xlsx: 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js', papa: 'https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js' };
+const rmLibsCarregando = {};
+// aviso de versão nova vindo do service worker (escuta desde o começo, mesmo antes do sistema terminar de abrir)
+let rmNovaVersaoPendente = false;
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.addEventListener('message', ev => { if(ev.data && ev.data.tipo === 'nova-versao'){ rmNovaVersaoPendente = true; if(typeof rmAvisoNovaVersao === 'function' && document.body) rmAvisoNovaVersao(); } });
+  try{ navigator.serviceWorker.startMessages(); }catch(e){}
+}
+function rmCarregarLib(nome){
+  if(nome === 'xlsx' && window.XLSX) return Promise.resolve(true);
+  if(nome === 'papa' && window.Papa) return Promise.resolve(true);
+  if(rmLibsCarregando[nome]) return rmLibsCarregando[nome];
+  return rmLibsCarregando[nome] = new Promise(res => {
+    const sc = document.createElement('script'); sc.src = RM_LIBS[nome];
+    sc.onload = () => res(true);
+    sc.onerror = () => { delete rmLibsCarregando[nome]; res(false); };
+    document.head.appendChild(sc);
+  });
+}
+</script>
 </head>
 <body>
 <div id="rm-bancada" style="display:none;">
@@ -2690,7 +2722,7 @@
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 21/10 às 22:25</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 21/10 às 23:52</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -4053,10 +4085,11 @@ function rmNormCab(k){
   return String(k||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase().replace(/\s+/g,'_');
 }
 
-function rmProcessarArquivoCsv(input){
+async function rmProcessarArquivoCsv(input){
   const file = input.files[0];
   if(!file) return;
   const ehExcel = /\.xlsx?$/i.test(file.name);
+  if(!await rmCarregarLib(ehExcel ? 'xlsx' : 'papa')){ alert('Não consegui carregar o leitor de planilhas. Verifique a internet e tente de novo.'); input.value = ''; return; }
   const reader = new FileReader();
   reader.onload = function(e){
     let linhas = [];
@@ -6795,7 +6828,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610212225; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610212352; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -8996,7 +9029,8 @@ function rmImpAbrir(){
     </div>`;
   document.getElementById('rm-modal-backdrop').classList.add('show');
 }
-function rmImpLerArquivo(f){
+async function rmImpLerArquivo(f){
+  try{ const cab = new Uint8Array(await f.slice(0, 2).arrayBuffer()); if(cab[0] === 0x50 && cab[1] === 0x4B) await rmCarregarLib('xlsx'); }catch(e){}
   return new Promise(res => {
     const r = new FileReader();
     r.onload = () => {
@@ -19119,7 +19153,28 @@ window.addEventListener('pagehide', rmStoreGravarPendentes);
 document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'hidden') rmStoreGravarPendentes(); });
 
 rmStorePreparar().catch(e => console.error(e)).then(() => rmAuthIniciar());
-if('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(r => r.update()).catch(() => {});
+if('serviceWorker' in navigator && location.protocol === 'https:'){
+  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(r => r.update()).catch(() => {});
+  // o sistema abre na hora com a cópia guardada no aparelho; se o site tiver versão nova, ela já fica baixada e aparece este aviso
+  if(rmNovaVersaoPendente) rmAvisoNovaVersao();
+  // confere também a cópia guardada: se o service worker já baixou uma versão mais nova que esta, avisa
+  const rmChecarNovaGuardada = async () => {
+    try{
+      if(!window.caches || !navigator.serviceWorker.controller) return;
+      const reg = await navigator.serviceWorker.getRegistration(); if(!reg) return;
+      const r = await caches.match(new Request(reg.scope)); if(!r) return;
+      const m = /RM_APP_VERSAO = (\d{12})/.exec(await r.text());
+      if(m && Number(m[1]) > RM_APP_VERSAO) rmAvisoNovaVersao();
+    }catch(e){}
+  };
+  [4000, 15000, 60000].forEach(t => setTimeout(rmChecarNovaGuardada, t));
+}
+function rmAvisoNovaVersao(){
+  if(document.getElementById('rm-nova-versao')) return;
+  const d = document.createElement('div'); d.id = 'rm-nova-versao'; d.className = 'rm-nova-versao';
+  d.innerHTML = '<span>&#10024; Saiu uma versão nova do sistema</span><button type="button" onclick="rmAppAtualizar()">Atualizar</button><button type="button" class="x" title="Depois" onclick="this.parentNode.remove()">&times;</button>';
+  document.body.appendChild(d);
+}
 </script>
 <!-- Botão rápido de pedido (fica sobre todas as telas) -->
 <button class="rm-fab" id="rm-fab" title="Anotar item para pedido" onclick="rmFabAbrir()">&#128722;</button>
