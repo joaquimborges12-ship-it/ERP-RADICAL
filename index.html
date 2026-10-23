@@ -2256,6 +2256,23 @@
   .cp input.rt-val{font-size:34px !important; font-weight:900 !important; text-align:center !important; padding:12px !important; border:2px solid #c9961a !important; height:auto !important; text-transform:none !important;}
   .cp input.rt-txt{text-transform:none; font-size:14px !important; padding:11px 12px !important;}
   .rm-ret-grupo{margin-left:auto; display:flex; gap:6px; align-items:stretch;}
+  .gv-pdv{display:inline-flex; align-items:center; gap:10px; margin-left:4px;}
+  .gv-bt{display:inline-flex; align-items:center; gap:8px; padding:9px 14px; border:1px solid #2e8b57; background:rgba(46,139,87,.1); color:#2e8b57; font-weight:800; font-size:14px; font-family:inherit; cursor:pointer; white-space:nowrap;}
+  .gv-bt:hover{background:rgba(46,139,87,.18);}
+  .gv-dot{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:var(--rm-text-dim); white-space:nowrap;} .gv-dot em{font-style:normal;}
+  .gv-dot i{width:9px; height:9px; border-radius:50%; background:#9aa0a6; display:inline-block;} .gv-dot.on i{background:#2e8b57;} .gv-dot.off i{background:#d9433a;} .gv-dot.off{color:#d9433a;}
+  .gv-st{display:flex; align-items:center; gap:14px; padding:12px 14px; border:1px solid var(--rm-border); margin:4px 0 14px;} .gv-st .gv-ico{font-size:26px; line-height:1;}
+  .gv-st b{display:block;} .gv-st small{display:block; color:var(--rm-text-dim); margin-top:2px; line-height:1.45;} .gv-st button{margin-left:auto; flex-shrink:0;}
+  .gv-st-on{background:rgba(46,139,87,.08); border-color:rgba(46,139,87,.4);} .gv-st-on b{color:#2e8b57;} .gv-st-ruim{background:rgba(217,67,58,.06); border-color:rgba(217,67,58,.4);} .gv-st-ruim b{color:#d9433a;}
+  .gv-pri{padding:10px 16px; border:0; background:#2e8b57; color:#fff; font-weight:800; font-family:inherit; font-size:14px; cursor:pointer;}
+  .gv-sec{display:inline-block; padding:9px 14px; border:1px solid var(--rm-border); background:var(--rm-panel); font-weight:700; font-family:inherit; font-size:13.5px; color:var(--rm-text); cursor:pointer; text-decoration:none;}
+  .gv-g{display:grid; grid-template-columns:1fr 1fr; gap:18px;} .gv-op > b{display:block; margin-bottom:4px;}
+  .gv-op label{display:flex; gap:10px; align-items:center; padding:8px 0; font-size:14px; border-bottom:1px solid var(--rm-border); cursor:pointer;} .gv-op input{width:18px; height:18px; flex-shrink:0;}
+  .gv-pe{font-size:12px; color:var(--rm-text-dim); margin-top:10px;}
+  .gv-baixar{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:16px; font-size:13px; color:var(--rm-text-dim);}
+  .gv-lnk{margin-left:auto; background:none; border:0; color:var(--rm-text-dim); text-decoration:underline; cursor:pointer; font-family:inherit; font-size:12px;}
+  .gv-tab tr{cursor:default;} .gv-tab tr.gv-man td{color:#b7791f;}
+  @media (max-width:760px){ .gv-g{grid-template-columns:1fr;} .gv-st{flex-wrap:wrap;} .gv-st button{margin-left:0; width:100%;} .gv-pdv{margin-left:0; width:100%;} .gv-bt{flex:1; justify-content:center;} }
   .rm-ret-grupo .rm-ret-btn{margin-left:0;}
   .rm-ret-imp{width:44px; padding:0; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-size:18px; cursor:pointer; margin:0;}
   .rm-ret-imp:hover{border-color:#c9961a;}
@@ -2817,7 +2834,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 22/10 às 00:39</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 23/10 às 20:05</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2875,7 +2892,7 @@ function rmCarregarLib(nome){
           <button class="rm-pdv-modo-btn active" id="rm-pdv-tabela-consumidor" onclick="rmSetTabelaPrecoPdv('consumidor')">Consumidor</button>
           <button class="rm-pdv-modo-btn" id="rm-pdv-tabela-parceiro" onclick="rmSetTabelaPrecoPdv('parceiro')">Parceiro</button>
         </div>
-        <span class="rm-ret-grupo"><button class="rm-ret-btn" id="rm-btn-pdv-retirada" onclick="rmRetAbrir()"><span>&#128184;</span><span>Retirar dinheiro do caixa</span></button><button class="rm-ret-imp" id="rm-ret-imp" style="display:none" title="Resumo das retiradas de hoje (só administrador)" onclick="rmRetResumoEscolher()">&#128424;</button></span>
+        <span class="rm-ret-grupo"><button class="rm-ret-btn" id="rm-btn-pdv-retirada" onclick="rmRetAbrir()"><span>&#128184;</span><span>Retirar dinheiro do caixa</span></button><button class="rm-ret-imp" id="rm-ret-imp" style="display:none" title="Resumo das retiradas de hoje (só administrador)" onclick="rmRetResumoEscolher()">&#128424;</button><span class="gv-pdv" id="rm-gv-pdv" style="display:none"><button class="gv-bt" onclick="rmGavetaAbrir()">&#128452; Abrir gaveta</button><span class="gv-dot"><i></i><em>procurando gaveta…</em></span></span></span>
       </div>
 
       <div class="rm-px-grid">
@@ -6480,7 +6497,10 @@ async function rmFinalizarVenda(){
     rmCriarPromissoria({ origem:'PDV', refId:venda.id, refCodigo:venda.codigoVenda, clienteId:venda.clienteId,
       clienteNome:venda.clienteNome, total:venda.total, nParc:rmPdvPromN, venc:rmPdvPromVenc, entrada:rmPdvPromEnt, formaEnt:rmPdvPromEntF });
   }
+  const gvVal = isOrcamento || ed ? 0 : rmAPrazo(venda.formaPagamento) ? (Number(rmPdvPromEnt) || 0) : venda.total;
+  const gvForma = rmAPrazo(venda.formaPagamento) ? rmPdvPromEntF : venda.formaPagamento;
   rmPdvPromN = 1; rmPdvPromVenc = null; rmPdvPromEnt = 0; rmPdvPromEntF = 'Dinheiro';
+  if(gvVal > 0) rmGavetaAuto('pdv', gvForma, 'Venda · ' + gvForma + (rmAPrazo(venda.formaPagamento) ? ' (entrada)' : ''), venda.codigoVenda, gvVal);
 
   rmLog(ed ? 'Editou venda' : (isOrcamento ? 'Salvou orçamento' : 'Finalizou venda'), venda.codigoVenda, rmFormatMoeda(venda.total) + (venda.formaPagamento ? ' · ' + venda.formaPagamento : '') + (venda.clienteNome ? ' · ' + venda.clienteNome : ''));
   const vendaImp = venda;
@@ -6935,7 +6955,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610220039; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610232005; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -8130,7 +8150,8 @@ function rmPermAbrir(uid){
     <div class="pm-esp"><div class="pm-cab" style="cursor:default">Permissões especiais</div>
       <div class="pm-subs"><label class="pm-ch"><input type="checkbox" id="pm-cancelar"${(u.permissoes || []).includes('+cancelar') ? ' checked' : ''}> <span>Pode cancelar venda e OS paga</span></label>
         <label class="pm-ch"><input type="checkbox" id="pm-retorno"${(u.permissoes || []).includes('+retorno') ? ' checked' : ''}> <span>Pode marcar OS como retorno de garantia (sem cobrança)</span></label>
-        <label class="pm-ch"><input type="checkbox" id="pm-compras"${(u.permissoes || []).includes('+compras') ? ' checked' : ''}> <span>Pode ver o histórico de compras dos produtos (preço pago)</span></label></div></div>
+        <label class="pm-ch"><input type="checkbox" id="pm-compras"${(u.permissoes || []).includes('+compras') ? ' checked' : ''}> <span>Pode ver o histórico de compras dos produtos (preço pago)</span></label>
+        <label class="pm-ch"><input type="checkbox" id="pm-gaveta"${(u.permissoes || []).includes('+gaveta') ? ' checked' : ''}> <span>Pode abrir a gaveta de dinheiro pelo botão (sem venda)</span></label></div></div>
     <div class="pe"><button onclick="document.getElementById('rm-perm-ov').remove()">Cancelar</button><button class="pri" onclick="rmPermSalvar('${rmJs(uid)}')">Salvar acesso</button></div></div>`;
   document.body.appendChild(ov);
   rmPermContar();
@@ -8156,7 +8177,7 @@ async function rmPermSalvar(uid){
   if(!secs.length){ alert('Marque pelo menos uma aba.'); return; }
   const doPapel = ((RM_PAPEIS[u.papel] || {}).perms || []);
   const mesmo = u.papel !== 'personalizado' && doPapel.length === secs.length && secs.every(k => doPapel.includes(k));
-  const extra = ((document.getElementById('pm-cancelar') || {}).checked ? ['+cancelar'] : []).concat((document.getElementById('pm-compras') || {}).checked ? ['+compras'] : []).concat((document.getElementById('pm-retorno') || {}).checked ? ['+retorno'] : []);
+  const extra = ((document.getElementById('pm-cancelar') || {}).checked ? ['+cancelar'] : []).concat((document.getElementById('pm-compras') || {}).checked ? ['+compras'] : []).concat((document.getElementById('pm-retorno') || {}).checked ? ['+retorno'] : []).concat((document.getElementById('pm-gaveta') || {}).checked ? ['+gaveta'] : []);
   const campos = mesmo ? { permissoes: bloq.concat(extra) } : { papel: 'personalizado', permissoes: secs.concat(bloq, extra) };
   const ov = document.getElementById('rm-perm-ov'); if(ov) ov.remove();
   await rmAlterarUsuario(uid, campos);
@@ -11299,7 +11320,7 @@ async function rmCxMovSalvar(){
   const m = rmMovLer('rm-mov'); if(!m) return;
   const dia = rmMovDoPdv ? rmHojeISO() : (rmCxDia || rmHojeISO()), c = rmCxDados[dia] || {};
   if(!rmMovDoPdv && c.fechamento){ alert('O caixa deste dia já foi fechado.'); return; }
-  if(await rmMovGravar(m, dia)){ const ov = document.getElementById('rm-mov-ov'); if(ov) ov.remove(); rmShowToast((rmMovDoPdv ? 'Retirada de ' : 'Registrado: ') + rmFormatMoeda(m.valor) + (m.trocoPendente ? ' · lembre de devolver o troco' : '')); rmCxRender(); rmRetAlertaRender(); }
+  if(await rmMovGravar(m, dia)){ const ov = document.getElementById('rm-mov-ov'); if(ov) ov.remove(); if(dia === rmHojeISO()) rmGavetaAuto('mov', 'Dinheiro', (m.tipo === 'entrada' ? 'Entrada avulsa' : m.tipo === 'sangria' ? 'Sangria' : 'Retirada') + ' · ' + rmMovTexto(m), null, m.tipo === 'entrada' ? m.valor : -m.valor); rmShowToast((rmMovDoPdv ? 'Retirada de ' : 'Registrado: ') + rmFormatMoeda(m.valor) + (m.trocoPendente ? ' · lembre de devolver o troco' : '')); rmCxRender(); rmRetAlertaRender(); }
 }
 async function rmCxTirarRetirada(id){
   const r = rmCxMovs(rmCxDados[rmCxDia]).find(x => x.id === id); if(!r) return;
@@ -11420,8 +11441,166 @@ function rmCxImprimir(dia){
     <div class="a4-txt" style="margin-top:14px">Conferido por: ____________________</div>`;
   rmImprimirDoc('Caixa ' + rmDataBR(dia), corpo, false, 'cupom');
 }
-// gaveta automática (liga quando a gaveta for instalada)
-function rmGavetaAbrir(){ rmShowToast('A gaveta ainda não foi instalada neste computador. Quando ela chegar, vamos ligar este botão.'); }
+// ===================== GAVETA DE DINHEIRO (programa Radical Gaveta neste computador) =====================
+// O navegador não fala direto com a impressora USB: o programinha "Radical Gaveta" (instalado no Windows do balcão)
+// recebe o pedido em http://127.0.0.1:17788 e manda o sinal de abrir para a impressora MDK-082 (a gaveta está ligada nela).
+// Configuração de CADA computador (fica só neste aparelho). Só fala com o programa se a gaveta foi ligada aqui.
+const RM_GV_URL = 'http://127.0.0.1:17788';
+const RM_GV_KEY = 'radicalMotos_gaveta';
+const RM_GV_PADRAO = { ligada: false, pdv: true, os: true, parcela: true, mov: true, qualquer: false, quem: 'perm', motivo: true };
+let rmGvOn = null, rmGvInfo = null, rmGvTimer = null, rmGvUltima = 0;
+function rmGvCfg(){ let c = {}; try{ c = JSON.parse(localStorage.getItem(RM_GV_KEY) || '{}') || {}; }catch(e){} return Object.assign({}, RM_GV_PADRAO, c); }
+function rmGvCfgSet(k, v){ const c = rmGvCfg(); c[k] = v; try{ localStorage.setItem(RM_GV_KEY, JSON.stringify(c)); }catch(e){} }
+function rmGvLigadaAqui(){ return !!rmGvCfg().ligada; }
+async function rmGvPedir(caminho, metodo){
+  const ac = typeof AbortController !== 'undefined' ? new AbortController() : null;
+  const t = setTimeout(() => { if(ac) ac.abort(); }, 3000);
+  try{
+    const r = await fetch(RM_GV_URL + caminho, { method: metodo || 'GET', cache: 'no-store', signal: ac ? ac.signal : undefined });
+    return await r.json();
+  } finally { clearTimeout(t); }
+}
+// confere se o programa está ligado (bolinha verde/vermelha)
+async function rmGvChecar(){
+  if(!rmGvLigadaAqui()){ rmGvOn = null; rmGvPintar(); return null; }
+  try{ rmGvInfo = await rmGvPedir('/status'); rmGvOn = !!(rmGvInfo && rmGvInfo.ok && rmGvInfo.achou); }
+  catch(e){ rmGvInfo = null; rmGvOn = false; }
+  rmGvPintar();
+  return rmGvOn;
+}
+function rmGvIniciar(){
+  clearInterval(rmGvTimer);
+  if(!rmGvLigadaAqui()){ rmGvPintar(); return; }
+  rmGvChecar();
+  rmGvTimer = setInterval(() => { if(document.visibilityState !== 'hidden') rmGvChecar(); }, 60000);
+}
+function rmGvPintar(){
+  const w = document.getElementById('rm-gv-pdv');
+  if(w){
+    const mostra = rmGvLigadaAqui() && rmGvPodeBotao();
+    w.style.display = mostra ? '' : 'none';
+    const d = w.querySelector('.gv-dot');
+    if(d){ d.className = 'gv-dot' + (rmGvOn === false ? ' off' : rmGvOn ? ' on' : ''); d.querySelector('em').textContent = rmGvOn === false ? 'gaveta desligada' : rmGvOn ? 'gaveta conectada' : 'procurando gaveta…'; }
+  }
+  const c = document.getElementById('rm-gv-cfg-st'); if(c) c.innerHTML = rmGvStatusHtml();
+}
+function rmGvPodeBotao(){ return !!(rmUsuario && (rmEhAdmin() || rmGvCfg().quem === 'todos' || (rmUsuario.permissoes || []).includes('+gaveta'))); }
+function rmGvEhDinheiro(forma){ return /dinheiro/i.test(String(forma || '')); }
+
+// manda o sinal; motivo/valor/ref vão para o registro de atividades (auditoria)
+async function rmGvPulsar(motivo, ref, valor, manual){
+  if(!rmGvLigadaAqui()){
+    if(manual) alert('A gaveta não está ligada neste computador.\n\nNo computador do balcão (onde a gaveta está), vá em Configurações → Impressão → Gaveta de dinheiro.');
+    return false;
+  }
+  const agora = Date.now();
+  if(!manual && agora - rmGvUltima < 1500) return false; // evita abrir duas vezes no mesmo clique
+  rmGvUltima = agora;
+  let r = null, erro = '';
+  try{ r = await rmGvPedir('/abrir', 'POST'); if(!r || !r.ok) erro = (r && r.erro) || 'sem resposta'; }
+  catch(e){ erro = 'o programa Radical Gaveta não respondeu (está ligado neste computador?)'; }
+  if(erro){
+    rmGvOn = false; rmGvPintar();
+    if(manual) alert('Não consegui abrir a gaveta: ' + erro);
+    else rmShowToast('⚠ Gaveta não abriu: ' + erro);
+    return false;
+  }
+  rmGvOn = true; rmGvPintar();
+  rmLog('Abriu a gaveta', ref || null, motivo + (valor ? ' · ' + (valor < 0 ? '- ' : '') + rmFormatMoeda(Math.abs(valor)) : ''));
+  if(manual) rmShowToast('🗄️ Gaveta aberta');
+  return true;
+}
+// aberturas automáticas: tipo = pdv | os | parcela | mov
+function rmGavetaAuto(tipo, forma, motivo, ref, valor){
+  try{
+    const c = rmGvCfg();
+    if(!c.ligada || !c[tipo]) return;
+    if(tipo !== 'mov' && !c.qualquer && !rmGvEhDinheiro(forma)) return;
+    rmGvPulsar(motivo, ref, valor, false).then(ok => { if(ok) setTimeout(() => rmShowToast('🗄️ Gaveta aberta · ' + motivo), 900); });
+  }catch(e){}
+}
+// botão "Abrir gaveta" (sem venda)
+function rmGavetaAbrir(){
+  if(!rmGvPodeBotao()){ alert('Você não tem permissão para abrir a gaveta sem uma venda. Peça para o administrador.'); return; }
+  let motivo = 'Botão';
+  if(rmGvCfg().motivo){
+    const s = prompt('Por que vai abrir a gaveta? (ex.: troco, conferência)', '');
+    if(s == null) return;
+    if(s.trim()) motivo = 'Botão · ' + s.trim();
+  }
+  rmGvPulsar(motivo, null, 0, true);
+}
+
+// ---- Configurações → Impressão: cartão da gaveta ----
+function rmGvStatusHtml(){
+  if(!rmGvLigadaAqui()) return `<div class="gv-st gv-st-off"><span class="gv-ico">&#9898;</span><div><b>Gaveta desligada neste computador</b><small>Ligue só no computador do balcão, onde a gaveta e a impressora MDK-082 estão. Antes, instale o programa Radical Gaveta.</small></div><button class="gv-pri" onclick="rmGvLigar()">Ligar gaveta neste computador</button></div>`;
+  if(rmGvOn === null) return `<div class="gv-st"><span class="gv-ico">&#9203;</span><div><b>Procurando o programa Radical Gaveta…</b><small>Se o Chrome perguntar sobre "apps e serviços deste dispositivo", clique em Permitir.</small></div></div>`;
+  if(rmGvOn) return `<div class="gv-st gv-st-on"><span class="gv-ico">&#128994;</span><div><b>Gaveta conectada neste computador</b><small>Programa Radical Gaveta ligado · impressora ${rmEscapeHtml((rmGvInfo && rmGvInfo.impressora) || '')}</small></div><button class="gv-pri" onclick="rmGvPulsar('Teste nas configurações', null, 0, true)">Testar: abrir agora</button></div>`;
+  const semImp = rmGvInfo && rmGvInfo.ok && !rmGvInfo.achou;
+  return `<div class="gv-st gv-st-ruim"><span class="gv-ico">&#128308;</span><div><b>${semImp ? 'O programa está ligado, mas não achou a impressora MDK-082' : 'Não encontrei o programa Radical Gaveta'}</b><small>${semImp ? 'Rode o INSTALAR.bat de novo e escolha a impressora térmica na lista.' : 'Instale (botão abaixo) ou reinicie o computador. Se o Chrome perguntou sobre acesso a "apps e serviços deste dispositivo", precisa estar em Permitir (cadeado ao lado do endereço).'}</small></div><button class="gv-sec" onclick="rmGvChecar()">Procurar de novo</button></div>`;
+}
+async function rmGvLigar(){
+  rmGvCfgSet('ligada', true); rmGvOn = null;
+  const box = document.getElementById('rm-gv-card'); if(box) box.outerHTML = rmGvCardHtml();
+  rmGvPintar();
+  const ok = await rmGvChecar();
+  rmGvIniciar();
+  rmShowToast(ok ? 'Gaveta ligada neste computador' : 'Gaveta ligada, mas o programa não respondeu');
+  rmLog('Ligou a gaveta neste computador', null, ok ? 'programa encontrado' : 'programa não respondeu');
+}
+function rmGvDesligar(){
+  if(!confirm('Desligar a gaveta neste computador? O sistema para de abrir a gaveta aqui.')) return;
+  rmGvCfgSet('ligada', false); clearInterval(rmGvTimer); rmGvOn = null;
+  const box = document.getElementById('rm-gv-card'); if(box) box.outerHTML = rmGvCardHtml();
+  rmGvPintar();
+}
+function rmGvOpcao(k, v){ rmGvCfgSet(k, v); rmGvPintar(); rmShowToast('Salvo neste computador'); }
+function rmGvCardHtml(){
+  const c = rmGvCfg(), ck = k => c[k] ? ' checked' : '';
+  const ops = c.ligada ? `<div class="gv-g">
+      <div class="gv-op"><b>Abrir sozinha quando:</b>
+        <label><input type="checkbox"${ck('pdv')} onchange="rmGvOpcao('pdv', this.checked)"> finalizar venda no PDV com <b>dinheiro</b></label>
+        <label><input type="checkbox"${ck('os')} onchange="rmGvOpcao('os', this.checked)"> receber OS com <b>dinheiro</b></label>
+        <label><input type="checkbox"${ck('parcela')} onchange="rmGvOpcao('parcela', this.checked)"> receber parcela a prazo em <b>dinheiro</b></label>
+        <label><input type="checkbox"${ck('mov')} onchange="rmGvOpcao('mov', this.checked)"> fizer <b>retirada, sangria ou entrada</b> no caixa</label>
+        <label><input type="checkbox"${ck('qualquer')} onchange="rmGvOpcao('qualquer', this.checked)"> abrir também com PIX e cartão</label>
+      </div>
+      <div class="gv-op"><b>Botão "Abrir gaveta" (sem venda):</b>
+        <label><input type="radio" name="rm-gv-quem"${c.quem !== 'todos' ? ' checked' : ''} onchange="rmGvOpcao('quem', 'perm')"> só administrador e quem tiver a permissão</label>
+        <label><input type="radio" name="rm-gv-quem"${c.quem === 'todos' ? ' checked' : ''} onchange="rmGvOpcao('quem', 'todos')"> todos os usuários</label>
+        <label><input type="checkbox"${ck('motivo')} onchange="rmGvOpcao('motivo', this.checked)"> perguntar o motivo (troco, conferência…)</label>
+        <div class="gv-pe">Toda abertura fica registrada: Financeiro → Caixa do dia e Registro de atividades.</div>
+      </div></div>` : '';
+  if(c.ligada) setTimeout(() => rmGvChecar(), 60);
+  return `<div class="rm-cfg-card gv-card" id="rm-gv-card">
+      <div class="rm-cfg-tit">&#128452; Gaveta de dinheiro</div>
+      <div id="rm-gv-cfg-st">${rmGvStatusHtml()}</div>
+      ${ops}
+      <div class="gv-baixar">Programa para o Windows do balcão: <a class="gv-sec" href="RadicalGaveta.zip" download>&#11015; Baixar o Radical Gaveta</a>
+        <span>Extraia o .zip e dê dois cliques em <b>INSTALAR.bat</b>.</span>${c.ligada ? '<button class="gv-lnk" onclick="rmGvDesligar()">desligar a gaveta neste computador</button>' : ''}</div>
+    </div>`;
+}
+
+// ---- Caixa do dia: aberturas da gaveta no dia ----
+async function rmGvCaixaCarregar(dia){
+  const el = document.getElementById('rm-cx-gv'); if(!el || !rmSb) return;
+  const ini = new Date(dia + 'T00:00:00'), fim = new Date(ini.getTime() + 864e5);
+  let lista = [];
+  try{
+    const { data, error } = await rmSb.from('auditoria').select('*').eq('acao', 'Abriu a gaveta').gte('quando', ini.toISOString()).lt('quando', fim.toISOString()).order('quando', { ascending: false }).limit(300);
+    if(error) throw error;
+    lista = (data || []).filter(x => x.acao === 'Abriu a gaveta' && x.quando >= ini.toISOString() && x.quando < fim.toISOString());
+  }catch(e){ el.innerHTML = '<div class="cx-vazio">Não consegui carregar (sem internet?).</div>'; return; }
+  if(rmCxDia !== dia || !document.getElementById('rm-cx-gv')) return;
+  const n = document.getElementById('rm-cx-gv-n'); if(n) n.textContent = lista.length ? '· ' + lista.length : '';
+  if(!lista.length){ el.innerHTML = '<div class="cx-vazio">Nenhuma abertura registrada neste dia.</div>'; return; }
+  const esc = rmEscapeHtml;
+  el.innerHTML = `<table class="cx-tab gv-tab"><thead><tr><th>Hora</th><th>Quem</th><th>Motivo</th><th class="r">Valor</th></tr></thead><tbody>${lista.map(x => {
+    const det = String(x.detalhe || ''), m = /^(.*) · (-?\s?R\$\s?[\d.,]+)$/.exec(det);
+    const mot = m ? m[1] : det, val = m ? m[2] : '—';
+    const h = new Date(x.quando); const hh = String(h.getHours()).padStart(2, '0') + ':' + String(h.getMinutes()).padStart(2, '0');
+    return `<tr${/^Botão/.test(mot) ? ' class="gv-man"' : ''}><td>${hh}</td><td>${esc(x.usuario || '')}</td><td>${esc(mot)}${x.ref ? ' <small class="cx-sub">' + esc(x.ref) + '</small>' : ''}</td><td class="r">${esc(val)}</td></tr>`; }).join('')}</tbody></table>`;
+}
 
 function rmCxIrDia(v){ if(v){ rmCxDia = v; rmCxRender(); } }
 function rmCxRender(){
@@ -11508,11 +11687,13 @@ function rmCxRender(){
     <div class="cx-grid"><div>
       <div class="cx-box"><h3>Conferência por forma de pagamento</h3>${confHtml}</div>
       <div class="cx-box"><h3><span>Movimentos da gaveta${nPend ? ` <span class="cx-tg cx-tg-p">${nPend} troco(s) pendente(s)</span>` : ''}</span>${podeMexer ? '<span class="cx-acts"><button onclick="rmCxMovAbrir(\'entrada\')">&#65291; Entrada avulsa</button><button onclick="rmCxMovAbrir(\'sangria\')">&minus; Sangria</button><button onclick="rmCxMovAbrir(\'despesa\')">&minus; Despesa</button></span>' : ''}</h3>${movHtml || '<div class="cx-vazio">Nenhum movimento.</div>'}</div>
+      <div class="cx-box"><h3><span>&#128452; Aberturas da gaveta <span class="cx-sub" id="rm-cx-gv-n"></span></span></h3><div id="rm-cx-gv"><div class="cx-vazio">Carregando…</div></div></div>
     </div><div>${lado}
       <div class="cx-box"><h3>Últimos fechamentos</h3>${histHtml}</div>
     </div></div>`;
   Object.keys(guard).forEach(id => { const i = document.getElementById(id); if(i && guard[id] !== '') i.value = guard[id]; });
   rmCxAtualizarDif();
+  rmGvCaixaCarregar(dia);
 }
 
 // ===================== PDV → RETIRADA (funcionário) =====================
@@ -11590,6 +11771,7 @@ function rmRetAbrir(){
   rmCxMovAbrir('despesa', true);
 }
 setTimeout(() => rmRetPendCarregar(), 6000);
+setTimeout(() => { try{ rmGvIniciar(); }catch(e){} }, 2500);
 setInterval(() => { const s = document.getElementById('rm-section-pdv'); if(s && s.classList.contains('active')) rmRetPendCarregar(); }, 60000);
 
 // ===================== REGISTRO DE ERROS =====================
@@ -12628,7 +12810,8 @@ function rmRenderConfigEmpresa(){
         <b>Dica:</b> na janela de impressão do Chrome, desmarque "Cabeçalhos e rodapés".<br>
         Para a térmica: papel 80mm (ou "Roll Paper 80 x 297mm") e margens "Nenhuma".
       </div>
-    </div>`,
+    </div>
+    ${rmGvCardHtml()}`,
     aparencia: () => `
     <div class="rm-cfg-card">
       <div class="rm-cfg-tit">Aparência neste computador</div>
@@ -13964,6 +14147,7 @@ function rmPromConfirmarRecebimento(notaId, n){
   rmParcPagamentos(p).push(pgNovoReg);
   rmLedgerRegistrar(nota, p, pgNovoReg);
   rmLog('Recebeu parcela', nota.refCodigo + '-' + p.n, rmFormatMoeda(valor) + ' · ' + forma.textContent + ' · ' + (nota.clienteNome||''));
+  rmGavetaAuto('parcela', forma.textContent, 'Parcela a prazo · ' + forma.textContent.trim(), nota.refCodigo + '-' + p.n, valor);
   rmParcAtualizar(p);
   rmSaveProms(lista); rmDbUpsertProm(nota);
   rmCloseModal();
@@ -14134,7 +14318,7 @@ function rmSetSection(section){
   if(section === 'relatorio'){ rmRenderComissao(); rmComSync().then(rmRenderComissao); }
   if(section === 'configuracoes'){ rmRenderConfigEmpresa(); rmSyncEmpresa().then(rmRenderConfigEmpresa); }
   if(section === 'financeiro'){ rmRenderFinVendas(); rmSyncProms(); }
-  if(section === 'pdv'){ rmInicializarPdv(); try{ rmRetImpBotao(); rmRetAlertaRender(); rmRetPendCarregar(); }catch(e){} }
+  if(section === 'pdv'){ rmInicializarPdv(); try{ rmRetImpBotao(); rmRetAlertaRender(); rmRetPendCarregar(); rmGvPintar(); if(rmGvLigadaAqui()) rmGvChecar(); }catch(e){} }
   if(section === 'produtos'){
     const jaTemViewAtiva = document.querySelector('#rm-section-produtos .rm-view.active');
     if(!jaTemViewAtiva){
@@ -16658,6 +16842,7 @@ function rmCliConfirmarAvulso(clienteId){
   const itensRecibo = plano.map(({ n, p }) => ({ nota:n, p, pg: rmParcPagamentos(p)[rmParcPagamentos(p).length-1] }));
   setTimeout(() => { if(confirm('Pagamento registrado. Imprimir recibo?')) rmImprimirReciboA4(itensRecibo); }, 200);
   rmLog('Recebeu valor avulso', c.nome, rmFormatMoeda(valor - sobra) + ' · ' + forma.textContent + ' · ' + plano.length + ' parcela(s)');
+  if(valor - sobra > 0.004) rmGavetaAuto('parcela', forma.textContent, 'Recebimento a prazo · ' + forma.textContent.trim(), c.nome, valor - sobra);
   rmShowToast(`Recebido ${rmFormatMoeda(valor - sobra)} · baixa em ${plano.length} parcela${plano.length===1?'':'s'}`);
   rmCloseModal();
 }
@@ -18674,6 +18859,8 @@ function rmOsFinalizarAgora(id){
   rmOpenModal(id, rmActiveModalLarge);
   rmShowToast('OS paga · ' + rmFormatMoeda(r.valorPago));
   rmLog('Finalizou OS (pago)', r.codigoApp, rmFormatMoeda(r.valorPago) + ' · ' + r.formaPagamento);
+  { const gvP = rmAPrazo(r.formaPagamento), gvV = gvP ? (Number(r.promEntrada) || 0) : r.valorPago, gvF = gvP ? (r.promEntradaForma || 'Dinheiro') : r.formaPagamento;
+    if(gvV > 0) rmGavetaAuto('os', gvF, 'OS paga · ' + gvF + (gvP ? ' (entrada)' : ''), r.codigoApp, gvV); }
   setTimeout(() => { if(confirm('Pagamento registrado. Imprimir a ordem de serviço para o cliente?')) rmImprimirOSA4(id); }, 200);
 }
 
