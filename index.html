@@ -2291,6 +2291,7 @@
   .gv-dot i{width:9px; height:9px; border-radius:50%; background:#9aa0a6; display:inline-block;} .gv-dot.on i{background:#2e8b57;} .gv-dot.off i{background:#d9433a;} .gv-dot.off{color:#d9433a;}
   .gv-st{display:flex; align-items:center; gap:14px; padding:12px 14px; border:1px solid var(--rm-border); margin:4px 0 14px;} .gv-st .gv-ico{font-size:26px; line-height:1;}
   .gv-st b{display:block;} .gv-st small{display:block; color:var(--rm-text-dim); margin-top:2px; line-height:1.45;} .gv-st button{margin-left:auto; flex-shrink:0;}
+  .gv-2bt{margin-left:auto; display:flex; gap:8px; flex-shrink:0;} .gv-st .gv-2bt button{margin-left:0;} .gv-st-rem{background:rgba(47,111,181,.07); border-color:rgba(47,111,181,.4);} .gv-st-rem b{color:#2f6fb5;}
   .gv-st-on{background:rgba(46,139,87,.08); border-color:rgba(46,139,87,.4);} .gv-st-on b{color:#2e8b57;} .gv-st-ruim{background:rgba(217,67,58,.06); border-color:rgba(217,67,58,.4);} .gv-st-ruim b{color:#d9433a;}
   .gv-pri{padding:10px 16px; border:0; background:#2e8b57; color:#fff; font-weight:800; font-family:inherit; font-size:14px; cursor:pointer;}
   .gv-sec{display:inline-block; padding:9px 14px; border:1px solid var(--rm-border); background:var(--rm-panel); font-weight:700; font-family:inherit; font-size:13.5px; color:var(--rm-text); cursor:pointer; text-decoration:none;}
@@ -2862,7 +2863,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 23/10 às 21:26</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 23/10 às 21:37</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -6983,7 +6984,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610232126; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610232137; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -11481,7 +11482,7 @@ function rmCxImprimir(dia){
 // Configuração de CADA computador (fica só neste aparelho). Só fala com o programa se a gaveta foi ligada aqui.
 const RM_GV_URL = 'http://127.0.0.1:17788';
 const RM_GV_KEY = 'radicalMotos_gaveta';
-const RM_GV_PADRAO = { ligada: false, pdv: true, os: true, parcela: true, mov: true, qualquer: false, quem: 'perm', motivo: true };
+const RM_GV_PADRAO = { ligada: false, remota: false, pdv: true, os: true, parcela: true, mov: true, qualquer: false, quem: 'perm', motivo: true };
 let rmGvOn = null, rmGvInfo = null, rmGvTimer = null, rmGvUltima = 0;
 function rmGvCfg(){ let c = {}; try{ c = JSON.parse(localStorage.getItem(RM_GV_KEY) || '{}') || {}; }catch(e){} return Object.assign({}, RM_GV_PADRAO, c); }
 function rmGvCfgSet(k, v){ const c = rmGvCfg(); c[k] = v; try{ localStorage.setItem(RM_GV_KEY, JSON.stringify(c)); }catch(e){} }
@@ -11504,6 +11505,7 @@ async function rmGvChecar(){
 }
 function rmGvIniciar(){
   clearInterval(rmGvTimer);
+  try{ rmGvRemIniciar(); }catch(e){}
   if(!rmGvLigadaAqui()){ rmGvPintar(); return; }
   rmGvChecar();
   rmGvTimer = setInterval(() => { if(document.visibilityState !== 'hidden') rmGvChecar(); }, 60000);
@@ -11522,13 +11524,13 @@ function rmGvPodeBotao(){ return !!(rmUsuario && (rmEhAdmin() || rmGvCfg().quem 
 function rmGvEhDinheiro(forma){ return /dinheiro/i.test(String(forma || '')); }
 
 // manda o sinal; motivo/valor/ref vão para o registro de atividades (auditoria)
-async function rmGvPulsar(motivo, ref, valor, manual){
+async function rmGvPulsar(motivo, ref, valor, manual, semTrava){
   if(!rmGvLigadaAqui()){
     if(manual) alert('A gaveta não está ligada neste computador.\n\nNo computador do balcão (onde a gaveta está), vá em Configurações → Impressão → Gaveta de dinheiro.');
     return false;
   }
   const agora = Date.now();
-  if(!manual && agora - rmGvUltima < 1500) return false; // evita abrir duas vezes no mesmo clique
+  if(!manual && !semTrava && agora - rmGvUltima < 1500) return false; // evita abrir duas vezes no mesmo clique
   rmGvUltima = agora;
   let r = null, erro = '';
   try{ r = await rmGvPedir('/abrir', 'POST'); if(!r || !r.ok) erro = (r && r.erro) || 'sem resposta'; }
@@ -11548,8 +11550,13 @@ async function rmGvPulsar(motivo, ref, valor, manual){
 function rmGavetaAuto(tipo, forma, motivo, ref, valor){
   try{
     const c = rmGvCfg();
-    if(!c.ligada || !c[tipo]) return;
+    if(!c[tipo]) return;
     if(tipo !== 'mov' && !c.qualquer && !rmGvEhDinheiro(forma)) return;
+    if(!c.ligada){
+      // gaveta fica no computador do caixa: só venda, OS e parcela abrem de longe
+      if(c.remota && tipo !== 'mov') rmGvPedirRemoto(motivo, ref, valor);
+      return;
+    }
     rmGvPulsar(motivo, ref, valor, false).then(ok => { if(ok) setTimeout(() => rmShowToast('🗄️ Gaveta aberta · ' + motivo), 900); });
   }catch(e){}
 }
@@ -11567,14 +11574,16 @@ function rmGavetaAbrir(){
 
 // ---- Configurações → Impressão: cartão da gaveta ----
 function rmGvStatusHtml(){
-  if(!rmGvLigadaAqui()) return `<div class="gv-st gv-st-off"><span class="gv-ico">&#9898;</span><div><b>Gaveta desligada neste computador</b><small>Ligue só no computador do balcão, onde a gaveta e a impressora MDK-082 estão. Antes, instale o programa Radical Gaveta.</small></div><button class="gv-pri" onclick="rmGvLigar()">Ligar gaveta neste computador</button></div>`;
+  if(rmGvRemota()) return `<div class="gv-st gv-st-rem"><span class="gv-ico">&#128225;</span><div><b>A gaveta fica no computador do caixa</b><small>Venda, OS e parcela em dinheiro feitas aqui mandam a gaveta do caixa abrir. Retirada, vale e sangria só no computador do caixa.</small></div><button class="gv-pri" onclick="rmGvPedirRemoto('Teste', null, 0, true)">Testar: abrir a gaveta do caixa</button></div>`;
+  if(!rmGvLigadaAqui()) return `<div class="gv-st gv-st-off"><span class="gv-ico">&#9898;</span><div><b>Gaveta desligada neste computador</b><small>No computador do caixa (gaveta e impressora MDK-082 ligadas nele, com o Radical Gaveta instalado), escolha "A gaveta está aqui". Nos outros computadores da loja, escolha "A gaveta fica no caixa".</small></div>
+      <div class="gv-2bt"><button class="gv-pri" onclick="rmGvLigar()">A gaveta está aqui</button><button class="gv-sec" onclick="rmGvUsarRemota()">A gaveta fica no caixa</button></div></div>`;
   if(rmGvOn === null) return `<div class="gv-st"><span class="gv-ico">&#9203;</span><div><b>Procurando o programa Radical Gaveta…</b><small>Se o Chrome perguntar sobre "apps e serviços deste dispositivo", clique em Permitir.</small></div></div>`;
   if(rmGvOn) return `<div class="gv-st gv-st-on"><span class="gv-ico">&#128994;</span><div><b>Gaveta conectada neste computador</b><small>Programa Radical Gaveta ligado · impressora ${rmEscapeHtml((rmGvInfo && rmGvInfo.impressora) || '')}</small></div><button class="gv-pri" onclick="rmGvPulsar('Teste nas configurações', null, 0, true)">Testar: abrir agora</button></div>`;
   const semImp = rmGvInfo && rmGvInfo.ok && !rmGvInfo.achou;
   return `<div class="gv-st gv-st-ruim"><span class="gv-ico">&#128308;</span><div><b>${semImp ? 'O programa está ligado, mas não achou a impressora MDK-082' : 'Não encontrei o programa Radical Gaveta'}</b><small>${semImp ? 'Rode o INSTALAR.bat de novo e escolha a impressora térmica na lista.' : 'Instale (botão abaixo) ou reinicie o computador. Se o Chrome perguntou sobre acesso a "apps e serviços deste dispositivo", precisa estar em Permitir (cadeado ao lado do endereço).'}</small></div><button class="gv-sec" onclick="rmGvChecar()">Procurar de novo</button></div>`;
 }
 async function rmGvLigar(){
-  rmGvCfgSet('ligada', true); rmGvOn = null;
+  rmGvCfgSet('ligada', true); rmGvCfgSet('remota', false); rmGvOn = null;
   const box = document.getElementById('rm-gv-card'); if(box) box.outerHTML = rmGvCardHtml();
   rmGvPintar();
   const ok = await rmGvChecar();
@@ -11584,7 +11593,7 @@ async function rmGvLigar(){
 }
 function rmGvDesligar(){
   if(!confirm('Desligar a gaveta neste computador? O sistema para de abrir a gaveta aqui.')) return;
-  rmGvCfgSet('ligada', false); clearInterval(rmGvTimer); rmGvOn = null;
+  rmGvCfgSet('ligada', false); rmGvCfgSet('remota', false); clearInterval(rmGvTimer); rmGvOn = null; try{ rmGvRemIniciar(); }catch(e){}
   const box = document.getElementById('rm-gv-card'); if(box) box.outerHTML = rmGvCardHtml();
   rmGvPintar();
 }
@@ -11604,15 +11613,93 @@ function rmGvCardHtml(){
         <label><input type="radio" name="rm-gv-quem"${c.quem === 'todos' ? ' checked' : ''} onchange="rmGvOpcao('quem', 'todos')"> todos os usuários</label>
         <label><input type="checkbox"${ck('motivo')} onchange="rmGvOpcao('motivo', this.checked)"> perguntar o motivo (troco, conferência…)</label>
         <div class="gv-pe">Toda abertura fica registrada: Financeiro → Caixa do dia e Registro de atividades.</div>
-      </div></div>` : '';
+      </div></div>` : rmGvRemota() ? `<div class="gv-g">
+      <div class="gv-op"><b>Abrir a gaveta do caixa quando, aqui neste computador:</b>
+        <label><input type="checkbox"${ck('pdv')} onchange="rmGvOpcao('pdv', this.checked)"> finalizar venda no PDV com <b>dinheiro</b></label>
+        <label><input type="checkbox"${ck('os')} onchange="rmGvOpcao('os', this.checked)"> receber OS com <b>dinheiro</b></label>
+        <label><input type="checkbox"${ck('parcela')} onchange="rmGvOpcao('parcela', this.checked)"> receber parcela a prazo em <b>dinheiro</b></label>
+        <label><input type="checkbox"${ck('qualquer')} onchange="rmGvOpcao('qualquer', this.checked)"> abrir também com PIX e cartão</label>
+      </div>
+      <div class="gv-op"><b>Como funciona</b><div class="gv-pe" style="font-size:13px; line-height:1.55; margin-top:6px">O aviso vai pela internet e a gaveta abre em 1 ou 2 segundos. O computador do caixa precisa estar ligado, com o sistema aberto.<br>Se o caixa não responder em 1 minuto, o pedido é cancelado (a gaveta não abre depois).<br>Aparece aqui "Gaveta do caixa aberta" ou um aviso se não abrir.</div></div></div>` : '';
   if(c.ligada) setTimeout(() => rmGvChecar(), 60);
   return `<div class="rm-cfg-card gv-card" id="rm-gv-card">
       <div class="rm-cfg-tit">&#128452; Gaveta de dinheiro</div>
       <div id="rm-gv-cfg-st">${rmGvStatusHtml()}</div>
       ${ops}
       <div class="gv-baixar">Programa para o Windows do balcão: <a class="gv-sec" href="RadicalGaveta.zip" download>&#11015; Baixar o Radical Gaveta</a>
-        <span>Extraia o .zip e dê dois cliques em <b>INSTALAR.bat</b>.</span>${c.ligada ? '<button class="gv-lnk" onclick="rmGvDesligar()">desligar a gaveta neste computador</button>' : ''}</div>
+        <span>Extraia o .zip e dê dois cliques em <b>INSTALAR.bat</b>.</span>${c.ligada || rmGvRemota() ? '<button class="gv-lnk" onclick="rmGvDesligar()">desligar a gaveta neste computador</button>' : ''}</div>
     </div>`;
+}
+
+// ---- gaveta de LONGE: outro computador fez venda/OS/parcela em dinheiro → a gaveta do computador do caixa abre ----
+// O pedido fica gravado em configuracoes ("gaveta-ped-AAAA-MM-DD-xxxx") e também vai por aviso instantâneo (broadcast).
+// O computador do caixa confere os pedidos a cada poucos segundos; pedido com mais de 1 minuto é ignorado (não abre horas depois).
+const RM_GV_PED_VALIDADE = 60000;
+let rmGvRemCanal = null, rmGvRemTimer = null, rmGvRemFeitos = new Set(), rmGvRemOcupado = false;
+const rmGvPedPrefixo = () => 'gaveta-ped-' + rmHojeISO() + '-';
+// (computador que vendeu) manda o pedido
+async function rmGvPedirRemoto(motivo, ref, valor, teste){
+  if(!rmSb || navigator.onLine === false){ rmShowToast('⚠ Sem internet: a gaveta do caixa não foi avisada'); return false; }
+  const id = rmGvPedPrefixo() + rmUid();
+  const ped = { motivo, ref: ref || null, valor: valor || 0, por: rmNomeUsuario(), criadoEm: new Date().toISOString(), feito: false, teste: !!teste };
+  try{
+    const { error } = await rmSb.from('configuracoes').upsert({ id, dados: ped });
+    if(error) throw error;
+  }catch(e){ rmShowToast('⚠ Não consegui avisar a gaveta do caixa'); return false; }
+  try{ const ch = rmSb.channel('rm-gaveta'); ch.subscribe(st => { if(st === 'SUBSCRIBED'){ try{ ch.send({ type: 'broadcast', event: 'abrir', payload: { id } }); }catch(e){} setTimeout(() => { try{ rmSb.removeChannel(ch); }catch(e){} }, 1500); } }); }catch(e){}
+  // espera a resposta do caixa (até ~12 s)
+  for(let i = 0; i < 12; i++){
+    await new Promise(r => setTimeout(r, 1000));
+    try{
+      const { data } = await rmSb.from('configuracoes').select('*').eq('id', id).maybeSingle();
+      const d = data && data.dados;
+      if(d && d.feito){
+        if(d.ok === false){ rmShowToast('⚠ A gaveta do caixa não abriu: ' + (d.erro || 'erro')); return false; }
+        rmShowToast('🗄️ Gaveta do caixa aberta' + (d.feitoPor ? ' (' + d.feitoPor + ')' : '')); return true;
+      }
+    }catch(e){}
+  }
+  rmShowToast('⚠ O computador do caixa não respondeu — a gaveta não abriu. Ele está ligado e com o sistema aberto?');
+  return false;
+}
+// (computador do caixa) escuta e atende
+function rmGvRemIniciar(){
+  clearInterval(rmGvRemTimer); rmGvRemTimer = null;
+  if(rmGvRemCanal){ try{ rmSb.removeChannel(rmGvRemCanal); }catch(e){} rmGvRemCanal = null; }
+  if(!rmGvLigadaAqui() || !rmSb) return;
+  try{ rmGvRemCanal = rmSb.channel('rm-gaveta').on('broadcast', { event: 'abrir' }, () => rmGvRemConferir()).subscribe(); }catch(e){}
+  rmGvRemTimer = setInterval(() => rmGvRemConferir(), 4000);
+  rmGvRemConferir();
+}
+async function rmGvRemConferir(){
+  if(rmGvRemOcupado || !rmGvLigadaAqui() || !rmUsuario || navigator.onLine === false) return;
+  rmGvRemOcupado = true;
+  try{
+    const { data, error } = await rmSb.from('configuracoes').select('*').like('id', rmGvPedPrefixo() + '%');
+    if(error || !Array.isArray(data)) return;
+    const agora = Date.now();
+    const pend = data.filter(x => x.dados && !x.dados.feito && !rmGvRemFeitos.has(x.id) && String(x.id).startsWith('gaveta-ped-')
+      && agora - new Date(x.dados.criadoEm).getTime() < RM_GV_PED_VALIDADE).sort((a, b) => String(a.dados.criadoEm).localeCompare(String(b.dados.criadoEm)));
+    for(const x of pend){
+      rmGvRemFeitos.add(x.id);
+      // marca como atendido antes de abrir (outro aviso igual não abre duas vezes)
+      const { data: atual } = await rmSb.from('configuracoes').select('*').eq('id', x.id).maybeSingle();
+      if(!atual || !atual.dados || atual.dados.feito) continue;
+      const d = atual.dados;
+      const motivo = d.motivo + ' · feita por ' + (d.por || '?') + ' em outro computador';
+      const ok = await rmGvPulsar(d.teste ? 'Teste de outro computador · ' + (d.por || '') : motivo, d.ref, d.valor, false, true);
+      await rmSb.from('configuracoes').upsert({ id: x.id, dados: Object.assign({}, d, { feito: true, ok, erro: ok ? null : 'o programa Radical Gaveta não respondeu', feitoEm: new Date().toISOString(), feitoPor: rmNomeUsuario() }) });
+      if(ok) rmShowToast('🗄️ Gaveta aberta por ' + (d.por || 'outro computador') + ' · ' + d.motivo);
+    }
+  }catch(e){}
+  finally{ rmGvRemOcupado = false; }
+}
+function rmGvRemota(){ const c = rmGvCfg(); return !c.ligada && !!c.remota; }
+async function rmGvUsarRemota(){
+  rmGvCfgSet('remota', true); rmGvCfgSet('ligada', false);
+  const box = document.getElementById('rm-gv-card'); if(box) box.outerHTML = rmGvCardHtml();
+  rmGvPintar();
+  rmShowToast('Este computador vai abrir a gaveta do caixa');
 }
 
 // ---- Caixa do dia: aberturas da gaveta no dia ----
