@@ -2242,6 +2242,34 @@
   .cx-conf tr{cursor:default;}
   /* janelinha de movimento e subaba Retirada */
   .cp.rt{width:460px;}
+  .cx-tg-v{background:#2f6fb5; color:#fff;}
+  .cp.gh{width:680px;}
+  .gh-saldo{display:flex; align-items:center; gap:14px; margin:14px 0 4px; padding:12px 14px; background:rgba(46,139,87,.08); border:1px solid rgba(46,139,87,.4); flex-wrap:wrap;}
+  .gh-saldo .gh-sico{font-size:28px; line-height:1;} .gh-saldo > div{min-width:0;} .gh-saldo small{display:block; color:var(--rm-text-dim); font-size:12px; line-height:1.4;} .gh-saldo b{display:block; font-size:24px; color:#2e8b57; line-height:1.2;}
+  .gh-saldo .gh-dep{margin-left:auto; text-align:right;} .gh-saldo .gh-dep b{font-size:19px; color:var(--rm-text);}
+  .gh-saldo-r{background:rgba(217,67,58,.06); border-color:rgba(217,67,58,.45);} .gh-saldo-r .gh-dep b{color:#d9433a;}
+  .gh-saldo-x{background:rgba(201,150,26,.08); border-color:rgba(201,150,26,.5);} .gh-saldo-x b{color:#9a7210; font-size:19px;} .gh-saldo-c b{color:var(--rm-text-dim); font-size:19px;}
+  .gh-abrecx{margin-left:auto; display:flex; align-items:center; gap:6px; flex-wrap:wrap;} .gh-abrecx small{width:100%;}
+  .gh-abrecx input{width:110px; padding:9px 10px; font-size:15px; font-weight:800; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-family:inherit; box-sizing:border-box; margin:0; height:auto;}
+  .gh-abrecx button{padding:9px 14px; border:0; background:#2e8b57; color:#fff; font-weight:800; font-family:inherit; cursor:pointer; width:auto; margin:0;}
+  .gh-aviso{margin-top:8px; padding:10px 12px; border:1px solid #d9433a; background:rgba(217,67,58,.07); color:#b3362e; font-size:13.5px; font-weight:600;}
+  .gh-tiles{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px;}
+  .gh-t{display:flex; gap:12px; align-items:flex-start; text-align:left; padding:16px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-family:inherit; cursor:pointer; width:100%; margin:0; min-width:0;}
+  .gh-t:hover{filter:brightness(.97);} .gh-t .gh-i{font-size:30px; line-height:1;} .gh-t b{display:block; font-size:16px;} .gh-t small{display:block; color:var(--rm-text-dim); font-size:12.5px; line-height:1.4; margin-top:3px; font-weight:400;}
+  .gh-r{border-color:#c9961a; background:rgba(201,150,26,.07);} .gh-v{border-color:#2f6fb5; background:rgba(47,111,181,.06);} .gh-s{border-color:#6a4fc4; background:rgba(106,79,196,.06);} .gh-e{border-color:#2e8b57; background:rgba(46,139,87,.06);}
+  .gh-so{display:flex; align-items:center; gap:10px; width:100%; margin:12px 0 0; padding:11px 14px; border:1px dashed var(--rm-border); background:transparent; color:var(--rm-text-dim); font-size:14px; font-family:inherit; cursor:pointer; text-align:left;} .gh-so b{color:var(--rm-text);}
+  .gh-pend{margin-top:12px; padding:10px 12px; border:1px solid #c9961a; background:rgba(201,150,26,.08); font-size:13px;}
+  .gh-aberta{display:flex; align-items:center; gap:10px; background:#2e8b57; color:#fff; padding:10px 14px; font-weight:800; font-size:15px; margin:-22px -24px 14px;} .gh-aberta small{margin-left:auto; font-weight:600; opacity:.9; font-size:12.5px;}
+  .gh-naoabriu{background:#c9961a; color:#1b1b1b;}
+  .cp.gh-vale, .cp.gh-mov{width:560px;}
+  .gh-func{display:grid; grid-template-columns:repeat(auto-fill, minmax(120px, 1fr)); gap:8px;}
+  .gh-func button{padding:10px 8px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-weight:800; font-size:14px; font-family:inherit; cursor:pointer; margin:0; width:100%; min-width:0;}
+  .gh-func button small{display:block; font-weight:600; color:var(--rm-text-dim); font-size:11.5px; margin-top:3px;} .gh-func button.on{border:2px solid #2f6fb5; background:rgba(47,111,181,.1);}
+  .cp input.rt-val.gh-vale-val{border-color:#2f6fb5 !important;}
+  .gh-pl{width:100%; border-collapse:collapse; margin-top:12px; font-size:13px; border:1px solid var(--rm-border);} .gh-pl th, .gh-pl td{padding:6px 8px; border-bottom:1px solid var(--rm-border); text-align:left;} .gh-pl .r{text-align:right;}
+  .gh-pl th{font-size:11px; color:var(--rm-text-dim); text-transform:uppercase;} .gh-pl tr.nv td{background:rgba(47,111,181,.1); font-weight:800; color:#2f6fb5;} .gh-pl tr.tt td{font-weight:800;}
+  .cp.rt .pe .pri.gh-pri-v{background:#2f6fb5; border-color:#2f6fb5; color:#fff;}
+  @media (max-width:640px){ .gh-tiles{grid-template-columns:1fr;} .gh-aberta small{display:none;} .gh-saldo .gh-dep, .gh-abrecx{margin-left:0;} }
   .rt-lab, .cp .rt-lab{display:block; font-size:13.5px !important; text-transform:none !important; letter-spacing:0 !important; color:var(--rm-text) !important; font-weight:700 !important; margin:14px 0 6px !important;}
   .rt-val{width:100%; box-sizing:border-box; font-size:34px; font-weight:900; text-align:center; padding:12px; background:var(--rm-bg); color:var(--rm-text); border:2px solid #c9961a; font-family:inherit; margin:0;}
   .rt-chips{display:flex; flex-wrap:wrap; gap:6px;}
@@ -2834,7 +2862,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 23/10 às 20:05</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 23/10 às 21:26</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2892,7 +2920,7 @@ function rmCarregarLib(nome){
           <button class="rm-pdv-modo-btn active" id="rm-pdv-tabela-consumidor" onclick="rmSetTabelaPrecoPdv('consumidor')">Consumidor</button>
           <button class="rm-pdv-modo-btn" id="rm-pdv-tabela-parceiro" onclick="rmSetTabelaPrecoPdv('parceiro')">Parceiro</button>
         </div>
-        <span class="rm-ret-grupo"><button class="rm-ret-btn" id="rm-btn-pdv-retirada" onclick="rmRetAbrir()"><span>&#128184;</span><span>Retirar dinheiro do caixa</span></button><button class="rm-ret-imp" id="rm-ret-imp" style="display:none" title="Resumo das retiradas de hoje (só administrador)" onclick="rmRetResumoEscolher()">&#128424;</button><span class="gv-pdv" id="rm-gv-pdv" style="display:none"><button class="gv-bt" onclick="rmGavetaAbrir()">&#128452; Abrir gaveta</button><span class="gv-dot"><i></i><em>procurando gaveta…</em></span></span></span>
+        <span class="rm-ret-grupo"><button class="rm-ret-btn" id="rm-btn-pdv-retirada" onclick="rmRetAbrir()"><span>&#128452;</span><span>Gaveta · tirar / colocar dinheiro</span></button><button class="rm-ret-imp" id="rm-ret-imp" style="display:none" title="Resumo das retiradas de hoje (só administrador)" onclick="rmRetResumoEscolher()">&#128424;</button><span class="gv-pdv" id="rm-gv-pdv" style="display:none"><span class="gv-dot"><i></i><em>procurando gaveta…</em></span></span></span>
       </div>
 
       <div class="rm-px-grid">
@@ -6955,7 +6983,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610232005; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610232126; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -11266,6 +11294,7 @@ function rmMovAtualizar(pref){
   const qb = document.getElementById(pref + '-quem-box');
   if(qb){ const vis = !!(tr && tr.checked); if(vis && qb.style.display === 'none'){ qb.style.display = ''; setTimeout(() => { const q = document.getElementById(pref + '-quem'); if(q) q.focus(); }, 30); } else if(!vis) qb.style.display = 'none'; }
   info.innerHTML = `Registrado por <b>${rmEscapeHtml(rmNomeUsuario())}</b> hoje às ${new Date().toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' })}.` + (tr && tr.checked && v > 0 ? ` Levou <b>${rmFormatMoeda(v)}</b>: quando voltar, informe quanto de troco devolveu.` : '');
+  if(pref === 'rm-mov') rmGhPintarSaldo();
 }
 function rmMovLer(pref){
   const f = document.getElementById(pref + '-form'); if(!f) return null;
@@ -11299,28 +11328,32 @@ async function rmMovGravar(m, dia){
   const c = rmCxDados[dia] || (rmCxDados[dia] = {});
   (c.retiradas = c.retiradas || []).push(Object.assign({ id, dia }, m));
   rmRetPend = rmRetPend.concat(m.trocoPendente ? [Object.assign({ id, dia }, m)] : []);
-  rmLog(m.tipo === 'entrada' ? 'Entrada avulsa no caixa' : m.tipo === 'sangria' ? 'Sangria do caixa' : 'Retirada do caixa', rmFormatMoeda(m.valor), rmMovTexto(m) + (m.desc ? ' · ' + m.desc : '') + (m.trocoPendente ? ' · troco pendente · levou ' + (m.levou || '') : ''));
+  rmLog(m.vale ? 'Deu vale para funcionário' : m.tipo === 'entrada' ? 'Entrada avulsa no caixa' : m.tipo === 'sangria' ? 'Sangria do caixa' : 'Retirada do caixa', rmFormatMoeda(m.valor), rmMovTexto(m) + (m.desc ? ' · ' + m.desc : '') + (m.trocoPendente ? ' · troco pendente · levou ' + (m.levou || '') : ''));
   return true;
 }
 // janelinha (Caixa do dia → botões Entrada avulsa / Sangria / Despesa)
 let rmMovDoPdv = false;
-function rmCxMovAbrir(tipo, doPdv){
+function rmCxMovAbrir(tipo, doPdv, gh){
   rmMovDoPdv = !!doPdv;
+  if(!gh) rmGhFluxo = null;
   let ov = document.getElementById('rm-mov-ov'); if(ov) ov.remove();
   ov = document.createElement('div'); ov.id = 'rm-mov-ov'; ov.className = 'cp-ov';
-  ov.onclick = e => { if(e.target === ov) ov.remove(); };
-  ov.innerHTML = `<div class="cp rt" onclick="event.stopPropagation()"><h3>${RM_MOV_TIT[tipo]}</h3><div class="sub">${rmMovDoPdv ? 'Para controle: fica registrado no Caixa do dia, com quem tirou e a hora.' : 'Fica registrado no Caixa do dia' + (rmCxDia && rmCxDia !== rmHojeISO() ? ' de ' + rmDataBR(rmCxDia) : '') + '.'}</div>
+  ov.onclick = e => { if(e.target === ov){ if(gh) rmGhCancelar(); else ov.remove(); } };
+  ov.innerHTML = `<div class="cp rt${gh ? ' gh-mov' : ''}" onclick="event.stopPropagation()">${gh ? rmGhBannerHtml() : ''}<h3>${RM_MOV_TIT[tipo]}</h3><div class="sub">${rmMovDoPdv ? 'Para controle: fica registrado no Caixa do dia, com quem tirou e a hora.' : 'Fica registrado no Caixa do dia' + (rmCxDia && rmCxDia !== rmHojeISO() ? ' de ' + rmDataBR(rmCxDia) : '') + '.'}</div>
+    ${gh ? '<div id="rm-gh-saldo"></div>' : ''}
     ${rmMovFormHtml(tipo, 'rm-mov')}
-    <div class="pe"><button onclick="document.getElementById('rm-mov-ov').remove()">Cancelar</button><button class="pri" onclick="rmCxMovSalvar()">&#10004; ${rmMovDoPdv ? 'Registrar retirada' : 'Registrar'}</button></div></div>`;
+    <div class="pe"><button onclick="${gh ? 'rmGhCancelar()' : "document.getElementById('rm-mov-ov').remove()"}">${gh && rmGhPulsou ? 'Fechei sem mexer' : 'Cancelar'}</button><button class="pri" onclick="rmCxMovSalvar()">&#10004; ${rmMovDoPdv && tipo === 'despesa' ? 'Registrar retirada' : 'Registrar'}</button></div></div>`;
   document.body.appendChild(ov);
   rmMovAtualizar('rm-mov');
   setTimeout(() => { const i = document.getElementById('rm-mov-val'); if(i) i.focus(); }, 50);
 }
 async function rmCxMovSalvar(){
   const m = rmMovLer('rm-mov'); if(!m) return;
+  if(rmGhFluxo && !rmGhConfereSaldo(m.valor, m.tipo)) return;
+  const viaGh = !!rmGhFluxo;
   const dia = rmMovDoPdv ? rmHojeISO() : (rmCxDia || rmHojeISO()), c = rmCxDados[dia] || {};
   if(!rmMovDoPdv && c.fechamento){ alert('O caixa deste dia já foi fechado.'); return; }
-  if(await rmMovGravar(m, dia)){ const ov = document.getElementById('rm-mov-ov'); if(ov) ov.remove(); if(dia === rmHojeISO()) rmGavetaAuto('mov', 'Dinheiro', (m.tipo === 'entrada' ? 'Entrada avulsa' : m.tipo === 'sangria' ? 'Sangria' : 'Retirada') + ' · ' + rmMovTexto(m), null, m.tipo === 'entrada' ? m.valor : -m.valor); rmShowToast((rmMovDoPdv ? 'Retirada de ' : 'Registrado: ') + rmFormatMoeda(m.valor) + (m.trocoPendente ? ' · lembre de devolver o troco' : '')); rmCxRender(); rmRetAlertaRender(); }
+  if(await rmMovGravar(m, dia)){ const ov = document.getElementById('rm-mov-ov'); if(ov) ov.remove(); rmGhFluxo = null; rmGhPulsou = false; if(dia === rmHojeISO() && !viaGh) rmGavetaAuto('mov', 'Dinheiro', (m.tipo === 'entrada' ? 'Entrada avulsa' : m.tipo === 'sangria' ? 'Sangria' : 'Retirada') + ' · ' + rmMovTexto(m), null, m.tipo === 'entrada' ? m.valor : -m.valor); rmShowToast((rmMovDoPdv ? 'Retirada de ' : 'Registrado: ') + rmFormatMoeda(m.valor) + (m.trocoPendente ? ' · lembre de devolver o troco' : '')); rmCxRender(); rmRetAlertaRender(); }
 }
 async function rmCxTirarRetirada(id){
   const r = rmCxMovs(rmCxDados[rmCxDia]).find(x => x.id === id); if(!r) return;
@@ -11351,6 +11384,7 @@ async function rmMovDevolver(dia, id){
   rmRetPend = rmRetPend.filter(x => x.id !== id);
   rmLog('Troco devolvido ao caixa', rmFormatMoeda(dev), (m.levou || m.por) + ' · ' + rmMovTexto(m) + ' · gastou ' + rmFormatMoeda(m.valor - dev));
   rmShowToast('Troco de ' + rmFormatMoeda(dev) + ' registrado · gasto ' + rmFormatMoeda(m.valor - dev));
+  if(dev > 0.004) rmGavetaAuto('mov', 'Dinheiro', 'Troco devolvido · ' + (m.levou || m.por || ''), null, dev);
   rmRetAlertaRender(); rmCxRender(); if(typeof rmRetRender === 'function') rmRetRender();
 }
 
@@ -11477,7 +11511,7 @@ function rmGvIniciar(){
 function rmGvPintar(){
   const w = document.getElementById('rm-gv-pdv');
   if(w){
-    const mostra = rmGvLigadaAqui() && rmGvPodeBotao();
+    const mostra = rmGvLigadaAqui();
     w.style.display = mostra ? '' : 'none';
     const d = w.querySelector('.gv-dot');
     if(d){ d.className = 'gv-dot' + (rmGvOn === false ? ' off' : rmGvOn ? ' on' : ''); d.querySelector('em').textContent = rmGvOn === false ? 'gaveta desligada' : rmGvOn ? 'gaveta conectada' : 'procurando gaveta…'; }
@@ -11633,7 +11667,7 @@ function rmCxRender(){
   const podeMexer = ab && !fe;
   const TAG = { entrada: ['ENTRADA', 'cx-tg-e'], despesa: ['DESPESA', 'cx-tg-d'], sangria: ['SANGRIA', 'cx-tg-s'] };
   const movHtml = (ab ? `<div class="cx-l"><span>${hora(ab.em)} · <span class="cx-tg cx-tg-e">ABERTURA</span>Troco inicial <i>${esc(ab.por)}</i></span><b class="cx-ok">+ ${M(ab.valor)}</b></div>` : '')
-    + movs.map(m => { const tg = TAG[m.tipo] || TAG.despesa, pend = rmCxTrocoPendente(m);
+    + movs.map(m => { const tg = m.vale ? ['VALE', 'cx-tg-v'] : TAG[m.tipo] || TAG.despesa, pend = rmCxTrocoPendente(m);
       return `<div class="cx-l${pend ? ' cx-pend' : ''}"><span>${hora(m.em)} · <span class="cx-tg ${tg[1]}">${tg[0]}</span>${esc(rmMovTexto(m))}${m.desc ? ' <i>' + esc(m.desc) + '</i>' : ''} <i>${esc(m.por || '')}</i>
         ${m.levou ? ` <i>levou: <b>${esc(m.levou)}</b></i>` : ''}${pend ? `<span class="cx-tg cx-tg-p">TROCO PENDENTE</span><button class="cx-btn2" onclick="rmMovDevolver('${dia}','${rmJs(m.id)}')">Devolveu troco</button>` : m.devolvido != null ? ` <i>levou ${M(m.valor)}, voltou ${M(m.devolvido)}</i>` : ''}</span>
         <span><b class="${m.tipo === 'entrada' ? 'cx-ok' : 'cx-saida'}">${m.tipo === 'entrada' ? '+ ' + M(m.valor) : '− ' + M(rmCxMovValor(m))}</b>${podeMexer ? ` <button class="cx-x" title="Apagar" onclick="rmCxTirarRetirada('${rmJs(m.id)}')">&times;</button>` : ''}</span></div>`; }).join('');
@@ -11742,7 +11776,7 @@ async function rmRetResumo(modo, dia){
   const linha = (m, H) => {
     const quem = (m.levou ? 'levou: ' + H(m.levou) + ' · ' : '') + 'anotou: ' + H(m.por || '');
     const troco = m.devolvido != null ? `levou ${M(m.valor)}, voltou ${M(m.devolvido)}` : rmCxTrocoPendente(m) ? `<b>TROCO PENDENTE (levou ${M(m.valor)})</b>` : '';
-    return { hora: hora(m.em), tipo: TIPO[m.tipo] || 'Despesa', oque: H(rmMovTexto(m)) + (m.desc ? ' · ' + H(m.desc) : ''), quem, troco, valor: (m.tipo === 'entrada' ? '+ ' : '− ') + M(m.tipo === 'entrada' ? m.valor : rmCxMovValor(m)) };
+    return { hora: hora(m.em), tipo: m.vale ? 'Vale' : TIPO[m.tipo] || 'Despesa', oque: H(rmMovTexto(m)) + (m.desc ? ' · ' + H(m.desc) : ''), quem, troco, valor: (m.tipo === 'entrada' ? '+ ' : '− ') + M(m.tipo === 'entrada' ? m.valor : rmCxMovValor(m)) };
   };
   if(modo === 'tela'){
     const H = rmEscapeHtml;
@@ -11768,8 +11802,175 @@ async function rmRetResumo(modo, dia){
 // botão "Retirar dinheiro do caixa" no PDV: abre a janelinha (o funcionário pode usar, se tiver permissão)
 function rmRetAbrir(){
   if(!rmSubPode('rm-btn-pdv-retirada')){ rmShowToast('Você não tem acesso a essa parte do sistema'); return; }
-  rmCxMovAbrir('despesa', true);
+  rmGhAbrir();
 }
+// ===================== GAVETA: um botão só no PDV (despesa, vale, sangria, colocar dinheiro) =====================
+// A gaveta abre na hora em que a pessoa escolhe o que vai fazer; depois ela digita o valor e o motivo.
+// Se fechar sem registrar nada, isso fica anotado no registro (aparece no Caixa do dia).
+const RM_GH_ROT = { despesa: 'Retirada para despesa', vale: 'Vale para funcionário', sangria: 'Sangria (cofre)', entrada: 'Colocar dinheiro' };
+let rmGhFluxo = null, rmGhPulsou = false, rmGhAbertaEm = null, rmGhSaldoInfo = null, rmGhValeCol = null;
+async function rmGhSaldo(){
+  const dia = rmHojeISO();
+  let c;
+  try{ c = await rmCxBuscarDia(dia); rmCxGuardarLocal(dia, c); }
+  catch(e){ c = rmCxDados[dia]; if(!c) return { erro: true }; }
+  const e = rmCxEntradas(dia), t = rmCxTotais(c, e);
+  return { aberto: !!c.abertura, troco: t.troco, dinheiro: e.dinheiro, entradas: t.entradas, saidas: t.saidas, saldo: t.esperado };
+}
+function rmGhValorDigitado(){
+  const i = document.getElementById('rm-mov-val') || document.getElementById('rm-gh-vale-val');
+  return i ? rmParseMoeda(i.value) || 0 : 0;
+}
+function rmGhPintarSaldo(){
+  const el = document.getElementById('rm-gh-saldo'); if(!el) return;
+  const s = rmGhSaldoInfo, M = rmFormatMoeda;
+  if(!s){ el.innerHTML = '<div class="gh-saldo gh-saldo-c"><span class="gh-sico">&#128181;</span><div><small>TEM NA GAVETA AGORA</small><b>calculando…</b></div></div>'; return; }
+  if(s.erro){ el.innerHTML = '<div class="gh-saldo gh-saldo-x"><span class="gh-sico">&#128181;</span><div><small>TEM NA GAVETA AGORA</small><b>sem internet</b><small>Não consegui buscar o caixa de hoje.</small></div></div>'; return; }
+  if(!s.aberto){
+    el.innerHTML = `<div class="gh-saldo gh-saldo-x"><span class="gh-sico">&#128181;</span><div><small>TEM NA GAVETA AGORA</small><b>não sei ainda</b><small>O caixa de hoje ainda não foi aberto (troco inicial não foi contado).${rmEhAdmin() ? '' : ' Peça para o administrador abrir o caixa.'}</small></div>
+      ${rmEhAdmin() ? `<div class="gh-abrecx"><small>Troco que tem na gaveta agora</small><input id="rm-gh-troco" inputmode="decimal" placeholder="R$ 0,00"><button onclick="rmGhAbrirCaixa()">Abrir caixa</button></div>` : ''}</div>`;
+    return;
+  }
+  const tipo = rmGhFluxo, v = rmGhValorDigitado();
+  const depois = tipo === 'entrada' ? s.saldo + v : s.saldo - v;
+  const passou = tipo && tipo !== 'entrada' && v > s.saldo + 0.004;
+  el.innerHTML = `<div class="gh-saldo${passou ? ' gh-saldo-r' : ''}"><span class="gh-sico">&#128181;</span><div><small>TEM NA GAVETA AGORA</small><b>${M(s.saldo)}</b>
+      <small>troco inicial ${M(s.troco)} + dinheiro que entrou ${M(rmCxR2(s.dinheiro + s.entradas))} − saídas ${M(s.saidas)}</small></div>
+      ${tipo && v > 0 ? `<div class="gh-dep"><small>${tipo === 'entrada' ? 'DEPOIS DE COLOCAR' : 'DEPOIS DESTA SAÍDA'}</small><b>${M(rmCxR2(depois))}</b></div>` : ''}</div>
+    ${passou ? `<div class="gh-aviso">&#9888; Pela conta do sistema só tem ${M(s.saldo)} na gaveta. Confira se alguma venda em dinheiro ficou sem lançar.</div>` : ''}`;
+}
+async function rmGhAbrirCaixa(){
+  const v = rmParseMoeda((document.getElementById('rm-gh-troco') || {}).value);
+  if(!(v >= 0)){ alert('Digite o troco que tem na gaveta.'); return; }
+  const dia = rmHojeISO();
+  const ok = await rmCxMudar(dia, c => {
+    if(c.abertura) return 'O caixa de hoje já foi aberto por ' + c.abertura.por + '.';
+    c.abertura = { valor: v, por: rmNomeUsuario(), em: new Date().toISOString() };
+    c.retiradas = c.retiradas || [];
+  });
+  if(ok){ rmLog('Abriu o caixa', rmDataBR(dia), 'troco ' + rmFormatMoeda(v)); rmShowToast('Caixa aberto com ' + rmFormatMoeda(v) + ' de troco'); }
+  rmGhSaldoInfo = null; rmGhPintarSaldo(); rmGhSaldoInfo = await rmGhSaldo(); rmGhPintarSaldo();
+}
+function rmGhFecharTudo(){ ['rm-gh-ov', 'rm-mov-ov'].forEach(id => { const o = document.getElementById(id); if(o) o.remove(); }); }
+// botão do PDV
+function rmGhAbrir(){
+  rmGhFecharTudo(); rmGhFluxo = null; rmGhPulsou = false;
+  const ov = document.createElement('div'); ov.id = 'rm-gh-ov'; ov.className = 'cp-ov';
+  ov.onclick = e => { if(e.target === ov) ov.remove(); };
+  const pend = rmRetPend.length;
+  ov.innerHTML = `<div class="cp gh" onclick="event.stopPropagation()"><h3>&#128452; Gaveta de dinheiro</h3>
+    <div class="sub">Escolha o que vai fazer.${rmGvLigadaAqui() ? ' A gaveta abre na hora.' : ''} Fica tudo registrado no Caixa do dia, com quem e a hora.</div>
+    <div id="rm-gh-saldo"></div>
+    <div class="gh-tiles">
+      <button class="gh-t gh-r" onclick="rmGhEscolher('despesa')"><span class="gh-i">&#129534;</span><span><b>Retirar para despesa</b><small>Lanche, material de limpeza, combustível, peça fora… Pode voltar troco.</small></span></button>
+      <button class="gh-t gh-v" onclick="rmGhEscolher('vale')"><span class="gh-i">&#128119;</span><span><b>Dar vale para funcionário</b><small>Escolhe quem e o valor; já lança na planilha de Vale.</small></span></button>
+      <button class="gh-t gh-s" onclick="rmGhEscolher('sangria')"><span class="gh-i">&#128274;</span><span><b>Sangria (guardar no cofre)</b><small>Tirar o excesso de dinheiro da gaveta.</small></span></button>
+      <button class="gh-t gh-e" onclick="rmGhEscolher('entrada')"><span class="gh-i">&#10133;</span><span><b>Colocar dinheiro</b><small>Reforço de troco ou dinheiro que voltou para a gaveta.</small></span></button>
+    </div>
+    ${pend ? `<div class="gh-pend">&#9888; ${pend} troco(s) para devolver — use o aviso amarelo no PDV ("Devolveu troco"): a gaveta abre para guardar.</div>` : ''}
+    <button class="gh-so" onclick="rmGhFecharTudo(); rmGavetaAbrir()">&#128275; <span><b>Só abrir a gaveta</b> (trocar nota para cliente, conferir) — pede o motivo</span></button>
+    <div class="pe"><button onclick="rmGhFecharTudo()">Fechar</button></div></div>`;
+  document.body.appendChild(ov);
+  rmGhSaldoInfo = null; rmGhPintarSaldo();
+  rmGhSaldo().then(s => { rmGhSaldoInfo = s; rmGhPintarSaldo(); });
+}
+function rmGhBannerHtml(){
+  if(!rmGvLigadaAqui()) return '';
+  if(rmGhPulsou) return `<div class="gh-aberta">&#128994; GAVETA ABERTA <small>aberta às ${new Date(rmGhAbertaEm).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' })} por ${rmEscapeHtml(rmNomeUsuario())}</small></div>`;
+  return `<div class="gh-aberta gh-naoabriu">&#9888; A gaveta não abriu sozinha <small>confira o programa Radical Gaveta (Configurações → Impressão)</small></div>`;
+}
+async function rmGhEscolher(tipo){
+  rmGhFluxo = tipo; rmGhPulsou = false; rmGhAbertaEm = Date.now();
+  const saldo = rmGhSaldoInfo;
+  if(rmGvLigadaAqui()){ rmGvUltima = 0; rmGhPulsou = await rmGvPulsar(RM_GH_ROT[tipo], null, 0, false); }
+  rmGhFecharTudo();
+  if(tipo === 'vale') await rmGhValeAbrir();
+  else rmCxMovAbrir(tipo, true, true);
+  rmGhSaldoInfo = saldo; rmGhPintarSaldo();
+  if(!saldo) rmGhSaldo().then(s => { rmGhSaldoInfo = s; rmGhPintarSaldo(); });
+}
+// fechou a janela sem registrar
+function rmGhCancelar(){
+  const tipo = rmGhFluxo;
+  rmGhFecharTudo();
+  if(tipo && rmGhPulsou) rmLog('Abriu a gaveta', null, '⚠ Fechou sem registrar nada · ' + RM_GH_ROT[tipo]);
+  rmGhFluxo = null; rmGhPulsou = false;
+}
+// confere o saldo antes de registrar uma saída
+function rmGhConfereSaldo(v, tipo){
+  const s = rmGhSaldoInfo;
+  if(!rmGhFluxo || !s || s.erro || !s.aberto || tipo === 'entrada' || v <= s.saldo + 0.004) return true;
+  return confirm('Pela conta do sistema só tem ' + rmFormatMoeda(s.saldo) + ' na gaveta, e você digitou ' + rmFormatMoeda(v) + '.\n\nConfira se alguma venda em dinheiro ficou sem lançar.\nRegistrar mesmo assim?');
+}
+
+// ---- vale para funcionário: registra a saída no caixa e lança na planilha de Vale ----
+async function rmGhValeAbrir(){
+  try{ await Promise.race([rmValeSync(), new Promise(r => setTimeout(r, 2500))]); }catch(e){}
+  rmGhValeCol = null;
+  const cols = rmValeCols().filter(c => String(c.nome || '').trim());
+  const ov = document.createElement('div'); ov.id = 'rm-mov-ov'; ov.className = 'cp-ov';
+  ov.onclick = e => { if(e.target === ov) rmGhCancelar(); };
+  ov.innerHTML = `<div class="cp rt gh-vale" onclick="event.stopPropagation()">${rmGhBannerHtml()}<h3>&#128119; Dar vale para funcionário</h3>
+    <div class="sub">O vale fica registrado no Caixa do dia e entra sozinho na planilha de Vale.</div>
+    <div id="rm-gh-saldo"></div>
+    <label class="rt-lab">Para quem?</label>
+    ${cols.length ? `<div class="gh-func">${cols.map(c => `<button type="button" data-cid="${c.id}" onclick="rmGhValeQuem('${rmJs(c.id)}')">${rmEscapeHtml(String(c.nome).trim().toUpperCase())}</button>`).join('')}</div>`
+      : `<div class="gh-aviso">Nenhum funcionário na planilha de Vale. Escreva os nomes nas colunas em Planilha → Vale.</div>`}
+    <label class="rt-lab">Valor do vale</label>
+    <input class="rt-val gh-vale-val" id="rm-gh-vale-val" inputmode="decimal" placeholder="R$ 0,00" autocomplete="off" oninput="rmGhPintarSaldo()">
+    <input class="rt-txt" id="rm-gh-vale-obs" autocapitalize="characters" placeholder="Observação (opcional) — ex.: adiantamento">
+    <div class="pe"><button onclick="rmGhCancelar()">${rmGhPulsou ? 'Fechei sem tirar nada' : 'Cancelar'}</button><button class="pri gh-pri-v" onclick="rmGhValeSalvar()">&#10004; Registrar vale</button></div></div>`;
+  document.body.appendChild(ov);
+  setTimeout(() => { const i = document.getElementById('rm-gh-vale-val'); if(i) i.focus(); }, 50);
+}
+function rmGhValeQuem(cid){
+  rmGhValeCol = cid;
+  document.querySelectorAll('.gh-func button').forEach(b => b.classList.toggle('on', b.dataset.cid === cid));
+}
+// lança o vale na planilha: só numa célula VAZIA da coluna, conferindo com o servidor antes e depois de gravar
+async function rmGhValeLancar(cid, txt){
+  for(let tent = 0; tent < 4; tent++){
+    const { data, error } = await rmSb.from('configuracoes').select('*').eq('id', 'vale').maybeSingle();
+    if(error) throw error;
+    rmVale = rmValeJuntar(data && data.dados, rmVale);
+    let r = 0; while(r < rmVale.linhas && String((rmVale.celulas[r + ':' + cid] || {}).v || '').trim()) r++;
+    if(r >= rmVale.linhas - 1) rmVale.linhas = r + 6;
+    const t = new Date().toISOString();
+    rmVale.celulas[r + ':' + cid] = { v: txt, t };
+    const g = await rmSb.from('configuracoes').upsert({ id: 'vale', dados: rmVale });
+    if(g.error) throw g.error;
+    const conf = await rmSb.from('configuracoes').select('*').eq('id', 'vale').maybeSingle();
+    const c = conf.data && conf.data.dados && conf.data.dados.celulas && conf.data.dados.celulas[r + ':' + cid];
+    if(c && c.v === txt && c.t === t){ rmValeGuardarLocal(); return r; }
+    // outro aparelho escreveu nesta mesma célula ao mesmo tempo: devolve a dele e tenta a próxima linha vazia
+    if(conf.data && conf.data.dados) rmVale = rmValeJuntar(conf.data.dados, Object.assign({}, rmVale, { celulas: Object.assign({}, rmVale.celulas, { [r + ':' + cid]: c || { v: '', t: '' } }) }));
+  }
+  throw new Error('não consegui confirmar a gravação');
+}
+async function rmGhValeSalvar(){
+  const cid = rmGhValeCol;
+  if(!cid){ alert('Escolha para quem é o vale.'); return; }
+  const v = rmGhValorDigitado();
+  if(!(v > 0)){ alert('Digite o valor do vale.'); const i = document.getElementById('rm-gh-vale-val'); if(i) i.focus(); return; }
+  if(!rmGhConfereSaldo(v, 'vale')) return;
+  if(navigator.onLine === false){ alert('Sem internet: o vale precisa de internet para lançar na planilha. Tente de novo quando a internet voltar.'); return; }
+  try{ const { error } = await rmSb.from('configuracoes').select('id').eq('id', 'vale').maybeSingle(); if(error) throw error; }
+  catch(e){ alert('Não consegui falar com o servidor. Verifique a internet e tente de novo (nada foi registrado).'); return; }
+  const nome = String(rmValeNomeCol(cid)).trim().toUpperCase();
+  const obs = ((document.getElementById('rm-gh-vale-obs') || {}).value || '').trim().toUpperCase();
+  const m = { tipo: 'despesa', valor: v, motivo: 'Vale · ' + nome, desc: obs, vale: { col: cid, nome }, por: rmNomeUsuario(), em: new Date().toISOString() };
+  if(!(await rmMovGravar(m, rmHojeISO()))) return;
+  // planilha de Vale: primeira linha vazia da coluna do funcionário (nunca escreve em cima de outra anotação)
+  const txt = v.toFixed(2).replace('.', ',');
+  let r;
+  try{ r = await rmGhValeLancar(cid, txt); }
+  catch(e){ alert('O vale de ' + rmFormatMoeda(v) + ' ficou registrado no Caixa do dia, mas não consegui lançar na planilha de Vale (' + (e.message || e) + ').\n\nAnote à mão na coluna de ' + nome + '.'); rmGhFecharTudo(); rmGhFluxo = null; rmGhPulsou = false; return; }
+  try{ rmValeHistReg({ tipo:'cel', k: r + ':' + cid, cid, col: rmValeNomeCol(cid), linha: r + 1, de: '', para: txt }); }catch(e){}
+  try{ rmValeStatus('✔ salvo'); rmValeRenderSeLivre(); }catch(e){}
+  rmGhFecharTudo(); rmGhFluxo = null; rmGhPulsou = false;
+  rmShowToast('Vale de ' + rmFormatMoeda(v) + ' para ' + nome + ' registrado · lançado na planilha de Vale');
+}
+
 setTimeout(() => rmRetPendCarregar(), 6000);
 setTimeout(() => { try{ rmGvIniciar(); }catch(e){} }, 2500);
 setInterval(() => { const s = document.getElementById('rm-section-pdv'); if(s && s.classList.contains('active')) rmRetPendCarregar(); }, 60000);
