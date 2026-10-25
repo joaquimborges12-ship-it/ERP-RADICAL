@@ -2854,7 +2854,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 23/10 às 21:59</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 25/10 às 16:30</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -6975,7 +6975,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610232159; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610251630; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -13342,17 +13342,27 @@ function rmImprimirDoc(titulo, corpo, varias, fmt){
     ` : ''}
   </style></head><body>${corpo}${e.rodape ? `<div class="a4-rodmsg">${rmH(e.rodape)}</div>` : ''}
     <div class="a4-rod"><span></span><span>${varias ? '' : '1/1'}</span><span>Impresso em ${agora}</span></div></body></html>`;
-  let frame = document.getElementById('rm-print-a4');
-  if(!frame){
-    frame = document.createElement('iframe');
-    frame.id = 'rm-print-a4';
-    frame.style.cssText = 'position:fixed; width:0; height:0; border:0; right:0; bottom:0;';
-    document.body.appendChild(frame);
-  }
+  // trava: o mesmo documento não manda imprimir duas vezes seguidas (clique duplo, aviso repetido…)
+  const chave = titulo + '|' + fmt, agoraMs = Date.now();
+  if(rmImpUltima.chave === chave && agoraMs - rmImpUltima.em < 4000) return;
+  rmImpUltima = { chave, em: agoraMs };
+  // um quadro novo a cada impressão (o antigo é jogado fora), fora da tela mas com tamanho de página
+  const velho = document.getElementById('rm-print-a4'); if(velho) velho.remove();
+  const frame = document.createElement('iframe');
+  frame.id = 'rm-print-a4';
+  frame.setAttribute('aria-hidden', 'true');
+  frame.style.cssText = 'position:fixed; left:-10000px; top:0; width:800px; height:1100px; border:0; visibility:hidden;';
+  document.body.appendChild(frame);
   const doc = frame.contentWindow.document;
   doc.open(); doc.write(html); doc.close();
-  setTimeout(() => { frame.contentWindow.focus(); frame.contentWindow.print(); }, 450);
+  // espera o logo carregar e manda imprimir UMA vez
+  let foi = false;
+  const imprimir = () => { if(foi) return; foi = true; try{ frame.contentWindow.focus(); frame.contentWindow.print(); }catch(e){} };
+  const imgs = [...doc.images];
+  Promise.race([Promise.all(imgs.map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; }))), new Promise(r => setTimeout(r, 3000))])
+    .then(() => setTimeout(imprimir, 150));
 }
+let rmImpUltima = { chave: '', em: 0 };
 
 function rmImprimirTesteA4(){
   rmImprimirA4('Teste', rmA4Cabecalho('Página de teste', '', new Date().toLocaleDateString('pt-BR')) + rmA4Secao('Teste', 'Se esta página saiu em A4 com o cabeçalho certo, a impressora está configurada.'));
