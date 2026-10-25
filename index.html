@@ -2233,6 +2233,29 @@
   .cx-conf tr{cursor:default;}
   /* janelinha de movimento e subaba Retirada */
   .cp.rt{width:460px;}
+  .dg-ov{position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:40000; display:flex; align-items:center; justify-content:center; padding:16px; box-sizing:border-box;}
+  .dg{width:460px; max-width:100%; max-height:92vh; overflow:auto; background:var(--rm-panel); color:var(--rm-text); border:1px solid var(--rm-border); border-top:5px solid var(--dgc); box-shadow:0 24px 60px rgba(0,0,0,.5); font-family:var(--rm-font-body); box-sizing:border-box; animation:dgIn .12s ease-out;}
+  @keyframes dgIn{from{transform:translateY(8px); opacity:0;} to{transform:none; opacity:1;}}
+  .dg-ok{--dgc:#2e8b57; --dgb:rgba(46,139,87,.16);} .dg-info{--dgc:#2f6fb5; --dgb:rgba(47,111,181,.16);} .dg-aviso{--dgc:#c9961a; --dgb:rgba(201,150,26,.18);} .dg-perigo{--dgc:#d9433a; --dgb:rgba(217,67,58,.16);}
+  .dg-cab{display:flex; align-items:center; gap:14px; padding:20px 22px 6px;}
+  .dg-ic{width:46px; height:46px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:23px; font-weight:900; background:var(--dgb); color:var(--dgc); font-family:var(--rm-font-body);}
+  .dg-cabtx{min-width:0;}
+  .dg-tit{font-family:var(--rm-font-display); font-size:23px; text-transform:uppercase; letter-spacing:.4px; line-height:1.1; overflow-wrap:anywhere;}
+  .dg-sub{font-size:12px; color:var(--rm-text-dim); text-transform:uppercase; letter-spacing:.6px; margin-top:3px; font-weight:700;}
+  .dg-txt{padding:10px 22px 2px 82px; font-size:15px; line-height:1.5; overflow-wrap:anywhere;}
+  .dg-res{margin:12px 22px 0 82px; display:flex; flex-wrap:wrap; gap:8px 22px; font-size:12px; color:var(--rm-text-dim); text-transform:uppercase; letter-spacing:.4px; font-weight:700;}
+  .dg-res b{display:block; font-size:18px; color:var(--rm-text); letter-spacing:0;}
+  .dg-ch{display:flex; flex-wrap:wrap; gap:6px; padding:10px 22px 0 82px;}
+  .dg-chip{padding:8px 11px; border:1px solid var(--rm-border); background:transparent; color:var(--rm-text); font-size:13px; font-weight:700; text-transform:uppercase; font-family:inherit; cursor:pointer; width:auto; margin:0;}
+  .dg-chip.on{border-color:var(--dgc); background:var(--dgb); color:var(--dgc);}
+  .dg .dg-in{display:block; width:calc(100% - 104px); margin:10px 22px 0 82px; padding:11px 12px; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); font-size:15px; font-family:inherit; box-sizing:border-box; height:auto; text-transform:none;}
+  .dg .dg-in:focus{outline:2px solid var(--dgc); outline-offset:-1px;}
+  .dg-pe{display:flex; justify-content:flex-end; gap:10px; padding:20px 22px;}
+  .dg-bt{padding:12px 20px; font-weight:800; font-size:14px; text-transform:uppercase; letter-spacing:.4px; border:1px solid var(--rm-border); background:transparent; color:var(--rm-text); font-family:inherit; cursor:pointer; width:auto; margin:0;}
+  .dg-bt:hover{filter:brightness(1.1);} .dg-bt:focus-visible{outline:2px solid var(--dgc); outline-offset:2px;}
+  .dg-bt.dg-pri{background:var(--dgc); border-color:var(--dgc); color:#fff;}
+  .dg-dica{padding:0 22px 14px; margin-top:-10px; font-size:11.5px; color:var(--rm-text-dim); text-align:right;}
+  @media (max-width:520px){ .dg-txt, .dg-res, .dg-ch{padding-left:22px; margin-left:0;} .dg-res{margin-left:22px;} .dg .dg-in{margin-left:22px; width:calc(100% - 44px);} .dg-pe{flex-wrap:wrap;} .dg-bt{flex:1;} .dg-dica{display:none;} }
   .cx-tg-v{background:#2f6fb5; color:#fff;}
   .cp.gh{width:680px;}
   .gh-saldo{display:flex; align-items:center; gap:14px; margin:14px 0 4px; padding:12px 14px; background:rgba(46,139,87,.08); border:1px solid rgba(46,139,87,.4); flex-wrap:wrap;}
@@ -2854,7 +2877,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 25/10 às 16:30</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 25/10 às 17:04</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -5593,10 +5616,10 @@ function rmRenderProdutos(){
   body.insertAdjacentHTML('beforeend', rmMaisLinha('prod', totalProd, 'rmRenderProdutos'));
 }
 
-function rmExcluirProduto(id){
+async function rmExcluirProduto(id){
   const p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(id);
   if(!p) return;
-  const ok = confirm(`Excluir o produto ${p.nome||''}? Essa ação não pode ser desfeita e remove em todos os dispositivos.`);
+  const ok = await rmConfirmar('Essa ação não pode ser desfeita e remove em todos os dispositivos.', { tipo: 'perigo', titulo: 'Excluir produto?', sub: p.nome || '', sim: 'Excluir' });
   if(!ok) return;
   const list = rmLoadProdutos().filter(x=>x.id!==id);
   rmSaveProdutos(list);
@@ -6471,7 +6494,7 @@ async function rmFinalizarVenda(){
       return;
     }
   }
-  if(!isOrcamento && rmAPrazo(rmPdvFormaPagamento) && !rmLimiteOk(rmPdvClienteId, (subtotal - desconto) - (Number(rmPdvPromEnt) || 0), ed && ed.id)) return;
+  if(!isOrcamento && rmAPrazo(rmPdvFormaPagamento) && !(await rmLimiteOk(rmPdvClienteId, (subtotal - desconto) - (Number(rmPdvPromEnt) || 0), ed && ed.id))) return;
   const mantemCodigo = ed && (ed.tipo === 'orcamento') === isOrcamento;
   let codigoNovo = null;
   if(!mantemCodigo){
@@ -6524,7 +6547,16 @@ async function rmFinalizarVenda(){
 
   rmLog(ed ? 'Editou venda' : (isOrcamento ? 'Salvou orçamento' : 'Finalizou venda'), venda.codigoVenda, rmFormatMoeda(venda.total) + (venda.formaPagamento ? ' · ' + venda.formaPagamento : '') + (venda.clienteNome ? ' · ' + venda.clienteNome : ''));
   const vendaImp = venda;
-  setTimeout(() => { if(confirm((isOrcamento ? 'Orçamento ' : 'Venda ') + vendaImp.codigoVenda + ' salva. Deseja imprimir?')) rmImprimirVendaA4(vendaImp.id); }, 200);
+  { const trocoTxt = ((document.getElementById('rm-pdv-troco-linha') || {}).textContent || '').trim();
+    const hora = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    setTimeout(async () => {
+      const imp = await rmConfirmar('Deseja imprimir ' + (isOrcamento ? 'o orçamento?' : 'o comprovante?'), {
+        tipo: 'ok', titulo: (isOrcamento ? 'Orçamento ' : 'Venda ') + vendaImp.codigoVenda + (ed ? ' alterad' + (isOrcamento ? 'o' : 'a') : isOrcamento ? ' salvo' : ' finalizada'),
+        sub: (vendaImp.clienteNome || 'Consumidor') + ' · ' + hora,
+        resumo: [['Total', rmFormatMoeda(vendaImp.total)]].concat(vendaImp.formaPagamento ? [['Pagamento', vendaImp.formaPagamento]] : []).concat(!isOrcamento && /dinheiro/i.test(vendaImp.formaPagamento || '') && /\d/.test(trocoTxt) ? [['Troco', trocoTxt]] : []),
+        nao: 'Não imprimir', sim: '&#128424; Imprimir', dica: 'Enter = imprimir · Esc = não imprimir' });
+      if(imp) rmImprimirVendaA4(vendaImp.id);
+    }, 200); }
   rmShowToast(venda.codigoVenda + (ed ? ' alterada — ' : (isOrcamento ? ' salvo — ' : ' finalizada — ')) + rmFormatMoeda(venda.total));
   rmPdvEditandoVenda = null;
   rmPdvAtualizarBannerEdicao();
@@ -6749,7 +6781,7 @@ function rmConverterOrcamentoEmVenda(id){
 
 async function rmDbDeleteVenda(id){ rmOutboxPor('vendas', id, 'del'); }
 
-function rmExcluirVenda(id){
+async function rmExcluirVenda(id){
   { const v0 = rmLoadVendas().find(x => x.id === id);
     if(v0 && v0.tipo !== 'orcamento'){ if(rmPodeCancelar()) rmCancelarAbrir('venda', id); else alert('Você não tem permissão para cancelar venda. Peça ao administrador.'); return; } }
   { const vv = rmLoadVendas().find(x => x.id === id); if(vv) setTimeout(() => { if(!rmLoadVendas().some(x => x.id === id)) rmLog('Excluiu venda', vv.codigoVenda, rmFormatMoeda(vv.total)); }, 500); }
@@ -6761,7 +6793,7 @@ function rmExcluirVenda(id){
     alert('Esta venda a prazo já tem ' + rmFormatMoeda(rmPromRecebidoReal(notaV)) + ' recebido em parcelas. Para excluir, primeiro apague os pagamentos no editor de parcelas (Financeiro → A prazo).');
     return;
   }
-  const ok = confirm(`Excluir ${tipoTexto} (${v.codigoVenda||''})? Essa ação não pode ser desfeita e remove em todos os dispositivos.`);
+  const ok = await rmConfirmar('Essa ação não pode ser desfeita e remove em todos os dispositivos.', { tipo: 'perigo', titulo: 'Excluir ' + (v.tipo === 'orcamento' ? 'orçamento' : 'venda') + '?', sub: v.codigoVenda || '', sim: 'Excluir' });
   if(!ok) return;
   const list = rmLoadVendas().filter(x=>x.id!==id);
   rmSaveVendas(list);
@@ -6975,7 +7007,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610251630; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610251704; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -7908,6 +7940,104 @@ function rmLog(acao, ref, detalhe){
   }catch(e){}
 }
 
+// ===================== JANELAS DE AVISO DO SISTEMA (no lugar das janelas do navegador) =====================
+// rmAlerta (aviso), rmConfirmar (sim/não) e rmPerguntar (resposta escrita): no meio da tela, no padrão do sistema.
+// Enter = botão principal · Esc = cancelar. Se abrir mais de uma ao mesmo tempo, elas aparecem uma depois da outra.
+const rmAlertNativo = window.alert.bind(window), rmConfirmNativo = window.confirm.bind(window), rmPromptNativo = window.prompt.bind(window);
+const rmDlgFila = []; let rmDlgAtual = null;
+const RM_DLG_IC = { ok: '&#10004;', info: 'i', aviso: '!', perigo: '&#10005;' };
+function rmDlgNativo(){ return !!window.__rmDlgNativo; }
+function rmDlgTexto(t){ return rmEscapeHtml(String(t == null ? '' : t)).replace(/\n/g, '<br>'); }
+function rmDialogo(o){ return new Promise(res => { rmDlgFila.push({ o, res }); if(!rmDlgAtual) rmDlgProximo(); }); }
+function rmDlgProximo(){
+  const it = rmDlgFila.shift();
+  if(!it){ rmDlgAtual = null; return; }
+  const o = it.o, tipo = o.tipo || 'info';
+  const bts = o.botoes && o.botoes.length ? o.botoes : [{ txt: 'Entendi', valor: true, pri: true }];
+  const ov = document.createElement('div'); ov.className = 'dg-ov'; ov.id = 'rm-dlg';
+  ov.innerHTML = `<div class="dg dg-${tipo}" role="alertdialog" aria-modal="true">
+    <div class="dg-cab"><div class="dg-ic">${o.icone || RM_DLG_IC[tipo] || 'i'}</div><div class="dg-cabtx"><div class="dg-tit">${rmDlgTexto(o.titulo || 'Atenção')}</div>${o.sub ? `<div class="dg-sub">${rmDlgTexto(o.sub)}</div>` : ''}</div></div>
+    ${o.resumo && o.resumo.length ? `<div class="dg-res">${o.resumo.map(([l, v]) => `<span>${rmDlgTexto(l)}<b>${rmDlgTexto(v)}</b></span>`).join('')}</div>` : ''}
+    ${o.texto ? `<div class="dg-txt">${o.html ? o.texto : rmDlgTexto(o.texto)}</div>` : ''}
+    ${o.chips && o.chips.length ? `<div class="dg-ch">${o.chips.map(c => `<button type="button" class="dg-chip">${rmDlgTexto(c)}</button>`).join('')}</div>` : ''}
+    ${o.campo ? `<input class="dg-in" type="text" autocomplete="off" placeholder="${rmEscapeHtml(o.campo.placeholder || '')}" value="${rmEscapeHtml(o.campo.valor || '')}"${o.campo.numero ? ' inputmode="decimal"' : ''}>` : ''}
+    <div class="dg-pe">${bts.map((b, i) => `<button type="button" data-i="${i}" class="dg-bt${b.pri ? ' dg-pri' : ''}">${b.txt}</button>`).join('')}</div>
+    ${o.dica ? `<div class="dg-dica">${rmDlgTexto(o.dica)}</div>` : ''}</div>`;
+  const anterior = document.activeElement;
+  rmDlgAtual = { it, ov, bts, pediuFoco: null, anterior };
+  document.body.appendChild(ov);
+  const inp = ov.querySelector('.dg-in');
+  ov.querySelectorAll('.dg-chip').forEach(ch => ch.onclick = () => {
+    const on = !ch.classList.contains('on');
+    ov.querySelectorAll('.dg-chip').forEach(x => x.classList.remove('on'));
+    if(on) ch.classList.add('on');
+    if(o.chipsConfirmam && on) rmDlgFechar(bts.findIndex(b => b.pri));
+  });
+  ov.querySelectorAll('.dg-bt').forEach(b => b.onclick = () => rmDlgFechar(+b.dataset.i));
+  const foco = inp || ov.querySelector('.dg-pri') || ov.querySelector('.dg-bt');
+  try{ foco.focus(); if(inp) inp.select(); }catch(e){}
+}
+function rmDlgFechar(i){
+  const d = rmDlgAtual; if(!d) return;
+  const b = d.bts[i] || {};
+  let valor = b.valor;
+  if(b.pri){
+    const inp = d.ov.querySelector('.dg-in'), ch = d.ov.querySelector('.dg-chip.on');
+    if(d.it.o.campo || d.it.o.chips) valor = { texto: inp ? inp.value : '', chip: ch ? ch.textContent : '' };
+  }
+  d.ov.remove();
+  const volta = d.pediuFoco || d.anterior;
+  rmDlgAtual = null;
+  try{ d.it.res(valor); }catch(e){}
+  if(rmDlgFila.length) rmDlgProximo();
+  else setTimeout(() => { try{ if(volta && document.contains(volta) && !rmDlgAtual) volta.focus(); }catch(e){} }, 0);
+}
+// enquanto a janela está aberta, o teclado é só dela (Enter/Esc), e o resto da tela não recebe as teclas
+document.addEventListener('keydown', e => {
+  const d = rmDlgAtual; if(!d) return;
+  const dentro = d.ov.contains(e.target);
+  if(e.key === 'Enter'){
+    if(dentro && e.target.classList && (e.target.classList.contains('dg-bt') || e.target.classList.contains('dg-chip'))) { e.stopPropagation(); return; }
+    e.preventDefault(); e.stopPropagation();
+    const i = d.bts.findIndex(b => b.pri); rmDlgFechar(i >= 0 ? i : 0);
+  } else if(e.key === 'Escape'){
+    e.preventDefault(); e.stopPropagation();
+    const i = d.it.o.esc != null ? d.it.o.esc : d.bts.findIndex(b => !b.pri);
+    rmDlgFechar(i >= 0 ? i : 0);
+  } else if(!dentro){ e.preventDefault(); e.stopPropagation(); }
+  else e.stopPropagation();
+}, true);
+// se algum código pedir foco em outro campo enquanto a janela está aberta, ele recebe o foco quando a janela fechar
+document.addEventListener('focusin', e => {
+  const d = rmDlgAtual; if(!d || d.ov.contains(e.target)) return;
+  d.pediuFoco = e.target;
+  const f = d.ov.querySelector('.dg-in') || d.ov.querySelector('.dg-pri') || d.ov.querySelector('.dg-bt');
+  if(f) setTimeout(() => { try{ if(rmDlgAtual === d) f.focus(); }catch(e){} }, 0);
+}, true);
+
+function rmAlerta(msg, o){
+  o = o || {};
+  if(rmDlgNativo()){ rmAlertNativo(msg); return Promise.resolve(true); }
+  const t = String(msg == null ? '' : msg);
+  const ok = /^(pronto|✔|feito|salvo|tudo certo)/i.test(t.trim());
+  return rmDialogo({ tipo: o.tipo || (ok ? 'ok' : 'aviso'), titulo: o.titulo || (ok ? 'Pronto' : 'Atenção'), sub: o.sub, texto: t, botoes: [{ txt: o.ok || 'Entendi', valor: true, pri: true }] });
+}
+function rmConfirmar(msg, o){
+  o = o || {};
+  if(rmDlgNativo()) return Promise.resolve(window.confirm(msg));
+  return rmDialogo({ tipo: o.tipo || 'info', titulo: o.titulo || 'Confirmar', sub: o.sub, texto: msg, resumo: o.resumo, dica: o.dica, icone: o.icone,
+    botoes: [{ txt: o.nao || 'Cancelar', valor: false }, { txt: o.sim || 'Confirmar', valor: true, pri: true }] }).then(v => !!v);
+}
+function rmPerguntar(msg, o){
+  o = o || {};
+  if(rmDlgNativo()) return Promise.resolve(window.prompt(msg, o.valor || ''));
+  return rmDialogo({ tipo: o.tipo || 'info', titulo: o.titulo || 'Responda', sub: o.sub, texto: msg, icone: o.icone,
+    campo: { placeholder: o.placeholder || '', valor: o.valor || '', numero: !!o.numero },
+    botoes: [{ txt: o.nao || 'Cancelar', valor: null }, { txt: o.sim || 'OK', valor: '', pri: true }] }).then(v => v == null ? null : v.texto);
+}
+// todos os avisos simples do sistema (alert) passam a usar a janela do sistema
+window.alert = function(msg){ if(rmDlgNativo()) return rmAlertNativo(msg); rmAlerta(msg); };
+
 function rmMostrarLogin(msg){
   let el = document.getElementById('rm-login');
   if(!el){
@@ -8003,7 +8133,7 @@ function rmPrimeiraSecaoPermitida(){
 }
 
 async function rmSair(){
-  if(!confirm('Sair do sistema?')) return;
+  if(!(await rmConfirmar('Você vai precisar entrar de novo com usuário e senha.', { titulo: 'Sair do sistema?', sim: 'Sair' }))) return;
   rmLog('Saiu do sistema');
   await rmSb.auth.signOut();
   location.reload();
@@ -11341,7 +11471,7 @@ function rmCxMovAbrir(tipo, doPdv, gh){
 }
 async function rmCxMovSalvar(){
   const m = rmMovLer('rm-mov'); if(!m) return;
-  if(rmGhFluxo && !rmGhConfereSaldo(m.valor, m.tipo)) return;
+  if(rmGhFluxo && !(await rmGhConfereSaldo(m.valor, m.tipo))) return;
   const viaGh = !!rmGhFluxo;
   const dia = rmMovDoPdv ? rmHojeISO() : (rmCxDia || rmHojeISO()), c = rmCxDados[dia] || {};
   if(!rmMovDoPdv && c.fechamento){ alert('O caixa deste dia já foi fechado.'); return; }
@@ -11349,7 +11479,7 @@ async function rmCxMovSalvar(){
 }
 async function rmCxTirarRetirada(id){
   const r = rmCxMovs(rmCxDados[rmCxDia]).find(x => x.id === id); if(!r) return;
-  if(!confirm('Apagar "' + rmMovTexto(r) + '" de ' + rmFormatMoeda(r.valor) + '?')) return;
+  if(!(await rmConfirmar('O movimento sai do Caixa do dia. Fica registrado no histórico quem apagou.', { tipo: 'perigo', titulo: 'Apagar movimento?', sub: rmMovTexto(r) + ' · ' + rmFormatMoeda(r.valor), sim: 'Apagar' }))) return;
   const ok = await rmCxMudar(rmCxDia, c => {
     if(c.fechamento) return 'O caixa deste dia já foi fechado.';
     const x = (c.retiradas || []).find(y => y.id === id); if(x){ x.removida = true; x.removidaPor = rmNomeUsuario(); }
@@ -11360,7 +11490,7 @@ async function rmCxTirarRetirada(id){
 async function rmMovDevolver(dia, id){
   let m = ((rmCxDados[dia] || {}).retiradas || []).find(x => x.id === id) || rmRetPend.find(x => x.id === id);
   if(!m) return;
-  const s = prompt(`${m.levou || m.por} levou ${rmFormatMoeda(m.valor)} (${rmMovTexto(m)}).\n\nQuanto de troco ele devolveu para a gaveta?`, '');
+  const s = await rmPerguntar('Quanto de troco ele devolveu para a gaveta?', { titulo: 'Troco devolvido', sub: (m.levou || m.por || '') + ' levou ' + rmFormatMoeda(m.valor) + ' · ' + rmMovTexto(m), placeholder: 'R$ 0,00', numero: true, sim: 'Registrar troco' });
   if(s == null) return;
   const dev = rmParseMoeda(s);
   if(dev < 0 || dev > m.valor + 0.004){ alert('O troco não pode ser maior que o valor levado.'); return; }
@@ -11426,9 +11556,12 @@ async function rmCxFechar(){
   const conf = rmCxConfLer();
   const formas = Object.keys(e.porForma).filter(f => f !== 'Dinheiro');
   const semConf = formas.filter(f => conf[f] == null);
-  if(!confirm(`Fechar o caixa de ${rmDataBR(rmCxDia)}?\n\nEsperado na gaveta: ${rmFormatMoeda(esp)}\nContado: ${rmFormatMoeda(cont.total)}\n${Math.abs(dif) < 0.005 ? 'Caixa certo' : (dif < 0 ? 'Faltando ' : 'Sobrando ') + rmFormatMoeda(Math.abs(dif))}\nTroco para amanhã: ${rmFormatMoeda(troco)}`
-    + (pend.length ? `\n\n⚠ ${pend.length} troco(s) ainda não devolvido(s): ${pend.map(p => (p.levou || p.por) + ' ' + rmFormatMoeda(p.valor)).join(', ')}` : '')
-    + (semConf.length ? `\n\n(Não conferido: ${semConf.join(', ')})` : ''))) return;
+  if(!(await rmConfirmar('Depois de fechado, o caixa deste dia não aceita mais movimentos (o administrador pode reabrir).'
+      + (pend.length ? `\n\n⚠ ${pend.length} troco(s) ainda não devolvido(s): ${pend.map(p => (p.levou || p.por) + ' ' + rmFormatMoeda(p.valor)).join(', ')}` : '')
+      + (semConf.length ? `\n\nNão conferido: ${semConf.join(', ')}` : ''),
+    { tipo: Math.abs(dif) < 0.005 ? 'ok' : 'aviso', titulo: 'Fechar o caixa de ' + rmDataBR(rmCxDia) + '?',
+      resumo: [['Esperado', rmFormatMoeda(esp)], ['Contado', rmFormatMoeda(cont.total)], [Math.abs(dif) < 0.005 ? 'Situação' : dif < 0 ? 'Faltando' : 'Sobrando', Math.abs(dif) < 0.005 ? 'Caixa certo' : rmFormatMoeda(Math.abs(dif))]],
+      sim: 'Fechar caixa' }))) return;
   const ok = await rmCxMudar(rmCxDia, c => {
     if(!c.abertura) return 'O caixa deste dia não foi aberto.';
     if(c.fechamento) return 'O caixa deste dia já foi fechado por ' + c.fechamento.por + '.';
@@ -11443,7 +11576,7 @@ async function rmCxFechar(){
 }
 async function rmCxReabrir(){
   if(!rmEhAdmin()){ alert('Só o administrador pode reabrir um caixa fechado.'); return; }
-  if(!confirm('Reabrir o caixa de ' + rmDataBR(rmCxDia) + '? O fechamento atual fica guardado no histórico do dia.')) return;
+  if(!(await rmConfirmar('O fechamento atual fica guardado no histórico do dia.', { tipo: 'aviso', titulo: 'Reabrir o caixa de ' + rmDataBR(rmCxDia) + '?', sim: 'Reabrir' }))) return;
   const ok = await rmCxMudar(rmCxDia, c => {
     if(!c.fechamento) return null;
     (c.fechamentosAnteriores = c.fechamentosAnteriores || []).push(Object.assign({}, c.fechamento, { reabertoPor: rmNomeUsuario(), reabertoEm: new Date().toISOString() }));
@@ -11552,11 +11685,19 @@ function rmGavetaAuto(tipo, forma, motivo, ref, valor){
   }catch(e){}
 }
 // botão "Abrir gaveta" (sem venda)
-function rmGavetaAbrir(){
+async function rmGavetaAbrir(){
   if(!rmGvPodeBotao()){ alert('Você não tem permissão para abrir a gaveta sem uma venda. Peça para o administrador.'); return; }
   let motivo = 'Botão';
   if(rmGvCfg().motivo){
-    const s = prompt('Por que vai abrir a gaveta? (ex.: troco, conferência)', '');
+    let s;
+    if(rmDlgNativo()) s = prompt('Por que vai abrir a gaveta? (ex.: troco, conferência)', '');
+    else {
+      const r = await rmDialogo({ tipo: 'info', icone: '&#128452;', titulo: 'Abrir a gaveta', sub: 'Fica registrado no Caixa do dia', texto: 'Por que vai abrir a gaveta?',
+        chips: ['Troco para cliente', 'Trocar nota', 'Conferência'], campo: { placeholder: 'Outro motivo (opcional)' },
+        botoes: [{ txt: 'Cancelar', valor: null }, { txt: 'Abrir gaveta', pri: true }] });
+      if(r == null) return;
+      s = [r.chip, String(r.texto || '').trim()].filter(Boolean).join(' · ');
+    }
     if(s == null) return;
     if(s.trim()) motivo = 'Botão · ' + s.trim();
   }
@@ -11582,8 +11723,8 @@ async function rmGvLigar(){
   rmShowToast(ok ? 'Gaveta ligada neste computador' : 'Gaveta ligada, mas o programa não respondeu');
   rmLog('Ligou a gaveta neste computador', null, ok ? 'programa encontrado' : 'programa não respondeu');
 }
-function rmGvDesligar(){
-  if(!confirm('Desligar a gaveta neste computador? O sistema para de abrir a gaveta aqui.')) return;
+async function rmGvDesligar(){
+  if(!(await rmConfirmar('O sistema para de abrir a gaveta neste computador.', { tipo: 'aviso', titulo: 'Desligar a gaveta?', sim: 'Desligar' }))) return;
   rmGvCfgSet('ligada', false); rmGvCfgSet('remota', false); clearInterval(rmGvTimer); rmGvOn = null; try{ rmGvRemIniciar(); }catch(e){}
   const box = document.getElementById('rm-gv-card'); if(box) box.outerHTML = rmGvCardHtml();
   rmGvPintar();
@@ -11969,10 +12110,10 @@ function rmGhCancelar(){
   rmGhFluxo = null; rmGhPulsou = false;
 }
 // confere o saldo antes de registrar uma saída
-function rmGhConfereSaldo(v, tipo){
+async function rmGhConfereSaldo(v, tipo){
   const s = rmGhSaldoInfo;
   if(!rmGhFluxo || !s || s.erro || !s.aberto || tipo === 'entrada' || v <= s.saldo + 0.004) return true;
-  return confirm('O valor digitado (' + rmFormatMoeda(v) + ') é maior do que o sistema calcula que tem na gaveta.\n\nConfira o valor. Registrar mesmo assim?');
+  return rmConfirmar('O valor digitado é maior do que o sistema calcula que tem na gaveta. Confira o valor.', { tipo: 'aviso', titulo: 'Confira o valor', resumo: [['Digitado', rmFormatMoeda(v)]], nao: 'Corrigir', sim: 'Registrar mesmo assim' });
 }
 
 // ---- vale para funcionário: registra a saída no caixa e lança na planilha de Vale ----
@@ -12024,7 +12165,7 @@ async function rmGhValeSalvar(){
   if(!cid){ alert('Escolha para quem é o vale.'); return; }
   const v = rmGhValorDigitado();
   if(!(v > 0)){ alert('Digite o valor do vale.'); const i = document.getElementById('rm-gh-vale-val'); if(i) i.focus(); return; }
-  if(!rmGhConfereSaldo(v, 'vale')) return;
+  if(!(await rmGhConfereSaldo(v, 'vale'))) return;
   if(navigator.onLine === false){ alert('Sem internet: o vale precisa de internet para lançar na planilha. Tente de novo quando a internet voltar.'); return; }
   try{ const { error } = await rmSb.from('configuracoes').select('id').eq('id', 'vale').maybeSingle(); if(error) throw error; }
   catch(e){ alert('Não consegui falar com o servidor. Verifique a internet e tente de novo (nada foi registrado).'); return; }
@@ -14417,15 +14558,20 @@ function rmPromReceber(notaId, n){
   document.getElementById('rm-modal-backdrop').classList.add('show');
 }
 
-function rmPromConfirmarRecebimento(notaId, n){
+async function rmPromConfirmarRecebimento(notaId, n){
   const forma = document.querySelector('#rm-prom-rec-formas .rm-pdv-pag-btn.active');
   if(!forma){ alert('Escolha a forma de pagamento.'); return; }
   const valor = rmParseMoeda(document.getElementById('rm-prom-rec-valor').value);
   if(!(valor > 0)){ alert('Informe o valor recebido.'); return; }
-  const lista = rmLoadProms(); const nota = lista.find(x=>x.id===notaId); if(!nota) return;
-  const p = nota.parcelas.find(x=>x.n===n);
+  const lista = rmLoadProms(); let nota = lista.find(x=>x.id===notaId); if(!nota) return;
+  let p = nota.parcelas.find(x=>x.n===n);
   const resta = rmParcRestante(p);
-  if(valor > resta + 0.004 && !confirm(`O valor (${rmFormatMoeda(valor)}) é maior que o restante da parcela (${rmFormatMoeda(resta)}). Registrar mesmo assim?`)) return;
+  if(valor > resta + 0.004){
+    if(!(await rmConfirmar('O valor recebido é maior que o restante da parcela. Registrar mesmo assim?', { tipo: 'aviso', titulo: 'Valor maior que a parcela', resumo: [['Recebido', rmFormatMoeda(valor)], ['Restante', rmFormatMoeda(resta)]], sim: 'Registrar' }))) return;
+  }
+  // relê as notas (podem ter mudado enquanto a janela estava aberta)
+  if(valor > resta + 0.004){ const l2 = rmLoadProms(), n2 = l2.find(x => x.id === notaId); if(!n2) return; lista.length = 0; l2.forEach(x => lista.push(x)); }
+  { const nota2 = lista.find(x => x.id === notaId), p2 = nota2 && nota2.parcelas.find(x => x.n === n); if(!p2) return; nota = nota2; p = p2; }
   const pgNovoReg = { id: rmNovoPgId(), valor, data: new Date().toISOString(), forma: forma.textContent, por: rmNomeUsuario() };
   rmParcPagamentos(p).push(pgNovoReg);
   rmLedgerRegistrar(nota, p, pgNovoReg);
@@ -14436,7 +14582,7 @@ function rmPromConfirmarRecebimento(notaId, n){
   rmCloseModal();
   const falta = rmParcRestante(p);
   const pgNovo = rmParcPagamentos(p)[rmParcPagamentos(p).length-1];
-  setTimeout(() => { if(confirm('Pagamento registrado. Imprimir recibo?')) rmImprimirReciboA4([{ nota, p, pg: pgNovo }]); }, 200);
+  setTimeout(async () => { if(await rmConfirmar('Deseja imprimir o recibo?', { tipo: 'ok', titulo: 'Pagamento registrado', sub: (nota.clienteNome || '') + ' · ' + (nota.refCodigo || '') + '-' + p.n, resumo: [['Recebido', rmFormatMoeda(valor)], ['Forma', pgNovo.forma]].concat(falta > 0.004 ? [['Falta', rmFormatMoeda(falta)]] : [['Parcela', 'Quitada']]), nao: 'Não imprimir', sim: '&#128424; Imprimir', dica: 'Enter = imprimir · Esc = não imprimir' })) rmImprimirReciboA4([{ nota, p, pg: pgNovo }]); }, 200);
   rmShowToast(falta > 0 ? `Recebido ${rmFormatMoeda(valor)} · falta ${rmFormatMoeda(falta)}` : `Parcela quitada · ${rmFormatMoeda(valor)}`);
   rmRenderFinProm();
 }
@@ -17123,7 +17269,7 @@ function rmCliConfirmarAvulso(clienteId){
   rmSaveProms(lista);
   notasMexidas.forEach(n => rmDbUpsertProm(n));
   const itensRecibo = plano.map(({ n, p }) => ({ nota:n, p, pg: rmParcPagamentos(p)[rmParcPagamentos(p).length-1] }));
-  setTimeout(() => { if(confirm('Pagamento registrado. Imprimir recibo?')) rmImprimirReciboA4(itensRecibo); }, 200);
+  setTimeout(async () => { if(await rmConfirmar('Deseja imprimir o recibo?', { tipo: 'ok', titulo: 'Pagamento registrado', sub: c.nome, resumo: [['Recebido', rmFormatMoeda(valor - sobra)], ['Forma', forma.textContent.trim()], ['Parcelas', String(plano.length)]], nao: 'Não imprimir', sim: '&#128424; Imprimir', dica: 'Enter = imprimir · Esc = não imprimir' })) rmImprimirReciboA4(itensRecibo); }, 200);
   rmLog('Recebeu valor avulso', c.nome, rmFormatMoeda(valor - sobra) + ' · ' + forma.textContent + ' · ' + plano.length + ' parcela(s)');
   if(valor - sobra > 0.004) rmGavetaAuto('parcela', forma.textContent, 'Recebimento a prazo · ' + forma.textContent.trim(), c.nome, valor - sobra);
   rmShowToast(`Recebido ${rmFormatMoeda(valor - sobra)} · baixa em ${plano.length} parcela${plano.length===1?'':'s'}`);
@@ -17131,7 +17277,7 @@ function rmCliConfirmarAvulso(clienteId){
 }
 
 // aviso (não bloqueia) quando a compra a prazo passa do limite de crédito do cliente
-function rmLimiteOk(clienteId, valorNovo, refIgnorar){
+async function rmLimiteOk(clienteId, valorNovo, refIgnorar){
   const c = rmLoadClientes().find(x => x.id === clienteId);
   const lim = c ? Number(c.limiteCredito) || 0 : 0;
   if(!c || lim <= 0 || !(valorNovo > 0.004)) return true;
@@ -17139,7 +17285,8 @@ function rmLimiteOk(clienteId, valorNovo, refIgnorar){
   if(refIgnorar){ const n = rmPromDaRef(refIgnorar); if(n) usado -= n.parcelas.reduce((a,p) => a + rmParcRestante(p), 0); }
   const disp = lim - usado;
   if(valorNovo <= disp + 0.004) return true;
-  return confirm(`ATENÇÃO: limite de crédito de ${c.nome}\n\nLimite: ${rmFormatMoeda(lim)}\nJá em aberto: ${rmFormatMoeda(usado)}\nDisponível: ${rmFormatMoeda(Math.max(0, disp))}\nEsta compra a prazo: ${rmFormatMoeda(valorNovo)}\n\nVender a prazo mesmo assim?`);
+  return rmConfirmar('Esta compra a prazo passa do limite de crédito do cliente.\n\nVender a prazo mesmo assim?', { tipo: 'aviso', titulo: 'Limite de crédito', sub: c.nome,
+    resumo: [['Limite', rmFormatMoeda(lim)], ['Em aberto', rmFormatMoeda(usado)], ['Disponível', rmFormatMoeda(Math.max(0, disp))], ['Esta compra', rmFormatMoeda(valorNovo)]], sim: 'Vender mesmo assim' });
 }
 function rmCliSaldoDevedor(c){
   return rmLoadProms().filter(n => n.clienteId === c.id || (!n.clienteId && c.nome && n.clienteNome === c.nome))
@@ -17495,11 +17642,11 @@ function rmUpdateCliente(id, field, value){
   rmRenderClientes();
 }
 
-function rmExcluirCliente(id){
+async function rmExcluirCliente(id){
   { const cc = rmLoadClientes().find(x => x.id === id); if(cc) setTimeout(() => { if(!rmLoadClientes().some(x => x.id === id)) rmLog('Excluiu cliente', cc.nome); }, 500); }
   const c = rmLoadClientes().find(x=>x.id===id);
   if(!c) return;
-  const ok = confirm(`Excluir o cliente ${c.nome||''}? Essa ação não pode ser desfeita e remove em todos os dispositivos.`);
+  const ok = await rmConfirmar('Essa ação não pode ser desfeita e remove em todos os dispositivos.', { tipo: 'perigo', titulo: 'Excluir cliente?', sub: c.nome || '', sim: 'Excluir' });
   if(!ok) return;
 
   const list = rmLoadClientes().filter(x=>x.id!==id);
@@ -18685,7 +18832,7 @@ function rmImprimirEtiquetaRecord(r){
   }, 300);
 }
 
-function rmExcluirRecepcao(id){
+async function rmExcluirRecepcao(id){
   { const r0 = rmIdx(rmMemLista(RM_KEY)).get(id);
     if(r0 && r0.cancelamento){ alert('Esta OS foi cancelada e fica guardada no histórico. Não dá para excluir.'); return; }
     if(r0 && r0.pago){ if(rmPodeCancelar()) rmCancelarAbrir('os', id); else alert('Esta moto já foi paga. Você não tem permissão para cancelar; peça ao administrador.'); return; } }
@@ -18697,7 +18844,7 @@ function rmExcluirRecepcao(id){
     alert('Esta OS a prazo já tem ' + rmFormatMoeda(rmPromRecebidoReal(notaOS)) + ' recebido em parcelas. Para excluir, primeiro apague os pagamentos no editor de parcelas (Financeiro → A prazo).');
     return;
   }
-  const ok = confirm(`Excluir a moto ${r.codigoApp||''} (${r.modelo})? Essa ação não pode ser desfeita e remove em todos os dispositivos.${(r.pecasUsadas||[]).length ? '\nAs peças lançadas voltam para o estoque.' : ''}`);
+  const ok = await rmConfirmar('Essa ação não pode ser desfeita e remove em todos os dispositivos.' + ((r.pecasUsadas||[]).length ? '\nAs peças lançadas voltam para o estoque.' : ''), { tipo: 'perigo', titulo: 'Excluir moto?', sub: (r.codigoApp || '') + ' · ' + (r.modelo || ''), sim: 'Excluir' });
   if(!ok) return;
   { const prods = rmLoadProdutos(); let mexeu = false;
     (r.pecasUsadas||[]).forEach(it => { const p = it.produtoId ? rmIdx(prods).get(it.produtoId) : null; if(p && !p.ehServico){ p.estoqueAtual = (Number(p.estoqueAtual)||0) + (Number(it.quantidade)||0); rmDbUpsertProduto(p); mexeu = true; } });
@@ -18826,10 +18973,11 @@ function rmRetValoresHtml(r){
     <div class="rm-ret-tot"><div>Total para o cliente<small>Deixou de cobrar ${rmFormatMoeda(t.cobrar || 0)} · as peças saem do estoque normalmente</small></div><div style="text-align:right"><b>R$ 0,00</b><small>custo das peças: ${rmFormatMoeda(custo)}</small></div></div></div>`;
 }
 async function rmRetFinalizar(id){
-  const list = rmLoad(), r = list.find(x => x.id === id); if(!r || !r.retorno || r.pago) return;
+  const list = rmLoad(); let r = list.find(x => x.id === id); if(!r || !r.retorno || r.pago) return;
   if(!r.retorno.motivo){ alert('Escolha o motivo do retorno.'); return; }
-  if(!(r.pecasUsadas || []).length && !(Number(r.maoDeObra) > 0) && !confirm('Esta OS de retorno não tem nenhuma peça ou serviço lançado. Finalizar assim mesmo?')) return;
-  if(!confirm('Finalizar o retorno de garantia?\nO cliente não paga nada. As peças já saíram do estoque.')) return;
+  if(!(r.pecasUsadas || []).length && !(Number(r.maoDeObra) > 0) && !(await rmConfirmar('Esta OS de retorno não tem nenhuma peça ou serviço lançado. Finalizar assim mesmo?', { tipo: 'aviso', titulo: 'OS sem itens', sim: 'Finalizar assim' }))) return;
+  if(!(await rmConfirmar('O cliente não paga nada. As peças já saíram do estoque.', { titulo: 'Finalizar o retorno de garantia?', sim: 'Finalizar retorno' }))) return;
+  { const l2 = rmLoad(), r2 = l2.find(x => x.id === id); if(!r2 || !r2.retorno || r2.pago) return; list.length = 0; l2.forEach(x => list.push(x)); r = r2; }
   if(navigator.onLine !== false && !await rmRetColunaOk()){ alert('Falta rodar no Supabase o arquivo retorno-supabase.sql.'); return; }
   r.formaPagamento = 'Garantia'; r.pago = true; r.pagoEm = new Date().toISOString(); r.finalizadoPor = rmNomeUsuario(); r.valorPago = 0;
   if(!r.historico) r.historico = [];
@@ -18839,7 +18987,7 @@ async function rmRetFinalizar(id){
   const t = rmOsTotais(r);
   rmShowToast('Retorno finalizado · sem cobrança');
   rmLog('Finalizou retorno de garantia', r.codigoApp, 'deixou de cobrar ' + rmFormatMoeda(t.cobrar || 0) + (r.retorno.osOrigemCod ? ' · OS original ' + r.retorno.osOrigemCod : '') + ' · ' + r.retorno.motivo);
-  setTimeout(() => { if(confirm('Retorno finalizado. Imprimir a ordem de serviço para o cliente?')) rmImprimirOSA4(id); }, 200);
+  setTimeout(async () => { if(await rmConfirmar('Deseja imprimir a ordem de serviço para o cliente?', { tipo: 'ok', titulo: 'Retorno finalizado', sub: (r.codigoApp || '') + ' · sem cobrança', nao: 'Não imprimir', sim: '&#128424; Imprimir', dica: 'Enter = imprimir · Esc = não imprimir' })) rmImprimirOSA4(id); }, 200);
 }
 // ----- Relatório → Retornos -----
 let rmRetRelPer = 'mes', rmRetRelMec = '';
@@ -19105,9 +19253,9 @@ async function rmOsFinalizar(id){
   }
   if(seguir) rmOsFinalizarAgora(id);
 }
-function rmOsFinalizarAgora(id){
-  const list = rmLoad();
-  const r = list.find(x=>x.id===id);
+async function rmOsFinalizarAgora(id){
+  let list = rmLoad();
+  let r = list.find(x=>x.id===id);
   if(!r) return;
   if(r.retorno){ rmRetFinalizar(id); return; }
   if(!r.formaPagamento){ alert('Escolha a forma de pagamento antes de finalizar.'); return; }
@@ -19118,15 +19266,24 @@ function rmOsFinalizarAgora(id){
     const clis = rmLoadClientes();
     let c = clis.find(x => (x.nome || '').trim().toUpperCase() === nomeUp);
     if(!c){
-      if(!confirm(`"${r.nome}" ainda não está no cadastro de clientes.\nPara vender a prazo, o cliente será cadastrado agora (com o telefone da moto). Continuar?`)) return;
+      if(!(await rmConfirmar('Para vender a prazo, o cliente será cadastrado agora (com o telefone da moto).', { titulo: 'Cliente novo', sub: r.nome, sim: 'Cadastrar e continuar' }))) return;
+      { const l2 = rmLoad(), r2 = l2.find(x => x.id === id); if(!r2 || r2.pago) return; list = l2; r = r2; }
+      c = rmLoadClientes().find(x => (x.nome || '').trim().toUpperCase() === nomeUp);
+    }
+    if(!c){
+      const clis = rmLoadClientes();
       c = { id:'c' + Date.now(), nome: nomeUp, telefone: r.telefone || '', situacao:'positivo', criadoEm: new Date().toISOString() };
       clis.unshift(c); rmSaveClientes(clis); rmDbUpsertCliente(c);
       rmLog('Cadastrou cliente (pela OS a prazo)', c.nome);
     }
     r.clienteId = c.id;
   }
-  if(rmAPrazo(r.formaPagamento) && !rmLimiteOk(r.clienteId, rmOsTotais(r).total - (Number(r.promEntrada) || 0), r.id)){ rmSave(list); return; }
-  if(!confirm('Marcar esta OS como PAGA?\nA situação da moto não muda (andamento, pronta ou entregue continua igual).\nTotal: ' + rmFormatMoeda(rmOsTotais(r).total) + ' · ' + r.formaPagamento)) return;
+  if(rmAPrazo(r.formaPagamento) && !(await rmLimiteOk(r.clienteId, rmOsTotais(r).total - (Number(r.promEntrada) || 0), r.id))){ { const l2 = rmLoad(), r2 = l2.find(x => x.id === id); if(r2 && r.clienteId && !r2.clienteId){ r2.clienteId = r.clienteId; rmSave(l2); rmDbUpsertRecepcao(r2); } } return; }
+  { const cliId = r.clienteId;
+    if(!(await rmConfirmar('A situação da moto não muda (andamento, pronta ou entregue continua igual).', { titulo: 'Marcar OS ' + (r.codigoApp || '') + ' como paga?', sub: (r.nome || '') + (r.modelo ? ' · ' + r.modelo : ''), resumo: [['Total', rmFormatMoeda(rmOsTotais(r).total)], ['Pagamento', r.formaPagamento]], sim: '&#10004; Marcar como paga' }))){ if(cliId){ const l2 = rmLoad(), r2 = l2.find(x => x.id === id); if(r2 && !r2.clienteId){ r2.clienteId = cliId; rmSave(l2); rmDbUpsertRecepcao(r2); } } return; }
+    // relê a OS (pode ter mudado enquanto a janela estava aberta) e segue com a versão mais nova
+    const l2 = rmLoad(), r2 = l2.find(x => x.id === id); if(!r2 || r2.pago) return;
+    if(cliId) r2.clienteId = cliId; list = l2; r = r2; }
   r.pago = true;
   r.pagoEm = new Date().toISOString();
   r.finalizadoPor = rmNomeUsuario();
@@ -19144,7 +19301,7 @@ function rmOsFinalizarAgora(id){
   rmLog('Finalizou OS (pago)', r.codigoApp, rmFormatMoeda(r.valorPago) + ' · ' + r.formaPagamento);
   { const gvP = rmAPrazo(r.formaPagamento), gvV = gvP ? (Number(r.promEntrada) || 0) : r.valorPago, gvF = gvP ? (r.promEntradaForma || 'Dinheiro') : r.formaPagamento;
     if(gvV > 0) rmGavetaAuto('os', gvF, 'OS paga · ' + gvF + (gvP ? ' (entrada)' : ''), r.codigoApp, gvV); }
-  setTimeout(() => { if(confirm('Pagamento registrado. Imprimir a ordem de serviço para o cliente?')) rmImprimirOSA4(id); }, 200);
+  setTimeout(async () => { if(await rmConfirmar('Deseja imprimir a ordem de serviço para o cliente?', { tipo: 'ok', titulo: 'OS ' + (r.codigoApp || '') + ' paga', sub: (r.nome || '') + (r.modelo ? ' · ' + r.modelo : ''), resumo: [['Total', rmFormatMoeda(r.valorPago)], ['Pagamento', r.formaPagamento]], nao: 'Não imprimir', sim: '&#128424; Imprimir', dica: 'Enter = imprimir · Esc = não imprimir' })) rmImprimirOSA4(id); }, 200);
 }
 
 function rmOsAbrirBusca(){
