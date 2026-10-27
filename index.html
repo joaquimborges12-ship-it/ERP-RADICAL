@@ -2233,6 +2233,15 @@
   .cx-conf tr{cursor:default;}
   /* janelinha de movimento e subaba Retirada */
   .cp.rt{width:460px;}
+  .imp-ean{display:inline-block; margin-top:4px; font-size:11.5px; font-weight:700; color:#2f6fb5; background:rgba(47,111,181,.1); border:1px solid rgba(47,111,181,.35); padding:2px 7px; line-height:1.35;}
+  .imp-ean-x{color:#9a7210; background:rgba(201,150,26,.1); border-color:rgba(201,150,26,.45);}
+  .ex-box{border:1px solid var(--rm-border); padding:10px 12px; background:var(--rm-panel);}
+  .ex-tit{font-size:13px; font-weight:700;} .ex-tit small{font-weight:400; color:var(--rm-text-dim);}
+  .ex-l{display:flex; align-items:center; gap:10px; padding:7px 0; border-bottom:1px solid var(--rm-border); font-size:13px; flex-wrap:wrap;}
+  .ex-l code{font-family:ui-monospace, Consolas, monospace; font-size:14px; font-weight:700; letter-spacing:.4px;} .ex-l small{color:var(--rm-text-dim);}
+  .ex-l button{margin-left:auto; background:none; border:0; color:var(--rm-text-dim); font-size:19px; cursor:pointer; width:auto; padding:0 4px;}
+  .ex-vazio{font-size:12.5px; color:var(--rm-text-dim); padding:6px 0;}
+  .ex-add{display:flex; gap:8px; margin-top:8px;} .ex-add input{flex:1; min-width:0;} .ex-add button{width:auto; padding:0 14px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-weight:700; font-family:inherit; cursor:pointer;}
   .dg-ov{position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:40000; display:flex; align-items:center; justify-content:center; padding:16px; box-sizing:border-box;}
   .dg{width:460px; max-width:100%; max-height:92vh; overflow:auto; background:var(--rm-panel); color:var(--rm-text); border:1px solid var(--rm-border); border-top:5px solid var(--dgc); box-shadow:0 24px 60px rgba(0,0,0,.5); font-family:var(--rm-font-body); box-sizing:border-box; animation:dgIn .12s ease-out;}
   @keyframes dgIn{from{transform:translateY(8px); opacity:0;} to{transform:none; opacity:1;}}
@@ -2877,7 +2886,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 25/10 às 17:04</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 26/10 às 22:27</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3946,6 +3955,8 @@ function rmAbrirCadastroProdutoRapido(produtoId, novoNaFamilia){
   rmCpOrigemCadastro = null;
   const existente = produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(produtoId) : null;
   const editando = !!existente;
+  rmPqfExtras = Array.isArray(existente && existente.codigosExtras) ? existente.codigosExtras.slice() : []; rmPqfExtAdd = []; rmPqfExtDel = new Set();
+  setTimeout(rmPqfExtrasRender, 0);
   rmProdutoEmEdicao = existente ? { id: existente.id, estoqueInicial: existente.estoqueAtual || 0 } : null;
   rmNovoProdutoId = existente ? existente.id : ('p' + Date.now());
   rmNovoProdutoFotoUrl = existente ? (existente.fotoUrl || null) : null;
@@ -3990,6 +4001,7 @@ function rmAbrirCadastroProdutoRapido(produtoId, novoNaFamilia){
           ${campo(4, 'Código / SKU', '<input class="rm-input" id="rm-pqf-codigo">')}
           ${campo(4, 'Localização', '<input class="rm-input" id="rm-pqf-localizacao" autocapitalize="characters">')}
           ${campo(4, 'Código de barras / EAN', '<input class="rm-input" id="rm-pqf-codigo-barras" inputmode="numeric">')}
+          <div class="rm-qm-field c12"><div class="ex-box" id="rm-pqf-extras"></div></div>
 
           ${campo(8, 'Nome', '<input class="rm-input" id="rm-pqf-nome" autocapitalize="characters">', ' rm-qm-req')}
           ${campo(4, 'Marca (fabricante)', '<input class="rm-input" id="rm-pqf-marca" autocapitalize="characters">')}
@@ -4524,13 +4536,22 @@ function rmImpResumo(){
   const sb = document.getElementById('rm-imp-salvar-btn');
   if(sb && !sb.disabled){ const pr = rmImpLinhas.filter(rmImpPronto).length; sb.innerHTML = '&#128190; Salvar e continuar depois' + (pr ? '<small class="imp-salvar-pr">' + pr + ' com preço já entra' + (pr > 1 ? 'm' : '') + ' no estoque</small>' : ''); }
 }
+function rmImpEanNovo(l, ex){
+  const e = String(l.p.codigoBarras || '').trim();
+  if(rmImpModo !== 'xml' || !e || !String(ex.codigoBarras || '').trim() || rmProdTemBarras(ex, e)) return '';
+  const dono = rmProdDonoBarras(e, ex.id);
+  if(dono) return `<div class="imp-ean imp-ean-x">&#9888; o código ${rmEscapeHtml(e)} desta nota já é de outro produto (${rmEscapeHtml(dono.nome)}) — não será guardado</div>`;
+  if(rmEanColOk === false) return `<div class="imp-ean imp-ean-x">código ${rmEscapeHtml(e)} é novo, mas falta rodar o codigos-extras-supabase.sql para guardar códigos extras</div>`;
+  return `<div class="imp-ean">&#43; código ${rmEscapeHtml(e)} é novo: vai ser guardado como código extra deste produto</div>`;
+}
 function rmImpLinhaHtml(l){
   const p = l.p, i = l.i, ex = l.vinculo ? rmImpProd(l.vinculo) : null, f = v => rmFmtNum(v || 0);
   const tag = l.vinculo ? '<span class="imp-tag imp-vinc">SOMA NO ESTOQUE</span>' : l.existe ? '<span class="imp-tag imp-atu">ATUALIZA</span>' : l.copiaDe ? '<span class="imp-tag imp-novo">NOVO · CÓPIA</span>' : '<span class="imp-tag imp-novo">NOVO</span>';
   const inp = (campo, val, cls, w, extra) => `<input class="imp-in ${cls || ''}" ${w ? `style="width:${w}px"` : ''} value="${rmEscapeHtml(val)}" onfocus="this.select()" onchange="rmImpEditar(${i},'${campo}',this.value)" ${extra || ''}>`;
   const sug = !l.vinculo && l.sug && !l.sugIgnorada ? rmImpProd(l.sug) : null;
   let desc;
-  if(l.vinculo) desc = `<div class="imp-vbox"><div class="imp-vnome">&#128279; ${rmEscapeHtml(ex ? ex.nome : '?')}</div><div class="imp-vsub">${rmImpModo === 'xml' ? 'na nota' : 'na planilha'}: ${rmEscapeHtml(l.orig.nome)}${l.porque ? ' · <i>' + l.porque + '</i>' : ''} · <a onclick="rmImpDesligar(${i})">desfazer</a></div></div>`;
+  const eanN = l.vinculo && ex ? rmImpEanNovo(l, ex) : '';
+  if(l.vinculo) desc = `<div class="imp-vbox"><div class="imp-vnome">&#128279; ${rmEscapeHtml(ex ? ex.nome : '?')}</div>${eanN}<div class="imp-vsub">${rmImpModo === 'xml' ? 'na nota' : 'na planilha'}: ${rmEscapeHtml(l.orig.nome)}${l.porque ? ' · <i>' + l.porque + '</i>' : ''} · <a onclick="rmImpDesligar(${i})">desfazer</a></div></div>`;
   else desc = inp('nome', p.nome, 'imp-nome', 0, 'autocapitalize="characters"') +
     (l.copiaDe ? `<div class="imp-sug" style="color:var(--rm-text-dim)">&#128203; copiado de <b>${rmEscapeHtml(l.copiaDe.nome)}</b> · &#128106; família ${rmEscapeHtml(l.copiaDe.familia || '—')} · <a onclick="rmImpDesfazerCopia(${i})">desfazer</a></div>` : '') +
     (sug ? `<div class="imp-sug">${rmImpNorm(sug.nome).trim() === rmImpNorm(p.nome).trim() ? 'Já existe com esse nome' : 'Parecido com <b>' + rmEscapeHtml(sug.nome) + '</b>'} (já cadastrado${sug.localizacao ? ' · #' + rmEscapeHtml(sug.localizacao) : ''}) · <a onclick="rmImpLigar(${i},'${sug.id}')">usar este</a> · <a onclick="rmImpIgnorarSug(${i})">não é</a></div>` : '');
@@ -4731,7 +4752,7 @@ function rmNfeMontar(lidas, reg){
   const ativo = p => p && p.ativo !== false;
   const porEan = new Map(), porNome = new Map(), porFornCod = new Map();
   prods.forEach(p => { if(!ativo(p)) return;
-    if(p.codigoBarras) porEan.set(String(p.codigoBarras).replace(/^0+/, ''), p);
+    rmProdCodigos(p).forEach(c => { const k = String(c).trim().replace(/^0+/, ''); if(k && !porEan.has(k)) porEan.set(k, p); });
     if(p.nome) porNome.set(rmImpNorm(p.nome).trim(), p);
     if(p.fornecedorCodigo && p.fornecedor) porFornCod.set(rmImpNorm(p.fornecedor).trim() + '|' + rmImpNorm(p.fornecedorCodigo).trim(), p); });
   rmImpIndice = null;
@@ -4751,7 +4772,8 @@ function rmNfeMontar(lidas, reg){
       ehServico: false, ativo: true, codigoBarras: it.ean, ncm: it.ncm, cest: it.cest, precoCusto: custo, precoConsumidor: 0, precoParceiro: 0,
       estoqueAtual: it.qtd, estoqueMinimo: 0, estoqueMaximo: 0, localizacao: '', fornecedor: it.nota.fornecedor, fornecedorCodigo: it.cProd,
       pesoLiquidoKg: null, pesoKg: null, alturaCm: null, larguraCm: null, comprimentoCm: null, observacao: '', fotoUrl: null, criadoEm: new Date().toISOString() };
-    const l = { i, p, orig: Object.assign({}, p), incluir: true, existe: false, antigo: null, vinculo: null, sug: null, sugIgnorada: false, chaveForn: it.chaveForn, itemK: it.k, porque: '' };
+    const l = { i, p, orig: Object.assign({}, p), incluir: true, existe: false, antigo: null, vinculo: null, sug: null, sugIgnorada: false, chaveForn: it.chaveForn, itemK: it.k, porque: '',
+      origemEan: 'NF ' + (it.nota.numero || '') + ' · ' + (it.nota.fornecedor || '') };
     // já cadastrado? (código do fornecedor aprendido > código de barras > código do fornecedor no cadastro > nome igual)
     const achar = [
       [porId.get(reg.codigos[it.chaveForn]), 'já lançado antes deste fornecedor'],
@@ -4774,6 +4796,7 @@ function rmNfeMontar(lidas, reg){
     return l;
   });
   rmImpExtra = {}; rmImpMostrar = 300; rmImpModo = 'xml';
+  rmEanColunaOk().then(() => { try{ rmImpRender(); }catch(e){} });
   rmImpNota = { notas: lidas.map(x => x.nota) };
   rmImportacaoPendente = [];
   rmImpAbrirModal();
@@ -5167,7 +5190,11 @@ function rmImpMontarFinal(){
       const antes = Number(base.estoqueAtual) || 0, soma = Number(l.p.estoqueAtual) || 0;
       Object.assign(base, { estoqueAtual: antes + soma, precoCusto: Number(l.p.precoCusto) || 0, precoConsumidor: Number(l.p.precoConsumidor) || 0,
         precoParceiro: Number(l.p.precoParceiro) || 0, marca: l.p.marca || '', localizacao: l.p.localizacao || '', curva: l.p.curva || '' });
+      const eanNota = String(l.p.codigoBarras || '').trim(), tinhaBarras = !!String(base.codigoBarras || '').trim();
       ['codigoBarras','ncm','cest','fornecedor','fornecedorCodigo'].forEach(k => { if(!base[k] && l.p[k]) base[k] = l.p[k]; });
+      // código de barras da nota diferente do que o produto já tem: guarda como código extra (nada se perde)
+      if(eanNota && tinhaBarras && rmEanColOk === true && rmProdAddExtra(base, eanNota, l.origemEan || '', [...todos.values()].map(x => final.get(x.id) || x)))
+        log.push(base.nome + ': código de barras extra ' + eanNota);
       final.set(base.id, base);
       log.push(base.nome + ': ' + rmFmtQtd(antes) + ' + ' + rmFmtQtd(soma) + ' (planilha: ' + l.orig.nome + ')');
     } else {
@@ -5264,6 +5291,45 @@ async function rmConfirmarImportacaoCsv(){
   rmRenderProdutos();
 }
 
+
+// ---- outros códigos de barras (janela do produto) ----
+let rmPqfExtras = [], rmPqfExtAdd = [], rmPqfExtDel = new Set();
+function rmPqfExtrasRender(){
+  const el = document.getElementById('rm-pqf-extras'); if(!el) return;
+  const esc = rmEscapeHtml;
+  el.innerHTML = `<div class="ex-tit">&#128279; Outros códigos de barras deste produto <small>— o PDV, a busca, o inventário e a nota XML acham o produto por qualquer um deles</small></div>
+    ${rmPqfExtras.length ? rmPqfExtras.map((x, i) => `<div class="ex-l"><code>${esc(x.c)}</code><small>${esc(x.origem || 'adicionado à mão')}${x.em ? ' · ' + rmDataBR(String(x.em).slice(0, 10)).slice(0, 5) : ''}</small><button type="button" title="Tirar este código" onclick="rmPqfExtraTirar(${i})">&times;</button></div>`).join('')
+      : '<div class="ex-vazio">Nenhum. Quando uma nota XML trouxer outro código de barras para este produto, ele aparece aqui sozinho.</div>'}
+    <div class="ex-add"><input class="rm-input" id="rm-pqf-extra-in" inputmode="numeric" placeholder="Bipe ou digite outro código…" onkeydown="if(event.key==='Enter'){ event.preventDefault(); rmPqfExtraAdd(); }"><button type="button" onclick="rmPqfExtraAdd()">+ Adicionar</button></div>`;
+}
+async function rmPqfExtraAdd(){
+  const inp = document.getElementById('rm-pqf-extra-in'); if(!inp) return;
+  const cod = inp.value.trim(); if(!cod) return;
+  if(!/^[0-9A-Za-z]{3,30}$/.test(cod)){ alert('Código inválido: use só números e letras, sem espaços.'); return; }
+  if(!(await rmEanColunaOk())){ alert('Para guardar códigos extras, rode antes no Supabase o arquivo codigos-extras-supabase.sql.'); return; }
+  const principal = (document.getElementById('rm-pqf-codigo-barras') || {}).value || '';
+  if(rmEanN(principal) === rmEanN(cod) || rmPqfExtras.some(x => rmEanN(x.c) === rmEanN(cod))){ alert('Esse código já está neste produto.'); return; }
+  const dono = rmProdDonoBarras(cod, rmProdutoEmEdicao ? rmProdutoEmEdicao.id : null);
+  if(dono){ alert('Esse código já é do produto "' + dono.nome + '". Um código de barras só pode ficar em um produto.'); return; }
+  const x = { c: cod, origem: 'adicionado à mão por ' + rmNomeUsuario(), em: new Date().toISOString() };
+  rmPqfExtras.push(x); rmPqfExtAdd.push(x); rmPqfExtDel.delete(rmEanN(cod));
+  rmPqfExtrasRender();
+  const n = document.getElementById('rm-pqf-extra-in'); if(n) n.focus();
+}
+async function rmPqfExtraTirar(i){
+  const x = rmPqfExtras[i]; if(!x) return;
+  if(!(await rmConfirmar('O produto deixa de ser achado por este código.', { tipo: 'aviso', titulo: 'Tirar o código ' + x.c + '?', sim: 'Tirar' }))) return;
+  rmPqfExtras.splice(i, 1); rmPqfExtAdd = rmPqfExtAdd.filter(y => y !== x); rmPqfExtDel.add(rmEanN(x.c));
+  rmPqfExtrasRender();
+}
+// junta com o que está gravado agora (outro aparelho pode ter guardado um código enquanto a janela estava aberta)
+function rmPqfExtrasFinal(atual){
+  if(!rmPqfExtAdd.length && !rmPqfExtDel.size) return undefined;
+  const base = (Array.isArray(atual && atual.codigosExtras) ? atual.codigosExtras : []).filter(x => !rmPqfExtDel.has(rmEanN(x.c)));
+  rmPqfExtAdd.forEach(x => { if(!base.some(y => rmEanN(y.c) === rmEanN(x.c))) base.push(x); });
+  return base;
+}
+
 function rmSalvarProdutoRapido(){
   { const nm = (document.getElementById('rm-pqf-nome') || {}).value; if(nm) rmLog('Salvou produto', '', nm.toUpperCase()); }
   const val = id => document.getElementById('rm-pqf-' + id).value;
@@ -5321,10 +5387,12 @@ function rmSalvarProdutoRapido(){
     campos.estoqueAtual = estoqueDigitado !== rmProdutoEmEdicao.estoqueInicial ? estoqueDigitado : (atual.estoqueAtual || 0);
     campos.ativo = document.getElementById('rm-pqf-ativo').checked;
     produto = Object.assign({}, atual, campos);
+    { const ex = rmPqfExtrasFinal(atual); if(ex) produto.codigosExtras = ex; }
     list[i] = produto;
   } else {
     campos.estoqueAtual = estoqueDigitado;
     produto = Object.assign({ id: rmNovoProdutoId || ('p' + Date.now()), ativo: true, criadoEm: new Date().toISOString() }, campos);
+    { const ex = rmPqfExtrasFinal(null); if(ex) produto.codigosExtras = ex; }
     list.unshift(produto);
   }
   rmSaveProdutos(list);
@@ -5567,7 +5635,7 @@ function rmBuscaInteligente(texto, termoBusca){
 }
 
 function rmProdutoBateBusca(p, search){
-  return rmBuscaBate([p.nome, p.aplicacao, p.codigo, p.codigoBarras, p.marca, p.categoria, p.fornecedor, p.localizacao], search) || rmBuscaIniciais(p.nome, search);
+  return rmBuscaBate([p.nome, p.aplicacao, p.codigo, p.codigoBarras, p.marca, p.categoria, p.fornecedor, p.localizacao].concat((p.codigosExtras || []).map(x => x.c)), search) || rmBuscaIniciais(p.nome, search);
 }
 
 function rmRenderProdutos(){
@@ -6103,7 +6171,7 @@ function rmPdvTeclaProduto(ev){
   const q = document.getElementById('rm-pdv-item-nome').value.trim().toLowerCase();
   if(!q) return;
   const exato = rmLoadProdutos().find(p => p.ativo !== false &&
-    ((p.codigoBarras || '').toLowerCase() === q || (p.codigo || '').toLowerCase() === q));
+    (rmProdTemBarras(p, q) || (p.codigo || '').toLowerCase() === q));
   if(exato){
     rmEscolherProdutoPdv(exato.id, true);
     rmAdicionarItemPdv();
@@ -7007,7 +7075,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610251704; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610262227; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -12446,6 +12514,7 @@ function rmFromDbRowProduto(row){
     observacao: row.observacao,
     fotoUrl: row.foto_url,
     parafuso: row.parafuso || null,
+    codigosExtras: Array.isArray(row.codigos_extras) ? row.codigos_extras : undefined,
     ativo: row.ativo !== false,
     criadoEm: row.criado_em,
     _v: row.versao != null ? row.versao : (row.versao_base != null ? row.versao_base : null)
@@ -12484,12 +12553,36 @@ function rmToDbRowProduto(p){
     observacao: p.observacao || null,
     foto_url: p.fotoUrl || null,
     ...(p.parafuso ? { parafuso: p.parafuso } : {}), // só parafusos mandam (precisa do parafusos-supabase.sql)
+    ...(Array.isArray(p.codigosExtras) ? { codigos_extras: p.codigosExtras } : {}), // só quem tem códigos extras manda (precisa do codigos-extras-supabase.sql)
     ativo: p.ativo !== false,
     criado_em: p.criadoEm,
     versao_base: p._v != null ? p._v : null
   };
 }
 
+
+// ===================== CÓDIGOS DE BARRAS EXTRAS (o mesmo produto com outros códigos: outro fornecedor, outra embalagem) =====================
+// p.codigosExtras = [{ c: '789...', origem: 'NF 3310 · FORNECEDOR', em: ISO }] → coluna codigos_extras (precisa do codigos-extras-supabase.sql)
+let rmEanColOk = null;
+async function rmEanColunaOk(){
+  if(rmEanColOk === true) return true;
+  if(navigator.onLine === false || !rmSb) return rmEanColOk === true;
+  try{ const r = await rmSb.from('produtos').select('id,codigos_extras').limit(1); rmEanColOk = !(r && r.error); }
+  catch(e){ return false; }
+  return rmEanColOk;
+}
+function rmEanN(s){ return String(s == null ? '' : s).trim().replace(/^0+/, '').toLowerCase(); }
+function rmProdCodigos(p){ return [p && p.codigoBarras].concat(((p && p.codigosExtras) || []).map(x => x && x.c)).filter(x => String(x || '').trim()); }
+function rmProdTemBarras(p, q){ const n = rmEanN(q); return !!n && rmProdCodigos(p).some(c => rmEanN(c) === n); }
+function rmProdDonoBarras(q, ignorarId, lista){ return (lista || rmLoadProdutos()).find(p => p && p.id !== ignorarId && p.ativo !== false && rmProdTemBarras(p, q)) || null; }
+// guarda um código novo como extra (só se não for o principal, não estiver repetido e não for de outro produto)
+function rmProdAddExtra(p, cod, origem, lista){
+  cod = String(cod || '').trim(); if(!cod || !p) return false;
+  if(rmProdTemBarras(p, cod)) return false;
+  if(rmProdDonoBarras(cod, p.id, lista)) return false;
+  p.codigosExtras = (Array.isArray(p.codigosExtras) ? p.codigosExtras.slice() : []).concat([{ c: cod, origem: origem || '', em: new Date().toISOString() }]);
+  return true;
+}
 async function rmDbUpsertProduto(produto){ rmOutboxPor('produtos', produto.id, 'up', rmToDbRowProduto(produto)); }
 async function rmDbDeleteProduto(id){ rmOutboxPor('produtos', id, 'del'); }
 
@@ -15242,7 +15335,7 @@ function rmInvcIncluir(){
   const nome = prompt('Nome, código ou código de barras do produto para incluir na contagem:'); if(!nome) { rmInvRenderContagem(); return; }
   const q = nome.trim().toLowerCase();
   const inv = rmInvGet(rmInvAtual), ja = new Set(inv.itens.map(it => it.pid));
-  const ps = rmInvProdutosContaveis().filter(p => !ja.has(p.id) && ((p.codigoBarras || '').toLowerCase() === q || (p.codigo || '').toLowerCase() === q || rmBuscaInteligente(p.nome, q))).slice(0, 30);
+  const ps = rmInvProdutosContaveis().filter(p => !ja.has(p.id) && (rmProdTemBarras(p, q) || (p.codigo || '').toLowerCase() === q || rmBuscaInteligente(p.nome, q))).slice(0, 30);
   if(!ps.length){ alert('Nenhum produto encontrado (ou já está na contagem).'); rmInvRenderContagem(); return; }
   let p = ps[0];
   if(ps.length > 1){
@@ -15355,7 +15448,7 @@ function rmInvNovaMarcaSalvar(k){
   const prods = rmLoadProdutos();
   if(prods.some(x => x.ativo !== false && rmFamNorm(x.nome) === nome)){ alert('Já existe um produto com o nome "' + nome + '". Use o campo "+ Incluir outro produto" para colocar ele na contagem.'); return; }
   const barras = val('rm-inm-barras');
-  if(barras && prods.some(x => (x.codigoBarras || '') === barras)){ if(!confirm('Esse código de barras já está em outro produto. Cadastrar mesmo assim?')) return; }
+  if(barras && prods.some(x => rmProdTemBarras(x, barras))){ if(!confirm('Esse código de barras já está em outro produto. Cadastrar mesmo assim?')) return; }
   const orig = rmIdx(prods).get(it.pid) || {};
   const qtd = Math.max(0, rmParseMoeda(qtdTxt) || 0);
   const fExist = rmFamDoProduto(it.pid);
@@ -15415,10 +15508,11 @@ function rmInvBipar(txt){
   const q = String(txt || '').trim().toLowerCase(); if(!q) return;
   const inv = rmInvGet(rmInvAtual);
   let k = inv.itens.findIndex(it => it.barras && it.barras.toLowerCase() === q);
+  if(k < 0){ const dono = rmProdDonoBarras(q, null, rmInvProdutosContaveis()); if(dono) k = inv.itens.findIndex(it => it.pid === dono.id); }
   if(k < 0) k = inv.itens.findIndex(it => (it.codigo || '').toLowerCase() === q || (it.loc || '').toLowerCase() === q);
   if(k < 0){ const ks = inv.itens.map((it, i) => ({ it, i })).filter(x => rmBuscaInteligente(x.it.nome, q)); if(ks.length === 1) k = ks[0].i; else if(ks.length > 1){ rmShowToast(ks.length + ' produtos encontrados, digite mais'); return; } }
   if(k < 0){
-    const p = rmInvProdutosContaveis().find(p => (p.codigoBarras || '').toLowerCase() === q || (p.codigo || '').toLowerCase() === q);
+    const p = rmInvProdutosContaveis().find(p => rmProdTemBarras(p, q) || (p.codigo || '').toLowerCase() === q);
     if(p && confirm(p.nome + ' não está nesta contagem. Incluir?')){ inv.itens.push(rmInvItemDe(p)); k = inv.itens.length - 1; }
     else { try{ navigator.vibrate && navigator.vibrate([80,60,80]); }catch(e){} rmShowToast('Produto não encontrado'); return; }
   }
@@ -15762,7 +15856,7 @@ async function rmEtqGerarCodigos(){
   if(!sem.length) return true;
   if(!confirm(sem.length + ' produto(s) da lista não têm código de barras.\nO sistema vai criar um código para cada um (começando com 29) e salvar no cadastro do produto, para o leitor do PDV reconhecer a etiqueta.\n\nContinuar?')) return false;
   let max = 0; const usados = new Set();
-  prods.forEach(p => { const b = String(p.codigoBarras || '').trim(); if(b) usados.add(b); if(/^29\d{11}$/.test(b)) max = Math.max(max, +b.slice(2, 12)); });
+  prods.forEach(p => { rmProdCodigos(p).forEach(c => usados.add(String(c).trim())); const b = String(p.codigoBarras || '').trim(); if(b) usados.add(b); if(/^29\d{11}$/.test(b)) max = Math.max(max, +b.slice(2, 12)); });
   sem.forEach(p => { let cod; do{ max++; const d12 = '29' + String(max).padStart(10, '0'); cod = d12 + rmEtqEanDv(d12); } while(usados.has(cod)); usados.add(cod); p.codigoBarras = cod; rmDbUpsertProduto(p); });
   rmSaveProdutos(prods);
   rmLog('Criou código de barras para produto(s) sem código (etiquetas)', '', sem.length + ' produto(s): ' + sem.slice(0, 25).map(p => p.nome + ' = ' + p.codigoBarras).join(' | ').slice(0, 1500));
@@ -15948,7 +16042,7 @@ function rmEtqBuscar(v){
 function rmEtqBuscaTecla(ev){
   if(ev.key !== 'Enter') return; ev.preventDefault();
   const q = ev.target.value.trim(); if(!q) return;
-  const exato = rmLoadProdutos().find(p => p.ativo !== false && ((p.codigoBarras || '') === q || (p.codigo || '').toLowerCase() === q.toLowerCase()));
+  const exato = rmLoadProdutos().find(p => p.ativo !== false && (rmProdTemBarras(p, q) || (p.codigo || '').toLowerCase() === q.toLowerCase()));
   const pr = exato || rmBuscaOrdenar(rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && rmProdutoBateBusca(p, q)), q)[0];
   if(pr) rmEtqAddUm(pr.id);
 }
