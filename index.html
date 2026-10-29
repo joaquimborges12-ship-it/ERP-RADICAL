@@ -2898,7 +2898,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 29/10 às 00:24</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 29/10 às 00:38</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -4480,7 +4480,7 @@ function rmImpAbrirModal(){
 }
 function rmImpFechar(){
   if(rmImpModo === 'xml' && rmImpNotaId && rmImpLinhas.length){ rmImpSalvarRascunho(true); return; }
-  if(rmImpLinhas.length && !confirm('Fechar sem importar? O que você alterou nesta tela será perdido.')) return;
+  if(rmImpLinhas.length && !rmPerguntaAntes('impFechar', 'Fechar sem importar? O que você alterou nesta tela será perdido.', { tipo: 'aviso', titulo: 'Fechar sem importar?', sim: 'Fechar' }, () => rmImpFechar())) return;
   rmImpLinhas = []; rmImportacaoPendente = null; rmImpNotaId = null; rmImpAcFechar();
   document.getElementById('rm-modal').classList.remove('rm-modal-imp');
   rmCloseModal();
@@ -4501,8 +4501,8 @@ async function rmImpSalvarLancarProntos(){
   const prontos = rmImpLinhas.filter(rmImpPronto);
   if(!n || !prontos.length){ rmImpSalvarRascunho(true); return; }
   const resto = rmImpLinhas.length - prontos.length;
-  if(!confirm(prontos.length + ' produto' + (prontos.length > 1 ? 's' : '') + ' com preço de venda e de parceiro ' + (prontos.length > 1 ? 'vão' : 'vai') + ' entrar no estoque agora.\n'
-    + (resto ? resto + ' fica' + (resto > 1 ? 'm' : '') + ' guardado' + (resto > 1 ? 's' : '') + ' na nota para lançar depois.' : 'Com isso a nota fica completa.') + '\n\nContinuar?')) return;
+  if(!(await rmConfirmar(prontos.length + ' produto' + (prontos.length > 1 ? 's' : '') + ' com preço de venda e de parceiro ' + (prontos.length > 1 ? 'vão' : 'vai') + ' entrar no estoque agora.\n'
+    + (resto ? resto + ' fica' + (resto > 1 ? 'm' : '') + ' guardado' + (resto > 1 ? 's' : '') + ' na nota para lançar depois.' : 'Com isso a nota fica completa.') + '\n\nContinuar?', { titulo: 'Lançar no estoque?', sim: 'Lançar' }))) return;
   rmImpSalvarRascunho(false);              // guarda tudo do jeito que está (inclusive o que está desmarcado)
   rmImpRascunhoFeito = true;
   rmImpLinhas.forEach(l => { l.incluir = rmImpPronto(l); });
@@ -5008,7 +5008,7 @@ function rmNotaMenu(ev, id){
 function rmNotaConcluir(id){
   const n = (rmNotas || []).find(x => x.id === id); if(!n) return;
   const faltam = n.itens.filter(i => !i.lancado).length;
-  if(!confirm('Marcar a NF ' + n.numero + ' como LANÇADA?\n\n' + faltam + ' item(ns) que ainda não foram lançados NÃO vão entrar no estoque.')) return;
+  if(!rmPerguntaAntes('notaConc', 'Marcar a NF ' + n.numero + ' como LANÇADA?\n\n' + faltam + ' item(ns) que ainda não foram lançados NÃO vão entrar no estoque.', { tipo: 'aviso', titulo: 'Marcar NF como lançada?', sim: 'Marcar' }, () => rmNotaConcluir(id))) return;
   n.situacao = 'lancada'; n.lancadaEm = new Date().toISOString(); n.lancadaPor = rmNomeUsuario();
   rmNotaGuardar(n); rmLog('Marcou nota de compra como lançada', 'NF ' + n.numero, n.fornecedor + ' · ' + faltam + ' item(ns) sem lançar'); rmRenderNotas();
 }
@@ -5021,7 +5021,7 @@ function rmNotaReabrir(id){
 async function rmNotaExcluir(id){
   const n = (rmNotas || []).find(x => x.id === id); if(!n) return;
   const lanc = n.itens.filter(i => i.lancado).length;
-  if(!confirm('Excluir a NF ' + n.numero + ' (' + n.fornecedor + ') da lista?' + (lanc ? '\n\n' + lanc + ' produto(s) dela já foram lançados: o ESTOQUE NÃO MUDA, só a nota sai da lista.' : ''))) return;
+  if(!(await rmConfirmar('Excluir a NF ' + n.numero + ' (' + n.fornecedor + ') da lista?' + (lanc ? '\n\n' + lanc + ' produto(s) dela já foram lançados: o ESTOQUE NÃO MUDA, só a nota sai da lista.' : ''), { tipo: 'perigo', titulo: 'Excluir nota?', sim: 'Excluir' }))) return;
   rmNotas = rmNotas.filter(x => x.id !== id);
   const p = rmNotasPend(); p[id] = { op:'del', t: Date.now() + Math.random() }; rmNotasPendSalvar(p);
   rmNotasCacheSalvar(); rmLog('Excluiu nota de compra', 'NF ' + n.numero, n.fornecedor + ' · ' + rmFormatMoeda(n.total));
@@ -5239,10 +5239,11 @@ async function rmUpsertComRetry(rows){
 
 async function rmConfirmarImportacaoCsv(){
   if(rmImpLinhas.length){
-    const { lista, log } = rmImpMontarFinal();
+    let { lista, log } = rmImpMontarFinal();
     if(!lista.length){ alert('Nenhum produto marcado para importar.'); return; }
     const semPreco = lista.filter(p => !(Number(p.precoConsumidor) > 0)).length;
-    if(semPreco && !confirm(semPreco + ' produto(s) estão sem preço de venda. Importar assim mesmo?')) return;
+    if(semPreco && !(await rmConfirmar(semPreco + ' produto(s) estão sem preço de venda. Importar assim mesmo?', { tipo: 'aviso', titulo: 'Produtos sem preço', sim: 'Importar assim' }))) return;
+    ({ lista, log } = rmImpMontarFinal()); // monta de novo com o estoque mais novo (pode ter vendido enquanto a janela estava aberta)
     rmImportacaoPendente = lista;
     if(rmImpModo === 'xml' && rmImpNotaId && !rmImpRascunhoFeito) rmImpSalvarRascunho(false);
     rmImpCopiasGravar = rmImpLinhas.filter(l => l.incluir && !l.vinculo && l.copiaDe).map(l => [l.p.id, l.copiaDe.id, l.copiaDe.familia, l.copiaDe.marca]);
@@ -6031,10 +6032,10 @@ function rmUsarAtalhoPdv(index){
   rmRenderCarrinhoPdv();
 }
 
-function rmNovoAtalhoPdv(){
-  const nome = prompt('Nome do atalho (ex: Troca de óleo):');
+async function rmNovoAtalhoPdv(){
+  const nome = await rmPerguntar('Nome do atalho (ex.: Troca de óleo):', { titulo: 'Novo atalho', sim: 'Continuar' });
   if(!nome || !nome.trim()) return;
-  const precoStr = prompt('Preço padrão desse item (R$):');
+  const precoStr = await rmPerguntar('Preço padrão desse item (R$):', { titulo: 'Novo atalho', sub: nome, numero: true, placeholder: '0,00', sim: 'Criar atalho' }); if(precoStr == null) return;
   const preco = rmParseMoeda(precoStr);
   if(preco <= 0){
     alert('Preço inválido — o atalho não foi criado.');
@@ -7244,7 +7245,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610290024; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610290038; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -8252,6 +8253,18 @@ document.addEventListener('focusin', e => {
   if(f) setTimeout(() => { try{ if(rmDlgAtual === d) f.focus(); }catch(e){} }, 0);
 }, true);
 
+
+// pergunta (janela do sistema) e, se a pessoa confirmar, roda a mesma ação de novo — já com os dados mais novos
+const rmPerguntaOk = new Map();
+function rmPerguntaAntes(chave, msg, opts, refazer){
+  if(rmDlgNativo()) return window.confirm(msg);
+  const t = rmPerguntaOk.get(chave);
+  if(t && Date.now() - t < 15000){ rmPerguntaOk.delete(chave); return true; }
+  rmConfirmar(msg, opts).then(ok => { if(!ok) return; rmPerguntaOk.set(chave, Date.now()); try{ refazer(); }catch(e){ console.warn(e); } setTimeout(() => rmPerguntaOk.delete(chave), 0); });
+  return false;
+}
+// OS já paga: pergunta uma vez e libera as mudanças nesta OS por 10 minutos
+const rmOsPagaLiberada = {};
 function rmAlerta(msg, o){
   o = o || {};
   if(rmDlgNativo()){ rmAlertNativo(msg); return Promise.resolve(true); }
@@ -8376,9 +8389,9 @@ async function rmSair(){
   location.reload();
 }
 async function rmTrocarMinhaSenha(){
-  const n1 = prompt('Nova senha (mínimo 6 caracteres):'); if(!n1) return;
+  const n1 = await rmPerguntar('Nova senha (mínimo 6 caracteres):', { titulo: 'Trocar senha', sim: 'Continuar' }); if(!n1) return;
   if(n1.length < 6){ alert('A senha precisa ter pelo menos 6 caracteres.'); return; }
-  const n2 = prompt('Digite a nova senha de novo:'); if(n1 !== n2){ alert('As senhas não conferem.'); return; }
+  const n2 = await rmPerguntar('Digite a nova senha de novo:', { titulo: 'Trocar senha', sim: 'Trocar senha' }); if(n2 == null) return; if(n1 !== n2){ alert('As senhas não conferem.'); return; }
   const { error } = await rmSb.auth.updateUser({ password: n1 });
   if(error) alert('Não foi possível trocar a senha: ' + error.message);
   else { rmShowToast('Senha alterada'); rmLog('Trocou a própria senha'); }
@@ -8449,7 +8462,7 @@ async function rmCriarUsuario(){
 }
 async function rmAlterarUsuario(id, campos){
   const u = rmUsuariosCache.find(x => x.id === id); if(!u) return;
-  if(campos.ativo === false && !confirm('Desativar ' + u.nome + '? Ele não vai conseguir mais entrar.')) return;
+  if(campos.ativo === false && !(await rmConfirmar('Desativar ' + u.nome + '? Ele não vai conseguir mais entrar.', { tipo: 'perigo', titulo: 'Desativar usuário?', sim: 'Desativar' }))) return;
   const { error } = await rmSb.from('perfis').update(campos).eq('id', id);
   if(error){ alert('Erro: ' + error.message); return; }
   rmLog('Alterou usuário', u.usuario, JSON.stringify(campos));
@@ -8929,7 +8942,7 @@ function rmComToggleConfig(){
 function rmComMarcarPago(mec, valor){
   const r = rmComRange(); if(!r){ alert('Escolha o período.'); return; }
   const de = rmComIso(r.start), ate = rmComIso(new Date(r.end.getTime() - 1));
-  if(!confirm(`Marcar a comissão de ${mec} como PAGA?\nPeríodo: ${rmDataBR(de)} a ${rmDataBR(ate)}\nValor: ${rmFormatMoeda(valor)}`)) return;
+  if(!rmPerguntaAntes('comPago', `Marcar a comissão de ${mec} como PAGA?\nPeríodo: ${rmDataBR(de)} a ${rmDataBR(ate)}\nValor: ${rmFormatMoeda(valor)}`, { titulo: 'Comissão paga?', sim: 'Marcar como paga' }, () => rmComMarcarPago(mec, valor))) return;
   const igual = p => p.mecanico === mec && p.de === de && p.ate === ate && (p.modo || 'mec') === rmComModo;
   rmCom.pagamentosApagados = (rmCom.pagamentosApagados || []).concat((rmCom.pagamentos || []).filter(igual).map(p => p.id || JSON.stringify(p)));
   rmCom.pagamentos = (rmCom.pagamentos || []).filter(p => !igual(p));
@@ -8939,7 +8952,7 @@ function rmComMarcarPago(mec, valor){
 }
 function rmComDesfazerPago(mec){
   const p = rmComPagoNoPeriodo(mec); if(!p) return;
-  if(!confirm('Desfazer o pagamento da comissão de ' + mec + '?')) return;
+  if(!rmPerguntaAntes('comDesf', 'Desfazer o pagamento da comissão de ' + mec + '?', { tipo: 'aviso', titulo: 'Desfazer pagamento?', sim: 'Desfazer' }, () => rmComDesfazerPago(mec))) return;
   rmCom.pagamentos = rmCom.pagamentos.filter(x => x !== p);
   rmCom.pagamentosApagados = (rmCom.pagamentosApagados || []).concat([p.id || JSON.stringify(p)]);
   rmComSalvar(); rmRenderComissao();
@@ -9706,7 +9719,7 @@ function rmValBaixoSalvar(){
   }).filter(e => e.x && e.novo > 0 && Math.abs(e.novo - e.x.v) > 0.004);
   if(!escolhas.length){ alert('Nada para corrigir.'); return; }
   const soma = escolhas.reduce((s, e) => s + e.novo, 0);
-  if(!confirm(`Corrigir ${escolhas.length} parcela(s)?\nNovo total dessas parcelas: ${rmFormatMoeda(soma)}`)) return;
+  if(!rmPerguntaAntes('valBaixo', `Corrigir ${escolhas.length} parcela(s)?\nNovo total dessas parcelas: ${rmFormatMoeda(soma)}`, { titulo: 'Corrigir parcelas?', sim: 'Corrigir' }, () => rmValBaixoSalvar())) return;
   const lista = rmLoadProms(), mudadas = new Map();
   escolhas.forEach(e => {
     const nota = lista.find(n => n.id === e.x.n.id); if(!nota) return;
@@ -9728,7 +9741,7 @@ function rmValBaixoSalvar(){
 async function rmImpConfirmar(){
   const D = rmImpDados; if(!D || !D.notas.length) return;
   const tot = D.notas.reduce((s, n) => s + n.total, 0);
-  if(!confirm(`Importar ${D.notas.length} nota(s) a prazo, somando ${rmFormatMoeda(tot)}, e cadastrar ${D.novosCli.length} cliente(s) novo(s)?`)) return;
+  if(!(await rmConfirmar(`Importar ${D.notas.length} nota(s) a prazo, somando ${rmFormatMoeda(tot)}, e cadastrar ${D.novosCli.length} cliente(s) novo(s)?`, { titulo: 'Importar notas a prazo?', sim: 'Importar' }))) return;
   const btn = document.querySelector('.rm-imp-acoes button'); if(btn){ btn.disabled = true; btn.textContent = 'Importando...'; }
   const prog = t => { const e = document.getElementById('rm-imp-prog'); if(e) e.textContent = t; };
   const lote = async (tabela, linhas, rot) => {
@@ -10379,7 +10392,7 @@ function rmValeAddCol(){
 function rmValeAddLinhas(q){ rmVale.linhas += q; rmValeAgendarSalvar(); rmRenderVale(); }
 function rmValeRemCol(id){
   const c = rmVale.colunas.find(x => x.id === id); if(!c) return;
-  if(!confirm('Tirar a coluna "' + (c.nome || 'sem nome') + '" da planilha?')) return;
+  if(!rmPerguntaAntes('valeCol', 'Tirar a coluna "' + (c.nome || 'sem nome') + '" da planilha?', { tipo: 'aviso', titulo: 'Tirar coluna?', sim: 'Tirar' }, () => rmValeRemCol(id))) return;
   c.removida = true; c.t = new Date().toISOString(); rmValeAgendarSalvar(); rmRenderVale();
   rmValeHistReg({ tipo:'remcol', k:'col:' + id, cid:id, col: c.nome || 'sem nome', de:'', para:'' });
 }
@@ -10481,12 +10494,12 @@ function rmValeHistRestaurar(id){
   const t = new Date().toISOString();
   if(e.tipo === 'nome'){
     const c = rmVale.colunas.find(x => x.id === e.cid); if(!c) return;
-    if(!confirm(`Voltar o nome da coluna para "${e.de || '(vazio)'}"?`)) return;
+    if(!rmPerguntaAntes('valeHist', `Voltar o nome da coluna para "${e.de || '(vazio)'}"?`, { titulo: 'Voltar o nome?', sim: 'Voltar' }, () => rmValeHistRestaurar(id))) return;
     const atual = c.nome || ''; c.nome = e.de || ''; c.t = t;
     rmValeHistReg({ tipo:'nome', k:e.k, cid:e.cid, de: atual, para: c.nome, restaurado: true });
   } else {
     const atual = (rmVale.celulas[e.k] || {}).v || '';
-    if(!confirm(`${e.col}, linha ${e.linha}:\nagora está "${atual || '(vazio)'}"\nvoltar para "${e.de || '(vazio)'}"?`)) return;
+    if(!rmPerguntaAntes('valeHist2', `${e.col}, linha ${e.linha}:\nagora está "${atual || '(vazio)'}"\nvoltar para "${e.de || '(vazio)'}"?`, { titulo: 'Voltar a célula?', sim: 'Voltar' }, () => rmValeHistRestaurar(id))) return;
     rmVale.celulas[e.k] = { v: e.de || '', t };
     const c = rmVale.colunas.find(x => x.id === e.cid); if(c && c.removida){ c.removida = false; c.t = t; }
     if(+e.k.split(':')[0] >= rmVale.linhas) rmVale.linhas = +e.k.split(':')[0] + 5;
@@ -11013,12 +11026,12 @@ function rmFamRenomearProdutos(){
 }
 function rmFamTirar(pid){
   const p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(pid);
-  if(!confirm('Tirar "' + ((p && p.nome) || '') + '" da família?\nO produto continua cadastrado normalmente.')) return;
+  if(!rmPerguntaAntes('famTirar', 'Tirar "' + ((p && p.nome) || '') + '" da família?\nO produto continua cadastrado normalmente.', { tipo: 'aviso', titulo: 'Tirar da família?', sim: 'Tirar' }, () => rmFamTirar(pid))) return;
   rmFam.map[pid] = { f:'', t: new Date().toISOString() }; rmFamSalvar(); rmRenderFamilias();
 }
 function rmFamDesfazer(fid){
   const f = rmFam.fams[fid]; if(!f) return;
-  if(!confirm('Desfazer a família "' + f.nome + '"?\nAs marcas continuam cadastradas como produtos separados.')) return;
+  if(!rmPerguntaAntes('famDesf', 'Desfazer a família "' + f.nome + '"?\nAs marcas continuam cadastradas como produtos separados.', { tipo: 'aviso', titulo: 'Desfazer família?', sim: 'Desfazer' }, () => rmFamDesfazer(fid))) return;
   const t = new Date().toISOString();
   f.removida = true; f.t = t;
   Object.keys(rmFam.map).forEach(pid => { if(rmFam.map[pid] && rmFam.map[pid].f === fid) rmFam.map[pid] = { f:'', t }; });
@@ -11027,7 +11040,7 @@ function rmFamDesfazer(fid){
 function rmFamAdicionar(fid, pid){
   const p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(pid); if(!p) return;
   const outra = rmFamDoProduto(pid);
-  if(outra && outra.id !== fid && !confirm('"' + p.nome + '" está na família "' + outra.nome + '". Mudar para esta?')) return;
+  if(outra && outra.id !== fid && !rmPerguntaAntes('famAdd', '"' + p.nome + '" está na família "' + outra.nome + '". Mudar para esta?', { titulo: 'Mudar de família?', sim: 'Mudar' }, () => rmFamAdicionar(fid, pid))) return;
   rmFamCriar(rmFam.fams[fid].nome, [{ pid, marca: rmFamSeparar(p.nome).marca }], rmFam.fams[fid].curva, fid);
   rmRenderFamilias();
 }
@@ -11109,7 +11122,7 @@ function rmFamCriarDaSugestao(k){
 function rmFamCriarTodas(){
   const cards = [...document.querySelectorAll('#rm-fam .rm-fam-card[data-k]')];
   if(!cards.length) return;
-  if(!confirm(`Criar as ${cards.length} famílias desta tela, do jeito que estão (com os produtos marcados)?`)) return;
+  if(!rmPerguntaAntes('famTodas', `Criar as ${cards.length} famílias desta tela, do jeito que estão (com os produtos marcados)?`, { titulo: 'Criar famílias?', sim: 'Criar' }, () => rmFamCriarTodas())) return;
   const sug = rmFamSugestoes(), mudou = new Set(); let n = 0;
   cards.forEach(card => {
     const s = sug[+card.dataset.k]; const { nome, curva, itens } = rmFamLerCard(card);
@@ -11126,8 +11139,8 @@ function rmFamIgnorar(k){
   const s = rmFamSugestoes()[k]; if(!s) return;
   rmFam.ignorados[s.base] = { sim:true, t:new Date().toISOString() }; rmFamSalvar(); rmRenderFamilias();
 }
-function rmFamNovaManual(){
-  const nome = rmFamNorm(prompt('Nome da família (o produto sem a marca), ex.: BIELA POP 110') || '');
+async function rmFamNovaManual(){
+  const nome = rmFamNorm(await rmPerguntar('Nome da família (o produto sem a marca), ex.: BIELA POP 110', { titulo: 'Nova família', sim: 'Criar' }) || '');
   if(!nome) return;
   const t = new Date().toISOString(), f = { id:'f' + Date.now().toString(36), nome, curva:'', min:0, t };
   rmFam.fams[f.id] = f; rmFamSalvar();
@@ -11350,7 +11363,7 @@ async function rmHistRestaurar(id){
   const desc = rmHistDescricao(h.tabela, h.dados);
   const quandoTxt = h.operacao === 'DELETE' ? 'antes de ser apagado' : 'antes da alteração de ' + new Date(h.quando).toLocaleString('pt-BR');
   const avisoEstoque = ['recepcoes','vendas'].includes(h.tabela) ? '\n\nO estoque das peças NÃO é mexido.' : '';
-  if(!confirm((h.operacao === 'DELETE' ? 'Recuperar ' : 'Desfazer a alteração e voltar ') + (RM_HIST_TABS[h.tabela] || h.tabela) + ' "' + desc + '" para como estava ' + quandoTxt + '?\n\nA versão de agora também fica guardada no histórico (dá para desfazer de novo).' + avisoEstoque)) return;
+  if(!(await rmConfirmar((h.operacao === 'DELETE' ? 'Recuperar ' : 'Desfazer a alteração e voltar ') + (RM_HIST_TABS[h.tabela] || h.tabela) + ' "' + desc + '" para como estava ' + quandoTxt + '?\n\nA versão de agora também fica guardada no histórico (dá para desfazer de novo).' + avisoEstoque, { tipo: 'aviso', titulo: 'Restaurar do histórico?', sim: 'Restaurar' }))) return;
   const row = h.dados, t = h.tabela;
   try{
     const troca = (carregar, salvar, obj) => { const l = carregar().filter(x => x.id !== obj.id); l.unshift(obj); salvar(l); };
@@ -12494,7 +12507,7 @@ async function rmBackupCompleto(){
     dados.tabelas[t] = data || [];
   }
   if(falhas.length){
-    if(!confirm('Não consegui baixar do servidor: ' + falhas.join(', ') + '.\nVerifique a internet.\n\nBaixar o backup mesmo assim (sem essas partes)?')) return;
+    if(!(await rmConfirmar('Não consegui baixar do servidor: ' + falhas.join(', ') + '.\nVerifique a internet.\n\nBaixar o backup mesmo assim (sem essas partes)?', { tipo: 'aviso', titulo: 'Backup incompleto', sim: 'Baixar assim' }))) return;
   }
   const blob = new Blob([JSON.stringify(dados)], { type:'application/json' });
   const url = URL.createObjectURL(blob);
@@ -12534,7 +12547,7 @@ async function rmBackupRestaurar(input){
     alert('Esse arquivo não é um backup válido do sistema.'); return;
   }
   const resumo = Object.entries(dados.tabelas).map(([t, l]) => '• ' + l.length + ' ' + t).join('\n');
-  if(!confirm(`Restaurar o backup de ${new Date(dados.geradoEm).toLocaleString('pt-BR')}?\n\n${resumo}\n\nOs registros do backup vão SUBSTITUIR os que têm o mesmo código no sistema. O que foi criado depois do backup continua.\n\nContinuar?`)) return;
+  if(!(await rmConfirmar(`Restaurar o backup de ${new Date(dados.geradoEm).toLocaleString('pt-BR')}?\n\n${resumo}\n\nOs registros do backup vão SUBSTITUIR os que têm o mesmo código no sistema. O que foi criado depois do backup continua.\n\nContinuar?`, { tipo: 'perigo', titulo: 'Restaurar backup?', sim: 'Restaurar' }))) return;
   rmShowToast('Restaurando backup...');
   const falhas = [];
   for(const [t] of RM_BKP_TABELAS){
@@ -12586,13 +12599,13 @@ function rmImportarBackup(fileInput){
   if(!file) return;
   if(!rmEhAdmin()){ alert('Só o administrador pode restaurar backup.'); fileInput.value = ''; return; }
   const reader = new FileReader();
-  reader.onload = function(e){
+  reader.onload = async function(e){
     let dados;
     try{ dados = JSON.parse(e.target.result); }
     catch(err){ alert('Não foi possível ler esse arquivo. Confirme que é um backup exportado por este app.'); fileInput.value = ''; return; }
     if(!dados || !Array.isArray(dados.recepcoes)){ alert('Esse arquivo não parece ser um backup válido deste app.'); fileInput.value = ''; return; }
     const mecsBkp = Array.isArray(dados.mecanicos) ? dados.mecanicos.filter(Boolean) : [];
-    if(!confirm(`Restaurar backup antigo com ${dados.recepcoes.length} moto(s) e ${mecsBkp.length} mecânico(s)?\n\nAs motos do backup SUBSTITUEM as que têm o mesmo código. O que foi criado depois do backup continua. Nada é apagado.\n\nContinuar?`)){ fileInput.value = ''; return; }
+    if(!(await rmConfirmar(`Restaurar backup antigo com ${dados.recepcoes.length} moto(s) e ${mecsBkp.length} mecânico(s)?\n\nAs motos do backup SUBSTITUEM as que têm o mesmo código. O que foi criado depois do backup continua. Nada é apagado.\n\nContinuar?`, { tipo: 'perigo', titulo: 'Restaurar backup antigo?', sim: 'Restaurar' }))){ fileInput.value = ''; return; }
     const lista = rmLoad(), porId = new Map(lista.map(r => [r.id, r]));
     const mudadas = [];
     dados.recepcoes.forEach(b => {
@@ -12893,7 +12906,7 @@ async function rmCliFotoSalvarBlob(id, blob){
   catch(e){ console.error(e); alert('Não consegui enviar a foto. Verifique a internet e tente de novo.'); }
 }
 function rmCliFotoDefinir(id, url){
-  if(url === null && !confirm('Remover a foto deste cliente?')) return;
+  if(url === null && !rmPerguntaAntes('cliFoto', 'Remover a foto deste cliente?', { tipo: 'aviso', titulo: 'Remover a foto?', sim: 'Remover' }, () => rmCliFotoDefinir(id, url))) return;
   if(url === null) url = ''; // '' = removida (vai como vazio para o servidor)
   let c;
   if(id === 'novo'){ c = rmClienteRascunho; c.fotoUrl = url; }
@@ -13067,10 +13080,10 @@ function rmCopiarLinkBancada(nome){
     navigator.clipboard.writeText(url).then(()=>{
       rmShowToast('Link da bancada de ' + nome + ' copiado');
     }).catch(()=>{
-      prompt('Copie o link da bancada de ' + nome + ':', url);
+      rmPerguntar('Copie o link da bancada de ' + nome + ':', { titulo: 'Link da bancada', valor: url, sim: 'Fechar' });
     });
   } else {
-    prompt('Copie o link da bancada de ' + nome + ':', url);
+    rmPerguntar('Copie o link da bancada de ' + nome + ':', { titulo: 'Link da bancada', valor: url, sim: 'Fechar' });
   }
 }
 
@@ -14423,7 +14436,7 @@ async function rmPagPagar(id){
 async function rmPagDesfazer(id){
   const c = (rmPag || []).find(x => x.id === id); if(!c || !c.pago) return;
   const p = c.pago;
-  if(!confirm('Desfazer o pagamento de ' + c.nome + ' (' + rmFormatMoeda(p.valor) + ')? A conta volta para em aberto.' + (p.caixaId ? '\nA saída no Caixa do dia também é desfeita.' : ''))) return;
+  if(!(await rmConfirmar('Desfazer o pagamento de ' + c.nome + ' (' + rmFormatMoeda(p.valor) + ')? A conta volta para em aberto.' + (p.caixaId ? '\nA saída no Caixa do dia também é desfeita.' : ''), { tipo: 'aviso', titulo: 'Desfazer pagamento?', sim: 'Desfazer' }))) return;
   if(navigator.onLine === false){ alert('Precisa de internet.'); return; }
   if(p.caixaId){
     const cx = rmCxDados && rmCxDados[p.data];
@@ -14512,7 +14525,7 @@ async function rmPagEditarSalvar(id){
 }
 async function rmPagExcluir(id){
   const c = rmPagContas().find(x => x.id === id); if(!c || c.pago) return;
-  if(!confirm(c.recId ? 'Pular a conta ' + c.nome + ' deste mês (vence ' + rmDataBR(c.venc) + ')? Os outros meses continuam.' : 'Excluir a conta ' + c.nome + ' de ' + rmFormatMoeda(c.valor) + ' (vence ' + rmDataBR(c.venc) + ')?')) return;
+  if(!(await rmConfirmar(c.recId ? 'Pular a conta ' + c.nome + ' deste mês (vence ' + rmDataBR(c.venc) + ')? Os outros meses continuam.' : 'Excluir a conta ' + c.nome + ' de ' + rmFormatMoeda(c.valor) + ' (vence ' + rmDataBR(c.venc) + ')?', { tipo: 'perigo', titulo: c.recId ? 'Pular este mês?' : 'Excluir conta?', sim: c.recId ? 'Pular' : 'Excluir' }))) return;
   if(!await rmPagGravar(Object.assign({}, c, { removida: true, removidaPor: rmNomeUsuario(), removidaEm: new Date().toISOString() }))) return;
   rmLog(c.recId ? 'Pulou mês de conta que se repete' : 'Excluiu conta a pagar', c.nome, rmFormatMoeda(c.valor) + ' · venc. ' + rmDataBR(c.venc));
   rmPagFechar('rm-page-ov'); rmPagRender();
@@ -14542,7 +14555,7 @@ async function rmPagRecSalvar(id){
 async function rmPagRecParar(id){
   const r = (rmPag || []).find(x => x.id === id); if(!r) return;
   const mes = rmHojeISO().slice(0, 7), estePago = rmPagContas().some(c => c.recId === id && c.mes === mes && c.pago) || (rmPag || []).some(c => c.id === 'pagar-r-' + id.slice(10) + '-' + mes && c.pago);
-  if(!confirm('Parar de repetir ' + r.nome + '?\n' + (estePago ? 'A deste mês já foi paga. A partir do mês que vem não aparece mais.' : 'A partir deste mês não aparece mais.') + ' As que já venceram e não foram pagas continuam na lista.')) return;
+  if(!(await rmConfirmar('Parar de repetir ' + r.nome + '?\n' + (estePago ? 'A deste mês já foi paga. A partir do mês que vem não aparece mais.' : 'A partir deste mês não aparece mais.') + ' As que já venceram e não foram pagas continuam na lista.', { tipo: 'aviso', titulo: 'Parar de repetir?', sim: 'Parar' }))) return;
   const ate = estePago ? mes : rmPagMesMais(mes, -1);
   if(!await rmPagGravar(Object.assign({}, r, ate < r.desde ? { removida: true, removidaPor: rmNomeUsuario(), removidaEm: new Date().toISOString() } : { ate }))) return;
   rmLog('Parou de repetir conta', r.nome, rmFormatMoeda(r.valor) + ' · dia ' + r.dia);
@@ -14607,7 +14620,7 @@ async function rmPagNotaMenu(id){
   let ja; try{ ja = await rmPagNfJa(id); }catch(e){ alert('Não consegui conferir agora. Tente de novo.'); return; }
   const faltam = dups.filter((d, k) => !ja.has(rmPagNfId(id, k + 1)));
   if(!faltam.length){ alert('Os boletos desta nota já estão em Contas a pagar.'); return; }
-  if(!confirm('Lançar ' + faltam.length + ' boleto(s) da NF ' + n.numero + ' em Contas a pagar?\n\n' + dups.map((d, k) => (k + 1) + '/' + dups.length + ' · vence ' + rmDataBR(d.venc) + ' · ' + rmFormatMoeda(d.valor)).join('\n'))) return;
+  if(!(await rmConfirmar('Lançar ' + faltam.length + ' boleto(s) da NF ' + n.numero + ' em Contas a pagar?\n\n' + dups.map((d, k) => (k + 1) + '/' + dups.length + ' · vence ' + rmDataBR(d.venc) + ' · ' + rmFormatMoeda(d.valor)).join('\n'), { titulo: 'Lançar boletos?', sim: 'Lançar' }))) return;
   await rmPagLancarNota({ notaId: id, dups, nota: { numero: n.numero, fornecedor: n.fornecedor } });
 }
 setInterval(() => { try{ if(rmPagPode() && document.visibilityState === 'visible') rmPagCarregar(); }catch(e){} }, 15 * 60e3);
@@ -14691,7 +14704,7 @@ function rmRenderFinOrg(){
 }
 
 function rmOrgMarcar(ids, entregue){
-  if(entregue && ids.length > 1 && !confirm(`Marcar ${ids.length} notas como entregues ao cliente?`)) return;
+  if(entregue && ids.length > 1 && !rmPerguntaAntes('orgMarcar', `Marcar ${ids.length} notas como entregues ao cliente?`, { titulo: 'Marcar como entregues?', sim: 'Marcar' }, () => rmOrgMarcar(ids, entregue))) return;
   const lista = rmLoadProms();
   const agora = new Date().toISOString();
   lista.forEach(n => { if(ids.includes(n.id)){ n.entregueEm = entregue ? agora : null; rmDbUpsertProm(n); } });
@@ -15187,7 +15200,7 @@ function rmPedidoBuscar(inp){
 function rmPedidoLimparComprados(){
   const n = rmPedido.itens.filter(i => i.comprado).length;
   if(!n) return;
-  if(!confirm(`Tirar da lista os ${n} item(ns) marcados como comprados?`)) return;
+  if(!rmPerguntaAntes('pedLimpar', `Tirar da lista os ${n} item(ns) marcados como comprados?`, { tipo: 'aviso', titulo: 'Limpar comprados?', sim: 'Tirar' }, () => rmPedidoLimparComprados())) return;
   rmPedido.itens = rmPedido.itens.filter(i => !i.comprado);
   rmPedidoSalvar(); rmRenderPedido();
 }
@@ -15219,8 +15232,9 @@ function rmPedidoWhatsapp(){
   const txt = '*PEDIDO - ' + (rmEmpresa().nome || 'RADICAL MOTOS').toUpperCase() + '*\n' + new Date().toLocaleDateString('pt-BR') + '\n\n'
     + linhas.map(l => `${rmFmtQtd(l.qtd)}x ${l.nome}${l.marca ? ' (' + l.marca + ')' : ''}${l.obs ? ' - ' + l.obs : ''}`).join('\n');
   const ok = () => rmShowToast('Lista copiada. É só colar no WhatsApp');
-  if(navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, () => prompt('Copie a lista:', txt));
-  else prompt('Copie a lista:', txt);
+  const mostrar = () => rmPerguntar('Copie a lista:', { titulo: 'Pedido', valor: txt, sim: 'Fechar' });
+  if(navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, mostrar);
+  else mostrar();
 }
 
 // ===================== PRODUTOS > INVENTÁRIO (contagem e ajuste de estoque) =====================
@@ -15386,27 +15400,27 @@ function rmInvLinhaHtml(i){
 }
 
 // ---------- criar contagem ----------
-function rmInvNova(tipo){
+async function rmInvNova(tipo){
   const prods = rmInvProdutosContaveis();
   let escolha = null, titulo = '';
   if(tipo === 'ciclica'){
     const at = rmInvAtrasados();
     if(!at.length){ alert('Nenhum produto está na hora de contar. Tudo em dia!'); return; }
-    const n = parseInt(prompt(`${at.length} produtos estão na hora de ser contados.\nQuantos você quer contar agora? (recomendado: 20 a 30)`, String(Math.min(25, at.length))));
+    const n = parseInt(await rmPerguntar(at.length + ' produtos estão na hora de ser contados.\nQuantos você quer contar agora? (recomendado: 20 a 30)', { titulo: 'Contagem do dia', valor: String(Math.min(25, at.length)), numero: true, sim: 'Começar' }));
     if(!n || n < 1) return;
     escolha = rmInvComFamilias(at.slice(0, n).map(x => x.p)); titulo = 'Contagem do dia · ' + escolha.length + ' produtos';
   } else if(tipo === 'local'){
     const locs = [...new Set(prods.map(p => (p.localizacao || '').toUpperCase().replace(/[0-9]+$/,'')).filter(Boolean))].sort();
-    const l = (prompt('Qual localização/prateleira? (o começo do código já basta)\nExistentes: ' + locs.slice(0, 40).join(', '), locs[0] || '') || '').trim().toUpperCase();
+    const l = ((await rmPerguntar('Qual localização/prateleira? (o começo do código já basta)\nExistentes: ' + locs.slice(0, 40).join(', '), { titulo: 'Contar por prateleira', valor: locs[0] || '', sim: 'Começar' })) || '').trim().toUpperCase();
     if(!l) return;
     escolha = rmInvComFamilias(prods.filter(p => (p.localizacao || '').toUpperCase().startsWith(l))); titulo = 'Prateleira ' + l;
   } else if(tipo === 'categoria'){
     const cats = [...new Set(prods.map(p => (p.categoria || '').toUpperCase()).filter(Boolean))].sort();
-    const c = (prompt('Qual categoria?\nExistentes: ' + cats.slice(0, 40).join(', '), cats[0] || '') || '').trim().toUpperCase();
+    const c = ((await rmPerguntar('Qual categoria?\nExistentes: ' + cats.slice(0, 40).join(', '), { titulo: 'Contar por categoria', valor: cats[0] || '', sim: 'Começar' })) || '').trim().toUpperCase();
     if(!c) return;
     escolha = rmInvComFamilias(prods.filter(p => (p.categoria || '').toUpperCase().includes(c))); titulo = 'Categoria ' + c;
   } else if(tipo === 'geral'){
-    if(!confirm(`Inventário geral com ${prods.length} produtos. Pode ser feito em várias etapas, salvando e continuando depois. Começar?`)) return;
+    if(!(await rmConfirmar(`Inventário geral com ${prods.length} produtos. Pode ser feito em várias etapas, salvando e continuando depois. Começar?`, { titulo: 'Inventário geral', sim: 'Começar' }))) return;
     escolha = prods; titulo = 'Inventário geral ' + new Date().getFullYear();
   } else if(tipo === 'escolhidos'){
     escolha = []; titulo = 'Produtos escolhidos';
@@ -15501,20 +15515,20 @@ function rmInvcBuscar(v){ rmInvcBusca = v; rmInvcListaRender(); }
 function rmInvcAlternarBusca(){ rmInvcBuscaAberta = !rmInvcBuscaAberta; if(!rmInvcBuscaAberta) rmInvcBusca = ''; rmInvcMenu = false; rmInvRenderContagem(); if(rmInvcBuscaAberta) setTimeout(() => { const b = document.getElementById('rm-inv-bip'); if(b) b.focus(); }, 30); }
 function rmInvcAlternarMenu(){ rmInvcMenu = !rmInvcMenu; const m = document.getElementById('invc-menu'); if(m) m.style.display = rmInvcMenu ? '' : 'none'; }
 function rmInvcAcoesAbrir(k){ rmInvcAcoes = rmInvcAcoes === k ? null : k; rmInvcListaRender(); }
-function rmInvcIncluir(){
+async function rmInvcIncluir(){
   rmInvcMenu = false; rmInvcBuscaAberta = false; rmInvcBusca = '';
-  const nome = prompt('Nome, código ou código de barras do produto para incluir na contagem:'); if(!nome) { rmInvRenderContagem(); return; }
+  const nome = await rmPerguntar('Nome, código ou código de barras do produto para incluir na contagem:', { titulo: 'Incluir produto', sim: 'Procurar' }); if(!nome) { rmInvRenderContagem(); return; }
   const q = nome.trim().toLowerCase();
   const inv = rmInvGet(rmInvAtual), ja = new Set(inv.itens.map(it => it.pid));
   const ps = rmInvProdutosContaveis().filter(p => !ja.has(p.id) && (rmProdTemBarras(p, q) || (p.codigo || '').toLowerCase() === q || rmBuscaInteligente(p.nome, q))).slice(0, 30);
   if(!ps.length){ alert('Nenhum produto encontrado (ou já está na contagem).'); rmInvRenderContagem(); return; }
   let p = ps[0];
   if(ps.length > 1){
-    const n = parseInt(prompt(ps.slice(0, 15).map((x, i) => (i + 1) + ') ' + x.nome).join('\n') + '\n\nDigite o número do produto:'), 10);
+    const n = parseInt(await rmPerguntar(ps.slice(0, 15).map((x, i) => (i + 1) + ') ' + x.nome).join('\n') + '\n\nDigite o número do produto:', { titulo: 'Qual produto?', numero: true, sim: 'Incluir' }), 10);
     if(!(n >= 1 && n <= Math.min(15, ps.length))){ rmInvRenderContagem(); return; }
     p = ps[n - 1];
   }
-  inv.itens.push(rmInvItemDe(p)); rmInvSalvar(inv);
+  { const inv2 = rmInvGet(rmInvAtual); if(inv2.itens.some(it => it.pid === p.id)){ rmInvRenderContagem(); return; } inv2.itens.push(rmInvItemDe(p)); rmInvSalvar(inv2); }
   rmInvcFiltro = 'faltam'; rmInvRenderContagem(); rmShowToast(p.nome + ' incluído');
 }
 function rmInvcListaRender(){
@@ -15619,7 +15633,7 @@ function rmInvNovaMarcaSalvar(k){
   const prods = rmLoadProdutos();
   if(prods.some(x => x.ativo !== false && rmFamNorm(x.nome) === nome)){ alert('Já existe um produto com o nome "' + nome + '". Use o campo "+ Incluir outro produto" para colocar ele na contagem.'); return; }
   const barras = val('rm-inm-barras');
-  if(barras && prods.some(x => rmProdTemBarras(x, barras))){ if(!confirm('Esse código de barras já está em outro produto. Cadastrar mesmo assim?')) return; }
+  if(barras && prods.some(x => rmProdTemBarras(x, barras))){ if(!rmPerguntaAntes('invMarca', 'Esse código de barras já está em outro produto. Cadastrar mesmo assim?', { tipo: 'aviso', titulo: 'Código repetido', sim: 'Cadastrar assim' }, () => rmInvNovaMarcaSalvar(k))) return; }
   const orig = rmIdx(prods).get(it.pid) || {};
   const qtd = Math.max(0, rmParseMoeda(qtdTxt) || 0);
   const fExist = rmFamDoProduto(it.pid);
@@ -15643,7 +15657,7 @@ function rmInvInativar(k){
   const inv = rmInvGet(rmInvAtual), it = inv.itens[k]; if(!it) return;
   const p = rmIdx(rmLoadProdutos()).get(it.pid);
   const est = p ? Number(p.estoqueAtual) || 0 : 0;
-  if(!confirm(`Inativar "${it.nome}"?\n\nEle deixa de aparecer no PDV, na OS e nas buscas (o histórico de vendas continua).` + (est ? `\n\nO sistema tem ${rmFmtQtd(est)} ${it.un} dele: a contagem fica 0 e, ao aprovar o inventário, o estoque é zerado.` : ''))) return;
+  if(!rmPerguntaAntes('invInat', `Inativar "${it.nome}"?\n\nEle deixa de aparecer no PDV, na OS e nas buscas (o histórico de vendas continua).` + (est ? `\n\nO sistema tem ${rmFmtQtd(est)} ${it.un} dele: a contagem fica 0 e, ao aprovar o inventário, o estoque é zerado.` : ''), { tipo: 'perigo', titulo: 'Inativar produto?', sim: 'Inativar' }, () => rmInvInativar(k))) return;
   it.inativado = true; it.contado = 0; it.contadoEm = new Date().toISOString(); it.contadoPor = rmNomeUsuario();
   if(p){ const prods = rmLoadProdutos(), x = rmIdx(prods).get(it.pid); x.ativo = false; rmSaveProdutos(prods); rmDbUpsertProduto(x); }
   rmInvSalvar(inv, true);
@@ -15684,7 +15698,7 @@ function rmInvBipar(txt){
   if(k < 0){ const ks = inv.itens.map((it, i) => ({ it, i })).filter(x => rmBuscaInteligente(x.it.nome, q)); if(ks.length === 1) k = ks[0].i; else if(ks.length > 1){ rmShowToast(ks.length + ' produtos encontrados, digite mais'); return; } }
   if(k < 0){
     const p = rmInvProdutosContaveis().find(p => rmProdTemBarras(p, q) || (p.codigo || '').toLowerCase() === q);
-    if(p && confirm(p.nome + ' não está nesta contagem. Incluir?')){ inv.itens.push(rmInvItemDe(p)); k = inv.itens.length - 1; }
+    if(p){ if(!rmPerguntaAntes('invBip', p.nome + ' não está nesta contagem. Incluir?', { titulo: 'Incluir na contagem?', sim: 'Incluir' }, () => rmInvBipar(txt))) return; inv.itens.push(rmInvItemDe(p)); k = inv.itens.length - 1; }
     else { try{ navigator.vibrate && navigator.vibrate([80,60,80]); }catch(e){} rmShowToast('Produto não encontrado'); return; }
   }
   inv.itens[k].contado = (inv.itens[k].contado || 0) + 1;
@@ -15747,7 +15761,7 @@ function rmInvIncluir(pid){
   rmInvOrdenar(inv); rmInvSalvar(inv); rmInvRenderContagem();
 }
 function rmInvCancelar(){
-  if(!confirm('Cancelar esta contagem? Nada será ajustado no estoque.')) return;
+  if(!rmPerguntaAntes('invCanc', 'Cancelar esta contagem? Nada será ajustado no estoque.', { tipo: 'perigo', titulo: 'Cancelar contagem?', nao: 'Voltar', sim: 'Cancelar contagem' }, () => rmInvCancelar())) return;
   const inv = rmInvGet(rmInvAtual); inv.status = 'cancelado'; rmInvSalvar(inv, true);
   rmLog('Cancelou contagem de estoque', inv.titulo);
   rmInvTela = 'home'; rmRenderInventario();
@@ -15755,7 +15769,7 @@ function rmInvCancelar(){
 function rmInvTerminar(){
   const inv = rmInvGet(rmInvAtual);
   const falta = inv.itens.filter(x => x.contado == null).length;
-  if(falta && !confirm(`${falta} produto(s) não foram contados e vão ficar de fora do ajuste. Continuar?`)) return;
+  if(falta && !rmPerguntaAntes('invTerm', `${falta} produto(s) não foram contados e vão ficar de fora do ajuste. Continuar?`, { tipo: 'aviso', titulo: 'Terminar contagem?', sim: 'Continuar' }, () => rmInvTerminar())) return;
   if(!inv.itens.some(x => x.contado != null)){ alert('Conte pelo menos um produto.'); return; }
   inv.status = 'revisao'; rmInvSalvar(inv, true);
   rmInvTela = 'revisar'; rmRenderInventario();
@@ -15819,8 +15833,7 @@ function rmInvAprovar(){
   if(navigator.onLine === false){ alert('Para aprovar e ajustar o estoque precisa estar com internet.\nA contagem está salva no aparelho: conecte e aprove depois.'); return; }
   const inv = rmInvGet(rmInvAtual), c = rmInvCalc(inv);
   const semMotivo = c.div.filter(l => !l.it.motivo).length;
-  if(semMotivo && !confirm(`${semMotivo} diferença(s) estão sem motivo. Ajustar mesmo assim?`)) return;
-  if(!confirm(`Ajustar o estoque de ${c.div.length} produto(s)?\nFaltando: ${rmFormatMoeda(c.valorFalta)} · Sobrando: ${rmFormatMoeda(c.valorSobra)}`)) return;
+  if(!rmPerguntaAntes('invAprov', 'Ajustar o estoque de ' + c.div.length + ' produto(s)?' + (semMotivo ? '\n\n⚠ ' + semMotivo + ' diferença(s) estão sem motivo.' : ''), { tipo: semMotivo ? 'aviso' : 'info', titulo: 'Ajustar o estoque?', resumo: [['Faltando', rmFormatMoeda(c.valorFalta)], ['Sobrando', rmFormatMoeda(c.valorSobra)]], sim: 'Ajustar' }, () => rmInvAprovar())) return;
   const prods = rmLoadProdutos();
   c.div.forEach(l => {
     const p = rmIdx(prods).get(l.it.pid); if(!p) return;
@@ -16020,12 +16033,12 @@ function rmEtqImprimirDoc(corpo, titulo){
   setTimeout(() => { try{ rmEtqAjustar(doc); }catch(e){} frame.contentWindow.focus(); frame.contentWindow.print(); }, 500);
 }
 // ----- código de barras para quem não tem (EAN-13 interno começando com 29) -----
-async function rmEtqGerarCodigos(){
+async function rmEtqGerarCodigos(jaPerguntou){
   const c = rmEtqCfg(); if(!(c.lay.els || []).some(e => e.k === 'barras')) return true;
   const prods = rmLoadProdutos(), idx = rmIdx(prods), ids = [...new Set(rmEtqFila().filter(i => i.pid).map(i => i.pid))];
   const sem = ids.map(id => idx.get(id)).filter(p => p && !String(p.codigoBarras || '').trim());
   if(!sem.length) return true;
-  if(!confirm(sem.length + ' produto(s) da lista não têm código de barras.\nO sistema vai criar um código para cada um (começando com 29) e salvar no cadastro do produto, para o leitor do PDV reconhecer a etiqueta.\n\nContinuar?')) return false;
+  if(!jaPerguntou) return (await rmConfirmar(sem.length + ' produto(s) da lista não têm código de barras.\nO sistema vai criar um código para cada um (começando com 29) e salvar no cadastro do produto, para o leitor do PDV reconhecer a etiqueta.\n\nContinuar?', { titulo: 'Criar códigos de barras?', sim: 'Criar' })) ? rmEtqGerarCodigos(true) : false;
   let max = 0; const usados = new Set();
   prods.forEach(p => { rmProdCodigos(p).forEach(c => usados.add(String(c).trim())); const b = String(p.codigoBarras || '').trim(); if(b) usados.add(b); if(/^29\d{11}$/.test(b)) max = Math.max(max, +b.slice(2, 12)); });
   sem.forEach(p => { let cod; do{ max++; const d12 = '29' + String(max).padStart(10, '0'); cod = d12 + rmEtqEanDv(d12); } while(usados.has(cod)); usados.add(cod); p.codigoBarras = cod; rmDbUpsertProduto(p); });
@@ -16076,7 +16089,7 @@ function rmEtqLayoutEscolher(id){
 async function rmEtqLayoutSalvar(novo){
   const c = rmEtqCfg(), salvo = (rmEtqLayouts || []).find(x => x.id === c.layId);
   let nome = salvo ? salvo.nome : '';
-  if(novo || !salvo){ nome = prompt('Nome deste layout (ex.: Preço + barras, Prateleira):', novo && salvo ? salvo.nome + ' (cópia)' : ''); if(!nome || !nome.trim()) return; nome = nome.trim(); }
+  if(novo || !salvo){ nome = await rmPerguntar('Nome deste layout (ex.: Preço + barras, Prateleira):', { titulo: 'Salvar layout', valor: novo && salvo ? salvo.nome + ' (cópia)' : '', sim: 'Salvar' }); if(!nome || !nome.trim()) return; nome = nome.trim(); }
   const id = !novo && salvo ? salvo.id : 'l' + rmUid();
   const obj = { id, nome, els: c.lay.els, texto: c.lay.texto || '', por: rmNomeUsuario(), em: new Date().toISOString() };
   if(!await rmEtqLayoutsGravar(l => l.filter(x => x.id !== id).concat([obj]))) return;
@@ -16086,7 +16099,7 @@ async function rmEtqLayoutSalvar(novo){
 async function rmEtqLayoutExcluir(){
   const c = rmEtqCfg(), salvo = (rmEtqLayouts || []).find(x => x.id === c.layId);
   if(!salvo){ alert('Os layouts prontos não podem ser excluídos. Escolha um layout salvo por você.'); return; }
-  if(!confirm('Excluir o layout "' + salvo.nome + '"?')) return;
+  if(!(await rmConfirmar('Excluir o layout "' + salvo.nome + '"?', { tipo: 'perigo', titulo: 'Excluir layout?', sim: 'Excluir' }))) return;
   if(!await rmEtqLayoutsGravar(l => l.filter(x => x.id !== salvo.id))) return;
   c.layId = ''; rmEtqCfgSalvar(c); rmLog('Excluiu layout de etiqueta', salvo.nome); rmEtqRender();
 }
@@ -16168,7 +16181,7 @@ function rmEtqLoc(key, v){
   else { const p = rmIdx(rmLoadProdutos()).get(x.pid); if(p && v === String(p.localizacao || '').trim().toUpperCase()) delete x.loc; else x.loc = v; }
   rmEtqFilaSalvar(f); rmEtqRender();
 }
-function rmEtqLimpar(){ if(rmEtqFila().length && !confirm('Tirar todos os produtos da lista?')) return; rmEtqFilaSalvar([]); rmEtqPos = null; rmEtqPagina = 0; rmEtqRender(); }
+function rmEtqLimpar(){ if(rmEtqFila().length && !rmPerguntaAntes('etqLimpar', 'Tirar todos os produtos da lista?', { tipo: 'aviso', titulo: 'Limpar a lista?', sim: 'Tirar todos' }, () => rmEtqLimpar())) return; rmEtqFilaSalvar([]); rmEtqPos = null; rmEtqPagina = 0; rmEtqRender(); }
 function rmEtqFonteSet(f){
   if(f === 'pers'){ rmEtqPersAbrir(); return; }
   rmEtqFonte = f; rmEtqRender();
@@ -16254,7 +16267,7 @@ function rmEtqAddEstoque(){
   const ps = rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && (Number(p.estoqueAtual) || 0) > 0);
   const tot = ps.reduce((s, p) => s + Math.ceil(Number(p.estoqueAtual) || 0), 0);
   if(!ps.length) return;
-  if(!confirm('Colocar ' + ps.length + ' produtos na lista, uma etiqueta para cada unidade em estoque (' + tot + ' etiquetas)?')) return;
+  if(!rmPerguntaAntes('etqEst', 'Colocar ' + ps.length + ' produtos na lista, uma etiqueta para cada unidade em estoque (' + tot + ' etiquetas)?', { titulo: 'Etiquetas do estoque', sim: 'Colocar' }, () => rmEtqAddEstoque())) return;
   rmEtqAdd(ps.map(p => ({ pid:p.id, q: Math.ceil(Number(p.estoqueAtual) || 0) })), 'estoque');
   rmEtqRender();
 }
@@ -17520,7 +17533,7 @@ function rmCliConfirmarAvulso(clienteId){
     .forEach(n => n.parcelas.forEach(p => { if(rmParcRestante(p) > 0.004) abertas.push({ n, p }); }));
   abertas.sort((a,b) => a.p.vencimento.localeCompare(b.p.vencimento) || String(a.n.criadoEm).localeCompare(String(b.n.criadoEm)) || a.p.n - b.p.n);
   const { plano, sobra } = rmCliDistribuir(abertas, valor);
-  if(sobra > 0.004 && !confirm(`O valor passa ${rmFormatMoeda(sobra)} do que o cliente deve. Lançar só ${rmFormatMoeda(valor - sobra)}?`)) return;
+  if(sobra > 0.004 && !rmPerguntaAntes('avSobra', `O valor passa ${rmFormatMoeda(sobra)} do que o cliente deve. Lançar só ${rmFormatMoeda(valor - sobra)}?`, { tipo: 'aviso', titulo: 'Valor maior que a dívida', sim: 'Lançar' }, () => rmCliConfirmarAvulso(clienteId))) return;
   const agora = new Date().toISOString();
   const lote = 'av' + Date.now();
   const notasMexidas = new Set();
@@ -17706,7 +17719,7 @@ function rmPromRenderEditor(){
       </table>` : '<div class="rm-pe2-vazio">Nenhum pagamento lançado nesta parcela</div>'}
     <div class="rm-pe2-acoes">
       <button class="rm-pe2-btn" onclick="rmPromDraft.parcelas[rmPromSel].pagamentos.push({ id: rmNovoPgId(), valor: rmParcRestante(rmPromDraft.parcelas[rmPromSel]), data: new Date().toISOString(), forma: 'Dinheiro', por: rmNomeUsuario() }); rmPromRenderEditor()">+ Lançar pagamento</button>
-      ${p.pagamentos.length ? '' : `<button class="rm-pe2-btn rm-pe2-btn-del" onclick="if(confirm('Remover a ${rmPromSel+1}ª parcela?')){ rmPromDraft.parcelas.splice(rmPromSel,1); rmPromRenderEditor(); }">Remover parcela</button>`}
+      ${p.pagamentos.length ? '' : `<button class="rm-pe2-btn rm-pe2-btn-del" onclick="rmConfirmar('A parcela sai da nota.', { tipo: 'aviso', titulo: 'Remover a ${rmPromSel+1}ª parcela?', sim: 'Remover' }).then(ok => { if(ok){ rmPromDraft.parcelas.splice(rmPromSel,1); rmPromRenderEditor(); } })">Remover parcela</button>`}
     </div>`;
 
   const modal = document.getElementById('rm-modal');
@@ -17764,7 +17777,7 @@ async function rmPromSalvarEditor(){
   }catch(e){}
   if(!d.parcelas.length){ alert('A nota precisa ter pelo menos uma parcela.'); return; }
   const soma = d.parcelas.reduce((s,p) => s + (Number(p.valor)||0), 0);
-  if(Math.abs(soma - d.total) > 0.004 && !confirm(`A soma das parcelas (${rmFormatMoeda(soma)}) é diferente do total da venda (${rmFormatMoeda(d.total)}). Salvar mesmo assim?`)) return;
+  if(Math.abs(soma - d.total) > 0.004 && !(await rmConfirmar(`A soma das parcelas (${rmFormatMoeda(soma)}) é diferente do total da venda (${rmFormatMoeda(d.total)}). Salvar mesmo assim?`, { tipo: 'aviso', titulo: 'Soma diferente do total', sim: 'Salvar assim' }))) return;
   d.parcelas.forEach((p, i) => {
     p.n = i + 1;
     p.pagamentos = p.pagamentos.filter(x => (Number(x.valor)||0) > 0).sort((a,b) => String(a.data).localeCompare(String(b.data)));
@@ -18372,7 +18385,7 @@ function rmPfAdicionar(){
   const p = rmPfPorCx().get(rmPfSel); if(!p) return;
   const q = Number(rmPfQtd) || 0; if(!(q > 0)){ rmShowToast('Informe a quantidade'); return; }
   if(!rmPfPreco(p)){ alert('Este parafuso ainda não tem preço.'); return; }
-  if(p.ativo === false && !confirm('Este parafuso está INATIVO. Vender mesmo assim?')) return;
+  if(p.ativo === false && !rmPerguntaAntes('pfInat', 'Este parafuso está INATIVO. Vender mesmo assim?', { tipo: 'aviso', titulo: 'Parafuso inativo', sim: 'Vender assim' }, () => rmPfAdicionar())) return;
   const l = rmPfCesta(), ex = l.find(i => i.pid === p.id);
   if(ex) ex.q = (Number(ex.q) || 0) + q; else l.push({ pid: p.id, q });
   rmPfCestaGravar(l);
@@ -18391,12 +18404,12 @@ function rmPfRenderCesta(){
     <div class="ip-tot"><span>Total</span><span>${rmFormatMoeda(tot)}</span></div>
     <button type="button" class="go" onclick="rmPfMandarPdv()"${l.length ? '' : ' disabled'}>Cobrar no PDV &rarr;</button>
     <button type="button" class="go2" onclick="rmPfEscolherOs()"${l.length ? '' : ' disabled'}>&#128295; Lançar numa OS</button>
-    ${l.length ? '<button type="button" class="pf-limpa" onclick="if(confirm(\'Limpar a lista de parafusos?\')){ rmPfCestaGravar([]); rmPfRenderCesta(); }">limpar a venda</button>' : ''}`;
+    ${l.length ? '<button type="button" class="pf-limpa" onclick="rmConfirmar(\'Os parafusos saem da venda.\', { tipo: \'aviso\', titulo: \'Limpar a lista?\', sim: \'Limpar\' }).then(ok => { if(ok){ rmPfCestaGravar([]); rmPfRenderCesta(); } })">limpar a venda</button>' : ''}`;
 }
 function rmPfCestaQtd(pid, d){
   const l = rmPfCesta(), it = l.find(i => i.pid === pid); if(!it) return;
   it.q = (Number(it.q) || 0) + d;
-  if(it.q <= 0){ if(!confirm('Tirar este parafuso da venda?')){ it.q = 1; } else { rmPfCestaGravar(l.filter(i => i.pid !== pid)); rmPfRenderCesta(); return; } }
+  if(it.q <= 0){ if(!rmPerguntaAntes('pfTirar', 'Tirar este parafuso da venda?', { tipo: 'aviso', titulo: 'Tirar da venda?', sim: 'Tirar' }, () => rmPfCestaQtd(pid, d))){ it.q = 1; } else { rmPfCestaGravar(l.filter(i => i.pid !== pid)); rmPfRenderCesta(); return; } }
   rmPfCestaGravar(l); rmPfRenderCesta();
 }
 function rmPfCestaTirar(pid){ rmPfCestaGravar(rmPfCesta().filter(i => i.pid !== pid)); rmPfRenderCesta(); }
@@ -18434,7 +18447,7 @@ function rmPfResultados(t){
 function rmPfMandarPdv(){
   const idx = rmIdx(rmLoadProdutos()), l = rmPfCesta().map(i => ({ i, p: idx.get(i.pid) })).filter(x => x.p);
   if(!l.length) return;
-  if(typeof rmPdvModo !== 'undefined' && rmPdvModo !== 'venda' && !confirm('O PDV está em modo orçamento. Os parafusos vão para o orçamento. Continuar?')) return;
+  if(typeof rmPdvModo !== 'undefined' && rmPdvModo !== 'venda' && !rmPerguntaAntes('pfOrc', 'O PDV está em modo orçamento. Os parafusos vão para o orçamento. Continuar?', { tipo: 'aviso', titulo: 'PDV em orçamento', sim: 'Continuar' }, () => rmPfMandarPdv())) return;
   l.forEach(({ i, p }) => {
     const preco = (rmPdvTabelaPreco === 'parceiro' && Number(p.precoParceiro) > 0) ? Number(p.precoParceiro) : rmPfPreco(p);
     const ex = rmPdvCarrinho.find(c => c.produtoId === p.id && !(c.desconto > 0));
@@ -18465,7 +18478,7 @@ function rmPfOsLista(){
 }
 function rmPfLancarOs(osId){
   const list = rmLoad(), r = list.find(x => x.id === osId); if(!r) return;
-  if(!rmOsPagaConfirmar(r)) return;
+  if(!rmOsPagaConfirmar(r, () => rmPfLancarOs(osId))) return;
   const prods = rmLoadProdutos(), idx = rmIdx(prods);
   const l = rmPfCesta().map(i => ({ i, p: idx.get(i.pid) })).filter(x => x.p); if(!l.length) return;
   if(!r.pecasUsadas) r.pecasUsadas = [];
@@ -18609,14 +18622,14 @@ function rmPfSalvarCampo(id, campo, valor){
   rmSaveProdutos(prods); rmDbUpsertProduto(p);
   rmShowToast('CX ' + p.parafuso.cx + ' salvo');
 }
-function rmPfPrecoLote(){
+async function rmPfPrecoLote(){
   const l = rmPfEstLista(); if(!l.length) return;
   const sem = l.filter(p => !rmPfPreco(p));
-  const v = prompt(`Preço por unidade para ${sem.length ? 'os ' + sem.length + ' parafuso(s) SEM PREÇO' : 'os ' + l.length + ' parafuso(s)'} da lista filtrada:\n(ex.: 0,35)`);
+  const v = await rmPerguntar(`Preço por unidade para ${sem.length ? 'os ' + sem.length + ' parafuso(s) SEM PREÇO' : 'os ' + l.length + ' parafuso(s)'} da lista filtrada:\n(ex.: 0,35)`, { titulo: 'Preço em lote', numero: true, placeholder: '0,00', sim: 'Continuar' });
   if(v == null) return;
   const n = rmParseMoeda(v); if(!(n > 0)){ alert('Preço inválido.'); return; }
   const alvo = sem.length ? sem : l;
-  if(!confirm('Colocar ' + rmFormatMoeda(n) + ' em ' + alvo.length + ' parafuso(s)?')) return;
+  if(!(await rmConfirmar('Colocar ' + rmFormatMoeda(n) + ' em ' + alvo.length + ' parafuso(s)?', { titulo: 'Colocar preço?', sim: 'Colocar' }))) return;
   const prods = rmLoadProdutos(), idx = rmIdx(prods);
   alvo.forEach(a => { const p = idx.get(a.id); if(!p) return; p.precoConsumidor = n; if(!(Number(p.precoParceiro) > 0)) p.precoParceiro = n; rmDbUpsertProduto(p); });
   rmSaveProdutos(prods);
@@ -18675,7 +18688,7 @@ async function rmPfSalvarEdicao(id){
   if(!await rmPfColunaOk()){ alert('Falta rodar no Supabase o arquivo parafusos-supabase.sql (ele só acrescenta a coluna "parafuso" nos produtos). Depois disso o cadastro funciona.'); return; }
   const prods = rmLoadProdutos();
   const outro = prods.find(x => x.parafuso && Number(x.parafuso.cx) === cx && x.id !== id);
-  if(outro && !confirm(`A caixinha ${cx} já é do parafuso "${outro.nome}".\nUsar o mesmo número mesmo assim? (o certo é cada caixinha ter um número só)`)) return;
+  if(outro && !(await rmConfirmar(`A caixinha ${cx} já é do parafuso "${outro.nome}".\nUsar o mesmo número mesmo assim? (o certo é cada caixinha ter um número só)`, { tipo: 'aviso', titulo: 'Caixinha repetida', sim: 'Usar assim' }))) return;
   const bt = document.getElementById('rm-pf-ed-ok'); if(bt){ bt.disabled = true; bt.textContent = 'Salvando...'; }
   let fotoUrl;
   if(rmPfFotoNova && rmPfFotoNova.file){ fotoUrl = await rmUploadFotoProduto(rmPfFotoNova.file, id || 'pf'); if(!fotoUrl){ alert('Não consegui enviar a foto (sem internet?). O parafuso será salvo sem trocar a foto.'); } }
@@ -18825,7 +18838,7 @@ function rmPfMudarCx(id, v){
   if(n === p.parafuso.cx) return;
   const outro = prods.find(x => x.parafuso && Number(x.parafuso.cx) === n && x.id !== id);
   if(outro){
-    if(!confirm(`A caixinha ${n} é do "${outro.nome}".\nTrocar os dois de lugar? (este vai para a ${n} e aquele para a ${p.parafuso.cx})`)){ rmPfRenderCaixinhas(); return; }
+    if(!rmPerguntaAntes('pfCx', `A caixinha ${n} é do "${outro.nome}".\nTrocar os dois de lugar? (este vai para a ${n} e aquele para a ${p.parafuso.cx})`, { titulo: 'Trocar de caixinha?', sim: 'Trocar' }, () => rmPfMudarCx(id, v))){ rmPfRenderCaixinhas(); return; }
     outro.parafuso = Object.assign({}, outro.parafuso, { cx: p.parafuso.cx }); outro.localizacao = 'CX ' + p.parafuso.cx; rmDbUpsertProduto(outro);
   }
   const antes = p.parafuso.cx;
@@ -18844,7 +18857,7 @@ async function rmPfImportar(inp){
   const prods = rmLoadProdutos(), ids = new Set(prods.map(p => p.id));
   const novos = d.itens.filter(i => !ids.has('pfcx' + i.cx));
   if(!novos.length){ alert('Esse catálogo já foi importado. Nada novo para trazer.'); return; }
-  if(!confirm(`Importar ${novos.length} item(ns) do catálogo de parafusos?\n\nEles entram no estoque geral marcados como parafuso, com foto, na caixinha da planilha, SEM preço e com estoque zero.` + (novos.length < d.itens.length ? `\n(${d.itens.length - novos.length} já existiam e ficam como estão)` : ''))) return;
+  if(!(await rmConfirmar(`Importar ${novos.length} item(ns) do catálogo de parafusos?\n\nEles entram no estoque geral marcados como parafuso, com foto, na caixinha da planilha, SEM preço e com estoque zero.` + (novos.length < d.itens.length ? `\n(${d.itens.length - novos.length} já existiam e ficam como estão)` : ''), { titulo: 'Importar catálogo?', sim: 'Importar' }))) return;
   const ov = document.createElement('div'); ov.id = 'rm-pf-imp-ov'; ov.innerHTML = '<div><b>Importando parafusos...</b><span id="rm-pf-imp-tx">Enviando fotos</span><i><u id="rm-pf-imp-bar"></u></i></div>'; document.body.appendChild(ov);
   const prog = (t, f) => { const a = document.getElementById('rm-pf-imp-tx'), b = document.getElementById('rm-pf-imp-bar'); if(a) a.textContent = t; if(b) b.style.width = Math.round(f * 100) + '%'; };
   try{
@@ -19205,7 +19218,7 @@ async function rmRetMarcar(id, on, el){
     r.formaPagamento = 'Garantia';
     rmLog('Marcou OS como retorno de garantia', r.codigoApp, o ? 'OS original ' + (o.codigoApp || '') : '');
   } else {
-    if(!confirm('Tirar o retorno de garantia desta OS? Ela volta a ser cobrada normalmente.')){ if(el) el.checked = true; return; }
+    if(!rmPerguntaAntes('retTirar', 'Tirar o retorno de garantia desta OS? Ela volta a ser cobrada normalmente.', { tipo: 'aviso', titulo: 'Tirar o retorno?', sim: 'Tirar' }, () => rmRetMarcar(id, on, el))){ if(el) el.checked = true; return; }
     r.retorno = null; if(r.formaPagamento === 'Garantia') r.formaPagamento = '';
     rmLog('Tirou o retorno de garantia da OS', r.codigoApp);
   }
@@ -19368,7 +19381,7 @@ function rmAtualizarDescontoPecas(id){
   if(!item) return;
   item.pecasDescontoValor = rmParseMoeda(document.getElementById('rm-modal-pecas-desconto-valor').value);
   item.pecasDescontoTipo = document.getElementById('rm-modal-pecas-desconto-tipo').value;
-  if(!rmOsPagaConfirmar(item)){ rmOpenModal(id, rmActiveModalLarge); return; }
+  if(!rmOsPagaConfirmar(item, () => rmAtualizarDescontoPecas(id))){ rmOpenModal(id, rmActiveModalLarge); return; }
   rmSave(list);
   rmDbUpsertRecepcao(item);
   rmOsAtualizarTotais(item);
@@ -19450,7 +19463,7 @@ function rmOsEditarItem(id, i, campo, valor){
   const r = list.find(x=>x.id===id);
   if(!r || !r.pecasUsadas || !r.pecasUsadas[i]) return;
   const it = r.pecasUsadas[i];
-  if(!rmOsPagaConfirmar(r)){ rmAtualizarTotalPecasModal(r); return; }
+  if(!rmOsPagaConfirmar(r, () => rmOsEditarItem(id, i, campo, valor))){ rmAtualizarTotalPecasModal(r); return; }
   const v = Math.max(0, rmParseMoeda(valor));
   if(campo === 'quantidade'){
     const novaQtd = v || 1;
@@ -19623,7 +19636,7 @@ function rmOsAvulso(osId){
   const inp = document.getElementById('rm-modal-peca-nome');
   const nome = (inp.value || '').trim().toUpperCase(); if(!nome) return;
   const list = rmLoad(); const item = list.find(r => r.id === osId); if(!item) return;
-  if(!rmOsPagaConfirmar(item)){ rmOsFecharBusca(); return; }
+  if(!rmOsPagaConfirmar(item, () => rmOsAvulso(osId))){ rmOsFecharBusca(); return; }
   if(!item.pecasUsadas) item.pecasUsadas = [];
   const qEl = document.getElementById('rm-os-nova-qtd');
   const qtd = (qEl && rmParseMoeda(qEl.value)) || 1;
@@ -19651,7 +19664,7 @@ function rmOsEscolher(osId, idx, produtoId){
   const r = list.find(x=>x.id===osId);
   if(!r || !r.pecasUsadas || !r.pecasUsadas[idx]) return;
   const it = r.pecasUsadas[idx];
-  if(!rmOsPagaConfirmar(r)) return;
+  if(!rmOsPagaConfirmar(r, () => rmOsEscolher(osId, idx, produtoId))) return;
   const produtos = rmLoadProdutos();
   const novo = rmIdx(produtos).get(produtoId);
   if(!novo) return;
@@ -19739,7 +19752,7 @@ function rmEscolherProdutoMoto(produtoId){
   const list = rmLoad();
   const item = list.find(r=>r.id===id);
   if(!item) return;
-  if(!rmOsPagaConfirmar(item)){ rmOsFecharBusca(); return; }
+  if(!rmOsPagaConfirmar(item, () => rmEscolherProdutoMoto(produtoId))){ rmOsFecharBusca(); return; }
   if(!item.pecasUsadas) item.pecasUsadas = [];
   const qEl = document.getElementById('rm-os-nova-qtd');
   const qtd = (qEl && rmParseMoeda(qEl.value)) || 1;
@@ -19760,9 +19773,13 @@ function rmEscolherProdutoMoto(produtoId){
 }
 
 // OS já paga: pede confirmação antes de mudar itens e depois acerta o valor pago e as parcelas
-function rmOsPagaConfirmar(r){
+function rmOsPagaConfirmar(r, refazer){
   if(!r || !r.pago) return true;
-  return confirm(`Esta OS já foi finalizada e paga (${rmFormatMoeda(r.valorPago || rmOsTotais(r).total)} · ${r.formaPagamento || ''}).\nSe mudar os itens, o valor da OS muda. Continuar?`);
+  if(rmDlgNativo()) return window.confirm(`Esta OS já foi finalizada e paga (${rmFormatMoeda(r.valorPago || rmOsTotais(r).total)} · ${r.formaPagamento || ''}).\nSe mudar os itens, o valor da OS muda. Continuar?`);
+  if(rmOsPagaLiberada[r.id] && Date.now() - rmOsPagaLiberada[r.id] < 10 * 60000) return true;
+  rmConfirmar('Se mudar os itens, o valor da OS muda.', { tipo: 'aviso', titulo: 'OS ' + (r.codigoApp || '') + ' já está paga', resumo: [['Pago', rmFormatMoeda(r.valorPago || rmOsTotais(r).total)], ['Forma', r.formaPagamento || '—']], sim: 'Mudar mesmo assim' })
+    .then(ok => { if(!ok) return; rmOsPagaLiberada[r.id] = Date.now(); if(refazer) try{ refazer(); }catch(e){ console.warn(e); } });
+  return false;
 }
 function rmOsPagaReajustar(id){
   const list = rmLoad(); const r = list.find(x => x.id === id);
@@ -19786,7 +19803,7 @@ function rmOsPagaReajustar(id){
 }
 
 function rmRemoverPecaMoto(id, index){
-  if(!rmOsPagaConfirmar(rmIdx(rmMemLista(RM_KEY)).get(id))) return;
+  if(!rmOsPagaConfirmar(rmIdx(rmMemLista(RM_KEY)).get(id), () => rmRemoverPecaMoto(id, index))) return;
   { const rr = rmIdx(rmMemLista(RM_KEY)).get(id); const it = rr && rr.pecasUsadas && rr.pecasUsadas[index]; if(it) rmLog('Removeu item da OS', rr.codigoApp, it.nome + ' x' + it.quantidade); }
   const list = rmLoad();
   const item = list.find(r=>r.id===id);
