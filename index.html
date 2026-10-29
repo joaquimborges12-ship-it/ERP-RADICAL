@@ -2233,6 +2233,17 @@
   .cx-conf tr{cursor:default;}
   /* janelinha de movimento e subaba Retirada */
   .cp.rt{width:460px;}
+  .mx-cab{display:flex; justify-content:space-between; align-items:baseline; gap:8px;}
+  .mx-link{font-size:12px; color:var(--rm-text-dim); text-decoration:underline; text-underline-offset:2px; cursor:pointer; white-space:nowrap; font-weight:500; text-transform:none; letter-spacing:0;}
+  .mx-link:hover{color:var(--rm-text);}
+  .mx-lin{display:grid; grid-template-columns:1fr 112px 26px; gap:6px; align-items:center; margin-top:6px;}
+  .mx-f{padding:8px 10px; border:1px solid var(--rm-border); font-weight:700; font-size:14px; display:flex; align-items:center; gap:7px; min-width:0;} .mx-f i{width:9px; height:9px; display:inline-block; flex-shrink:0;}
+  input.mx-v, .mx-v{width:100%; box-sizing:border-box; padding:8px 10px; border:1px solid var(--rm-border); text-align:right; font-weight:800; font-size:15px; background:var(--rm-bg); color:var(--rm-text); font-family:inherit; margin:0; height:auto;}
+  .mx-ro{display:block;}
+  .mx-x{background:none; border:0; color:var(--rm-text-dim); font-size:18px; cursor:pointer; padding:0; width:auto; margin:0;}
+  .mx-mais{margin-top:6px; font-size:12.5px; color:var(--rm-text-dim); display:flex; flex-wrap:wrap; align-items:center; gap:5px;}
+  .mx-mais button{padding:5px 9px; border:1px dashed var(--rm-border); background:transparent; color:var(--rm-text); font-weight:700; font-size:12.5px; font-family:inherit; cursor:pointer; width:auto; margin:0;}
+  .mx-falta{margin-top:8px; display:flex; justify-content:space-between; font-weight:800; font-size:13.5px; color:#c0392b;} .mx-falta.ok{color:#2e8b57;}
   .imp-ean{display:inline-block; margin-top:4px; font-size:11.5px; font-weight:700; color:#2f6fb5; background:rgba(47,111,181,.1); border:1px solid rgba(47,111,181,.35); padding:2px 7px; line-height:1.35;}
   .imp-ean-x{color:#9a7210; background:rgba(201,150,26,.1); border-color:rgba(201,150,26,.45);}
   .ex-box{border:1px solid var(--rm-border); padding:10px 12px; background:var(--rm-panel);}
@@ -2887,7 +2898,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 29/10 às 00:12</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 29/10 às 00:24</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3057,8 +3068,9 @@ function rmCarregarLib(nome){
           </div>
 
           <div class="rm-px-card" id="rm-pdv-pagamento-block">
-            <label class="rm-px-label">Forma de pagamento<span class="rm-px-atalho"> (F8 / F9)</span>:</label>
+            <div class="mx-cab"><label class="rm-px-label">Forma de pagamento<span class="rm-px-atalho"> (F8 / F9)</span>:</label><a class="mx-link" id="rm-pdv-misto-lk" onclick="rmPdvDividir()">dividir em mais de uma forma</a></div>
             <div class="rm-pdv-pagamento-grid" id="rm-pdv-pagamento-grid"></div>
+            <div id="rm-pdv-misto" style="display:none"></div>
           </div>
 
           <button class="rm-pdv-finalizar" id="rm-pdv-finalizar-btn" onclick="rmFinalizarVenda()">Finalizar venda</button>
@@ -6255,6 +6267,148 @@ function rmRenderCarrinhoPdv(){
   document.getElementById('rm-pdv-desconto-valor-texto').textContent = desconto > 0 ? ('Desconto -' + rmFormatMoeda(desconto)) : '';
   rmCalcularTroco();
   rmRenderPromPdv();
+  if(rmPdvPartes){ const el = document.getElementById('rm-mx-falta-pdv'); if(el){ const d = rmMistoCtxDados('pdv'), f = rmCxR2(d.total - rmMistoSoma(d.partes)); el.innerHTML = rmMistoFaltaTxt(f); el.classList.toggle('ok', Math.abs(f) < 0.005); } }
+}
+
+// ===================== MAIS DE UMA FORMA DE PAGAMENTO (PDV e OS) =====================
+// Por padrão é uma forma só. O link "dividir em mais de uma forma" abre as linhas (forma + valor).
+// Guardado em doc.pagamentos = [{ forma, valor }] (coluna pagamentos — precisa do pagamento-misto-supabase.sql)
+// e doc.formaPagamento vira o resumo ("Dinheiro + PIX"). "A prazo" não entra na divisão (use A prazo com entrada).
+const RM_MISTO_FORMAS = ['Dinheiro', 'PIX', 'Débito', 'Crédito', 'Boleto'];
+const RM_MISTO_COR = { 'Dinheiro':'#2e8b57', 'PIX':'#00a39a', 'Débito':'#2f6fb5', 'Crédito':'#6a4fc4', 'Boleto':'#c9961a' };
+let rmMistoColOk = null, rmPdvPartes = null;
+async function rmMistoColunaOk(){
+  if(rmMistoColOk === true) return true;
+  if(navigator.onLine === false || !rmSb) return rmMistoColOk === true;
+  try{
+    const a = await rmSb.from('vendas').select('id,pagamentos').limit(1), b = await rmSb.from('recepcoes').select('id,pagamentos').limit(1);
+    rmMistoColOk = !(a && a.error) && !(b && b.error);
+  }catch(e){ return false; }
+  return rmMistoColOk;
+}
+// partes de um documento (venda/OS): divididas, ou uma só com o total
+function rmPagPartes(doc, total){
+  if(doc && Array.isArray(doc.pagamentos) && doc.pagamentos.length > 1) return doc.pagamentos.map(p => ({ forma: p.forma, valor: Number(p.valor) || 0 }));
+  return [{ forma: (doc && doc.formaPagamento) || '', valor: Number(total) || 0 }];
+}
+function rmPagResumo(partes){ return partes.map(p => p.forma).join(' + '); }
+function rmPagDinheiro(partes){ return rmCxR2(partes.filter(p => /dinheiro/i.test(p.forma)).reduce((s, p) => s + (Number(p.valor) || 0), 0)); }
+function rmMistoSoma(partes){ return rmCxR2((partes || []).reduce((s, p) => s + (Number(p.valor) || 0), 0)); }
+
+// ---- desenho das linhas (o mesmo para PDV e OS) ----
+function rmMistoHtml(ctx, partes, total){
+  const M = rmFormatMoeda, falta = rmCxR2(total - rmMistoSoma(partes)), usadas = new Set(partes.map(p => p.forma));
+  return `<div class="mx-box">
+    ${partes.map((p, i) => `<div class="mx-lin"><div class="mx-f"><i style="background:${RM_MISTO_COR[p.forma] || '#888'}"></i>${rmEscapeHtml(p.forma)}</div>
+      <input class="mx-v" inputmode="decimal" value="${rmFmtNum(p.valor)}" onfocus="this.select()" oninput="rmMistoDigitando('${ctx}', ${i}, this.value)" onchange="rmMistoValor('${ctx}', ${i}, this.value)">
+      <button type="button" class="mx-x" title="Tirar" onclick="rmMistoTirar('${ctx}', ${i})">&times;</button></div>`).join('')}
+    <div class="mx-mais">Somar outra: ${RM_MISTO_FORMAS.filter(f => !usadas.has(f)).map(f => `<button type="button" onclick="rmMistoAdd('${ctx}', '${f}')">${f}</button>`).join('')}</div>
+    <div class="mx-falta${Math.abs(falta) < 0.005 ? ' ok' : ''}" id="rm-mx-falta-${ctx}">${rmMistoFaltaTxt(falta)}</div>
+  </div>`;
+}
+function rmMistoFaltaTxt(falta){
+  const M = rmFormatMoeda;
+  if(Math.abs(falta) < 0.005) return '<span>&#10004; Fechou o total</span>';
+  return falta > 0 ? `<span>Falta</span><span>${M(falta)}</span>` : `<span>Passou do total</span><span>${M(-falta)}</span>`;
+}
+function rmMistoCtxDados(ctx){
+  if(ctx === 'pdv'){ const sub = rmTotalCarrinhoPdv(); return { partes: rmPdvPartes || [], total: rmCxR2(sub - rmCalcularDescontoPdv(sub)) }; }
+  const r = rmLoad().find(x => x.id === ctx); return { partes: (r && r.pagamentos) || [], total: r ? rmOsTotais(r).total : 0, r };
+}
+function rmMistoGravar(ctx, partes){
+  if(ctx === 'pdv'){ rmPdvPartes = partes; rmPdvMistoRender(); return; }
+  const list = rmLoad(), r = list.find(x => x.id === ctx); if(!r) return;
+  r.pagamentos = partes; r.formaPagamento = rmPagResumo(partes);
+  rmSave(list); rmDbUpsertRecepcao(r);
+  rmOsMistoRender(r);
+}
+function rmMistoDigitando(ctx, i, txt){
+  const d = rmMistoCtxDados(ctx), p = d.partes.map(x => Object.assign({}, x)); if(!p[i]) return;
+  p[i].valor = rmParseMoeda(txt) || 0;
+  const el = document.getElementById('rm-mx-falta-' + ctx); if(!el) return;
+  const falta = rmCxR2(d.total - rmMistoSoma(p));
+  el.innerHTML = rmMistoFaltaTxt(falta); el.classList.toggle('ok', Math.abs(falta) < 0.005);
+}
+function rmMistoValor(ctx, i, txt){
+  const d = rmMistoCtxDados(ctx), p = d.partes.map(x => Object.assign({}, x)); if(!p[i]) return;
+  p[i].valor = Math.max(0, rmParseMoeda(txt) || 0); rmMistoGravar(ctx, p);
+}
+function rmMistoAdd(ctx, forma){
+  const d = rmMistoCtxDados(ctx), p = d.partes.map(x => Object.assign({}, x));
+  if(p.some(x => x.forma === forma)) return;
+  p.push({ forma, valor: Math.max(0, rmCxR2(d.total - rmMistoSoma(p))) });
+  rmMistoGravar(ctx, p);
+  setTimeout(() => { const ins = document.querySelectorAll(ctx === 'pdv' ? '#rm-pdv-misto .mx-v' : '#rm-os-misto .mx-v'); const last = ins[ins.length - 1]; if(last){ last.focus(); last.select(); } }, 30);
+}
+function rmMistoTirar(ctx, i){
+  const d = rmMistoCtxDados(ctx), p = d.partes.filter((x, k) => k !== i);
+  rmMistoGravar(ctx, p);
+}
+
+// ---- PDV ----
+async function rmPdvDividir(){
+  if(rmPdvModo === 'orcamento'){ alert('No orçamento não tem forma de pagamento. Mude para Venda.'); return; }
+  if(!(await rmMistoColunaOk())){ alert('Para dividir em mais de uma forma, rode antes no Supabase o arquivo pagamento-misto-supabase.sql.'); return; }
+  const sub = rmTotalCarrinhoPdv(), total = rmCxR2(sub - rmCalcularDescontoPdv(sub));
+  rmPdvPartes = rmPdvFormaPagamento && !rmAPrazo(rmPdvFormaPagamento) && RM_MISTO_FORMAS.includes(rmPdvFormaPagamento) ? [{ forma: rmPdvFormaPagamento, valor: total }] : [];
+  rmPdvFormaPagamento = null; rmRenderPromPdv && rmRenderPromPdv();
+  rmPdvMistoRender();
+}
+function rmPdvMistoSair(){
+  const p = rmPdvPartes || [];
+  rmPdvPartes = null;
+  rmPdvFormaPagamento = p.length ? p[0].forma : null;
+  rmPdvMistoRender(); rmRenderFormasPagamentoPdv();
+}
+function rmPdvMistoRender(){
+  const grid = document.getElementById('rm-pdv-pagamento-grid'), box = document.getElementById('rm-pdv-misto'), lk = document.getElementById('rm-pdv-misto-lk');
+  if(!grid || !box) return;
+  const on = !!rmPdvPartes && rmPdvModo !== 'orcamento';
+  grid.style.display = on ? 'none' : '';
+  box.style.display = on ? '' : 'none';
+  if(lk){ lk.style.display = rmPdvModo === 'orcamento' ? 'none' : ''; lk.textContent = on ? 'voltar para uma forma' : 'dividir em mais de uma forma'; lk.onclick = on ? rmPdvMistoSair : rmPdvDividir; }
+  if(on){ const d = rmMistoCtxDados('pdv'); box.innerHTML = rmMistoHtml('pdv', d.partes, d.total); }
+}
+// confere antes de finalizar; devolve false se não fechou
+function rmPdvMistoConferir(){
+  if(!rmPdvPartes || rmPdvModo === 'orcamento') return true;
+  const d = rmMistoCtxDados('pdv'), p = d.partes.filter(x => (Number(x.valor) || 0) > 0.004);
+  if(!p.length){ alert('Escolha as formas de pagamento e os valores.'); return false; }
+  const falta = rmCxR2(d.total - rmMistoSoma(p));
+  if(Math.abs(falta) >= 0.01){ alert((falta > 0 ? 'Falta ' : 'Passou ') + rmFormatMoeda(Math.abs(falta)) + ' para fechar o total da venda (' + rmFormatMoeda(d.total) + ').\nConfira os valores de cada forma.'); return false; }
+  rmPdvPartes = p;
+  rmPdvFormaPagamento = p.length === 1 ? p[0].forma : rmPagResumo(p);
+  return true;
+}
+
+// ---- OS ----
+async function rmOsDividir(id){
+  if(!(await rmMistoColunaOk())){ alert('Para dividir em mais de uma forma, rode antes no Supabase o arquivo pagamento-misto-supabase.sql.'); return; }
+  const list = rmLoad(), r = list.find(x => x.id === id); if(!r || r.pago) return;
+  const total = rmOsTotais(r).total;
+  r.pagamentos = [{ forma: r.formaPagamento && RM_MISTO_FORMAS.includes(r.formaPagamento) ? r.formaPagamento : 'Dinheiro', valor: total }];
+  r.formaPagamento = rmPagResumo(r.pagamentos);
+  rmSave(list); rmDbUpsertRecepcao(r);
+  rmOsMistoRender(r);
+}
+function rmOsMistoSair(id){
+  const list = rmLoad(), r = list.find(x => x.id === id); if(!r || r.pago) return;
+  const p = r.pagamentos || [];
+  r.pagamentos = []; r.formaPagamento = p.length ? p[0].forma : '';
+  rmSave(list); rmDbUpsertRecepcao(r);
+  rmOsMistoRender(r);
+}
+function rmOsMistoAtivo(r){ return !!(r && Array.isArray(r.pagamentos) && r.pagamentos.length > 0); }
+function rmOsMistoRender(r){
+  const g = document.getElementById('rm-os-pag-grid'); if(!g) return;
+  g.innerHTML = rmOsPagamentoHtml(r);
+  const pb = document.getElementById('rm-os-prom-box'); if(pb) pb.innerHTML = rmOsPromHtml(r);
+  const lk = document.getElementById('rm-os-misto-lk'); if(lk) lk.outerHTML = rmOsMistoLinkHtml(r);
+}
+function rmOsMistoLinkHtml(r){
+  if(r.pago) return '<span id="rm-os-misto-lk"></span>';
+  const on = rmOsMistoAtivo(r);
+  return `<a class="mx-link" id="rm-os-misto-lk" onclick="${on ? `rmOsMistoSair('${r.id}')` : `rmOsDividir('${r.id}')`}">${on ? 'voltar para uma forma' : 'dividir em mais de uma forma'}</a>`;
 }
 
 function rmRenderFormasPagamentoPdv(){
@@ -6263,9 +6417,11 @@ function rmRenderFormasPagamentoPdv(){
   grid.innerHTML = RM_FORMAS_PAGAMENTO.map(forma => `
     <button class="rm-pdv-pag-btn${rmPdvFormaPagamento===forma?' active':''}" onclick="rmEscolherPagamentoPdv('${forma}')">${forma}</button>
   `).join('');
+  rmPdvMistoRender();
 }
 
 function rmEscolherPagamentoPdv(forma){
+  if(rmPdvPartes) return; // dividido em mais de uma forma: muda pelas linhas
   if(rmAPrazo(forma) && rmPdvModo !== 'orcamento' && !(rmPdvEditandoVenda && rmAPrazo(rmPdvEditandoVenda.formaPagamento))){ const b = rmCliBloqueioAPrazo(rmPdvClienteId); if(b){ alert(b); return; } }
   rmPdvFormaPagamento = forma;
   rmRenderFormasPagamentoPdv();
@@ -6496,6 +6652,8 @@ function rmEditarVenda(id){
   document.getElementById('rm-pdv-desconto-valor').value = v.desconto > 0 ? String(v.desconto).replace('.',',') : '';
   document.getElementById('rm-pdv-desconto-tipo').value = 'valor';
   rmPdvFormaPagamento = rmAPrazo(v.formaPagamento) ? 'A prazo' : (v.formaPagamento || null);
+  rmPdvPartes = Array.isArray(v.pagamentos) && v.pagamentos.length > 1 ? v.pagamentos.map(x => ({ forma: x.forma, valor: Number(x.valor) || 0 })) : null;
+  if(rmPdvPartes) rmPdvFormaPagamento = null;
   const promEx = rmLoadProms().find(p => p.refId === v.id);
   if(promEx){ const e = promEx.parcelas.find(p => p.entrada); const ps = promEx.parcelas.filter(p => !p.entrada); rmPdvPromN = ps.length || 1; rmPdvPromVenc = (ps[0] || promEx.parcelas[0]).vencimento; rmPdvPromEnt = e ? e.valor : 0; rmPdvPromEntF = e && e.pagamentos[0] ? e.pagamentos[0].forma : 'Dinheiro'; }
   rmRenderClienteSelecionadoPdv();
@@ -6526,7 +6684,7 @@ function rmPdvAtualizarBannerEdicao(){
 function rmCancelarEdicaoVenda(){
   rmPdvEditandoVenda = null;
   rmPdvCarrinho = [];
-  rmPdvFormaPagamento = null;
+  rmPdvFormaPagamento = null; rmPdvPartes = null;
   rmPdvResetarLinha();
   document.getElementById('rm-pdv-desconto-valor').value = '';
   document.getElementById('rm-pdv-observacao').value = '';
@@ -6545,6 +6703,7 @@ async function rmFinalizarVenda(){
   }
   const isOrcamento = rmPdvModo === 'orcamento';
 
+  if(!isOrcamento && !rmPdvMistoConferir()) return;
   if(!isOrcamento){
     if(!rmPdvFormaPagamento){
       alert('Selecione a forma de pagamento.');
@@ -6591,6 +6750,7 @@ async function rmFinalizarVenda(){
     desconto: desconto,
     total: subtotal - desconto,
     formaPagamento: isOrcamento ? null : rmPdvFormaPagamento,
+    ...(!isOrcamento && rmPdvPartes && rmPdvPartes.length > 1 ? { pagamentos: rmPdvPartes.map(x => ({ forma: x.forma, valor: x.valor })) } : (ed && Array.isArray(ed.pagamentos) && ed.pagamentos.length ? { pagamentos: [] } : {})),
     observacao: document.getElementById('rm-pdv-observacao').value.trim().toUpperCase() || null,
     criadoEm: ed ? ed.criadoEm : new Date().toISOString(),
     editadoEm: ed ? new Date().toISOString() : undefined
@@ -6615,7 +6775,7 @@ async function rmFinalizarVenda(){
     rmCriarPromissoria({ origem:'PDV', refId:venda.id, refCodigo:venda.codigoVenda, clienteId:venda.clienteId,
       clienteNome:venda.clienteNome, total:venda.total, nParc:rmPdvPromN, venc:rmPdvPromVenc, entrada:rmPdvPromEnt, formaEnt:rmPdvPromEntF });
   }
-  const gvVal = isOrcamento || ed ? 0 : rmAPrazo(venda.formaPagamento) ? (Number(rmPdvPromEnt) || 0) : venda.total;
+  const gvVal = isOrcamento || ed ? 0 : rmAPrazo(venda.formaPagamento) ? (Number(rmPdvPromEnt) || 0) : (venda.pagamentos && venda.pagamentos.length > 1 ? (rmPagDinheiro(venda.pagamentos) || venda.total) : venda.total);
   const gvForma = rmAPrazo(venda.formaPagamento) ? rmPdvPromEntF : venda.formaPagamento;
   rmPdvPromN = 1; rmPdvPromVenc = null; rmPdvPromEnt = 0; rmPdvPromEntF = 'Dinheiro';
   if(gvVal > 0) rmGavetaAuto('pdv', gvForma, 'Venda · ' + gvForma + (rmAPrazo(venda.formaPagamento) ? ' (entrada)' : ''), venda.codigoVenda, gvVal);
@@ -6637,7 +6797,7 @@ async function rmFinalizarVenda(){
   rmPdvAtualizarBannerEdicao();
 
   rmPdvCarrinho = [];
-  rmPdvFormaPagamento = null;
+  rmPdvFormaPagamento = null; rmPdvPartes = null;
   rmPdvUltimoIndex = null;
   rmPdvResetarLinha();
   document.getElementById('rm-pdv-desconto-valor').value = '';
@@ -6822,7 +6982,7 @@ function rmAnexarItensPendentes(registro){
     rmPdvCarrinho = []; rmPdvUltimoIndex = null; rmPdvResetarLinha();
     document.getElementById('rm-pdv-desconto-valor').value = '';
     document.getElementById('rm-pdv-observacao').value = '';
-    rmPdvFormaPagamento = null; rmPdvPromN = 1; rmPdvPromVenc = null; rmPdvPromEnt = 0; rmPdvPromEntF = 'Dinheiro';
+    rmPdvFormaPagamento = null; rmPdvPartes = null; rmPdvPromN = 1; rmPdvPromVenc = null; rmPdvPromEnt = 0; rmPdvPromEntF = 'Dinheiro';
     rmLimparClientePdv(); rmRenderCarrinhoPdv(); rmRenderFormasPagamentoPdv(); rmRenderPromPdv();
   }
   rmLog('Transformou PDV em OS', registro.codigoApp, P.itens.length + ' item(ns)');
@@ -7018,6 +7178,7 @@ function rmFromDbRow(row){
     pecasDescontoTipo: row.pecas_desconto_tipo || 'valor',
     maoDeObra: row.mao_de_obra || 0,
     formaPagamento: row.forma_pagamento || '',
+    pagamentos: Array.isArray(row.pagamentos) ? row.pagamentos : undefined,
     pagoEm: row.pago_em || null,
     promParcelas: row.prom_parcelas || 1,
     promVenc: row.prom_venc || null,
@@ -7058,6 +7219,7 @@ function rmToDbRow(r){
     pecas_desconto_tipo: r.pecasDescontoTipo || 'valor',
     mao_de_obra: r.maoDeObra || 0,
     forma_pagamento: r.formaPagamento || null,
+    ...(Array.isArray(r.pagamentos) ? { pagamentos: r.pagamentos } : {}),
     pago_em: r.pagoEm || null,
     prom_parcelas: r.promParcelas || 1,
     prom_venc: r.promVenc || null,
@@ -7082,7 +7244,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610290012; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202610290024; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -8816,11 +8978,11 @@ function rmVgReceitas(r){
   const custoDe = it => { const p = it.produtoId ? rmIdx(prods).get(it.produtoId) : null; return p && !p.ehServico ? (Number(p.precoCusto) || 0) * (Number(it.quantidade) || 0) : 0; };
   const docs = [];
   rmLoadVendas().filter(v => rmVendaValida(v) && rmVgDentro(v.criadoEm, r)).forEach(v => {
-    docs.push({ tipo:'PDV', id:v.id, data:v.criadoEm, total:Number(v.total)||0, forma:v.formaPagamento||'—', itens:v.itens||[], cliente:v.clienteNome||'', clienteId:v.clienteId, custo:(v.itens||[]).reduce((s,i)=>s+custoDe(i),0) });
+    docs.push({ tipo:'PDV', id:v.id, data:v.criadoEm, total:Number(v.total)||0, forma:v.formaPagamento||'—', partes: rmPagPartes(v, Number(v.total)||0), itens:v.itens||[], cliente:v.clienteNome||'', clienteId:v.clienteId, custo:(v.itens||[]).reduce((s,i)=>s+custoDe(i),0) });
   });
   rmLoad().filter(o => rmOsValida(o) && rmVgDentro(o.pagoEm, r)).forEach(o => {
     const total = o.valorPago || rmOsTotais(o).total;
-    docs.push({ tipo:'OS', id:o.id, data:o.pagoEm, total, forma:o.formaPagamento||'—', itens:o.pecasUsadas||[], cliente:o.nome||'', clienteId:o.clienteId, custo:(o.pecasUsadas||[]).reduce((s,i)=>s+custoDe(i),0), mecanico:o.mecanico });
+    docs.push({ tipo:'OS', id:o.id, data:o.pagoEm, total, forma:o.formaPagamento||'—', partes: rmPagPartes(o, total), itens:o.pecasUsadas||[], cliente:o.nome||'', clienteId:o.clienteId, custo:(o.pecasUsadas||[]).reduce((s,i)=>s+custoDe(i),0), mecanico:o.mecanico });
   });
   return docs;
 }
@@ -8972,7 +9134,7 @@ function rmRenderVisaoGeral(){
   const vendidoPrazo = soma(docs.filter(x => rmAPrazo(x.forma)), x => x.total);
   // formas de pagamento
   const porForma = {};
-  docs.forEach(x => { const f = rmAPrazo(x.forma) ? 'A prazo' : x.forma; porForma[f] = (porForma[f]||0) + x.total; });
+  docs.forEach(x => { if(rmAPrazo(x.forma)){ porForma['A prazo'] = (porForma['A prazo']||0) + x.total; return; } (x.partes && x.partes.length > 1 ? x.partes : [{ forma: x.forma, valor: x.total }]).forEach(pt => { porForma[pt.forma] = (porForma[pt.forma]||0) + pt.valor; }); });
   const formas = Object.entries(porForma).sort((a,b) => b[1]-a[1]);
   // faturamento por dia / mês
   const porDia = {};
@@ -11377,7 +11539,7 @@ function rmCxEntradas(dia){
   const r = { start: new Date(a, b - 1, c), end: new Date(a, b - 1, c + 1) };
   const porForma = {}, qtd = {};
   const add = (f, v, tipo) => { f = f || 'Não informado'; porForma[f] = (porForma[f] || 0) + (Number(v) || 0); (qtd[f] = qtd[f] || { doc:0, parc:0 })[tipo]++; };
-  rmVgReceitas(r).forEach(x => { if(!rmAPrazo(x.forma)) add(x.forma === '—' ? '' : x.forma, x.total, 'doc'); });
+  rmVgReceitas(r).forEach(x => { if(rmAPrazo(x.forma)) return; (x.partes && x.partes.length > 1 ? x.partes : [{ forma: x.forma, valor: x.total }]).forEach(pt => add(pt.forma === '—' ? '' : pt.forma, pt.valor, 'doc')); });
   rmLoadProms().forEach(n => (n.parcelas || []).forEach(p => rmParcPagamentos(p).forEach(pg => { if(rmVgDentro(pg.data, r)) add(pg.forma, pg.valor, 'parc'); })));
   Object.keys(porForma).forEach(f => porForma[f] = Math.round(porForma[f] * 100) / 100);
   return { porForma, qtd, total: rmCxSoma(Object.values(porForma)), dinheiro: porForma['Dinheiro'] || 0 };
@@ -12609,6 +12771,7 @@ function rmFromDbRowVenda(row){
     desconto: row.desconto || 0,
     total: row.total || 0,
     formaPagamento: row.forma_pagamento,
+    pagamentos: Array.isArray(row.pagamentos) ? row.pagamentos : undefined,
     observacao: row.observacao,
     cancelamento: row.cancelamento || null,
     criadoEm: row.criado_em,
@@ -12629,6 +12792,7 @@ function rmToDbRowVenda(v){
     desconto: v.desconto || 0,
     total: v.total || 0,
     forma_pagamento: v.formaPagamento || null,
+    ...(Array.isArray(v.pagamentos) ? { pagamentos: v.pagamentos } : {}), // só quem dividiu manda (precisa do pagamento-misto-supabase.sql)
     observacao: v.observacao || null,
     criado_em: v.criadoEm,
     ...(v.cancelamento ? { cancelamento: v.cancelamento } : {}),
@@ -13452,7 +13616,7 @@ function rmA4Itens(itens, extras, simples){
     </table>
     ${temZerado ? '<div class="a4-nota">* Produtos com estoque zero ou negativo</div>' : ''}`);
 }
-function rmA4Pagamentos(refId, forma, total, data, subtotal, desconto){
+function rmA4Pagamentos(refId, forma, total, data, subtotal, desconto, partes){
   const nota = rmLoadProms().find(n => n.refId === refId);
   const dia = d => d ? new Date(String(d).length <= 10 ? d + 'T12:00:00' : d).toLocaleDateString('pt-BR') : '';
   let linhas;
@@ -13462,7 +13626,7 @@ function rmA4Pagamentos(refId, forma, total, data, subtotal, desconto){
       return `<tr><td class="c">${p.entrada ? 'Entrada' : p.n}</td><td>${p.entrada ? rmEscapeHtml((p.pagamentos[0]||{}).forma || 'Entrada') : 'A prazo'}</td><td>${rmDataBR(p.vencimento)}</td><td class="cx">${quit ? dia(p.pagoEm) : (rmParcPago(p) > 0 ? 'parcial: ' + rmFmtNum(rmParcPago(p)) : '')}</td><td>${quit ? 'Sim' : 'Não'}</td><td class="r">${rmFmtNum(p.valor)}</td></tr>`;
     }).join('');
   } else {
-    linhas = `<tr><td class="c">1</td><td>${rmH(forma || '—')}</td><td>${dia(data)}</td><td class="cx">${dia(data)}</td><td>Sim</td><td class="r">${rmFmtNum(total)}</td></tr>`;
+    linhas = (Array.isArray(partes) && partes.length > 1 ? partes : [{ forma, valor: total }]).map((pt, k) => `<tr><td class="c">${k + 1}</td><td>${rmH(pt.forma || '—')}</td><td>${dia(data)}</td><td class="cx">${dia(data)}</td><td>Sim</td><td class="r">${rmFmtNum(pt.valor)}</td></tr>`).join('');
   }
   return rmA4Secao('Pagamentos', `
     <table class="a4-tab">
@@ -13620,7 +13784,7 @@ function rmCorpoVendaA4(id){
     + rmA4ClienteTxt(cli)
     + rmA4Itens(v.itens, [], true)
     + (orc ? rmA4Secao('Totais', `<div class="a4-valor">Total (R$): <b>${rmFmtNum(v.total)}</b></div>`)
-           : rmA4Pagamentos(v.id, v.formaPagamento, v.total, v.criadoEm, sub, v.desconto))
+           : rmA4Pagamentos(v.id, v.formaPagamento, v.total, v.criadoEm, sub, v.desconto, v.pagamentos))
     + (v.observacao ? rmA4Secao('Observações', rmH(v.observacao)) : '')
     + (orc ? '' : rmA4AssinaturaFinal(cli && cli.nome));
   return { titulo: v.codigoVenda, corpo };
@@ -13759,7 +13923,7 @@ function rmCorpoOSA4(id){
     + (r.itens ? rmA4Secao('Itens deixados na moto', rmH(r.itens)) : '')
     + rmA4Itens(r.pecasUsadas, [ r.maoDeObra > 0 ? ['Mão de obra', rmFmtNum(r.maoDeObra)] : null ])
     + (r.retorno ? rmA4Secao('Retorno de garantia', `<div class="a4-valor">Retorno de garantia${r.retorno.osOrigemCod ? ' da OS nº ' + rmH(r.retorno.osOrigemCod) : ''}${r.retorno.motivo ? ' · Motivo: ' + rmH(r.retorno.motivo === 'Outro' ? (r.retorno.detalhe || 'Outro') : r.retorno.motivo) : ''}.<br>Peças e serviços sem custo para o cliente (valor normal R$ ${rmFmtNum(t.cobrar)}). Total (R$): <b>0,00</b></div>`)
-     : r.pago ? rmA4Pagamentos(r.id, r.formaPagamento, t.total, r.pagoEm, t.bruto, t.desc)
+     : r.pago ? rmA4Pagamentos(r.id, r.formaPagamento, t.total, r.pagoEm, t.bruto, t.desc, r.pagamentos)
               : rmA4Secao('Totais', `<div class="a4-valor">${t.desc > 0 ? 'Subtotal (R$): ' + rmFmtNum(t.bruto) + ' · Desconto (R$): ' + rmFmtNum(t.desc) + ' · ' : ''}Total (R$): <b>${rmFmtNum(t.total)}</b></div>`))
     + (r.observacao ? rmA4Secao('Observações', rmH(r.observacao)) : '')
     + rmA4AssinaturaFinal(cli && cli.nome);
@@ -19224,6 +19388,7 @@ function rmOsEscolherPagamento(id, forma){
 }
 
 function rmOsPagamentoHtml(r){
+  if(rmOsMistoAtivo(r)) return `<div id="rm-os-misto" style="width:100%">${r.pago ? r.pagamentos.map(p => `<div class="mx-lin"><div class="mx-f"><i style="background:${RM_MISTO_COR[p.forma] || '#888'}"></i>${rmEscapeHtml(p.forma)}</div><div class="mx-v mx-ro">${rmFormatMoeda(p.valor)}</div><span></span></div>`).join('') : rmMistoHtml(r.id, r.pagamentos, rmOsTotais(r).total)}</div>`;
   return RM_FORMAS_PAGAMENTO.map(f =>
     `<button class="rm-pdv-pag-btn${r.formaPagamento===f?' active':''}" onclick="rmOsEscolherPagamento('${r.id}','${f}')">${f}</button>`
   ).join('');
@@ -19359,6 +19524,11 @@ async function rmOsFinalizarAgora(id){
   let r = list.find(x=>x.id===id);
   if(!r) return;
   if(r.retorno){ rmRetFinalizar(id); return; }
+  if(rmOsMistoAtivo(r)){
+    const p = r.pagamentos.filter(x => (Number(x.valor) || 0) > 0.004), tot = rmOsTotais(r).total, falta = rmCxR2(tot - rmMistoSoma(p));
+    if(!p.length){ alert('Escolha as formas de pagamento e os valores.'); return; }
+    if(Math.abs(falta) >= 0.01){ alert((falta > 0 ? 'Falta ' : 'Passou ') + rmFormatMoeda(Math.abs(falta)) + ' para fechar o total da OS (' + rmFormatMoeda(tot) + ').\nConfira os valores de cada forma.'); return; }
+  }
   if(!r.formaPagamento){ alert('Escolha a forma de pagamento antes de finalizar.'); return; }
   if(rmAPrazo(r.formaPagamento) && !r.clienteId && !r.nome){ alert('Para vender a prazo, a moto precisa ter o cliente informado.'); return; }
   if(rmAPrazo(r.formaPagamento)){ const b = rmCliBloqueioAPrazo(r.clienteId, r.nome); if(b){ alert(b); return; } }
@@ -19384,7 +19554,8 @@ async function rmOsFinalizarAgora(id){
     if(!(await rmConfirmar('A situação da moto não muda (andamento, pronta ou entregue continua igual).', { titulo: 'Marcar OS ' + (r.codigoApp || '') + ' como paga?', sub: (r.nome || '') + (r.modelo ? ' · ' + r.modelo : ''), resumo: [['Total', rmFormatMoeda(rmOsTotais(r).total)], ['Pagamento', r.formaPagamento]], sim: '&#10004; Marcar como paga' }))){ if(cliId){ const l2 = rmLoad(), r2 = l2.find(x => x.id === id); if(r2 && !r2.clienteId){ r2.clienteId = cliId; rmSave(l2); rmDbUpsertRecepcao(r2); } } return; }
     // relê a OS (pode ter mudado enquanto a janela estava aberta) e segue com a versão mais nova
     const l2 = rmLoad(), r2 = l2.find(x => x.id === id); if(!r2 || r2.pago) return;
-    if(cliId) r2.clienteId = cliId; list = l2; r = r2; }
+    if(cliId) r2.clienteId = cliId; list = l2; r = r2;
+    if(rmOsMistoAtivo(r)){ const p = r.pagamentos.filter(x => (Number(x.valor) || 0) > 0.004); if(p.length < 2){ r.pagamentos = []; r.formaPagamento = p.length ? p[0].forma : r.formaPagamento; } else { r.pagamentos = p; r.formaPagamento = rmPagResumo(p); } } }
   r.pago = true;
   r.pagoEm = new Date().toISOString();
   r.finalizadoPor = rmNomeUsuario();
@@ -19400,7 +19571,7 @@ async function rmOsFinalizarAgora(id){
   rmOpenModal(id, rmActiveModalLarge);
   rmShowToast('OS paga · ' + rmFormatMoeda(r.valorPago));
   rmLog('Finalizou OS (pago)', r.codigoApp, rmFormatMoeda(r.valorPago) + ' · ' + r.formaPagamento);
-  { const gvP = rmAPrazo(r.formaPagamento), gvV = gvP ? (Number(r.promEntrada) || 0) : r.valorPago, gvF = gvP ? (r.promEntradaForma || 'Dinheiro') : r.formaPagamento;
+  { const gvP = rmAPrazo(r.formaPagamento), gvV = gvP ? (Number(r.promEntrada) || 0) : (rmOsMistoAtivo(r) ? (rmPagDinheiro(r.pagamentos) || r.valorPago) : r.valorPago), gvF = gvP ? (r.promEntradaForma || 'Dinheiro') : r.formaPagamento;
     if(gvV > 0) rmGavetaAuto('os', gvF, 'OS paga · ' + gvF + (gvP ? ' (entrada)' : ''), r.codigoApp, gvV); }
   setTimeout(async () => { if(await rmConfirmar('Deseja imprimir a ordem de serviço para o cliente?', { tipo: 'ok', titulo: 'OS ' + (r.codigoApp || '') + ' paga', sub: (r.nome || '') + (r.modelo ? ' · ' + r.modelo : ''), resumo: [['Total', rmFormatMoeda(r.valorPago)], ['Pagamento', r.formaPagamento]], nao: 'Não imprimir', sim: '&#128424; Imprimir', dica: 'Enter = imprimir · Esc = não imprimir' })) rmImprimirOSA4(id); }, 200);
 }
@@ -19839,7 +20010,7 @@ function rmOpenModal(id, large){
         <div class="rm-os-box-body">
           <div class="rm-os-pag-row">
             <div><label>Valor do lançamento:</label><input class="rm-os-in rm-os-ro rm-os-lanc" id="rm-os-t-lanc" readonly></div>
-            <div style="flex:1;"><label>Forma de pagamento:</label><div class="rm-pdv-pagamento-grid rm-os-pag-grid" id="rm-os-pag-grid">${rmOsPagamentoHtml(r)}</div><div id="rm-os-prom-box">${rmOsPromHtml(r)}</div></div>
+            <div style="flex:1;"><label>Forma de pagamento: ${rmOsMistoLinkHtml(r)}</label><div class="rm-pdv-pagamento-grid rm-os-pag-grid" id="rm-os-pag-grid">${rmOsPagamentoHtml(r)}</div><div id="rm-os-prom-box">${rmOsPromHtml(r)}</div></div>
           </div>
           <div style="display:flex; justify-content:space-between; font-weight:700; font-size:16px; padding:12px 2px 0; color:var(--rm-accent);">
             <span>Total da ordem de serviço</span>
