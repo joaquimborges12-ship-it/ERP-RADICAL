@@ -2711,7 +2711,9 @@
   .eq-pm{max-height:200px; overflow:auto; margin:6px 0 10px; font-size:13px;} .eq-pm div{display:flex; justify-content:space-between; gap:10px; padding:5px 0; border-bottom:1px solid var(--rm-border);} .eq-pm span{white-space:nowrap;} .eq-pm s{color:var(--rm-text-dim);}
   .eq-fila{margin-top:10px;} .eq-vazio{padding:16px 0; text-align:center; color:var(--rm-text-dim); font-size:13.5px;}
   .eq-it{display:grid; grid-template-columns:minmax(0,1fr) auto 30px; gap:10px; align-items:center; padding:8px 0; border-bottom:1px solid var(--rm-border); font-size:13.5px;}
-  .eq-it b{display:block;} .eq-it small{color:var(--rm-text-dim); font-size:12px;} .eq-it i{color:#c9961a; font-style:normal;}
+  .eq-it b{display:block;}
+  .eq-nome{display:block; width:100%; box-sizing:border-box; font-weight:700; font-size:13.5px; padding:4px 6px; margin:0 0 2px; border:1px solid transparent; background:transparent; color:var(--rm-text); font-family:inherit; text-transform:uppercase;} .eq-nome:hover, .eq-nome:focus{border-color:var(--rm-border); background:var(--rm-bg);} .eq-nome.mud{border-color:#c9961a; background:rgba(201,150,26,.08);}
+  .eq-orig{font-size:11.5px; color:#b07800; margin:-1px 0 3px 6px; line-height:1.35;} html[data-tema="dark"] .eq-orig{color:#ffd27a;} .eq-orig a{text-decoration:underline; cursor:pointer; color:var(--rm-text-dim);} .eq-it small{color:var(--rm-text-dim); font-size:12px;} .eq-it i{color:#c9961a; font-style:normal;}
   .eq-q{display:flex; border:1px solid var(--rm-border);} .eq-q button{width:28px; margin:0; padding:6px 0; border:0; background:transparent; color:var(--rm-text); font-size:15px; cursor:pointer;} .eq-q input{width:44px; text-align:center; border:0; background:transparent; color:var(--rm-text); font-weight:800; font-size:14px; padding:0; margin:0;}
   .eq-x{width:30px; margin:0; padding:4px; border:0; background:transparent; color:var(--rm-text-dim); cursor:pointer; font-size:14px;}
   .eq-tot{display:flex; justify-content:space-between; padding:10px 0 0; font-size:13.5px; color:var(--rm-text-dim);} .eq-tot b{color:var(--rm-text);} .eq-tot a, .eq-start a, .eq-pos a{cursor:pointer; text-decoration:underline;}
@@ -2898,7 +2900,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 29/10 às 00:38</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 01/11 às 01:53</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -7245,7 +7247,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202610290038; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611010153; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -15926,7 +15928,7 @@ function rmEtqAdd(itens, origem){
 function rmEtqDados(i, prods){
   if(i.tipo === 'pers') return { key:i.key, pers:true, nome:i.nome || '', preco: i.preco > 0 ? i.preco : null, parceiro:null, barras:i.barras || '', codigo:'', local:i.loc || '', marca:'' };
   const p = prods.get(i.pid); if(!p) return null;
-  return { key:i.key, pid:p.id, nome:p.nome || '', preco:Number(p.precoConsumidor) || 0, parceiro:Number(p.precoParceiro) || 0, barras:String(p.codigoBarras || '').trim(), codigo:p.codigo || '', local: i.loc != null ? i.loc : (p.localizacao || ''), marca:p.marca || '' };
+  return { key:i.key, pid:p.id, nome: i.nome != null ? i.nome : (p.nome || ''), preco:Number(p.precoConsumidor) || 0, parceiro:Number(p.precoParceiro) || 0, barras:String(p.codigoBarras || '').trim(), codigo:p.codigo || '', local: i.loc != null ? i.loc : (p.localizacao || ''), marca:p.marca || '' };
 }
 function rmEtqLista(){
   const prods = rmIdx(rmLoadProdutos()), out = [];
@@ -16174,6 +16176,14 @@ function rmEtqInicio(n){ const c = rmEtqCfg(), m = rmEtqModelo(c); c.inicio = Ma
 function rmEtqQtd(key, d, abs){ const f = rmEtqFila(), x = f.find(i => i.key === key); if(!x) return; x.q = Math.max(1, Math.min(9999, abs ? (parseInt(d) || 1) : x.q + d)); rmEtqFilaSalvar(f); rmEtqRender(); }
 function rmEtqTirar(key){ rmEtqFilaSalvar(rmEtqFila().filter(i => i.key !== key)); rmEtqRender(); }
 // local só na etiqueta (o cadastro do produto não muda)
+// nome só da etiqueta (não muda o cadastro do produto)
+function rmEtqNome(key, v){
+  const f = rmEtqFila(), x = f.find(i => i.key === key); if(!x) return;
+  v = String(v || '').replace(/\s+/g, ' ').trim().toUpperCase();
+  if(x.tipo === 'pers') x.nome = v;
+  else { const p = rmIdx(rmLoadProdutos()).get(x.pid); if(!v || (p && v === String(p.nome || '').trim().toUpperCase())) delete x.nome; else x.nome = v; }
+  rmEtqFilaSalvar(f); rmEtqRender();
+}
 function rmEtqLoc(key, v){
   const f = rmEtqFila(), x = f.find(i => i.key === key); if(!x) return;
   v = String(v || '').trim().toUpperCase();
@@ -16315,7 +16325,8 @@ function rmEtqRender(){
     const p = i.pid ? prods.get(i.pid) : null, k = rmJs(i.key);
     const mud = p && i.loc != null && i.loc !== String(p.localizacao || '').trim().toUpperCase();
     const sub = i.tipo === 'pers' ? '&#9998; etiqueta personalizada' + (d.preco ? ' · ' + rmFormatMoeda(d.preco) : '') : `${rmFormatMoeda(p.precoConsumidor)} · estoque ${rmFmtQtd(Number(p.estoqueAtual) || 0)}${i.origem && i.origem !== 'busca' ? ' · ' + E(i.origem) : ''}${temBarras && !d.barras ? ' · <i>sem código de barras (vai ser criado)</i>' : ''}`;
-    return `<div class="eq-it"><div><b>${E(d.nome || '(sem texto)')}</b><small>${sub}</small>
+    const nomeMud = p && i.nome != null && i.nome !== String(p.nome || '').trim().toUpperCase();
+    return `<div class="eq-it"><div><input class="eq-nome${nomeMud ? ' mud' : ''}" value="${E(d.nome || '')}" placeholder="(sem texto)" autocapitalize="characters" onchange="rmEtqNome('${k}', this.value)" onkeydown="if(event.key==='Enter') this.blur()" title="Nome que sai na etiqueta (não muda o cadastro do produto)">${nomeMud ? `<div class="eq-orig">&#9998; nome só da etiqueta · cadastro: ${E(p.nome || '')} · <a onclick="rmEtqNome('${k}', '')">voltar ao original</a></div>` : ''}<small>${sub}</small>
         <div class="eq-loc">&#128205; <input class="${mud ? 'mud' : ''}" value="${E(d.local || '')}" placeholder="sem local" autocapitalize="characters" onchange="rmEtqLoc('${k}', this.value)" title="Local que sai na etiqueta (não muda o cadastro do produto)">${mud ? `<em>só na etiqueta${p.localizacao ? ' (cadastro: ' + E(p.localizacao) + ')' : ' (cadastro sem local)'}</em>` : ''}</div></div>
       <div class="eq-q"><button onclick="rmEtqQtd('${k}',-1)">&minus;</button><input value="${i.q}" inputmode="numeric" onchange="rmEtqQtd('${k}', this.value, true)" onfocus="this.select()"><button onclick="rmEtqQtd('${k}',1)">+</button></div>
       <button class="eq-x" title="Tirar da lista" onclick="rmEtqTirar('${k}')">&#10005;</button></div>`; }).join('');
