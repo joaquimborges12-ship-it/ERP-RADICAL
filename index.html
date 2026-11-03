@@ -1682,6 +1682,8 @@
   .rm-com-trava .ic{font-size:40px} .rm-com-trava b{font-size:18px} .rm-com-trava span, .rm-com-trava small{color:var(--rm-text-dim); font-size:14px} .rm-com-trava small{font-size:12px}
   .rm-com-trava input{margin:0; max-width:260px; text-align:center} .rm-com-trava .msg{color:#b3261e; font-size:13px; min-height:16px}
   .rm-com-trava button{background:var(--rm-accent); color:#fff; border:0; padding:11px 20px; font:inherit; font-weight:700; cursor:pointer; width:260px}
+  .rm-com-junta{padding:8px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font:inherit; font-size:13.5px; min-width:170px}
+  .rm-com-mec-j b{opacity:.6} .rm-com-jtx{font-size:13px; color:var(--rm-text-dim); padding-bottom:9px}
   .rm-com-nota{font-size:12.5px; color:var(--rm-text-dim); margin-top:10px; line-height:1.5;}
   .rm-com-cfg-row{display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; margin-bottom:14px;}
   .rm-com-cfg-row label, .rm-com-mec label{display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--rm-text-dim);}
@@ -2907,7 +2909,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 03/11 às 05:04</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 03/11 às 05:10</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -7257,7 +7259,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611030504; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611030510; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -8746,7 +8748,7 @@ function rmComCalcular(){
   const porPessoa = {};
   const add = (pessoa, tipo, doc, data, base, itensDesc) => {
     if(base <= 0.004) return;
-    const nome = pessoa || 'SEM RESPONSÁVEL';
+    const nome = rmComModo === 'mec' ? rmComAlvo(pessoa || 'SEM RESPONSÁVEL') : (pessoa || 'SEM RESPONSÁVEL');
     const perc = rmComPerc(nome);
     const pct = rmComModo === 'mec' ? perc.serv : perc.pecas;
     const g = porPessoa[nome] = porPessoa[nome] || { mec: nome, docs: [], base: 0, com: 0, pct };
@@ -8795,7 +8797,7 @@ function rmComCalcular(){
     }
   });
   const sal = rmComTemSalario();
-  if(sal) Object.keys(rmCom.mecanicos || {}).forEach(m => { if(rmComSalario(m) > 0 && !porPessoa[m]) porPessoa[m] = { mec: m, docs: [], base: 0, com: 0, pct: rmComPerc(m).serv }; });
+  if(sal) Object.keys(rmCom.mecanicos || {}).forEach(m => { if(rmComSalario(m) > 0 && !porPessoa[m] && rmComAlvo(m) === m) porPessoa[m] = { mec: m, docs: [], base: 0, com: 0, pct: rmComPerc(m).serv }; });
   Object.values(porPessoa).forEach(g => { g.sal = sal ? rmComSalario(g.mec) : 0; g.total = g.com + g.sal; });
   return Object.values(porPessoa).sort((a,b) => b.total - a.total);
 }
@@ -8848,6 +8850,16 @@ setInterval(() => {
 function rmComLkHtml(){ const s = Math.ceil((rmComLiberadoAte - Date.now()) / 1000);
   return `<span class="rm-com-crono">&#128275; Liberado · ${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}</span><button class="rm-pe2-btn" onclick="rmComTrancar()">&#128274; Trancar</button>`; }
 // ---- salário fixo por quinzena (só mecânicos) ----
+// nomes escritos de jeitos diferentes nas OS (ex.: WILLAN e WILLIAN) contam como a mesma pessoa. Não muda nada nas OS.
+function rmComJuntar(){ if(!rmCom.juntarMec) rmCom.juntarMec = {}; return rmCom.juntarMec; }
+function rmComAlvo(nome){ let n = nome, i = 0; const j = rmCom.juntarMec || {}; while(j[n] && j[n] !== nome && i++ < 5) n = j[n]; return n; }
+function rmComJuntarCom(nome, alvo){
+  const j = rmComJuntar(); alvo = String(alvo || '');
+  if(alvo && rmComAlvo(alvo) === nome){ alert('Não dá: ' + alvo + ' já está juntado com ' + nome + '.'); rmComRenderConfig(); return; }
+  if(alvo){ j[nome] = alvo; Object.keys(j).forEach(k => { if(j[k] === nome) j[k] = alvo; }); } else delete j[nome];
+  rmComSalvar(); rmComRenderConfig(); rmRenderComissao();
+  rmLog(alvo ? 'Juntou nomes de mecânico na comissão' : 'Separou nome de mecânico na comissão', nome, alvo ? nome + ' → ' + alvo : 'separado');
+}
 function rmComSalario(mec){ const m = (rmCom.mecanicos || {})[mec]; return m && Number(m.salario) > 0 ? Number(m.salario) : 0; }
 // o período é exatamente uma quinzena? (1 a 14, ou 15 ao último dia)
 function rmComEhQuinzena(r){
@@ -8922,7 +8934,9 @@ function rmComRenderConfig(){
   const box = document.getElementById('rm-com-config'); if(!box) return;
   const c = rmComCfg(), mec = rmComModo === 'mec', k = mec ? c.kServ : c.kPecas, campo = mec ? 'serv' : 'pecas';
   const pessoas = mec
-    ? [...new Set(rmLoadMecanicos().map(m => rmComNome(typeof m === 'string' ? m : m.nome)).concat(rmLoad().map(o => rmComNome(o.mecanico))).filter(Boolean))].sort()
+    ? [...new Set(rmLoadMecanicos().map(m => rmComNome(typeof m === 'string' ? m : m.nome)).concat(rmLoad().map(o => rmComNome(o.mecanico)))
+        .concat(rmLoad().flatMap(o => (o.pecasUsadas || []).map(rmComMecDoItem))).concat(rmLoadVendas().flatMap(v => (v.itens || []).map(rmComMecDoItem)))
+        .concat(Object.keys(rmCom.juntarMec || {})).concat(Object.keys(rmCom.mecanicos || {})).filter(Boolean))].sort()
     : [...new Set(rmLoadVendas().map(v => rmComNome(v.vendedor)).concat(rmLoad().map(o => rmComNome(o.criadoPor))).filter(Boolean))].sort();
   box.innerHTML = `
     <div class="rm-com-cfg-row">
@@ -8930,10 +8944,13 @@ function rmComRenderConfig(){
       <label class="rm-com-chk"><input type="checkbox" ${rmCom.abaterDesconto ? 'checked' : ''} onchange="rmCom.abaterDesconto = this.checked; rmComSalvar(); rmRenderComissao()"> Abater o desconto geral da nota</label>
     </div>
     <div class="rm-com-sec">${mec ? 'Porcentagem e salário por mecânico <small>(% em branco = usa o padrão · salário em branco = sem salário)</small>' : 'Porcentagem por vendedor <small>(em branco = usa o padrão)</small>'}</div>
-    ${pessoas.map(m => { const pc = c.mapa[m] || {}; return `<div class="rm-com-mec">
+    ${pessoas.map(m => { const pc = c.mapa[m] || {}; const jt = mec ? (rmCom.juntarMec || {})[m] : '';
+      const juntar = mec ? `<label>É a mesma pessoa que<select class="rm-com-junta" onchange="rmComJuntarCom('${rmJs(m)}', this.value)"><option value="">— ninguém —</option>${pessoas.filter(x => x !== m && !(rmCom.juntarMec || {})[x] && rmComAlvo(x) !== m).map(x => `<option value="${rmEscapeHtml(x)}"${x === jt ? ' selected' : ''}>${rmEscapeHtml(x)}</option>`).join('')}</select></label>` : '';
+      if(jt) return `<div class="rm-com-mec rm-com-mec-j"><b>${rmEscapeHtml(m)}</b>${juntar}<span class="rm-com-jtx">conta tudo para <b>${rmEscapeHtml(rmComAlvo(m))}</b></span></div>`;
+      return `<div class="rm-com-mec">
       <b>${rmEscapeHtml(m)}</b>
       <label>%<input inputmode="decimal" placeholder="${rmFmtNum(rmCom[k])}" value="${pc[campo] != null && pc[campo] !== '' ? rmFmtNum(pc[campo]) : ''}" onchange="rmComSetMec('${rmJs(m)}','${campo}',this.value)"></label>
-      ${mec ? `<label>Salário por quinzena (R$)<input inputmode="decimal" placeholder="0,00" value="${Number(pc.salario) > 0 ? rmFmtNum(pc.salario) : ''}" onfocus="this.select()" onchange="rmComSetMec('${rmJs(m)}','salario',this.value)"></label>` : ''}
+      ${mec ? `<label>Salário por quinzena (R$)<input inputmode="decimal" placeholder="0,00" value="${Number(pc.salario) > 0 ? rmFmtNum(pc.salario) : ''}" onfocus="this.select()" onchange="rmComSetMec('${rmJs(m)}','salario',this.value)"></label>${juntar}` : ''}
     </div>`; }).join('') || `<div style="color:var(--rm-text-dim)">Ninguém ainda.</div>`}`;
 }
 
