@@ -1677,6 +1677,11 @@
   .rm-com-sub td{padding:5px 8px; border-bottom:1px solid var(--rm-border);}
   .rm-com-sub .r{text-align:right;}
   .rm-com-tab tfoot td{padding:11px 14px; border-top:2px solid var(--rm-border);}
+  .rm-com-lk{display:flex; align-items:center; gap:8px} .rm-com-crono{font-size:12.5px; color:#1b7f3b; font-weight:700; white-space:nowrap}
+  .rm-com-trava{max-width:440px; margin:30px auto; background:var(--rm-panel); border:1px solid var(--rm-border); padding:30px 26px; display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center}
+  .rm-com-trava .ic{font-size:40px} .rm-com-trava b{font-size:18px} .rm-com-trava span, .rm-com-trava small{color:var(--rm-text-dim); font-size:14px} .rm-com-trava small{font-size:12px}
+  .rm-com-trava input{margin:0; max-width:260px; text-align:center} .rm-com-trava .msg{color:#b3261e; font-size:13px; min-height:16px}
+  .rm-com-trava button{background:var(--rm-accent); color:#fff; border:0; padding:11px 20px; font:inherit; font-weight:700; cursor:pointer; width:260px}
   .rm-com-nota{font-size:12.5px; color:var(--rm-text-dim); margin-top:10px; line-height:1.5;}
   .rm-com-cfg-row{display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; margin-bottom:14px;}
   .rm-com-cfg-row label, .rm-com-mec label{display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--rm-text-dim);}
@@ -2902,7 +2907,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 01/11 às 17:09</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 03/11 às 05:04</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3832,7 +3837,8 @@ function rmCarregarLib(nome){
             <select class="rm-osl-sel" id="rm-com-q" onchange="rmRenderComissao()" style="min-width:0;"><option value="1">Dia 1 a 14 (paga dia 15)</option><option value="2">Dia 15 ao fim (paga dia 1º)</option></select></span>
           <span id="rm-com-per-txt" class="rm-com-per-txt"></span>
           <span id="rm-com-datas" style="display:none;"><input type="date" class="rm-date-input" id="rm-com-de" onchange="rmRenderComissao()"> até <input type="date" class="rm-date-input" id="rm-com-ate" onchange="rmRenderComissao()"></span>
-          <button class="rm-pe2-btn" style="margin-left:auto;" onclick="rmComToggleConfig()">&#9881; Porcentagens</button>
+          <span id="rm-com-lk" class="rm-com-lk" style="margin-left:auto;"></span>
+          <button class="rm-pe2-btn" id="rm-com-cfg-btn" onclick="rmComToggleConfig()">&#9881; Porcentagens</button>
         </div>
         <div id="rm-com-config" class="rm-cfg-card" style="display:none; max-width:none; margin-bottom:14px;"></div>
         <div id="rm-com-conteudo"></div>
@@ -7251,7 +7257,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611011709; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611030504; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -8788,7 +8794,10 @@ function rmComCalcular(){
       });
     }
   });
-  return Object.values(porPessoa).sort((a,b) => b.com - a.com);
+  const sal = rmComTemSalario();
+  if(sal) Object.keys(rmCom.mecanicos || {}).forEach(m => { if(rmComSalario(m) > 0 && !porPessoa[m]) porPessoa[m] = { mec: m, docs: [], base: 0, com: 0, pct: rmComPerc(m).serv }; });
+  Object.values(porPessoa).forEach(g => { g.sal = sal ? rmComSalario(g.mec) : 0; g.total = g.com + g.sal; });
+  return Object.values(porPessoa).sort((a,b) => b.total - a.total);
 }
 
 function rmComPagoNoPeriodo(mec){
@@ -8800,8 +8809,61 @@ function rmComPagoNoPeriodo(mec){
 function rmComDocNum(x){ return x.tipo === 'OS' ? (x.doc.codigoApp || '') : (x.doc.codigoVenda || ''); }
 function rmComDocCli(x){ return x.tipo === 'OS' ? [x.doc.nome, x.doc.modelo].filter(Boolean).join(' · ') : (x.doc.clienteNome || ''); }
 
+// ---- senha das comissões (a mesma da Visão Geral) ----
+let rmComLiberadoAte = 0; // só na memória: recarregou a página, tranca de novo
+function rmComLiberado(){ return Date.now() < rmComLiberadoAte; }
+function rmComTravaHtml(){
+  const tem = !!rmVgSenhaHash;
+  return `<div class="rm-com-trava"><div class="ic">&#128274;</div><b>Comissões protegidas</b>
+    ${tem ? `<span>Digite a mesma senha da Visão Geral para ver os valores</span>
+    <input type="password" class="rm-input" id="rm-com-senha-in" placeholder="Senha" autocomplete="off" onkeydown="if(event.key==='Enter') rmComConferirSenha()">
+    <div class="msg" id="rm-com-senha-msg"></div>
+    <button type="button" onclick="rmComConferirSenha()">Liberar por 5 minutos</button>
+    <small>Depois de 5 minutos fecha sozinho. Vale para Comissão mecânicos, Comissão vendedores e Pagamentos de comissão.</small>`
+    : `<span>Ainda não tem senha. O administrador define em Configurações &rarr; Empresa &rarr; "Senha dos valores da Visão Geral".</span>`}</div>`;
+}
+function rmComTravar(box){
+  const f = document.getElementById('rm-com-periodo').closest('.rm-osl-filtros'); if(f) f.style.display = 'none';
+  const c = document.getElementById('rm-com-config'); if(c) c.style.display = 'none';
+  box.innerHTML = rmComTravaHtml();
+  if(!rmVgSenhaHash) rmVgSyncSenha().then(() => { if(rmVgSenhaHash && !rmComLiberado()) box.innerHTML = rmComTravaHtml(); });
+  setTimeout(() => { const i = document.getElementById('rm-com-senha-in'); if(i && box.offsetParent) i.focus(); }, 30);
+}
+async function rmComConferirSenha(){
+  const i = document.getElementById('rm-com-senha-in'); if(!i) return;
+  if(!rmVgSenhaHash) await rmVgSyncSenha();
+  if(!rmVgSenhaHash || (await rmHashTexto(i.value)) !== rmVgSenhaHash){ document.getElementById('rm-com-senha-msg').textContent = 'Senha incorreta'; i.select(); return; }
+  rmComLiberadoAte = Date.now() + 5 * 60 * 1000;
+  rmLog('Liberou as comissões');
+  rmComRenderAtual();
+}
+function rmComTrancar(){ rmComLiberadoAte = 0; rmComRenderAtual(); }
+function rmComRenderAtual(){ if(rmComModo === 'hist') rmComHistRender(); else rmRenderComissao(); }
+setInterval(() => {
+  if(rmComLiberadoAte && !rmComLiberado()){ rmComLiberadoAte = 0; rmComRenderAtual(); return; }
+  if(!rmComLiberado()) return;
+  const s = Math.ceil((rmComLiberadoAte - Date.now()) / 1000);
+  document.querySelectorAll('.rm-com-crono').forEach(t => { t.innerHTML = '&#128275; Liberado · ' + Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); });
+}, 1000);
+function rmComLkHtml(){ const s = Math.ceil((rmComLiberadoAte - Date.now()) / 1000);
+  return `<span class="rm-com-crono">&#128275; Liberado · ${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}</span><button class="rm-pe2-btn" onclick="rmComTrancar()">&#128274; Trancar</button>`; }
+// ---- salário fixo por quinzena (só mecânicos) ----
+function rmComSalario(mec){ const m = (rmCom.mecanicos || {})[mec]; return m && Number(m.salario) > 0 ? Number(m.salario) : 0; }
+// o período é exatamente uma quinzena? (1 a 14, ou 15 ao último dia)
+function rmComEhQuinzena(r){
+  if(!r) return false; const a = r.start, b = r.end;
+  if(a.getHours() || b.getHours()) return false;
+  if(a.getDate() === 1) return b.getFullYear() === a.getFullYear() && b.getMonth() === a.getMonth() && b.getDate() === 15;
+  if(a.getDate() === 15){ const p = new Date(a.getFullYear(), a.getMonth() + 1, 1); return b.getTime() === p.getTime(); }
+  return false;
+}
+function rmComTemSalario(){ return rmComModo === 'mec' && rmComEhQuinzena(rmComRange()); }
+
 function rmRenderComissao(){
   const box = document.getElementById('rm-com-conteudo'); if(!box) return;
+  { const bt = document.getElementById('rm-com-cfg-btn'); if(bt) bt.innerHTML = rmComModo === 'mec' ? '&#9881; Porcentagens e salários' : '&#9881; Porcentagens'; }
+  if(!rmComLiberado()){ rmComTravar(box); const lk = document.getElementById('rm-com-lk'); if(lk) lk.innerHTML = ''; return; }
+  { const f = document.getElementById('rm-com-periodo').closest('.rm-osl-filtros'); if(f) f.style.display = ''; const lk = document.getElementById('rm-com-lk'); if(lk) lk.innerHTML = rmComLkHtml(); }
   const per = document.getElementById('rm-com-periodo').value;
   document.getElementById('rm-com-datas').style.display = per === 'personalizado' ? '' : 'none';
   document.getElementById('rm-com-quinz').style.display = per === 'q:escolher' ? '' : 'none';
@@ -8810,15 +8872,21 @@ function rmRenderComissao(){
     if(t) t.textContent = rr ? rmDataBR(rmComIso(rr.start)) + ' a ' + rmDataBR(rmComIso(new Date(rr.end.getTime() - 1))) + (per.startsWith('q:') ? ' · pagar dia ' + (rr.start.getDate() === 1 ? '15' : '1º') : '') : ''; }
   const mec = rmComModo === 'mec';
   const lista = rmComCalcular();
-  const tot = lista.reduce((s,g) => ({ base: s.base + g.base, com: s.com + g.com, docs: s.docs + g.docs.length }), { base:0, com:0, docs:0 });
+  const tot = lista.reduce((s,g) => ({ base: s.base + g.base, com: s.com + g.com, sal: s.sal + g.sal, total: s.total + g.total, docs: s.docs + g.docs.length }), { base:0, com:0, sal:0, total:0, docs:0 });
+  const sal = rmComTemSalario(), nc = sal ? 9 : 7;
   box.innerHTML = `
-    <div class="rm-com-resumo" style="grid-template-columns:repeat(3,1fr);">
+    ${sal ? `<div class="rm-com-resumo" style="grid-template-columns:repeat(4,1fr);">
+      <div><span>OS e vendas com mão de obra</span><b>${tot.docs}</b></div>
+      <div><span>Total de comissões</span><b>${rmFormatMoeda(tot.com)}</b></div>
+      <div><span>Total de salários</span><b>${rmFormatMoeda(tot.sal)}</b></div>
+      <div class="rm-com-destaque"><span>Total a pagar</span><b>${rmFormatMoeda(tot.total)}</b></div>
+    </div>` : `<div class="rm-com-resumo" style="grid-template-columns:repeat(3,1fr);">
       <div><span>${mec ? 'OS e vendas com mão de obra' : 'Vendas e OS pagas com peças'}</span><b>${tot.docs}</b></div>
       <div><span>${mec ? 'Total de mão de obra' : 'Total de peças vendidas'}</span><b>${rmFormatMoeda(tot.base)}</b></div>
       <div class="rm-com-destaque"><span>Total de comissões</span><b>${rmFormatMoeda(tot.com)}</b></div>
-    </div>
+    </div>`}
     ${lista.length ? `<div class="rm-osl-wrap"><table class="rm-osl rm-com-tab">
-      <thead><tr><th>${mec ? 'Mecânico' : 'Vendedor'}</th><th class="r">Notas</th><th class="r">${mec ? 'Mão de obra' : 'Peças'}</th><th class="r">%</th><th class="r">Comissão</th><th>Situação</th><th></th></tr></thead>
+      <thead><tr><th>${mec ? 'Mecânico' : 'Vendedor'}</th><th class="r">Notas</th><th class="r">${mec ? 'Mão de obra' : 'Peças'}</th><th class="r">%</th><th class="r">Comissão</th>${sal ? '<th class="r">Salário</th><th class="r">Total a pagar</th>' : ''}<th>Situação</th><th></th></tr></thead>
       <tbody>${lista.map(g => {
         const pago = rmComPagoNoPeriodo(g.mec);
         const aberto = rmComAberto === g.mec;
@@ -8826,27 +8894,28 @@ function rmRenderComissao(){
           <td><b>${aberto ? '&#9662;' : '&#9656;'} ${rmEscapeHtml(g.mec)}</b></td>
           <td class="r">${g.docs.length}</td>
           <td class="r">${rmFmtNum(g.base)}</td><td class="r">${rmFmtNum(g.pct)}%</td>
-          <td class="r"><b>${rmFormatMoeda(g.com)}</b></td>
+          <td class="r">${sal ? rmFormatMoeda(g.com) : `<b>${rmFormatMoeda(g.com)}</b>`}</td>
+          ${sal ? `<td class="r">${rmFormatMoeda(g.sal)}</td><td class="r"><b style="color:var(--rm-accent)">${rmFormatMoeda(g.total)}</b></td>` : ''}
           <td>${pago ? `<span class="rm-prom-sit rm-prom-sit-paga" title="por ${rmEscapeHtml(pago.por||'')}">Pago ${rmDataHoraBR(pago.em)}</span>` : '<span class="rm-prom-sit rm-prom-sit-aberta">A pagar</span>'}</td>
           <td style="text-align:right; white-space:nowrap;" onclick="event.stopPropagation()">
             <button class="rm-prom-btn" onclick="rmComImprimir('${rmJs(g.mec)}')" title="Imprimir">&#128424;</button>
-            ${pago ? `<button class="rm-prom-btn" onclick="rmComDesfazerPago('${rmJs(g.mec)}')">Desfazer</button>` : `<button class="rm-prom-btn rm-prom-btn-ok" onclick="rmComMarcarPago('${rmJs(g.mec)}', ${g.com.toFixed(2)})">Marcar pago</button>`}
+            ${pago ? `<button class="rm-prom-btn" onclick="rmComDesfazerPago('${rmJs(g.mec)}')">Desfazer</button>` : `<button class="rm-prom-btn rm-prom-btn-ok" onclick="rmComMarcarPago('${rmJs(g.mec)}', ${g.total.toFixed(2)}, ${g.com.toFixed(2)}, ${g.sal.toFixed(2)})">Marcar pago</button>`}
           </td>
         </tr>
-        ${aberto ? `<tr class="rm-com-det"><td colspan="7">
+        ${aberto ? `<tr class="rm-com-det"><td colspan="${nc}">${g.docs.length ? `
           <table class="rm-com-sub"><thead><tr><th>Nº</th><th>Origem</th><th>Data</th><th>Cliente</th><th>Itens</th><th class="r">${mec ? 'Mão de obra' : 'Peças'}</th><th class="r">Comissão</th></tr></thead>
           <tbody>${g.docs.sort((a,b) => new Date(a.data) - new Date(b.data)).map(x => `<tr onclick="${x.tipo === 'OS' ? `rmOpenModal('${x.doc.id}', true)` : `rmAbrirDetalheVenda('${x.doc.id}')`}" style="cursor:pointer">
             <td>${rmEscapeHtml(rmComDocNum(x))}</td><td><span class="rm-fin-tag rm-fin-tag-${x.tipo}">${x.tipo}</span></td><td>${rmDataHoraBR(x.data)}</td>
             <td>${rmEscapeHtml(rmComDocCli(x))}</td><td style="white-space:normal; color:var(--rm-text-dim);">${rmEscapeHtml(x.itens.join(', '))}</td>
-            <td class="r">${rmFmtNum(x.base)}</td><td class="r"><b>${rmFmtNum(x.com)}</b></td></tr>`).join('')}</tbody></table>
+            <td class="r">${rmFmtNum(x.base)}</td><td class="r"><b>${rmFmtNum(x.com)}</b></td></tr>`).join('')}</tbody></table>` : '<div style="color:var(--rm-text-dim); padding:8px 4px;">Nenhuma mão de obra nesta quinzena. Só o salário.</div>'}
         </td></tr>` : ''}`;
       }).join('')}</tbody>
-      <tfoot><tr><td><b>Total</b></td><td class="r"><b>${tot.docs}</b></td><td class="r"><b>${rmFmtNum(tot.base)}</b></td><td></td><td class="r"><b>${rmFormatMoeda(tot.com)}</b></td><td colspan="2"></td></tr></tfoot>
+      <tfoot><tr><td><b>Total</b></td><td class="r"><b>${tot.docs}</b></td><td class="r"><b>${rmFmtNum(tot.base)}</b></td><td></td><td class="r"><b>${rmFormatMoeda(tot.com)}</b></td>${sal ? `<td class="r"><b>${rmFormatMoeda(tot.sal)}</b></td><td class="r"><b>${rmFormatMoeda(tot.total)}</b></td>` : ''}<td colspan="2"></td></tr></tfoot>
     </table></div>` : `<div class="rm-problema-empty" style="padding:20px;">Nada para comissão neste período</div>`}
     <div class="rm-com-nota">${mec
       ? 'Conta a <b>mão de obra</b>. O item "MAO DE OBRA - KAWAN" vai para o <b>KAWAN</b>, seja no PDV ou na ordem de serviço. Mão de obra sem nome na OS vai para o mecânico responsável. Na OS só entra com a moto <b>Entregue</b> (data da entrega); no PDV, na data da venda.'
       : 'Conta as <b>peças vendidas</b> (o que não é serviço), no PDV e na ordem de serviço, para quem vendeu/lançou. Só entra quando está <b>pago</b>: à vista na data da venda; <b>a prazo só quando o cliente quita a nota inteira</b>, na data da quitação.'}
-      ${rmCom.abaterDesconto ? ' O desconto geral da nota é abatido proporcionalmente.' : ''}</div>`;
+      ${rmCom.abaterDesconto ? ' O desconto geral da nota é abatido proporcionalmente.' : ''}${mec ? (sal ? ' O <b>salário</b> é o valor fixo da quinzena; "Marcar pago" registra salário + comissão juntos.' : ' O <b>salário</b> fixo só aparece quando o período escolhido é uma quinzena.') : ''}</div>`;
 }
 
 function rmComRenderConfig(){
@@ -8860,10 +8929,11 @@ function rmComRenderConfig(){
       <label>% padrão sobre ${mec ? 'mão de obra' : 'peças vendidas'}<input inputmode="decimal" value="${rmFmtNum(rmCom[k])}" onfocus="this.select()" onchange="rmCom['${k}'] = rmParseMoeda(this.value); rmComSalvar(); rmRenderComissao(); rmComRenderConfig()"></label>
       <label class="rm-com-chk"><input type="checkbox" ${rmCom.abaterDesconto ? 'checked' : ''} onchange="rmCom.abaterDesconto = this.checked; rmComSalvar(); rmRenderComissao()"> Abater o desconto geral da nota</label>
     </div>
-    <div class="rm-com-sec">Porcentagem por ${mec ? 'mecânico' : 'vendedor'} <small>(em branco = usa o padrão)</small></div>
+    <div class="rm-com-sec">${mec ? 'Porcentagem e salário por mecânico <small>(% em branco = usa o padrão · salário em branco = sem salário)</small>' : 'Porcentagem por vendedor <small>(em branco = usa o padrão)</small>'}</div>
     ${pessoas.map(m => { const pc = c.mapa[m] || {}; return `<div class="rm-com-mec">
       <b>${rmEscapeHtml(m)}</b>
       <label>%<input inputmode="decimal" placeholder="${rmFmtNum(rmCom[k])}" value="${pc[campo] != null && pc[campo] !== '' ? rmFmtNum(pc[campo]) : ''}" onchange="rmComSetMec('${rmJs(m)}','${campo}',this.value)"></label>
+      ${mec ? `<label>Salário por quinzena (R$)<input inputmode="decimal" placeholder="0,00" value="${Number(pc.salario) > 0 ? rmFmtNum(pc.salario) : ''}" onfocus="this.select()" onchange="rmComSetMec('${rmJs(m)}','salario',this.value)"></label>` : ''}
     </div>`; }).join('') || `<div style="color:var(--rm-text-dim)">Ninguém ainda.</div>`}`;
 }
 
@@ -8871,14 +8941,16 @@ function rmComImprimir(mec){
   const g = rmComCalcular().find(x => x.mec === mec); if(!g) return;
   const r = rmComRange(), ehMec = rmComModo === 'mec';
   const periodo = r ? rmDataBR(rmComIso(r.start)) + ' a ' + rmDataBR(rmComIso(new Date(r.end.getTime() - 1))) : 'todo o período';
-  const corpo = rmA4Cabecalho(ehMec ? 'Comissão do Mecânico' : 'Comissão do Vendedor', '', new Date().toLocaleDateString('pt-BR'))
+  const sal = ehMec && g.sal > 0;
+  const corpo = rmA4Cabecalho(ehMec ? (sal ? 'Comissão e Salário do Mecânico' : 'Comissão do Mecânico') : 'Comissão do Vendedor', '', new Date().toLocaleDateString('pt-BR'))
     + rmA4Secao(ehMec ? 'Mecânico:' : 'Vendedor:', rmH(mec))
     + rmA4Secao('Resumo', rmA4Duas(['Período: ' + periodo, 'Notas: ' + g.docs.length], [(ehMec ? 'Mão de obra' : 'Peças vendidas') + ': R$ ' + rmFmtNum(g.base), 'Comissão: ' + rmFmtNum(g.pct) + '%']))
     + rmA4Secao(ehMec ? 'Mão de obra' : 'Peças vendidas', `<table class="a4-tab">
         <thead><tr><th>Nº</th><th>Data</th><th class="cx">Cliente</th><th>Itens</th><th class="r">Base (R$)</th><th class="r">Comissão (R$)</th></tr></thead>
         <tbody>${g.docs.map(x => `<tr><td>${rmH(rmComDocNum(x))}${x.tipo === 'PDV' ? ' (PDV)' : ''}</td><td>${new Date(x.data).toLocaleDateString('pt-BR')}</td><td class="cx">${rmH(rmComDocCli(x))}</td><td>${rmH(x.itens.join(', '))}</td><td class="r">${rmFmtNum(x.base)}</td><td class="r">${rmFmtNum(x.com)}</td></tr>`).join('')}</tbody>
         <tfoot><tr class="a4-forte"><td colspan="3" class="r"><b>Total da comissão (R$)</b></td><td class="cx"></td><td></td><td class="r"><b>${rmFmtNum(g.com)}</b></td></tr></tfoot></table>`)
-    + `<div class="a4-txt" style="margin-top:14px;">Recebi de <b>${rmH(rmEmpresa().nome)}</b> a importância de <b>R$ ${rmFmtNum(g.com)}</b> (${rmExtenso(g.com)}), referente à comissão do período ${periodo}.</div>`
+    + (sal ? rmA4Secao('Total a receber', rmA4Duas(['Comissão: R$ ' + rmFmtNum(g.com), 'Salário da quinzena: R$ ' + rmFmtNum(g.sal)], ['<b>Total: R$ ' + rmFmtNum(g.total) + '</b>'])) : '')
+    + `<div class="a4-txt" style="margin-top:14px;">Recebi de <b>${rmH(rmEmpresa().nome)}</b> a importância de <b>R$ ${rmFmtNum(sal ? g.total : g.com)}</b> (${rmExtenso(sal ? g.total : g.com)}), referente ${sal ? 'ao salário e à comissão' : 'à comissão'} do período ${periodo}.</div>`
     + rmA4Assinaturas(rmH(mec), rmH(rmEmpresa().nome));
   rmImprimirA4('Comissão ' + mec, corpo);
 }
@@ -8886,6 +8958,7 @@ function rmComImprimir(mec){
 // ===== Relatório > Histórico de pagamentos de comissão =====
 function rmComHistRender(){
   const box = document.getElementById('rm-com-hist'); if(!box) return;
+  if(!rmComLiberado()){ box.innerHTML = rmComTravaHtml(); if(!rmVgSenhaHash) rmVgSyncSenha().then(() => { if(rmVgSenhaHash && !rmComLiberado()) box.innerHTML = rmComTravaHtml(); }); return; }
   const fPessoa = (document.getElementById('rm-ch-pessoa') || {}).value || '';
   const fTipo = (document.getElementById('rm-ch-tipo') || {}).value || '';
   const fAno = (document.getElementById('rm-ch-ano') || {}).value || String(new Date().getFullYear());
@@ -8914,12 +8987,13 @@ function rmComHistRender(){
       <tbody>${lista.map(p => `<tr style="cursor:default">
         <td>${rmDataHoraBR(p.em)}</td><td><b>${rmEscapeHtml(p.mecanico)}</b></td>
         <td><span class="rm-fin-tag ${(p.modo||'mec')==='mec'?'rm-fin-tag-OS':'rm-fin-tag-PDV'}">${(p.modo||'mec')==='mec'?'Mecânico':'Vendedor'}</span></td>
-        <td>${rmDataBR(p.de)} a ${rmDataBR(p.ate)}</td><td class="r"><b>${rmFormatMoeda(p.valor)}</b></td><td>${rmEscapeHtml(p.por || '—')}</td>
+        <td>${rmDataBR(p.de)} a ${rmDataBR(p.ate)}</td><td class="r"><b>${rmFormatMoeda(p.valor)}</b>${Number(p.salario) > 0 ? `<br><small style="color:var(--rm-text-dim)">comissão ${rmFmtNum(p.comissao)} + salário ${rmFmtNum(p.salario)}</small>` : ''}</td><td>${rmEscapeHtml(p.por || '—')}</td>
         <td style="text-align:right; white-space:nowrap;"><button class="rm-prom-btn" title="Reimprimir recibo" onclick="rmComHistImprimir(${(rmCom.pagamentos||[]).indexOf(p)})">&#128424;</button></td>
       </tr>`).join('')}</tbody>
       <tfoot><tr><td colspan="4" class="r" style="padding:11px 14px;"><b>Total</b></td><td class="r" style="padding:11px 14px;"><b>${rmFormatMoeda(total)}</b></td><td colspan="2"></td></tr></tfoot>
     </table></div>` : '<div class="rm-problema-empty" style="padding:20px;">Nenhum pagamento de comissão registrado</div>'}
     <div class="rm-com-nota">Os pagamentos entram aqui quando você clica em <b>Marcar pago</b> nas abas de comissão.</div>`;
+  box.insertAdjacentHTML('afterbegin', `<div style="display:flex; justify-content:flex-end; margin-bottom:8px;"><span class="rm-com-lk">${rmComLkHtml()}</span></div>`);
 }
 // reimprime o recibo do período pago (recalcula com as regras atuais)
 function rmComHistImprimir(i){
@@ -8938,7 +9012,8 @@ function rmComSetMec(m, campo, v){
   mapa[m] = mapa[m] || {};
   mapa[m][campo] = String(v).trim() === '' ? '' : rmParseMoeda(v);
   rmComSalvar(); rmRenderComissao();
-  rmLog('Alterou % de comissão', m, campo + ': ' + (String(v).trim() || 'padrão'));
+  if(campo === 'salario') rmLog('Alterou salário do mecânico', m, String(v).trim() ? rmFormatMoeda(rmParseMoeda(v)) + ' por quinzena' : 'sem salário');
+  else rmLog('Alterou % de comissão', m, campo + ': ' + (String(v).trim() || 'padrão'));
 }
 function rmComToggleConfig(){
   const b = document.getElementById('rm-com-config');
@@ -8946,16 +9021,16 @@ function rmComToggleConfig(){
   if(b.style.display === '') rmComRenderConfig();
 }
 
-function rmComMarcarPago(mec, valor){
+function rmComMarcarPago(mec, valor, com, sal){
   const r = rmComRange(); if(!r){ alert('Escolha o período.'); return; }
   const de = rmComIso(r.start), ate = rmComIso(new Date(r.end.getTime() - 1));
-  if(!rmPerguntaAntes('comPago', `Marcar a comissão de ${mec} como PAGA?\nPeríodo: ${rmDataBR(de)} a ${rmDataBR(ate)}\nValor: ${rmFormatMoeda(valor)}`, { titulo: 'Comissão paga?', sim: 'Marcar como paga' }, () => rmComMarcarPago(mec, valor))) return;
+  if(!rmPerguntaAntes('comPago', (sal > 0 ? `Marcar o pagamento de ${mec} como PAGO?\nPeríodo: ${rmDataBR(de)} a ${rmDataBR(ate)}\nComissão: ${rmFormatMoeda(com)}\nSalário: ${rmFormatMoeda(sal)}\nTotal: ${rmFormatMoeda(valor)}` : `Marcar a comissão de ${mec} como PAGA?\nPeríodo: ${rmDataBR(de)} a ${rmDataBR(ate)}\nValor: ${rmFormatMoeda(valor)}`), { titulo: 'Comissão paga?', sim: 'Marcar como paga' }, () => rmComMarcarPago(mec, valor, com, sal))) return;
   const igual = p => p.mecanico === mec && p.de === de && p.ate === ate && (p.modo || 'mec') === rmComModo;
   rmCom.pagamentosApagados = (rmCom.pagamentosApagados || []).concat((rmCom.pagamentos || []).filter(igual).map(p => p.id || JSON.stringify(p)));
   rmCom.pagamentos = (rmCom.pagamentos || []).filter(p => !igual(p));
-  rmCom.pagamentos.push({ id: 'cp' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), mecanico: mec, modo: rmComModo, de, ate, valor, em: new Date().toISOString(), por: rmNomeUsuario() });
+  rmCom.pagamentos.push({ id: 'cp' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), mecanico: mec, modo: rmComModo, de, ate, valor, ...(sal > 0 ? { comissao: com, salario: sal } : {}), em: new Date().toISOString(), por: rmNomeUsuario() });
   rmComSalvar(); rmRenderComissao();
-  rmLog('Pagou comissão', mec, rmFormatMoeda(valor) + ' · ' + rmDataBR(de) + ' a ' + rmDataBR(ate));
+  rmLog('Pagou comissão', mec, rmFormatMoeda(valor) + (sal > 0 ? ' (comissão ' + rmFormatMoeda(com) + ' + salário ' + rmFormatMoeda(sal) + ')' : '') + ' · ' + rmDataBR(de) + ' a ' + rmDataBR(ate));
 }
 function rmComDesfazerPago(mec){
   const p = rmComPagoNoPeriodo(mec); if(!p) return;
