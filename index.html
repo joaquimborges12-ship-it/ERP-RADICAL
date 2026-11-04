@@ -1684,6 +1684,33 @@
   .rm-com-trava button{background:var(--rm-accent); color:#fff; border:0; padding:11px 20px; font:inherit; font-weight:700; cursor:pointer; width:260px}
   .rm-com-junta{padding:8px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font:inherit; font-size:13.5px; min-width:170px}
   .rm-com-mec-j b{opacity:.6} .rm-com-jtx{font-size:13px; color:var(--rm-text-dim); padding-bottom:9px}
+  /* venda casada */
+  .rm-pdv-vc-btn{border:1px solid #e0b200 !important; background:#fff8dc !important; color:#7a5a00 !important; font-weight:700; padding:0 16px !important}
+  .rm-pdv-vc-btn.on{box-shadow:inset 0 -3px 0 #c99a00}
+  #rm-section-pdv.rm-vc-on > *:not(.rm-pdv-toggles-row):not(#rm-vc){display:none !important}
+  #rm-section-pdv:not(.rm-vc-on) #rm-vc{display:none}
+  .vc-top{display:flex; align-items:center; gap:12px; margin-top:6px; flex-wrap:wrap} .vc-top .rm-input{margin:0 0 0 auto; max-width:260px}
+  .vc-nova{background:var(--rm-accent) !important; color:#fff !important; border-color:var(--rm-accent) !important; font-weight:700}
+  .vc-k{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:14px 0} .vc-k div{background:var(--rm-panel); border:1px solid var(--rm-border); padding:12px 14px} .vc-k span{font-size:12px; color:var(--rm-text-dim); display:block} .vc-k b{font-size:22px}
+  .vc-t{width:100%; border-collapse:collapse; background:var(--rm-panel); border:1px solid var(--rm-border)} .vc-t th, .vc-t td{padding:11px 14px; border-bottom:1px solid var(--rm-border); text-align:left; font-size:14px; vertical-align:middle} .vc-t th{font-size:12.5px; color:var(--rm-text-dim)} .vc-t td b{display:block; margin-bottom:4px}
+  .vc-c{display:inline-block; border:1px solid var(--rm-border); background:var(--rm-bg); padding:4px 9px; font-size:12.5px; margin:2px 4px 2px 0; font-weight:600}
+  .vc-p{display:inline-block; padding:3px 8px; font-size:12px; margin:2px 4px 2px 0; background:#fdecea; color:#a3271e; font-weight:600}
+  .vc-v{display:inline-block; border:1px dashed var(--rm-border); color:var(--rm-text-dim); padding:4px 9px; font-size:12.5px} .vc-f{display:block; color:var(--rm-text-dim); font-size:11.5px; margin-top:3px}
+  .ve-b{padding:14px 20px; display:flex; flex-direction:column; gap:8px} .ve-l{font-size:12.5px; color:var(--rm-text-dim); font-weight:600; margin-top:4px} .ve-l span{font-weight:400}
+  .ve-box{border:2px solid var(--rm-accent); padding:6px} .ve-pi{display:flex; align-items:center; gap:10px; padding:6px 8px; border-bottom:1px solid var(--rm-border)} .ve-pi div{flex:1} .ve-pi b{font-size:14px} .ve-pi small{display:block; color:var(--rm-text-dim); font-size:11.5px}
+  .ve-pi button, .ve-s button{border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font:inherit; font-size:12.5px; padding:4px 9px; cursor:pointer}
+  .ve-chk{display:flex; gap:8px; align-items:center; font-size:13.5px} .ve-s{display:flex; align-items:center; gap:10px; border:1px solid var(--rm-border); padding:7px 10px} .ve-s > div{flex:1} .ve-s b{display:block; font-size:14px} .ve-s small{color:var(--rm-text-dim); font-size:12px}
+  .ve-n{width:24px; height:24px; border-radius:50%; background:#2e9e55; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; flex-shrink:0} .ve-vz .ve-n{background:#bbb}
+  .ve-bw{position:relative} .ve-res{position:absolute; left:0; right:0; top:100%; z-index:20; background:var(--rm-panel); border:1px solid var(--rm-border); box-shadow:0 8px 20px rgba(0,0,0,.18); max-height:260px; overflow:auto}
+  .ve-res > div{padding:8px 10px; cursor:pointer; border-bottom:1px solid var(--rm-border)} .ve-res > div:hover{background:var(--rm-bg)} .ve-res b{display:block; font-size:13.5px} .ve-res small{color:var(--rm-text-dim); font-size:12px} .ve-res .vz{color:var(--rm-text-dim); cursor:default}
+  .ve-f{display:flex; gap:10px; padding:12px 20px; border-top:1px solid var(--rm-border)} .ve-f button{flex:1; padding:11px; font:inherit; font-weight:700; cursor:pointer; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text)} .ve-f .ok{background:var(--rm-accent); color:#fff; border-color:var(--rm-accent)}
+  .sg{margin-top:12px; border:1px solid var(--rm-border); background:var(--rm-panel)}
+  .sg-h{display:flex; align-items:center; gap:8px; padding:9px 12px; border-bottom:1px solid var(--rm-border); font-size:13.5px} .sg-h b{font-size:14px} .sg-h span{color:var(--rm-text-dim); font-size:12.5px} .sg-h a{margin-left:auto; color:var(--rm-text-dim); font-size:12px; text-decoration:underline}
+  .sg-l{display:grid; grid-template-columns:repeat(3,1fr)} .sg-i{display:flex; flex-direction:column; gap:3px; padding:10px 12px; border-right:1px solid var(--rm-border)} .sg-i:last-child{border-right:0}
+  .sg-i b{font-size:13px; line-height:1.25} .sg-i small{color:var(--rm-text-dim); font-size:11.5px} .sg-zero{color:#c0392b; font-weight:700}
+  .sg-r{display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:4px} .sg-r strong{font-size:15px}
+  .sg-r button{border:1px solid #2e9e55; background:#eaf7ef; color:#1b7f3b; font:inherit; font-size:12.5px; font-weight:700; padding:5px 10px; cursor:pointer}
+  @media (max-width:700px){ .sg-l{grid-template-columns:1fr} .sg-i{border-right:0; border-bottom:1px solid var(--rm-border)} .vc-k{grid-template-columns:1fr} }
   .rm-com-nota{font-size:12.5px; color:var(--rm-text-dim); margin-top:10px; line-height:1.5;}
   .rm-com-cfg-row{display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; margin-bottom:14px;}
   .rm-com-cfg-row label, .rm-com-mec label{display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--rm-text-dim);}
@@ -2909,7 +2936,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 03/11 às 20:38</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 03/11 às 21:09</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -2967,9 +2994,11 @@ function rmCarregarLib(nome){
           <button class="rm-pdv-modo-btn active" id="rm-pdv-tabela-consumidor" onclick="rmSetTabelaPrecoPdv('consumidor')">Consumidor</button>
           <button class="rm-pdv-modo-btn" id="rm-pdv-tabela-parceiro" onclick="rmSetTabelaPrecoPdv('parceiro')">Parceiro</button>
         </div>
+        <div class="rm-pdv-modo-toggle"><button class="rm-pdv-modo-btn rm-pdv-vc-btn" id="rm-pdv-vc-btn" onclick="rmVcAbrir()">&#128161; Venda casada</button></div>
         <span class="rm-ret-grupo"><button class="rm-ret-btn" id="rm-btn-pdv-retirada" onclick="rmRetAbrir()"><span>&#128452;</span><span>Gaveta · tirar / colocar dinheiro</span></button><button class="rm-ret-imp" id="rm-ret-imp" style="display:none" title="Resumo das retiradas de hoje (só administrador)" onclick="rmRetResumoEscolher()">&#128424;</button><span class="gv-pdv" id="rm-gv-pdv" style="display:none"><span class="gv-dot"><i></i><em>procurando gaveta…</em></span></span></span>
       </div>
 
+      <div id="rm-vc"></div>
       <div class="rm-px-grid">
         <div class="rm-px-col">
 
@@ -5815,7 +5844,7 @@ function rmAPrazo(f){ return f === 'A prazo' || f === 'Promissória'; }
 let rmPdvModo = 'venda';
 
 function rmSetModoPdv(modo){
-  rmPdvModo = modo;
+  rmPdvModo = modo; try{ rmVcFechar(); }catch(e){}
   setTimeout(rmPdvCor);
   const orcamento = modo === 'orcamento';
   document.getElementById('rm-pdv-modo-venda').classList.toggle('active', !orcamento);
@@ -5842,7 +5871,7 @@ function rmPdvCor(){
   document.body.classList.toggle('rm-pdv-parc', !!parc);
 }
 function rmSetTabelaPrecoPdv(tabela){
-  rmPdvTabelaPreco = tabela;
+  rmPdvTabelaPreco = tabela; try{ rmVcFechar(); }catch(e){}
   setTimeout(rmPdvCor);
   document.getElementById('rm-pdv-tabela-consumidor').classList.toggle('active', tabela==='consumidor');
   document.getElementById('rm-pdv-tabela-parceiro').classList.toggle('active', tabela==='parceiro');
@@ -6281,8 +6310,176 @@ function rmRenderCarrinhoPdv(){
   document.getElementById('rm-pdv-qtd-total').textContent = rmFmtQtd(rmPdvCarrinho.reduce((s, it) => s + it.quantidade, 0));
   document.getElementById('rm-pdv-desconto-valor-texto').textContent = desconto > 0 ? ('Desconto -' + rmFormatMoeda(desconto)) : '';
   rmCalcularTroco();
+  try{ rmVcRenderSug(); }catch(e){}
   rmRenderPromPdv();
   if(rmPdvPartes){ const el = document.getElementById('rm-mx-falta-pdv'); if(el){ const d = rmMistoCtxDados('pdv'), f = rmCxR2(d.total - rmMistoSoma(d.partes)); el.innerHTML = rmMistoFaltaTxt(f); el.classList.toggle('ok', Math.abs(f) < 0.005); } }
+}
+
+// ===================== PDV > VENDA CASADA (sugestões "Leve junto") =====================
+// Cada venda casada: { id, nome, prods:[ids], familia:bool, sug:[até 3 ids], criadoEm, t, por, apagada? }
+// Guardada em configuracoes('venda_casada'); cada uma tem o horário em que mudou (dois aparelhos não se atrapalham).
+// Só SUGERE: não mexe em produto, estoque nem venda. O item aceito leva "vc" (id da venda casada) para a estatística.
+let rmVc = { regras: {} };
+try{ rmVc = Object.assign(rmVc, JSON.parse(localStorage.getItem('radicalMotos_vendaCasada')) || {}); }catch(e){}
+let rmVcAberta = false, rmVcEscondido = '', rmVcDraft = null, rmVcBusca = '';
+function rmVcPode(){ return !!(rmUsuario && (rmEhAdmin() || (rmUsuario.permissoes || []).includes('+vendacasada'))); }
+function rmVcGuardarLocal(){ try{ localStorage.setItem('radicalMotos_vendaCasada', JSON.stringify(rmVc)); }catch(e){} }
+function rmVcJuntar(a, b){
+  const r = { regras: {} };
+  [(a && a.regras) || {}, (b && b.regras) || {}].forEach(o => Object.keys(o).forEach(id => { const x = o[id], y = r.regras[id];
+    if(!y || String((x && x.t) || '') > String((y && y.t) || '')) r.regras[id] = x; }));
+  return r;
+}
+async function rmVcSync(){
+  try{ const { data } = await rmSb.from('configuracoes').select('*').eq('id','venda_casada').maybeSingle();
+    if(data && data.dados) rmVc = rmVcJuntar(data.dados, rmVc); rmVcGuardarLocal(); }catch(e){}
+}
+let rmVcTimer = null;
+function rmVcSalvar(){
+  rmVcGuardarLocal(); clearTimeout(rmVcTimer);
+  rmVcTimer = setTimeout(async () => {
+    try{
+      const { data, error: e1 } = await rmSb.from('configuracoes').select('*').eq('id','venda_casada').maybeSingle(); if(e1) throw e1;
+      rmVc = rmVcJuntar(data && data.dados, rmVc);
+      const { error } = await rmSb.from('configuracoes').upsert({ id:'venda_casada', dados: rmVc }); if(error) throw error;
+      rmVcGuardarLocal();
+    }catch(e){ console.warn('venda casada (fica no aparelho, envia depois):', e); clearTimeout(rmVcTimer); rmVcTimer = setTimeout(rmVcSalvar, 30000); }
+  }, 300);
+}
+function rmVcLista(){ return Object.values(rmVc.regras || {}).filter(r => r && !r.apagada).sort((a, b) => String(a.criadoEm || '').localeCompare(String(b.criadoEm || ''))); }
+// produtos que disparam a venda casada (com as outras marcas da família, se marcado)
+function rmVcGatilhos(r){
+  const s = new Set(r.prods || []);
+  if(r.familia) (r.prods || []).forEach(pid => { const f = rmFamDoProduto(pid); if(f) rmFamMembros(f.id).forEach(p => s.add(p.id)); });
+  return s;
+}
+function rmVcPreco(p){ return Number(rmPdvTabelaPreco === 'parceiro' ? p.precoParceiro : p.precoConsumidor) || 0; }
+// sugestões para o carrinho atual: o último produto lançado primeiro; até 3, sem repetir e sem o que já está na venda
+function rmVcSugestoes(){
+  const regras = rmVcLista(); if(!regras.length || !rmPdvCarrinho.length) return { lista: [], para: '' };
+  const ps = rmIdx(rmMemLista(RM_PRODUTOS_KEY)), noCarrinho = new Set(rmPdvCarrinho.map(i => i.produtoId).filter(Boolean));
+  const gat = regras.map(r => ({ r, g: rmVcGatilhos(r) })), out = [], vistos = new Set(); let para = '';
+  for(let i = rmPdvCarrinho.length - 1; i >= 0 && out.length < 3; i--){
+    const pid = rmPdvCarrinho[i].produtoId; if(!pid) continue;
+    gat.forEach(({ r, g }) => { if(!g.has(pid)) return;
+      (r.sug || []).forEach(sid => { if(out.length >= 3 || vistos.has(sid) || noCarrinho.has(sid)) return; const p = ps.get(sid); if(!p || p.ativo === false) return;
+        vistos.add(sid); out.push({ p, r }); if(!para) para = rmPdvCarrinho[i].nome; }); });
+  }
+  return { lista: out, para };
+}
+function rmVcRenderSug(){
+  let el = document.getElementById('rm-pdv-sug');
+  if(!el){ const info = document.querySelector('#rm-section-pdv .rm-px-info'); if(!info) return; el = document.createElement('div'); el.id = 'rm-pdv-sug'; info.after(el); }
+  const { lista, para } = rmVcSugestoes(), chave = rmPdvCarrinho.map(i => i.produtoId || '').join(',');
+  if(!lista.length || rmVcEscondido === chave){ el.innerHTML = ''; return; }
+  el.innerHTML = `<div class="sg"><div class="sg-h">&#128161; <b>Leve junto</b><span>para ${rmEscapeHtml(para)}</span><a href="#" onclick="rmVcEscondido='${rmJs(chave)}'; rmVcRenderSug(); return false;">esconder</a></div>
+    <div class="sg-l">${lista.map(({ p }) => { const est = Number(p.estoqueAtual) || 0, pr = rmVcPreco(p);
+      return `<div class="sg-i"><b>${rmEscapeHtml(p.nome)}</b><small>${p.marca ? rmEscapeHtml(p.marca) + ' · ' : ''}<span class="${est > 0 ? '' : 'sg-zero'}">${est > 0 ? rmFmtQtd(est) + ' em estoque' : 'sem estoque'}</span>${p.localizacao ? ' · ' + rmEscapeHtml(p.localizacao) : ''}</small>
+        <div class="sg-r"><strong>${pr > 0 ? rmFormatMoeda(pr) : 'sem preço'}</strong><button type="button" onclick="rmVcAdicionar('${rmJs(p.id)}')">+ Adicionar</button></div></div>`; }).join('')}</div></div>`;
+}
+function rmVcAdicionar(pid){
+  const { lista } = rmVcSugestoes(), s = lista.find(x => x.p.id === pid); if(!s) return;
+  const p = s.p, pr = rmVcPreco(p);
+  if(!(pr > 0)){ rmEscolherProdutoPdv(p.id); rmShowToast('Este produto não tem preço: digite o valor e adicione'); return; }
+  rmPdvCarrinho.push({ nome: p.nome, precoUnit: pr, quantidade: 1, desconto: 0, descontoPct: 0, subtotal: pr, produtoId: p.id, vc: s.r.id });
+  rmPdvUltimoIndex = rmPdvCarrinho.length - 1;
+  rmRenderCarrinhoPdv(); rmShowToast('Adicionado: ' + p.nome);
+}
+
+// ----- tela de cadastro -----
+function rmVcAbrir(){ rmVcAberta = !rmVcAberta; rmVcMostrar(); if(rmVcAberta) rmVcSync().then(() => { if(rmVcAberta) rmVcRenderTela(); }); }
+function rmVcFechar(){ if(!rmVcAberta) return; rmVcAberta = false; rmVcMostrar(); }
+function rmVcMostrar(){
+  const sec = document.getElementById('rm-section-pdv'); if(!sec) return;
+  sec.classList.toggle('rm-vc-on', rmVcAberta);
+  const b = document.getElementById('rm-pdv-vc-btn'); if(b) b.classList.toggle('on', rmVcAberta);
+  if(rmVcAberta) rmVcRenderTela(); else rmRenderCarrinhoPdv();
+}
+function rmVcEstat(){
+  const h = new Date(), ini = new Date(h.getFullYear(), h.getMonth(), 1).getTime(), por = {}; let n = 0, v = 0;
+  rmLoadVendas().filter(x => rmVendaValida(x) && x.tipo !== 'orcamento' && new Date(x.criadoEm).getTime() >= ini).forEach(x => (x.itens || []).forEach(it => {
+    if(!it.vc) return; n++; v += Number(it.subtotal) || 0; por[it.vc] = (por[it.vc] || 0) + 1; }));
+  return { n, v, por };
+}
+function rmVcNomeProd(pid){ const p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(pid); return p ? p.nome : '(produto apagado)'; }
+function rmVcRenderTela(){
+  const el = document.getElementById('rm-vc'); if(!el) return;
+  const pode = rmVcPode(), est = rmVcEstat(), q = rmVcBusca;
+  let l = rmVcLista();
+  if(q) l = l.filter(r => rmBuscaBate([r.nome].concat((r.prods || []).map(rmVcNomeProd), (r.sug || []).map(rmVcNomeProd)), q));
+  el.innerHTML = `<div class="vc-top"><button class="rm-pe2-btn" onclick="rmVcFechar()">&larr; Voltar ao PDV</button><h1 class="rm-title" style="margin:0">Venda casada</h1>
+      <input class="rm-input" id="rm-vc-busca" placeholder="Buscar produto..." value="${rmEscapeHtml(q)}" oninput="rmVcBusca=this.value; rmVcRenderTela(); const i=document.getElementById('rm-vc-busca'); i.focus(); i.setSelectionRange(i.value.length,i.value.length);" autocomplete="off">
+      ${pode ? '<button class="rm-pe2-btn vc-nova" onclick="rmVcEditar(null)">+ Nova venda casada</button>' : ''}</div>
+    <div class="vc-k"><div><span>Vendas casadas cadastradas</span><b>${rmVcLista().length}</b></div><div><span>Sugestões aceitas (mês)</span><b>${est.n}</b></div><div><span>Vendido a mais com sugestão (mês)</span><b style="color:var(--rm-accent)">${rmFormatMoeda(est.v)}</b></div></div>
+    ${l.length ? `<table class="vc-t"><thead><tr><th style="width:42%">Quando vender qualquer um destes</th><th>Sugerir junto (até 3)</th><th style="width:80px">Aceitas</th><th style="width:150px"></th></tr></thead><tbody>
+      ${l.map(r => `<tr><td><b>${rmEscapeHtml(r.nome || '')}</b>${(r.prods || []).map(pid => `<span class="vc-p">${rmEscapeHtml(rmVcNomeProd(pid))}</span>`).join('')}${r.familia ? '<small class="vc-f">+ outras marcas da família</small>' : ''}</td>
+        <td>${(r.sug || []).map(pid => `<span class="vc-c">${rmEscapeHtml(rmVcNomeProd(pid))}</span>`).join('')}${(r.sug || []).length < 3 ? '<span class="vc-v">+ vaga livre</span>' : ''}</td>
+        <td>${est.por[r.id] || 0}</td>
+        <td style="text-align:right; white-space:nowrap;">${pode ? `<button class="rm-prom-btn" onclick="rmVcEditar('${rmJs(r.id)}')">Editar</button> <button class="rm-prom-btn" onclick="rmVcExcluir('${rmJs(r.id)}')">Excluir</button>` : ''}</td></tr>`).join('')}
+      </tbody></table>` : `<div class="rm-problema-empty" style="padding:20px;">${q ? 'Nada encontrado' : 'Nenhuma venda casada ainda.' + (pode ? ' Clique em "+ Nova venda casada".' : '')}</div>`}
+    <div class="rm-com-nota">Quando qualquer produto da esquerda entra no PDV (venda, orçamento, consumidor ou parceiro), aparece o quadro "Leve junto" com os produtos da direita. Na OS não aparece. Não muda nada no cadastro, no estoque nem nas vendas.${pode ? '' : ' <b>Você não tem permissão para cadastrar venda casada.</b>'}</div>`;
+}
+async function rmVcExcluir(id){
+  if(!rmVcPode()){ alert('Você não tem permissão para cadastrar venda casada.'); return; }
+  const r = rmVc.regras[id]; if(!r) return;
+  if(!(await rmConfirmar('Excluir a venda casada "' + (r.nome || '') + '"?\n\nOs produtos e as vendas não mudam.', { tipo: 'aviso', titulo: 'Excluir venda casada?', sim: 'Excluir' }))) return;
+  rmVc.regras[id] = Object.assign({}, rmVc.regras[id], { apagada: true, t: new Date().toISOString(), por: rmNomeUsuario() });
+  rmVcSalvar(); rmVcRenderTela(); rmLog('Excluiu venda casada', r.nome || '');
+}
+function rmVcEditar(id){
+  if(!rmVcPode()){ alert('Você não tem permissão para cadastrar venda casada.'); return; }
+  const r = id ? rmVc.regras[id] : null;
+  rmVcDraft = { id: id || null, nome: r ? r.nome || '' : '', prods: r ? (r.prods || []).slice() : [], familia: r ? !!r.familia : true, sug: r ? (r.sug || []).slice() : [], qP: '', qS: '' };
+  rmVcRenderEditor();
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+}
+function rmVcBuscaProd(q, fora){
+  if(!String(q || '').trim()) return [];
+  return rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && !fora.has(p.id) && rmBuscaBate([p.nome, p.marca, p.codigo, p.codigoBarras], q)).slice(0, 8);
+}
+function rmVcRenderEditor(foco){
+  const d = rmVcDraft, m = document.getElementById('rm-modal'); if(!d || !m) return;
+  const ps = rmIdx(rmMemLista(RM_PRODUTOS_KEY)), usados = new Set(d.prods.concat(d.sug));
+  const famTxt = pid => { if(!d.familia) return ''; const f = rmFamDoProduto(pid); if(!f) return ''; const o = rmFamMembros(f.id).filter(p => p.id !== pid).map(p => p.marca || p.nome); return o.length ? `<small>+ família: ${rmEscapeHtml(o.join(', '))}</small>` : ''; };
+  const res = (q, tipo) => { const l = rmVcBuscaProd(q, usados); return l.length ? `<div class="ve-res">${l.map(p => `<div onmousedown="event.preventDefault(); rmVcAdd('${tipo}','${rmJs(p.id)}')"><b>${rmEscapeHtml(p.nome)}</b><small>${rmEscapeHtml(p.marca || '')} · ${rmFmtQtd(p.estoqueAtual || 0)} em estoque · ${rmFormatMoeda(p.precoConsumidor || 0)}</small></div>`).join('')}</div>` : (String(q || '').trim() ? '<div class="ve-res"><div class="vz">Nada encontrado</div></div>' : ''); };
+  const slot = i => { const pid = d.sug[i], p = pid && ps.get(pid);
+    if(pid) return `<div class="ve-s"><span class="ve-n">${i + 1}</span><div><b>${rmEscapeHtml(p ? p.nome : '(produto apagado)')}</b>${p ? `<small>${rmEscapeHtml(p.marca || '')} · ${rmFmtQtd(p.estoqueAtual || 0)} em estoque · ${rmFormatMoeda(p.precoConsumidor || 0)}</small>` : ''}</div><button type="button" onclick="rmVcTirar('sug',${i})">&times;</button></div>`;
+    if(i !== d.sug.length) return `<div class="ve-s ve-vz"><span class="ve-n">${i + 1}</span><div style="color:var(--rm-text-dim)">vaga livre</div></div>`;
+    return `<div class="ve-s ve-vz"><span class="ve-n">${i + 1}</span><div class="ve-bw"><input class="rm-input" id="rm-vc-qs" placeholder="Buscar produto para sugerir..." value="${rmEscapeHtml(d.qS)}" oninput="rmVcDraft.qS=this.value; rmVcRenderEditor('rm-vc-qs')" autocomplete="off" style="margin:0">${res(d.qS, 'sug')}</div></div>`; };
+  m.className = 'rm-modal';
+  m.innerHTML = `<div class="rm-modal-header"><div><div class="rm-modal-title">&#128161; Venda casada</div></div><button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
+    <div class="ve-b">
+      <div class="ve-l">NOME <span>(para achar fácil na lista)</span></div>
+      <input class="rm-input" id="rm-vc-nome" value="${rmEscapeHtml(d.nome)}" oninput="rmVcDraft.nome=this.value" autocapitalize="characters" placeholder="ex: RELAÇÕES" style="margin:0">
+      <div class="ve-l">QUANDO VENDER QUALQUER UM DESTES <span>(${d.prods.length} produto${d.prods.length === 1 ? '' : 's'})</span></div>
+      <div class="ve-box">${d.prods.map((pid, i) => `<div class="ve-pi"><div><b>${rmEscapeHtml(ps.get(pid) ? ps.get(pid).nome : '(produto apagado)')}</b>${famTxt(pid)}</div><button type="button" onclick="rmVcTirar('prods',${i})">&times;</button></div>`).join('')}
+        <div class="ve-bw"><input class="rm-input" id="rm-vc-qp" placeholder="+ Buscar e adicionar produto..." value="${rmEscapeHtml(d.qP)}" oninput="rmVcDraft.qP=this.value; rmVcRenderEditor('rm-vc-qp')" autocomplete="off" style="margin:6px 0 0">${res(d.qP, 'prods')}</div></div>
+      <label class="ve-chk"><input type="checkbox" ${d.familia ? 'checked' : ''} onchange="rmVcDraft.familia=this.checked; rmVcRenderEditor()"> Incluir as outras marcas da família de cada produto</label>
+      <div class="ve-l">SUGERIR JUNTO <span>(até 3, na ordem em que aparecem no PDV)</span></div>
+      ${[0, 1, 2].map(slot).join('')}
+    </div>
+    <div class="ve-f"><button type="button" onclick="rmCloseModal()">Cancelar</button><button type="button" class="ok" onclick="rmVcSalvarEdicao()">Salvar</button></div>`;
+  if(foco){ const i = document.getElementById(foco); if(i){ i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }
+}
+function rmVcAdd(tipo, pid){
+  const d = rmVcDraft; if(!d) return;
+  if(tipo === 'sug'){ if(d.sug.length < 3 && !d.sug.includes(pid)) d.sug.push(pid); d.qS = ''; }
+  else { if(!d.prods.includes(pid)) d.prods.push(pid); d.qP = ''; }
+  rmVcRenderEditor(tipo === 'sug' ? (d.sug.length < 3 ? 'rm-vc-qs' : null) : 'rm-vc-qp');
+}
+function rmVcTirar(tipo, i){ const d = rmVcDraft; if(!d) return; d[tipo].splice(i, 1); rmVcRenderEditor(); }
+function rmVcSalvarEdicao(){
+  const d = rmVcDraft; if(!d) return;
+  if(!rmVcPode()){ alert('Você não tem permissão para cadastrar venda casada.'); return; }
+  if(!d.prods.length){ alert('Adicione pelo menos um produto em "Quando vender".'); return; }
+  if(!d.sug.length){ alert('Adicione pelo menos uma sugestão.'); return; }
+  const agora = new Date().toISOString(), antes = d.id ? rmVc.regras[d.id] : null;
+  const nome = (String(d.nome || '').trim() || rmVcNomeProd(d.prods[0])).toUpperCase();
+  const r = { id: d.id || ('vc' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6)), nome, prods: d.prods.slice(), familia: !!d.familia, sug: d.sug.slice(0, 3),
+    criadoEm: (antes && antes.criadoEm) || agora, t: agora, por: rmNomeUsuario() };
+  rmVc.regras[r.id] = r; rmVcSalvar();
+  rmLog(antes ? 'Editou venda casada' : 'Cadastrou venda casada', nome, r.prods.length + ' produto(s) → ' + r.sug.map(rmVcNomeProd).join(', '));
+  rmVcDraft = null; rmCloseModal(); rmVcRenderTela(); rmShowToast('Venda casada salva');
 }
 
 // ===================== MAIS DE UMA FORMA DE PAGAMENTO (PDV e OS) =====================
@@ -7259,7 +7456,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611032038; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611032109; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -8382,6 +8579,7 @@ async function rmAuthIniciar(){
   setTimeout(() => rmLemSync().catch(() => {}), 1000);
   setTimeout(() => rmChatIniciar().catch(() => {}), 1200);
   setTimeout(() => rmFamSync().catch(() => {}), 1400);
+  setTimeout(() => rmVcSync().then(() => { try{ rmRenderCarrinhoPdv(); }catch(e){} }).catch(() => {}), 1600);
 }
 
 function rmAplicarPermissoes(){
@@ -8566,7 +8764,8 @@ function rmPermAbrir(uid){
         <label class="pm-ch"><input type="checkbox" id="pm-retorno"${(u.permissoes || []).includes('+retorno') ? ' checked' : ''}> <span>Pode marcar OS como retorno de garantia (sem cobrança)</span></label>
         <label class="pm-ch"><input type="checkbox" id="pm-compras"${(u.permissoes || []).includes('+compras') ? ' checked' : ''}> <span>Pode ver o histórico de compras dos produtos (preço pago)</span></label>
         <label class="pm-ch"><input type="checkbox" id="pm-gaveta"${(u.permissoes || []).includes('+gaveta') ? ' checked' : ''}> <span>Pode abrir a gaveta de dinheiro pelo botão (sem venda)</span></label>
-        <label class="pm-ch"><input type="checkbox" id="pm-local3d"${(u.permissoes || []).includes('+local3d') ? ' checked' : ''}> <span>Pode mudar a localização dos produtos pelo 3D</span></label></div></div>
+        <label class="pm-ch"><input type="checkbox" id="pm-local3d"${(u.permissoes || []).includes('+local3d') ? ' checked' : ''}> <span>Pode mudar a localização dos produtos pelo 3D</span></label>
+        <label class="pm-ch"><input type="checkbox" id="pm-vendacasada"${(u.permissoes || []).includes('+vendacasada') ? ' checked' : ''}> <span>Pode cadastrar venda casada (PDV)</span></label></div></div>
     <div class="pe"><button onclick="document.getElementById('rm-perm-ov').remove()">Cancelar</button><button class="pri" onclick="rmPermSalvar('${rmJs(uid)}')">Salvar acesso</button></div></div>`;
   document.body.appendChild(ov);
   rmPermContar();
@@ -8592,7 +8791,7 @@ async function rmPermSalvar(uid){
   if(!secs.length){ alert('Marque pelo menos uma aba.'); return; }
   const doPapel = ((RM_PAPEIS[u.papel] || {}).perms || []);
   const mesmo = u.papel !== 'personalizado' && doPapel.length === secs.length && secs.every(k => doPapel.includes(k));
-  const extra = ((document.getElementById('pm-cancelar') || {}).checked ? ['+cancelar'] : []).concat((document.getElementById('pm-compras') || {}).checked ? ['+compras'] : []).concat((document.getElementById('pm-retorno') || {}).checked ? ['+retorno'] : []).concat((document.getElementById('pm-gaveta') || {}).checked ? ['+gaveta'] : []).concat((document.getElementById('pm-local3d') || {}).checked ? ['+local3d'] : []);
+  const extra = ((document.getElementById('pm-cancelar') || {}).checked ? ['+cancelar'] : []).concat((document.getElementById('pm-compras') || {}).checked ? ['+compras'] : []).concat((document.getElementById('pm-retorno') || {}).checked ? ['+retorno'] : []).concat((document.getElementById('pm-gaveta') || {}).checked ? ['+gaveta'] : []).concat((document.getElementById('pm-local3d') || {}).checked ? ['+local3d'] : []).concat((document.getElementById('pm-vendacasada') || {}).checked ? ['+vendacasada'] : []);
   const campos = mesmo ? { permissoes: bloq.concat(extra) } : { papel: 'personalizado', permissoes: secs.concat(bloq, extra) };
   const ov = document.getElementById('rm-perm-ov'); if(ov) ov.remove();
   await rmAlterarUsuario(uid, campos);
