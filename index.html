@@ -1684,6 +1684,21 @@
   .rm-com-trava button{background:var(--rm-accent); color:#fff; border:0; padding:11px 20px; font:inherit; font-weight:700; cursor:pointer; width:260px}
   .rm-com-junta{padding:8px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font:inherit; font-size:13.5px; min-width:170px}
   .rm-com-mec-j b{opacity:.6} .rm-com-jtx{font-size:13px; color:var(--rm-text-dim); padding-bottom:9px}
+  /* lançar numa OS (PDV) */
+  .rm-modal.rm-modal-los{width:680px !important; max-width:94vw !important}
+  .lo-q{padding:12px 20px 6px} .lo-l{padding:0 20px; max-height:48vh; overflow:auto}
+  .lo-i{display:flex; align-items:center; gap:12px; padding:10px 12px; border:1px solid var(--rm-border); margin-bottom:6px; cursor:pointer} .lo-i:hover{background:var(--rm-bg)}
+  .lo-i.sel{border:2px solid var(--rm-accent); background:rgba(217,67,58,.06); padding:9px 11px}
+  .lo-ph{width:52px; height:52px; background:#d9dde3; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; object-fit:cover}
+  .lo-t{flex:1; min-width:0} .lo-t b{font-size:14.5px} .lo-t small{display:block; color:var(--rm-text-dim); font-size:12.5px; margin-top:2px}
+  .lo-st{font-size:11.5px; font-weight:700; color:#fff; padding:3px 8px; white-space:nowrap}
+  .lo-ck{width:20px; height:20px; border-radius:50%; border:2px solid var(--rm-border); flex-shrink:0} .lo-i.sel .lo-ck{background:var(--rm-accent); border-color:var(--rm-accent); box-shadow:inset 0 0 0 4px var(--rm-panel)}
+  .lo-r{border-top:1px solid var(--rm-border); padding:10px 20px; font-size:13.5px; background:var(--rm-bg); margin-top:6px; max-height:22vh; overflow:auto} .lo-r div{display:flex; justify-content:space-between; gap:10px; padding:2px 0}
+  .lo-r .tt{font-weight:700; font-size:14.5px; border-top:1px solid var(--rm-border); margin-top:4px; padding-top:6px}
+  .lo-f{display:flex; gap:10px; padding:12px 20px; border-top:1px solid var(--rm-border)} .lo-f button{flex:1; padding:12px; font:inherit; font-weight:700; cursor:pointer; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text)}
+  .lo-f .ok{flex:2; background:var(--rm-accent); color:#fff; border-color:var(--rm-accent)} .lo-f .ok:disabled{opacity:.45; cursor:default}
+  #rm-los-aviso{position:fixed; left:50%; bottom:24px; transform:translate(-50%, 140%); background:#1f7a45; color:#fff; padding:10px 12px 10px 16px; display:flex; align-items:center; gap:12px; z-index:10050; box-shadow:0 6px 24px rgba(0,0,0,.25); font-size:14px; transition:transform .25s; max-width:92vw}
+  #rm-los-aviso.show{transform:translate(-50%, 0)} #rm-los-aviso button{border:1px solid rgba(255,255,255,.6); background:transparent; color:#fff; font:inherit; font-weight:700; padding:6px 12px; cursor:pointer; white-space:nowrap} #rm-los-aviso .x{border:0; font-size:20px; padding:0 4px}
   /* venda casada */
   .rm-pdv-vc-btn{border:1px solid #e0b200 !important; background:#fff8dc !important; color:#7a5a00 !important; font-weight:700; padding:0 16px !important}
   .rm-pdv-vc-btn.on{box-shadow:inset 0 -3px 0 #c99a00}
@@ -2936,7 +2951,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 03/11 às 21:09</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 04/11 às 19:24</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3048,6 +3063,7 @@ function rmCarregarLib(nome){
             <div id="rm-pdv-carrinho-lista"></div>
             <div class="rm-px-qtdtotal">Quantidade total de produtos: <b id="rm-pdv-qtd-total">0</b>
               <button class="rm-sep-btn" title="Imprimir a lista de peças para buscar no estoque, na ordem das prateleiras" onclick="rmImprimirSeparacao('Venda no balcão' + (rmPdvClienteNome ? ' · ' + rmPdvClienteNome : ''), '', rmPdvCarrinho)">&#128205; Buscar no estoque</button>
+              <button class="rm-sep-btn" id="rm-pdv-los-btn" style="margin-right:6px;" title="Lança estes itens numa OS que já está na oficina" onclick="rmPdvLosAbrir()">&#10133; Lançar numa OS</button>
               <button class="rm-sep-btn" id="rm-pdv-para-os-btn" style="margin-right:6px;" title="Leva estes itens para uma nova ordem de serviço" onclick="rmOrcamentoParaOS({ tipo:'carrinho' })">&#128295; Transformar em OS</button></div>
             <div class="rm-px-info">Clique na linha do produto se desejar editar os valores informados</div>
           </div>
@@ -5852,6 +5868,7 @@ function rmSetModoPdv(modo){
   document.getElementById('rm-pdv-pagamento-block').style.display = orcamento ? 'none' : '';
   document.getElementById('rm-pdv-pago-row').style.display = orcamento ? 'none' : '';
   document.getElementById('rm-pdv-finalizar-btn').textContent = orcamento ? 'Salvar orçamento' : 'Finalizar venda';
+  { const b = document.getElementById('rm-pdv-los-btn'); if(b) b.style.display = orcamento ? 'none' : ''; }
 }
 let rmPdvCarrinho = [];
 let rmPdvEditandoIndex = null;
@@ -6480,6 +6497,88 @@ function rmVcSalvarEdicao(){
   rmVc.regras[r.id] = r; rmVcSalvar();
   rmLog(antes ? 'Editou venda casada' : 'Cadastrou venda casada', nome, r.prods.length + ' produto(s) → ' + r.sug.map(rmVcNomeProd).join(', '));
   rmVcDraft = null; rmCloseModal(); rmVcRenderTela(); rmShowToast('Venda casada salva');
+}
+
+// ===================== PDV > LANÇAR NUMA OS =====================
+// Leva os itens do PDV para uma OS que já está na oficina (não entregue), com o preço e o desconto do PDV.
+// Baixa o estoque como o lançamento normal da OS. Desconto geral do PDV é dividido entre os itens.
+let rmPdvLosSel = null;
+function rmPdvLosAbrir(){
+  if(rmPdvModo === 'orcamento') return;
+  if(!rmPdvCarrinho.length){ alert('Adicione os itens antes de lançar numa OS.'); return; }
+  if(typeof rmPdvEditandoVenda !== 'undefined' && rmPdvEditandoVenda){ alert('Termine ou cancele a edição da venda antes de lançar numa OS.'); return; }
+  if(rmPdvEditandoIndex !== null){ alert('Termine a edição do item (clique em ✓) antes de lançar numa OS.'); return; }
+  rmPdvLosSel = null;
+  const modal = document.getElementById('rm-modal'); modal.className = 'rm-modal rm-modal-los';
+  modal.innerHTML = `<div class="rm-modal-header"><div><div class="rm-modal-title">&#10133; Lançar numa OS</div><div class="rm-modal-sub">Escolha a moto. Só aparecem as que ainda estão na oficina (não entregues).</div></div><button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
+    <div class="lo-q"><input class="rm-input" id="rm-los-q" placeholder="Buscar por nº da OS, cliente, moto, placa ou mecânico..." oninput="rmPdvLosLista()" onkeydown="if(event.key==='Enter'){ const f=document.querySelector('#rm-los-l .lo-i'); if(f) f.click(); }" autocomplete="off" style="margin:0"></div>
+    <div class="lo-l" id="rm-los-l"></div><div id="rm-los-r"></div>`;
+  document.getElementById('rm-modal-backdrop').classList.add('show');
+  rmPdvLosLista(); setTimeout(() => { const i = document.getElementById('rm-los-q'); if(i) i.focus(); }, 50);
+}
+function rmPdvLosAbertas(){ return rmLoad().filter(r => !r.cancelamento && r.status !== 'entregue' && r.status !== 'cancelada'); }
+function rmPdvLosLista(){
+  const el = document.getElementById('rm-los-l'); if(!el) return;
+  const q = (document.getElementById('rm-los-q').value || '').trim();
+  const os = rmPdvLosAbertas().filter(r => !q || rmBuscaBate([r.codigoApp, r.nome, r.modelo, r.placa, r.mecanico], q))
+    .sort((a, b) => String(b.entrada || '').localeCompare(String(a.entrada || ''))).slice(0, 60);
+  const dias = r => { const d = Math.floor((Date.now() - new Date(r.entrada).getTime()) / 864e5); return isNaN(d) ? '' : d <= 0 ? 'entrou hoje' : d === 1 ? 'entrou ontem' : 'entrou há ' + d + ' dias'; };
+  el.innerHTML = os.length ? os.map(r => { const st = RM_STATUS[r.status] || RM_STATUS.aberto;
+    return `<div class="lo-i${r.id === rmPdvLosSel ? ' sel' : ''}" onclick="rmPdvLosSel='${rmJs(r.id)}'; rmPdvLosLista();"><span class="lo-ck"></span>
+      ${r.fotoUrl ? `<img class="lo-ph" src="${rmEscapeHtml(r.fotoUrl)}" alt="">` : '<div class="lo-ph">&#127949;</div>'}
+      <div class="lo-t"><b>${rmEscapeHtml((r.codigoApp || 'OS') + ' · ' + (r.nome || ''))}</b><small>${rmEscapeHtml([r.modelo, r.placa, r.mecanico].filter(Boolean).join(' · '))}${dias(r) ? ' · ' + dias(r) : ''}</small></div>
+      <span class="lo-st" style="background:${st.color}">${rmEscapeHtml(r.status === 'prontas' ? 'Pronta' : r.status === 'aberto' ? 'Aberta' : st.label)}</span></div>`; }).join('')
+    : `<div class="rm-problema-empty" style="padding:18px;">${q ? 'Nenhuma moto encontrada' : 'Nenhuma moto na oficina'}</div>`;
+  const r = rmPdvLosSel && rmPdvLosAbertas().find(x => x.id === rmPdvLosSel), it = rmPdvLosItens();
+  document.getElementById('rm-los-r').innerHTML = `<div class="lo-r">${it.map(i => `<div><span>${rmEscapeHtml(rmFmtQtd(i.quantidade) + ' × ' + i.nome)}</span><span>${rmFormatMoeda(i.subtotal)}</span></div>`).join('')}
+      <div class="tt"><span>${r ? 'Vai para a ' + rmEscapeHtml((r.codigoApp || 'OS') + ' · ' + (r.nome || '')) : 'Escolha a moto acima'}</span><span>${rmFormatMoeda(it.reduce((s, i) => s + i.subtotal, 0))}</span></div></div>
+    <div class="lo-f"><button type="button" onclick="rmCloseModal()">Cancelar</button><button type="button" class="ok" ${r ? '' : 'disabled'} onclick="rmPdvLosLancar()">${r ? 'Lançar ' + it.length + (it.length === 1 ? ' item' : ' itens') + ' na ' + rmEscapeHtml(r.codigoApp || 'OS') : 'Escolha a moto'}</button></div>`;
+}
+// itens do PDV como vão para a OS (desconto geral dividido entre os itens, proporcional ao valor)
+function rmPdvLosItens(){
+  const sub = rmTotalCarrinhoPdv(), dg = Math.min(sub, rmCalcularDescontoPdv(sub));
+  let resto = Math.round(dg * 100) / 100;
+  return rmPdvCarrinho.map((i, k) => {
+    const s = Number(i.subtotal) || 0; let d = 0;
+    if(dg > 0 && sub > 0){ d = k === rmPdvCarrinho.length - 1 ? resto : Math.round(dg * s / sub * 100) / 100; d = Math.min(d, s); resto = Math.round((resto - d) * 100) / 100; }
+    return Object.assign({}, i, { desconto: Math.round(((Number(i.desconto) || 0) + d) * 100) / 100, subtotal: Math.round((s - d) * 100) / 100 });
+  });
+}
+function rmPdvLosLancar(){
+  const id = rmPdvLosSel; if(!id) return;
+  const list = rmLoad(), r = list.find(x => x.id === id);
+  if(!r || r.cancelamento || r.status === 'entregue' || r.status === 'cancelada'){ alert('Essa OS não está mais na oficina (foi entregue ou cancelada). Escolha outra.'); rmPdvLosSel = null; rmPdvLosLista(); return; }
+  if(!rmOsPagaConfirmar(r, () => rmPdvLosLancar())) return;
+  const itens = rmPdvLosItens(); if(!itens.length) return;
+  const produtos = rmLoadProdutos(), idx = rmIdx(produtos), mudou = [];
+  if(!r.pecasUsadas) r.pecasUsadas = [];
+  itens.forEach(i => {
+    const p = i.produtoId ? idx.get(i.produtoId) : null, q = Number(i.quantidade) || 1, un = Number(i.precoUnit) || 0;
+    r.pecasUsadas.push({ uid: rmUid(), produtoId: i.produtoId || null, avulso: !i.produtoId || undefined, nome: i.nome, codigo: (p && p.codigo) || '', localizacao: (p && p.localizacao) || '',
+      categoria: (p && p.categoria) || '', servico: !!(p && p.ehServico) || (!i.produtoId && /M[AÃ]O\s*DE\s*OBRA|SERVI[CÇ]O/i.test(i.nome || '')),
+      quantidade: q, precoUnit: un, desconto: Number(i.desconto) || 0, subtotal: Number(i.subtotal) || (q * un), por: rmNomeUsuario() });
+    if(p && !p.ehServico){ p.estoqueAtual = (Number(p.estoqueAtual) || 0) - q; mudou.push(p); }
+  });
+  rmSave(list); rmDbUpsertRecepcao(r);
+  if(mudou.length){ rmSaveProdutos(produtos); mudou.forEach(p => rmDbUpsertProduto(p)); }
+  rmLog('Lançou do PDV na OS', r.codigoApp, itens.map(i => rmFmtQtd(i.quantidade) + '× ' + i.nome).join(' · ') + ' · ' + rmFormatMoeda(itens.reduce((s, i) => s + i.subtotal, 0)));
+  rmOsPagaReajustar(id);
+  // limpa o PDV (igual depois de transformar em OS)
+  rmPdvCarrinho = []; rmPdvUltimoIndex = null; rmPdvResetarLinha();
+  document.getElementById('rm-pdv-desconto-valor').value = '';
+  document.getElementById('rm-pdv-observacao').value = '';
+  rmPdvFormaPagamento = null; rmPdvPartes = null; rmPdvPromN = 1; rmPdvPromVenc = null; rmPdvPromEnt = 0; rmPdvPromEntF = 'Dinheiro';
+  rmLimparClientePdv(); rmRenderCarrinhoPdv(); rmRenderFormasPagamentoPdv(); rmRenderPromPdv();
+  rmPdvLosSel = null; rmCloseModal();
+  rmPdvLosAviso(r, itens.length);
+}
+function rmPdvLosAviso(r, n){
+  let el = document.getElementById('rm-los-aviso');
+  if(!el){ el = document.createElement('div'); el.id = 'rm-los-aviso'; document.body.appendChild(el); }
+  el.innerHTML = `<span>&#10004; ${n} ${n === 1 ? 'item lançado' : 'itens lançados'} na <b>${rmEscapeHtml(r.codigoApp || 'OS')}</b> · ${rmEscapeHtml(r.nome || '')}</span>
+    <button type="button" onclick="document.getElementById('rm-los-aviso').classList.remove('show'); rmSetSection('oficina'); rmOpenModal('${rmJs(r.id)}', true);">Abrir a OS</button>
+    <button type="button" class="x" onclick="document.getElementById('rm-los-aviso').classList.remove('show')">&times;</button>`;
+  el.classList.add('show'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 8000);
 }
 
 // ===================== MAIS DE UMA FORMA DE PAGAMENTO (PDV e OS) =====================
@@ -7456,7 +7555,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611032109; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611041924; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
