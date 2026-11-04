@@ -2950,7 +2950,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 04/11 às 19:43</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 04/11 às 20:33</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -7554,7 +7554,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611041943; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611042033; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -14325,7 +14325,17 @@ async function rmResumoWhatsapp(){
 }
 
 function rmImprimirOSA4(id){ const c = rmCorpoOSA4(id); if(c) rmImprimirA4(c.titulo, c.corpo); }
-function rmCorpoOSA4(id){
+// "Nota para moto": igual à OS completa, mas sem o nome do mecânico (mão de obra sai como OFICINA)
+function rmImprimirNotaMoto(id, modo){ const c = rmCorpoOSA4(id, modo || 'junto'); if(c) rmImprimirA4(c.titulo, c.corpo); }
+function rmOsItemEhMao(it){ return !!(it && (it.servico || /M[AÃ]O\s*DE\s*OBRA|SERVI[CÇ]O/i.test(it.nome || ''))); }
+function rmOsItensSemMec(itens, modo){
+  const l = (itens || []).map(it => rmOsItemEhMao(it) ? Object.assign({}, it, { nome: 'MÃO DE OBRA - OFICINA', codigo: '', localizacao: '', categoria: '' }) : it);
+  if(modo !== 'junto') return l;
+  const mao = l.filter(rmOsItemEhMao); if(mao.length < 2) return l;
+  const tot = mao.reduce((a, it) => a + (Number(it.subtotal) || 0), 0);
+  return l.filter(it => !rmOsItemEhMao(it)).concat([{ nome: 'MÃO DE OBRA - OFICINA', servico: true, quantidade: 1, precoUnit: tot, subtotal: tot }]);
+}
+function rmCorpoOSA4(id, semMec){
   const r = rmIdx(rmMemLista(RM_KEY)).get(id); if(!r) return null;
   const t = rmOsTotais(r);
   const cli = r.clienteId ? (rmLoadClientes().find(c => c.id === r.clienteId) || { nome:r.nome, telefone:r.telefone }) : { nome:r.nome, telefone:r.telefone };
@@ -14334,10 +14344,10 @@ function rmCorpoOSA4(id){
   const corpo = rmA4Cabecalho('Ordem Serviço nº', r.codigoApp, new Date(r.pagoEm || r.entrada).toLocaleDateString('pt-BR'), rmOsCriador(r))
     + rmA4Secao('Dados Gerais', rmA4Duas(
         ['Data Serviço: ' + rmFormatData(r.entrada), 'Data Entrega: ' + (r.pagoEm ? rmDataHoraBR(r.pagoEm) : (r.status === 'entregue' && rmOsDataEntrega(r) ? rmDataHoraBR(rmOsDataEntrega(r)) : '—'))],
-        ['Responsável: ' + rmH(r.mecanico || ''), 'Status: ' + rmH(st), r.modelo ? 'Moto: ' + rmH(r.modelo) : ''].filter(Boolean)))
+        [semMec ? 'Responsável: OFICINA' : 'Responsável: ' + rmH(r.mecanico || ''), 'Status: ' + rmH(st), r.modelo ? 'Moto: ' + rmH(r.modelo) : ''].filter(Boolean)))
     + rmA4ClienteTxt(cli)
     + (r.itens ? rmA4Secao('Itens deixados na moto', rmH(r.itens)) : '')
-    + rmA4Itens(r.pecasUsadas, [ r.maoDeObra > 0 ? ['Mão de obra', rmFmtNum(r.maoDeObra)] : null ])
+    + rmA4Itens(semMec ? rmOsItensSemMec(r.pecasUsadas, semMec) : r.pecasUsadas, [ r.maoDeObra > 0 ? [semMec ? 'Mão de obra - Oficina' : 'Mão de obra', rmFmtNum(r.maoDeObra)] : null ])
     + (r.retorno ? rmA4Secao('Retorno de garantia', `<div class="a4-valor">Retorno de garantia${r.retorno.osOrigemCod ? ' da OS nº ' + rmH(r.retorno.osOrigemCod) : ''}${r.retorno.motivo ? ' · Motivo: ' + rmH(r.retorno.motivo === 'Outro' ? (r.retorno.detalhe || 'Outro') : r.retorno.motivo) : ''}.<br>Peças e serviços sem custo para o cliente (valor normal R$ ${rmFmtNum(t.cobrar)}). Total (R$): <b>0,00</b></div>`)
      : r.pago ? rmA4Pagamentos(r.id, r.formaPagamento, t.total, r.pagoEm, t.bruto, t.desc, r.pagamentos)
               : rmA4Secao('Totais', `<div class="a4-valor">${t.desc > 0 ? 'Subtotal (R$): ' + rmFmtNum(t.bruto) + ' · Desconto (R$): ' + rmFmtNum(t.desc) + ' · ' : ''}Total (R$): <b>${rmFmtNum(t.total)}</b></div>`))
@@ -20336,6 +20346,7 @@ function rmOpenModal(id, large){
         <button class="rm-modal-txt-btn" onclick="rmHistDaOS('${r.id}')" title="Ver e recuperar versões anteriores desta OS">&#128338; Versões</button>
         <button class="rm-modal-txt-btn" onclick="rmImprimirEtiqueta('${r.id}')" title="Etiqueta para colocar na moto (o que deve ser feito)">&#127991; Etiqueta</button>
         <button class="rm-modal-txt-btn" onclick="rmImprimirOSA4('${r.id}')" title="Ordem de serviço completa em A4 (peças, valores, cliente), mesmo sem finalizar">&#128196; OS completa</button>
+        <button class="rm-modal-txt-btn" onclick="rmImprimirNotaMoto('${r.id}')" title="Igual à OS completa, mas sem o nome do mecânico: a mão de obra sai como OFICINA">&#127949; Nota para moto</button>
         <button class="rm-modal-txt-btn" onclick="rmOsResumo('${r.id}')" title="Resumo visual para mostrar ao cliente ou mandar no WhatsApp (imagem ou PDF)">&#128203; Resumo</button>
         <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
       </div>
