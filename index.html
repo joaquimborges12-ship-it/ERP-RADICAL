@@ -2951,7 +2951,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 04/11 às 19:24</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 04/11 às 19:29</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -7555,7 +7555,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611041924; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611041929; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -8646,6 +8646,10 @@ async function rmCarregarPerfil(user){
 // Quando o banco é limpo pelo SQL de limpeza, ele grava a data em configuracoes('limpeza').
 // Cada aparelho, ao entrar, vê que houve limpeza e apaga a SUA cópia local (para não reenviar dados de teste).
 async function rmChecarLimpeza(){
+  // DESLIGADO por segurança: a limpeza geral do sistema nunca mais será usada.
+  // Antes, se aparecesse o registro "limpeza" no servidor, cada computador apagava os dados guardados nele
+  // (inclusive o que ainda não tinha sido enviado). Agora nunca apaga nada.
+  return;
   try{
     const { data } = await rmSb.from('configuracoes').select('*').eq('id','limpeza').maybeSingle();
     const em = data && data.dados && data.dados.em;
@@ -12891,7 +12895,9 @@ setTimeout(rmBackupLembrete, 8000);
 setInterval(rmBackupLembrete, 2 * 60 * 60 * 1000);
 
 // ===================== BACKUP COMPLETO =====================
-const RM_BKP_TABELAS = [['recebimentos','id'],['inventarios','id'],['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome']];
+const RM_BKP_TABELAS = [['recebimentos','id'],['inventarios','id'],['recepcoes','id'],['clientes','id'],['vendas','id'],['produtos','id'],['promissorias','id'],['avisos','id'],['configuracoes','id'],['mecanicos','nome'],['notas_compra','id']];
+// tabelas que podem não existir ainda (SQL opcional): se faltar, o backup segue sem ela, sem avisar
+const RM_BKP_OPCIONAIS = ['notas_compra'];
 const RM_BKP_ULTIMO_KEY = 'radicalMotos_ultimoBackup';
 
 async function rmBackupCompleto(){
@@ -12900,7 +12906,7 @@ async function rmBackupCompleto(){
   const falhas = [];
   for(const [t, ordem] of RM_BKP_TABELAS){
     const { data, error } = await rmSelectTudo(t, '*', ordem);
-    if(error){ falhas.push(t); continue; }
+    if(error){ if(RM_BKP_OPCIONAIS.includes(t) && /relation|does not exist|schema cache|not find/i.test(String(error.message || error))) continue; falhas.push(t); continue; }
     dados.tabelas[t] = data || [];
   }
   if(falhas.length){
