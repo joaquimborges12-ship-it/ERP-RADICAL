@@ -1684,6 +1684,37 @@
   .rm-com-trava button{background:var(--rm-accent); color:#fff; border:0; padding:11px 20px; font:inherit; font-weight:700; cursor:pointer; width:260px}
   .rm-com-junta{padding:8px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font:inherit; font-size:13.5px; min-width:170px}
   .rm-com-mec-j b{opacity:.6} .rm-com-jtx{font-size:13px; color:var(--rm-text-dim); padding-bottom:9px}
+  /* caixa (fila de pagamentos) */
+  .fc-badge{margin-left:auto; align-self:center; background:#d9433a; color:#fff; font-weight:800; font-size:12px; border-radius:10px; padding:1px 8px; line-height:18px}
+  .rm-nav-btn.active .fc-badge{background:#fff; color:#d9433a}
+  .fc-h{display:flex; align-items:baseline; gap:12px; margin-bottom:12px; flex-wrap:wrap} .fc-h small{color:var(--rm-text-dim)}
+  .fc-obra{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#b26a00; border:1px dashed #d9a441; padding:2px 7px}
+  .fc{display:grid; grid-template-columns:380px 1fr; gap:16px} @media (max-width:900px){ .fc{grid-template-columns:1fr} }
+  .fc-f{background:var(--rm-panel); border:1px solid var(--rm-border); align-self:start} .fc-ft{padding:11px 14px; border-bottom:1px solid var(--rm-border); font-weight:700; display:flex; justify-content:space-between}
+  .fc-i{padding:12px 14px; border-bottom:1px solid var(--rm-border); cursor:pointer; display:flex; gap:10px} .fc-i:hover{background:var(--rm-bg)} .fc-i.sel{border-left:4px solid var(--rm-accent); background:rgba(217,67,58,.06); padding-left:10px} .fc-i.lock{opacity:.6}
+  .fc-i .tg{font-size:11px; font-weight:800; padding:2px 6px; background:#eef3fb; color:#2b5aa8; align-self:flex-start; white-space:nowrap} .fc-i .tg.os{background:#fdecea; color:#a3271e}
+  .fc-i > div{flex:1; min-width:0} .fc-i b{font-size:14.5px} .fc-i small{display:block; color:var(--rm-text-dim); font-size:12.5px; margin-top:2px} .fc-i em{display:block; font-style:normal; font-size:12px; color:#b26a00; font-weight:700; margin-top:3px}
+  .fc-i .v{flex:none; font-weight:800; font-size:15px; text-align:right} .fc-i .v small{font-weight:400}
+  .fc-vz{padding:28px 16px; text-align:center; color:var(--rm-text-dim)} .fc-vz small{font-size:12.5px}
+  .fc-d{background:var(--rm-panel); border:1px solid var(--rm-border); padding:16px 18px; align-self:start} .fc-d h2{margin:0; font-size:20px} .fc-d .sub{color:var(--rm-text-dim); font-size:13px; margin:3px 0 12px}
+  .fc-trava{background:#fff3cd; color:#7a5b00; border:1px solid #ffe08a; padding:8px 10px; font-size:13.5px; margin-bottom:10px}
+  .fc-t{width:100%; border-collapse:collapse; font-size:14px} .fc-t th{text-align:left; font-size:12px; color:var(--rm-text-dim); padding:6px 4px; border-bottom:1px solid var(--rm-border)} .fc-t td{padding:8px 4px; border-bottom:1px solid var(--rm-border)} .fc-t .r{text-align:right}
+  .fc-l{display:flex; justify-content:space-between; font-size:14px; padding:4px 4px 0}
+  .fc-tot{display:flex; justify-content:space-between; align-items:center; margin:12px 0; padding:12px 14px; background:var(--rm-bg)} .fc-tot b{font-size:28px; color:var(--rm-accent)}
+  .fc-pg{display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin-bottom:10px} .fc-pg button{padding:10px 4px; font:inherit; font-weight:700; font-size:13px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); cursor:pointer} .fc-pg button.on{border:2px solid var(--rm-accent); color:var(--rm-accent)}
+  .fc-din{display:flex; align-items:flex-end; gap:12px; margin-bottom:10px; font-size:13px} .fc-din label{display:flex; flex-direction:column; gap:4px; color:var(--rm-text-dim)} .fc-din input{margin:0; width:180px} .fc-din span{font-weight:800; font-size:16px; padding-bottom:10px}
+  .fc-a{display:flex; gap:8px; flex-wrap:wrap} .fc-a button{padding:11px 14px; font:inherit; font-weight:700; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); cursor:pointer} .fc-a .ok{flex:1; min-width:180px; background:var(--rm-accent); color:#fff; border-color:var(--rm-accent); font-size:16px}
+  .fc-a .fc-nf{opacity:.55; border-style:dashed; cursor:not-allowed} .fc-nf small{display:block; font-weight:400; font-size:11px}
+  .fc-dica{font-size:12.5px; color:var(--rm-text-dim); margin-top:10px} .fc-dica a{color:var(--rm-text)}
+  .rm-pdv-env-caixa{width:100%; margin-top:8px; padding:11px; font:inherit; font-weight:700; font-size:15px; border:2px solid var(--rm-accent); background:var(--rm-panel); color:var(--rm-accent); cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:1px}
+  .rm-pdv-env-caixa small, .rm-os-env-caixa small{font-size:10.5px; font-weight:500; color:var(--rm-text-dim); text-transform:lowercase}
+  .rm-os-env-caixa{background:transparent !important; border:1px dashed var(--rm-border) !important; color:var(--rm-text-dim) !important; font-weight:600 !important; display:inline-flex; flex-direction:column; align-items:center; line-height:1.15}
+  .fc-banner{background:#eaf7ef; border:1px solid #9fd3b2; color:#1b5e33; padding:9px 12px; margin-bottom:10px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:14px}
+  .fc-banner button{margin-left:auto; border:1px solid #1b7f3b; background:transparent; color:#1b5e33; font:inherit; font-size:13px; font-weight:700; padding:5px 10px; cursor:pointer}
+  html[data-tema="dark"] .fc-banner{background:#173324; border-color:#2f6b45; color:#bfe8cf} html[data-tema="dark"] .fc-banner button{color:#bfe8cf; border-color:#5fbf86}
+  .fc-dev{background:#fff3cd; border:1px solid #ffe08a; color:#7a5b00; padding:8px 12px; margin-bottom:10px; font-size:13.5px; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+  .fc-dev button{border:1px solid #c9a227; background:transparent; color:#7a5b00; font:inherit; font-size:13px; font-weight:700; padding:4px 10px; cursor:pointer}
+  .fc-res{margin-left:8px; font-size:12px; font-weight:700; color:#b26a00}
   /* lançar numa OS (PDV) */
   .rm-modal.rm-modal-los{width:680px !important; max-width:94vw !important}
   .lo-q{padding:12px 20px 6px} .lo-l{padding:0 20px; max-height:48vh; overflow:auto}
@@ -2940,6 +2971,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-visao-geral" onclick="rmSetSection('visao-geral')" title="Visão Geral"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Visão Geral</span><span class="rm-nav-sub">Resumo do dia</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-planilha" onclick="rmSetSection('planilha')" title="Planilha"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v3h5V5H5zm7 0v3h7V5h-7zM5 10v4h5v-4H5zm7 0v4h7v-4h-7zm-7 6v3h5v-3H5zm7 0v3h7v-3h-7z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Planilha</span><span class="rm-nav-sub">Vales e lembretes</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-pdv" onclick="rmSetSection('pdv')" title="PDV"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">PDV</span><span class="rm-nav-sub">Ponto de venda</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-caixa" onclick="rmSetSection('caixa')" title="Caixa"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Caixa</span><span class="rm-nav-sub">Em construção</span></span><span class="fc-badge" id="rm-fc-badge" style="display:none">0</span></button>
         <button class="rm-nav-btn" id="rm-btn-oficina" onclick="rmSetSection('oficina')" title="Oficina"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Oficina</span><span class="rm-nav-sub">Motos e mecânicos</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-financeiro" onclick="rmSetSection('financeiro')" title="Financeiro"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Financeiro</span><span class="rm-nav-sub">Vendas, contas, caixa</span></span></button>
 
@@ -2950,7 +2982,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 04/11 às 21:20</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 04/11 às 21:45</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3012,6 +3044,7 @@ function rmCarregarLib(nome){
         <span class="rm-ret-grupo"><button class="rm-ret-btn" id="rm-pdv-resumo-btn" onclick="rmPdvResumo()" title="Resumo dos itens do PDV para mostrar ao cliente ou mandar no WhatsApp (imagem ou PDF)"><span class="rm-ret-ic">&#128203;</span><span>Resumo</span></button><button class="rm-ret-btn" id="rm-btn-pdv-retirada" onclick="rmRetAbrir()"><span class="rm-ret-ic">&#128452;</span><span>Gaveta</span></button><button class="rm-ret-imp" id="rm-ret-imp" style="display:none" title="Resumo das retiradas de hoje (só administrador)" onclick="rmRetResumoEscolher()">&#128424;</button><span class="gv-pdv" id="rm-gv-pdv" style="display:none"><span class="gv-dot"><i></i><em>procurando gaveta…</em></span></span></span>
       </div>
 
+      <div id="rm-fc-devolvidos"></div>
       <div id="rm-vc"></div>
       <div class="rm-px-grid">
         <div class="rm-px-col">
@@ -3129,6 +3162,7 @@ function rmCarregarLib(nome){
           </div>
 
           <button class="rm-pdv-finalizar" id="rm-pdv-finalizar-btn" onclick="rmFinalizarVenda()">Finalizar venda</button>
+          <button class="rm-pdv-env-caixa" id="rm-pdv-env-caixa" onclick="rmFcEnviarPdv()">&#128176; Enviar para o caixa<small>em construção</small></button>
         </div>
       </div>
 
@@ -3714,6 +3748,11 @@ function rmCarregarLib(nome){
       <div id="rm-view-pf-estoque" class="rm-view"></div>
       <div id="rm-view-pf-nocoes" class="rm-view"></div>
       <div id="rm-view-pf-caixinhas" class="rm-view"></div>
+    </div>
+
+    <div id="rm-section-caixa" class="rm-section">
+      <div class="fc-h"><h1 class="rm-title" style="margin:0;">Caixa</h1><span class="fc-obra">em construção</span><small>Pedidos e OS enviados pelo balcão para receber</small></div>
+      <div id="rm-fc"></div>
     </div>
 
     <div id="rm-section-ferramentas" class="rm-section">
@@ -5868,6 +5907,7 @@ function rmSetModoPdv(modo){
   document.getElementById('rm-pdv-pago-row').style.display = orcamento ? 'none' : '';
   document.getElementById('rm-pdv-finalizar-btn').textContent = orcamento ? 'Salvar orçamento' : 'Finalizar venda';
   { const b = document.getElementById('rm-pdv-los-btn'); if(b) b.style.display = orcamento ? 'none' : ''; }
+  { const b = document.getElementById('rm-pdv-env-caixa'); if(b) b.style.display = orcamento || (typeof rmFcRecebendo !== 'undefined' && rmFcRecebendo) ? 'none' : ''; }
 }
 let rmPdvCarrinho = [];
 let rmPdvEditandoIndex = null;
@@ -5996,6 +6036,7 @@ function rmPdvInfoProduto(p, avulso){
   if(avulso){ el.innerHTML = '<div class="rm-semcad-aviso">&#9888; PRODUTO NÃO CADASTRADO — digite o preço de venda. Não baixa estoque.</div>'; return; }
   if(!p){ el.innerHTML = ''; return; }
   el.innerHTML = (p.marca ? `<span>${rmEscapeHtml(p.marca)}</span>` : '') + rmInvSelo(p.id);
+  try{ const rs = rmFcReservado(p.id); if(rs > 0) el.insertAdjacentHTML('beforeend', `<span class="fc-res">&#128176; ${rmFmtQtd(rs)} reservado${rs > 1 ? 's' : ''} no caixa · livre ${rmFmtQtd((Number(p.estoqueAtual) || 0) - rs)}</span>`); }catch(e){}
 }
 // produto digitado à mão, sem cadastro: aviso bem visível e o cursor vai para o preço
 function rmPdvAvulso(){
@@ -6243,6 +6284,9 @@ function rmAdicionarItemPdv(){
   rmPdvResetarLinha();
   nomeInput.focus();
   rmRenderCarrinhoPdv();
+  // aviso: vendendo mais do que está livre (parte está reservada em pedidos do caixa)
+  try{ if(item.produtoId){ const rs = rmFcReservado(item.produtoId); if(rs > 0){ const p = rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(item.produtoId), noCar = rmPdvCarrinho.filter(i => i.produtoId === item.produtoId).reduce((a, i) => a + (Number(i.quantidade) || 0), 0), livre = (Number(p && p.estoqueAtual) || 0) - rs;
+    if(noCar > livre) alert('Atenção: ' + rmFmtQtd(rs) + ' unidade(s) de ' + item.nome + ' estão reservadas em pedido(s) do caixa.\nEstoque livre: ' + rmFmtQtd(Math.max(0, livre)) + '. Confira antes de vender.'); } } }catch(e){}
 }
 
 function rmEditarItemPdv(i){
@@ -6616,6 +6660,272 @@ function rmPdvLosAviso(r, n){
     <button type="button" onclick="document.getElementById('rm-los-aviso').classList.remove('show'); rmSetSection('oficina'); rmOpenModal('${rmJs(r.id)}', true);">Abrir a OS</button>
     <button type="button" class="x" onclick="document.getElementById('rm-los-aviso').classList.remove('show')">&times;</button>`;
   el.classList.add('show'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 8000);
+}
+
+// ===================== CAIXA (fila de pagamentos) — EM CONSTRUÇÃO =====================
+// O balcão manda o pedido do PDV (ou a OS) para o caixa; o caixa recebe.
+// A fila fica em configuracoes('caixa-fila') = { pedidos: { id: pedido } }. Cada mudança lê o servidor, muda SÓ aquele
+// pedido e confere depois de gravar (dois computadores não se atrapalham). Pedido na fila não baixa estoque nem entra
+// no financeiro: só vira venda quando o caixa recebe (pelo mesmo Finalizar venda do PDV). Os itens ficam RESERVADOS.
+// status: fila | atendimento | devolvido (voltou pro balcão) | reaberto | pago | cancelado
+const RM_FC_ID = 'caixa-fila', RM_FC_ABERTOS = ['fila', 'atendimento'], RM_FC_TRAVA_MIN = 15;
+let rmFc = { pedidos: {} }, rmFcSel = null, rmFcRecebendo = null, rmFcForma = null, rmFcLendo = false, rmFcTimer = null;
+try{ rmFc = JSON.parse(localStorage.getItem('radicalMotos_filaCaixa')) || rmFc; if(!rmFc.pedidos) rmFc.pedidos = {}; }catch(e){}
+function rmFcGuardar(){ try{ localStorage.setItem('radicalMotos_filaCaixa', JSON.stringify(rmFc)); }catch(e){} }
+function rmFcLista(st){ return Object.values(rmFc.pedidos || {}).filter(p => p && (!st || st.includes(p.status))).sort((a, b) => String(a.criadoEm).localeCompare(String(b.criadoEm))); }
+// cada computador tem um código próprio (mesmo usuário logado em dois computadores não recebe duas vezes)
+function rmFcAparelho(){ let a = null; try{ a = localStorage.getItem('radicalMotos_aparelho'); if(!a){ a = 'ap' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); localStorage.setItem('radicalMotos_aparelho', a); } }catch(e){ a = a || 'ap-sem-memoria'; } return a; }
+function rmFcTravadoPorOutro(p){
+  return !!(p && p.status === 'atendimento' && p.atendidoAparelho && p.atendidoAparelho !== rmFcAparelho() && Date.now() - new Date(p.atendidoEm).getTime() < RM_FC_TRAVA_MIN * 60000);
+}
+async function rmFcLer(){
+  if(!rmSb || !rmUsuario || navigator.onLine === false) return rmFc;
+  const { data, error } = await rmSb.from('configuracoes').select('*').eq('id', RM_FC_ID).maybeSingle();
+  if(error) throw error;
+  rmFc = (data && data.dados) || { pedidos: {} }; if(!rmFc.pedidos) rmFc.pedidos = {};
+  rmFcGuardar();
+  return rmFc;
+}
+// muda UM pedido: fn(atual) devolve o novo pedido, ou { erro } para parar
+async function rmFcMudar(id, fn){
+  if(!rmSb || navigator.onLine === false) return { erro: 'Sem internet. O caixa precisa de internet para funcionar.' };
+  for(let tent = 0; tent < 5; tent++){
+    let fila;
+    try{ fila = await rmFcLer(); }catch(e){ return { erro: 'Não consegui falar com o servidor. Tente de novo.' }; }
+    const atual = fila.pedidos[id] ? JSON.parse(JSON.stringify(fila.pedidos[id])) : null;
+    const novo = fn(atual);
+    if(!novo || novo.erro) return novo || { erro: 'Nada mudou.' };
+    novo.id = id; novo.t = new Date().toISOString() + '-' + Math.random().toString(36).slice(2, 6);
+    const pedidos = Object.assign({}, fila.pedidos, { [id]: novo });
+    // fechados há mais de 3 dias saem da fila (a venda/OS continua guardada normalmente)
+    const lim = Date.now() - 3 * 864e5;
+    Object.keys(pedidos).forEach(k => { const p = pedidos[k]; if(p && ['pago', 'cancelado', 'reaberto'].includes(p.status) && new Date(p.fechadoEm || p.criadoEm).getTime() < lim) delete pedidos[k]; });
+    const { error } = await rmSb.from('configuracoes').upsert({ id: RM_FC_ID, dados: { pedidos } });
+    if(error) return { erro: 'Não consegui gravar no servidor. Tente de novo.' };
+    try{ const f2 = await rmFcLer(); if(f2.pedidos[id] && f2.pedidos[id].t === novo.t){ rmFcPintar(); return novo; } }catch(e){}
+    await new Promise(r => setTimeout(r, 300 + Math.random() * 500));
+  }
+  return { erro: 'Outro computador mexeu na fila ao mesmo tempo. Tente de novo.' };
+}
+// itens reservados (pedidos do PDV ainda não recebidos)
+function rmFcReservado(pid){
+  if(!pid) return 0; let q = 0;
+  rmFcLista(['fila', 'atendimento', 'devolvido']).forEach(p => { if(p.tipo !== 'pdv' || (rmFcRecebendo && rmFcRecebendo.id === p.id)) return;
+    (p.itens || []).forEach(it => { if(it.produtoId === pid) q += Number(it.quantidade) || 0; }); });
+  return q;
+}
+// a cada poucos segundos: atualiza a fila, o número no menu e fecha OS que já foram pagas
+async function rmFcAtualizar(){
+  if(rmFcLendo || !rmUsuario || !rmSb || navigator.onLine === false) return;
+  rmFcLendo = true;
+  try{
+    await rmFcLer();
+    const os = rmIdx(rmMemLista(RM_KEY));
+    for(const p of rmFcLista(RM_FC_ABERTOS)){
+      if(p.tipo !== 'os') continue;
+      const r = os.get(p.osId); if(!r) continue;
+      if(r.pago || r.cancelamento) await rmFcMudar(p.id, a => a && RM_FC_ABERTOS.includes(a.status) ? Object.assign(a, { status: r.pago ? 'pago' : 'cancelado', fechadoEm: new Date().toISOString(), pagoPor: r.pago ? rmNomeUsuario() : undefined }) : { erro: 'ok' });
+    }
+  }catch(e){}
+  finally{ rmFcLendo = false; rmFcPintar(); }
+}
+function rmFcIniciar(){ clearInterval(rmFcTimer); rmFcTimer = setInterval(rmFcAtualizar, 5000); setTimeout(rmFcAtualizar, 1500); }
+function rmFcPintar(){
+  const n = rmFcLista(RM_FC_ABERTOS).length, b = document.getElementById('rm-fc-badge');
+  if(b){ b.textContent = n; b.style.display = n ? '' : 'none'; }
+  const sec = document.getElementById('rm-section-caixa');
+  if(sec && sec.classList.contains('active')) rmFcRender();
+  rmFcDevolvidosPdv();
+}
+
+// ----- balcão: enviar do PDV -----
+function rmFcLimparPdv(){
+  rmPdvCarrinho = []; rmPdvUltimoIndex = null; rmPdvResetarLinha();
+  document.getElementById('rm-pdv-desconto-valor').value = ''; document.getElementById('rm-pdv-desconto-tipo').value = 'valor';
+  document.getElementById('rm-pdv-valor-recebido').value = ''; document.getElementById('rm-pdv-observacao').value = '';
+  rmPdvFormaPagamento = null; rmPdvPartes = null; rmPdvPromN = 1; rmPdvPromVenc = null; rmPdvPromEnt = 0; rmPdvPromEntF = 'Dinheiro';
+  rmLimparClientePdv(); rmRenderCarrinhoPdv(); rmRenderFormasPagamentoPdv(); rmRenderPromPdv();
+}
+async function rmFcEnviarPdv(){
+  if(rmPdvModo === 'orcamento' || rmPdvEditandoVenda || rmFcRecebendo) return;
+  if(!rmPdvConfirmarLinha()) return;
+  if(!rmPdvCarrinho.length){ alert('Adicione os itens antes de enviar para o caixa.'); return; }
+  const sub = rmTotalCarrinhoPdv(), desc = Math.min(sub, rmCalcularDescontoPdv(sub));
+  const id = 'cx' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const ped = { tipo: 'pdv', status: 'fila', por: rmNomeUsuario(), criadoEm: new Date().toISOString(),
+    clienteId: rmPdvClienteId || null, clienteNome: rmPdvClienteNome || '', tabela: rmPdvTabelaPreco,
+    itens: rmPdvCarrinho.map(i => Object.assign({}, i)), descValor: document.getElementById('rm-pdv-desconto-valor').value, descTipo: document.getElementById('rm-pdv-desconto-tipo').value,
+    observacao: document.getElementById('rm-pdv-observacao').value.trim(), subtotal: sub, desconto: desc, total: sub - desc };
+  const r = await rmFcMudar(id, a => a ? { erro: 'Esse pedido já existe.' } : ped);
+  if(r.erro){ alert(r.erro); return; }
+  rmLog('Enviou para o caixa', ped.clienteNome || 'Consumidor', ped.itens.length + ' item(ns) · ' + rmFormatMoeda(ped.total));
+  rmFcLimparPdv();
+  rmShowToast('Enviado para o caixa · ' + rmFormatMoeda(ped.total));
+}
+// ----- balcão: enviar a OS -----
+async function rmFcEnviarOs(osId){
+  const r = rmLoad().find(x => x.id === osId); if(!r || r.pago || r.cancelamento) return;
+  if(rmFcLista(['fila', 'atendimento']).some(p => p.osId === osId)){ alert('Esta OS já está na fila do caixa.'); return; }
+  const t = rmOsTotais(r), id = 'cx' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const ped = { tipo: 'os', status: 'fila', osId, codigoApp: r.codigoApp || '', por: rmNomeUsuario(), criadoEm: new Date().toISOString(),
+    clienteId: r.clienteId || null, clienteNome: r.nome || '', modelo: r.modelo || '', placa: r.placa || '',
+    itens: (r.pecasUsadas || []).map(i => ({ nome: i.nome, quantidade: i.quantidade, precoUnit: i.precoUnit, subtotal: i.subtotal })), total: t.total };
+  const res = await rmFcMudar(id, a => { if(a) return { erro: 'Esse pedido já existe.' }; if(Object.values(rmFc.pedidos).some(p => p.osId === osId && RM_FC_ABERTOS.includes(p.status))) return { erro: 'Esta OS já está na fila do caixa.' }; return ped; });
+  if(res.erro){ alert(res.erro); return; }
+  rmLog('Enviou OS para o caixa', r.codigoApp, rmFormatMoeda(t.total));
+  rmShowToast((r.codigoApp || 'OS') + ' enviada para o caixa · ' + rmFormatMoeda(t.total));
+}
+// ----- pedidos devolvidos pelo caixa aparecem no PDV -----
+function rmFcDevolvidosPdv(){
+  const box = document.getElementById('rm-fc-devolvidos'); if(!box) return;
+  const l = rmFcLista(['devolvido']).filter(p => p.tipo === 'pdv');
+  box.innerHTML = l.length ? `<div class="fc-dev">&#8617; <b>${l.length}</b> pedido${l.length > 1 ? 's' : ''} devolvido${l.length > 1 ? 's' : ''} pelo caixa: ${l.map(p => `<button type="button" onclick="rmFcReabrir('${rmJs(p.id)}')">${rmEscapeHtml(p.clienteNome || 'Consumidor')} · ${rmFormatMoeda(p.total)}${p.motivo ? ' · ' + rmEscapeHtml(p.motivo) : ''}</button>`).join('')}</div>` : '';
+}
+async function rmFcReabrir(id){
+  if(rmPdvCarrinho.length || rmPdvEditandoVenda || rmFcRecebendo){ alert('Termine ou limpe a venda que está no PDV antes de abrir o pedido devolvido.'); return; }
+  const r = await rmFcMudar(id, a => a && a.status === 'devolvido' ? Object.assign(a, { status: 'reaberto', fechadoEm: new Date().toISOString(), reabertoPor: rmNomeUsuario() }) : { erro: 'Esse pedido já foi aberto em outro computador.' });
+  if(r.erro){ alert(r.erro); return; }
+  rmFcCarregarNoPdv(r);
+  rmLog('Reabriu pedido devolvido pelo caixa', r.clienteNome || 'Consumidor', rmFormatMoeda(r.total));
+}
+function rmFcCarregarNoPdv(p){
+  if(rmPdvModo === 'orcamento') rmSetModoPdv('venda');
+  rmPdvTabelaPreco = p.tabela === 'parceiro' ? 'parceiro' : 'consumidor';
+  document.getElementById('rm-pdv-tabela-consumidor').classList.toggle('active', rmPdvTabelaPreco === 'consumidor');
+  document.getElementById('rm-pdv-tabela-parceiro').classList.toggle('active', rmPdvTabelaPreco === 'parceiro');
+  rmPdvCarrinho = (p.itens || []).map(i => Object.assign({}, i)); rmPdvUltimoIndex = null; rmPdvResetarLinha();
+  document.getElementById('rm-pdv-desconto-valor').value = p.descValor || ''; document.getElementById('rm-pdv-desconto-tipo').value = p.descTipo || 'valor';
+  document.getElementById('rm-pdv-observacao').value = p.observacao || '';
+  rmPdvFormaPagamento = null; rmPdvPartes = null;
+  if(p.clienteId && rmLoadClientes().some(c => c.id === p.clienteId)) rmEscolherClientePdv(p.clienteId);
+  else { rmLimparClientePdv(); rmPdvClienteNome = p.clienteNome || ''; rmRenderClienteSelecionadoPdv(); }
+  rmRenderCarrinhoPdv(); rmRenderFormasPagamentoPdv(); rmRenderPromPdv();
+}
+
+// ----- tela do Caixa -----
+async function rmFcAbrirTela(){ rmFcRender(); try{ await rmFcAtualizar(); }catch(e){} }
+function rmFcIdade(iso){ const m = Math.floor((Date.now() - new Date(iso).getTime()) / 60000); return m < 1 ? 'agora' : m < 60 ? 'há ' + m + ' min' : 'há ' + Math.floor(m / 60) + ' h'; }
+function rmFcRender(){
+  const el = document.getElementById('rm-fc'); if(!el) return;
+  const l = rmFcLista(RM_FC_ABERTOS);
+  if(rmFcSel && !l.some(p => p.id === rmFcSel)) rmFcSel = null;
+  const p = rmFcSel ? rmFc.pedidos[rmFcSel] : null;
+  const foco = document.activeElement && document.activeElement.id === 'rm-fc-recebido' ? document.activeElement.value : null;
+  el.innerHTML = `<div class="fc"><div class="fc-f"><div class="fc-ft"><span>Fila do caixa</span><span>${l.length}</span></div>
+      ${l.length ? l.map(x => { const trav = rmFcTravadoPorOutro(x);
+        return `<div class="fc-i${x.id === rmFcSel ? ' sel' : ''}${trav ? ' lock' : ''}" onclick="rmFcEscolher('${rmJs(x.id)}')"><span class="tg${x.tipo === 'os' ? ' os' : ''}">${x.tipo === 'os' ? rmEscapeHtml(x.codigoApp || 'OS') : 'PEDIDO'}</span>
+          <div><b>${rmEscapeHtml(x.clienteNome || 'CONSUMIDOR')}</b><small>${x.tipo === 'os' && x.modelo ? rmEscapeHtml(x.modelo) + ' · ' : ''}${(x.itens || []).length} ${((x.itens || []).length === 1 ? 'item' : 'itens')} · vendedor ${rmEscapeHtml(x.por || '')}</small>${trav ? `<em>&#128274; em atendimento por ${rmEscapeHtml(x.atendidoPor)} em outro computador</em>` : ''}</div>
+          <div class="v">${rmFormatMoeda(x.total)}<small>${rmFcIdade(x.criadoEm)}</small></div></div>`; }).join('')
+        : '<div class="fc-vz">Nenhum pedido esperando.<br><small>Quando o balcão clicar em "Enviar para o caixa", ele aparece aqui.</small></div>'}
+    </div>
+    <div class="fc-d">${p ? rmFcDetalheHtml(p) : '<div class="fc-vz">Escolha um pedido da fila para receber.</div>'}</div></div>`;
+  if(foco !== null){ const i = document.getElementById('rm-fc-recebido'); if(i){ i.value = foco; i.focus(); } }
+}
+function rmFcDetalheHtml(p){
+  const trav = rmFcTravadoPorOutro(p), os = p.tipo === 'os';
+  const itens = (p.itens || []).map(i => `<tr><td>${rmEscapeHtml(i.nome || '')}</td><td class="r">${rmFmtQtd(i.quantidade)}</td><td class="r">${rmFmtNum(i.precoUnit)}</td><td class="r">${rmFmtNum(i.subtotal)}</td></tr>`).join('');
+  const nf = `<button type="button" class="fc-nf" disabled title="Emissão de nota fiscal: em construção">&#129534; Emitir nota fiscal<small>em construção</small></button>`;
+  return `<h2>${rmEscapeHtml(p.clienteNome || 'CONSUMIDOR')}</h2>
+    <div class="sub">${os ? 'OS ' + rmEscapeHtml(p.codigoApp || '') + (p.modelo ? ' · ' + rmEscapeHtml(p.modelo) : '') + ' · ' : 'Pedido · '}enviado por ${rmEscapeHtml(p.por || '')} às ${new Date(p.criadoEm).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}${os ? '' : ' · estoque reservado'}</div>
+    ${trav ? `<div class="fc-trava">&#128274; ${rmEscapeHtml(p.atendidoPor)} está atendendo este pedido em outro computador.</div>` : ''}
+    <table class="fc-t"><thead><tr><th>Produto</th><th class="r">Qtd.</th><th class="r">Unit.</th><th class="r">Total</th></tr></thead><tbody>${itens}</tbody></table>
+    ${!os && p.desconto > 0.004 ? `<div class="fc-l"><span>Subtotal</span><span>${rmFormatMoeda(p.subtotal)}</span></div><div class="fc-l"><span>Desconto</span><span>&minus; ${rmFormatMoeda(p.desconto)}</span></div>` : ''}
+    <div class="fc-tot"><span>Total a receber</span><b>${rmFormatMoeda(p.total)}</b></div>
+    ${trav ? '' : os ? `<div class="fc-a"><button type="button" class="ok" onclick="rmFcAbrirOs('${rmJs(p.id)}')">&#128295; Abrir a OS para receber</button>
+        <button type="button" onclick="rmFcDevolver('${rmJs(p.id)}')">&#8617; Tirar da fila</button>${nf}</div>
+        <div class="fc-dica">Receba na própria OS (Marcar como paga). Quando ela ficar paga, sai da fila sozinha.</div>`
+      : `<div class="fc-pg">${['Dinheiro', 'PIX', 'Débito', 'Crédito', 'Boleto'].map(f => `<button type="button" class="${rmFcForma === f ? 'on' : ''}" onclick="rmFcForma='${f}'; rmFcRender();">${f}</button>`).join('')}</div>
+        ${rmFcForma === 'Dinheiro' ? `<div class="fc-din"><label>Valor recebido<input class="rm-input" id="rm-fc-recebido" inputmode="decimal" placeholder="0,00" oninput="rmFcTroco()"></label><span id="rm-fc-troco"></span></div>` : ''}
+        <div class="fc-a"><button type="button" class="ok" onclick="rmFcReceber('${rmJs(p.id)}')">&#10004; Receber e finalizar</button>
+          <button type="button" onclick="rmFcDevolver('${rmJs(p.id)}')">&#8617; Devolver ao balcão</button>
+          <button type="button" onclick="rmFcCancelar('${rmJs(p.id)}')">Cancelar pedido</button>${nf}</div>
+        <div class="fc-dica">Dividir em mais de uma forma, vender a prazo ou mudar itens: <a href="#" onclick="rmFcAbrirNoPdv('${rmJs(p.id)}'); return false;">abrir no PDV deste computador</a>.</div>`}`;
+}
+function rmFcTroco(){
+  const p = rmFc.pedidos[rmFcSel], el = document.getElementById('rm-fc-troco'); if(!p || !el) return;
+  const v = rmParseMoeda(document.getElementById('rm-fc-recebido').value);
+  el.textContent = v > 0 ? (v >= p.total ? 'Troco: ' + rmFormatMoeda(v - p.total) : 'Falta: ' + rmFormatMoeda(p.total - v)) : '';
+}
+async function rmFcEscolher(id){
+  const p = rmFc.pedidos[id]; if(!p) return;
+  rmFcSel = id; rmFcForma = null; rmFcRender();
+  if(rmFcTravadoPorOutro(p) || (p.status === 'atendimento' && p.atendidoAparelho === rmFcAparelho())) return;
+  await rmFcMudar(id, a => a && RM_FC_ABERTOS.includes(a.status) && !rmFcTravadoPorOutro(a) ? Object.assign(a, { status: 'atendimento', atendidoPor: rmNomeUsuario(), atendidoAparelho: rmFcAparelho(), atendidoEm: new Date().toISOString() }) : { erro: 'ok' });
+  rmFcRender();
+}
+// confere no servidor que o pedido ainda está esperando e é deste computador
+async function rmFcPegar(id){
+  const r = await rmFcMudar(id, a => {
+    if(!a || !RM_FC_ABERTOS.includes(a.status)) return { erro: 'Este pedido não está mais na fila (já foi recebido, cancelado ou devolvido).' };
+    if(rmFcTravadoPorOutro(a)) return { erro: a.atendidoPor + ' está atendendo este pedido em outro computador.' };
+    return Object.assign(a, { status: 'atendimento', atendidoPor: rmNomeUsuario(), atendidoAparelho: rmFcAparelho(), atendidoEm: new Date().toISOString() });
+  });
+  if(r.erro){ alert(r.erro); rmFcRender(); return null; }
+  return r;
+}
+async function rmFcReceber(id){
+  if(!rmFcForma){ alert('Escolha a forma de pagamento.'); return; }
+  if(rmPdvCarrinho.length || rmPdvEditandoVenda || rmFcRecebendo || rmPdvLinhaInfo()){ alert('O PDV deste computador tem uma venda em andamento. Finalize ou limpe ela antes de receber pelo caixa.'); return; }
+  const rec = rmFcForma === 'Dinheiro' ? (document.getElementById('rm-fc-recebido') || {}).value || '' : '';
+  const p = await rmFcPegar(id); if(!p) return;
+  rmFcRecebendo = p;
+  rmFcCarregarNoPdv(p);
+  rmPdvFormaPagamento = rmFcForma; rmRenderFormasPagamentoPdv();
+  document.getElementById('rm-pdv-valor-recebido').value = rec; rmCalcularTroco();
+  await rmFinalizarVenda();
+  if(rmFcRecebendo && rmFcRecebendo.id === id){ rmSetSection('pdv'); rmFcBanner(); } // algo faltou: termina no PDV
+}
+async function rmFcAbrirNoPdv(id){
+  if(rmPdvCarrinho.length || rmPdvEditandoVenda || rmFcRecebendo || rmPdvLinhaInfo()){ alert('O PDV deste computador tem uma venda em andamento. Finalize ou limpe ela antes.'); return; }
+  const p = await rmFcPegar(id); if(!p) return;
+  rmFcRecebendo = p; rmFcCarregarNoPdv(p); rmSetSection('pdv'); rmFcBanner();
+}
+function rmFcBanner(){
+  const sec = document.getElementById('rm-section-pdv'); if(!sec) return;
+  let b = document.getElementById('rm-fc-banner');
+  if(!rmFcRecebendo){ if(b) b.remove(); const e = document.getElementById('rm-pdv-env-caixa'); if(e) e.style.display = rmPdvModo === 'orcamento' ? 'none' : ''; return; }
+  if(!b){ b = document.createElement('div'); b.id = 'rm-fc-banner'; b.className = 'fc-banner'; sec.insertBefore(b, sec.firstChild); }
+  b.innerHTML = `&#128176; <b>Recebendo no caixa</b> · pedido de ${rmEscapeHtml(rmFcRecebendo.por || '')}${rmFcRecebendo.clienteNome ? ' · ' + rmEscapeHtml(rmFcRecebendo.clienteNome) : ''} · ao finalizar a venda, ele sai da fila.
+    <button type="button" onclick="rmFcSoltar()">Voltar para a fila sem receber</button>`;
+  const e = document.getElementById('rm-pdv-env-caixa'); if(e) e.style.display = 'none';
+}
+async function rmFcSoltar(){
+  const p = rmFcRecebendo; if(!p) return;
+  rmFcRecebendo = null; rmFcLimparPdv(); rmFcBanner();
+  await rmFcMudar(p.id, a => a && a.status === 'atendimento' ? Object.assign(a, { status: 'fila', atendidoPor: null, atendidoAparelho: null, atendidoEm: null }) : { erro: 'ok' });
+  rmSetSection('caixa');
+}
+// chamado pelo Finalizar venda quando a venda veio do caixa
+async function rmFcConcluir(p, venda){
+  rmFcBanner();
+  const r = await rmFcMudar(p.id, a => a ? Object.assign(a, { status: 'pago', fechadoEm: new Date().toISOString(), pagoPor: rmNomeUsuario(), vendaId: venda.id, codigoVenda: venda.codigoVenda }) : { erro: 'sumiu' });
+  if(r.erro) console.warn('caixa: não marquei como pago', r.erro);
+  rmLog('Recebeu no caixa', venda.codigoVenda, rmFormatMoeda(venda.total) + ' · pedido de ' + (p.por || ''));
+  rmFcSel = null; rmFcForma = null;
+  if(document.body.dataset.secao === 'caixa') rmFcRender();
+}
+async function rmFcDevolver(id){
+  const p = rmFc.pedidos[id]; if(!p) return;
+  const motivo = await rmPerguntar(p.tipo === 'os' ? 'Tirar esta OS da fila do caixa? (A OS continua igual.)' : 'Devolver o pedido para o balcão? Ele aparece no PDV para o vendedor abrir e mexer.', { titulo: p.tipo === 'os' ? 'Tirar da fila' : 'Devolver ao balcão', placeholder: 'Motivo (opcional)', sim: p.tipo === 'os' ? 'Tirar da fila' : 'Devolver' });
+  if(motivo === null || motivo === undefined || motivo === false) return;
+  const r = await rmFcMudar(id, a => a && RM_FC_ABERTOS.includes(a.status) && !rmFcTravadoPorOutro(a) ? Object.assign(a, { status: a.tipo === 'os' ? 'cancelado' : 'devolvido', fechadoEm: new Date().toISOString(), devolvidoPor: rmNomeUsuario(), motivo: String(motivo || '').trim().toUpperCase() }) : { erro: 'Este pedido não pode ser devolvido agora.' });
+  if(r.erro){ alert(r.erro); return; }
+  rmLog(p.tipo === 'os' ? 'Tirou OS da fila do caixa' : 'Devolveu pedido ao balcão', p.codigoApp || p.clienteNome || '', String(motivo || ''));
+  rmFcSel = null; rmFcRender();
+}
+async function rmFcCancelar(id){
+  const p = rmFc.pedidos[id]; if(!p) return;
+  if(!(await rmConfirmar('Cancelar este pedido? Ele sai da fila e o estoque reservado é liberado.\n\nNenhuma venda é feita.', { tipo: 'aviso', titulo: 'Cancelar pedido?', sim: 'Cancelar pedido', nao: 'Voltar' }))) return;
+  const r = await rmFcMudar(id, a => a && RM_FC_ABERTOS.includes(a.status) && !rmFcTravadoPorOutro(a) ? Object.assign(a, { status: 'cancelado', fechadoEm: new Date().toISOString(), canceladoPor: rmNomeUsuario() }) : { erro: 'Este pedido não pode ser cancelado agora.' });
+  if(r.erro){ alert(r.erro); return; }
+  rmLog('Cancelou pedido do caixa', p.clienteNome || 'Consumidor', rmFormatMoeda(p.total));
+  rmFcSel = null; rmFcRender();
+}
+async function rmFcAbrirOs(id){
+  const p = rmFc.pedidos[id]; if(!p) return;
+  if(!rmLoad().some(r => r.id === p.osId)){ alert('Não achei essa OS neste computador. Espere sincronizar e tente de novo.'); return; }
+  const ok = await rmFcPegar(id); if(!ok) return;
+  rmSetSection('oficina'); rmOpenModal(p.osId, true);
 }
 
 // ===================== MAIS DE UMA FORMA DE PAGAMENTO (PDV e OS) =====================
@@ -7045,6 +7355,7 @@ function rmCancelarEdicaoVenda(){
 let rmFinalizandoVenda = false;
 async function rmFinalizarVenda(){
   if(rmFinalizandoVenda) return;
+  if(rmFcRecebendo && rmPdvModo === 'orcamento'){ alert('Este pedido veio do caixa: finalize como venda (não como orçamento).'); return; }
   if(!rmPdvConfirmarLinha()) return;
   if(rmPdvCarrinho.length === 0){
     alert('Adicione ao menos um item ao carrinho.');
@@ -7093,7 +7404,7 @@ async function rmFinalizarVenda(){
     tipo: isOrcamento ? 'orcamento' : 'venda',
     clienteId: rmPdvClienteId,
     clienteNome: rmPdvClienteNome || null,
-    vendedor: ed && ed.vendedor ? ed.vendedor : rmNomeUsuario(),
+    vendedor: rmFcRecebendo && !isOrcamento ? (rmFcRecebendo.por || rmNomeUsuario()) : ed && ed.vendedor ? ed.vendedor : rmNomeUsuario(),
     itens: rmPdvCarrinho.slice(),
     subtotal: subtotal,
     desconto: desconto,
@@ -7118,6 +7429,7 @@ async function rmFinalizarVenda(){
   if(!isOrcamento){
     rmDescontarEstoqueVenda(venda.itens);
   }
+  if(rmFcRecebendo && !isOrcamento && !ed){ const fp = rmFcRecebendo; rmFcRecebendo = null; rmFcConcluir(fp, venda); }
   if(ed && (isOrcamento || !rmAPrazo(venda.formaPagamento))) rmPromApagarDaRef(ed.id); // deixou de ser a prazo
   if(!isOrcamento && rmAPrazo(venda.formaPagamento)){
     if(!rmPdvPromVenc) rmPdvPromVenc = rmAddDiasISO(rmHojeISO(), 30);
@@ -7594,7 +7906,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611042120; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611042145; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -8502,7 +8814,7 @@ function rmSave(list){ rmStoreSalvar(RM_KEY, list); }
 // ===================== LOGIN, PERMISSÕES E REGISTRO =====================
 const RM_LOGIN_DOMINIO = '@radicalmotos.app.br';
 let rmUsuario = null; // perfil do usuário logado
-const RM_PERMS = [['pdv','PDV'],['oficina','Oficina'],['financeiro','Financeiro'],['clientes','Clientes'],['produtos','Produtos'],['parafusos','Parafusos'],['ferramentas','Ferramentas'],['relatorio','Relatório'],['planilha','Planilha'],['visao-geral','Visão geral'],['configuracoes','Configurações']];
+const RM_PERMS = [['pdv','PDV'],['caixa','Caixa'],['oficina','Oficina'],['financeiro','Financeiro'],['clientes','Clientes'],['produtos','Produtos'],['parafusos','Parafusos'],['ferramentas','Ferramentas'],['relatorio','Relatório'],['planilha','Planilha'],['visao-geral','Visão geral'],['configuracoes','Configurações']];
 const RM_PAPEIS = {
   admin:   { nome:'Administrador (tudo)', perms: RM_PERMS.map(p => p[0]) },
   balcao:  { nome:'Balcão', perms: ['pdv','oficina','clientes','produtos'] },
@@ -8721,6 +9033,7 @@ async function rmAuthIniciar(){
   setTimeout(() => rmLemSync().catch(() => {}), 1000);
   setTimeout(() => rmChatIniciar().catch(() => {}), 1200);
   setTimeout(() => rmFamSync().catch(() => {}), 1400);
+  try{ rmFcIniciar(); }catch(e){}
   setTimeout(() => rmVcSync().then(() => { try{ rmRenderCarrinhoPdv(); }catch(e){} }).catch(() => {}), 1600);
 }
 
@@ -13775,7 +14088,7 @@ function rmToggleSidebar(){
   localStorage.setItem(RM_SIDEBAR_KEY, collapsed ? 'true' : 'false');
 }
 
-const RM_SECTIONS = ['visao-geral','pdv','oficina','clientes','produtos','parafusos','ferramentas','financeiro','relatorio','planilha','configuracoes'];
+const RM_SECTIONS = ['visao-geral','pdv','caixa','oficina','clientes','produtos','parafusos','ferramentas','financeiro','relatorio','planilha','configuracoes'];
 function rmSetViewPlanilha(v){
   ['vale','lembretes'].forEach(x => {
     document.getElementById('rm-view-pla-' + x).classList.toggle('active', x === v);
@@ -15522,7 +15835,8 @@ function rmSetSection(section){
   if(section === 'relatorio'){ rmRenderComissao(); rmComSync().then(rmRenderComissao); }
   if(section === 'configuracoes'){ rmRenderConfigEmpresa(); rmSyncEmpresa().then(rmRenderConfigEmpresa); }
   if(section === 'financeiro'){ rmRenderFinVendas(); rmSyncProms(); }
-  if(section === 'pdv'){ rmInicializarPdv(); try{ rmRetImpBotao(); rmRetAlertaRender(); rmRetPendCarregar(); rmGvPintar(); if(rmGvLigadaAqui()) rmGvChecar(); }catch(e){} }
+  if(section === 'caixa') rmFcAbrirTela();
+  if(section === 'pdv'){ rmFcBanner(); rmFcDevolvidosPdv(); rmInicializarPdv(); try{ rmRetImpBotao(); rmRetAlertaRender(); rmRetPendCarregar(); rmGvPintar(); if(rmGvLigadaAqui()) rmGvChecar(); }catch(e){} }
   if(section === 'produtos'){
     const jaTemViewAtiva = document.querySelector('#rm-section-produtos .rm-view.active');
     if(!jaTemViewAtiva){
@@ -20619,6 +20933,7 @@ function rmOpenModal(id, large){
           : rmPodeCancelar() ? `<button class="rm-os-bt rm-os-bt-excluir" onclick="rmCancelarAbrir('os','${r.id}')">&#10005; Cancelar OS</button>` : ''}
         <span class="rm-os-auto">&#10004; Tudo o que você lança já é salvo automaticamente</span>
         ${r.pago ? `<button class="rm-os-bt rm-os-bt-imprimir" onclick="rmImprimirOSA4('${r.id}')">&#128424; Imprimir</button>` : ''}
+        ${r.pago || r.cancelamento || r.retorno ? '' : `<button class="rm-os-bt rm-os-env-caixa" onclick="rmFcEnviarOs('${r.id}')">&#128176; Enviar para o caixa<small>em construção</small></button>`}
         ${r.pago || r.cancelamento ? '' : r.retorno ? `<button class="rm-os-bt rm-os-bt-finalizar rm-ret-finbt" onclick="rmRetFinalizar('${r.id}')">&#10004; Finalizar retorno</button>` : `<button class="rm-os-bt rm-os-bt-finalizar" onclick="rmOsFinalizar('${r.id}')">&#10004; Marcar como paga</button>`}
         <button class="rm-os-bt rm-os-salvar" onclick="rmOsSalvarManual('${r.id}')">&#128190; Salvar</button>
       </div>
