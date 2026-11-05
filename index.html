@@ -2950,7 +2950,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 04/11 às 20:33</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 04/11 às 21:12</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3009,7 +3009,7 @@ function rmCarregarLib(nome){
           <button class="rm-pdv-modo-btn" id="rm-pdv-tabela-parceiro" onclick="rmSetTabelaPrecoPdv('parceiro')">Parceiro</button>
         </div>
         <div class="rm-pdv-modo-toggle"><button class="rm-pdv-modo-btn" id="rm-pdv-vc-btn" onclick="rmVcAbrir()">Venda casada</button></div>
-        <span class="rm-ret-grupo"><button class="rm-ret-btn" id="rm-btn-pdv-retirada" onclick="rmRetAbrir()"><span class="rm-ret-ic">&#128452;</span><span>Gaveta</span></button><button class="rm-ret-imp" id="rm-ret-imp" style="display:none" title="Resumo das retiradas de hoje (só administrador)" onclick="rmRetResumoEscolher()">&#128424;</button><span class="gv-pdv" id="rm-gv-pdv" style="display:none"><span class="gv-dot"><i></i><em>procurando gaveta…</em></span></span></span>
+        <span class="rm-ret-grupo"><button class="rm-ret-btn" id="rm-pdv-resumo-btn" onclick="rmPdvResumo()" title="Resumo dos itens do PDV para mostrar ao cliente ou mandar no WhatsApp (imagem ou PDF)"><span class="rm-ret-ic">&#128203;</span><span>Resumo</span></button><button class="rm-ret-btn" id="rm-btn-pdv-retirada" onclick="rmRetAbrir()"><span class="rm-ret-ic">&#128452;</span><span>Gaveta</span></button><button class="rm-ret-imp" id="rm-ret-imp" style="display:none" title="Resumo das retiradas de hoje (só administrador)" onclick="rmRetResumoEscolher()">&#128424;</button><span class="gv-pdv" id="rm-gv-pdv" style="display:none"><span class="gv-dot"><i></i><em>procurando gaveta…</em></span></span></span>
       </div>
 
       <div id="rm-vc"></div>
@@ -3061,7 +3061,7 @@ function rmCarregarLib(nome){
 
             <div id="rm-pdv-carrinho-lista"></div>
             <div class="rm-px-qtdtotal">Quantidade total de produtos: <b id="rm-pdv-qtd-total">0</b>
-              <button class="rm-sep-btn" title="Imprimir a lista de peças para buscar no estoque, na ordem das prateleiras" onclick="rmImprimirSeparacao('Venda no balcão' + (rmPdvClienteNome ? ' · ' + rmPdvClienteNome : ''), '', rmPdvCarrinho)">&#128205; Buscar no estoque</button>
+              <button class="rm-sep-btn" title="Imprimir a lista de peças para buscar no estoque, na ordem das prateleiras" onclick="if(rmPdvConfirmarLinha()) rmImprimirSeparacao('Venda no balcão' + (rmPdvClienteNome ? ' · ' + rmPdvClienteNome : ''), '', rmPdvCarrinho)">&#128205; Buscar no estoque</button>
               <button class="rm-sep-btn" id="rm-pdv-los-btn" style="margin-right:6px;" title="Lança estes itens numa OS que já está na oficina" onclick="rmPdvLosAbrir()">&#10133; Lançar numa OS</button>
               <button class="rm-sep-btn" id="rm-pdv-para-os-btn" style="margin-right:6px;" title="Leva estes itens para uma nova ordem de serviço" onclick="rmOrcamentoParaOS({ tipo:'carrinho' })">&#128295; Transformar em OS</button></div>
             <div class="rm-px-info" style="display:none"></div>
@@ -6160,6 +6160,43 @@ function rmPdvAtualizarLinha(){
   const d = rmPdvParseDescontoItem(document.getElementById('rm-pdv-item-desconto').value, bruto);
   document.getElementById('rm-pdv-item-subtotal').value = bruto > 0 ? rmFmtNum(bruto) : '';
   document.getElementById('rm-pdv-item-total').value = bruto > 0 ? rmFmtNum(bruto - d.valor) : '';
+  try{ rmPdvAtualizarTotaisTela(); }catch(e){}
+}
+
+// ----- produto escolhido na linha de cima, mas ainda sem apertar o "+" -----
+// soma no Valor Total (só na tela) e entra sozinho na lista ao finalizar, virar OS, lançar numa OS, buscar no estoque ou ver o resumo
+function rmPdvLinhaInfo(){
+  const n = document.getElementById('rm-pdv-item-nome'); if(!n) return null;
+  const nome = n.value.trim(), preco = rmParseMoeda(document.getElementById('rm-pdv-item-preco').value);
+  if(!nome || !(rmPdvProdutoSelecionadoId || preco > 0)) return null;
+  let qtd = rmParseMoeda(document.getElementById('rm-pdv-item-qtd').value); if(!(qtd > 0)) qtd = 1;
+  const bruto = preco * qtd, d = rmPdvParseDescontoItem(document.getElementById('rm-pdv-item-desconto').value, bruto);
+  return { nome, preco, qtd, subtotal: Math.max(0, bruto - d.valor) };
+}
+function rmPdvSubtotalVisivel(){
+  let s = rmTotalCarrinhoPdv(); const l = rmPdvLinhaInfo();
+  if(l && l.preco > 0){
+    if(rmPdvEditandoIndex !== null && rmPdvCarrinho[rmPdvEditandoIndex]) s += l.subtotal - (Number(rmPdvCarrinho[rmPdvEditandoIndex].subtotal) || 0);
+    else s += l.subtotal;
+  }
+  return s;
+}
+// antes de uma ação: coloca na lista o produto que ficou na linha. false = parar (falta o preço)
+function rmPdvConfirmarLinha(){
+  const l = rmPdvLinhaInfo(); if(!l) return true;
+  if(!(l.preco > 0)){ alert('O produto "' + l.nome.toUpperCase() + '" está na linha sem preço. Digite o preço e tente de novo.'); const p = document.getElementById('rm-pdv-item-preco'); if(p) p.focus(); return false; }
+  const antes = rmPdvCarrinho.length, ed = rmPdvEditandoIndex;
+  rmAdicionarItemPdv();
+  return ed !== null || rmPdvCarrinho.length > antes;
+}
+function rmPdvAtualizarTotaisTela(){
+  const totalEl = document.getElementById('rm-pdv-total-valor'); if(!totalEl) return;
+  const subtotal = rmPdvSubtotalVisivel(), desconto = rmCalcularDescontoPdv(subtotal), linha = rmPdvLinhaInfo();
+  const pend = !!(linha && linha.preco > 0 && rmPdvEditandoIndex === null);
+  document.getElementById('rm-pdv-subtotal-valor').textContent = rmFormatMoeda(subtotal);
+  totalEl.textContent = rmFormatMoeda(subtotal - desconto);
+  document.getElementById('rm-pdv-desconto-valor-texto').textContent = [pend ? 'com o produto da linha' : '', desconto > 0 ? 'Desconto -' + rmFormatMoeda(desconto) : ''].filter(Boolean).join(' · ');
+  rmCalcularTroco();
 }
 
 function rmPdvResetarLinha(){
@@ -6319,12 +6356,13 @@ function rmRenderCarrinhoPdv(){
       </div>`;
   }
 
-  const subtotal = rmTotalCarrinhoPdv();
+  const subtotal = rmPdvSubtotalVisivel();
   const desconto = rmCalcularDescontoPdv(subtotal);
   document.getElementById('rm-pdv-subtotal-valor').textContent = rmFormatMoeda(subtotal);
   totalEl.textContent = rmFormatMoeda(subtotal - desconto);
   document.getElementById('rm-pdv-qtd-total').textContent = rmFmtQtd(rmPdvCarrinho.reduce((s, it) => s + it.quantidade, 0));
-  document.getElementById('rm-pdv-desconto-valor-texto').textContent = desconto > 0 ? ('Desconto -' + rmFormatMoeda(desconto)) : '';
+  { const l = rmPdvLinhaInfo(), pend = !!(l && l.preco > 0 && rmPdvEditandoIndex === null);
+    document.getElementById('rm-pdv-desconto-valor-texto').textContent = [pend ? 'com o produto da linha' : '', desconto > 0 ? 'Desconto -' + rmFormatMoeda(desconto) : ''].filter(Boolean).join(' · '); }
   rmCalcularTroco();
   try{ rmVcRenderSug(); }catch(e){}
   rmRenderPromPdv();
@@ -6504,9 +6542,9 @@ function rmVcSalvarEdicao(){
 let rmPdvLosSel = null;
 function rmPdvLosAbrir(){
   if(rmPdvModo === 'orcamento') return;
+  if(!rmPdvConfirmarLinha()) return;
   if(!rmPdvCarrinho.length){ alert('Adicione os itens antes de lançar numa OS.'); return; }
   if(typeof rmPdvEditandoVenda !== 'undefined' && rmPdvEditandoVenda){ alert('Termine ou cancele a edição da venda antes de lançar numa OS.'); return; }
-  if(rmPdvEditandoIndex !== null){ alert('Termine a edição do item (clique em ✓) antes de lançar numa OS.'); return; }
   rmPdvLosSel = null;
   const modal = document.getElementById('rm-modal'); modal.className = 'rm-modal rm-modal-los';
   modal.innerHTML = `<div class="rm-modal-header"><div><div class="rm-modal-title">&#10133; Lançar numa OS</div><div class="rm-modal-sub">Escolha a moto. Só aparecem as que ainda estão na oficina (não entregues).</div></div><button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
@@ -6622,7 +6660,7 @@ function rmMistoFaltaTxt(falta){
   return falta > 0 ? `<span>Falta</span><span>${M(falta)}</span>` : `<span>Passou do total</span><span>${M(-falta)}</span>`;
 }
 function rmMistoCtxDados(ctx){
-  if(ctx === 'pdv'){ const sub = rmTotalCarrinhoPdv(); return { partes: rmPdvPartes || [], total: rmCxR2(sub - rmCalcularDescontoPdv(sub)) }; }
+  if(ctx === 'pdv'){ const sub = rmPdvSubtotalVisivel(); return { partes: rmPdvPartes || [], total: rmCxR2(sub - rmCalcularDescontoPdv(sub)) }; }
   const r = rmLoad().find(x => x.id === ctx); return { partes: (r && r.pagamentos) || [], total: r ? rmOsTotais(r).total : 0, r };
 }
 function rmMistoGravar(ctx, partes){
@@ -6750,7 +6788,7 @@ function rmCalcularTroco(){
   const el = document.getElementById('rm-pdv-troco-linha');
   if(!el) return;
   const recebido = rmParseMoeda(document.getElementById('rm-pdv-valor-recebido').value);
-  const subtotal = rmTotalCarrinhoPdv();
+  const subtotal = rmPdvSubtotalVisivel();
   const total = subtotal - rmCalcularDescontoPdv(subtotal);
   if(recebido <= 0){
     el.textContent = '';
@@ -7007,6 +7045,7 @@ function rmCancelarEdicaoVenda(){
 let rmFinalizandoVenda = false;
 async function rmFinalizarVenda(){
   if(rmFinalizandoVenda) return;
+  if(!rmPdvConfirmarLinha()) return;
   if(rmPdvCarrinho.length === 0){
     alert('Adicione ao menos um item ao carrinho.');
     return;
@@ -7246,6 +7285,7 @@ let rmOsAbrirDepois = null;
 function rmOrcamentoParaOS(origem){
   let itens, clienteId, clienteNome, desconto = 0, obs = '';
   if(origem.tipo === 'carrinho'){
+    if(!rmPdvConfirmarLinha()) return;
     if(!rmPdvCarrinho.length){ alert('Adicione os itens antes de transformar em ordem de serviço.'); return; }
     if(rmPdvEditandoVenda){ alert('Termine ou cancele a edição da venda antes de transformar em ordem de serviço.'); return; }
     itens = rmPdvCarrinho.map(i => Object.assign({}, i)); clienteId = rmPdvClienteId; clienteNome = rmPdvClienteNome;
@@ -7554,7 +7594,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611042033; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611042112; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -14260,6 +14300,47 @@ function rmOsResumo(id){
       <p class="rs-dica">No celular, "Enviar no WhatsApp" já anexa a imagem. No computador, a imagem é baixada e a conversa do cliente abre — é só arrastar a imagem para lá.</p></div>`;
   document.body.appendChild(ov);
 }
+// ----- Resumo no PDV (mesma tela do resumo da OS, com os itens que estão no PDV) -----
+let rmResumoPdvDados = null;
+function rmPdvResumo(){
+  if(!rmPdvConfirmarLinha()) return;
+  if(!rmPdvCarrinho.length){ alert('Adicione os itens antes de ver o resumo.'); return; }
+  const bruto = rmTotalCarrinhoPdv(), desc = Math.min(bruto, rmCalcularDescontoPdv(bruto)), orc = rmPdvModo === 'orcamento';
+  const cli = rmPdvClienteId ? rmLoadClientes().find(c => c.id === rmPdvClienteId) : null;
+  rmResumoPdvDados = { orc, cliente: rmPdvClienteNome || (cli && cli.nome) || '', tel: (cli && cli.telefone) || '', bruto, desc, total: bruto - desc,
+    forma: orc ? '' : (rmPdvPartes && rmPdvPartes.length > 1 ? rmPagResumo(rmPdvPartes) : (rmPdvFormaPagamento || '')),
+    itens: rmPdvCarrinho.map(it => ({ q: Number(it.quantidade) || 1, n: it.nome || '', v: Number(it.subtotal) || 0 })) };
+  rmResumoId = '__pdv';
+  let ov = document.getElementById('rm-resumo-ov'); if(ov) ov.remove();
+  ov = document.createElement('div'); ov.id = 'rm-resumo-ov'; ov.className = 'rs-ov';
+  ov.onclick = e => { if(e.target === ov) rmResumoFechar(); };
+  ov.innerHTML = `<div class="rs-area">${rmPdvResumoCardHtml(rmResumoPdvDados)}</div>
+    <div class="rs-lado"><h3>&#128203; ${orc ? 'Resumo do orçamento' : 'Resumo da compra'}</h3><p>Mostre na tela para o cliente ou envie pelo WhatsApp.</p>
+      <button class="rs-wpp" onclick="rmResumoWhatsapp()">&#128242; Enviar no WhatsApp</button>
+      <button class="rs-red" onclick="rmResumoBaixar('png')">&#128444; Baixar imagem (PNG)</button>
+      <button onclick="rmResumoBaixar('pdf')">&#128196; Baixar PDF</button>
+      <button onclick="rmResumoTelaCheia()">&#9974; Mostrar em tela cheia</button>
+      <button onclick="rmResumoFechar()">Fechar</button>
+      <div class="rs-msg" id="rm-resumo-msg"></div>
+      <p class="rs-dica">No celular, "Enviar no WhatsApp" já anexa a imagem. No computador, a imagem é baixada e a conversa do cliente abre — é só arrastar a imagem para lá.</p></div>`;
+  document.body.appendChild(ov);
+}
+function rmPdvResumoCardHtml(d){
+  const e = rmEmpresa(), logo = e.logo || (typeof RM_LOGO_PADRAO !== 'undefined' ? RM_LOGO_PADRAO : '');
+  const local = String(e.endereco || '').split(' - ').pop() || e.cidade || '';
+  const pag = `&#128179; Pagamento${d.forma ? ': <b>' + rmEscapeHtml(d.forma) + '</b>' : ''}${e.pix ? ' · PIX <b>' + rmEscapeHtml(String(e.pix).replace(/^.*?:\s*/, '')) + '</b>' : ''}`;
+  return `<div class="rs-card" id="rm-resumo-card">
+    <div class="rs-top">${logo ? `<img src="${logo}" alt="">` : ''}<div><div class="t1">${d.orc ? 'Orçamento' : 'Resumo da compra'}</div><div class="t2">${new Date().toLocaleDateString('pt-BR')}</div>
+      <div class="t3">${new Date().toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' })}</div></div></div>
+    <div class="rs-moto"><div><div class="m1">Cliente</div><div class="m2">${rmEscapeHtml(d.cliente || 'Consumidor')}</div></div><span class="rs-st ${d.orc ? 'and' : 'ok'}">${d.orc ? 'ORÇAMENTO' : '&#10004; COMPRA'}</span></div>
+    <div class="rs-sec"><h4>&#129534; Produtos e serviços</h4>
+      ${d.itens.map(x => `<div class="rs-it"><span class="q">${rmFmtQtd(x.q)}x</span><span class="n">${rmEscapeHtml(x.n)}</span><span class="v">${rmFormatMoeda(x.v)}</span></div>`).join('')}</div>
+    <div class="rs-tot">${d.desc > 0.004 ? `<div class="rs-l"><span>Subtotal</span><span>${rmFormatMoeda(d.bruto)}</span></div><div class="rs-l desc"><span>Desconto</span><span>&minus; ${rmFormatMoeda(d.desc)}</span></div>` : ''}</div>
+    <div class="rs-total"><span>Total</span><b>${rmFormatMoeda(d.total)}</b></div>
+    <div class="rs-pag">${pag}</div>
+    <div class="rs-foot"><span><b>${rmEscapeHtml(e.nome || '')}</b>${local ? ' · ' + rmEscapeHtml(local) : ''}</span>${e.whatsapp ? `<span>WhatsApp <b>${rmEscapeHtml(e.whatsapp)}</b></span>` : ''}</div>
+  </div>`;
+}
 function rmResumoFechar(){ if(document.fullscreenElement) document.exitFullscreen().catch(() => {}); const o = document.getElementById('rm-resumo-ov'); if(o) o.remove(); rmResumoId = null; }
 function rmResumoMsg(t){ const m = document.getElementById('rm-resumo-msg'); if(m) m.textContent = t || ''; }
 function rmResumoTelaCheia(){
@@ -14282,6 +14363,7 @@ async function rmResumoCanvas(){
   finally{ tmp.remove(); }
 }
 function rmResumoNomeArq(ext){
+  if(rmResumoId === '__pdv'){ const d = rmResumoPdvDados || {}; return ((d.orc ? 'Orcamento' : 'Resumo-compra') + '-' + (d.cliente || '') + '-' + new Date().toLocaleDateString('pt-BR')).replace(/[^\w\-]+/g, '_').replace(/_+/g, '_') + '.' + ext; }
   const r = rmIdx(rmMemLista(RM_KEY)).get(rmResumoId) || {};
   return ('Resumo-OS-' + (r.codigoApp || '') + '-' + (r.nome || '')).replace(/[^\w\-]+/g, '_').replace(/_+/g, '_') + '.' + ext;
 }
@@ -14302,25 +14384,28 @@ async function rmResumoBaixar(tipo){
       rmResumoDownload(pdf.output('blob'), rmResumoNomeArq('pdf'));
     }
     rmResumoMsg('');
-    const r = rmIdx(rmMemLista(RM_KEY)).get(rmResumoId); if(r) rmLog('Baixou resumo da OS (' + tipo.toUpperCase() + ')', r.codigoApp, r.nome || '');
+    if(rmResumoId === '__pdv'){ rmLog('Baixou resumo do PDV (' + tipo.toUpperCase() + ')', '', (rmResumoPdvDados && rmResumoPdvDados.cliente) || ''); }
+    else { const r = rmIdx(rmMemLista(RM_KEY)).get(rmResumoId); if(r) rmLog('Baixou resumo da OS (' + tipo.toUpperCase() + ')', r.codigoApp, r.nome || ''); }
   }catch(e){ console.warn(e); rmResumoMsg(''); alert('Não consegui gerar o arquivo agora. Confira a internet (na primeira vez o sistema baixa a ferramenta de imagem) e tente de novo.'); }
 }
 async function rmResumoWhatsapp(){
-  const r = rmIdx(rmMemLista(RM_KEY)).get(rmResumoId); if(!r) return;
+  const pdv = rmResumoId === '__pdv', d = rmResumoPdvDados || {};
+  const r = pdv ? { nome: d.cliente || '', telefone: d.tel || '', codigoApp: '' } : rmIdx(rmMemLista(RM_KEY)).get(rmResumoId); if(!r) return;
   const tel = rmOslTel(r);
-  const texto = `Olá ${String(r.nome || '').split(' ')[0]}! Segue o resumo da sua ordem de serviço${r.modelo ? ' (' + r.modelo + ')' : ''}. Total: ${rmFormatMoeda(rmOsTotais(r).total)}.`;
+  const texto = pdv ? `Olá${r.nome ? ' ' + String(r.nome).split(' ')[0] : ''}! Segue ${d.orc ? 'o orçamento' : 'o resumo da sua compra'}. Total: ${rmFormatMoeda(d.total)}.`
+    : `Olá ${String(r.nome || '').split(' ')[0]}! Segue o resumo da sua ordem de serviço${r.modelo ? ' (' + r.modelo + ')' : ''}. Total: ${rmFormatMoeda(rmOsTotais(r).total)}.`;
   try{
     rmResumoMsg('Gerando imagem...');
     const blob = await rmResumoBlobPng();
     const arq = new File([blob], rmResumoNomeArq('png'), { type:'image/png' });
     rmResumoMsg('');
-    rmLog('Enviou resumo da OS no WhatsApp', r.codigoApp, r.nome || '');
+    rmLog(pdv ? 'Enviou resumo do PDV no WhatsApp' : 'Enviou resumo da OS no WhatsApp', r.codigoApp, r.nome || '');
     if(navigator.canShare && navigator.canShare({ files:[arq] })){ // celular: abre o compartilhar com a imagem anexada
       try{ await navigator.share({ files:[arq], text: texto }); return; }catch(e){ if(e && e.name === 'AbortError') return; }
     }
     rmResumoDownload(blob, arq.name);
     if(tel) rmAbrirWhatsapp(tel, texto);
-    else alert('A imagem foi baixada. Esta OS não tem WhatsApp do cliente cadastrado — envie a imagem pelo WhatsApp manualmente.');
+    else alert('A imagem foi baixada. ' + (pdv ? 'Esta venda não tem cliente com WhatsApp' : 'Esta OS não tem WhatsApp do cliente cadastrado') + ' — envie a imagem pelo WhatsApp manualmente.');
   }catch(e){ console.warn(e); rmResumoMsg(''); alert('Não consegui gerar a imagem agora. Confira a internet e tente de novo.'); }
 }
 
