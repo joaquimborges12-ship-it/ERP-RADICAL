@@ -3059,7 +3059,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 06/11 às 21:30</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 06/11 às 21:38</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -7126,7 +7126,7 @@ function rmCkRender(){
           onfocus="this.select(); rmCkBuscaTxt=''; rmCkAbrirLista();" oninput="rmCkBuscaTxt=this.value; rmCkAbrirLista();" onblur="setTimeout(rmCkFecharLista,150)"><div class="ck-oslista" id="rm-ck-oslista"></div></div>
         <button type="button" class="ck-nova" onclick="rmCkCriarNova()">+ Criar nova</button></div></div>
       ${r && rmCkAba === 'entrada' ? `<div class="ck-modbox"><span class="lb">MODELO DA MOTO</span><div class="ck-seg">${RM_CK_MODELOS.map(([m, n]) => `<button type="button" class="${rmCkModelo() === m ? 'on' : ''}" onclick="rmCkSetModelo('${m}')">${n}</button>`).join('')}</div></div>` : ''}
-      ${r ? `<button type="button" class="ck-voltar" onclick="rmCkVoltarLista()">&#8592; Todos os checklists</button>` : ''}
+      ${r ? `<button type="button" class="ck-voltar" onclick="rmCkVoltarLista()">&#8592; Todos os checklists</button><button type="button" class="ck-voltar" onclick="rmCkImprimirEscolher()">&#128424; Imprimir</button>` : ''}
       ${r ? `<div class="ck-tabs"><button type="button" class="${rmCkAba === 'entrada' ? 'on' : ''}" onclick="rmCkAba='entrada'; rmCkRender();">Entrada</button><button type="button" class="${rmCkAba === 'saida' ? 'on' : ''}" onclick="rmCkAba='saida'; rmCkRender();">Saída</button></div>` : ''}
     </div>`;
   if(!r){ el.innerHTML = top + rmCkHomeHtml(); return; }
@@ -7265,6 +7265,63 @@ function rmCkHomeHtml(){
 }
 function rmCkVoltarLista(){ rmCkOsId = null; rmCkBuscaTxt = ''; rmCkRender(); window.scrollTo(0, 0); }
 function rmCkSalvarSair(){ if(!rmCkOsId) return; rmCkSalvar(rmCkOsId); rmShowToast('Checklist salvo · ainda não concluído'); rmCkVoltarLista(); }
+// ----- imprimir o checklist: mecânico (cupom 80mm, só o que consertar) ou cliente (folha A4, tudo) -----
+function rmCkImprimirEscolher(){
+  if(!rmCkOsId) return;
+  let box = document.getElementById('rm-fmt-escolha'); if(box) box.remove();
+  box = document.createElement('div'); box.id = 'rm-fmt-escolha'; box.className = 'rm-fmt-escolha';
+  box.innerHTML = `<div class="rm-fmt-card"><div class="rm-fmt-tit">Imprimir checklist</div>
+      <button data-f="mec">&#128295; Para o mecânico<small style="display:block;font-weight:400;font-size:12px;opacity:.75">cupom 80mm · só o que é para consertar</small></button>
+      <button data-f="cli">&#128196; Para o cliente<small style="display:block;font-weight:400;font-size:12px;opacity:.75">folha A4 · todos os itens</small></button>
+      <button data-f="" class="rm-fmt-cancel">Cancelar</button></div>`;
+  box.onclick = ev => { const b = ev.target.closest('button'); if(!b && ev.target !== box) return; box.remove(); if(b && b.dataset.f) rmCkImprimir(b.dataset.f); };
+  document.body.appendChild(box);
+}
+function rmCkDadosImp(){
+  const r = rmLoad().find(x => x.id === rmCkOsId); if(!r) return null;
+  const d = rmCkDoc(r.id), it = d.entrada.itens, km = (d.entrada.meta.km || {}).v || '', comb = (d.entrada.meta.comb || {}).v;
+  const probs = (r.problemas || []).map(p => typeof p === 'string' ? { texto: p } : p).filter(p => p && p.texto);
+  return { r, d, it, km, comb: comb !== undefined && comb !== '' ? RM_CK_COMB[Number(comb)] : '', probs, avs: RM_CK_ITENS.filter(([id]) => it[id] && it[id].s === 'av') };
+}
+const rmCkDet = x => [x.tipo, x.obs].filter(Boolean).join(' · ');
+function rmCkImprimir(tipo){
+  const k = rmCkDadosImp(); if(!k) return;
+  const { r, d, it, km, comb, probs, avs } = k, hoje = new Date().toLocaleDateString('pt-BR');
+  const ent = d.entrada.fim, quem = ent ? ent.por + ' · ' + new Date(ent.em).toLocaleString('pt-BR').slice(0, 17) : 'não finalizado';
+  if(tipo === 'mec'){
+    const corpo = `<div class="ck-c-top"><b>CHECKLIST · MECÂNICO</b><span>${rmH(r.codigoApp || '')}</span></div>
+      <div class="ck-c-moto"><b>${rmH(r.modelo || 'MOTO')}</b>${r.placa ? ' · ' + rmH(r.placa) : ''}<br>${rmH(r.nome || '')}${km ? '<br>KM ' + rmH(km) : ''}${r.mecanico ? '<br>Mecânico: <b>' + rmH(r.mecanico) + '</b>' : ''}</div>
+      ${probs.length ? `<div class="ck-c-sec">O CLIENTE PEDIU</div>${probs.map(p => `<div class="ck-c-it"><span>&#9744;</span><div>${rmH(p.texto)}</div></div>`).join('')}` : ''}
+      <div class="ck-c-sec">AVARIAS ENCONTRADAS NA ENTRADA (${avs.length})</div>
+      ${avs.length ? avs.map(([id, nome, g]) => `<div class="ck-c-it"><span>&#9744;</span><div><b>${rmH(nome)}</b> <small>${g}</small>${rmCkDet(it[id]) ? `<br><i>${rmH(rmCkDet(it[id]))}</i>` : ''}</div></div>`).join('') : '<div class="ck-c-vz">Nenhuma avaria anotada.</div>'}
+      <div class="ck-c-pe">Checklist: ${rmH(quem)}</div>
+      <style>.ck-c-top{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #000;padding-bottom:3px;margin-bottom:5px}.ck-c-top b{font-size:12.5px}.ck-c-top span{font-size:12px;font-weight:700}
+      .ck-c-moto{font-size:10.5px;line-height:1.4;margin-bottom:6px}.ck-c-moto b{font-size:11.5px}
+      .ck-c-sec{font-size:10px;font-weight:800;border-bottom:1px dashed #000;margin:8px 0 3px;padding-bottom:2px}
+      .ck-c-it{display:flex;gap:5px;font-size:10.5px;line-height:1.35;padding:3px 0;border-bottom:1px dotted #999}.ck-c-it span{font-size:13px;line-height:1}.ck-c-it small{font-size:8.5px}.ck-c-it i{font-size:9.5px}
+      .ck-c-vz{font-size:10px;padding:4px 0}.ck-c-pe{margin-top:10px;font-size:8.5px;text-align:center;border-top:1px dashed #000;padding-top:4px}</style>`;
+    rmImprimirDoc('Checklist mecânico ' + (r.codigoApp || ''), corpo, false, 'cupom');
+    return;
+  }
+  const sit = id => { const x = it[id] || {}; return x.s === 'ok' ? '<span class="ck-a-ok">&#10004; OK</span>' : x.s === 'av' ? '<span class="ck-a-av">&#9888; AVARIA</span>' : x.s === 'na' ? 'Não tem' : '<span class="ck-a-nc">Não conferido</span>'; };
+  const c = rmCkContagem(d), fotos = avs.flatMap(([id, nome]) => (it[id].fotos || []).map(u => [u, nome]));
+  const tabela = `<table class="a4-tab ck-a-tab"><thead><tr><th style="width:26px" class="c">Nº</th><th style="width:34%">Item</th><th style="width:16%">Situação</th><th>Observação</th></tr></thead><tbody>
+      ${RM_CK_GRUPOS.map(g => `<tr class="gr"><td colspan="4">${g.toUpperCase()}</td></tr>` + RM_CK_ITENS.filter(i => i[2] === g).map(([id, nome]) => `<tr class="${it[id] && it[id].s === 'av' ? 'av' : ''}"><td class="c">${rmCkNum(id)}</td><td>${rmH(nome)}</td><td>${sit(id)}</td><td>${rmH(it[id] && it[id].s === 'av' ? rmCkDet(it[id]) : '')}</td></tr>`).join('')).join('')}</tbody></table>`;
+  const sp = d.saida.probs || {};
+  const corpo = rmA4Cabecalho('Checklist de entrada', r.codigoApp, ent ? new Date(ent.em).toLocaleDateString('pt-BR') : hoje)
+    + rmA4Secao('Dados da moto', rmA4Duas([ 'Cliente: ' + rmH(r.nome || '—'), 'Moto: ' + rmH(r.modelo || '—') + (r.placa ? ' · Placa: ' + rmH(r.placa) : '') ],
+        [ 'KM na entrada: ' + rmH(km || '—') + (comb ? ' · Combustível: ' + rmH(comb) : ''), 'Checklist feito por: ' + rmH(quem) ]))
+    + rmA4Secao('Resumo', `<div class="ck-a-res"><span class="ck-a-ok">${c.ok} OK</span><span class="ck-a-av">${c.av} com avaria</span>${c.na ? `<span>${c.na} não tem</span>` : ''}${c.tot - c.feitos ? `<span class="ck-a-nc">${c.tot - c.feitos} não conferido(s)</span>` : ''}</div>`)
+    + rmA4Secao('Itens conferidos', tabela)
+    + (fotos.length ? rmA4Secao('Fotos das avarias', `<div class="ck-a-fotos">${fotos.map(([u, n]) => `<figure><img src="${rmH(u)}"><figcaption>${rmH(n)}</figcaption></figure>`).join('')}</div>`) : '')
+    + (d.saida.fim || Object.keys(sp).length ? rmA4Secao('Na entrega da moto', probs.map((p, i) => `${(sp[i] || {}).s === 'feito' ? '<span class="ck-a-ok">&#10004; Feito</span>' : (sp[i] || {}).s === 'nao' ? '<span class="ck-a-av">Não feito</span>' : '—'} · ${rmH(p.texto)}${(sp[i] || {}).obs ? ' <i>(' + rmH(sp[i].obs) + ')</i>' : ''}`).join('<br>')) : '')
+    + `<div class="ck-a-dc">As avarias acima foram anotadas na chegada da moto à oficina, antes de qualquer serviço.</div>
+    <style>.ck-a-tab td{padding:2.5px 5px}.ck-a-tab tr.gr td{font-weight:800;font-size:8.5px;background:#eee;padding:3px 5px;letter-spacing:.04em}.ck-a-tab tr.av td{background:#fdeceb;font-weight:700}
+    .ck-a-ok{color:#1d7a3e;font-weight:700}.ck-a-av{color:#c0281e;font-weight:800}.ck-a-nc{color:#888}
+    .ck-a-res{display:flex;gap:18px;font-size:11.5px}.ck-a-fotos{display:flex;flex-wrap:wrap;gap:8px}.ck-a-fotos figure{margin:0;width:120px}.ck-a-fotos img{width:120px;height:90px;object-fit:cover;border:1px solid #ccc}.ck-a-fotos figcaption{font-size:8.5px}
+    .ck-a-dc{margin-top:14px;font-size:9px;color:#555;text-align:center}</style>`;
+  rmImprimirDoc('Checklist ' + (r.codigoApp || ''), corpo, false, 'a4');
+}
 // ----- saída: o que o cliente pediu foi feito? -----
 function rmCkSaidaHtml(r){
   const d = rmCkDoc(r.id), s = d.saida.probs, probs = r.problemas || [], it = d.entrada.itens;
@@ -8286,7 +8343,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611062130; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611062138; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
