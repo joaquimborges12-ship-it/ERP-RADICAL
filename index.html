@@ -1756,6 +1756,10 @@
   .ck-bd{display:inline-block; font-size:11px; font-weight:800; padding:3px 8px; text-transform:uppercase} .ck-bd.ok{background:#e3f4ea; color:#1f7a45} .ck-bd.nao{background:#fff1d6; color:#9a6a00}
   html[data-tema="dark"] .ck-bd.ok{background:#173324; color:#8fd6aa} html[data-tema="dark"] .ck-bd.nao{background:#3a2c0f; color:#f0c060}
   .ck-avn{font-style:normal; color:#d9433a; font-weight:700} .ck-quem{font-weight:600; color:var(--rm-text-dim)}
+  .ck-li .bt .ck-det{min-width:0; padding:10px 12px; color:var(--rm-text-dim)} .ck-li .bt .ck-det.tem{border:2px solid #d9433a; color:#d9433a}
+  .ck-li.pisca{animation:ckPisca 1.4s} @keyframes ckPisca{0%,60%{background:rgba(255,190,0,.35)}100%{background:transparent}}
+  .ck-ppdica{font-size:13.5px; color:var(--rm-text-dim); background:var(--rm-bg); padding:9px 12px}
+  @media (max-width:760px){ .ck-li .bt .ck-det span{display:none} .ck-li .bt .ck-det{padding:10px 9px} }
   /* caixa (fila de pagamentos) */
   .fc-badge{margin-left:auto; align-self:center; background:#d9433a; color:#fff; font-weight:800; font-size:12px; border-radius:10px; padding:1px 8px; line-height:18px}
   .rm-nav-btn.active .fc-badge{background:#fff; color:#d9433a}
@@ -3055,7 +3059,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 06/11 às 20:40</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 06/11 às 21:30</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -7133,15 +7137,15 @@ function rmCkDesenhoHtml(m, it){
   const im = RM_CK_IMG[m === 'outros' ? 'bros' : m] || RM_CK_IMG.bros, rr = Math.round(im.w / 44);
   return `<svg viewBox="0 0 ${im.w} ${im.h}" class="ck-svg"><path class="ck-moto" d="${im.d}" fill-rule="evenodd"/>
     ${RM_CK_ITENS.map(([id, nome]) => { const p = im.pts[id]; if(!p) return ''; const v = it[id] && it[id].s, cor = v === 'ok' ? '#2e9e55' : v === 'av' ? '#d9433a' : v === 'na' ? '#c4cad1' : '#8f99a4';
-      return `<g class="ck-pt" onclick="rmCkAbrirItem('${id}')"><title>${rmEscapeHtml(nome)}</title><circle cx="${p[0]}" cy="${p[1]}" r="${rr}" fill="${cor}" stroke="var(--rm-panel)" stroke-width="${Math.max(2, rr / 5).toFixed(1)}"/><text x="${p[0]}" y="${p[1] + rr * 0.36}" text-anchor="middle" font-size="${Math.round(rr * 1.05)}" font-weight="800" fill="#fff">${v === 'ok' ? '&#10003;' : v === 'av' ? '!' : v === 'na' ? '–' : rmCkNum(id)}</text></g>`; }).join('')}</svg>`;
+      return `<g class="ck-pt" onclick="rmCkIrItem('${id}')"><title>${rmEscapeHtml(nome)}</title><circle cx="${p[0]}" cy="${p[1]}" r="${rr}" fill="${cor}" stroke="var(--rm-panel)" stroke-width="${Math.max(2, rr / 5).toFixed(1)}"/><text x="${p[0]}" y="${p[1] + rr * 0.36}" text-anchor="middle" font-size="${Math.round(rr * 1.05)}" font-weight="800" fill="#fff">${v === 'ok' ? '&#10003;' : v === 'av' ? '!' : v === 'na' ? '–' : rmCkNum(id)}</text></g>`; }).join('')}</svg>`;
 }
 function rmCkEntradaHtml(r){
   const d = rmCkDoc(r.id), it = d.entrada.itens, c = rmCkContagem(d), km = (d.entrada.meta.km || {}).v || '', comb = (d.entrada.meta.comb || {}).v || '';
   const lista = RM_CK_GRUPOS.map(g => `<div class="ck-g">${g}</div>` + RM_CK_ITENS.filter(i => i[2] === g).map(([id, nome]) => {
     const x = it[id] || {}, v = x.s, det = v === 'av' ? [x.tipo, x.obs, (x.fotos || []).length ? (x.fotos.length + ' foto' + (x.fotos.length > 1 ? 's' : '')) : ''].filter(Boolean).join(' · ') : '';
-    return `<div class="ck-li${v === 'av' ? ' av' : ''}"><span class="n ${v || ''}" onclick="rmCkAbrirItem('${id}')">${v === 'ok' ? '&#10003;' : v === 'av' ? '!' : v === 'na' ? '–' : rmCkNum(id)}</span>
-      <span class="t" onclick="rmCkAbrirItem('${id}')">${rmEscapeHtml(nome)}${det ? `<small>${rmEscapeHtml(det)}</small>` : ''}</span>
-      <span class="bt">${id === 'partida' ? `<button type="button" class="${v === 'na' ? 'on na' : ''}" onclick="rmCkMarcar('${id}','na')">Não tem</button>` : ''}<button type="button" class="${v === 'ok' ? 'on ok' : ''}" onclick="rmCkMarcar('${id}','ok')">OK</button><button type="button" class="${v === 'av' ? 'on av' : ''}" onclick="rmCkAbrirItem('${id}', true)">Avaria</button></span></div>`; }).join('')).join('');
+    return `<div class="ck-li${v === 'av' ? ' av' : ''}" id="ck-li-${id}"><span class="n ${v || ''}">${v === 'ok' ? '&#10003;' : v === 'av' ? '!' : v === 'na' ? '–' : rmCkNum(id)}</span>
+      <span class="t">${rmEscapeHtml(nome)}${det ? `<small>${rmEscapeHtml(det)}</small>` : ''}</span>
+      <span class="bt">${id === 'partida' ? `<button type="button" class="${v === 'na' ? 'on na' : ''}" onclick="rmCkMarcar('${id}','na')">Não tem</button>` : ''}<button type="button" class="${v === 'ok' ? 'on ok' : ''}" onclick="rmCkMarcar('${id}','ok')">OK</button><button type="button" class="${v === 'av' ? 'on av' : ''}" onclick="rmCkMarcar('${id}','av')">Avaria</button><button type="button" class="ck-det${x.tipo || x.obs || (x.fotos || []).length ? ' tem' : ''}" title="Detalhar a avaria (opcional)" onclick="rmCkAbrirItem('${id}', true)">&#128247;<span> Detalhes</span></button></span></div>`; }).join('')).join('');
   const fim = d.entrada.fim;
   return `<div class="ck-sub"><label>KM <input class="rm-input" inputmode="numeric" value="${rmEscapeHtml(km)}" onchange="rmCkMeta('entrada','km',this.value)"></label>
       <span class="ck-comb">Combustível ${RM_CK_COMB.map((t, i) => `<button type="button" class="${comb !== '' && i <= Number(comb) ? 'on' : ''}" onclick="rmCkMeta('entrada','comb','${i}')">${t}</button>`).join('')}</span>
@@ -7160,6 +7164,8 @@ function rmCkMarcar(id, s){
   rmCkSalvar(rmCkOsId); rmCkRender();
 }
 // janela do item (avaria: tipo, anotação e fotos)
+// tocar no ponto do desenho leva até o item na lista
+function rmCkIrItem(id){ const el = document.getElementById('ck-li-' + id); if(!el) return; el.scrollIntoView({ block: 'center', behavior: 'smooth' }); el.classList.remove('pisca'); void el.offsetWidth; el.classList.add('pisca'); }
 function rmCkAbrirItem(id, avaria){
   if(!rmCkOsId) return;
   const d = rmCkDoc(rmCkOsId), x = d.entrada.itens[id] || {}, item = RM_CK_ITENS.find(i => i[0] === id);
@@ -7170,9 +7176,9 @@ function rmCkPopRender(item){
   item = item || RM_CK_ITENS.find(i => i[0] === rmCkPop.id);
   let ov = document.getElementById('rm-ck-pop'); if(!ov){ ov = document.createElement('div'); ov.id = 'rm-ck-pop'; ov.className = 'ck-ov'; ov.onclick = e => { if(e.target === ov) rmCkPopFechar(); }; document.body.appendChild(ov); }
   const p = rmCkPop, tipos = RM_CK_TIPOS[p.id] || RM_CK_TIPOS[item[2]] || ['Outro'];
-  ov.innerHTML = `<div class="ck-pp"><div class="ck-pph"><div><b>${rmEscapeHtml(item[1])}</b><small>${item[2]} · ponto ${rmCkNum(p.id)}</small></div><button type="button" onclick="rmCkPopFechar()">&times;</button></div>
-    <div class="ck-ppb"><div class="ck-pp2">${p.id === 'partida' ? `<button type="button" class="na${p.s === 'na' ? ' on' : ''}" onclick="rmCkPop.s='na'; rmCkPopRender()">Não tem</button>` : ''}<button type="button" class="ok${p.s === 'ok' ? ' on' : ''}" onclick="rmCkPop.s='ok'; rmCkPopRender()">&#10004; OK</button><button type="button" class="av${p.s === 'av' ? ' on' : ''}" onclick="rmCkPop.s='av'; rmCkPopRender()">! Avaria</button></div>
-    ${p.s === 'av' ? `<div class="ck-ppl">${p.id === 'carenagem' ? 'COMO ESTÁ' : 'QUAL O PROBLEMA'}</div><div class="ck-tp">${tipos.map(t => `<button type="button" class="${p.tipo === t ? 'on' : ''}" onclick="rmCkPop.tipo='${rmJs(t)}'; rmCkPopRender()">${rmEscapeHtml(t)}</button>`).join('')}</div>
+  ov.innerHTML = `<div class="ck-pp"><div class="ck-pph"><div><b>${rmEscapeHtml(item[1])}</b><small>Detalhes da avaria · ${item[2]} · ponto ${rmCkNum(p.id)}</small></div><button type="button" onclick="rmCkPopFechar()">&times;</button></div>
+    <div class="ck-ppb"><div class="ck-ppdica">Marca como <b>avaria</b>. Tudo aqui é opcional: escolha o motivo, escreva ou tire foto só se quiser.</div>
+    ${p.s === 'av' ? `<div class="ck-ppl">${p.id === 'carenagem' ? 'COMO ESTÁ' : 'QUAL O PROBLEMA'}</div><div class="ck-tp">${tipos.map(t => `<button type="button" class="${p.tipo === t ? 'on' : ''}" onclick="rmCkPop.tipo = rmCkPop.tipo === '${rmJs(t)}' ? '' : '${rmJs(t)}'; rmCkPopRender()">${rmEscapeHtml(t)}</button>`).join('')}</div>
       <div class="ck-ppl">ANOTAÇÃO</div><textarea class="rm-input" id="rm-ck-obs" oninput="rmCkPop.obs=this.value" style="text-transform:uppercase">${rmEscapeHtml(p.obs)}</textarea>
       <div class="ck-ppl">FOTOS</div><div class="ck-ft">${p.fotos.map((u, i) => `<span class="f"><img src="${rmEscapeHtml(u)}" alt="" onclick="window.open('${rmJs(u)}','_blank')"><button type="button" onclick="rmCkPop.fotos.splice(${i},1); rmCkPopRender()">&times;</button></span>`).join('')}
         <label class="add">+ Tirar foto<input type="file" accept="image/*" capture="environment" style="display:none" onchange="rmCkFoto(this)"></label><span id="rm-ck-fmsg" class="fm"></span></div>` : ''}
@@ -7190,7 +7196,6 @@ async function rmCkFoto(inp){
 function rmCkPopSalvar(){
   const p = rmCkPop; if(!p || !rmCkOsId) return;
   if(!p.s){ alert('Marque OK ou Avaria.'); return; }
-  if(p.s === 'av' && !p.tipo && !String(p.obs).trim()){ alert('Escolha o tipo da avaria ou escreva uma anotação.'); return; }
   const d = rmCkDoc(rmCkOsId);
   d.entrada.itens[p.id] = { s: p.s, tipo: p.s === 'av' ? p.tipo : '', obs: p.s === 'av' ? String(p.obs).trim().toUpperCase() : '', fotos: p.fotos, t: rmCkAgora(), por: rmNomeUsuario() };
   rmCkSalvar(rmCkOsId); rmCkPopFechar(); rmCkRender();
@@ -8281,7 +8286,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611062040; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611062130; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
