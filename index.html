@@ -1760,6 +1760,13 @@
   .ck-li.pisca{animation:ckPisca 1.4s} @keyframes ckPisca{0%,60%{background:rgba(255,190,0,.35)}100%{background:transparent}}
   .ck-ppdica{font-size:13.5px; color:var(--rm-text-dim); background:var(--rm-bg); padding:9px 12px}
   @media (max-width:760px){ .ck-li .bt .ck-det span{display:none} .ck-li .bt .ck-det{padding:10px 9px} }
+  .ck-pp.cki{width:640px} .cki-li{display:flex; align-items:center; gap:10px; padding:6px 10px; border:1px solid var(--rm-border); background:var(--rm-panel); font-size:15px}
+  .cki-li.off{opacity:.55} .cki-li.off .cki-n{text-decoration:line-through} .cki-n{flex:1; min-width:0} .cki-tag{font-style:normal; font-size:11.5px; color:var(--rm-text-dim); display:inline-block}
+  .cki-mv{display:flex; flex-direction:column; width:26px} .cki-mv button{border:0 !important; background:none !important; padding:0 4px !important; font-size:11px !important; color:var(--rm-text-dim) !important; cursor:pointer; line-height:1.3} .cki-mv button:disabled{opacity:.25; cursor:default}
+  .cki-li > button{padding:8px 10px; font:inherit; font-size:13px; font-weight:700; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); cursor:pointer} .cki-li > button.tr{color:#d9433a} .cki-li > button.vt{color:#2e9e55}
+  .cki-add{display:flex; gap:8px; margin-bottom:4px} .cki-add input{margin:0; flex:1} .cki-add button{padding:10px 14px; font:inherit; font-weight:700; border:1px dashed var(--rm-border); background:var(--rm-panel); color:var(--rm-text); cursor:pointer}
+  .ck-chips .ck-cfg{margin-left:auto}
+  @media (max-width:760px){ .cki-li{flex-wrap:wrap} .cki-li > button{padding:7px 8px} .ck-chips .ck-cfg{margin-left:0} }
   /* caixa (fila de pagamentos) */
   .fc-badge{margin-left:auto; align-self:center; background:#d9433a; color:#fff; font-weight:800; font-size:12px; border-radius:10px; padding:1px 8px; line-height:18px}
   .rm-nav-btn.active .fc-badge{background:#fff; color:#d9433a}
@@ -3059,7 +3066,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 06/11 às 21:38</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 06/11 às 21:45</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -7012,7 +7019,7 @@ async function rmFcAbrirOs(id){
 // ===================== CHECKLIST (entrada e saída da moto, para tablet) =====================
 // Fica em configuracoes('ck-<id da OS>'). Cada item guarda quando mudou: dois tablets não apagam o que o outro marcou.
 // Sem internet: fica guardado no aparelho e envia depois. Não mexe em preço, estoque nem valores da OS.
-const RM_CK_ITENS = [
+const RM_CK_BASE = [
   ['freio_d','Freio dianteiro','Mecânica'],['rol_d','Rolamento dianteiro','Mecânica'],['pneu_d','Pneu dianteiro','Mecânica'],['aro_d','Aro dianteiro','Mecânica'],
   ['susp_d','Suspensão dianteira','Mecânica'],['caixa','Caixa de direção','Mecânica'],['cabo','Cabo de embreagem','Mecânica'],['freio_t','Freio traseiro','Mecânica'],
   ['pneu_t','Pneu traseiro','Mecânica'],['aro_t','Aro traseiro','Mecânica'],['rol_t','Rolamento traseiro','Mecânica'],['bucha','Bucha da balança','Mecânica'],['amort','Amortecedor traseiro','Mecânica'],
@@ -7031,6 +7038,97 @@ const RM_CK_TIPOS = {
 };
 const RM_CK_MODELOS = [['biz','Biz'],['pop','Pop'],['bros','Bros'],['titan','Titan'],['outros','Outros']];
 const RM_CK_COMB = ['R','¼','½','¾','F'];
+let RM_CK_ITENS = RM_CK_BASE.slice();
+// ----- itens do checklist editáveis (só o administrador): adicionar, tirar, renomear e mudar a ordem -----
+// Fica em configuracoes('checklist-itens'). Cada item guarda quando mudou (t): dois aparelhos não apagam a mudança do outro.
+// Tirar um item não apaga nada: os checklists antigos continuam mostrando o item que foi usado neles.
+let rmCkCfg = { itens: {} };
+try{ rmCkCfg = JSON.parse(localStorage.getItem('radicalMotos_checklistItens')) || { itens: {} }; }catch(e){}
+function rmCkCfgJuntar(a, b){
+  const o = { itens: {} }; [a, b].forEach(x => Object.entries((x && x.itens) || {}).forEach(([id, v]) => { if(v && (!o.itens[id] || String(v.t || '') > String(o.itens[id].t || ''))) o.itens[id] = v; }));
+  return o;
+}
+function rmCkCfgGuardar(){ try{ localStorage.setItem('radicalMotos_checklistItens', JSON.stringify(rmCkCfg)); }catch(e){} }
+async function rmCkCfgCarregar(){
+  if(!rmSb || navigator.onLine === false) return;
+  try{ const { data, error } = await rmSb.from('configuracoes').select('*').eq('id', 'checklist-itens').maybeSingle(); if(error) throw error;
+    if(data && data.dados) rmCkCfg = rmCkCfgJuntar(data.dados, rmCkCfg); rmCkCfgGuardar(); }catch(e){}
+}
+async function rmCkCfgEnviar(){
+  if(!rmSb){ return false; }
+  try{ const { data, error: e1 } = await rmSb.from('configuracoes').select('*').eq('id', 'checklist-itens').maybeSingle(); if(e1) throw e1;
+    const junto = rmCkCfgJuntar(data && data.dados, rmCkCfg);
+    const { error } = await rmSb.from('configuracoes').upsert({ id: 'checklist-itens', dados: junto }); if(error) throw error;
+    rmCkCfg = junto; rmCkCfgGuardar(); return true;
+  }catch(e){ setTimeout(rmCkCfgEnviar, 15000); return false; }
+}
+// todos os itens (padrão + criados), com nome/ordem/fora já aplicados
+function rmCkTodosItens(){
+  const c = rmCkCfg.itens || {};
+  const l = RM_CK_BASE.map(([id, nome, g], i) => { const x = c[id] || {}; return { id, nome: x.nome || nome, g, ordem: x.ordem != null ? x.ordem : i * 10, off: !!x.off, novo: false }; });
+  Object.entries(c).forEach(([id, x]) => { if(!RM_CK_BASE.some(b => b[0] === id) && x && x.nome && x.g) l.push({ id, nome: x.nome, g: x.g, ordem: x.ordem != null ? x.ordem : 9999, off: !!x.off, novo: true }); });
+  return l.sort((a, b) => RM_CK_GRUPOS.indexOf(a.g) - RM_CK_GRUPOS.indexOf(b.g) || a.ordem - b.ordem);
+}
+// itens de um checklist: os que estão valendo + os que foram tirados mas já tinham sido usados nele
+function rmCkUsar(d){
+  const it = (d && d.entrada && d.entrada.itens) || {};
+  RM_CK_ITENS = rmCkTodosItens().filter(x => !x.off || it[x.id]).map(x => [x.id, x.nome, x.g]);
+  return RM_CK_ITENS;
+}
+function rmCkCfgMudar(id, campos){
+  rmCkCfg.itens = rmCkCfg.itens || {};
+  rmCkCfg.itens[id] = Object.assign({}, rmCkCfg.itens[id] || {}, campos, { t: rmCkAgora(), por: rmNomeUsuario() });
+  rmCkCfgGuardar(); rmCkCfgEnviar(); rmCkItensRender();
+}
+function rmCkItensAbrir(){
+  if(!rmEhAdmin()){ alert('Só o administrador pode mudar os itens do checklist.'); return; }
+  rmCkCfgCarregar().then(rmCkItensRender); rmCkItensRender();
+}
+function rmCkItensFechar(){ const ov = document.getElementById('rm-ck-itens'); if(ov) ov.remove(); rmCkRender(); }
+function rmCkItensRender(){
+  let ov = document.getElementById('rm-ck-itens');
+  if(!ov){ ov = document.createElement('div'); ov.id = 'rm-ck-itens'; ov.className = 'ck-ov'; ov.onclick = e => { if(e.target === ov) rmCkItensFechar(); }; document.body.appendChild(ov); }
+  const sc = ov.querySelector('.ck-ppb') ? ov.querySelector('.ck-ppb').scrollTop : 0;
+  const todos = rmCkTodosItens();
+  ov.innerHTML = `<div class="ck-pp cki"><div class="ck-pph"><div><b>Itens do checklist</b><small>Vale para os próximos checklists. Os que já foram feitos não mudam.</small></div><button type="button" onclick="rmCkItensFechar()">&times;</button></div>
+    <div class="ck-ppb" style="gap:6px">${RM_CK_GRUPOS.map(g => { const l = todos.filter(x => x.g === g), on = l.filter(x => !x.off);
+      return `<div class="ck-ppl" style="margin-top:8px">${g.toUpperCase()}</div>` + l.map(x => { const k = on.indexOf(x);
+        return `<div class="cki-li${x.off ? ' off' : ''}">${x.off ? '<span class="cki-mv"></span>' : `<span class="cki-mv"><button type="button" ${k <= 0 ? 'disabled' : ''} onclick="rmCkItensMover('${rmJs(x.id)}',-1)">&#9650;</button><button type="button" ${k >= on.length - 1 ? 'disabled' : ''} onclick="rmCkItensMover('${rmJs(x.id)}',1)">&#9660;</button></span>`}
+          <span class="cki-n">${rmEscapeHtml(x.nome)}${x.novo && !x.off ? ' <i class="cki-tag">sem ponto no desenho</i>' : ''}${x.off ? ' <i class="cki-tag">fora do checklist</i>' : ''}</span>
+          <button type="button" onclick="rmCkItensRenomear('${rmJs(x.id)}')">&#9998; Renomear</button>${x.off ? `<button type="button" class="vt" onclick="rmCkCfgMudar('${rmJs(x.id)}',{off:false})">Voltar</button>` : `<button type="button" class="tr" onclick="rmCkItensTirar('${rmJs(x.id)}')">Tirar</button>`}</div>`; }).join('')
+        + `<div class="cki-add"><input class="rm-input" id="cki-add-${g}" placeholder="Novo item em ${g}…" onkeydown="if(event.key==='Enter') rmCkItensAdd('${g}')"><button type="button" onclick="rmCkItensAdd('${g}')">+ Adicionar</button></div>`; }).join('')}</div>
+    <div class="ck-ppf"><button type="button" onclick="rmCkItensFechar()">Fechar</button></div></div>`;
+  const b = ov.querySelector('.ck-ppb'); if(b) b.scrollTop = sc;
+}
+function rmCkItensAdd(g){
+  const inp = document.getElementById('cki-add-' + g); const nome = String((inp && inp.value) || '').trim();
+  if(!nome) return;
+  const t = rmCkTodosItens(); if(t.some(x => !x.off && x.nome.toUpperCase() === nome.toUpperCase())){ alert('Esse item já está no checklist.'); return; }
+  const ult = t.filter(x => x.g === g).reduce((m, x) => Math.max(m, x.ordem), 0);
+  rmCkCfgMudar('u' + Date.now().toString(36), { nome: nome.charAt(0).toUpperCase() + nome.slice(1).toLowerCase(), g, ordem: ult + 10, off: false });
+  rmLog('Adicionou item no checklist', '', nome);
+}
+async function rmCkItensRenomear(id){
+  const x = rmCkTodosItens().find(i => i.id === id); if(!x) return;
+  const v = await rmPerguntar('Novo nome para "' + x.nome + '":', { titulo: 'Renomear item', valor: x.nome, sim: 'Salvar' });
+  let nome = String(v || '').trim(); if(!nome) return; nome = nome.charAt(0).toUpperCase() + nome.slice(1).toLowerCase(); if(nome === x.nome) return;
+  rmCkCfgMudar(id, { nome });
+}
+async function rmCkItensTirar(id){
+  const x = rmCkTodosItens().find(i => i.id === id); if(!x) return;
+  if(!(await rmConfirmar('Tirar "' + x.nome + '" dos próximos checklists?\n\nOs checklists já feitos continuam mostrando esse item. Dá para voltar depois.', { titulo: 'Tirar item', sim: 'Tirar', nao: 'Cancelar' }))) return;
+  rmCkCfgMudar(id, { off: true }); rmLog('Tirou item do checklist', '', x.nome);
+}
+function rmCkItensMover(id, dir){
+  const t = rmCkTodosItens(), x = t.find(i => i.id === id); if(!x) return;
+  const l = t.filter(i => i.g === x.g && !i.off), k = l.indexOf(x), y = l[k + dir]; if(!y) return;
+  l.splice(k, 1); l.splice(k + dir, 0, x);
+  // renumera o grupo inteiro para a ordem ficar certa em todos os aparelhos
+  const agora = rmCkAgora(); rmCkCfg.itens = rmCkCfg.itens || {};
+  l.forEach((i, n) => { if(i.ordem !== n * 10) rmCkCfg.itens[i.id] = Object.assign({}, rmCkCfg.itens[i.id] || {}, { ordem: n * 10, t: agora }); });
+  rmCkCfgGuardar(); rmCkCfgEnviar(); rmCkItensRender();
+}
+
 let rmCk = {}, rmCkOsId = null, rmCkAba = 'entrada', rmCkPend = {}, rmCkTimer = {}, rmCkBuscaTxt = '', rmCkPop = null, rmCkVoltar = false;
 try{ rmCk = JSON.parse(localStorage.getItem('radicalMotos_checklists')) || {}; rmCkPend = JSON.parse(localStorage.getItem('radicalMotos_checklistsPend')) || {}; }catch(e){}
 function rmCkGuardar(){ try{ localStorage.setItem('radicalMotos_checklists', JSON.stringify(rmCk)); localStorage.setItem('radicalMotos_checklistsPend', JSON.stringify(rmCkPend)); }catch(e){} }
@@ -7091,7 +7189,7 @@ function rmCkModelo(){ const d = rmCkDoc(rmCkOsId); if(d.modelo) return d.modelo
 function rmCkSetModelo(m){ if(!rmCkOsId) return; const d = rmCkDoc(rmCkOsId); d.modelo = m; d.modeloT = rmCkAgora(); rmCkSalvar(rmCkOsId); rmCkRender(); }
 
 // ----- tela -----
-function rmCkAbrirTela(){ rmCkRender(); if(rmCkOsId) rmCkCarregar(rmCkOsId).then(rmCkRender); else rmCkCarregarTodos().then(() => { if(!rmCkOsId) rmCkRender(); }); }
+function rmCkAbrirTela(){ rmCkCfgCarregar().then(() => rmCkRender()); rmCkRender(); if(rmCkOsId) rmCkCarregar(rmCkOsId).then(rmCkRender); else rmCkCarregarTodos().then(() => { if(!rmCkOsId) rmCkRender(); }); }
 function rmCkEscolherOs(id){
   rmCkOsId = id; rmCkBuscaTxt = ''; rmCkFecharLista();
   rmCkRender(); rmCkCarregar(id).then(() => { if(rmCkOsId === id) rmCkRender(); });
@@ -7112,7 +7210,7 @@ function rmCkAbrirLista(){
 function rmCkFecharLista(){ const el = document.getElementById('rm-ck-oslista'); if(el) el.style.display = 'none'; }
 function rmCkNum(id){ return RM_CK_ITENS.findIndex(i => i[0] === id) + 1; }
 function rmCkContagem(d){
-  const it = d.entrada.itens; let ok = 0, av = 0, na = 0;
+  rmCkUsar(d); const it = d.entrada.itens; let ok = 0, av = 0, na = 0;
   RM_CK_ITENS.forEach(([id]) => { const v = it[id] && it[id].s; if(v === 'ok') ok++; else if(v === 'av') av++; else if(v === 'na') na++; });
   return { ok, av, na, feitos: ok + av + na, tot: RM_CK_ITENS.length };
 }
@@ -7140,7 +7238,7 @@ function rmCkDesenhoHtml(m, it){
       return `<g class="ck-pt" onclick="rmCkIrItem('${id}')"><title>${rmEscapeHtml(nome)}</title><circle cx="${p[0]}" cy="${p[1]}" r="${rr}" fill="${cor}" stroke="var(--rm-panel)" stroke-width="${Math.max(2, rr / 5).toFixed(1)}"/><text x="${p[0]}" y="${p[1] + rr * 0.36}" text-anchor="middle" font-size="${Math.round(rr * 1.05)}" font-weight="800" fill="#fff">${v === 'ok' ? '&#10003;' : v === 'av' ? '!' : v === 'na' ? '–' : rmCkNum(id)}</text></g>`; }).join('')}</svg>`;
 }
 function rmCkEntradaHtml(r){
-  const d = rmCkDoc(r.id), it = d.entrada.itens, c = rmCkContagem(d), km = (d.entrada.meta.km || {}).v || '', comb = (d.entrada.meta.comb || {}).v || '';
+  const d = rmCkDoc(r.id); rmCkUsar(d); const it = d.entrada.itens, c = rmCkContagem(d), km = (d.entrada.meta.km || {}).v || '', comb = (d.entrada.meta.comb || {}).v || '';
   const lista = RM_CK_GRUPOS.map(g => `<div class="ck-g">${g}</div>` + RM_CK_ITENS.filter(i => i[2] === g).map(([id, nome]) => {
     const x = it[id] || {}, v = x.s, det = v === 'av' ? [x.tipo, x.obs, (x.fotos || []).length ? (x.fotos.length + ' foto' + (x.fotos.length > 1 ? 's' : '')) : ''].filter(Boolean).join(' · ') : '';
     return `<div class="ck-li${v === 'av' ? ' av' : ''}" id="ck-li-${id}"><span class="n ${v || ''}">${v === 'ok' ? '&#10003;' : v === 'av' ? '!' : v === 'na' ? '–' : rmCkNum(id)}</span>
@@ -7168,7 +7266,7 @@ function rmCkMarcar(id, s){
 function rmCkIrItem(id){ const el = document.getElementById('ck-li-' + id); if(!el) return; el.scrollIntoView({ block: 'center', behavior: 'smooth' }); el.classList.remove('pisca'); void el.offsetWidth; el.classList.add('pisca'); }
 function rmCkAbrirItem(id, avaria){
   if(!rmCkOsId) return;
-  const d = rmCkDoc(rmCkOsId), x = d.entrada.itens[id] || {}, item = RM_CK_ITENS.find(i => i[0] === id);
+  const d = rmCkDoc(rmCkOsId); rmCkUsar(d); const x = d.entrada.itens[id] || {}, item = RM_CK_ITENS.find(i => i[0] === id);
   rmCkPop = { id, s: avaria ? 'av' : (x.s || ''), tipo: x.tipo || '', obs: x.obs || '', fotos: (x.fotos || []).slice() };
   rmCkPopRender(item);
 }
@@ -7243,7 +7341,7 @@ function rmCkHomeHtml(){
     return { r, d, ini, dia: rmCcDiaLocal(ini), ok: rmCkConcluido(d) }; }).filter(Boolean).sort((a, b) => String(b.ini).localeCompare(String(a.ini)));
   const nNao = todos.filter(x => !x.ok).length, nOk = todos.length - nNao;
   const lista = todos.filter(x => rmCkFiltro === 'todos' || (rmCkFiltro === 'ok') === x.ok);
-  const chips = `<div class="ck-chips">${[['todos', 'Todos', todos.length], ['nao', 'Não concluídos', nNao], ['ok', 'Concluídos', nOk]].map(([k, n, c]) => `<button type="button" class="${rmCkFiltro === k ? 'on' : ''} ${k}" onclick="rmCkFiltro='${k}'; rmCkDias=7; rmCkRender()">${n} <b>${c}</b></button>`).join('')}</div>`;
+  const chips = `<div class="ck-chips">${[['todos', 'Todos', todos.length], ['nao', 'Não concluídos', nNao], ['ok', 'Concluídos', nOk]].map(([k, n, c]) => `<button type="button" class="${rmCkFiltro === k ? 'on' : ''} ${k}" onclick="rmCkFiltro='${k}'; rmCkDias=7; rmCkRender()">${n} <b>${c}</b></button>`).join('')}${rmEhAdmin() ? '<button type="button" class="ck-cfg" onclick="rmCkItensAbrir()">&#9881; Itens do checklist</button>' : ''}</div>`;
   if(!lista.length) return chips + `<div class="ck-vazio">&#128203; ${todos.length ? 'Nenhum checklist nesse filtro.' : 'Nenhum checklist feito ainda.'}<br><small>Escolha a OS em cima ou clique em <b>+ Criar nova</b> para começar.</small></div>`;
   const grupos = []; lista.forEach(x => { const g = grupos[grupos.length - 1]; if(g && g.dia === x.dia) g.l.push(x); else grupos.push({ dia: x.dia, l: [x] }); });
   const semana = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'], mostra = grupos.slice(0, rmCkDias);
@@ -7279,7 +7377,7 @@ function rmCkImprimirEscolher(){
 }
 function rmCkDadosImp(){
   const r = rmLoad().find(x => x.id === rmCkOsId); if(!r) return null;
-  const d = rmCkDoc(r.id), it = d.entrada.itens, km = (d.entrada.meta.km || {}).v || '', comb = (d.entrada.meta.comb || {}).v;
+  const d = rmCkDoc(r.id); rmCkUsar(d); const it = d.entrada.itens, km = (d.entrada.meta.km || {}).v || '', comb = (d.entrada.meta.comb || {}).v;
   const probs = (r.problemas || []).map(p => typeof p === 'string' ? { texto: p } : p).filter(p => p && p.texto);
   return { r, d, it, km, comb: comb !== undefined && comb !== '' ? RM_CK_COMB[Number(comb)] : '', probs, avs: RM_CK_ITENS.filter(([id]) => it[id] && it[id].s === 'av') };
 }
@@ -7324,7 +7422,7 @@ function rmCkImprimir(tipo){
 }
 // ----- saída: o que o cliente pediu foi feito? -----
 function rmCkSaidaHtml(r){
-  const d = rmCkDoc(r.id), s = d.saida.probs, probs = r.problemas || [], it = d.entrada.itens;
+  const d = rmCkDoc(r.id); rmCkUsar(d); const s = d.saida.probs, probs = r.problemas || [], it = d.entrada.itens;
   const feitos = probs.filter((_, i) => (s[i] || {}).s === 'feito').length, nao = probs.filter((_, i) => (s[i] || {}).s === 'nao').length;
   const avs = RM_CK_ITENS.filter(([id]) => it[id] && it[id].s === 'av');
   const ent = d.entrada.fim, c = rmCkContagem(d);
@@ -8343,7 +8441,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611062138; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611062145; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
