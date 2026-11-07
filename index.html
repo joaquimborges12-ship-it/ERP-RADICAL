@@ -1749,6 +1749,13 @@
     .ck-sdh .ck-st{position:static; display:block; margin-top:4px}
     .ck-sd{gap:10px; margin-top:0}
   }
+  .ck-voltar{padding:10px 14px; font:inherit; font-weight:700; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); cursor:pointer; white-space:nowrap; align-self:flex-end}
+  .ck-chips{display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 6px} .ck-chips button{padding:9px 14px; font:inherit; font-size:14px; font-weight:700; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text-dim); cursor:pointer}
+  .ck-chips button b{margin-left:4px; color:var(--rm-text)} .ck-chips button.on{border:2px solid var(--rm-text); color:var(--rm-text)} .ck-chips button.nao.on{border-color:#d08a00} .ck-chips button.ok.on{border-color:#2e9e55}
+  .ck-card{border-left:5px solid #d08a00} .ck-card.ok{border-left-color:#2e9e55}
+  .ck-bd{display:inline-block; font-size:11px; font-weight:800; padding:3px 8px; text-transform:uppercase} .ck-bd.ok{background:#e3f4ea; color:#1f7a45} .ck-bd.nao{background:#fff1d6; color:#9a6a00}
+  html[data-tema="dark"] .ck-bd.ok{background:#173324; color:#8fd6aa} html[data-tema="dark"] .ck-bd.nao{background:#3a2c0f; color:#f0c060}
+  .ck-avn{font-style:normal; color:#d9433a; font-weight:700} .ck-quem{font-weight:600; color:var(--rm-text-dim)}
   /* caixa (fila de pagamentos) */
   .fc-badge{margin-left:auto; align-self:center; background:#d9433a; color:#fff; font-weight:800; font-size:12px; border-radius:10px; padding:1px 8px; line-height:18px}
   .rm-nav-btn.active .fc-badge{background:#fff; color:#d9433a}
@@ -3048,7 +3055,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 06/11 às 20:30</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 06/11 às 20:40</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -7080,7 +7087,7 @@ function rmCkModelo(){ const d = rmCkDoc(rmCkOsId); if(d.modelo) return d.modelo
 function rmCkSetModelo(m){ if(!rmCkOsId) return; const d = rmCkDoc(rmCkOsId); d.modelo = m; d.modeloT = rmCkAgora(); rmCkSalvar(rmCkOsId); rmCkRender(); }
 
 // ----- tela -----
-function rmCkAbrirTela(){ rmCkRender(); if(rmCkOsId) rmCkCarregar(rmCkOsId).then(rmCkRender); }
+function rmCkAbrirTela(){ rmCkRender(); if(rmCkOsId) rmCkCarregar(rmCkOsId).then(rmCkRender); else rmCkCarregarTodos().then(() => { if(!rmCkOsId) rmCkRender(); }); }
 function rmCkEscolherOs(id){
   rmCkOsId = id; rmCkBuscaTxt = ''; rmCkFecharLista();
   rmCkRender(); rmCkCarregar(id).then(() => { if(rmCkOsId === id) rmCkRender(); });
@@ -7115,9 +7122,10 @@ function rmCkRender(){
           onfocus="this.select(); rmCkBuscaTxt=''; rmCkAbrirLista();" oninput="rmCkBuscaTxt=this.value; rmCkAbrirLista();" onblur="setTimeout(rmCkFecharLista,150)"><div class="ck-oslista" id="rm-ck-oslista"></div></div>
         <button type="button" class="ck-nova" onclick="rmCkCriarNova()">+ Criar nova</button></div></div>
       ${r && rmCkAba === 'entrada' ? `<div class="ck-modbox"><span class="lb">MODELO DA MOTO</span><div class="ck-seg">${RM_CK_MODELOS.map(([m, n]) => `<button type="button" class="${rmCkModelo() === m ? 'on' : ''}" onclick="rmCkSetModelo('${m}')">${n}</button>`).join('')}</div></div>` : ''}
-      <div class="ck-tabs"><button type="button" class="${rmCkAba === 'entrada' ? 'on' : ''}" onclick="rmCkAba='entrada'; rmCkRender();">Entrada</button><button type="button" class="${rmCkAba === 'saida' ? 'on' : ''}" onclick="rmCkAba='saida'; rmCkRender();">Saída</button></div>
+      ${r ? `<button type="button" class="ck-voltar" onclick="rmCkVoltarLista()">&#8592; Todos os checklists</button>` : ''}
+      ${r ? `<div class="ck-tabs"><button type="button" class="${rmCkAba === 'entrada' ? 'on' : ''}" onclick="rmCkAba='entrada'; rmCkRender();">Entrada</button><button type="button" class="${rmCkAba === 'saida' ? 'on' : ''}" onclick="rmCkAba='saida'; rmCkRender();">Saída</button></div>` : ''}
     </div>`;
-  if(!r){ el.innerHTML = top + `<div class="ck-vazio">&#128203; Escolha a ordem de serviço em cima, ou clique em <b>+ Criar nova</b>.</div>`; return; }
+  if(!r){ el.innerHTML = top + rmCkHomeHtml(); return; }
   el.innerHTML = top + (rmCkAba === 'entrada' ? rmCkEntradaHtml(r) : rmCkSaidaHtml(r));
   rmCkStatus();
 }
@@ -7143,7 +7151,7 @@ function rmCkEntradaHtml(r){
         <div class="ck-dica">Toque no ponto da moto ou no item da lista.</div>
         ${fim ? `<div class="ck-fimok">&#10004; Entrada finalizada por <b>${rmEscapeHtml(fim.por || '')}</b> em ${new Date(fim.em).toLocaleString('pt-BR').slice(0, 17)}. Ainda dá para corrigir.</div>` : ''}</div>
       <div class="ck-side"><div class="ck-ls">${lista}</div>
-        <div class="ck-fim"><button type="button" onclick="rmCkSalvar(rmCkOsId); rmShowToast('Checklist salvo')">Salvar e continuar depois</button><button type="button" class="ok" onclick="rmCkFinalizar('entrada')">Finalizar checklist</button></div></div></div>`;
+        <div class="ck-fim"><button type="button" onclick="rmCkSalvarSair()">Salvar e continuar depois</button><button type="button" class="ok" onclick="rmCkFinalizar('entrada')">Finalizar checklist</button></div></div></div>`;
 }
 function rmCkMeta(sec, campo, v){ if(!rmCkOsId) return; const d = rmCkDoc(rmCkOsId); d[sec].meta[campo] = { v: String(v).trim(), t: rmCkAgora(), por: rmNomeUsuario() }; rmCkSalvar(rmCkOsId); rmCkRender(); }
 function rmCkMarcar(id, s){
@@ -7201,8 +7209,57 @@ async function rmCkFinalizar(sec){
     if(!rmCkOsId) return; rmCkDoc(rmCkOsId).saida.fim = { por: rmNomeUsuario(), em: rmCkAgora() };
     rmLog('Fez checklist de saída', r && r.codigoApp, (probs.length - nao - falta) + ' feito(s) · ' + nao + ' não feito(s)');
   }
-  rmCkSalvar(rmCkOsId); rmCkRender(); rmShowToast(sec === 'entrada' ? 'Checklist de entrada finalizado' : 'Checklist de saída finalizado');
+  rmCkSalvar(rmCkOsId); rmShowToast(sec === 'entrada' ? 'Checklist de entrada concluído' : 'Checklist de saída concluído'); rmCkVoltarLista();
 }
+// ----- tela inicial do Checklist: todos os checklists por dia (igual às motos concluídas da Oficina) -----
+let rmCkFiltro = 'todos', rmCkDias = 7, rmCkTodosEm = 0;
+async function rmCkCarregarTodos(){
+  if(!rmSb || navigator.onLine === false) return;
+  try{
+    const { data, error } = await rmSb.from('configuracoes').select('*').like('id', 'ck-%');
+    if(error) throw error;
+    (data || []).forEach(x => { if(x && x.dados && x.dados.osId) rmCk[x.dados.osId] = rmCkJuntar(x.dados, rmCk[x.dados.osId]); });
+    rmCkGuardar(); rmCkTodosEm = Date.now();
+  }catch(e){}
+}
+// quando o checklist começou (a primeira marcação feita nele)
+function rmCkInicio(d){
+  let m = null; const v = t => { if(t && (!m || t < m)) m = t; };
+  Object.values(d.entrada.itens || {}).forEach(x => v(x && x.t)); Object.values(d.entrada.meta || {}).forEach(x => v(x && x.t));
+  Object.values(d.saida.probs || {}).forEach(x => v(x && x.t)); Object.values(d.saida.meta || {}).forEach(x => v(x && x.t));
+  v(d.entrada.fim && d.entrada.fim.em); v(d.saida.fim && d.saida.fim.em); v(d.modeloT);
+  return m;
+}
+// concluído = entrada finalizada e, se a saída já começou, saída finalizada também
+function rmCkConcluido(d){ const saiu = Object.keys(d.saida.probs || {}).length || d.saida.fim; return !!d.entrada.fim && (!saiu || !!d.saida.fim); }
+function rmCkHomeHtml(){
+  const hoje = rmHojeISO(), ontem = rmAddDiasISO(hoje, -1), oss = rmLoad();
+  const todos = Object.keys(rmCk).map(id => { const r = oss.find(x => x.id === id); if(!r || r.cancelamento) return null; const d = rmCkDoc(id), ini = rmCkInicio(d); if(!ini) return null;
+    return { r, d, ini, dia: rmCcDiaLocal(ini), ok: rmCkConcluido(d) }; }).filter(Boolean).sort((a, b) => String(b.ini).localeCompare(String(a.ini)));
+  const nNao = todos.filter(x => !x.ok).length, nOk = todos.length - nNao;
+  const lista = todos.filter(x => rmCkFiltro === 'todos' || (rmCkFiltro === 'ok') === x.ok);
+  const chips = `<div class="ck-chips">${[['todos', 'Todos', todos.length], ['nao', 'Não concluídos', nNao], ['ok', 'Concluídos', nOk]].map(([k, n, c]) => `<button type="button" class="${rmCkFiltro === k ? 'on' : ''} ${k}" onclick="rmCkFiltro='${k}'; rmCkDias=7; rmCkRender()">${n} <b>${c}</b></button>`).join('')}</div>`;
+  if(!lista.length) return chips + `<div class="ck-vazio">&#128203; ${todos.length ? 'Nenhum checklist nesse filtro.' : 'Nenhum checklist feito ainda.'}<br><small>Escolha a OS em cima ou clique em <b>+ Criar nova</b> para começar.</small></div>`;
+  const grupos = []; lista.forEach(x => { const g = grupos[grupos.length - 1]; if(g && g.dia === x.dia) g.l.push(x); else grupos.push({ dia: x.dia, l: [x] }); });
+  const semana = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'], mostra = grupos.slice(0, rmCkDias);
+  const card = ({ r, d, ok }) => {
+    const c = rmCkContagem(d), sp = d.saida.probs || {}, probs = r.problemas || [], saiu = Object.keys(sp).length || d.saida.fim;
+    const ent = d.entrada.fim ? '<span class="ck-bd ok">&#10004; Entrada concluída</span>' : `<span class="ck-bd nao">Entrada não concluída · ${c.feitos}/${c.tot}</span>`;
+    const sai = d.saida.fim ? '<span class="ck-bd ok">&#10004; Saída concluída</span>' : saiu ? `<span class="ck-bd nao">Saída não concluída · ${Object.values(sp).filter(x => x && x.s).length}/${probs.length}</span>` : '';
+    const ult = d.saida.fim || d.entrada.fim, quem = ult ? ult.por + ' · ' + new Date(ult.em).toLocaleTimeString('pt-BR').slice(0, 5) : '';
+    return `<div class="cc-it cb ck-card ${ok ? 'ok' : 'nao'}" onclick="rmCkEscolherOs('${rmJs(r.id)}')">${r.fotoUrl ? `<img src="${rmEscapeHtml(r.fotoUrl)}" loading="lazy" decoding="async" alt="">` : '<div class="cc-sf">&#127949;</div>'}
+      <div class="cb-tx"><div class="cb-top"><b>${rmEscapeHtml(r.modelo || 'MOTO')}</b><small>${rmEscapeHtml(r.codigoApp || '')}</small></div><span class="cb-cli">${rmEscapeHtml(r.nome || '—')}</span>
+        <span>${c.ok} OK${c.av ? ` · <i class="ck-avn">${c.av} avaria${c.av > 1 ? 's' : ''}</i>` : ''}${d.entrada.meta.km && d.entrada.meta.km.v ? ' · ' + rmEscapeHtml(d.entrada.meta.km.v) + ' km' : ''}</span></div>
+      <div class="cb-pe">${ent}${sai}${quem ? `<span class="cb-dir ck-quem">${rmEscapeHtml(quem)}</span>` : ''}</div></div>`;
+  };
+  return chips + mostra.map(g => {
+    const dt = new Date(g.dia + 'T12:00:00'), dd = g.dia.slice(8, 10) + '/' + g.dia.slice(5, 7);
+    const rot = (g.dia === hoje ? 'Hoje · ' : g.dia === ontem ? 'Ontem · ' : '') + semana[dt.getDay()] + ', ' + dd;
+    return `<div class="cc-dia"><div class="cc-dia-cab"><b>${rot}</b><span>${g.l.length} checklist(s)</span></div><div class="cc-grid">${g.l.map(card).join('')}</div></div>`;
+  }).join('') + (grupos.length > mostra.length ? `<button class="rm-osl-sel cc-mais" onclick="rmCkDias += 7; rmCkRender()">Ver dias anteriores (${grupos.length - mostra.length} dia(s))</button>` : '');
+}
+function rmCkVoltarLista(){ rmCkOsId = null; rmCkBuscaTxt = ''; rmCkRender(); window.scrollTo(0, 0); }
+function rmCkSalvarSair(){ if(!rmCkOsId) return; rmCkSalvar(rmCkOsId); rmShowToast('Checklist salvo · ainda não concluído'); rmCkVoltarLista(); }
 // ----- saída: o que o cliente pediu foi feito? -----
 function rmCkSaidaHtml(r){
   const d = rmCkDoc(r.id), s = d.saida.probs, probs = r.problemas || [], it = d.entrada.itens;
@@ -7215,7 +7272,7 @@ function rmCkSaidaHtml(r){
           <span class="t">${rmEscapeHtml(p.texto || '')}${x.obs ? `<small class="r">${rmEscapeHtml(x.obs)}</small>` : ''}</span>
           <span class="bt"><button type="button" class="${v === 'feito' ? 'on ok' : ''}" onclick="rmCkSaida(${i},'feito')">&#10004; Feito</button><button type="button" class="${v === 'nao' ? 'on av' : ''}" onclick="rmCkSaida(${i},'nao')">Não feito</button></span></div>`; }).join('')
         : '<div class="ck-vazio" style="margin:20px">Esta OS não tem problemas anotados. Eles são anotados na OS, em "Problemas apresentados".</div>'}
-      <div class="ck-fim"><button type="button" onclick="rmCkSalvar(rmCkOsId); rmShowToast('Checklist salvo')">Salvar e continuar depois</button><button type="button" class="ok" onclick="rmCkFinalizar('saida')">Finalizar saída</button></div></div>
+      <div class="ck-fim"><button type="button" onclick="rmCkSalvarSair()">Salvar e continuar depois</button><button type="button" class="ok" onclick="rmCkFinalizar('saida')">Finalizar saída</button></div></div>
     <div class="ck-sdr"><div class="ck-box"><h4>Moto</h4><div class="kl"><span>KM na entrada</span><b>${rmEscapeHtml(((d.entrada.meta.km || {}).v) || '—')}</b></div>
         <div class="kl"><span>KM na saída</span><input class="rm-input" inputmode="numeric" value="${rmEscapeHtml(((d.saida.meta.km || {}).v) || '')}" onchange="rmCkMeta('saida','km',this.value)"></div>
         <div class="kl"><span>Moto</span><b>${rmEscapeHtml(r.modelo || '—')}</b></div></div>
@@ -8224,7 +8281,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611062030; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611062040; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
