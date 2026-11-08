@@ -1790,6 +1790,19 @@
   .rp-loc{font-weight:800; letter-spacing:.03em; white-space:nowrap} .rp-loc span{font-weight:400; color:var(--rm-text-dim)}
   .rp-o{cursor:pointer; user-select:none} .rp-o:hover{color:var(--rm-text); background:var(--rm-bg)} .rp-o.on{color:var(--rm-text)}
   @media (max-width:760px){ input.rm-input.rp-q{width:100%; margin-left:0} .rp-t th:nth-child(5), .rp-t td:nth-child(5), .rp-t th:nth-child(6), .rp-t td:nth-child(6), .rp-t th:nth-child(7), .rp-t td:nth-child(7){display:none} }
+  /* configurações > inteligência artificial */
+  #rm-ia{display:flex; flex-direction:column; gap:14px; max-width:1200px}
+  .ia-card{background:var(--rm-panel); border:1px solid var(--rm-border); padding:16px 18px}
+  .ia-h{display:flex; gap:14px; align-items:flex-start} .ia-ic{font-size:30px; line-height:1} .ia-h b{display:block; font-size:17px} .ia-h span{display:block; color:var(--rm-text-dim); font-size:13.5px; margin-top:3px; max-width:640px} .ia-lk{margin-left:auto; display:flex; gap:8px; align-items:center}
+  .ia-per{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:16px; padding-top:14px; border-top:1px solid var(--rm-border)} .ia-per label{font-weight:700; font-size:13px; color:var(--rm-text-dim)} .ia-dt{color:var(--rm-text-dim); font-size:13px; font-weight:600}
+  .ia-bx{width:auto !important; margin:0 0 0 auto !important; padding:12px 22px !important; font-size:15px !important}
+  .ia-st{font-size:13px; color:var(--rm-text-dim); margin-top:8px; min-height:18px}
+  .ia-2{display:grid; grid-template-columns:1.2fr 1fr; gap:14px} .ia-t{font-weight:800; font-size:14.5px; margin-bottom:10px} .ia-t small{display:block; font-weight:500; color:var(--rm-text-dim); font-size:12.5px; margin-top:2px}
+  textarea.rm-input.ia-tx{width:100%; min-height:420px; margin:0; font-size:13px; line-height:1.5; text-transform:none; resize:vertical}
+  .ia-tb{display:flex; gap:8px; margin-top:8px}
+  .ia-ls{margin:0; padding-left:18px; font-size:13px; line-height:1.55; color:var(--rm-text-dim)} .ia-ls b{color:var(--rm-text)}
+  .ia-pv{margin-top:12px; padding:9px 12px; background:var(--rm-bg); font-size:12.5px; color:var(--rm-text-dim)}
+  @media (max-width:900px){ .ia-2{grid-template-columns:1fr} .ia-bx{margin-left:0 !important} }
   /* caixa (fila de pagamentos) */
   .fc-badge{margin-left:auto; align-self:center; background:#d9433a; color:#fff; font-weight:800; font-size:12px; border-radius:10px; padding:1px 8px; line-height:18px}
   .rm-nav-btn.active .fc-badge{background:#fff; color:#d9433a}
@@ -3089,7 +3102,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 08/11 às 01:44</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 08/11 às 02:05</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -4056,6 +4069,7 @@ function rmCarregarLib(nome){
         <button class="rm-subnav-btn" id="rm-btn-cfg-backup" onclick="rmSetViewCfg('backup')"><span class="rm-subnav-icon">&#128190;</span><span>Backup</span></button>
         <button class="rm-subnav-btn rm-so-admin" id="rm-btn-cfg-usuarios" onclick="rmSetViewCfg('usuarios')"><span class="rm-subnav-icon">&#128101;</span><span>Usuários</span></button>
         <button class="rm-subnav-btn rm-so-admin" id="rm-btn-cfg-registro" onclick="rmSetViewCfg('registro')"><span class="rm-subnav-icon">&#128220;</span><span>Registro</span></button>
+        <button class="rm-subnav-btn rm-so-admin" id="rm-btn-cfg-ia" onclick="rmSetViewCfg('ia')"><span class="rm-subnav-icon">&#129302;</span><span>Inteligência artificial</span></button>
         <button class="rm-subnav-btn rm-so-admin" id="rm-btn-cfg-recuperar" onclick="rmSetViewCfg('recuperar')"><span class="rm-subnav-icon">&#128338;</span><span>Recuperar</span></button>
       </div>
       <div class="rm-view active">
@@ -8466,7 +8480,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611080144; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611080205; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -10058,7 +10072,7 @@ async function rmComConferirSenha(){
   rmComRenderAtual();
 }
 function rmComTrancar(){ rmComLiberadoAte = 0; rmComRenderAtual(); }
-function rmComRenderAtual(){ const vp = document.getElementById('rm-view-com-prod'); if(vp && vp.classList.contains('active')){ rmRpRender(); return; } if(rmComModo === 'hist') rmComHistRender(); else rmRenderComissao(); }
+function rmComRenderAtual(){ const ia = document.getElementById('rm-ia'); if(ia && ia.offsetParent) rmRenderIa(); const vp = document.getElementById('rm-view-com-prod'); if(vp && vp.classList.contains('active')){ rmRpRender(); return; } if(rmComModo === 'hist') rmComHistRender(); else rmRenderComissao(); }
 setInterval(() => {
   if(rmComLiberadoAte && !rmComLiberado()){ rmComLiberadoAte = 0; rmComRenderAtual(); return; }
   if(!rmComLiberado()) return;
@@ -10376,6 +10390,285 @@ async function rmRpExcel(){
   XLSX.utils.book_append_sheet(wb, larg(XLSX.utils.aoa_to_sheet(info), [20, 100]), 'Info');
   XLSX.writeFile(wb, 'Vendas_de_produtos_' + de + '_a_' + ate + '.xlsx');
   rmLog('Baixou relatório de vendas de produtos', '', de + ' a ' + ate);
+}
+
+// ===================== CONFIGURAÇÕES > INTELIGÊNCIA ARTIFICIAL =====================
+// Baixa TODOS os dados do período numa planilha do Excel para mandar a uma IA analisar.
+// Só administrador + a mesma senha das comissões. Só LÊ o servidor: não muda nada.
+// Dados pessoais dos clientes (telefone, CPF, endereço…) NÃO vão: só o nome.
+let rmIa = { per: 'mes', de: '', ate: '', texto: null, baixando: false };
+try{ const t = localStorage.getItem('radicalMotos_iaTexto'); if(t) rmIa.texto = t; }catch(e){}
+const RM_IA_PRIVADO = /telefone|whats|celular|cpf|rg$|^rg_|endereco|^cep$|^numero$|complemento|bairro|referencia|email|placa|foto|xml|senha|hash|token|usuario_id|chave|^uf$|^cidade$/i;
+function rmIaRange(){
+  const h = new Date(), y = h.getFullYear(), m = h.getMonth(), d = h.getDate(), D = (a, b, c) => new Date(a, b, c);
+  switch(rmIa.per){
+    case 'hoje': return { start: D(y, m, d), end: D(y, m, d + 1) };
+    case 'semana': { const i = d - h.getDay(); return { start: D(y, m, i), end: D(y, m, i + 7) }; }
+    case 'ultmes': return { start: D(y, m - 1, 1), end: D(y, m, 1) };
+    case 'ult3': return { start: D(y, m - 2, 1), end: D(y, m + 1, 1) };
+    case 'ult6': return { start: D(y, m - 5, 1), end: D(y, m + 1, 1) };
+    case 'ano': return { start: D(y, 0, 1), end: D(y + 1, 0, 1) };
+    case 'personalizado': {
+      const de = rmIa.de || rmHojeISO().slice(0, 8) + '01', ate = rmIa.ate || rmHojeISO();
+      const [a, b, c] = de.split('-').map(Number), [x, z, w] = ate.split('-').map(Number);
+      return { start: D(a, b - 1, c), end: D(x, z - 1, w + 1) };
+    }
+    default: return { start: D(y, m, 1), end: D(y, m + 1, 1) };
+  }
+}
+function rmIaTextoPadrao(){
+  const e = rmEmpresa();
+  return `Olá! Você vai atuar como um analista de negócios experiente e consultor da minha empresa.
+
+SOBRE A EMPRESA
+${e.nome || 'Radical Motos'}${e.razao ? ' (' + e.razao + ')' : ''} é uma loja de peças e acessórios para motos com oficina mecânica própria${e.cidade ? ', em ' + e.cidade : ''}. Sou o Joaquim, dono da empresa.
+- Balcão (PDV): venda de peças, óleo, pneus, acessórios e outros produtos, para consumidor final e para parceiros (mecânicos e outras oficinas, com tabela de preço própria).
+- Oficina: as motos entram por uma Ordem de Serviço (OS). Os mecânicos fazem o serviço, usam peças do estoque e ganham comissão sobre a mão de obra (alguns também recebem salário fixo por quinzena).
+- Atendemos principalmente motos populares (Honda Biz, Pop, CG/Titan/Fan, Bros, Start e similares).
+- Também vendemos a prazo (notas promissórias / contas a receber) para clientes de confiança.
+
+SOBRE OS DADOS
+Esta planilha foi exportada do sistema de gestão (ERP) da loja e contém TODOS os dados do período informado na aba "LEIA-ME": vendas, ordens de serviço, produtos, estoque, custos, clientes, contas a receber, recebimentos, compras de mercadoria, inventários, comissões, vales, checklists das motos e o registro de atividades da equipe. Cada aba está explicada logo abaixo. Por privacidade, dos clientes só vai o nome (sem telefone, CPF ou endereço).
+
+O QUE EU QUERO
+Use estes dados para analisar a empresa e para responder às perguntas que eu vou fazer em seguida. Além de responder, traga por conta própria tudo o que achar importante: o que está indo bem, o que está indo mal, produtos que mais vendem e que mais dão lucro, produtos parados, margens, ticket médio, dias e horários mais fortes, desempenho de cada vendedor e de cada mecânico, clientes mais importantes, inadimplência, descontos, cancelamentos, problemas mais comuns nas motos, oportunidades de venda e sugestões práticas para aumentar o lucro. Mostre números, compare e, quando possível, faça gráficos. Se algum dado parecer estranho ou faltar, me avise.`;
+}
+function rmIaTexto(){ return rmIa.texto != null && String(rmIa.texto).trim() ? rmIa.texto : rmIaTextoPadrao(); }
+function rmRenderIa(){
+  const el = document.getElementById('rm-ia'); if(!el) return;
+  if(!rmEhAdmin()){ el.innerHTML = '<div class="rm-problema-empty" style="padding:24px">Só o administrador pode baixar os dados para a IA.</div>'; return; }
+  if(!rmComLiberado()){
+    el.innerHTML = rmComTravaHtml().replace('Comissões protegidas', 'Dados para a IA protegidos');
+    if(!rmVgSenhaHash) rmVgSyncSenha().then(() => { if(rmVgSenhaHash && !rmComLiberado()) rmRenderIa(); });
+    setTimeout(() => { const i = el.querySelector('#rm-com-senha-in'); if(i && el.offsetParent) i.focus(); }, 30);
+    return;
+  }
+  const r = rmIaRange(), dd = x => x.toLocaleDateString('pt-BR');
+  const pers = [['hoje','Hoje'],['semana','Esta semana'],['mes','Este mês'],['ultmes','Mês passado'],['ult3','Últimos 3 meses'],['ult6','Últimos 6 meses'],['ano','Este ano'],['personalizado','Escolher datas']];
+  const abas = RM_IA_ABAS.map(([n, d]) => `<li><b>${n}</b> — ${d}</li>`).join('');
+  el.innerHTML = `<div class="ia-card">
+      <div class="ia-h"><div class="ia-ic">&#129302;</div><div><b>Baixar dados para a IA</b><span>Uma planilha do Excel com todos os dados do período, pronta para mandar para uma inteligência artificial (como o Claude) analisar e responder às suas perguntas.</span></div><span class="rm-com-lk ia-lk">${rmComLkHtml()}</span></div>
+      <div class="ia-per"><label>Período</label>
+        <select class="rm-osl-sel" onchange="rmIa.per=this.value; rmRenderIa()">${pers.map(([k, n]) => `<option value="${k}"${rmIa.per === k ? ' selected' : ''}>${n}</option>`).join('')}</select>
+        ${rmIa.per === 'personalizado' ? `<input type="date" class="rm-date-input" value="${rmIa.de || rmHojeISO().slice(0, 8) + '01'}" onchange="rmIa.de=this.value; rmRenderIa()"> até <input type="date" class="rm-date-input" value="${rmIa.ate || rmHojeISO()}" onchange="rmIa.ate=this.value; rmRenderIa()">` : ''}
+        <span class="ia-dt">${dd(r.start)} a ${dd(new Date(r.end - 1))}</span>
+        <button type="button" class="rm-primary ia-bx" id="rm-ia-btn" onclick="rmIaBaixar()" ${rmIa.baixando ? 'disabled' : ''}>${rmIa.baixando ? 'Preparando…' : '&#11015; Baixar dados para IA'}</button></div>
+      <div class="ia-st" id="rm-ia-st"></div>
+    </div>
+    <div class="ia-2">
+      <div class="ia-card"><div class="ia-t">Texto de apresentação <small>vai no começo da planilha (aba LEIA-ME) explicando a empresa para a IA</small></div>
+        <textarea class="rm-input ia-tx" id="rm-ia-tx" oninput="rmIa.texto=this.value; try{ localStorage.setItem('radicalMotos_iaTexto', this.value); }catch(e){}">${rmEscapeHtml(rmIaTexto())}</textarea>
+        <div class="ia-tb"><button type="button" class="rm-pe2-btn" onclick="rmIa.texto=null; try{ localStorage.removeItem('radicalMotos_iaTexto'); }catch(e){} rmRenderIa()">Voltar ao texto padrão</button><button type="button" class="rm-pe2-btn" onclick="rmIaCopiar()">&#128203; Copiar texto</button></div></div>
+      <div class="ia-card"><div class="ia-t">O que vai na planilha <small>${RM_IA_ABAS.length} abas</small></div><ul class="ia-ls">${abas}</ul>
+        <div class="ia-pv">&#128274; Dos clientes vai só o <b>nome</b> (sem telefone, CPF, endereço ou placa). Os custos vão completos. Nada é alterado no sistema.</div></div>
+    </div>`;
+}
+function rmIaCopiar(){ const t = rmIaTexto(); try{ navigator.clipboard.writeText(t).then(() => rmShowToast('Texto copiado')); }catch(e){ alert(t); } }
+const RM_IA_ABAS = [
+  ['LEIA-ME', 'apresentação da empresa, período e o que tem em cada aba'],
+  ['Resumo do período', 'faturamento, custos, lucro, ticket médio, descontos, cancelamentos, a receber'],
+  ['Resumo por dia', 'cada dia: vendas, OS, faturamento, lucro e formas de pagamento'],
+  ['Vendas PDV', 'cada venda do balcão (data, hora, vendedor, cliente, pagamento, desconto, total)'],
+  ['Itens PDV', 'cada produto de cada venda, com custo e lucro'],
+  ['Orçamentos', 'orçamentos feitos no período'],
+  ['Ordens de serviço', 'cada OS: moto, mecânico, problemas, datas, dias na oficina, peças, mão de obra, total'],
+  ['Itens das OS', 'peças e serviços de cada OS, com custo e lucro'],
+  ['Cancelamentos', 'vendas e OS canceladas e retornos de garantia, com motivo'],
+  ['Produtos', 'cadastro completo + quanto vendeu no período, estoque, custo, preço, margem'],
+  ['Clientes', 'nome, compras no período, valor gasto, última compra e quanto deve'],
+  ['Contas a receber', 'parcelas a prazo: em aberto, vencidas e pagas no período'],
+  ['Recebimentos', 'livro-caixa dos pagamentos recebidos de contas a prazo'],
+  ['Compras (notas)', 'notas de compra de mercadoria e seus itens'],
+  ['Inventários', 'contagens e ajustes de estoque'],
+  ['Comissões', 'pagamentos de comissão e salário e a configuração de cada mecânico'],
+  ['Vales', 'planilha de vales da equipe'],
+  ['Caixa', 'pedidos enviados ao caixa'],
+  ['Checklists', 'avarias encontradas na entrada das motos e serviços conferidos na saída'],
+  ['Lembretes', 'lembretes da equipe'],
+  ['Venda casada', 'sugestões de "leve junto" cadastradas e quantas foram aceitas'],
+  ['Registro de atividades', 'tudo o que a equipe fez no sistema no período (quem, o quê, quando)']
+];
+async function rmIaBaixar(){
+  if(!rmEhAdmin()){ alert('Só o administrador pode baixar os dados para a IA.'); return; }
+  if(!rmComLiberado()){ rmRenderIa(); return; }
+  if(rmIa.baixando) return;
+  rmIa.baixando = true; rmRenderIa();
+  const st = t => { const e = document.getElementById('rm-ia-st'); if(e) e.textContent = t; };
+  try{ await rmIaGerar(st); }catch(e){ console.error(e); alert('Não consegui gerar a planilha: ' + (e && e.message ? e.message : e)); }
+  rmIa.baixando = false; rmRenderIa();
+}
+async function rmIaGerar(st){
+  st('Carregando o gerador de planilhas…');
+  if(!await rmCarregarLib('xlsx')) throw new Error('não carregou o gerador de planilhas (verifique a internet)');
+  const r = rmIaRange(), ini = r.start.getTime(), fim = r.end.getTime();
+  const den = x => { if(!x) return false; const t = new Date(String(x).length <= 10 ? x + 'T12:00:00' : x).getTime(); return t >= ini && t < fim; };
+  const iso = x => new Date(x.getTime() - x.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+  const deTxt = iso(r.start), ateTxt = iso(new Date(fim - 1));
+  const N = v => Math.round((Number(v) || 0) * 100) / 100;
+  const dt = x => x ? new Date(String(x).length <= 10 ? x + 'T12:00:00' : x) : null;
+  const D = x => { const d = dt(x); return d && !isNaN(d) ? d.toLocaleDateString('pt-BR') : ''; };
+  const H = x => { const d = dt(x); return d && !isNaN(d) && String(x).length > 10 ? d.toLocaleTimeString('pt-BR').slice(0, 5) : ''; };
+  const DH = x => { const d = dt(x); return d && !isNaN(d) ? d.toLocaleString('pt-BR').replace(',', '') : ''; };
+  const SEM = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+  const J = v => v == null ? '' : typeof v === 'object' ? JSON.stringify(v).slice(0, 4000) : v;
+  // ---- busca tudo do servidor (fonte da verdade) ----
+  const T = {};
+  const tabs = ['recepcoes','vendas','clientes','produtos','promissorias','recebimentos','inventarios','configuracoes','mecanicos'];
+  for(const t of tabs){ st('Baixando do servidor: ' + t + '…'); const { data, error } = await rmSelectTudo(t, '*', t === 'mecanicos' ? 'nome' : 'id'); if(error) throw new Error('não consegui baixar "' + t + '" do servidor (verifique a internet)'); T[t] = data || []; }
+  st('Baixando do servidor: notas de compra…');
+  try{ const { data } = await rmSelectTudo('notas_compra', 'id,numero,emissao,fornecedor,cnpj,total,itens,situacao,importada_em,importada_por,lancada_em,lancada_por', 'id'); T.notas = data || []; }catch(e){ T.notas = []; }
+  st('Baixando do servidor: registro de atividades…');
+  T.aud = [];
+  try{ let de = r.start.toISOString(); for(let k = 0; k < 30; k++){ const { data, error } = await rmSb.from('auditoria').select('*').gte('quando', de).lt('quando', r.end.toISOString()).order('quando', { ascending: true }).limit(1000); if(error || !data || !data.length) break; T.aud = T.aud.concat(data); if(data.length < 1000) break; de = data[data.length - 1].quando; T.aud = T.aud.filter((x, i, a) => a.findIndex(y => y.id === x.id) === i); } }catch(e){}
+  st('Montando a planilha…');
+  const prods = T.produtos.map(rmFromDbRowProduto), P = new Map(prods.map(p => [p.id, p]));
+  const vendasT = T.vendas.map(rmFromDbRowVenda), osT = T.recepcoes.map(rmFromDbRow), cliT = T.clientes.map(rmFromDbRowCliente), promT = T.promissorias.map(rmPromFromDb);
+  const cfg = id => (T.configuracoes.find(c => c.id === id) || {}).dados || null;
+  const custoU = it => { const p = it.produtoId ? P.get(it.produtoId) : null; return p ? Number(p.precoCusto) || 0 : 0; };
+  const ehServ = it => { const p = it.produtoId ? P.get(it.produtoId) : null; return !!(it.servico || (p && p.ehServico) || (!p && /M[AÃ]O\s*DE\s*OBRA|SERVI[CÇ]O/i.test(it.nome || ''))); };
+  const formas = o => { const ps = Array.isArray(o.pagamentos) && o.pagamentos.length ? o.pagamentos : null; return ps ? ps.map(p => (p.forma || '') + ' ' + N(p.valor)).join(' + ') : (o.formaPagamento || ''); };
+  // ---- vendas do PDV ----
+  const vendas = vendasT.filter(v => v.tipo !== 'orcamento' && den(v.criadoEm)).sort((a, b) => String(a.criadoEm).localeCompare(String(b.criadoEm)));
+  const vValidas = vendas.filter(v => !v.cancelamento);
+  const shVendas = vendas.map(v => { const c = (v.itens || []).reduce((s, it) => s + (ehServ(it) ? 0 : custoU(it) * (Number(it.quantidade) || 0)), 0);
+    return { 'Data': D(v.criadoEm), 'Hora': H(v.criadoEm), 'Dia da semana': SEM[dt(v.criadoEm).getDay()], 'Código': v.codigoVenda || '', 'Vendedor': v.vendedor || '', 'Cliente': v.clienteNome || '(consumidor)', 'Tabela de preço': v.tabela || '',
+      'Qtd de itens': (v.itens || []).reduce((s, it) => s + (Number(it.quantidade) || 0), 0), 'Subtotal (R$)': N(v.subtotal || (v.itens || []).reduce((s, it) => s + (Number(it.subtotal) || 0), 0)), 'Desconto geral (R$)': N(v.desconto), 'Total (R$)': N(v.total),
+      'Custo dos produtos (R$)': N(c), 'Lucro bruto estimado (R$)': v.cancelamento ? 0 : N(v.total - c), 'Forma de pagamento': formas(v), 'Cancelada': v.cancelamento ? 'Sim' : 'Não', 'Observação': v.observacao || '' }; });
+  const shItensPdv = [];
+  vendas.forEach(v => (v.itens || []).forEach(it => { const p = it.produtoId ? P.get(it.produtoId) : null, q = Number(it.quantidade) || 0, cu = ehServ(it) ? 0 : custoU(it);
+    shItensPdv.push({ 'Data': D(v.criadoEm), 'Hora': H(v.criadoEm), 'Venda': v.codigoVenda || '', 'Vendedor': v.vendedor || '', 'Cliente': v.clienteNome || '(consumidor)', 'Produto': it.nome || (p && p.nome) || '', 'Código': (p && p.codigo) || '', 'Marca': (p && p.marca) || '', 'Categoria': (p && p.categoria) || '',
+      'Serviço': ehServ(it) ? 'Sim' : 'Não', 'Qtd': q, 'Preço unitário (R$)': N(it.precoUnit), 'Desconto no item (R$)': N(it.desconto), 'Total do item (R$)': N(it.subtotal), 'Custo unitário atual (R$)': N(cu), 'Custo total (R$)': N(cu * q), 'Lucro bruto estimado (R$)': N((Number(it.subtotal) || 0) - cu * q),
+      'Veio da venda casada': it.vc ? 'Sim' : 'Não', 'Produto cadastrado': p ? 'Sim' : 'Não', 'Venda cancelada': v.cancelamento ? 'Sim' : 'Não' }); }));
+  const shOrc = vendasT.filter(v => v.tipo === 'orcamento' && den(v.criadoEm)).map(v => ({ 'Data': D(v.criadoEm), 'Hora': H(v.criadoEm), 'Código': v.codigoVenda || '', 'Vendedor': v.vendedor || '', 'Cliente': v.clienteNome || '', 'Itens': (v.itens || []).map(it => (Number(it.quantidade) || 0) + 'x ' + (it.nome || '')).join('; '), 'Total (R$)': N(v.total), 'Observação': v.observacao || '' }));
+  // ---- ordens de serviço (entraram ou foram pagas no período) ----
+  const oss = osT.filter(o => den(o.entrada) || den(o.pagoEm)).sort((a, b) => String(a.entrada).localeCompare(String(b.entrada)));
+  const stTxt = o => o.cancelamento ? 'Cancelada' : o.pago ? 'Paga' : ((RM_STATUS[o.status] || {}).label || o.status || '');
+  const shOs = oss.map(o => { const t = rmOsTotais(o), its = o.pecasUsadas || [], cp = its.reduce((s, it) => s + (ehServ(it) ? 0 : custoU(it) * (Number(it.quantidade) || 0)), 0), ent = rmOsDataEntrega(o);
+    return { 'Código': o.codigoApp || '', 'Entrada': D(o.entrada), 'Hora entrada': H(o.entrada), 'Dia da semana': o.entrada ? SEM[dt(o.entrada).getDay()] : '', 'Cliente': o.nome || '', 'Moto': o.modelo || '', 'Mecânico': o.mecanico || '', 'Aberta por': o.criadoPor || '', 'Situação': stTxt(o),
+      'Problemas relatados': (o.problemas || []).map(p => typeof p === 'string' ? p : p.texto).filter(Boolean).join('; '), 'Itens deixados na moto': o.itens || '',
+      'Entregue em': ent ? D(ent) : '', 'Pago em': D(o.pagoEm), 'Dias na oficina': o.entrada && (ent || o.pagoEm) ? Math.max(0, Math.round((dt(ent || o.pagoEm) - dt(o.entrada)) / 864e5)) : '',
+      'Peças (R$)': N(t.tP), 'Serviços lançados como item (R$)': N(t.tS - (o.maoDeObra || 0)), 'Mão de obra (R$)': N(o.maoDeObra), 'Desconto (R$)': N(t.desc), 'Total (R$)': N(t.total), 'Custo das peças (R$)': N(cp), 'Lucro bruto estimado (R$)': o.pago && !o.cancelamento && !o.retorno ? N(t.total - cp) : 0,
+      'Forma de pagamento': formas(o), 'Retorno de garantia': o.retorno ? 'Sim' + (o.retorno.osOrigemCod ? ' (da ' + o.retorno.osOrigemCod + ')' : '') + (o.retorno.motivo ? ' - ' + o.retorno.motivo : '') : 'Não', 'Cancelada': o.cancelamento ? 'Sim' : 'Não', 'Observação': o.observacao || '' }; });
+  const shItensOs = [];
+  oss.forEach(o => { (o.pecasUsadas || []).forEach(it => { const p = it.produtoId ? P.get(it.produtoId) : null, q = Number(it.quantidade) || 0, sv = ehServ(it), cu = sv ? 0 : custoU(it);
+      shItensOs.push({ 'OS': o.codigoApp || '', 'Pago em': D(o.pagoEm), 'Mecânico': o.mecanico || '', 'Moto': o.modelo || '', 'Cliente': o.nome || '', 'Item': it.nome || (p && p.nome) || '', 'Código': (p && p.codigo) || '', 'Marca': (p && p.marca) || '', 'Tipo': sv ? 'Serviço' : 'Peça',
+        'Qtd': q, 'Preço unitário (R$)': N(it.precoUnit != null ? it.precoUnit : (q ? (Number(it.subtotal) || 0) / q : 0)), 'Total do item (R$)': N(it.subtotal), 'Custo unitário atual (R$)': N(cu), 'Custo total (R$)': N(cu * q), 'Lucro bruto estimado (R$)': N((Number(it.subtotal) || 0) - cu * q), 'Situação da OS': stTxt(o) }); });
+    if(o.maoDeObra > 0) shItensOs.push({ 'OS': o.codigoApp || '', 'Pago em': D(o.pagoEm), 'Mecânico': o.mecanico || '', 'Moto': o.modelo || '', 'Cliente': o.nome || '', 'Item': 'MÃO DE OBRA', 'Tipo': 'Mão de obra', 'Qtd': 1, 'Preço unitário (R$)': N(o.maoDeObra), 'Total do item (R$)': N(o.maoDeObra), 'Custo unitário atual (R$)': 0, 'Custo total (R$)': 0, 'Lucro bruto estimado (R$)': N(o.maoDeObra), 'Situação da OS': stTxt(o) }); });
+  const shCanc = [].concat(vendasT.filter(v => v.cancelamento && (den(v.criadoEm) || den(v.cancelamento.em))).map(v => ({ 'Tipo': 'Venda PDV', 'Código': v.codigoVenda || '', 'Data do documento': D(v.criadoEm), 'Cancelado em': DH(v.cancelamento.em), 'Por': v.cancelamento.por || '', 'Motivo': [v.cancelamento.motivo, v.cancelamento.detalhe].filter(Boolean).join(' - '), 'Valor (R$)': N(v.total), 'Cliente': v.clienteNome || '' })),
+    osT.filter(o => o.cancelamento && (den(o.entrada) || den(o.cancelamento.em))).map(o => ({ 'Tipo': 'OS', 'Código': o.codigoApp || '', 'Data do documento': D(o.entrada), 'Cancelado em': DH(o.cancelamento.em), 'Por': o.cancelamento.por || '', 'Motivo': [o.cancelamento.motivo, o.cancelamento.detalhe].filter(Boolean).join(' - '), 'Valor (R$)': N(rmOsTotais(o).cobrar), 'Cliente': o.nome || '' })),
+    osT.filter(o => o.retorno && !o.cancelamento && (den(o.entrada) || den(o.pagoEm))).map(o => ({ 'Tipo': 'Retorno de garantia', 'Código': o.codigoApp || '', 'Data do documento': D(o.entrada), 'Cancelado em': '', 'Por': o.mecanico || '', 'Motivo': (o.retorno.motivo === 'Outro' ? o.retorno.detalhe : o.retorno.motivo) || '', 'Valor (R$)': N(rmOsTotais(o).cobrar), 'Cliente': o.nome || '', 'OS de origem': o.retorno.osOrigemCod || '' })));
+  // ---- produtos (cadastro atual + vendas do período) ----
+  const vend = new Map(); const somaV = (it, k) => { if(!it.produtoId) return; const x = vend.get(it.produtoId) || { pdv: 0, os: 0, val: 0 }; x[k] += Number(it.quantidade) || 0; x.val += Number(it.subtotal) || 0; vend.set(it.produtoId, x); };
+  vValidas.forEach(v => (v.itens || []).forEach(it => somaV(it, 'pdv'))); oss.filter(o => o.pago && !o.cancelamento && !o.retorno && den(o.pagoEm)).forEach(o => (o.pecasUsadas || []).forEach(it => somaV(it, 'os')));
+  const ultVenda = new Map(); vendasT.filter(v => v.tipo !== 'orcamento' && !v.cancelamento).forEach(v => (v.itens || []).forEach(it => { if(it.produtoId && String(v.criadoEm) > String(ultVenda.get(it.produtoId) || '')) ultVenda.set(it.produtoId, v.criadoEm); }));
+  osT.filter(o => o.pago && !o.cancelamento).forEach(o => (o.pecasUsadas || []).forEach(it => { if(it.produtoId && String(o.pagoEm) > String(ultVenda.get(it.produtoId) || '')) ultVenda.set(it.produtoId, o.pagoEm); }));
+  const shProd = prods.filter(p => p.ativo !== false || vend.has(p.id)).map(p => { const v = vend.get(p.id) || { pdv: 0, os: 0, val: 0 }, c = Number(p.precoCusto) || 0, pr = Number(p.precoConsumidor) || 0, e = Number(p.estoqueAtual) || 0;
+    return { 'Produto': p.nome || '', 'Código': p.codigo || '', 'Código de barras': p.codigoBarras || '', 'Marca': p.marca || '', 'Categoria': p.categoria || '', 'Subcategoria': p.subcategoria || '', 'Aplicação': p.aplicacao || '', 'Curva': p.curva || '', 'Localização': p.localizacao || '', 'Fornecedor': p.fornecedor || '', 'Unidade': p.unidade || 'UN', 'Serviço': p.ehServico ? 'Sim' : 'Não', 'Ativo': p.ativo === false ? 'Não' : 'Sim',
+      'Custo (R$)': N(c), 'Preço consumidor (R$)': N(pr), 'Preço parceiro (R$)': N(p.precoParceiro), 'Margem consumidor (%)': pr ? N((pr - c) / pr * 100) : '', 'Estoque atual': e, 'Estoque mínimo': Number(p.estoqueMinimo) || 0, 'Estoque máximo': Number(p.estoqueMaximo) || 0, 'Valor em estoque a custo (R$)': N(e * c),
+      'Vendido no período - PDV': v.pdv, 'Vendido no período - OS': v.os, 'Vendido no período - total': v.pdv + v.os, 'Faturado no período (R$)': N(v.val), 'Lucro bruto estimado no período (R$)': N(v.val - c * (v.pdv + v.os)), 'Última venda (qualquer época)': D(ultVenda.get(p.id)), 'Cadastrado em': D(p.criadoEm) }; })
+    .sort((a, b) => b['Vendido no período - total'] - a['Vendido no período - total'] || String(a['Produto']).localeCompare(String(b['Produto'])));
+  // ---- clientes (só nome) ----
+  const deve = new Map(); promT.forEach(n => (n.parcelas || []).forEach(p => { const k = n.clienteId || n.clienteNome; deve.set(k, (deve.get(k) || 0) + rmParcRestante(p)); }));
+  const compras = new Map(); const somaC = (k, nome, v, data, tipo) => { if(!k) return; const x = compras.get(k) || { nome, n: 0, v: 0, nPdv: 0, nOs: 0, ult: '' }; x.n++; x.v += v; x[tipo]++; if(String(data) > x.ult) x.ult = data; compras.set(k, x); };
+  vValidas.forEach(v => somaC(v.clienteId || v.clienteNome, v.clienteNome, Number(v.total) || 0, v.criadoEm, 'nPdv'));
+  oss.filter(o => o.pago && !o.cancelamento && den(o.pagoEm)).forEach(o => somaC(o.clienteId || o.nome, o.nome, Number(o.valorPago || rmOsTotais(o).total) || 0, o.pagoEm, 'nOs'));
+  const ultGeral = new Map(); vendasT.filter(v => v.tipo !== 'orcamento' && !v.cancelamento).forEach(v => { const k = v.clienteId || v.clienteNome; if(k && String(v.criadoEm) > String(ultGeral.get(k) || '')) ultGeral.set(k, v.criadoEm); });
+  osT.filter(o => o.pago && !o.cancelamento).forEach(o => { const k = o.clienteId || o.nome; if(k && String(o.pagoEm) > String(ultGeral.get(k) || '')) ultGeral.set(k, o.pagoEm); });
+  const shCli = cliT.map(c => { const x = compras.get(c.id) || compras.get(c.nome) || { n: 0, v: 0, nPdv: 0, nOs: 0 };
+    return { 'Cliente': c.nome || '', 'Apelido': c.apelido || '', 'Situação': c.situacao || '', 'Limite de crédito (R$)': N(c.limiteCredito), 'Cliente desde': D(c.criadoEm), 'Compras no período': x.n, 'Vendas PDV no período': x.nPdv, 'OS pagas no período': x.nOs, 'Gasto no período (R$)': N(x.v), 'Última compra (qualquer época)': D(ultGeral.get(c.id) || ultGeral.get(c.nome)), 'Deve hoje (R$)': N(deve.get(c.id) || deve.get(c.nome)) }; })
+    .map(x => Object.assign(x, { 'Cadastrado': 'Sim' }));
+  // quem comprou sem cadastro (só o nome escrito na venda/OS)
+  const cadIds = new Set(cliT.map(c => c.id)), cadNomes = new Set(cliT.map(c => String(c.nome || '').toUpperCase()));
+  compras.forEach((x, k) => { if(cadIds.has(k) || cadNomes.has(String(k).toUpperCase()) || !x.nome) return;
+    shCli.push({ 'Cliente': x.nome, 'Apelido': '', 'Situação': '', 'Limite de crédito (R$)': 0, 'Cliente desde': '', 'Compras no período': x.n, 'Vendas PDV no período': x.nPdv, 'OS pagas no período': x.nOs, 'Gasto no período (R$)': N(x.v), 'Última compra (qualquer época)': D(ultGeral.get(k)), 'Deve hoje (R$)': N(deve.get(k)), 'Cadastrado': 'Não' }); });
+  shCli.sort((a, b) => b['Gasto no período (R$)'] - a['Gasto no período (R$)'] || String(a['Cliente']).localeCompare(String(b['Cliente'])));
+  // ---- contas a receber ----
+  const hoje = rmHojeISO(), shRec = [];
+  promT.forEach(n => (n.parcelas || []).forEach(p => { const resta = rmParcRestante(p), pgs = rmParcPagamentos(p), pagouNoPer = pgs.some(g => den(g.data));
+    if(!(resta > 0.004 || pagouNoPer || den(n.criadoEm) || den(p.vencimento))) return;
+    shRec.push({ 'Cliente': n.clienteNome || '', 'Origem': n.origem || '', 'Documento': n.refCodigo || '', 'Criada em': D(n.criadoEm), 'Parcela': p.entrada ? 'Entrada' : (p.n || '') + (n.parcelas.length > 1 ? '/' + n.parcelas.length : ''), 'Vencimento': D(p.vencimento), 'Valor (R$)': N(p.valor), 'Pago (R$)': N(rmParcPago(p)), 'Falta (R$)': N(resta),
+      'Situação': resta <= 0.004 ? 'Paga' : (p.vencimento && p.vencimento < hoje ? 'Vencida' : 'Em aberto'), 'Dias de atraso': resta > 0.004 && p.vencimento && p.vencimento < hoje ? Math.round((dt(hoje) - dt(p.vencimento)) / 864e5) : '', 'Pago em': D(p.pagoEm), 'Pago no período (R$)': N(pgs.filter(g => den(g.data)).reduce((s, g) => s + (Number(g.valor) || 0), 0)), 'Observação': n.observacao || '' }); }));
+  const shRecb = T.recebimentos.filter(x => den(x.data) || den(x.estornado_em)).sort((a, b) => String(a.data).localeCompare(String(b.data))).map(x => ({ 'Data': DH(x.data), 'Cliente': x.cliente_nome || '', 'Documento': x.ref_codigo || '', 'Parcela': x.entrada ? 'Entrada' : (x.parcela_n || ''), 'Valor (R$)': N(x.valor), 'Forma': x.forma || '', 'Recebido por': x.por || '', 'Estornado': x.estornado_em ? 'Sim (' + DH(x.estornado_em) + ' por ' + (x.estornado_por || '') + ')' : 'Não' }));
+  // ---- compras ----
+  const notas = T.notas.filter(n => den(n.emissao) || den(n.lancada_em) || den(n.importada_em));
+  const shNotas = notas.map(n => ({ 'Número': n.numero || '', 'Emissão': D(n.emissao), 'Fornecedor': n.fornecedor || '', 'CNPJ fornecedor': n.cnpj || '', 'Total (R$)': N(n.total), 'Qtd de itens': (n.itens || []).length, 'Situação': n.situacao || '', 'Importada em': DH(n.importada_em), 'Importada por': n.importada_por || '', 'Lançada no estoque em': DH(n.lancada_em), 'Lançada por': n.lancada_por || '' }));
+  const shNotasIt = []; notas.forEach(n => (n.itens || []).forEach(it => shNotasIt.push(Object.assign({ 'Nota': n.numero || '', 'Emissão': D(n.emissao), 'Fornecedor': n.fornecedor || '' }, rmIaPlano(it)))));
+  // ---- inventários ----
+  const invs = T.inventarios.filter(i => den(i.criado_em) || den(i.finalizado_em));
+  const shInv = []; invs.forEach(i => { const its = i.itens || []; if(!its.length) shInv.push({ 'Inventário': i.titulo || '', 'Tipo': i.tipo || '', 'Status': i.status || '', 'Criado em': DH(i.criado_em), 'Criado por': i.criado_por || '', 'Finalizado em': DH(i.finalizado_em) });
+    its.forEach(it => shInv.push(Object.assign({ 'Inventário': i.titulo || '', 'Tipo': i.tipo || '', 'Status': i.status || '', 'Criado em': DH(i.criado_em), 'Criado por': i.criado_por || '', 'Finalizado em': DH(i.finalizado_em), 'Produto (cadastro)': (P.get(it.produtoId || it.id) || {}).nome || '' }, rmIaPlano(it)))); });
+  // ---- comissões, vales, caixa, checklists, lembretes, venda casada (ficam em configuracoes) ----
+  const com = cfg('comissoes') || {};
+  const shCom = (com.pagamentos || []).filter(p => [p.em, p.pagoEm, p.data, p.ate, p.de].some(den)).map(p => rmIaPlano(p));
+  Object.entries(com.mecanicos || {}).forEach(([n, c]) => shCom.push(Object.assign({ 'CONFIGURAÇÃO DO MECÂNICO': n }, rmIaPlano(c))));
+  Object.entries(com.vendedores || {}).forEach(([n, c]) => shCom.push(Object.assign({ 'CONFIGURAÇÃO DO VENDEDOR': n }, rmIaPlano(c))));
+  const vale = cfg('vale') || {}, shVale = [];
+  const cols = (vale.colunas || []).map(c => [c.id, c.nome || c.id]);
+  Object.entries(vale.celulas || {}).forEach(([k, c]) => { if(c && String(c.v != null ? c.v : c.valor || '').trim() !== '' && (!c.t || den(c.t))) shVale.push({ 'Célula': k, 'Linha': Number(String(k).split(':')[0]) + 1, 'Pessoa/coluna': (cols.find(([id]) => String(k).split(':')[1] === id) || [])[1] || '', 'Valor': c.v != null ? c.v : (c.valor != null ? c.valor : J(c)), 'Escrito em': DH(c.t), 'Por': c.por || '' }); });
+  const cx = cfg('caixa-fila') || {}; const shCx = Object.values(cx.pedidos || {}).filter(p => p && [p.criadoEm, p.em, p.fechadoEm].some(den)).map(p => rmIaPlano(p));
+  const ckIt = new Map(); try{ rmCkTodosItens().forEach(x => ckIt.set(x.id, x)); }catch(e){} RM_CK_BASE.forEach(([id, n, g]) => { if(!ckIt.has(id)) ckIt.set(id, { nome: n, g }); });
+  const osPorId = new Map(osT.map(o => [o.id, o])), shCk = [];
+  T.configuracoes.filter(c => /^ck-/.test(c.id) && c.dados).forEach(c => { const d = c.dados, o = osPorId.get(d.osId) || {}; const its = (d.entrada && d.entrada.itens) || {}, quando = Object.values(its).map(x => x && x.t).filter(Boolean).sort()[0] || (d.entrada && d.entrada.fim && d.entrada.fim.em);
+    if(!den(quando) && !den(o.entrada) && !(d.saida && d.saida.fim && den(d.saida.fim.em))) return;
+    Object.entries(its).forEach(([id, x]) => { if(!x || !x.s) return; const ii = ckIt.get(id) || {}; shCk.push({ 'OS': o.codigoApp || '', 'Data': D(quando), 'Moto (OS)': o.modelo || '', 'Modelo do desenho': d.modelo || '', 'Etapa': 'Entrada', 'Grupo': ii.g || '', 'Item': ii.nome || id, 'Resultado': x.s === 'ok' ? 'OK' : x.s === 'av' ? 'AVARIA' : x.s === 'na' ? 'Não tem' : x.s, 'Tipo da avaria': x.tipo || '', 'Anotação': x.obs || '', 'Fotos': (x.fotos || []).length, 'Feito por': x.por || '', 'KM': ((d.entrada.meta || {}).km || {}).v || '' }); });
+    const pr = (o.problemas || []).map(p => typeof p === 'string' ? p : p.texto);
+    Object.entries((d.saida && d.saida.probs) || {}).forEach(([i, x]) => { if(x && x.s) shCk.push({ 'OS': o.codigoApp || '', 'Data': D(x.t), 'Moto (OS)': o.modelo || '', 'Modelo do desenho': d.modelo || '', 'Etapa': 'Saída', 'Grupo': 'Pedido do cliente', 'Item': pr[i] || ('pedido ' + (Number(i) + 1)), 'Resultado': x.s === 'feito' ? 'Feito' : x.s === 'nao' ? 'Não feito' : x.s, 'Anotação': x.obs || '', 'Feito por': x.por || '' }); }); });
+  const lem = cfg('lembretes') || {}; const shLem = (lem.itens || []).filter(x => x && [x.criadoEm, x.vistoEm, x.quando].some(den)).map(x => ({ 'Lembrete': x.texto || '', 'Criado em': DH(x.criadoEm), 'Por': x.criadoPor || '', 'Feito': x.visto ? 'Sim' : 'Não', 'Feito em': DH(x.vistoEm), 'Feito por': x.vistoPor || '', 'Apagado': x.apagado ? 'Sim' : 'Não' }));
+  const vc = cfg('venda_casada') || {}, aceitas = new Map(); shItensPdv.forEach(() => {}); vValidas.forEach(v => (v.itens || []).forEach(it => { if(it.vc) aceitas.set(it.vc, (aceitas.get(it.vc) || 0) + 1); }));
+  const nomeP = id => (P.get(id) || {}).nome || '(produto apagado)';
+  const shVc = Object.values(vc.regras || {}).filter(x => x && !x.apagada).map(x => ({ 'Venda casada': x.nome || '', 'Quando vender': (x.prods || []).map(nomeP).join('; '), 'Inclui a família': x.familia ? 'Sim' : 'Não', 'Sugerir junto': (x.sug || []).map(nomeP).join('; '), 'Sugestões aceitas no período': aceitas.get(x.id) || 0, 'Criada em': D(x.criadoEm) }));
+  const shAud = T.aud.map(a => ({ 'Quando': DH(a.quando), 'Usuário': a.usuario || '', 'Ação': a.acao || '', 'Referência': a.acao === 'Vale' ? '' : (a.ref || ''), 'Detalhe': a.detalhe || '' }));
+  // ---- resumo por dia e do período ----
+  const dias = new Map(); const dia = x => iso(dt(x));
+  const pegaDia = k => { if(!dias.has(k)) dias.set(k, { v: 0, fv: 0, os: 0, fos: 0, mo: 0, cus: 0, desc: 0, it: 0, fp: {} }); return dias.get(k); };
+  vValidas.forEach(v => { const x = pegaDia(dia(v.criadoEm)); x.v++; x.fv += Number(v.total) || 0; x.desc += Number(v.desconto) || 0; (v.itens || []).forEach(it => { x.it += Number(it.quantidade) || 0; if(!ehServ(it)) x.cus += custoU(it) * (Number(it.quantidade) || 0); x.desc += Number(it.desconto) || 0; });
+    rmPagPartes(v, Number(v.total) || 0).forEach(p => { x.fp[p.forma || '?'] = (x.fp[p.forma || '?'] || 0) + (Number(p.valor) || 0); }); });
+  const osPagas = oss.filter(o => o.pago && !o.cancelamento && !o.retorno && den(o.pagoEm));
+  osPagas.forEach(o => { const x = pegaDia(dia(o.pagoEm)), t = rmOsTotais(o), tot = Number(o.valorPago || t.total) || 0; x.os++; x.fos += tot; x.mo += Number(o.maoDeObra) || 0; x.desc += t.desc; (o.pecasUsadas || []).forEach(it => { if(!ehServ(it)) x.cus += custoU(it) * (Number(it.quantidade) || 0); });
+    rmPagPartes(o, tot).forEach(p => { x.fp[p.forma || '?'] = (x.fp[p.forma || '?'] || 0) + (Number(p.valor) || 0); }); });
+  const fps = [...new Set([...dias.values()].flatMap(x => Object.keys(x.fp)))].sort();
+  const shDia = []; for(let t = new Date(r.start); t < r.end; t.setDate(t.getDate() + 1)){ const k = iso(t), x = dias.get(k) || pegaDia(k), fat = x.fv + x.fos;
+    const lin = { 'Data': t.toLocaleDateString('pt-BR'), 'Dia da semana': SEM[t.getDay()], 'Vendas PDV': x.v, 'Faturamento PDV (R$)': N(x.fv), 'OS pagas': x.os, 'Faturamento OS (R$)': N(x.fos), 'Mão de obra (R$)': N(x.mo), 'Faturamento total (R$)': N(fat), 'Ticket médio (R$)': x.v + x.os ? N(fat / (x.v + x.os)) : 0, 'Itens vendidos no PDV': x.it, 'Descontos dados (R$)': N(x.desc), 'Custo dos produtos (R$)': N(x.cus), 'Lucro bruto estimado (R$)': N(fat - x.cus) };
+    fps.forEach(f => lin['Recebido em ' + f + ' (R$)'] = N(x.fp[f] || 0)); shDia.push(lin); }
+  const S = k => shDia.reduce((s, x) => s + (Number(x[k]) || 0), 0);
+  const fatT = S('Faturamento total (R$)'), nDoc = S('Vendas PDV') + S('OS pagas'), aberto = shRec.filter(x => x['Situação'] !== 'Paga');
+  const res = [['Faturamento total (PDV + OS)', N(fatT)], ['Faturamento PDV', N(S('Faturamento PDV (R$)'))], ['Faturamento OS', N(S('Faturamento OS (R$)'))], ['Mão de obra das OS', N(S('Mão de obra (R$)'))],
+    ['Custo dos produtos vendidos (custo atual)', N(S('Custo dos produtos (R$)'))], ['Lucro bruto estimado', N(fatT - S('Custo dos produtos (R$)'))], ['Margem bruta estimada (%)', fatT ? N((fatT - S('Custo dos produtos (R$)')) / fatT * 100) : 0],
+    ['Nº de vendas PDV', S('Vendas PDV')], ['Nº de OS pagas', S('OS pagas')], ['Ticket médio (R$)', nDoc ? N(fatT / nDoc) : 0], ['Descontos dados (R$)', N(S('Descontos dados (R$)'))],
+    ['OS que entraram no período', oss.filter(o => den(o.entrada)).length], ['OS ainda abertas (das que entraram)', oss.filter(o => den(o.entrada) && !o.pago && !o.cancelamento).length],
+    ['Orçamentos feitos', shOrc.length], ['Vendas canceladas', vendas.filter(v => v.cancelamento).length], ['OS canceladas', oss.filter(o => o.cancelamento).length], ['Retornos de garantia', oss.filter(o => o.retorno).length],
+    ['Contas a receber em aberto hoje (R$)', N(aberto.reduce((s, x) => s + x['Falta (R$)'], 0))], ['Contas vencidas hoje (R$)', N(aberto.filter(x => x['Situação'] === 'Vencida').reduce((s, x) => s + x['Falta (R$)'], 0))],
+    ['Recebido de contas a prazo no período (R$)', N(shRecb.filter(x => x['Estornado'] === 'Não').reduce((s, x) => s + x['Valor (R$)'], 0))],
+    ['Produtos cadastrados ativos', prods.filter(p => p.ativo !== false && !p.ehServico).length], ['Valor do estoque a custo hoje (R$)', N(prods.filter(p => p.ativo !== false && !p.ehServico).reduce((s, p) => s + Math.max(0, Number(p.estoqueAtual) || 0) * (Number(p.precoCusto) || 0), 0))],
+    ['Clientes que compraram no período', [...compras.keys()].length], ['Compras de mercadoria no período (R$)', N(shNotas.reduce((s, x) => s + x['Total (R$)'], 0))]].map(([a, b]) => ({ 'Indicador': a, 'Valor': b }));
+  // ---- LEIA-ME ----
+  const e = rmEmpresa(), cont = { 'Resumo do período': res, 'Resumo por dia': shDia, 'Vendas PDV': shVendas, 'Itens PDV': shItensPdv, 'Orçamentos': shOrc, 'Ordens de serviço': shOs, 'Itens das OS': shItensOs, 'Cancelamentos': shCanc, 'Produtos': shProd, 'Clientes': shCli,
+    'Contas a receber': shRec, 'Recebimentos': shRecb, 'Compras (notas)': shNotas, 'Itens das compras': shNotasIt, 'Inventários': shInv, 'Comissões': shCom, 'Vales': shVale, 'Caixa': shCx, 'Checklists': shCk, 'Lembretes': shLem, 'Venda casada': shVc, 'Registro de atividades': shAud };
+  const leia = [[rmIaTexto()], [], ['PERÍODO DOS DADOS: ' + deTxt.split('-').reverse().join('/') + ' a ' + ateTxt.split('-').reverse().join('/')], ['Gerado em ' + new Date().toLocaleString('pt-BR').replace(',', '') + ' por ' + rmNomeUsuario() + (e.nome ? ' · ' + e.nome : '')], [],
+    ['ABAS DESTA PLANILHA'], ...Object.keys(cont).map(k => ['• ' + k + ' (' + cont[k].length + (cont[k].length === 1 ? ' linha' : ' linhas') + '): ' + ((RM_IA_ABAS.find(a => a[0] === k) || [])[1] || (k === 'Itens das compras' ? 'cada item das notas de compra' : ''))]), [],
+    ['REGRAS IMPORTANTES PARA ENTENDER OS NÚMEROS'],
+    ['• Faturamento = vendas do PDV (sem orçamentos e sem canceladas) + OS pagas no período (sem canceladas e sem retornos de garantia). A data da OS no faturamento é a data do pagamento.'],
+    ['• "Orçamento" não é venda. "Retorno de garantia" é uma OS refeita sem cobrar o cliente.'],
+    ['• Custo e lucro usam o preço de custo ATUAL do cadastro do produto (não o custo da época da venda). Por isso são ESTIMADOS.'],
+    ['• Na OS, "Mão de obra" é o serviço do mecânico (base da comissão). Peças das OS saem do mesmo estoque do PDV.'],
+    ['• Valores dos itens já têm o desconto do item. O desconto geral da venda/OS aparece separado.'],
+    ['• Vendas "a prazo" geram contas a receber (notas promissórias) com parcelas; o dinheiro entra quando o cliente paga (aba Recebimentos).'],
+    ['• Parceiro = cliente com tabela de preço especial (mecânicos/oficinas). Consumidor = preço normal.'],
+    ['• Datas no formato dia/mês/ano, horas no horário local (Pará, UTC-3). Valores em reais (R$).'],
+    ['• Por privacidade, dos clientes vai só o nome. As colunas com nomes técnicos (em inglês ou com _) vieram direto do sistema.']];
+  const wb = XLSX.utils.book_new(), larg = ws => { const r0 = XLSX.utils.decode_range(ws['!ref'] || 'A1'), w = []; for(let c = r0.s.c; c <= r0.e.c; c++){ let m = 8; for(let rr = r0.s.r; rr <= Math.min(r0.e.r, 200); rr++){ const cell = ws[XLSX.utils.encode_cell({ r: rr, c })]; if(cell && cell.v != null) m = Math.max(m, Math.min(60, String(cell.v).length + 2)); } w.push({ wch: m }); } ws['!cols'] = w; return ws; };
+  const lws = XLSX.utils.aoa_to_sheet(leia); lws['!cols'] = [{ wch: 160 }]; XLSX.utils.book_append_sheet(wb, lws, 'LEIA-ME');
+  Object.entries(cont).forEach(([n, l]) => { const ws = XLSX.utils.json_to_sheet(l.length ? l : [{ 'Aviso': 'Nada no período' }]); if(l.length) ws['!autofilter'] = { ref: ws['!ref'] }; XLSX.utils.book_append_sheet(wb, larg(ws), n.slice(0, 31)); });
+  st('Baixando o arquivo…');
+  XLSX.writeFile(wb, 'Radical_Motos_dados_para_IA_' + deTxt + '_a_' + ateTxt + '.xlsx');
+  rmLog('Baixou dados para IA', '', deTxt + ' a ' + ateTxt);
+  rmShowToast('Planilha baixada · ' + Object.values(cont).reduce((s, l) => s + l.length, 0) + ' linhas');
+}
+// transforma um objeto qualquer em linha de planilha, sem dados pessoais
+function rmIaPlano(o){
+  const r = {}; if(!o || typeof o !== 'object') return { 'Valor': o };
+  Object.entries(o).forEach(([k, v]) => { if(RM_IA_PRIVADO.test(k) || k === '_v') return; r[k] = v == null ? '' : typeof v === 'object' ? JSON.stringify(v).slice(0, 4000) : v; });
+  return r;
 }
 
 // ===================== VISÃO GERAL (painel do negócio) =====================
@@ -14879,6 +15172,7 @@ const RM_ABA_ICONES = {
   'rm-btn-cfg-backup':'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
   'rm-btn-cfg-usuarios':'<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2.4.7 4 2.8 4 6"/>',
   'rm-btn-cfg-registro':'<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 12h8M8 16h8"/>',
+  'rm-btn-cfg-ia':'<rect x="5" y="7" width="14" height="12" rx="2"/><path d="M12 3v4"/><circle cx="12" cy="3" r="1"/><path d="M9 12h.01M15 12h.01"/><path d="M9.5 16h5"/><path d="M2 12v3M22 12v3"/>',
   'rm-btn-cfg-recuperar':'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/>'
 };
 function rmAbasPrepararIcones(){
@@ -14906,9 +15200,9 @@ function rmSetTema(t){
 }
 
 let rmCfgSub = 'empresa';
-const RM_CFG_TITULOS = { empresa:'Empresa', impressao:'Impressão', aparencia:'Aparência', backup:'Backup', usuarios:'Usuários', registro:'Registro de atividades', recuperar:'Recuperar versões anteriores' };
+const RM_CFG_TITULOS = { empresa:'Empresa', impressao:'Impressão', aparencia:'Aparência', backup:'Backup', usuarios:'Usuários', registro:'Registro de atividades', ia:'Inteligência artificial', recuperar:'Recuperar versões anteriores' };
 function rmSetViewCfg(v){
-  if((v === 'usuarios' || v === 'registro' || v === 'recuperar') && !rmEhAdmin()) v = 'empresa';
+  if((v === 'usuarios' || v === 'registro' || v === 'recuperar' || v === 'ia') && !rmEhAdmin()) v = 'empresa';
   rmCfgSub = v;
   if(v === 'usuarios') rmCarregarUsuarios();
   if(v === 'registro') setTimeout(rmCarregarRegistro, 0);
@@ -14992,10 +15286,13 @@ function rmRenderConfigEmpresa(){
     </div>`,
     usuarios: () => rmUsuariosHtml(),
     registro: () => rmRegistroHtml(),
-    recuperar: () => rmHistHtml()
+    recuperar: () => rmHistHtml(),
+    ia: () => '<div id="rm-ia"></div>'
   };
   document.querySelectorAll('.rm-so-admin').forEach(b => b.style.display = rmEhAdmin() ? '' : 'none');
+  if(rmCfgSub === 'ia' && document.getElementById('rm-ia') && box.contains(document.getElementById('rm-ia'))){ rmRenderIa(); return; }
   box.innerHTML = (telas[rmCfgSub] || telas.empresa)();
+  if(rmCfgSub === 'ia') rmRenderIa();
 }
 let rmCfgLogoNovo = null;
 function rmCfgLogo(input){
