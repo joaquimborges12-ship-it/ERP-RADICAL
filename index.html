@@ -1767,6 +1767,18 @@
   .cki-add{display:flex; gap:8px; margin-bottom:4px} .cki-add input{margin:0; flex:1} .cki-add button{padding:10px 14px; font:inherit; font-weight:700; border:1px dashed var(--rm-border); background:var(--rm-panel); color:var(--rm-text); cursor:pointer}
   .ck-chips .ck-cfg{margin-left:auto}
   @media (max-width:760px){ .cki-li{flex-wrap:wrap} .cki-li > button{padding:7px 8px} .ck-chips .ck-cfg{margin-left:0} }
+  /* PDV > lembretes */
+
+  .lb-badge{display:inline-block;min-width:18px;padding:1px 5px;margin-left:4px;font-size:11px;font-weight:800;line-height:16px;background:var(--rm-accent);color:#fff;border-radius:9px;vertical-align:1px}
+  #rm-lb-pan{position:absolute;top:calc(100% + 6px);right:0;z-index:60;width:470px;background:var(--rm-panel);border:1px solid var(--rm-border);box-shadow:0 10px 30px rgba(0,0,0,.18);text-align:left}
+  .lb-h{display:flex;align-items:center;padding:12px 14px;border-bottom:1px solid var(--rm-border)}.lb-h b{font-size:15px}.lb-h small{margin-left:8px;color:var(--rm-text-dim);font-size:12px}.lb-h button{margin-left:auto;border:0;background:none;font-size:22px;color:var(--rm-text-dim);cursor:pointer}
+  .lb-add{display:flex;gap:8px;padding:10px 14px;border-bottom:1px solid var(--rm-border)}.lb-add input{flex:1;margin:0;padding:9px 10px;font:inherit;font-size:14px;border:1px solid var(--rm-border);background:var(--rm-bg);color:var(--rm-text)}.lb-add button{padding:0 14px;font:inherit;font-weight:700;border:0;background:var(--rm-accent);color:#fff;cursor:pointer}
+  .lb-l{max-height:340px;overflow:auto}.lb-i{display:flex;align-items:flex-start;gap:10px;padding:9px 14px;border-bottom:1px solid var(--rm-border);font-size:14px}
+  .lb-i input{margin:2px 0 0;width:17px;height:17px;accent-color:#2e9e55;flex:none}.lb-i .t{flex:1;line-height:1.35}.lb-i .t small{display:block;font-size:11.5px;color:var(--rm-text-dim);margin-top:2px}.lb-i .x{border:0;background:none;color:var(--rm-text-dim);font-size:16px;cursor:pointer;padding:0 2px}
+  .lb-i.ok .t span{text-decoration:line-through;color:var(--rm-text-dim)}.lb-sep{padding:7px 14px;font-size:11.5px;font-weight:800;color:var(--rm-text-dim);background:var(--rm-bg);border-bottom:1px solid var(--rm-border);text-transform:uppercase;cursor:pointer}
+  .lb-pe{padding:8px 14px;font-size:11.5px;color:var(--rm-text-dim)}
+  @media (max-width:1500px){ .rm-pdv-toggles-row{gap:16px} }
+  .lb-vz{padding:16px 14px;font-size:13.5px;color:var(--rm-text-dim)}
   /* caixa (fila de pagamentos) */
   .fc-badge{margin-left:auto; align-self:center; background:#d9433a; color:#fff; font-weight:800; font-size:12px; border-radius:10px; padding:1px 8px; line-height:18px}
   .rm-nav-btn.active .fc-badge{background:#fff; color:#d9433a}
@@ -3052,7 +3064,7 @@ function rmCarregarLib(nome){
       </div>
       <nav class="rm-nav">
         <button class="rm-nav-btn" id="rm-btn-visao-geral" onclick="rmSetSection('visao-geral')" title="Visão Geral"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Visão Geral</span><span class="rm-nav-sub">Resumo do dia</span></span></button>
-        <button class="rm-nav-btn" id="rm-btn-planilha" onclick="rmSetSection('planilha')" title="Planilha"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v3h5V5H5zm7 0v3h7V5h-7zM5 10v4h5v-4H5zm7 0v4h7v-4h-7zm-7 6v3h5v-3H5zm7 0v3h7v-3h-7z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Planilha</span><span class="rm-nav-sub">Vales e lembretes</span></span></button>
+        <button class="rm-nav-btn" id="rm-btn-planilha" onclick="rmSetSection('planilha')" title="Planilha"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v3h5V5H5zm7 0v3h7V5h-7zM5 10v4h5v-4H5zm7 0v4h7v-4h-7zm-7 6v3h5v-3H5zm7 0v3h7v-3h-7z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Planilha</span><span class="rm-nav-sub">Vales</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-pdv" onclick="rmSetSection('pdv')" title="PDV"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">PDV</span><span class="rm-nav-sub">Ponto de venda</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-caixa" onclick="rmSetSection('caixa')" title="Caixa"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Caixa</span><span class="rm-nav-sub">Em construção</span></span><span class="fc-badge" id="rm-fc-badge" style="display:none">0</span></button>
         <button class="rm-nav-btn" id="rm-btn-oficina" onclick="rmSetSection('oficina')" title="Oficina"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Oficina</span><span class="rm-nav-sub">Motos e mecânicos</span></span></button>
@@ -3066,7 +3078,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 06/11 às 21:45</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 08/11 às 01:27</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3124,7 +3136,7 @@ function rmCarregarLib(nome){
           <button class="rm-pdv-modo-btn active" id="rm-pdv-tabela-consumidor" onclick="rmSetTabelaPrecoPdv('consumidor')">Consumidor</button>
           <button class="rm-pdv-modo-btn" id="rm-pdv-tabela-parceiro" onclick="rmSetTabelaPrecoPdv('parceiro')">Parceiro</button>
         </div>
-        <div class="rm-pdv-modo-toggle"><button class="rm-pdv-modo-btn" id="rm-pdv-vc-btn" onclick="rmVcAbrir()">Venda casada</button></div>
+        <div class="rm-pdv-modo-toggle" style="position:relative"><button class="rm-pdv-modo-btn" id="rm-pdv-vc-btn" onclick="rmVcAbrir()">Venda casada</button><button class="rm-pdv-modo-btn" id="rm-pdv-lb-btn" onclick="rmLbAbrir()">Lembretes</button></div>
         <span class="rm-ret-grupo"><button class="rm-ret-btn" id="rm-pdv-resumo-btn" onclick="rmPdvResumo()" title="Resumo dos itens do PDV para mostrar ao cliente ou mandar no WhatsApp (imagem ou PDF)"><span class="rm-ret-ic">&#128203;</span><span>Resumo</span></button><button class="rm-ret-btn" id="rm-btn-pdv-retirada" onclick="rmRetAbrir()"><span class="rm-ret-ic">&#128452;</span><span>Gaveta</span></button><button class="rm-ret-imp" id="rm-ret-imp" style="display:none" title="Resumo das retiradas de hoje (só administrador)" onclick="rmRetResumoEscolher()">&#128424;</button><span class="gv-pdv" id="rm-gv-pdv" style="display:none"><span class="gv-dot"><i></i><em>procurando gaveta…</em></span></span></span>
       </div>
 
@@ -3964,16 +3976,16 @@ function rmCarregarLib(nome){
 
     <div id="rm-section-planilha" class="rm-section">
       <div class="rm-subnav">
-        <button class="rm-subnav-btn active" id="rm-btn-pla-lembretes" onclick="rmSetViewPlanilha('lembretes')"><span class="rm-subnav-icon">&#128221;</span><span>Lembretes</span></button>
-        <button class="rm-subnav-btn" id="rm-btn-pla-vale" onclick="rmSetViewPlanilha('vale')"><span class="rm-subnav-icon">&#128181;</span><span>Vale</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-pla-lembretes" style="display:none" onclick="rmSetViewPlanilha('lembretes')"><span class="rm-subnav-icon">&#128221;</span><span>Lembretes</span></button>
+        <button class="rm-subnav-btn active" id="rm-btn-pla-vale" onclick="rmSetViewPlanilha('vale')"><span class="rm-subnav-icon">&#128181;</span><span>Vale</span></button>
       </div>
-      <div class="rm-view" id="rm-view-pla-vale">
+      <div class="rm-view active" id="rm-view-pla-vale">
         <h1 class="rm-title">Vale</h1>
         <div class="rm-vale-barra"><button class="rm-pe2-btn" onclick="rmValeAddCol()">+ Pessoa</button><button class="rm-pe2-btn" onclick="rmValeAddLinhas(5)">+ Linhas</button><button class="rm-pe2-btn" onclick="rmValeHistAbrir()">&#128338; Histórico</button><span id="rm-vale-status"></span></div>
         <div id="rm-vale-hist" style="display:none"></div>
         <div id="rm-vale"></div>
       </div>
-      <div class="rm-view active" id="rm-view-pla-lembretes">
+      <div class="rm-view" id="rm-view-pla-lembretes" style="display:none">
         <h1 class="rm-title">Lembretes</h1>
         <div id="rm-lem"></div>
       </div>
@@ -8441,7 +8453,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611062145; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611080127; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -11501,20 +11513,7 @@ async function rmLemSalvarItem(item){
   }catch(e){ console.warn('lembretes:', e); }
 }
 const rmLemVencido = x => !x.visto && x.quando && new Date(x.quando).getTime() <= Date.now();
-function rmLemBadge(){
-  const n = rmLem.itens.filter(rmLemVencido).length;
-  [['rm-btn-planilha','rm-nav-badge'],['rm-btn-pla-lembretes','rm-sub-badge']].forEach(([id, cls]) => {
-    const b = document.getElementById(id); if(!b) return;
-    let s = b.querySelector('.' + cls);
-    if(!n){ if(s) s.remove(); return; }
-    if(!s){ s = document.createElement('span'); s.className = cls; b.appendChild(s); }
-    s.textContent = n > 99 ? '99+' : n;
-    s.title = n + ' lembrete(s) para ver';
-  });
-  const mob = document.querySelector('#rm-mob-nav button[data-m="mais"]');
-  if(mob){ let s = mob.querySelector('.rm-sub-badge'); if(!n){ if(s) s.remove(); } else { if(!s){ s = document.createElement('span'); s.className = 'rm-sub-badge'; mob.appendChild(s); } s.textContent = n; } }
-  document.title = (n ? '(' + n + ') ' : '') + document.title.replace(/^\(\d+\+?\)\s*/, '');
-}
+function rmLemBadge(){ try{ rmLbRender(); }catch(e){} }
 function rmLemDataPadrao(){ const d = new Date(Date.now() + 3600e3); d.setMinutes(0, 0, 0); return new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0,16); }
 // cor sorteada: diferente da do último post-it criado
 function rmLemCorSorteada(){
@@ -11620,6 +11619,63 @@ setInterval(() => {
   if(v && v.classList.contains('active') && !(document.activeElement && document.activeElement.closest && document.activeElement.closest('.rm-lem-form')) && !rmLemEditando) rmRenderLembretes(true);
 }, 30000);
 setInterval(() => { if(typeof rmUsuario !== 'undefined' && rmUsuario) rmLemSync(); }, 120000);
+
+// ===================== PDV > LEMBRETES (linhas) =====================
+// Usa os MESMOS lembretes de antes (configuracoes('lembretes')): os post-its antigos da Planilha aparecem aqui como linhas.
+// Nada é apagado de verdade: "feito" = visto (como antes) e o ✕ só marca apagado:true (continua guardado e no backup).
+let rmLbAberto = false, rmLbFeitosAbertos = false;
+const rmLbData = x => String(x.criadoEm || x.quando || x.atualizadoEm || '');
+function rmLbAtivos(){ return rmLem.itens.filter(x => x && x.id && !x.apagado && !x.visto).sort((a, b) => rmLbData(b).localeCompare(rmLbData(a))); }
+function rmLbFeitos(){ const lim = Date.now() - 7 * 864e5; return rmLem.itens.filter(x => x && x.id && !x.apagado && x.visto && new Date(x.vistoEm || 0).getTime() >= lim).sort((a, b) => String(b.vistoEm || '').localeCompare(String(a.vistoEm || ''))); }
+function rmLbQuando(iso){
+  if(!iso) return '';
+  const d = new Date(iso), h = new Date(), on = new Date(Date.now() - 864e5), hm = d.toLocaleTimeString('pt-BR').slice(0, 5);
+  if(d.toDateString() === h.toDateString()) return 'hoje ' + hm;
+  if(d.toDateString() === on.toDateString()) return 'ontem ' + hm;
+  return d.toLocaleDateString('pt-BR').slice(0, 5) + ' ' + hm;
+}
+function rmLbAbrir(){ rmLbAberto = !rmLbAberto; rmLbRender(); if(rmLbAberto){ rmLemSync().then(rmLbRender); setTimeout(() => { const i = document.getElementById('rm-lb-txt'); if(i) i.focus(); }, 30); } }
+function rmLbFechar(){ if(!rmLbAberto) return; rmLbAberto = false; rmLbRender(); }
+function rmLbItemHtml(x){
+  const sub = x.visto ? `${rmEscapeHtml(x.criadoPor || '')} · feito por ${rmEscapeHtml(x.vistoPor || '')} ${rmLbQuando(x.vistoEm)}` : `${rmEscapeHtml(x.criadoPor || '')} · ${rmLbQuando(x.criadoEm || x.atualizadoEm)}${x.quando && !x.visto && !x.linha ? ' · &#128276; ' + rmLemQuandoTxt(x.quando) : ''}`;
+  return `<div class="lb-i${x.visto ? ' ok' : ''}"><input type="checkbox" ${x.visto ? 'checked' : ''} title="${x.visto ? 'Voltar para a lista' : 'Marcar como feito'}" onchange="rmLemVisto('${rmJs(x.id)}', this.checked)"><div class="t"><span>${rmEscapeHtml(x.texto || '')}</span><small>${sub}</small></div><button type="button" class="x" title="Apagar" onclick="rmLbApagar('${rmJs(x.id)}')">&#10005;</button></div>`;
+}
+function rmLbRender(){
+  const b = document.getElementById('rm-pdv-lb-btn'); if(!b) return;
+  const at = rmLbAtivos(), fe = rmLbFeitos();
+  b.classList.toggle('active', rmLbAberto);
+  b.innerHTML = 'Lembretes' + (at.length ? ` <span class="lb-badge">${at.length > 99 ? '99+' : at.length}</span>` : '');
+  let p = document.getElementById('rm-lb-pan');
+  if(!rmLbAberto){ if(p) p.remove(); return; }
+  const txt = p && document.getElementById('rm-lb-txt') ? document.getElementById('rm-lb-txt').value : '';
+  const foco = document.activeElement && document.activeElement.id === 'rm-lb-txt';
+  const sc = p && p.querySelector('.lb-l') ? p.querySelector('.lb-l').scrollTop : 0;
+  if(!p){ p = document.createElement('div'); p.id = 'rm-lb-pan'; b.parentElement.appendChild(p); }
+  p.innerHTML = `<div class="lb-h"><b>Lembretes</b><small>aparece em todos os computadores</small><button type="button" title="Fechar" onclick="rmLbFechar()">&times;</button></div>
+    <div class="lb-add"><input id="rm-lb-txt" placeholder="Escreva um lembrete e aperte Enter…" autocomplete="off" onkeydown="if(event.key==='Enter'){ event.preventDefault(); rmLbAdd(); } if(event.key==='Escape') rmLbFechar();"><button type="button" onclick="rmLbAdd()">Adicionar</button></div>
+    <div class="lb-l">${at.map(rmLbItemHtml).join('') || '<div class="lb-vz">Nenhum lembrete. Escreva acima para criar.</div>'}
+      ${fe.length ? `<div class="lb-sep" onclick="rmLbFeitosAbertos=!rmLbFeitosAbertos; rmLbRender()">${rmLbFeitosAbertos ? '&#9662;' : '&#9656;'} Feitos (${fe.length})</div>${rmLbFeitosAbertos ? fe.map(rmLbItemHtml).join('') : ''}` : ''}</div>
+    <div class="lb-pe">Marque a caixinha quando fizer. Os feitos somem da lista depois de 7 dias.</div>`;
+  const i = document.getElementById('rm-lb-txt'); if(i){ i.value = txt; if(foco) i.focus(); }
+  const l = p.querySelector('.lb-l'); if(l) l.scrollTop = sc;
+}
+function rmLbAdd(){
+  const i = document.getElementById('rm-lb-txt'); const texto = String((i && i.value) || '').trim();
+  if(!texto){ if(i) i.focus(); return; }
+  i.value = '';
+  rmLemSalvarItem({ id:'lem' + Date.now().toString(36) + Math.random().toString(36).slice(2,6), texto, linha:true, cor: rmLemCorSorteada(), quando:null, criadoEm: new Date().toISOString(), criadoPor: rmNomeUsuario(), visto:false });
+  rmLog('Criou lembrete', '', texto.slice(0, 60));
+  setTimeout(() => { const j = document.getElementById('rm-lb-txt'); if(j) j.focus(); }, 0);
+}
+async function rmLbApagar(id){
+  const x = rmLem.itens.find(i => i.id === id); if(!x) return;
+  if(!(await rmConfirmar('Apagar o lembrete "' + String(x.texto || '').slice(0, 80) + '"?', { titulo: 'Apagar lembrete', sim: 'Apagar', nao: 'Cancelar' }))) return;
+  rmLemSalvarItem(Object.assign({}, x, { apagado: true, apagadoEm: new Date().toISOString(), apagadoPor: rmNomeUsuario() }));
+  rmLog('Apagou lembrete', '', String(x.texto || '').slice(0, 60));
+}
+// fecha clicando fora do painel
+document.addEventListener('mousedown', e => { if(!rmLbAberto) return; const p = document.getElementById('rm-lb-pan'), b = document.getElementById('rm-pdv-lb-btn'); if(p && !p.contains(e.target) && b && !b.contains(e.target) && !e.target.closest('.rm-dlg-ov, #rm-dlg, .rm-dlg')) rmLbFechar(); });
+setTimeout(() => { if(typeof rmUsuario !== 'undefined' && rmUsuario) rmLemSync(); else rmLbRender(); }, 4000);
 
 // ===================== PLANILHA > VALE (planilha simples) =====================
 // Guardada em configuracoes('vale'). Cada célula guarda o horário em que foi mudada, assim dois aparelhos não apagam o que o outro escreveu.
