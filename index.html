@@ -1833,12 +1833,15 @@
   .pd-seg{display:flex; flex-wrap:wrap} .pd-seg button{padding:8px 13px; font:inherit; font-size:13.5px; font-weight:700; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text-dim); margin-left:-1px; cursor:pointer} .pd-seg button.on{background:var(--rm-text); color:var(--rm-panel); border-color:var(--rm-text); position:relative}
   input.rm-input.pd-busca{margin:0; flex:1; min-width:180px; max-width:340px; text-transform:none} .pd-chk{display:flex; align-items:center; gap:6px; font-size:13px; color:var(--rm-text-dim); white-space:nowrap} .pd-todos{width:auto !important; margin:0 0 0 auto !important; padding:10px 16px !important}
   .pd-tb{background:var(--rm-panel); border:1px solid var(--rm-border)}
-  .pd-th, .pd-tr{display:grid; grid-template-columns:1fr 110px 80px 80px 120px; gap:12px; align-items:center; padding:10px 14px; border-bottom:1px solid var(--rm-border)} .pd-th3, .pd-tr3{grid-template-columns:1fr 70px 80px 150px}
+  .pd-th, .pd-tr{display:grid; grid-template-columns:1fr 110px 80px 80px 160px; gap:12px; align-items:center; padding:10px 14px; border-bottom:1px solid var(--rm-border)} .pd-th3, .pd-tr3{grid-template-columns:1fr 70px 80px 150px}
   .pd-th{font-size:11.5px; font-weight:800; text-transform:uppercase; color:var(--rm-text-dim); background:var(--rm-bg); padding-top:8px; padding-bottom:8px} .pd-tr:last-child{border-bottom:0}
   .r{text-align:right} .pd-v b{font-size:16px} .pd-v small{display:block; font-size:11px; color:var(--rm-text-dim)} .pd-zero{color:#d9433a; font-weight:800}
   .pd-rq{width:60px; height:34px; text-align:center; font:inherit; font-weight:800; font-size:15px; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); margin:0}
   .pd-rbt{height:36px; padding:0 12px; font:inherit; font-size:13.5px; font-weight:800; border:1px solid var(--rm-accent); background:var(--rm-panel); color:var(--rm-accent); cursor:pointer; white-space:nowrap} .pd-rbt:hover{background:var(--rm-accent); color:#fff}
   .pd-tr.ok{background:var(--rm-bg)} .pd-tr.ok .pd-nm b{color:var(--rm-text-dim)} .pd-feito{color:#2e9e55; font-weight:800; font-size:13px; white-space:nowrap} .pd-quem{font-size:11.5px; color:var(--rm-text-dim)}
+  .pd-racao{display:flex; gap:4px; justify-content:flex-end} .pd-rx{width:36px; height:36px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text-dim); cursor:pointer; font-size:14px} .pd-rx:hover{color:#d9433a; border-color:#d9433a}
+  .pd-feito.tir{color:var(--rm-text-dim); font-weight:600}
+  .pd-desf{color:var(--rm-text-dim); text-decoration:underline; cursor:pointer; margin-left:4px}
   .pd-nota{margin-top:12px; font-size:12.5px; color:var(--rm-text-dim); line-height:1.5}
   @media (max-width:760px){
     .pd-th{display:none} .pd-tr{grid-template-columns:1fr auto auto; row-gap:6px} .pd-tr .pd-nm{grid-column:1 / -1} .pd-tr > span:nth-of-type(2){display:none}
@@ -3147,7 +3150,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 08/11 às 22:30</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 08/11 às 22:37</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -8498,7 +8501,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611082230; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611082237; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -16952,6 +16955,7 @@ function rmPedidoJuntar(a, b){
   [...((a && a.itens) || []), ...((b && b.itens) || [])].forEach(i => { const y = m.get(i.id); if(!y || String(i.t || '') > String(y.t || '')) m.set(i.id, i); });
   const itens = [...m.values()].filter(i => !rem[i.id] || String(i.t || '') > rem[i.id]).sort((x, y) => String(x.criadoEm || '').localeCompare(String(y.criadoEm || '')));
   const reposicoes = Object.assign({}, (b && b.reposicoes) || {}, (a && a.reposicoes) || {});
+  Object.keys(reposicoes).forEach(k => { const x = ((a && a.reposicoes) || {})[k], y = ((b && b.reposicoes) || {})[k]; if(x && y && (x.desfeito || y.desfeito)) reposicoes[k] = x.desfeito ? x : y; });
   return Object.assign({}, b || {}, a || {}, { itens, removidos: rem, reposicoes });
 }
 function rmPedidoSalvar(){
@@ -17107,7 +17111,7 @@ function rmRepDados(){
   rmLoad().filter(o => rmOsValida(o) && den(o.pagoEm)).forEach(o => (o.pecasUsadas || []).forEach(it => somar(it, 'os')));
   const rep = Object.values(rmPedido.reposicoes || {}).filter(x => x && !x.desfeito && new Date(x.em).getTime() >= ini);
   const l = [...m.values()].filter(x => x.vend > 0).map(x => { const rs = rep.filter(y => y.pid === x.p.id), feito = rs.reduce((s, y) => s + (Number(y.qtd) || 0), 0);
-    return Object.assign(x, { feito, falta: Math.max(0, x.vend - feito), ult: rs.sort((a, b) => String(b.em).localeCompare(String(a.em)))[0] }); });
+    return Object.assign(x, { feito, falta: Math.max(0, x.vend - feito), ult: rs.sort((a, b) => String(b.em).localeCompare(String(a.em)))[0], tirado: rs.length && rs.every(y => y.tirado) }); });
   l.sort((a, b) => b.falta - a.falta || b.vend - a.vend || String(a.p.nome).localeCompare(String(b.p.nome)));
   return { l, r };
 }
@@ -17117,18 +17121,31 @@ function rmRepor(pid){
   rmPedido.reposicoes = rmPedido.reposicoes || {};
   const id = 'rp' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
   rmPedido.reposicoes[id] = { id, pid, qtd: q, em: new Date().toISOString(), por: rmNomeUsuario() };
-  rmPedidoAdd(pid, q, true); delete rmRepQtd[pid];
-  rmShowToast(rmFmtQtd(q) + 'x ' + x.p.nome + ' na lista de compra');
+  delete rmRepQtd[pid]; rmPedidoSalvar(); rmRenderPedido();
+  rmShowToast(rmFmtQtd(q) + 'x ' + x.p.nome + ' marcado como reposto');
+}
+function rmReporTirar(pid){
+  const x = rmRepDados().l.find(y => y.p.id === pid); if(!x || x.falta <= 0) return;
+  rmPedido.reposicoes = rmPedido.reposicoes || {};
+  const id = 'rp' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+  rmPedido.reposicoes[id] = { id, pid, qtd: x.falta, em: new Date().toISOString(), por: rmNomeUsuario(), tirado: true };
+  delete rmRepQtd[pid]; rmPedidoSalvar(); rmRenderPedido(); rmShowToast(x.p.nome + ' tirado da lista');
 }
 function rmReporTodos(){
   const l = rmRepDados().l.filter(x => x.falta > 0); if(!l.length) return;
-  rmConfirmar(`Colocar na lista de compra os ${l.length} produto(s) que faltam repor?`, { titulo: 'Repor todos', sim: 'Repor todos', nao: 'Cancelar' }).then(ok => { if(!ok) return;
+  rmConfirmar(`Marcar como repostos os ${l.length} produto(s) que faltam?`, { titulo: 'Repor todos', sim: 'Repor todos', nao: 'Cancelar' }).then(ok => { if(!ok) return;
     rmPedido.reposicoes = rmPedido.reposicoes || {};
     l.forEach(x => { const q = rmParseMoeda(String(rmRepQtd[x.p.id] != null ? rmRepQtd[x.p.id] : x.falta)) || 0; if(q <= 0) return;
-      const id = 'rp' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); rmPedido.reposicoes[id] = { id, pid: x.p.id, qtd: q, em: new Date().toISOString(), por: rmNomeUsuario() }; rmPedidoAdd(x.p.id, q, true); });
-    rmRepQtd = {}; rmPedidoSalvar(); rmRenderPedido(); rmShowToast(l.length + ' produto(s) na lista de compra'); });
+      const id = 'rp' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); rmPedido.reposicoes[id] = { id, pid: x.p.id, qtd: q, em: new Date().toISOString(), por: rmNomeUsuario() }; });
+    rmRepQtd = {}; rmPedidoSalvar(); rmRenderPedido(); rmShowToast(l.length + ' produto(s) marcados como repostos'); });
 }
 const rmPedMoto = '&#128722;';
+// desfaz a última reposição do produto (fica guardada como desfeita, nada é apagado)
+function rmReporDesfazer(pid){
+  const r = rmRepRange(), l = Object.values(rmPedido.reposicoes || {}).filter(x => x && x.pid === pid && !x.desfeito && new Date(x.em) >= r.start).sort((a, b) => String(b.em).localeCompare(String(a.em)));
+  if(!l.length) return; l[0].desfeito = new Date().toISOString(); l[0].desfeitoPor = rmNomeUsuario();
+  rmPedidoSalvar(); rmRenderPedido(); rmShowToast('Reposição desfeita');
+}
 function rmRenderPedido(){
   const box = document.getElementById('rm-pedido-wrap'); if(!box) return;
   const P = rmIdx(rmLoadProdutos()), itens = rmPedido.itens || [], pend = itens.filter(i => !i.comprado).length;
@@ -17156,16 +17173,16 @@ function rmRenderPedido(){
     let l = rep.l; if(!rmRepVerFeitos) l = l.filter(x => x.falta > 0); if(qRep) l = l.filter(x => rmProdutoBateBusca(x.p, qRep.toLowerCase()));
     const dd = x => x.toLocaleDateString('pt-BR').slice(0, 5), fe = rep.l.filter(x => x.falta <= 0).length;
     corpo = `<div class="pd-bar"><div class="pd-seg">${pers.map(([k, n]) => `<button type="button" class="${rmRepPer === k ? 'on' : ''}" onclick="rmRepPer='${k}'; rmRepQtd={}; rmRenderPedido()">${n}</button>`).join('')}</div><span class="pd-dt">${dd(rep.r.start)} a ${dd(new Date(rep.r.end - 1))}</span></div>
-      <div class="pd-bar"><input class="rm-input pd-busca" id="rm-rep-q" placeholder="Filtrar produto..." value="${rmEscapeHtml(qRep)}" oninput="rmRenderPedido()"><label class="pd-chk"><input type="checkbox" ${rmRepVerFeitos ? 'checked' : ''} onchange="rmRepVerFeitos=this.checked; rmRenderPedido()"> Mostrar já repostos (${fe})</label>${nRep ? `<button type="button" class="rm-primary pd-todos" onclick="rmReporTodos()">&#8635; Repor todos (${nRep})</button>` : ''}</div>
+      <div class="pd-bar"><input class="rm-input pd-busca" id="rm-rep-q" placeholder="Filtrar produto..." value="${rmEscapeHtml(qRep)}" oninput="rmRenderPedido()"><label class="pd-chk"><input type="checkbox" ${rmRepVerFeitos ? 'checked' : ''} onchange="rmRepVerFeitos=this.checked; rmRenderPedido()"> Mostrar já repostos e tirados (${fe})</label>${nRep ? `<button type="button" class="rm-primary pd-todos" onclick="rmReporTodos()">&#8635; Repor todos (${nRep})</button>` : ''}</div>
       ${l.length ? `<div class="pd-tb"><div class="pd-th"><span>Produto</span><span class="r">Vendido</span><span class="r">Estoque</span><span class="r">Repor</span><span></span></div>
         ${l.map(x => { const ok = x.falta <= 0, est = Number(x.p.estoqueAtual) || 0;
           return `<div class="pd-tr${ok ? ' ok' : ''}"><div class="pd-nm"><b>${rmEscapeHtml(x.p.nome)}</b><small>${[x.p.localizacao, x.p.marca, x.p.fornecedor].filter(Boolean).map(rmEscapeHtml).join(' · ')}${x.feito && !ok ? ` · já repôs ${rmFmtQtd(x.feito)}` : ''}</small></div>
             <span class="r pd-v"><b>${rmFmtQtd(x.vend)}</b><small>PDV ${rmFmtQtd(x.pdv)} · OS ${rmFmtQtd(x.os)}</small></span>
             <span class="r ${est <= 0 ? 'pd-zero' : ''}">${rmFmtQtd(est)}</span>
-            ${ok ? `<span class="r pd-feito">&#10004; reposto</span><span class="pd-quem">${x.ult ? rmEscapeHtml(x.ult.por || '') + ' · ' + new Date(x.ult.em).toLocaleDateString('pt-BR').slice(0, 5) : ''}</span>`
-              : `<span class="r"><input class="pd-rq" inputmode="decimal" value="${rmFmtQtd(rmRepQtd[x.p.id] != null ? rmRepQtd[x.p.id] : x.falta)}" onfocus="this.select()" onchange="rmRepQtd['${x.p.id}']=this.value"></span><button type="button" class="pd-rbt" onclick="rmRepor('${x.p.id}')">&#8635; Repor</button>`}</div>`; }).join('')}</div>`
+            ${ok ? `<span class="r pd-feito${x.tirado ? ' tir' : ''}">${x.tirado ? 'tirado da lista' : '&#10004; reposto'}</span><span class="pd-quem">${x.ult ? rmEscapeHtml(x.ult.por || '') + ' · ' + new Date(x.ult.em).toLocaleDateString('pt-BR').slice(0, 5) + ` <a class="pd-desf" onclick="rmReporDesfazer('${x.p.id}')">desfazer</a>` : ''}</span>`
+              : `<span class="r"><input class="pd-rq" inputmode="decimal" value="${rmFmtQtd(rmRepQtd[x.p.id] != null ? rmRepQtd[x.p.id] : x.falta)}" onfocus="this.select()" onchange="rmRepQtd['${x.p.id}']=this.value"></span><span class="pd-racao"><button type="button" class="pd-rbt" onclick="rmRepor('${x.p.id}')">&#8635; Repor</button><button type="button" class="pd-rx" title="Tirar da lista (não repor)" onclick="rmReporTirar('${x.p.id}')">&#10005;</button></span>`}</div>`; }).join('')}</div>`
         : `<div class="pd-vz">&#10004;<b>${rep.l.length ? 'Tudo reposto nesse período' : 'Nenhuma peça vendida nesse período'}</b><span>${rep.l.length ? 'Marque "Mostrar já repostos" para ver o que já foi.' : 'Escolha outro período acima.'}</span></div>`}
-      <div class="pd-nota">Mostra as peças vendidas no PDV e nas OS pagas no período (sem mão de obra e serviços). <b>Repor</b> coloca a quantidade na Lista de compra e marca como reposto, para não pedir duas vezes. O estoque só muda quando a mercadoria chegar (nota de compra ou ajuste).</div>`;
+      <div class="pd-nota">Mostra as peças vendidas no PDV e nas OS pagas no período (sem mão de obra e serviços). <b>Repor</b> só marca o produto como reposto (não vai para a Lista de compra e não mexe no estoque). O <b>✕</b> tira o produto desta lista; se ele vender de novo, volta a aparecer só com o que vendeu depois.</div>`;
   } else {
     let sug = sugT; const fC = rmPedSugCurva || ''; if(fC) sug = sug.filter(x => String(x.p.curva || '').toUpperCase() === fC);
     if(qSug) sug = sug.filter(x => x.fam ? (rmBuscaBate([x.fam.nome], qSug.toLowerCase()) || x.ms.some(p => rmProdutoBateBusca(p, qSug.toLowerCase()))) : rmProdutoBateBusca(x.p, qSug.toLowerCase()));
