@@ -3194,7 +3194,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-caixa" onclick="rmSetSection('caixa')" title="Caixa"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Caixa</span><span class="rm-nav-sub">Em construção</span></span><span class="fc-badge" id="rm-fc-badge" style="display:none">0</span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 09/11 às 00:07</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 09/11 às 00:38</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -8682,7 +8682,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611090007; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611090038; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -9152,7 +9152,7 @@ window.addEventListener('online', () => { rmOutboxEnviar().then(ok => { if(ok &&
 setInterval(() => { if(rmOutboxQtd()) rmOutboxEnviar(); }, 15000);
 setTimeout(rmOutboxStatus, 1500);
 
-async function rmDbUpsertRecepcao(record){ rmOutboxPor('recepcoes', record.id, 'up', rmToDbRow(record)); }
+async function rmDbUpsertRecepcao(record){ rmOutboxPor('recepcoes', record.id, 'up', rmToDbRow(record)); rmRepCapturarOs(record); }
 
 // ===================== NUMERAÇÃO PELO SERVIDOR =====================
 // O número da OS/venda é dado pelo Supabase (rm_proximo_numero): dois aparelhos ao mesmo tempo nunca
@@ -17157,7 +17157,9 @@ function rmPedidoJuntar(a, b){
   const itens = [...m.values()].filter(i => !rem[i.id] || String(i.t || '') > rem[i.id]).sort((x, y) => String(x.criadoEm || '').localeCompare(String(y.criadoEm || '')));
   const reposicoes = Object.assign({}, (b && b.reposicoes) || {}, (a && a.reposicoes) || {});
   Object.keys(reposicoes).forEach(k => { const x = ((a && a.reposicoes) || {})[k], y = ((b && b.reposicoes) || {})[k]; if(x && y && (x.desfeito || y.desfeito)) reposicoes[k] = x.desfeito ? x : y; });
-  return Object.assign({}, b || {}, a || {}, { itens, removidos: rem, reposicoes });
+  const osSaidas = Object.assign({}, (b && b.osSaidas) || {});
+  Object.entries((a && a.osSaidas) || {}).forEach(([k, x]) => { const y = osSaidas[k]; osSaidas[k] = !y ? x : Object.assign({}, y, x, { q: Math.max(Number(x.q) || 0, Number(y.q) || 0), t: Math.min(Number(x.t) || Infinity, Number(y.t) || Infinity) }); });
+  return Object.assign({}, b || {}, a || {}, { itens, removidos: rem, reposicoes, osSaidas });
 }
 function rmPedidoSalvar(){
   rmPedidoCarimbar();
@@ -17303,13 +17305,37 @@ function rmRepRange(){
   }
   return { start: D(y, m, i), end: D(y, m, i + 7) };
 }
+// peças lançadas nas OS: entram no Repor no dia em que foram lançadas na moto e ficam lá
+// mesmo se a peça sair da OS ou a OS for cancelada (fica anotado em rmPedido.osSaidas)
+function rmUidTempo(u){ const t = parseInt(String(u || '').slice(0, 8), 36); return t > 1.5e12 && t < 4e12 ? t : null; }
+function rmRepCapturarOs(o){
+  try{
+    if(!o || !Array.isArray(o.pecasUsadas)) return;
+    const S = rmPedido.osSaidas = rmPedido.osSaidas || {}; let mudou = false;
+    o.pecasUsadas.forEach(it => {
+      if(!it || !it.uid || !it.produtoId || it.servico) return;
+      const q = Number(it.quantidade) || 0, x = S[it.uid]; if(q <= 0 || (x && x.q >= q)) return;
+      S[it.uid] = { pid: it.produtoId, q: Math.max(q, x ? Number(x.q) || 0 : 0), os: o.id, t: (x && x.t) || rmUidTempo(it.uid) || Date.now() }; mudou = true;
+    });
+    if(!mudou) return;
+    const lim = Date.now() - 400 * 864e5; Object.keys(S).forEach(k => { if(!(S[k].t >= lim)) delete S[k]; });
+    rmPedidoSalvar();
+  }catch(e){}
+}
 function rmRepDados(){
   const r = rmRepRange(), ini = r.start.getTime(), fim = r.end.getTime(), den = x => { const t = new Date(x).getTime(); return t >= ini && t < fim; };
   const P = rmIdx(rmLoadProdutos()), m = new Map();
   const somar = (it, k) => { const p = it.produtoId ? P.get(it.produtoId) : null; if(!p || p.ehServico || it.servico) return;
     const x = m.get(p.id) || { p, vend: 0, pdv: 0, os: 0 }; const q = Number(it.quantidade) || 0; x.vend += q; x[k] += q; m.set(p.id, x); };
   rmLoadVendas().filter(v => rmVendaValida(v) && den(v.criadoEm)).forEach(v => (v.itens || []).forEach(it => somar(it, 'pdv')));
-  rmLoad().filter(o => rmOsValida(o) && den(o.pagoEm)).forEach(o => (o.pecasUsadas || []).forEach(it => somar(it, 'os')));
+  const S = rmPedido.osSaidas || {}, vistos = new Set();
+  rmLoad().forEach(o => (o.pecasUsadas || []).forEach(it => {
+    const x = it.uid ? S[it.uid] : null, t = (x && x.t) || rmUidTempo(it.uid);
+    if(it.uid) vistos.add(it.uid);
+    if(t){ if(t >= ini && t < fim) somar({ produtoId: it.produtoId, servico: it.servico, quantidade: Math.max(Number(it.quantidade) || 0, x ? Number(x.q) || 0 : 0) }, 'os'); return; }
+    if(rmOsValida(o) && den(o.pagoEm)) somar(it, 'os'); // peças antigas sem data
+  }));
+  Object.entries(S).forEach(([u, x]) => { if(!vistos.has(u) && x.t >= ini && x.t < fim) somar({ produtoId: x.pid, quantidade: x.q }, 'os'); });
   const rep = Object.values(rmPedido.reposicoes || {}).filter(x => x && !x.desfeito && new Date(x.em).getTime() >= ini);
   const l = [...m.values()].filter(x => x.vend > 0).map(x => { const rs = rep.filter(y => y.pid === x.p.id), feito = rs.reduce((s, y) => s + (Number(y.qtd) || 0), 0);
     return Object.assign(x, { feito, falta: Math.max(0, x.vend - feito), ult: rs.sort((a, b) => String(b.em).localeCompare(String(a.em)))[0], tirado: rs.length && rs.every(y => y.tirado) }); });
