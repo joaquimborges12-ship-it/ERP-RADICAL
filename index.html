@@ -1811,6 +1811,39 @@
     html[data-abas="classico"] .rm-subnav-btn span:last-child{white-space:nowrap !important; font-size:12px}
     html[data-abas="classico"] .rm-subnav-icon{font-size:18px}
   }
+  /* produtos > pedido (tela nova) */
+  #rm-pedido-wrap.pd{display:block; max-width:1100px}
+  .pd-tabs{display:flex; gap:0; border-bottom:1px solid var(--rm-border); margin-bottom:16px; overflow-x:auto}
+  .pd-tabs button{padding:12px 18px; font:inherit; font-size:15px; font-weight:700; border:0; border-bottom:3px solid transparent; margin-bottom:-1px; background:none; color:var(--rm-text-dim); cursor:pointer; white-space:nowrap}
+  .pd-tabs button.on{color:var(--rm-text); border-bottom-color:var(--rm-accent)} .pd-n{display:inline-block; min-width:20px; padding:1px 6px; margin-left:4px; font-size:11.5px; line-height:17px; border-radius:10px; background:var(--rm-bg); color:var(--rm-text-dim); font-weight:800} .pd-tabs button.on .pd-n{background:var(--rm-accent); color:#fff}
+  .pd-add{position:relative; margin-bottom:14px} .pd-add input.rm-input{margin:0; padding:14px 14px 14px 42px; font-size:15px; text-transform:none} .pd-lupa{position:absolute; left:14px; top:13px; font-size:16px; opacity:.5; z-index:1}
+  .pd-lst{background:var(--rm-panel); border:1px solid var(--rm-border)}
+  .pd-it{display:flex; align-items:center; gap:14px; padding:12px 14px; border-bottom:1px solid var(--rm-border)} .pd-it:last-child{border-bottom:0}
+  .pd-it.ok .pd-nm b{text-decoration:line-through; color:var(--rm-text-dim)} .pd-it.ok{background:var(--rm-bg)}
+  .pd-ck input{display:none} .pd-ck span{display:block; width:24px; height:24px; border:2px solid var(--rm-border); cursor:pointer; position:relative} .pd-ck input:checked + span{background:#2e9e55; border-color:#2e9e55} .pd-ck input:checked + span::after{content:'✓'; position:absolute; inset:0; color:#fff; font-weight:900; text-align:center; line-height:20px}
+  .pd-q{display:flex; align-items:center; border:1px solid var(--rm-border); flex:none} .pd-q button{width:30px; height:34px; border:0; background:none; font-size:17px; color:var(--rm-text-dim); cursor:pointer} .pd-q input{width:44px; height:34px; border:0; text-align:center; font:inherit; font-weight:800; font-size:15px; background:none; color:var(--rm-text); margin:0; padding:0}
+  .pd-nm{flex:1; min-width:0} .pd-nm b{display:block; font-size:14.5px} .pd-nm small{display:block; color:var(--rm-text-dim); font-size:12.5px; margin-top:2px}
+  .pd-tag{font-style:normal; color:#2f6fb5; font-weight:700} .pd-obs{display:inline-block; margin-top:4px; font-size:12.5px; background:#fff6d6; color:#7a5a00; padding:2px 8px; cursor:pointer} html[data-tema="dark"] .pd-obs{background:#3a2f12; color:#f0d27a}
+  .pd-addobs{border:0; background:none; padding:4px 0 0; font:inherit; font-size:12px; color:var(--rm-text-dim); cursor:pointer; opacity:.7} .pd-addobs:hover{opacity:1; text-decoration:underline}
+  .pd-del{border:0; background:none; font-size:16px; color:var(--rm-text-dim); cursor:pointer; padding:6px; opacity:.6} .pd-del:hover{opacity:1; color:#d9433a}
+  .pd-sep{display:flex; align-items:center; justify-content:space-between; padding:8px 14px; font-size:12px; font-weight:800; text-transform:uppercase; color:var(--rm-text-dim); background:var(--rm-bg); border-bottom:1px solid var(--rm-border)} .pd-sep button{border:0; background:none; font:inherit; font-size:12px; color:#d9433a; cursor:pointer; text-transform:none; font-weight:700}
+  .pd-pe{display:flex; align-items:center; gap:8px; margin-top:12px} .pd-pe span{margin-right:auto; color:var(--rm-text-dim); font-size:13.5px; font-weight:600}
+  .pd-vz{display:flex; flex-direction:column; align-items:center; gap:6px; padding:46px 20px; text-align:center; background:var(--rm-panel); border:1px dashed var(--rm-border); font-size:30px} .pd-vz b{font-size:16px} .pd-vz span{font-size:13.5px; color:var(--rm-text-dim); max-width:460px} .pd-vz a{color:var(--rm-accent); cursor:pointer; font-weight:700}
+  .pd-bar{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px} .pd-dt{color:var(--rm-text-dim); font-size:13px; font-weight:600}
+  .pd-seg{display:flex; flex-wrap:wrap} .pd-seg button{padding:8px 13px; font:inherit; font-size:13.5px; font-weight:700; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text-dim); margin-left:-1px; cursor:pointer} .pd-seg button.on{background:var(--rm-text); color:var(--rm-panel); border-color:var(--rm-text); position:relative}
+  input.rm-input.pd-busca{margin:0; flex:1; min-width:180px; max-width:340px; text-transform:none} .pd-chk{display:flex; align-items:center; gap:6px; font-size:13px; color:var(--rm-text-dim); white-space:nowrap} .pd-todos{width:auto !important; margin:0 0 0 auto !important; padding:10px 16px !important}
+  .pd-tb{background:var(--rm-panel); border:1px solid var(--rm-border)}
+  .pd-th, .pd-tr{display:grid; grid-template-columns:1fr 110px 80px 80px 120px; gap:12px; align-items:center; padding:10px 14px; border-bottom:1px solid var(--rm-border)} .pd-th3, .pd-tr3{grid-template-columns:1fr 70px 80px 150px}
+  .pd-th{font-size:11.5px; font-weight:800; text-transform:uppercase; color:var(--rm-text-dim); background:var(--rm-bg); padding-top:8px; padding-bottom:8px} .pd-tr:last-child{border-bottom:0}
+  .r{text-align:right} .pd-v b{font-size:16px} .pd-v small{display:block; font-size:11px; color:var(--rm-text-dim)} .pd-zero{color:#d9433a; font-weight:800}
+  .pd-rq{width:60px; height:34px; text-align:center; font:inherit; font-weight:800; font-size:15px; border:1px solid var(--rm-border); background:var(--rm-bg); color:var(--rm-text); margin:0}
+  .pd-rbt{height:36px; padding:0 12px; font:inherit; font-size:13.5px; font-weight:800; border:1px solid var(--rm-accent); background:var(--rm-panel); color:var(--rm-accent); cursor:pointer; white-space:nowrap} .pd-rbt:hover{background:var(--rm-accent); color:#fff}
+  .pd-tr.ok{background:var(--rm-bg)} .pd-tr.ok .pd-nm b{color:var(--rm-text-dim)} .pd-feito{color:#2e9e55; font-weight:800; font-size:13px; white-space:nowrap} .pd-quem{font-size:11.5px; color:var(--rm-text-dim)}
+  .pd-nota{margin-top:12px; font-size:12.5px; color:var(--rm-text-dim); line-height:1.5}
+  @media (max-width:760px){
+    .pd-th{display:none} .pd-tr{grid-template-columns:1fr auto auto; row-gap:6px} .pd-tr .pd-nm{grid-column:1 / -1} .pd-tr > span:nth-of-type(2){display:none}
+    .pd-tr3{grid-template-columns:1fr auto auto} .pd-it{gap:10px; padding:10px} .pd-pe{flex-wrap:wrap} .pd-todos{margin-left:0 !important}
+  }
   /* caixa (fila de pagamentos) */
   .fc-badge{margin-left:auto; align-self:center; background:#d9433a; color:#fff; font-weight:800; font-size:12px; border-radius:10px; padding:1px 8px; line-height:18px}
   .rm-nav-btn.active .fc-badge{background:#fff; color:#d9433a}
@@ -3110,7 +3143,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-relatorio" onclick="rmSetSection('relatorio')" title="Relatório"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Relatório</span><span class="rm-nav-sub">Resumos gerenciais</span></span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 08/11 às 13:18</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 08/11 às 21:37</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3627,34 +3660,7 @@ function rmCarregarLib(nome){
 
       <div id="rm-view-produtos-pedido" class="rm-view">
         <h1 class="rm-title">Pedido de compra</h1>
-        <div id="rm-pedido-wrap" class="rm-ped-grid">
-          <div class="rm-ped-col">
-            <div class="rm-ped-tit">Lista para pedir <span id="rm-ped-cont"></span></div>
-            <div class="rm-autocomplete-wrap" style="margin-bottom:8px;">
-              <input class="rm-input" id="rm-ped-busca" placeholder="Buscar produto do cadastro para adicionar..." autocomplete="off" oninput="rmPedidoBuscar(this)" onblur="setTimeout(()=>document.getElementById('rm-ped-busca-lista').classList.remove('show'),150)">
-              <div class="rm-autocomplete-list" id="rm-ped-busca-lista"></div>
-            </div>
-            <div class="rm-ped-livre-row">
-              <input class="rm-input" id="rm-ped-livre-qtd" value="1" inputmode="decimal" style="width:70px;" onfocus="this.select()">
-              <input class="rm-input" id="rm-ped-livre-txt" placeholder="Escrever livre (ex.: kit relação Titan 160 vaz)" onkeydown="if(event.key==='Enter') rmPedidoAddLivre()">
-              <button class="rm-prom-btn rm-prom-btn-ok" style="height:40px; padding:0 16px;" onclick="rmPedidoAddLivre()">Adicionar</button>
-            </div>
-            <div id="rm-ped-lista"></div>
-            <div class="rm-ped-acoes">
-              <button class="rm-pe2-btn" onclick="rmPedidoImprimir()">&#128424; Imprimir</button>
-              <button class="rm-pe2-btn" onclick="rmPedidoWhatsapp()">&#128203; Copiar para WhatsApp</button>
-              <button class="rm-pe2-btn rm-pe2-btn-del" onclick="rmPedidoLimparComprados()">Limpar comprados</button>
-            </div>
-          </div>
-          <div class="rm-ped-col">
-            <div class="rm-ped-tit">Estoque acabando <span id="rm-ped-sug-cont"></span></div>
-            <div style="display:flex; gap:6px; margin-bottom:8px;">
-              <input class="rm-input" id="rm-ped-sug-busca" placeholder="Filtrar sugestões..." oninput="rmRenderPedido()" style="margin:0;">
-              <select class="rm-date-select" id="rm-ped-sug-curva" onchange="rmRenderPedido()"><option value="">Todas curvas</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
-            </div>
-            <div id="rm-ped-sug" class="rm-ped-sug-lista"></div>
-          </div>
-        </div>
+        <div id="rm-pedido-wrap" class="pd"></div>
       </div>
 
       <div id="rm-view-produtos-estoque" class="rm-view">
@@ -8488,7 +8494,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611081318; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611082137; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -16899,7 +16905,8 @@ function rmPedidoJuntar(a, b){
   const m = new Map();
   [...((a && a.itens) || []), ...((b && b.itens) || [])].forEach(i => { const y = m.get(i.id); if(!y || String(i.t || '') > String(y.t || '')) m.set(i.id, i); });
   const itens = [...m.values()].filter(i => !rem[i.id] || String(i.t || '') > rem[i.id]).sort((x, y) => String(x.criadoEm || '').localeCompare(String(y.criadoEm || '')));
-  return Object.assign({}, b || {}, a || {}, { itens, removidos: rem });
+  const reposicoes = Object.assign({}, (b && b.reposicoes) || {}, (a && a.reposicoes) || {});
+  return Object.assign({}, b || {}, a || {}, { itens, removidos: rem, reposicoes });
 }
 function rmPedidoSalvar(){
   rmPedidoCarimbar();
@@ -16953,49 +16960,10 @@ function rmPedidoSugestoes(){
   })).sort((a,b) => (String(a.p.curva||'Z').localeCompare(String(b.p.curva||'Z'))) || (a.atual - b.atual) || (a.p.nome||'').localeCompare(b.p.nome||''));
 }
 
-function rmRenderPedido(){
-  const box = document.getElementById('rm-pedido-wrap'); if(!box) return;
-  const q = ((document.getElementById('rm-ped-sug-busca')||{}).value || '').trim().toLowerCase();
-  const fCurva = (document.getElementById('rm-ped-sug-curva')||{}).value || '';
-  let sug = rmPedidoSugestoes();
-  if(fCurva) sug = sug.filter(x => String(x.p.curva||'').toUpperCase() === fCurva);
-  if(q) sug = sug.filter(x => x.fam ? (rmBuscaBate([x.fam.nome], q) || x.ms.some(p => rmProdutoBateBusca(p, q))) : rmProdutoBateBusca(x.p, q));
-  const itens = rmPedido.itens;
-  const pend = itens.filter(i => !i.comprado).length;
-  const listaEl = document.getElementById('rm-ped-lista');
-  const sugEl = document.getElementById('rm-ped-sug');
-  document.getElementById('rm-ped-cont').textContent = itens.length ? `${pend} para comprar${itens.length - pend ? ' · ' + (itens.length - pend) + ' comprado(s)' : ''}` : '';
-  listaEl.innerHTML = itens.length ? itens.map((i, k) => {
-    const p = i.produtoId ? rmIdx(rmMemLista(RM_PRODUTOS_KEY)).get(i.produtoId) : null;
-    const fm = i.familiaId && rmFam.fams[i.familiaId];
-    const fmDet = fm ? rmFamOrdenarMarcas(rmFamMembros(fm.id)).map(x => rmFamMarcaDe(x) + ' ' + rmFmtQtd(x.estoqueAtual || 0)).join(' · ') : '';
-    return `<div class="rm-ped-item${i.comprado ? ' rm-ped-ok' : ''}">
-      <input type="checkbox" title="Comprado" ${i.comprado ? 'checked' : ''} onchange="rmPedido.itens[${k}].comprado=this.checked; rmPedidoSalvar(); rmRenderPedido()">
-      <input class="rm-ped-qtd" inputmode="decimal" value="${rmFmtQtd(i.qtd)}" onfocus="this.select()" onchange="rmPedido.itens[${k}].qtd=rmParseMoeda(this.value)||1; rmPedidoSalvar()">
-      <div class="rm-ped-nome">
-        ${p ? rmBadgeCurva(p.curva) + ' ' : fm ? rmBadgeCurva(fm.curva) + ' <span class="rm-ped-livre">&#128106; família</span> ' : '<span class="rm-ped-livre">livre</span> '}<b>${rmEscapeHtml(p ? p.nome : fm ? fm.nome : i.texto)}</b>
-        ${fm ? `<div class="rm-ped-det">Estoque por marca: ${rmEscapeHtml(fmDet)} · escolha a marca na compra</div>` : ''}
-        <div class="rm-ped-det">${p ? [p.localizacao && '#' + p.localizacao, p.marca, p.fornecedor && 'Forn.: ' + p.fornecedor, 'estoque ' + rmFmtQtd(p.estoqueAtual||0)].filter(Boolean).map(rmEscapeHtml).join(' · ') : ''}</div>
-        <input class="rm-ped-obs" placeholder="observação (marca, cor, fornecedor...)" value="${rmEscapeHtml(i.obs||'')}" onchange="rmPedido.itens[${k}].obs=this.value.trim(); rmPedidoSalvar()">
-      </div>
-      <button class="rm-pe2-del" title="Remover" onclick="rmPedido.itens.splice(${k},1); rmPedidoSalvar(); rmRenderPedido()">&#128465;</button>
-    </div>`;
-  }).join('') : '<div class="rm-problema-empty" style="padding:16px;">Lista vazia. Adicione pelas sugestões ao lado, busque um produto ou escreva livre.</div>';
-  sugEl.innerHTML = sug.length ? sug.slice(0, 150).map(({p, atual, min, sug, fam, ms}) => `
-    <div class="rm-ped-sug-item">
-      <div class="rm-ped-nome">${rmBadgeCurva(p.curva)} ${fam ? '&#128106; ' : ''}<b>${rmEscapeHtml(p.nome||'')}</b>
-        <div class="rm-ped-det">${fam ? rmEscapeHtml(ms.map(x => rmFamMarcaDe(x) + ' ' + rmFmtQtd(x.estoqueAtual || 0)).join(' · ')) : [p.localizacao && '#' + p.localizacao, p.fornecedor].filter(Boolean).map(rmEscapeHtml).join(' · ')}</div></div>
-      <span class="rm-ped-est${atual <= 0 ? ' rm-ped-zero' : ''}">tem ${rmFmtQtd(atual)}${min ? ' / mín ' + rmFmtQtd(min) : ''}</span>
-      <button class="rm-prom-btn rm-prom-btn-ok" onclick="${fam ? `rmPedidoAddFam('${fam.id}', ${sug})` : `rmPedidoAdd('${p.id}', ${sug})`}">+ ${rmFmtQtd(sug)}</button>
-    </div>`).join('') + (sug.length > 150 ? `<div class="rm-ped-det" style="padding:8px;">Mostrando 150 de ${sug.length}. Use a busca ou o filtro de curva.</div>` : '')
-    : '<div class="rm-problema-empty" style="padding:16px;">Nenhum produto acabando 👍</div>';
-  document.getElementById('rm-ped-sug-cont').textContent = sug.length ? `(${sug.length})` : '';
-}
-
-function rmPedidoAdd(produtoId, qtd){
+function rmPedidoAdd(produtoId, qtd, reposicao){
   const ex = rmPedido.itens.find(i => i.produtoId === produtoId && !i.comprado);
-  if(ex) ex.qtd = (Number(ex.qtd) || 0) + (qtd || 1);
-  else rmPedido.itens.push({ id: 'pi' + Date.now(), produtoId, qtd: qtd || 1, obs: '', comprado: false, criadoEm: new Date().toISOString() });
+  if(ex){ ex.qtd = (Number(ex.qtd) || 0) + (qtd || 1); if(reposicao) ex.rep = true; }
+  else rmPedido.itens.push({ id: 'pi' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), produtoId, qtd: qtd || 1, obs: '', comprado: false, criadoEm: new Date().toISOString(), rep: !!reposicao });
   rmPedidoSalvar(); rmRenderPedido();
 }
 
@@ -17020,10 +16988,10 @@ function rmPedidoBuscar(inp){
   const q = inp.value.trim().toLowerCase();
   if(!q){ lista.classList.remove('show'); return; }
   const ps = rmLoadProdutos().filter(p => p.ativo !== false && !p.ehServico && rmProdutoBateBusca(p, q)).sort((a,b) => (a.nome||'').localeCompare(b.nome||'', 'pt-BR')).slice(0, 30);
-  lista.innerHTML = ps.length ? ps.map(p => `<div class="rm-autocomplete-item" onmousedown="event.preventDefault(); rmPedidoAdd('${p.id}', 1); document.getElementById('rm-ped-busca').value=''; document.getElementById('rm-ped-busca-lista').classList.remove('show');">
+  lista.innerHTML = ps.length ? ps.map(p => `<div class="rm-autocomplete-item" onmousedown="event.preventDefault(); rmPedidoAdd('${p.id}', 1); const b=document.getElementById('rm-ped-add')||document.getElementById('rm-ped-busca'); if(b) b.value=''; const l=document.getElementById('rm-ped-busca-lista'); if(l) l.classList.remove('show');">
       <div class="rm-autocomplete-nome">${rmBadgeCurva(p.curva)} ${rmEscapeHtml(p.nome||'')}${p.localizacao ? ` <span class="rm-autocomplete-apelido">#${rmEscapeHtml(p.localizacao)}</span>` : ''}</div>
       <div class="rm-autocomplete-tel">estoque: ${rmFmtQtd(p.estoqueAtual||0)}${p.fornecedor ? ' · ' + rmEscapeHtml(p.fornecedor) : ''}</div></div>`).join('')
-    : '<div class="rm-autocomplete-empty">Nenhum produto. Use o campo "escrever livre".</div>';
+    : '<div class="rm-autocomplete-empty">Nenhum produto com esse nome. Aperte <b>Enter</b> para pôr na lista como item livre.</div>';
   lista.classList.add('show');
 }
 
@@ -17065,6 +17033,117 @@ function rmPedidoWhatsapp(){
   const mostrar = () => rmPerguntar('Copie a lista:', { titulo: 'Pedido', valor: txt, sim: 'Fechar' });
   if(navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, mostrar);
   else mostrar();
+}
+
+// ===================== PRODUTOS > PEDIDO (tela nova, mais limpa) =====================
+// Três abas: Lista de compra · Repor vendidos · Acabando. Os dados continuam os mesmos (configuracoes 'pedido').
+let rmPedAba = 'lista', rmRepPer = 'semana', rmRepVerFeitos = false, rmRepQtd = {};
+function rmPedAbaSet(a){ rmPedAba = a; rmRenderPedido(); }
+// reposições confirmadas: { id: { pid, qtd, em, por } } — juntadas entre aparelhos, nunca apagadas
+function rmRepRange(){
+  const h = new Date(), y = h.getFullYear(), m = h.getMonth(), d = h.getDate(), D = (a, b, c) => new Date(a, b, c), i = d - h.getDay();
+  switch(rmRepPer){
+    case 'semana': return { start: D(y, m, i), end: D(y, m, i + 7) };
+    case 'semanapass': return { start: D(y, m, i - 7), end: D(y, m, i) };
+    case 'mes': return { start: D(y, m, 1), end: D(y, m + 1, 1) };
+    case 'ultmes': return { start: D(y, m - 1, 1), end: D(y, m, 1) };
+    case 'ult3': return { start: D(y, m - 2, 1), end: D(y, m + 1, 1) };
+    case 'ano': return { start: D(y, 0, 1), end: D(y + 1, 0, 1) };
+  }
+  return { start: D(y, m, i), end: D(y, m, i + 7) };
+}
+function rmRepDados(){
+  const r = rmRepRange(), ini = r.start.getTime(), fim = r.end.getTime(), den = x => { const t = new Date(x).getTime(); return t >= ini && t < fim; };
+  const P = rmIdx(rmLoadProdutos()), m = new Map();
+  const somar = (it, k) => { const p = it.produtoId ? P.get(it.produtoId) : null; if(!p || p.ehServico || it.servico) return;
+    const x = m.get(p.id) || { p, vend: 0, pdv: 0, os: 0 }; const q = Number(it.quantidade) || 0; x.vend += q; x[k] += q; m.set(p.id, x); };
+  rmLoadVendas().filter(v => rmVendaValida(v) && den(v.criadoEm)).forEach(v => (v.itens || []).forEach(it => somar(it, 'pdv')));
+  rmLoad().filter(o => rmOsValida(o) && den(o.pagoEm)).forEach(o => (o.pecasUsadas || []).forEach(it => somar(it, 'os')));
+  const rep = Object.values(rmPedido.reposicoes || {}).filter(x => x && !x.desfeito && new Date(x.em).getTime() >= ini);
+  const l = [...m.values()].filter(x => x.vend > 0).map(x => { const rs = rep.filter(y => y.pid === x.p.id), feito = rs.reduce((s, y) => s + (Number(y.qtd) || 0), 0);
+    return Object.assign(x, { feito, falta: Math.max(0, x.vend - feito), ult: rs.sort((a, b) => String(b.em).localeCompare(String(a.em)))[0] }); });
+  l.sort((a, b) => b.falta - a.falta || b.vend - a.vend || String(a.p.nome).localeCompare(String(b.p.nome)));
+  return { l, r };
+}
+function rmRepor(pid){
+  const x = rmRepDados().l.find(y => y.p.id === pid); if(!x) return;
+  const q = rmParseMoeda(String(rmRepQtd[pid] != null ? rmRepQtd[pid] : x.falta)) || 0; if(q <= 0) return;
+  rmPedido.reposicoes = rmPedido.reposicoes || {};
+  const id = 'rp' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+  rmPedido.reposicoes[id] = { id, pid, qtd: q, em: new Date().toISOString(), por: rmNomeUsuario() };
+  rmPedidoAdd(pid, q, true); delete rmRepQtd[pid];
+  rmShowToast(rmFmtQtd(q) + 'x ' + x.p.nome + ' na lista de compra');
+}
+function rmReporTodos(){
+  const l = rmRepDados().l.filter(x => x.falta > 0); if(!l.length) return;
+  rmConfirmar(`Colocar na lista de compra os ${l.length} produto(s) que faltam repor?`, { titulo: 'Repor todos', sim: 'Repor todos', nao: 'Cancelar' }).then(ok => { if(!ok) return;
+    rmPedido.reposicoes = rmPedido.reposicoes || {};
+    l.forEach(x => { const q = rmParseMoeda(String(rmRepQtd[x.p.id] != null ? rmRepQtd[x.p.id] : x.falta)) || 0; if(q <= 0) return;
+      const id = 'rp' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); rmPedido.reposicoes[id] = { id, pid: x.p.id, qtd: q, em: new Date().toISOString(), por: rmNomeUsuario() }; rmPedidoAdd(x.p.id, q, true); });
+    rmRepQtd = {}; rmPedidoSalvar(); rmRenderPedido(); rmShowToast(l.length + ' produto(s) na lista de compra'); });
+}
+const rmPedMoto = '&#128722;';
+function rmRenderPedido(){
+  const box = document.getElementById('rm-pedido-wrap'); if(!box) return;
+  const P = rmIdx(rmLoadProdutos()), itens = rmPedido.itens || [], pend = itens.filter(i => !i.comprado).length;
+  const rep = rmRepDados(), nRep = rep.l.filter(x => x.falta > 0).length, sugT = rmPedidoSugestoes();
+  const focoId = document.activeElement && document.activeElement.id, val = id => (document.getElementById(id) || {}).value || '';
+  const qAdd = val('rm-ped-add'), qRep = val('rm-rep-q'), qSug = val('rm-ped-sug-busca');
+  const tabs = `<div class="pd-tabs">${[['lista', '&#128722; Lista de compra', pend], ['repor', '&#8635; Repor vendidos', nRep], ['acabando', '&#9888; Acabando', sugT.length]].map(([k, n, c]) => `<button type="button" class="${rmPedAba === k ? 'on' : ''}" onclick="rmPedAbaSet('${k}')">${n}${c ? ` <span class="pd-n">${c}</span>` : ''}</button>`).join('')}</div>`;
+  let corpo = '';
+  if(rmPedAba === 'lista'){
+    const linha = (i) => { const k = itens.indexOf(i), p = i.produtoId ? P.get(i.produtoId) : null, fm = i.familiaId && rmFam.fams[i.familiaId];
+      const det = p ? [p.localizacao, 'estoque ' + rmFmtQtd(p.estoqueAtual || 0), p.fornecedor].filter(Boolean) : fm ? ['família · escolha a marca na compra'] : ['item livre'];
+      return `<div class="pd-it${i.comprado ? ' ok' : ''}">
+        <label class="pd-ck" title="Comprado"><input type="checkbox" ${i.comprado ? 'checked' : ''} onchange="rmPedido.itens[${k}].comprado=this.checked; rmPedidoSalvar(); rmRenderPedido()"><span></span></label>
+        <div class="pd-q"><button type="button" onclick="rmPedQtd(${k},-1)">&minus;</button><input inputmode="decimal" value="${rmFmtQtd(i.qtd)}" onfocus="this.select()" onchange="rmPedido.itens[${k}].qtd=rmParseMoeda(this.value)||1; rmPedidoSalvar(); rmRenderPedido()"><button type="button" onclick="rmPedQtd(${k},1)">+</button></div>
+        <div class="pd-nm"><b>${rmEscapeHtml(p ? p.nome : fm ? fm.nome : i.texto)}</b><small>${det.map(rmEscapeHtml).join(' · ')}${i.rep ? ' · <i class="pd-tag">reposição</i>' : ''}</small>
+          ${i.obs ? `<span class="pd-obs" onclick="rmPedObs(${k})">${rmEscapeHtml(i.obs)}</span>` : `<button type="button" class="pd-addobs" onclick="rmPedObs(${k})">+ observação</button>`}</div>
+        <button type="button" class="pd-del" title="Tirar da lista" onclick="rmPedido.itens.splice(${k},1); rmPedidoSalvar(); rmRenderPedido()">&#10005;</button></div>`; };
+    const abertos = itens.filter(i => !i.comprado), feitos = itens.filter(i => i.comprado);
+    corpo = `<div class="pd-add rm-autocomplete-wrap"><span class="pd-lupa">&#128269;</span><input class="rm-input" id="rm-ped-add" placeholder="Adicionar: busque um produto ou escreva qualquer item e aperte Enter" autocomplete="off" oninput="rmPedidoBuscar(this)" onkeydown="if(event.key==='Enter'){ event.preventDefault(); rmPedAddTexto(); }" onblur="setTimeout(()=>{ const l=document.getElementById('rm-ped-busca-lista'); if(l) l.classList.remove('show'); },150)"><div class="rm-autocomplete-list" id="rm-ped-busca-lista"></div></div>
+      ${itens.length ? `<div class="pd-lst">${abertos.map(linha).join('')}${feitos.length ? `<div class="pd-sep">Comprados (${feitos.length}) <button type="button" onclick="rmPedidoLimparComprados()">Tirar da lista</button></div>${feitos.map(linha).join('')}` : ''}</div>
+        <div class="pd-pe"><span>${pend} item(ns) para comprar</span><button type="button" class="rm-pe2-btn" onclick="rmPedidoWhatsapp()">&#128203; Copiar para WhatsApp</button><button type="button" class="rm-pe2-btn" onclick="rmPedidoImprimir()">&#128424; Imprimir</button></div>`
+      : `<div class="pd-vz">&#128722;<b>A lista está vazia</b><span>Busque um produto acima, ou use <a onclick="rmPedAbaSet('repor')">Repor vendidos</a> e <a onclick="rmPedAbaSet('acabando')">Acabando</a> para encher a lista rápido.</span></div>`}`;
+  } else if(rmPedAba === 'repor'){
+    const pers = [['semana','Esta semana'],['semanapass','Semana passada'],['mes','Este mês'],['ultmes','Mês passado'],['ult3','Últimos 3 meses'],['ano','Este ano']];
+    let l = rep.l; if(!rmRepVerFeitos) l = l.filter(x => x.falta > 0); if(qRep) l = l.filter(x => rmProdutoBateBusca(x.p, qRep.toLowerCase()));
+    const dd = x => x.toLocaleDateString('pt-BR').slice(0, 5), fe = rep.l.filter(x => x.falta <= 0).length;
+    corpo = `<div class="pd-bar"><div class="pd-seg">${pers.map(([k, n]) => `<button type="button" class="${rmRepPer === k ? 'on' : ''}" onclick="rmRepPer='${k}'; rmRepQtd={}; rmRenderPedido()">${n}</button>`).join('')}</div><span class="pd-dt">${dd(rep.r.start)} a ${dd(new Date(rep.r.end - 1))}</span></div>
+      <div class="pd-bar"><input class="rm-input pd-busca" id="rm-rep-q" placeholder="Filtrar produto..." value="${rmEscapeHtml(qRep)}" oninput="rmRenderPedido()"><label class="pd-chk"><input type="checkbox" ${rmRepVerFeitos ? 'checked' : ''} onchange="rmRepVerFeitos=this.checked; rmRenderPedido()"> Mostrar já repostos (${fe})</label>${nRep ? `<button type="button" class="rm-primary pd-todos" onclick="rmReporTodos()">&#8635; Repor todos (${nRep})</button>` : ''}</div>
+      ${l.length ? `<div class="pd-tb"><div class="pd-th"><span>Produto</span><span class="r">Vendido</span><span class="r">Estoque</span><span class="r">Repor</span><span></span></div>
+        ${l.map(x => { const ok = x.falta <= 0, est = Number(x.p.estoqueAtual) || 0;
+          return `<div class="pd-tr${ok ? ' ok' : ''}"><div class="pd-nm"><b>${rmEscapeHtml(x.p.nome)}</b><small>${[x.p.localizacao, x.p.marca, x.p.fornecedor].filter(Boolean).map(rmEscapeHtml).join(' · ')}${x.feito && !ok ? ` · já repôs ${rmFmtQtd(x.feito)}` : ''}</small></div>
+            <span class="r pd-v"><b>${rmFmtQtd(x.vend)}</b><small>PDV ${rmFmtQtd(x.pdv)} · OS ${rmFmtQtd(x.os)}</small></span>
+            <span class="r ${est <= 0 ? 'pd-zero' : ''}">${rmFmtQtd(est)}</span>
+            ${ok ? `<span class="r pd-feito">&#10004; reposto</span><span class="pd-quem">${x.ult ? rmEscapeHtml(x.ult.por || '') + ' · ' + new Date(x.ult.em).toLocaleDateString('pt-BR').slice(0, 5) : ''}</span>`
+              : `<span class="r"><input class="pd-rq" inputmode="decimal" value="${rmFmtQtd(rmRepQtd[x.p.id] != null ? rmRepQtd[x.p.id] : x.falta)}" onfocus="this.select()" onchange="rmRepQtd['${x.p.id}']=this.value"></span><button type="button" class="pd-rbt" onclick="rmRepor('${x.p.id}')">&#8635; Repor</button>`}</div>`; }).join('')}</div>`
+        : `<div class="pd-vz">&#10004;<b>${rep.l.length ? 'Tudo reposto nesse período' : 'Nenhuma peça vendida nesse período'}</b><span>${rep.l.length ? 'Marque "Mostrar já repostos" para ver o que já foi.' : 'Escolha outro período acima.'}</span></div>`}
+      <div class="pd-nota">Mostra as peças vendidas no PDV e nas OS pagas no período (sem mão de obra e serviços). <b>Repor</b> coloca a quantidade na Lista de compra e marca como reposto, para não pedir duas vezes. O estoque só muda quando a mercadoria chegar (nota de compra ou ajuste).</div>`;
+  } else {
+    let sug = sugT; const fC = rmPedSugCurva || ''; if(fC) sug = sug.filter(x => String(x.p.curva || '').toUpperCase() === fC);
+    if(qSug) sug = sug.filter(x => x.fam ? (rmBuscaBate([x.fam.nome], qSug.toLowerCase()) || x.ms.some(p => rmProdutoBateBusca(p, qSug.toLowerCase()))) : rmProdutoBateBusca(x.p, qSug.toLowerCase()));
+    corpo = `<div class="pd-bar"><input class="rm-input pd-busca" id="rm-ped-sug-busca" placeholder="Filtrar produto..." value="${rmEscapeHtml(qSug)}" oninput="rmRenderPedido()"><div class="pd-seg">${['', 'A', 'B', 'C', 'D'].map(c => `<button type="button" class="${(rmPedSugCurva || '') === c ? 'on' : ''}" onclick="rmPedSugCurva='${c}'; rmRenderPedido()">${c ? 'Curva ' + c : 'Todas'}</button>`).join('')}</div></div>
+      ${sug.length ? `<div class="pd-tb"><div class="pd-th pd-th3"><span>Produto</span><span class="r">Tem</span><span class="r">Mínimo</span><span></span></div>
+        ${sug.slice(0, 150).map(({ p, atual, min, sug: s, fam, ms }) => `<div class="pd-tr pd-tr3"><div class="pd-nm"><b>${rmBadgeCurva(p.curva)} ${fam ? '&#128106; ' : ''}${rmEscapeHtml(p.nome || '')}</b><small>${fam ? rmEscapeHtml(ms.map(x => rmFamMarcaDe(x) + ' ' + rmFmtQtd(x.estoqueAtual || 0)).join(' · ')) : [p.localizacao, p.fornecedor].filter(Boolean).map(rmEscapeHtml).join(' · ')}</small></div>
+          <span class="r ${atual <= 0 ? 'pd-zero' : ''}">${rmFmtQtd(atual)}</span><span class="r">${min ? rmFmtQtd(min) : '—'}</span>
+          <button type="button" class="pd-rbt" onclick="${fam ? `rmPedidoAddFam('${fam.id}', ${s})` : `rmPedidoAdd('${p.id}', ${s})`}">+ ${rmFmtQtd(s)} na lista</button></div>`).join('')}</div>${sug.length > 150 ? `<div class="pd-nota">Mostrando 150 de ${sug.length}. Use o filtro.</div>` : ''}`
+        : `<div class="pd-vz">&#128077;<b>Nenhum produto acabando</b><span>Aparecem aqui os produtos abaixo do estoque mínimo e os de curva A, B ou C que zeraram.</span></div>`}`;
+  }
+  box.innerHTML = tabs + `<div class="pd-body">${corpo}</div>`;
+  if(focoId){ const f = document.getElementById(focoId); if(f && f.tagName === 'INPUT'){ f.focus(); try{ f.setSelectionRange(f.value.length, f.value.length); }catch(e){} } }
+  const ad = document.getElementById('rm-ped-add'); if(ad && qAdd) ad.value = qAdd;
+}
+let rmPedSugCurva = '';
+function rmPedQtd(k, d){ const i = rmPedido.itens[k]; if(!i) return; i.qtd = Math.max(1, (Number(i.qtd) || 0) + d); rmPedidoSalvar(); rmRenderPedido(); }
+async function rmPedObs(k){ const i = rmPedido.itens[k]; if(!i) return; const v = await rmPerguntar('Observação (marca, cor, fornecedor…):', { titulo: 'Observação', valor: i.obs || '', sim: 'Salvar' }); if(v == null) return; i.obs = String(v).trim(); rmPedidoSalvar(); rmRenderPedido(); }
+function rmPedAddTexto(){
+  const t = document.getElementById('rm-ped-add'), texto = String((t && t.value) || '').trim().toUpperCase(); if(!texto) return;
+  const l = document.getElementById('rm-ped-busca-lista'), um = l && l.classList.contains('show') && l.querySelectorAll('.rm-autocomplete-item');
+  if(um && um.length === 1){ um[0].dispatchEvent(new MouseEvent('mousedown')); return; }
+  rmPedido.itens.push({ id: 'pi' + Date.now(), texto, qtd: 1, obs: '', comprado: false, criadoEm: new Date().toISOString() });
+  t.value = ''; if(l) l.classList.remove('show'); rmPedidoSalvar(); rmRenderPedido();
+  setTimeout(() => { const n = document.getElementById('rm-ped-add'); if(n) n.focus(); }, 0);
 }
 
 // ===================== PRODUTOS > INVENTÁRIO (contagem e ajuste de estoque) =====================
