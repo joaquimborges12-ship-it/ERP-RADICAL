@@ -3183,7 +3183,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-caixa" onclick="rmSetSection('caixa')" title="Caixa"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Caixa</span><span class="rm-nav-sub">Em construção</span></span><span class="fc-badge" id="rm-fc-badge" style="display:none">0</span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 08/11 às 23:35</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 08/11 às 23:51</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -6193,16 +6193,132 @@ function rmPdvListaAltura(){
   lista.style.maxHeight = Math.max(260, Math.round(fim - topo)) + 'px';
 }
 
-// lista para buscar as peças no estoque, na ordem das prateleiras
+// ---- caminho no depósito: usa a planta do Estoque 3D que está dentro do sistema (não precisa de internet) ----
+// monta as caixas do depósito igual ao 3D: cada endereço → ponto no chão onde a pessoa para (na frente da caixa)
+function rmSepPlanta(cfg, prods){
+  const m = /const UNITS=(\[[\s\S]*?\n\]);/.exec(RM_E3D_HTML);
+  const BAYW = 1.66, LEN = 5 * BAYW;
+  const UNITS = new Function('BAYW', 'LEN', 'return ' + m[1])(BAYW, LEN);
+  const g = cfg.prats || {}, PR = { mod: g.mod || {}, del: g.del || [], novas: g.novas || [] };
+  for(const n of PR.novas) UNITS.push(Object.assign({}, n));
+  for(const u of UNITS){ const x = PR.mod[u.cod]; if(x) Object.assign(u, x); }
+  for(let i = UNITS.length - 1; i >= 0; i--) if(PR.del.includes(UNITS[i].cod)) UNITS.splice(i, 1);
+  for(const u of UNITS){ if(u.nivVao) u.niveis = Math.max(...u.nivVao); if(u.porVao) u.vaos = u.porVao.length; if(u.porCol){ u.colunas = u.porCol.length; u.altura = Math.max(...u.porCol); } }
+  const binRows = {};
+  for(const p of prods){ const x = /^CX(\d+)([A-Z])(\d+)$/.exec(String(p.localizacao || '').toUpperCase().replace(/\s+/g, '')); if(x){ const b = binRows[x[1]] = binRows[x[1]] || { rows: 0, per: 0 }; b.rows = Math.max(b.rows, x[2].charCodeAt(0) - 64); b.per = Math.max(b.per, +x[3]); } }
+  const ANG = { '+z': 0, '-z': Math.PI, '+x': Math.PI / 2, '-x': -Math.PI / 2 };
+  const placer = (u, L) => { const th = ANG[u.frente], c = Math.cos(th), s = Math.sin(th); const ox = u.x0 + (c < -0.5 ? L : 0), oz = u.z0 + (-s < -0.5 ? L : 0); return { th, f: [s, c], at: (lx, lz) => [ox + lx * c + lz * s, oz - lx * s + lz * c] }; };
+  const caixas = [];
+  const add = (u, P, loc, lx, lz, w, d, st) => caixas.push({ loc, pos: P.at(lx, lz), w, d, rot: P.th, f: P.f.slice(), u, st: u.cod + '#' + (u.pilha != null ? u.pilha : '') + '#' + st });
+  for(const u of UNITS){
+    if(u.kind === 'box'){
+      const pv = u.porVao || Array(u.vaos).fill(u.porNivel), nvv = u.nivVao || Array(pv.length).fill(u.niveis), BW = u.bayW || BAYW, L = pv.length * BW, P = placer(u, L);
+      let n = 0;
+      pv.forEach((por, bay) => { const cw = (BW - 0.06) / por, nb = nvv[bay], nums = u.numVao && u.numVao[bay]; let k = 0;
+        for(let lv = 0; lv < nb; lv++) for(let col = 0; col < por; col++){ n++; const num = nums && nums[k] != null ? nums[k] : n + (u.inicio || 1) - 1; k++; let lx = bay * BW + 0.03 + (col + 0.5) * cw; if(u.ordem === 'rtl') lx = L - lx; add(u, P, u.cod + num, lx, 0.06, cw, 0.5, bay); } });
+    }
+    if(u.kind === 'cesto'){
+      const pc = u.porCol || Array(u.colunas).fill(u.altura), L = LEN, P = placer(u, L), cw = L / pc.length; let n = 0;
+      pc.forEach((alt, ci) => { let lx = (ci + 0.5) * cw; if(u.ordem === 'rtl') lx = L - lx; for(let k = 1; k <= alt; k++){ n++; add(u, P, u.cod + n, lx, 0.05, cw, 0.42, ci); } });
+    }
+    if(u.kind === 'bin'){
+      const ref = binRows['5'] || { rows: 8, per: 6 }, rows = u.fileiras || Math.max(ref.rows, (binRows[u.cod.slice(2)] || { rows: 0 }).rows), per = u.colunas || Math.max(ref.per, 6), bw = 0.3, L = per * bw + 0.06, P = placer(u, L);
+      for(let r = 0; r < rows; r++) for(let p = 1; p <= per; p++) add(u, P, u.cod + String.fromCharCode(65 + r) + p, 0.03 + (p - 0.5) * bw, 0.04, bw, 0.36, 0);
+    }
+    if(u.kind === 'pn'){
+      const cw = 0.55, L = 2 * cw, P = placer(u, L), base = u.pilha * 8;
+      for(let lv = 0; lv < 4; lv++) for(let c = 0; c < 2; c++) add(u, P, 'PN' + (base + lv * 2 + c + 1), (c + 0.5) * cw, 0.05, cw, 0.5, 0);
+    }
+  }
+  // prateleiras que foram arrastadas/giradas no 3D
+  const LAY = cfg.layout || {};
+  for(const u of UNITS){
+    const st = LAY[u.cod + (u.pilha != null ? '-' + u.pilha : '')]; if(!st || !(st.dx || st.dz || st.r)) continue;
+    const dela = caixas.filter(b => b.u === u); if(!dela.length) continue;
+    const c0 = [dela.reduce((a, b) => a + b.pos[0], 0) / dela.length, dela.reduce((a, b) => a + b.pos[1], 0) / dela.length];
+    const r = st.r || 0, cs = Math.cos(r), sn = Math.sin(r);
+    for(const b of dela){ const x = b.pos[0] - c0[0], z = b.pos[1] - c0[1]; b.pos = [c0[0] + x * cs + z * sn + (st.dx || 0), c0[1] - x * sn + z * cs + (st.dz || 0)]; b.f = [b.f[0] * cs + b.f[1] * sn, -b.f[0] * sn + b.f[1] * cs]; b.rot += r; }
+  }
+  // chão em quadradinhos de 10 cm: depósito principal + outro estoque (passagem pela porta do fundo)
+  const R = 0.1, X0 = -19.65, X1 = 11.95, Z0 = -1.65, Z1 = 9.75, NX = Math.round((X1 - X0) / R), NZ = Math.round((Z1 - Z0) / R);
+  const bloq = new Uint8Array(NX * NZ), ix = x => Math.floor((x - X0) / R), iz = z => Math.floor((z - Z0) / R);
+  const parede = -3.85; // parede entre o depósito e o outro estoque, com a porta
+  for(let j = 0; j < NZ; j++){ const z = Z0 + (j + 0.5) * R; if(z > 0.7 && z < 1.6) continue; const i = ix(parede); for(let d = -1; d <= 0; d++) if(i + d >= 0) bloq[j * NX + i + d] = 1; }
+  for(const b of caixas){
+    const hw = b.w / 2 + 0.04, hd = b.d / 2 + 0.04, cs = Math.cos(b.rot), sn = Math.sin(b.rot), ext = Math.abs(hw * cs) + Math.abs(hd * sn) + Math.abs(hw * sn) + Math.abs(hd * cs);
+    for(let i = Math.max(0, ix(b.pos[0] - ext)); i <= Math.min(NX - 1, ix(b.pos[0] + ext)); i++) for(let j = Math.max(0, iz(b.pos[1] - ext)); j <= Math.min(NZ - 1, iz(b.pos[1] + ext)); j++){
+      const dx = X0 + (i + 0.5) * R - b.pos[0], dz = Z0 + (j + 0.5) * R - b.pos[1];
+      const a = dx * cs - dz * sn, c = dx * sn + dz * cs; // ao longo da prateleira / profundidade
+      if(Math.abs(a) <= hw && Math.abs(c) <= hd) bloq[j * NX + i] = 1;
+    }
+  }
+  const livre = (x, z) => { let i = ix(x), j = iz(z); i = Math.max(0, Math.min(NX - 1, i)); j = Math.max(0, Math.min(NZ - 1, j));
+    if(!bloq[j * NX + i]) return j * NX + i;
+    for(let r = 1; r < 15; r++) for(let di = -r; di <= r; di++) for(let dj = -r; dj <= r; dj++){ const a = i + di, b = j + dj; if(a >= 0 && b >= 0 && a < NX && b < NZ && !bloq[b * NX + a]) return b * NX + a; }
+    return j * NX + i; };
+  // cada vão (ou coluna de cestos, ou bloco de caixinhas) é uma parada: a pessoa para na frente dele
+  const paradas = new Map();
+  for(const b of caixas){ const p = paradas.get(b.st) || paradas.set(b.st, { x: 0, z: 0, n: 0, f: b.f }).get(b.st); p.x += b.pos[0]; p.z += b.pos[1]; p.n++; }
+  const celula = new Map(); for(const [k, p] of paradas) celula.set(k, livre(p.x / p.n + p.f[0] * 0.6, p.z / p.n + p.f[1] * 0.6));
+  const ponto = new Map(); for(const b of caixas) ponto.set(b.loc, b.st);
+  const entrada = livre(X1 - 0.5, 6.0); // portão da frente (lado das câmaras de ar), onde começam os números
+  const dist = de => { const d = new Int32Array(NX * NZ).fill(-1), q = new Int32Array(NX * NZ); let h = 0, t = 0; d[de] = 0; q[t++] = de;
+    while(h < t){ const c = q[h++], i = c % NX, j = (c - i) / NX;
+      for(const [a, b] of [[i + 1, j], [i - 1, j], [i, j + 1], [i, j - 1]]){ if(a < 0 || b < 0 || a >= NX || b >= NZ) continue; const k = b * NX + a; if(bloq[k] || d[k] >= 0) continue; d[k] = d[c] + 1; q[t++] = k; } }
+    return d; };
+  return { ponto, celula, entrada, dist, NX, NZ, X0, Z0, R, bloq };
+}
+// melhor ordem para passar pelos endereços: sai da entrada, passa por todos e volta (vizinho mais próximo + 2-opt)
+function rmSepRota(pl, locs){
+  const nos = [pl.entrada, ...locs.map(l => pl.celula.get(l))], n = nos.length;
+  const D = nos.map(a => { const d = pl.dist(a); return nos.map(b => d[b] < 0 ? 1e6 : d[b]); });
+  let rota = [0], usado = new Set([0]);
+  while(rota.length < n){ const u = rota[rota.length - 1]; let m = -1; for(let v = 1; v < n; v++) if(!usado.has(v) && (m < 0 || D[u][v] < D[u][m])) m = v; rota.push(m); usado.add(m); }
+  rota.push(0);
+  if(n <= 14){ // poucos endereços: testa todas as combinações (resultado exato)
+    const N = n - 1, T = 1 << N, dp = new Float64Array(T * N).fill(Infinity), pai = new Int8Array(T * N).fill(-1);
+    for(let v = 0; v < N; v++) dp[(1 << v) * N + v] = D[0][v + 1];
+    for(let m = 1; m < T; m++) for(let v = 0; v < N; v++){ const cur = dp[m * N + v]; if(!(m & (1 << v)) || cur === Infinity) continue;
+      for(let w = 0; w < N; w++){ if(m & (1 << w)) continue; const nm = m | (1 << w), c = cur + D[v + 1][w + 1]; if(c < dp[nm * N + w]){ dp[nm * N + w] = c; pai[nm * N + w] = v; } } }
+    let fim = 0, best = Infinity; for(let v = 0; v < N; v++){ const c = dp[(T - 1) * N + v] + D[v + 1][0]; if(c < best){ best = c; fim = v; } }
+    const seq = []; let m = T - 1, v = fim; while(v >= 0){ seq.push(v + 1); const pv = pai[m * N + v]; m &= ~(1 << v); v = pv; }
+    seq.reverse();
+    // entre os dois sentidos (ida e volta dão a mesma distância), começa pelo endereço mais perto da entrada
+    if(seq.length > 1 && D[0][seq[seq.length - 1]] < D[0][seq[0]]) seq.reverse();
+    return seq.map(i => locs[i - 1]);
+  }
+  let melhorou = true, voltas = 0;
+  while(melhorou && voltas++ < 200){ melhorou = false;
+    for(let i = 1; i < rota.length - 2; i++) for(let k = i + 1; k < rota.length - 1; k++){
+      const a = rota[i - 1], b = rota[i], c = rota[k], d = rota[k + 1];
+      if(D[a][c] + D[b][d] < D[a][b] + D[c][d] - 1e-9){ rota = rota.slice(0, i).concat(rota.slice(i, k + 1).reverse(), rota.slice(k + 1)); melhorou = true; } } }
+  return rota.slice(1, -1).map(i => locs[i - 1]);
+}
+function rmSepOrdenar(linhas){
+  const alfa = (a, b) => (a.loc || 'ZZZ').localeCompare(b.loc || 'ZZZ', 'pt-BR', { numeric: true });
+  try{
+    const norm = l => String(l || '').toUpperCase().replace(/\s+/g, '');
+    const pl = rmSepPlanta({ layout: {}, prats: null }, rmLoadProdutos());
+    const st = l => pl.ponto.get(norm(l.loc));
+    const paradas = [...new Set(linhas.map(st).filter(Boolean))];
+    if(!paradas.length) return linhas.slice().sort(alfa);
+    const ordem = new Map(rmSepRota(pl, paradas).map((p, i) => [p, i]));
+    // na mesma parada: do menor para o maior número
+    const no = linhas.filter(st).sort((a, b) => ordem.get(st(a)) - ordem.get(st(b)) || alfa(a, b) || (a.nome || '').localeCompare(b.nome || '', 'pt-BR'));
+    return no.concat(linhas.filter(l => !st(l)).sort(alfa));
+  }catch(e){ console.warn('caminho do depósito', e); return linhas.slice().sort(alfa); }
+}
+// lista para buscar as peças no estoque, na ordem do caminho no depósito
 function rmImprimirSeparacao(titulo, ref, itens){
   const prods = rmLoadProdutos();
-  const linhas = (itens || []).map(it => {
+  let linhas = (itens || []).map(it => {
     const p = it.produtoId ? rmIdx(prods).get(it.produtoId) : null;
     if(p && p.ehServico) return null;
     if(!p && /M[AÃ]O\s*DE\s*OBRA|SERVI[CÇ]O/i.test(it.nome || '')) return null;
     return { loc: (p && p.localizacao) || '', nome: it.nome || (p && p.nome) || '', qtd: Number(it.quantidade) || 1, un: (p && p.unidade) || 'UN', cod: (p && (p.codigo || p.codigoBarras)) || '', est: p ? (Number(p.estoqueAtual) || 0) : null };
-  }).filter(Boolean).sort((a,b) => (a.loc || 'ZZZ').localeCompare(b.loc || 'ZZZ', 'pt-BR', { numeric:true }));
+  }).filter(Boolean);
   if(!linhas.length){ alert('Não há peças para buscar no estoque (só serviços ou lista vazia).'); return; }
+  linhas = rmSepOrdenar(linhas);
   const corpo = `<div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:2px solid #000; padding-bottom:4px; margin-bottom:8px;"><b style="font-size:15px;">BUSCAR NO ESTOQUE${ref ? ' · ' + rmH(ref) : ''}</b><span style="font-size:10px;">${new Date().toLocaleString('pt-BR').replace(',', '')}</span></div>`
     + rmA4Secao(rmH(titulo || ''), `<table class="a4-tab rm-sep">
         <thead><tr><th style="width:110px">LOCAL</th><th class="r" style="width:50px">Qtd</th><th>Produto</th><th class="cx" style="width:90px">Código</th><th class="c" style="width:28px">✔</th></tr></thead>
@@ -8534,7 +8650,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611082335; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611082351; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
