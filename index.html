@@ -2576,6 +2576,55 @@
   .rm-ass p{font-size:18px; line-height:1.45; margin:0 auto 26px; max-width:460px;}
   .rm-ass button{font-size:18px; font-weight:800; padding:14px 46px; background:#c9961a; color:#1b1b1b; border:0; cursor:pointer; font-family:inherit; width:auto; margin:0;}
   @media (max-width:640px){ .rm-ass{padding:28px 18px 22px;} .rm-ass h2{font-size:27px;} .rm-ass p{font-size:16px;} }
+  .cb-fil{display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin-bottom:12px;}
+  .cb-chip{padding:7px 12px; border:1px solid var(--rm-border); background:transparent; color:var(--rm-text-dim); font-size:13px; font-weight:600; font-family:inherit; cursor:pointer; margin:0; width:auto;}
+  .cb-chip.on{border-color:var(--rm-text); color:var(--rm-text); background:var(--rm-panel);}
+  .cb-chip em{font-style:normal; opacity:.7; margin-left:4px;}
+  .cb-busca{margin-left:auto; width:240px !important; max-width:100%;}
+  .cb-sel{display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:9px 12px; border:1px solid #c9961a; background:rgba(201,150,26,.08); margin-bottom:10px; font-size:13.5px; color:var(--rm-text);}
+  .cb-sel button{margin:0; width:auto; padding:7px 12px; font-size:13px; font-weight:700; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); cursor:pointer; font-family:inherit;}
+  .cb-sel button.pri{background:#c9961a; border-color:#c9961a; color:#1b1b1b;}
+  .cb-tab{width:100%; border-collapse:collapse; font-size:13.5px;}
+  .cb-tab th{font-size:11.5px; color:var(--rm-text-dim); font-weight:600; text-align:left; padding:8px 10px; border-bottom:1px solid var(--rm-border); white-space:nowrap;}
+  .cb-tab td{padding:10px; border-bottom:1px solid var(--rm-border); vertical-align:middle; color:var(--rm-text);}
+  .cb-tab tr:hover td{background:var(--rm-panel);}
+  .cb-tab .r{text-align:right; white-space:nowrap;}
+  .cb-tab input[type=checkbox]{width:16px; height:16px; margin:0;}
+  .cb-nome b{display:block;} .cb-nome small{color:var(--rm-text-dim); font-size:12px;}
+  .cb-venc{color:#e5484d;}
+  .cb-dias{font-weight:800;} .cb-dias.d1{color:#c99400;} .cb-dias.d2{color:#e8772e;} .cb-dias.d3{color:#e5484d;}
+  .cb-q{font-size:12px; color:var(--rm-text-dim);}
+  .cb-ult small{display:block; color:var(--rm-text-dim); font-size:12px; margin-top:2px; max-width:340px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .cb-res{display:inline-block; font-size:11px; font-weight:800; padding:2px 7px; text-transform:uppercase; letter-spacing:.02em; white-space:nowrap;}
+  .cb-res.prom{background:rgba(70,140,230,.16); color:#4d8fdc;} .cb-res.queb{background:rgba(229,72,77,.16); color:#e5484d;}
+  .cb-res.nat{background:rgba(150,150,150,.18); color:#8a8a8a;} .cb-res.prz{background:rgba(201,150,26,.18); color:#b8860b;} .cb-res.rec{background:rgba(229,72,77,.24); color:#e5484d;}
+  .cb-acoes{white-space:nowrap; text-align:right;}
+  .cb-acoes button{margin:0; width:auto; padding:6px 14px; font-size:13px; font-weight:700; border:1px solid #c9961a; background:#c9961a; color:#1b1b1b; cursor:pointer; font-family:inherit;}
+  .cb-ov{position:fixed; inset:0; background:rgba(0,0,0,.65); display:flex; align-items:center; justify-content:center; z-index:9999; padding:16px;}
+  .cb-dlg{width:520px; max-width:100%; max-height:92vh; overflow:auto; background:var(--rm-bg); border:1px solid var(--rm-border);}
+  .cb-form{padding:22px 24px;}
+  .cb-cab{display:flex; align-items:flex-start; gap:10px;}
+  .cb-form h3{margin:0; font-size:20px; color:var(--rm-text);}
+  .cb-form .sub{font-size:13px; color:var(--rm-text-dim); margin:3px 0 0;}
+  .cb-form .sub b{color:var(--rm-text);} .cb-form .sub b.cb-venc{color:#e5484d;}
+  .cb-wpp{border-color:#25a244 !important; color:#25a244 !important;}
+  .cb-lab{display:block; font-size:12px; font-weight:600; color:var(--rm-text-dim); margin:14px 0 6px; text-transform:none;}
+  .cb-opts{display:flex; flex-wrap:wrap; gap:6px;}
+  .cb-opts button{margin:0; width:auto; padding:8px 12px; font-size:13px; font-weight:600; border:1px solid var(--rm-border); background:transparent; color:var(--rm-text-dim); cursor:pointer; font-family:inherit;}
+  .cb-opts button.on{border-color:var(--rm-text); background:var(--rm-text); color:var(--rm-bg);}
+  .cb-prom{margin-top:10px; padding:10px; border:1px solid var(--rm-border); background:var(--rm-panel);}
+  .cb-prom label{display:block; font-size:12px; color:var(--rm-text-dim); text-transform:none;}
+  .cb-prom input{margin-top:4px;}
+  .cb-form textarea{width:100%; box-sizing:border-box; min-height:64px;}
+  .cb-pe{display:flex; justify-content:flex-end; gap:8px; margin-top:16px;}
+  .cb-pe button{margin:0; width:auto; padding:10px 18px; font-weight:700; font-family:inherit; cursor:pointer; border:1px solid var(--rm-border); background:transparent; color:var(--rm-text);}
+  .cb-pe .pri{background:#c9961a; border-color:#c9961a; color:#1b1b1b;}
+  .cb-notas{font-size:12.5px; color:var(--rm-text); border-top:1px solid var(--rm-border); margin-top:16px; padding-top:12px;}
+  .cb-notas > b{display:block; margin-bottom:4px;}
+  .cb-notas div{display:flex; justify-content:space-between; gap:10px; padding:4px 0;}
+  .cb-notas div > span:last-child{color:var(--rm-text-dim); white-space:nowrap;}
+  .cb-notas em{font-style:normal; color:var(--rm-text-dim); font-size:11.5px; margin-left:6px;}
+  @media (max-width:760px){ .cb-busca{margin-left:0; width:100% !important;} .cb-tab th:nth-child(4), .cb-tab td:nth-child(4){display:none;} .cb-ult small{max-width:160px;} }
   .gh-tiles{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px;}
   .gh-t{display:flex; gap:12px; align-items:flex-start; text-align:left; padding:16px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-family:inherit; cursor:pointer; width:100%; margin:0; min-width:0;}
   .gh-t:hover{filter:brightness(.97);} .gh-t .gh-i{font-size:30px; line-height:1;} .gh-t b{display:block; font-size:16px;} .gh-t small{display:block; color:var(--rm-text-dim); font-size:12.5px; line-height:1.4; margin-top:3px; font-weight:400;}
@@ -3202,7 +3251,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-caixa" onclick="rmSetSection('caixa')" title="Caixa"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Caixa</span><span class="rm-nav-sub">Em construção</span></span><span class="fc-badge" id="rm-fc-badge" style="display:none">0</span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 16/11 às 17:00</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 17/11 às 09:07</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -3962,6 +4011,7 @@ function rmCarregarLib(nome){
         <button class="rm-subnav-btn active" id="rm-btn-fin-vendas" onclick="rmSetViewFin('vendas')"><span class="rm-subnav-icon">&#128176;</span><span>Vendas</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-cli" onclick="rmSetViewFin('cli')"><span class="rm-subnav-icon">&#128101;</span><span>Clientes</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-prom" onclick="rmSetViewFin('prom')"><span class="rm-subnav-icon">&#128221;</span><span>A prazo</span></button>
+        <button class="rm-subnav-btn" id="rm-btn-fin-cob" onclick="rmSetViewFin('cob')"><span class="rm-subnav-icon">&#128222;</span><span>Cobrança</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-org" onclick="rmSetViewFin('org')"><span class="rm-subnav-icon">&#128194;</span><span>Organizar</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-conc" onclick="rmSetViewFin('conc')"><span class="rm-subnav-icon">&#128260;</span><span>Conciliação</span></button>
         <button class="rm-subnav-btn" id="rm-btn-fin-notas" onclick="rmSetViewFin('notas')"><span class="rm-subnav-icon">&#128194;</span><span>Notas XML</span></button>
@@ -4048,6 +4098,11 @@ function rmCarregarLib(nome){
           </table>
           <div class="rm-problema-empty" id="rm-fin-cli-empty" style="display:none; padding:20px;">Nenhum cliente encontrado</div>
         </div>
+      </div>
+      <div id="rm-view-fin-cob" class="rm-view">
+        <h1 class="rm-title" style="margin:0 0 14px">Cobrança</h1>
+        <div class="cb-fil"><span id="rm-cob-fil" style="display:contents"></span><input class="rm-input cb-busca" id="rm-cob-busca" placeholder="Buscar cliente..." oninput="rmRenderCobranca()"></div>
+        <div id="rm-cob-corpo" style="padding-bottom:80px"></div>
       </div>
       <div id="rm-view-fin-prom" class="rm-view">
         <h1 class="rm-title" style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">Vendas a prazo <span style="display:flex; gap:6px; flex-wrap:wrap;"><button class="rm-pe2-btn rm-so-admin-fin" onclick="rmConferirRecebimentos()" title="Compara o livro-caixa com as notas e restaura algum recebimento que tenha sumido">&#128737; Conferir recebimentos</button><button class="rm-pe2-btn rm-so-admin-fin" onclick="rmImpAbrir()" title="Trazer as notas a receber do sistema antigo">&#128229; Importar do sistema antigo</button><button class="rm-pe2-btn rm-so-admin-fin" onclick="rmValBaixoAbrir()" title="Notas com valor menor que R$ 5 (o sistema antigo mostrava 1.400 como 1,4)">&#128290; Corrigir valores baixos</button></span></h1>
@@ -8690,7 +8745,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611161700; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611170907; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -13385,7 +13440,7 @@ function rmCopiaAbrir(){
   });
 }
 function rmCopiaMontar(){
-  const cfg = [['pedido', typeof rmPedido !== 'undefined' ? rmPedido : null], ['vale', typeof rmVale !== 'undefined' ? rmVale : null], ['lembretes', typeof rmLem !== 'undefined' ? rmLem : null],
+  const cfg = [['pedido', typeof rmPedido !== 'undefined' ? rmPedido : null], ['vale', typeof rmVale !== 'undefined' ? rmVale : null], ['lembretes', typeof rmLem !== 'undefined' ? rmLem : null], ['cobrancas', typeof rmCob !== 'undefined' ? rmCob : null],
     ['familias', typeof rmFam !== 'undefined' ? rmFam : null], ['comissoes', typeof rmCom !== 'undefined' ? rmCom : null], ['conciliacao', typeof rmConc !== 'undefined' ? rmConc : null]]
     .filter(([, d]) => d).map(([id, dados]) => ({ id, dados: JSON.parse(JSON.stringify(dados)) }));
   return { app:'radical-motos', versao:2, geradoEm: new Date().toISOString(), origem:'copia-automatica', usuario: rmNomeUsuario(),
@@ -15401,6 +15456,7 @@ const RM_ABA_ICONES = {
   'rm-btn-fin-vendas':'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 10v4M18 10v4"/>',
   'rm-btn-fin-prom':'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>',
   'rm-btn-fin-cli':'<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2.4.7 4 2.8 4 6"/>',
+  'rm-btn-fin-cob':'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
   'rm-btn-fin-org':'<path d="M3 6a1 1 0 0 1 1-1h5l2 2h9a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>',
   'rm-btn-fin-conc':'<path d="M20 11a8 8 0 0 0-14.5-4.5M4 13a8 8 0 0 0 14.5 4.5"/><path d="M5 3v4h4M19 21v-4h-4"/>',
   'rm-btn-fin-notas':'<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 13h8M8 17h5"/>',
@@ -16695,7 +16751,7 @@ setInterval(() => { try{ if(rmPagPode() && document.visibilityState === 'visible
 function rmSetViewFin(view){
   rmCxBotao();
   if(view === 'caixa' && !rmEhAdmin()) view = 'vendas'; // caixa do dia: só administrador
-  ['vendas','prom','cli','org','conc','notas','pagar','caixa'].forEach(v=>{
+  ['vendas','prom','cob','cli','org','conc','notas','pagar','caixa'].forEach(v=>{
     document.getElementById('rm-view-fin-'+v).classList.toggle('active', v===view);
     document.getElementById('rm-btn-fin-'+v).classList.toggle('active', v===view);
   });
@@ -16703,6 +16759,7 @@ function rmSetViewFin(view){
   if(view === 'prom'){ rmRenderFinProm(); rmSyncProms().then(rmRenderFinProm); }
   if(view === 'org'){ rmRenderFinOrg(); rmSyncProms().then(rmRenderFinOrg); }
   if(view === 'cli'){ rmRenderFinClientes(); rmSyncProms().then(rmRenderFinClientes); }
+  if(view === 'cob'){ rmRenderCobranca(); Promise.all([rmSyncProms(), rmCobSync()]).then(rmRenderCobranca); }
   if(view === 'notas'){ rmNotasAbrirTela(); }
   if(view === 'pagar'){ rmPagRender(); rmPagCarregar(); }
   if(view === 'caixa'){ rmCxRender(); rmSyncProms().then(() => rmCxCarregar()); }
@@ -16817,6 +16874,123 @@ function rmRenderFinClientes(){
       <td>${rmEscapeHtml(l.c.telefone||'—')}</td>
       <td style="text-align:right; font-weight:${l.receber>0.004?700:400}">${l.receber>0.004 ? rmFormatMoeda(l.receber) : '—'}${l.vencido>0.004 ? `<div class="fc-venc">${rmFormatMoeda(l.vencido)} vencido</div>` : ''}</td>
     </tr>`).join('') + rmMaisLinha('fcli', linhas.length, 'rmRenderFinClientes');
+}
+
+// ===== Financeiro > Cobrança =====
+// Clientes com nota a prazo vencida. As cobranças ficam em configuracoes('cobrancas') (todos os aparelhos). Nada é apagado.
+let rmCob = { itens: [] };
+try{ rmCob = JSON.parse(localStorage.getItem('radicalMotos_cobrancas')) || rmCob; }catch(e){}
+let rmCobFiltro = 'todos', rmCobSel = new Set(), rmCobAtual = null;
+function rmCobJuntar(a, b){
+  const m = new Map();
+  [...((a && a.itens) || []), ...((b && b.itens) || [])].forEach(x => { if(!x || !x.id) return; const y = m.get(x.id); if(!y || String(x.atualizadoEm) > String(y.atualizadoEm)) m.set(x.id, x); });
+  return { itens: [...m.values()] };
+}
+function rmCobGuardarLocal(){ try{ localStorage.setItem('radicalMotos_cobrancas', JSON.stringify(rmCob)); }catch(e){} }
+async function rmCobSync(){
+  try{ const { data } = await rmSb.from('configuracoes').select('*').eq('id', 'cobrancas').maybeSingle(); if(data && data.dados) rmCob = rmCobJuntar(data.dados, rmCob); rmCobGuardarLocal(); }catch(e){}
+}
+async function rmCobSalvarItem(item){
+  item.atualizadoEm = new Date().toISOString();
+  rmCob.itens = rmCob.itens.filter(x => x.id !== item.id).concat([item]);
+  rmCobGuardarLocal();
+  try{
+    const { data } = await rmSb.from('configuracoes').select('*').eq('id', 'cobrancas').maybeSingle();
+    rmCob = rmCobJuntar(data && data.dados, rmCob);
+    const { error } = await rmSb.from('configuracoes').upsert({ id: 'cobrancas', dados: rmCob });
+    if(error) throw error;
+    rmCobGuardarLocal();
+  }catch(e){ console.warn('cobranças:', e); }
+}
+const RM_COB_RES = { prometeu: ['prom', 'Prometeu pagar'], prazo: ['prz', 'Pediu mais prazo'], nao_atendeu: ['nat', 'Não atendeu'], nao_paga: ['rec', 'Não vai pagar'] };
+function rmCobSelo(x, hoje){
+  if(!x) return '';
+  if(x.res === 'prometeu'){ const q = x.data && x.data < hoje; return `<span class="cb-res ${q ? 'queb' : 'prom'}">${q ? 'Promessa quebrada' : 'Prometeu ' + (x.data ? rmDataBR(x.data).slice(0, 5) : '')}</span>`; }
+  const r = RM_COB_RES[x.res] || ['nat', x.res || '']; return `<span class="cb-res ${r[0]}">${r[1]}</span>`;
+}
+function rmCobDados(){
+  const hoje = rmHojeISO(), clis = rmLoadClientes(), g = new Map();
+  const porId = new Map(clis.map(c => [c.id, c])), porNome = new Map(clis.map(c => [String(c.nome || '').trim().toUpperCase(), c]));
+  rmLoadProms().forEach(n => {
+    const nome = String(n.clienteNome || '').trim().toUpperCase();
+    const c = (n.clienteId && porId.get(n.clienteId)) || (!n.clienteId && nome ? porNome.get(nome) : null);
+    const k = c ? c.id : (nome ? 'N:' + nome : null); if(!k) return;
+    const x = g.get(k) || g.set(k, { k, c, nome: c ? c.nome : n.clienteNome, tel: c ? c.telefone : '', vencido: 0, total: 0, antiga: null }).get(k);
+    (n.parcelas || []).forEach(p => { const r = rmParcRestante(p); if(r <= 0.004) return; x.total += r; if(p.vencimento < hoje){ x.vencido += r; if(!x.antiga || p.vencimento < x.antiga) x.antiga = p.vencimento; } });
+  });
+  const cobs = new Map(); (rmCob.itens || []).filter(x => x && !x.apagado).forEach(x => { (cobs.get(x.cli) || cobs.set(x.cli, []).get(x.cli)).push(x); });
+  return [...g.values()].filter(x => x.vencido > 0.004).map(x => {
+    const hist = (cobs.get(x.k) || []).sort((a, b) => String(b.em).localeCompare(String(a.em))), u = hist[0] || null;
+    const est = !u ? 'nunca' : u.res === 'prometeu' ? (u.data && u.data < hoje ? 'queb' : 'prom') : u.res;
+    return Object.assign(x, { hist, ult: u, est, dias: Math.max(0, Math.round((new Date(hoje + 'T12:00:00') - new Date(x.antiga + 'T12:00:00')) / 864e5)) });
+  }).sort((a, b) => b.dias - a.dias || b.vencido - a.vencido);
+}
+function rmRenderCobranca(){
+  const box = document.getElementById('rm-cob-corpo'); if(!box) return;
+  const hoje = rmHojeISO(), todos = rmCobDados(), q = (document.getElementById('rm-cob-busca') || {}).value || '';
+  const lista = todos.filter(x => (rmCobFiltro === 'todos' || x.est === rmCobFiltro) && (!q.trim() || rmBuscaBate([x.nome, x.tel], q.trim().toLowerCase())));
+  [...rmCobSel].forEach(k => { if(!todos.some(x => x.k === k)) rmCobSel.delete(k); });
+  const n = s => todos.filter(x => x.est === s).length, sel = todos.filter(x => rmCobSel.has(x.k));
+  const dc = d => d > 45 ? 'd3' : d > 20 ? 'd2' : 'd1';
+  document.getElementById('rm-cob-fil').innerHTML = [['todos', 'Todos', ''], ['prom', 'Prometeram pagar', n('prom')], ['queb', 'Promessa quebrada', n('queb')]]
+    .map(([v, t, c]) => `<button class="cb-chip${rmCobFiltro === v ? ' on' : ''}" onclick="rmCobFiltro='${v}'; rmRenderCobranca()">${t}${c !== '' ? `<em>${c}</em>` : ''}</button>`).join('');
+  box.innerHTML = (sel.length ? `<div class="cb-sel"><b>${sel.length} selecionado${sel.length > 1 ? 's' : ''}</b><span style="color:var(--rm-text-dim)">· vencido ${rmFormatMoeda(sel.reduce((s, x) => s + x.vencido, 0))} · total ${rmFormatMoeda(sel.reduce((s, x) => s + x.total, 0))}</span><span style="margin-left:auto"></span><button onclick="rmCobSel.clear(); rmRenderCobranca()">Limpar</button><button class="pri" onclick="rmCobImprimir()">&#128424; Imprimir lista de cobrança</button></div>` : '')
+    + (lista.length ? `<div class="rm-osl-wrap"><table class="cb-tab"><thead><tr><th style="width:28px"><input type="checkbox" title="Selecionar todos" ${lista.length && lista.every(x => rmCobSel.has(x.k)) ? 'checked' : ''} onchange="rmCobSelTodos(this.checked)"></th><th>Cliente</th><th class="r">Vencido</th><th class="r">Total</th><th class="r">Atraso</th><th>Última cobrança</th><th></th></tr></thead><tbody>
+      ${lista.map(x => `<tr><td><input type="checkbox" ${rmCobSel.has(x.k) ? 'checked' : ''} onchange="rmCobMarcar('${rmJs(x.k)}', this.checked)"></td>
+        <td class="cb-nome"><b>${rmEscapeHtml(x.nome || '—')}</b><small>${rmEscapeHtml(x.tel || 'sem telefone')}</small></td>
+        <td class="r"><b class="cb-venc">${rmFormatMoeda(x.vencido)}</b></td><td class="r"><b>${rmFormatMoeda(x.total)}</b></td>
+        <td class="r"><span class="cb-dias ${dc(x.dias)}">${x.dias} dia${x.dias === 1 ? '' : 's'}</span></td>
+        <td class="cb-ult">${x.ult ? `${rmCobSelo(x.ult, hoje)} <span class="cb-q">${new Date(x.ult.em).toLocaleDateString('pt-BR').slice(0, 5)}</span>${x.ult.texto ? `<small>${rmEscapeHtml(x.ult.texto)}</small>` : ''}` : '<span class="cb-q">Nunca cobrado</span>'}</td>
+        <td class="cb-acoes"><button class="reg" onclick="rmCobAbrir('${rmJs(x.k)}')">Cobrar</button></td></tr>`).join('')}</tbody></table></div>`
+      : `<div class="rm-problema-empty" style="padding:24px;">${todos.length ? 'Nenhum cliente neste filtro.' : 'Nenhum cliente com nota vencida. &#127881;'}</div>`);
+}
+function rmCobMarcar(k, on){ on ? rmCobSel.add(k) : rmCobSel.delete(k); rmRenderCobranca(); }
+function rmCobSelTodos(on){ const q = (document.getElementById('rm-cob-busca') || {}).value || ''; rmCobDados().filter(x => (rmCobFiltro === 'todos' || x.est === rmCobFiltro) && (!q.trim() || rmBuscaBate([x.nome, x.tel], q.trim().toLowerCase()))).forEach(x => on ? rmCobSel.add(x.k) : rmCobSel.delete(x.k)); rmRenderCobranca(); }
+function rmCobFechar(){ const o = document.getElementById('rm-cob-ov'); if(o) o.remove(); rmCobAtual = null; }
+function rmCobAbrir(k){
+  const x = rmCobDados().find(y => y.k === k); if(!x) return;
+  rmCobAtual = { k, res: '' };
+  const hoje = rmHojeISO(), amanha = (() => { const d = new Date(); d.setDate(d.getDate() + 1); return rmComIso(d); })();
+  let ov = document.getElementById('rm-cob-ov'); if(ov) ov.remove();
+  ov = document.createElement('div'); ov.id = 'rm-cob-ov'; ov.className = 'cb-ov';
+  ov.onclick = e => { if(e.target === ov) rmCobFechar(); };
+  ov.innerHTML = `<div class="cb-dlg" role="dialog"><div class="cb-form">
+    <div class="cb-cab"><div style="flex:1; min-width:0"><h3>${rmEscapeHtml(x.nome || '')}</h3><div class="sub">Vencido <b class="cb-venc">${rmFormatMoeda(x.vencido)}</b> · Total <b>${rmFormatMoeda(x.total)}</b> · ${x.dias} dia${x.dias === 1 ? '' : 's'}</div></div>
+      ${x.tel ? `<button class="cb-chip cb-wpp" onclick="rmAbrirWhatsapp('${rmJs(x.tel)}', 'Olá ${rmJs(String(x.nome || '').split(' ')[0])}! Aqui é da ${rmJs(rmEmpresa().nome || 'Radical Motos')}. Passando para lembrar que há valores em aberto conosco. Podemos combinar o pagamento?')">&#128242; WhatsApp</button>` : ''}</div>
+    <label class="cb-lab">O que aconteceu</label>
+    <div class="cb-opts" id="rm-cob-res">${Object.entries(RM_COB_RES).map(([v, r]) => `<button type="button" data-res="${v}" onclick="rmCobRes('${v}')">${r[1]}</button>`).join('')}</div>
+    <div class="cb-prom" id="rm-cob-prom" style="display:none"><label>Prometeu pagar no dia<input type="date" class="rm-date-input" id="rm-cob-data" value="${amanha}" min="${hoje}" style="width:100%"></label></div>
+    <label class="cb-lab">O que o cliente disse</label><textarea class="rm-input" id="rm-cob-txt" rows="3"></textarea>
+    <div class="cb-pe"><button type="button" onclick="rmCobFechar()">Cancelar</button><button type="button" class="pri" onclick="rmCobSalvar()">Salvar</button></div>
+    ${x.hist.length ? `<div class="cb-notas"><b>Cobranças anteriores</b>${x.hist.map(h => `<div><span>${rmCobSelo(h, hoje)} ${rmEscapeHtml(h.texto || '')}<em>${rmEscapeHtml(h.por || '')}</em></span><span>${new Date(h.em).toLocaleDateString('pt-BR')}</span></div>`).join('')}</div>` : ''}
+  </div></div>`;
+  document.body.appendChild(ov);
+}
+function rmCobRes(v){
+  if(!rmCobAtual) return; rmCobAtual.res = v;
+  document.querySelectorAll('#rm-cob-res button').forEach(b => b.classList.toggle('on', b.dataset.res === v));
+  document.getElementById('rm-cob-prom').style.display = v === 'prometeu' ? '' : 'none';
+}
+async function rmCobSalvar(){
+  if(!rmCobAtual) return;
+  const x = rmCobDados().find(y => y.k === rmCobAtual.k); if(!x){ rmCobFechar(); return; }
+  if(!rmCobAtual.res){ alert('Escolha o que aconteceu.'); return; }
+  const data = rmCobAtual.res === 'prometeu' ? document.getElementById('rm-cob-data').value : '';
+  if(rmCobAtual.res === 'prometeu' && !data){ alert('Informe o dia que o cliente prometeu pagar.'); return; }
+  const item = { id: rmUid(), cli: x.k, nome: x.nome || '', em: new Date().toISOString(), por: rmNomeUsuario(), res: rmCobAtual.res, data, texto: document.getElementById('rm-cob-txt').value.trim().toUpperCase(), vencido: Math.round(x.vencido * 100) / 100 };
+  rmCobFechar();
+  await rmCobSalvarItem(item);
+  try{ rmLog('Registrou cobrança', x.nome || '', RM_COB_RES[item.res][1] + (data ? ' ' + rmDataBR(data) : '') + (item.texto ? ' · ' + item.texto : '')); }catch(e){}
+  rmRenderCobranca();
+}
+function rmCobImprimir(){
+  const hoje = rmHojeISO(), sel = rmCobDados().filter(x => rmCobSel.has(x.k)); if(!sel.length) return;
+  const tx = h => !h ? 'Nunca cobrado' : (h.res === 'prometeu' ? (h.data && h.data < hoje ? 'Promessa quebrada' : 'Prometeu ' + rmDataBR(h.data)) : RM_COB_RES[h.res][1]) + ' (' + new Date(h.em).toLocaleDateString('pt-BR') + ')' + (h.texto ? ': ' + h.texto : '');
+  const corpo = rmA4Cabecalho('Lista de cobrança', '', new Date().toLocaleDateString('pt-BR'))
+    + rmA4Secao('Clientes (' + sel.length + ')', `<table class="a4-tab"><thead><tr><th>Cliente</th><th>Telefone</th><th class="r">Vencido</th><th class="r">Total</th><th class="r">Atraso</th><th>Última cobrança</th><th style="width:22%">Anotações</th></tr></thead>
+      <tbody>${sel.map(x => `<tr><td><b>${rmH(x.nome || '')}</b></td><td>${rmH(x.tel || '')}</td><td class="r">${rmFmtNum(x.vencido)}</td><td class="r">${rmFmtNum(x.total)}</td><td class="r">${x.dias} d</td><td>${rmH(tx(x.ult))}</td><td></td></tr>`).join('')}</tbody>
+      <tfoot><tr class="a4-forte"><td colspan="2" class="r"><b>Total</b></td><td class="r"><b>${rmFmtNum(sel.reduce((s, x) => s + x.vencido, 0))}</b></td><td class="r"><b>${rmFmtNum(sel.reduce((s, x) => s + x.total, 0))}</b></td><td colspan="3"></td></tr></tfoot></table>`);
+  rmImprimirA4('Lista de cobrança', corpo);
 }
 
 function rmPromSituacao(p){
