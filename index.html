@@ -2625,6 +2625,16 @@
   .cb-notas div > span:last-child{color:var(--rm-text-dim); white-space:nowrap;}
   .cb-notas em{font-style:normal; color:var(--rm-text-dim); font-size:11.5px; margin-left:6px;}
   @media (max-width:760px){ .cb-busca{margin-left:0; width:100% !important;} .cb-tab th:nth-child(4), .cb-tab td:nth-child(4){display:none;} .cb-ult small{max-width:160px;} }
+  #rm-modal.rm-rec1{max-width:560px !important; width:560px !important;}
+  #rm-modal.rm-rec1 .rm-modal-body{display:block !important;}
+  .rm-rec1 .rr-sec{margin-bottom:16px;}
+  .rm-rec1 .rr-lab{display:block; font-size:13px; font-weight:600; color:var(--rm-text-dim); margin:0 0 6px;}
+  .rm-rec1 .rr-dupla{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .rm-rec1 .rr-fim{display:grid; grid-template-columns:1fr 1fr; gap:10px; align-items:stretch;}
+  .rm-rec1 .rr-fim .rm-btn-add{width:100%; height:100%; min-height:52px; margin:0;}
+  .rm-rec1 .rr-fim .rm-toggle-row{margin:0; height:100%; box-sizing:border-box;}
+  .rm-rec1 #rm-qf-modelo{font-size:18px; font-weight:700;}
+  @media (max-width:600px){ #rm-modal.rm-rec1{width:100% !important;} .rm-rec1 .rr-dupla, .rm-rec1 .rr-fim{grid-template-columns:1fr;} }
   .gh-tiles{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px;}
   .gh-t{display:flex; gap:12px; align-items:flex-start; text-align:left; padding:16px; border:1px solid var(--rm-border); background:var(--rm-panel); color:var(--rm-text); font-family:inherit; cursor:pointer; width:100%; margin:0; min-width:0;}
   .gh-t:hover{filter:brightness(.97);} .gh-t .gh-i{font-size:30px; line-height:1;} .gh-t b{display:block; font-size:16px;} .gh-t small{display:block; color:var(--rm-text-dim); font-size:12.5px; line-height:1.4; margin-top:3px; font-weight:400;}
@@ -3251,7 +3261,7 @@ function rmCarregarLib(nome){
         <button class="rm-nav-btn" id="rm-btn-caixa" onclick="rmSetSection('caixa')" title="Caixa"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Caixa</span><span class="rm-nav-sub">Em construção</span></span><span class="fc-badge" id="rm-fc-badge" style="display:none">0</span></button>
         <button class="rm-nav-btn" id="rm-btn-configuracoes" onclick="rmSetSection('configuracoes')" title="Configurações"><span class="rm-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span><span class="rm-nav-text"><span class="rm-nav-label">Configurações</span><span class="rm-nav-sub">Dados da oficina</span></span></button>
       </nav>
-      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 17/11 às 09:07</div>
+      <div class="rm-versao" title="Versão do sistema instalada neste aparelho">Atualizado em 25/11 às 12:46</div>
       <div class="rm-user-box" id="rm-user-box"></div>
       <div class="rm-settings-wrap" style="display:none;">
         <input type="file" id="rm-import-file" accept="application/json" style="display:none;" onchange="rmImportarBackup(this)">
@@ -4355,7 +4365,7 @@ function rmAbrirCadastroProdutoRapido(produtoId, novoNaFamilia){
     `<div class="rm-qm-field c${span}${extra||''}"><label class="rm-qm-label">${rotulo}</label>${conteudo}</div>`;
 
   const modal = document.getElementById('rm-modal');
-  modal.classList.remove('rm-modal-large');
+  modal.classList.remove('rm-rec1', 'rm-modal-large');
   modal.classList.add('rm-modal-quadrado');
   modal.innerHTML = `
     <div class="rm-qm-header">
@@ -8369,7 +8379,7 @@ function rmAbrirDetalheVenda(id){
   `).join('');
 
   const modal = document.getElementById('rm-modal');
-  modal.classList.remove('rm-modal-large');
+  modal.classList.remove('rm-rec1', 'rm-modal-large');
   modal.innerHTML = `
     <div class="rm-modal-header">
       <div>
@@ -8745,7 +8755,7 @@ function rmToDbRow(r){
 // somando as diferenças) em vez de uma apagar a outra.
 const RM_OUTBOX_KEY = 'radicalMotos_filaEnvio';
 // número desta versão do sistema (ano mês dia hora minuto) — o servidor não deixa gravar quem tem versão mais velha
-const RM_APP_VERSAO = 202611170907; // data e hora real da atualização (ano mês dia hora minuto)
+const RM_APP_VERSAO = 202611251246; // data e hora real da atualização (ano mês dia hora minuto)
 try{ document.querySelectorAll('.rm-versao').forEach(e => e.textContent = 'Atualizado em ' + rmVersaoTexto(RM_APP_VERSAO)); }catch(e){}
 const RM_SYNC_TABS = ['recepcoes', 'vendas', 'clientes', 'produtos'];
 // tabelas gravadas com versão (o servidor recusa gravar por cima de quem gravou antes; o aparelho junta as duas alterações)
@@ -11767,7 +11777,7 @@ function rmAbrirDetalheAntigo(refId){
   const n = rmLoadProms().find(x => x.refId === refId); if(!n) return;
   const a = n.antigo || {};
   const modal = document.getElementById('rm-modal');
-  modal.classList.remove('rm-modal-large', 'rm-modal-os');
+  modal.classList.remove('rm-rec1', 'rm-modal-large', 'rm-modal-os');
   modal.innerHTML = `
     <div class="rm-modal-header"><div>
       <div class="rm-modal-title">${rmEscapeHtml(n.refCodigo || '')} <span class="rm-fin-tag rm-fin-tag-Antigo">Sistema antigo</span></div>
@@ -13038,7 +13048,7 @@ function rmFamRenomear(fid, v){
   rmRenderFamilias();
   if(!mud.length) return;
   const modal = document.getElementById('rm-modal');
-  modal.classList.remove('rm-modal-large','rm-modal-os','rm-modal-quadrado');
+  modal.classList.remove('rm-rec1', 'rm-modal-large','rm-modal-os','rm-modal-quadrado');
   modal.innerHTML = `
     <div class="rm-modal-header"><div><div class="rm-modal-title">Renomear os produtos também?</div><div class="rm-modal-sub">Família: ${rmEscapeHtml(antigo)} → <b>${rmEscapeHtml(v)}</b></div></div><button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
     <div class="rm-modal-section">
@@ -16218,7 +16228,7 @@ async function rmConferirRecebimentos(){
   const faltando = ativos.filter(r => !presentes.has(r.id));
   const totalLivro = ativos.reduce((s,r) => s + (Number(r.valor)||0), 0);
   const modal = document.getElementById('rm-modal');
-  modal.classList.remove('rm-modal-large','rm-modal-os');
+  modal.classList.remove('rm-rec1', 'rm-modal-large','rm-modal-os');
   modal.innerHTML = `
     <div class="rm-modal-header"><div><div class="rm-modal-title">&#128737; Conferência de recebimentos</div>
       <div class="rm-modal-sub">${ativos.length} recebimento(s) no livro-caixa · ${rmFormatMoeda(totalLivro)}</div></div>
@@ -17046,7 +17056,7 @@ function rmPromReceber(notaId, n){
   const pgs = rmParcPagamentos(p), resta = rmParcRestante(p);
   const formas = RM_FORMAS_PAGAMENTO.filter(f => !rmAPrazo(f));
   const modal = document.getElementById('rm-modal');
-  modal.classList.remove('rm-modal-large','rm-modal-os');
+  modal.classList.remove('rm-rec1', 'rm-modal-large','rm-modal-os');
   modal.innerHTML = `
     <div class="rm-modal-header">
       <div><div class="rm-modal-title">Receber parcela ${rmParcRotulo(p, nota)}</div>
@@ -17996,7 +18006,7 @@ function rmInvNovaMarca(k){
   const f = rmFamDoProduto(it.pid);
   const base = f ? f.nome : rmFamSeparar(it.nome).base;
   const modal = document.getElementById('rm-modal');
-  modal.classList.remove('rm-modal-large','rm-modal-os','rm-modal-quadrado');
+  modal.classList.remove('rm-rec1', 'rm-modal-large','rm-modal-os','rm-modal-quadrado');
   modal.innerHTML = `
     <div class="rm-modal-header"><div><div class="rm-modal-title">+ Marca nova</div><div class="rm-modal-sub">Cadastra e já entra na contagem${it.loc ? ' · local ' + rmEscapeHtml(it.loc) : ''}</div></div><button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
     <div class="rm-modal-section">
@@ -18926,7 +18936,7 @@ function rmAbrirRecepcaoRapida(){
   rmFotoFilePendente.quick = null;
 
   const modal = document.getElementById('rm-modal');
-  modal.classList.add('rm-modal-large');
+  modal.classList.add('rm-modal-large', 'rm-rec1');
   modal.innerHTML = `
     <div class="rm-modal-header">
       <div>
@@ -18936,70 +18946,57 @@ function rmAbrirRecepcaoRapida(){
       <button class="rm-modal-close" onclick="rmCloseModal()">&times;</button>
     </div>
 
-    <div class="rm-modal-body">
-    <div class="rm-modal-col">
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Problemas relatados</span>
-      <div class="rm-mec-add-row" style="margin-bottom:10px;">
-        <input class="rm-input" id="rm-qf-problema-novo" autocapitalize="characters" onkeydown="if(event.key==='Enter'){event.preventDefault(); if(this.value.trim()) rmAdicionarProblemaQuick(); else document.getElementById('rm-qf-modelo').focus();}">
+    <div class="rm-modal-body rm-rec1-body">
+    <div class="rr-sec">
+      <span class="rr-lab">Modelo da moto</span>
+      <input class="rm-input" id="rm-qf-modelo" autocapitalize="characters" placeholder="Ex.: TITAN 160" onkeydown="if(event.key==='Enter'){event.preventDefault(); document.getElementById('rm-qf-problema-novo').focus();}">
+    </div>
+    <div class="rr-sec">
+      <span class="rr-lab">Problemas relatados</span>
+      <div class="rm-mec-add-row" style="margin-bottom:8px;">
+        <input class="rm-input" id="rm-qf-problema-novo" autocapitalize="characters" placeholder="Digite e aperte Enter" onkeydown="if(event.key==='Enter'){event.preventDefault(); if(this.value.trim()) rmAdicionarProblemaQuick(); else document.getElementById('rm-qf-nome').focus();}">
         <button class="rm-btn-add" onclick="rmAdicionarProblemaQuick()">OK</button>
       </div>
       <div class="rm-problema-list" id="rm-qf-problema-lista"></div>
     </div>
-
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Moto</span>
-      <label class="rm-label">Modelo</label>
-      <input class="rm-input" id="rm-qf-modelo" autocapitalize="characters">
+    <div class="rr-sec rr-dupla">
+      <div>
+        <span class="rr-lab">Cliente</span>
+        <div class="rm-autocomplete-wrap" id="rm-qf-cliente-wrap">
+          <input class="rm-input" id="rm-qf-nome" autocapitalize="characters" autocomplete="off" oninput="rmBuscarClienteQuick(this.value)" onfocus="rmBuscarClienteQuick(this.value)">
+          <div class="rm-autocomplete-list" id="rm-qf-cliente-lista"></div>
+        </div>
+      </div>
+      <div>
+        <span class="rr-lab">WhatsApp</span>
+        <input class="rm-input" id="rm-qf-telefone" inputmode="tel" autocomplete="tel">
+      </div>
     </div>
-
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Oficina</span>
-      <label class="rm-label">Mecânico responsável (opcional)</label>
-      <select class="rm-input" id="rm-qf-mecanico">${rmMecanicoOptionsHtml('')}</select>
+    <div class="rr-sec">
+      <span class="rr-lab">Observação (opcional)</span>
+      <input class="rm-input" id="rm-qf-observacao" autocapitalize="characters">
     </div>
-
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Foto da moto (opcional)</span>
-      <input type="file" accept="image/*" id="rm-qf-foto" style="display:none;" onchange="rmPreviewFoto(this, 'quick')">
-      <button type="button" class="rm-btn-add" style="width:100%;" onclick="document.getElementById('rm-qf-foto').click()">Escolher foto</button>
+    <div class="rr-sec">
+      <div class="rr-fim">
+        <div>
+          <input type="file" accept="image/*" id="rm-qf-foto" style="display:none;" onchange="rmPreviewFoto(this, 'quick')">
+          <button type="button" class="rm-btn-add" onclick="document.getElementById('rm-qf-foto').click()">&#128247; Foto da moto</button>
+        </div>
+        <div class="rm-toggle-row">
+          <span class="rm-toggle-row-label">Entregar ao cliente</span>
+          <label class="rm-switch">
+            <input type="checkbox" id="rm-qf-entrega">
+            <span class="rm-switch-track"></span>
+          </label>
+        </div>
+      </div>
       <div id="rm-qf-foto-preview" class="rm-foto-preview"></div>
     </div>
-    </div>
-
-    <div class="rm-modal-col">
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Cliente (opcional)</span>
-      <label class="rm-label">Nome</label>
-      <div class="rm-autocomplete-wrap" id="rm-qf-cliente-wrap">
-        <input class="rm-input" id="rm-qf-nome" autocapitalize="characters" autocomplete="off" oninput="rmBuscarClienteQuick(this.value)" onfocus="rmBuscarClienteQuick(this.value)">
-        <div class="rm-autocomplete-list" id="rm-qf-cliente-lista"></div>
-      </div>
-      <label class="rm-label">WhatsApp</label>
-      <input class="rm-input" id="rm-qf-telefone" inputmode="tel" autocomplete="tel">
-      <label class="rm-label">Observação (opcional)</label>
-      <input class="rm-input" id="rm-qf-observacao" autocapitalize="characters">
-      <label class="rm-label">Itens deixados (opcional)</label>
-      <input class="rm-input" id="rm-qf-itens" autocapitalize="characters">
-    </div>
-
-    <div class="rm-modal-section">
-      <span class="rm-modal-section-label">Entrega</span>
-      <div class="rm-toggle-row">
-        <span class="rm-toggle-row-label">Entregar ao cliente</span>
-        <label class="rm-switch">
-          <input type="checkbox" id="rm-qf-entrega">
-          <span class="rm-switch-track"></span>
-        </label>
-      </div>
-      <div class="rm-toggle-row" style="display:none;"><!-- moto para buscar: não usamos mais -->
-        <span class="rm-toggle-row-label">Moto para buscar (agendada)</span>
-        <label class="rm-switch">
-          <input type="checkbox" id="rm-qf-buscar">
-          <span class="rm-switch-track"></span>
-        </label>
-      </div>
-    </div>
+    <!-- campos que saíram da tela (mecânico é escolhido depois, na OS); ficam escondidos para nada quebrar -->
+    <div style="display:none">
+      <select id="rm-qf-mecanico"><option value="" selected></option></select>
+      <input id="rm-qf-itens" value="">
+      <input type="checkbox" id="rm-qf-buscar">
     </div>
     </div>
 
@@ -19010,7 +19007,7 @@ function rmAbrirRecepcaoRapida(){
   `;
   document.getElementById('rm-modal-backdrop').classList.add('show');
   rmRenderQuickFormProblemas();
-  setTimeout(()=>{ const f = document.getElementById('rm-qf-problema-novo'); if(f) f.focus(); }, 150); // o cursor começa nos problemas
+  setTimeout(()=>{ const f = document.getElementById('rm-qf-modelo'); if(f) f.focus(); }, 150); // o cursor começa no modelo da moto
 }
 
 function rmAdicionarProblemaQuick(){
@@ -19757,7 +19754,7 @@ function rmCliSelecionarNotas(clienteId){
   rmVoltarParaCliente = clienteId;
   rmVoltarParaClienteAba = rmClienteAba || 'motos';
   const modal = document.getElementById('rm-modal');
-  modal.classList.remove('rm-modal-large','rm-modal-os');
+  modal.classList.remove('rm-rec1', 'rm-modal-large','rm-modal-os');
   modal.innerHTML = `
     <div class="rm-modal-header">
       <div><div class="rm-modal-title">Imprimir notas</div>
@@ -19948,7 +19945,7 @@ function rmCliAbrirPagamentoAvulso(clienteId, aba){
   const total = abertas.reduce((s,x) => s + rmParcRestante(x.p), 0);
   const formas = RM_FORMAS_PAGAMENTO.filter(f => !rmAPrazo(f));
   const modal = document.getElementById('rm-modal');
-  modal.classList.remove('rm-modal-large','rm-modal-os');
+  modal.classList.remove('rm-rec1', 'rm-modal-large','rm-modal-os');
   modal.innerHTML = `
     <div class="rm-modal-header">
       <div><div class="rm-modal-title">Receber valor do cliente</div>
@@ -20282,7 +20279,7 @@ async function rmPromSalvarEditor(){
 function rmPromFecharEditor(){
   const d = rmPromDraft;
   rmPromDraft = null;
-  document.getElementById('rm-modal').classList.remove('rm-modal-large');
+  document.getElementById('rm-modal').classList.remove('rm-rec1', 'rm-modal-large');
   if(!d){ rmCloseModal(); return; }
   if(d.origem === 'PDV') rmAbrirDetalheVenda(d.refId); else rmAbrirDetalheOS(d.refId);
   if(document.getElementById('rm-section-financeiro').classList.contains('active')){ rmRenderFinProm(); rmRenderFinClientes(); }
@@ -20304,7 +20301,7 @@ function rmAbrirDetalheOS(id){
   const st = (RM_STATUS[r.status]||{}).label || '';
   const probs = (r.problemas||[]).map(p => typeof p === 'string' ? p : (p.texto||'')).filter(Boolean);
   const modal = document.getElementById('rm-modal');
-  modal.classList.remove('rm-modal-large','rm-modal-os');
+  modal.classList.remove('rm-rec1', 'rm-modal-large','rm-modal-os');
   modal.innerHTML = `
     <div class="rm-modal-header">
       <div>
@@ -20953,7 +20950,7 @@ function rmPfMandarPdv(){
 // escolher a OS para lançar os parafusos
 function rmPfEscolherOs(){
   const os = rmLoad().filter(r => !r.cancelamento && r.status !== 'entregue').sort((a, b) => String(b.entrada || '').localeCompare(String(a.entrada || '')));
-  const modal = document.getElementById('rm-modal'); modal.classList.remove('rm-modal-large', 'rm-modal-os');
+  const modal = document.getElementById('rm-modal'); modal.classList.remove('rm-rec1', 'rm-modal-large', 'rm-modal-os');
   modal.innerHTML = `<div class="rm-modal-header"><div><div class="rm-modal-title">Lançar parafusos numa OS</div><div class="rm-modal-sub">Escolha a moto (só as que ainda não foram entregues)</div></div><button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
     <div class="rm-modal-section"><input class="rm-input" id="rm-pf-os-q" placeholder="Buscar por nº da OS, cliente ou moto..." oninput="rmPfOsLista()"></div>
     <div class="rm-modal-section" id="rm-pf-os-l"></div>`;
@@ -21137,7 +21134,7 @@ function rmPfEditar(id){
   const pf = p ? p.parafuso : { cx: prox, cat: '', tipo: '', med: '', mais: false };
   rmPfFotoNova = null;
   const cats = [...new Set(lista.map(x => x.parafuso.cat).filter(Boolean))].sort(), tipos = [...new Set(lista.map(x => x.parafuso.tipo).filter(Boolean))].sort();
-  const modal = document.getElementById('rm-modal'); modal.classList.remove('rm-modal-large', 'rm-modal-os');
+  const modal = document.getElementById('rm-modal'); modal.classList.remove('rm-rec1', 'rm-modal-large', 'rm-modal-os');
   modal.innerHTML = `<div class="rm-modal-header"><div><div class="rm-modal-title">${p ? 'Editar parafuso · CX ' + pf.cx : 'Novo parafuso'}</div><div class="rm-modal-sub">${p ? rmEscapeHtml(p.nome) : 'Ele entra no estoque geral, marcado como parafuso'}</div></div><button class="rm-modal-close" onclick="rmCloseModal()">&times;</button></div>
     <div class="pf-ed">
       <div class="pf-ed-foto"><div id="rm-pf-ed-fv">${rmPfFotoHtml(p, 'pf-ed-img')}</div><label class="pf-bt">&#128444; Trocar foto<input type="file" accept="image/*" hidden onchange="rmPfFotoEscolher(this)"></label></div>
@@ -22567,7 +22564,7 @@ function rmOsSalvarManual(id){
   }, 60);
 }
 function rmCloseModal(){
-  { const m = document.getElementById('rm-modal'); if(m) m.classList.remove('rm-modal-los'); }
+  { const m = document.getElementById('rm-modal'); if(m) m.classList.remove('rm-modal-los', 'rm-rec1'); }
   if(typeof rmHideFotoPreview === 'function') rmHideFotoPreview();
   if(rmOsItensPendentes && !rmOsAbrirDepois) rmOsItensPendentes = null;
   if(rmVoltarParaCliente){
